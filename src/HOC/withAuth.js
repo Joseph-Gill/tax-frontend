@@ -16,7 +16,7 @@ const useHandleHardReload = () => {
     useEffect(() => {
         const logout = () => {
             dispatch(userLogout())
-            history.push('/')
+            history.push('/login')
         }
         const fn = async () => {
             let accessToken = Cookie.get('token')
