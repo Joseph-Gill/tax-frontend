@@ -31,3 +31,45 @@ export const useResetErrors = () => {
 }
 
 
+// HOOK to SET the user BROWSER once the app loads
+
+// export const useSetBrowser = () => {
+//     const dispatch = useDispatch()
+//     useEffect(() => {
+//         if(navigator.userAgent.indexOf('Chrome') !== -1){
+//             dispatch(setBrowser('Google Chrome'))
+//         } else if(navigator.userAgent.indexOf('Firefox') !== -1){
+//             dispatch(setBrowser('Mozilla Firefox'))
+//         } else if(navigator.userAgent.indexOf('MSIE') !== -1){
+//             dispatch(setBrowser('Internet Explorer'))
+//         } else if(navigator.userAgent.indexOf('Edge') !== -1){
+//             dispatch(setBrowser('Internet Explorer Edge'))
+//         } else if(navigator.userAgent.indexOf('Safari') !== -1){
+//             dispatch(setBrowser('Safari'))
+//         } else if(navigator.userAgent.indexOf('Opera') !== -1){
+//             dispatch(setBrowser('Opera'))
+//         } else {
+//             dispatch(setBrowser('Unknown Browser'))
+//         }
+//     }, [dispatch])
+// }
+
+// Set Browser Action
+// import {SET_BROWSER} from '../types'
+// export const setBrowser = browser => ({
+//     type: SET_BROWSER,
+//     payload: browser
+// })
+
+// Reducer Browser Action
+// import {SET_BROWSER} from '../types'
+// const initialState = { browser: '' }
+// export const browserReducer = (state = initialState, action) => {
+//     switch(action.type){
+//         case SET_BROWSER:{
+//             return {...state, browser: action.payload}
+//         }
+//         default:
+//             return state
+//     }
+// }
