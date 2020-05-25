@@ -48,7 +48,6 @@ const UpdateUser = ({showEdit, setShowEdit, dispatch, error, user}) => {
                 <EditProfileCloseButton onClick={() => setShowEdit(!showEdit)}>X</EditProfileCloseButton>
                 <FormWrapper>
                     <img style={{width: '50px', height: '50px'}} src={avatarPreview || (!user.avatar ? astronaut : user.avatar)} alt="user profile"/>
-
                     <div {...getRootProps()}>
                         <input {...getInputProps()} />
                         {
@@ -57,7 +56,6 @@ const UpdateUser = ({showEdit, setShowEdit, dispatch, error, user}) => {
                                 <p>Upload or Drop Avatar</p>
                         }
                     </div>
-
                     <ProfileInputTitle>
                         Username: <br/>
                         <BaseInput

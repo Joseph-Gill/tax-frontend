@@ -5,6 +5,7 @@ import Logo from './Logo'
 import propulsion from '../../assets/logos/Propulsion_only_Rocket.png'
 import {withRouter} from 'react-router-dom'
 import {SideBarContainer, SideBarNoAuthContainer} from './styles'
+import PropulsionFooter from '../Tools/PropulsionFooter'
 
 
 const SideBar = ({children, authenticated, history}) => {
@@ -15,6 +16,7 @@ const SideBar = ({children, authenticated, history}) => {
                 <SideBarContainer>
                     <Logo/>
                     <NavigationMenu/>
+                    <PropulsionFooter/>
                 </SideBarContainer>
                 :
                 <SideBarNoAuthContainer>
