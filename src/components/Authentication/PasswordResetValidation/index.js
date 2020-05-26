@@ -4,13 +4,15 @@ import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {ErrorMessage} from '../../../style/messages'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
-import {CredentialsLink} from '../../../style/links'
+import {CredentialsLink, LinkBase} from '../../../style/links'
 import NewPasswordSuccess from './NewPasswordSucess'
 import {withRouter} from 'react-router-dom'
-import {PasswordValidationForm, ResetPasswordValidationInput} from './styles'
+import {ResetPasswordValidationInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {restPasswordValidate} from '../../../store/user/actions/authentication/resetPasswordAction'
 import {ROUTE_HOME} from '../../../routes'
+import {AuthenticationContainer} from '../../../style/containers'
+import {PasswordResetValidationForm} from '../../../style/forms'
 
 
 const PasswordResetValidation = ({dispatch, error, history, setShowResetValidation, showResetValidation}) => {
@@ -40,8 +42,8 @@ const PasswordResetValidation = ({dispatch, error, history, setShowResetValidati
         }
     }
 
-    return <>
-        <PasswordValidationForm>
+    return <AuthenticationContainer>
+        <PasswordResetValidationForm>
             {showNewPasswordSuccess && <NewPasswordSuccess/>}
             <Title>Create New Password</Title>
             <ResetPasswordValidationInput
@@ -73,23 +75,18 @@ const PasswordResetValidation = ({dispatch, error, history, setShowResetValidati
                 ref={password_repeat}
             />
             {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
-
             {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-
             <ShowPasswordWrapper>
-                <input
-                    type='checkbox'
-                    onClick={() => setShowHidePassword(!showHidePassword)}
+                <input type='checkbox'
+                       onClick={() => setShowHidePassword(!showHidePassword)}
                 />
                 {showHidePassword ? 'Hide Passwords' : 'Show Passwords'}
             </ShowPasswordWrapper>
             <BaseButton onClick={register}>Reset Password</BaseButton>
-            <CredentialsLink onClick={() => setShowResetValidation(!showResetValidation)}>
-                I don't have the code yet!
-            </CredentialsLink>
-        </PasswordValidationForm>
-    </>
+            <LinkBase to='/password-reset'>I don't have the code yet!</LinkBase>
+        </PasswordResetValidationForm>
+    </AuthenticationContainer>
 }
 
 const mapStateToProps = ({errorReducer: {error}}) => ({

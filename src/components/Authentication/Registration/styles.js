@@ -23,9 +23,6 @@ export const RegistrationInput = styled(BaseInput)`
 
 export const EnterValidationCode = styled(Link)`
     font-size: 12px;
-    position: absolute;
-    bottom: 25px;
-    right: 20px;
     color: rgba(0,0,0,0.85);
     text-decoration: none;
 `;

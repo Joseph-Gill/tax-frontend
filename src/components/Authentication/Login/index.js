@@ -3,13 +3,16 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
-import {FormWrapper, ShowPasswordWrapper} from '../../../style/wrappers'
+import {ShowPasswordWrapper} from '../../../style/wrappers'
 import PasswordReset from '../PasswordReset'
-import {CredentialsLink} from '../../../style/links'
+import {LinkBase} from '../../../style/links'
 import {ErrorMessage} from '../../../style/messages'
 import {LoginInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {userLoginAction} from '../../../store/user/actions/authentication/userLoginAction'
+import SignUpButton from '../SignUpButton'
+import {AuthenticationContainer} from '../../../style/containers'
+import {LoginForm} from '../../../style/forms'
 
 
 const Login = (({dispatch, history, error}) => {
@@ -25,13 +28,13 @@ const Login = (({dispatch, history, error}) => {
             email: email.current.value,
             password: password.current.value
         }
-
         await dispatch(userLoginAction(credentials))
         history.push('/home')
     }
 
-    return <>
-        <FormWrapper>
+    return <AuthenticationContainer>
+        <SignUpButton/>
+        <LoginForm>
             {showPasswordReset && <PasswordReset/>}
             <Title>Login</Title>
             <LoginInput
@@ -58,12 +61,9 @@ const Login = (({dispatch, history, error}) => {
                 {showPassword ? 'Hide Password' : 'Show Password'}
             </ShowPasswordWrapper>
             <BaseButton onClick={login}>Login</BaseButton>
-            <CredentialsLink onClick={() => setShowPasswordReset(!showPasswordReset)}>
-                Forgot your password?
-            </CredentialsLink>
-        </FormWrapper>
-
-    </>
+            <LinkBase to='/password-reset'>Forgot your password?</LinkBase>
+        </LoginForm>
+    </AuthenticationContainer>
 })
 
 

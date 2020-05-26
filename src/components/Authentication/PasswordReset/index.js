@@ -3,12 +3,13 @@ import {connect} from 'react-redux'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
 import SendResetCodeSuccess from './SendResetCodeSucess'
-import PasswordResetValidation from '../PasswordResetValidation'
 import {ErrorMessage} from '../../../style/messages'
-import {CredentialsLink} from '../../../style/links'
-import {ResetPasswordForm, ResetPasswordInput} from './styles'
+import {LinkBase} from '../../../style/links'
+import {ResetPasswordInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {resetPassword} from '../../../store/user/actions/authentication/resetPasswordAction'
+import {AuthenticationContainer} from '../../../style/containers'
+import {ResetPasswordForm} from '../../../style/forms'
 
 
 const PasswordReset = ({dispatch, error}) => {
@@ -28,10 +29,9 @@ const PasswordReset = ({dispatch, error}) => {
         }
     }
 
-    return <>
+    return <AuthenticationContainer>
         <ResetPasswordForm>
             {showResetCodeSuccess && <SendResetCodeSuccess/>}
-            {showResetValidation && <PasswordResetValidation showResetValidation={showResetValidation} setShowResetValidation={setShowResetValidation}/>}
             <Title>Forgot You Password?</Title>
             <ResetPasswordInput
                 type='text'
@@ -41,13 +41,10 @@ const PasswordReset = ({dispatch, error}) => {
             />
             {error && <ErrorMessage>{error.email}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-
             <BaseButton onClick={resetPasswordHandler}>Send Code</BaseButton>
-            <CredentialsLink onClick={() => setShowResetValidation(!showResetValidation)}>
-                I have the code already!
-            </CredentialsLink>
+            <LinkBase to='/password-reset-validation'>I have the code already!</LinkBase>
         </ResetPasswordForm>
-    </>
+    </AuthenticationContainer>
 }
 
 const mapStateToProps = ({errorReducer: {error}}) => ({

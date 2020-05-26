@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 import {CredentialsWrapper, FormWrapper} from "../../../style/wrappers";
 import {BaseInput} from "../../../style/inputs";
+import {Link} from 'react-router-dom'
 
 
 export const ValidationFormWrapper = styled(FormWrapper)`
@@ -13,13 +14,7 @@ export const ValidationContainer = styled(CredentialsWrapper)`
     background: white;
 `;
 
-export const LoginLink = styled.p`
-    font-size: 12px;
-    bottom: 25px;
-    right: 20px;
-    color: rgba(0,0,0,0.85);
-    text-decoration: none;
-`;
+
 
 export const ValidationInput = styled(BaseInput)`
    width: 75%;

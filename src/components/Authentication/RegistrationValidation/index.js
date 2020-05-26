@@ -4,12 +4,15 @@ import {withRouter} from 'react-router-dom'
 import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {BaseButton} from '../../../style/buttons'
 import ValidationSuccess from './ValidationSucess'
-import {CredentialsLink} from '../../../style/links'
 import {ErrorMessage} from '../../../style/messages'
-import {ValidationContainer, LoginLink, ValidationFormWrapper, ValidationInput} from './styles'
+import {ValidationInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {registrationValidationAction} from '../../../store/user/actions/authentication/userRegistrationAction'
 import {ROUTE_HOME} from '../../../routes'
+import {Title} from '../../../style/titles'
+import {LinkBase} from '../../../style/links'
+import {AuthenticationContainer} from '../../../style/containers'
+import {RegistrationValidationForm} from '../../../style/forms'
 
 
 const RegistrationValidation = ({dispatch, history, error, showRegister, setShowRegister, showValidation, setShowValidation}) => {
@@ -22,8 +25,6 @@ const RegistrationValidation = ({dispatch, history, error, showRegister, setShow
     const [showPassword, setShowPassword] = useState(false)
     const [showValidationSuccess, setShowValidationSuccess] = useState(false)
     useResetErrors()
-
-
 
     const ValidationHandler = async e => {
         e.preventDefault()
@@ -44,9 +45,11 @@ const RegistrationValidation = ({dispatch, history, error, showRegister, setShow
             }, 2000)
         }
     }
-    return <ValidationContainer>
-        <ValidationFormWrapper>
+
+    return <AuthenticationContainer>
+        <RegistrationValidationForm>
             {showValidationSuccess && <ValidationSuccess/>}
+            <Title>Create Your Account</Title>
             <ValidationInput
                 type='text'
                 name='email'
@@ -106,15 +109,9 @@ const RegistrationValidation = ({dispatch, history, error, showRegister, setShow
                 {showPassword ? 'Hide Password' : 'Show Password'}
             </ShowPasswordWrapper>
             <BaseButton onClick={ValidationHandler}>Register</BaseButton>
-            <LoginLink>
-                <CredentialsLink onClick={() => {
-                    setShowRegister(!showRegister)
-                    setShowValidation(!showValidation)
-                }}
-                >Registered already? login here!</CredentialsLink>
-            </LoginLink>
-        </ValidationFormWrapper>
-    </ValidationContainer>
+            <LinkBase to='/login'>Registered already? login here!</LinkBase>
+        </RegistrationValidationForm>
+    </AuthenticationContainer>
 }
 
 const mapStateToProps = ({errorReducer: {error}}) => ({

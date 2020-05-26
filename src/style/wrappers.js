@@ -35,6 +35,7 @@ export const ShowPasswordWrapper = styled.div`
   height: 30px;
   font-size: 12px;
   display: flex;
+  color: black;
   align-items: center;
   justify-content: space-around;
 `;

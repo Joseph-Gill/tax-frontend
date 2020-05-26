@@ -14,7 +14,7 @@ const TermsAndConditions = styled.div`
 export const TermsConditions = ( { children } ) => {
   return (
     <TermsAndConditions>
-      Welcome to Job Tracker!<br/><br/>
+      Welcome to Your Application<br/><br/>
 
       Thanks for using Job Tracker. This app is created and maintained by Propulsion Academy AG, Technoparkstrasse 1,
       CH-8055, Zurich.<br/><br/>

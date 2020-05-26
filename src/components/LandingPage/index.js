@@ -8,11 +8,18 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+  a  {
+    font-size: 20px;
+  }
 `
 
 const LandingPage = () => {
 
-    return <Wrapper>Landing Page</Wrapper>
+    return <Wrapper>
+        Landing Page
+        <a href='/login'>Login</a>
+    </Wrapper>
 
 }
 
