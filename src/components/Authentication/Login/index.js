@@ -4,7 +4,6 @@ import {withRouter} from 'react-router-dom'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
 import {ShowPasswordWrapper} from '../../../style/wrappers'
-import PasswordReset from '../PasswordReset'
 import {LinkBase} from '../../../style/links'
 import {ErrorMessage} from '../../../style/messages'
 import {LoginInput} from './styles'
@@ -19,7 +18,6 @@ const Login = (({dispatch, history, error}) => {
     let email = useRef('')
     let password = useRef('')
     const [showPassword, setShowPassword] = useState(false)
-    const [showPasswordReset, setShowPasswordReset] = useState(false)
     useResetErrors()
 
     const login = async e => {
@@ -35,7 +33,6 @@ const Login = (({dispatch, history, error}) => {
     return <AuthenticationContainer>
         <SignUpButton/>
         <LoginForm>
-            {showPasswordReset && <PasswordReset/>}
             <Title>Login</Title>
             <LoginInput
                 type='text'
@@ -65,7 +62,6 @@ const Login = (({dispatch, history, error}) => {
         </LoginForm>
     </AuthenticationContainer>
 })
-
 
 const mapStateToProps = ({errorReducer: {error}}) => ({
     error

@@ -1,8 +1,5 @@
 import styled from 'styled-components/macro';
 import {BaseInput} from "../../../style/inputs";
-import {Link} from "react-router-dom";
-import {FormWrapper} from "../../../style/wrappers";
-
 
 export const ErrorMessage = styled.span`
     font-size: 14px;
@@ -21,30 +18,10 @@ export const RegistrationInput = styled(BaseInput)`
 
 `;
 
-export const EnterValidationCode = styled(Link)`
-    font-size: 12px;
-    color: rgba(0,0,0,0.85);
-    text-decoration: none;
-`;
-
-export const RegistrationWrapper = styled(FormWrapper)`
-  height: 70%;
-  margin-top: -10%;
-`;
 
 export const CheckboxWrapper = styled.div`
   font-size: 12px;
   width: 100%;
-`;
-
-export const ValidationLink = styled.span`
-   font-size: 12px;
-   color: #e8542f;
-   margin-left: 4px;
-   
-     :hover {
-      text-decoration: underline;
-    }
 `;
 
 export const TermsAndConditionsWrapper = styled.div`

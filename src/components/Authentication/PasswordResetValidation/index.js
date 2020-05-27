@@ -4,7 +4,7 @@ import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {ErrorMessage} from '../../../style/messages'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
-import {CredentialsLink, LinkBase} from '../../../style/links'
+import {LinkBase} from '../../../style/links'
 import NewPasswordSuccess from './NewPasswordSucess'
 import {withRouter} from 'react-router-dom'
 import {ResetPasswordValidationInput} from './styles'
@@ -13,9 +13,10 @@ import {restPasswordValidate} from '../../../store/user/actions/authentication/r
 import {ROUTE_HOME} from '../../../routes'
 import {AuthenticationContainer} from '../../../style/containers'
 import {PasswordResetValidationForm} from '../../../style/forms'
+import SignUpButton from '../SignUpButton'
 
 
-const PasswordResetValidation = ({dispatch, error, history, setShowResetValidation, showResetValidation}) => {
+const PasswordResetValidation = ({dispatch, error, history}) => {
     let email = useRef('')
     let code = useRef('')
     let password = useRef('')
@@ -43,6 +44,7 @@ const PasswordResetValidation = ({dispatch, error, history, setShowResetValidati
     }
 
     return <AuthenticationContainer>
+        <SignUpButton/>
         <PasswordResetValidationForm>
             {showNewPasswordSuccess && <NewPasswordSuccess/>}
             <Title>Create New Password</Title>

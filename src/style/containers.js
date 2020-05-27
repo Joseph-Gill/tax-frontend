@@ -9,7 +9,6 @@ export const AuthenticationContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(to top, white, #d7d6d6);
 `;
 
 export const AppContainer = styled.div`

@@ -13,6 +13,7 @@ import {Title} from '../../../style/titles'
 import {LinkBase} from '../../../style/links'
 import {AuthenticationContainer} from '../../../style/containers'
 import {RegistrationValidationForm} from '../../../style/forms'
+import SignUpButton from '../SignUpButton'
 
 
 const RegistrationValidation = ({dispatch, history, error, showRegister, setShowRegister, showValidation, setShowValidation}) => {
@@ -47,6 +48,7 @@ const RegistrationValidation = ({dispatch, history, error, showRegister, setShow
     }
 
     return <AuthenticationContainer>
+        <SignUpButton/>
         <RegistrationValidationForm>
             {showValidationSuccess && <ValidationSuccess/>}
             <Title>Create Your Account</Title>

@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import UpdateUser from './UpdateUser'
-import {BaseBackground} from '../../style/background'
 import {connect} from 'react-redux'
 import {UserProfileContainer, EditUserProfileButton, InfoLabel, UserDetailsContainer, UserInfoWrapper} from './styles'
 import astronaut from '../../assets/icons/astronaut.svg'
@@ -9,7 +8,6 @@ import astronaut from '../../assets/icons/astronaut.svg'
 const UserProfile = ({user}) => {
     const [showEdit, setShowEdit] = useState(false)
     return <UserProfileContainer>
-        <BaseBackground/>
         <UserDetailsContainer>
             <UserInfoWrapper>
                 <img style={{width: '50px', height: '50px'}} src={!user.avatar ? astronaut : user.avatar} alt="user profile"/>

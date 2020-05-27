@@ -10,11 +10,11 @@ export const SideBarContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     position: fixed;
-    z-index: 3000000;
+    z-index: 999;
     margin: 0;
     border-radius: 0 4px 4px 0;
-    animation: growSideBar 1s;
-    @keyframes growSideBar {
+    animation: expand 1s;
+    @keyframes expand {
       from {width: 100px;} to {width: 200px;}
     }
 `;
@@ -35,7 +35,7 @@ export const SideBarNoAuthContainer = styled.div`
       from {width: 200px;} to {width: 100px;}
     }
     img {
-      width: 55px;
+      width: 45px;
       cursor: pointer;
       animation: opacityLogo 2s;
       @keyframes opacityLogo {

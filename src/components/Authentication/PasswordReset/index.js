@@ -10,6 +10,7 @@ import {useResetErrors} from '../../../hooks'
 import {resetPassword} from '../../../store/user/actions/authentication/resetPasswordAction'
 import {AuthenticationContainer} from '../../../style/containers'
 import {ResetPasswordForm} from '../../../style/forms'
+import SignUpButton from '../SignUpButton'
 
 
 const PasswordReset = ({dispatch, error}) => {
@@ -30,6 +31,7 @@ const PasswordReset = ({dispatch, error}) => {
     }
 
     return <AuthenticationContainer>
+        <SignUpButton/>
         <ResetPasswordForm>
             {showResetCodeSuccess && <SendResetCodeSuccess/>}
             <Title>Forgot You Password?</Title>

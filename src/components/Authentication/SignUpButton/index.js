@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useLocation, useHistory} from 'react-router-dom'
 import styled from 'styled-components/'
+import {BaseButton} from '../../../style/buttons'
 
 
 const SignUpButtonWrapper = styled.div`
@@ -14,21 +15,7 @@ const SignUpButtonWrapper = styled.div`
     right: 20px;
     top: 20px;
     font-size: 15px;
-    
-        button {
-            background: none;
-            border:${props => props.theme.accentColor} solid 2px;
-            color: ${props => props.theme.accentColor};
-            font-weight: bold;
-        
-        :hover {
-            background: ${props => props.theme.accentColor};;
-            border:${props => props.theme.accentColor} solid 2px;
-            color: white;
-        }
-    }
 `
-
 
 const SignUpButton = () => {
     const location = useLocation()
@@ -40,10 +27,18 @@ const SignUpButton = () => {
     }, [location])
 
     return <SignUpButtonWrapper>
-        {currentPath === '/registration' ? 'Already have an account?' : 'Don\'t have an account?'}
-        <button onClick={() => history.push(currentPath === '/registration' ? 'login' : 'registration')}>
-            {currentPath === '/registration' ? 'Log In' : 'Sign up'}
-        </button>
+        {
+            currentPath === '/registration' ||
+            currentPath === '/registration-validation' ||
+            currentPath === '/password-reset' ||
+            currentPath === '/password-reset-validation' ? <>
+                Already have an account?
+                <BaseButton onClick={() => history.push('login')}>Log In</BaseButton>
+            </> : <>
+                Don't have an account?
+                <BaseButton onClick={() => history.push('registration')}>Sign Up</BaseButton>
+            </>
+        }
     </SignUpButtonWrapper>
 }
 
