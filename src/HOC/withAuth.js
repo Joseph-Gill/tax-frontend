@@ -5,6 +5,7 @@ import Axios from './../axios'
 import {useHistory, useLocation} from 'react-router-dom'
 import {userLogout} from '../store/user/actions/authentication/userLoginAction'
 import {getUserProfile} from '../store/user/actions/user/userAction'
+import {LOGIN} from '../routes'
 
 
 const useHandleHardReload = () => {
@@ -16,7 +17,7 @@ const useHandleHardReload = () => {
     useEffect(() => {
         const logout = () => {
             dispatch(userLogout())
-            history.push('/login')
+            history.push(LOGIN)
         }
         const fn = async () => {
             let accessToken = Cookie.get('token')

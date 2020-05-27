@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {connect, useDispatch, useSelector} from 'react-redux'
+import {useHistory, withRouter} from 'react-router-dom'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
 import {TermsConditions} from './TermsConditions'
@@ -15,10 +15,12 @@ import {LinkBase} from '../../../style/links'
 import SuccessMessage from '../../Shared/SuccessMessage'
 
 
-const Registration = ({dispatch, error}) => {
+const Registration = () => {
     const [showSuccess, setShowSuccess] = useState(false)
     const [termsAndConditions, setTermsAndConditions] = useState(false)
     const [showHideTermsAndConditions, setShowHideTermsAndConditions] = useState(false)
+    const error = useSelector(state => state.errorReducer.error)
+    const dispatch = useDispatch()
     let email = useRef('')
     useResetErrors()
 
@@ -73,10 +75,7 @@ const Registration = ({dispatch, error}) => {
     </BasePageContainer>
 }
 
-const mapStateToProps = ({errorReducer: {error}}) => ({
-    error
-})
 
-export default withRouter(connect(mapStateToProps)(Registration))
+export default Registration
 
 

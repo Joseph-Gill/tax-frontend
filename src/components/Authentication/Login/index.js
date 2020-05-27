@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton} from '../../../style/buttons'
+import {useHistory} from 'react-router-dom'
 import {Title} from '../../../style/titles'
 import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {LinkBase} from '../../../style/links'
@@ -14,10 +14,13 @@ import {BasePageContainer} from '../../../style/containers'
 import {LoginForm} from '../../../style/forms'
 
 
-const Login = (({dispatch, history, error}) => {
+const Login = () => {
     let email = useRef('')
     let password = useRef('')
     const [showPassword, setShowPassword] = useState(false)
+    const error = useSelector(state => state.errorReducer.error)
+    const history = useHistory()
+    const dispatch = useDispatch()
     useResetErrors()
 
     const login = async e => {
@@ -26,8 +29,8 @@ const Login = (({dispatch, history, error}) => {
             email: email.current.value,
             password: password.current.value
         }
-        await dispatch(userLoginAction(credentials))
-        history.push('/home')
+        const data = await dispatch(userLoginAction(credentials))
+        if(data) history.push('/home')
     }
 
     return <BasePageContainer>
@@ -58,12 +61,8 @@ const Login = (({dispatch, history, error}) => {
             <LinkBase to='/password-reset'>Forgot your password?</LinkBase>
         </LoginForm>
     </BasePageContainer>
-})
+}
 
-const mapStateToProps = ({errorReducer: {error}}) => ({
-    error
-})
-
-export default withRouter(connect(mapStateToProps)(Login))
+export default Login
 
 

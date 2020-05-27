@@ -1,11 +1,10 @@
 import React, {useRef, useState} from 'react'
-import {connect} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {ErrorMessage} from '../../../style/messages'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
 import {LinkBase} from '../../../style/links'
-import {withRouter} from 'react-router-dom'
 import {ResetPasswordValidationInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {restPasswordValidate} from '../../../store/user/actions/authentication/resetPasswordAction'
@@ -15,13 +14,15 @@ import SignUpButton from '../SignUpButton'
 import SuccessMessage from '../../Shared/SuccessMessage'
 
 
-const PasswordResetValidation = ({dispatch, error, history}) => {
+const PasswordResetValidation = () => {
     let email = useRef('')
     let code = useRef('')
     let password = useRef('')
     let password_repeat = useRef('')
     const [showHidePassword, setShowHidePassword] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
+    const error = useSelector(state => state.errorReducer.error)
+    const dispatch = useDispatch()
     useResetErrors()
 
     const register = async e => {
@@ -87,9 +88,5 @@ const PasswordResetValidation = ({dispatch, error, history}) => {
     </BasePageContainer>
 }
 
-const mapStateToProps = ({errorReducer: {error}}) => ({
-    error
-})
-
-export default withRouter(connect(mapStateToProps)(PasswordResetValidation))
+export default PasswordResetValidation
 
