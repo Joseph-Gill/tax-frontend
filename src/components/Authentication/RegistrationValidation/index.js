@@ -3,17 +3,16 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {BaseButton} from '../../../style/buttons'
-import ValidationSuccess from './ValidationSucess'
 import {ErrorMessage} from '../../../style/messages'
 import {ValidationInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {registrationValidationAction} from '../../../store/user/actions/authentication/userRegistrationAction'
-import {ROUTE_HOME} from '../../../routes'
 import {Title} from '../../../style/titles'
 import {LinkBase} from '../../../style/links'
-import {AuthenticationContainer, BasePageContainer} from '../../../style/containers'
+import {BasePageContainer} from '../../../style/containers'
 import {RegistrationValidationForm} from '../../../style/forms'
 import SignUpButton from '../SignUpButton'
+import SuccessMessage from '../../Shared/SuccessMessage'
 
 
 const RegistrationValidation = ({dispatch, history, error, showRegister, setShowRegister, showValidation, setShowValidation}) => {
@@ -24,7 +23,7 @@ const RegistrationValidation = ({dispatch, history, error, showRegister, setShow
     let first_name = useRef('')
     let last_name = useRef('')
     const [showPassword, setShowPassword] = useState(false)
-    const [showValidationSuccess, setShowValidationSuccess] = useState(false)
+    const [showSuccess, setShowSuccess] = useState(false)
     useResetErrors()
 
     const ValidationHandler = async e => {
@@ -37,20 +36,17 @@ const RegistrationValidation = ({dispatch, history, error, showRegister, setShow
             first_name: first_name.current.value,
             last_name: last_name.current.value,
         }
-
         const data = await dispatch(registrationValidationAction(credentials))
-        if (data) {
-            setShowValidationSuccess(!showValidationSuccess)
-            setTimeout(() => {
-                history.push(ROUTE_HOME)
-            }, 2000)
-        }
+        if(data) setShowSuccess(!showSuccess)
     }
 
     return <BasePageContainer>
         <SignUpButton/>
         <RegistrationValidationForm>
-            {showValidationSuccess && <ValidationSuccess/>}
+            {showSuccess && <SuccessMessage
+                message={'Congratulations! Your account was successfully created!'}
+                redirect={'/login'}
+            />}
             <Title>Create Your Account</Title>
             <ValidationInput
                 type='text'
@@ -101,7 +97,6 @@ const RegistrationValidation = ({dispatch, history, error, showRegister, setShow
 
             {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-
 
             <ShowPasswordWrapper>
                 <input

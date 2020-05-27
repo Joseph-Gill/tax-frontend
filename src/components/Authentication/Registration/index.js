@@ -12,7 +12,6 @@ import SignUpButton from '../SignUpButton'
 import {BasePageContainer} from '../../../style/containers'
 import {RegistrationForm} from '../../../style/forms'
 import {LinkBase} from '../../../style/links'
-import {useHistory} from 'react-router-dom'
 import SuccessMessage from '../../Shared/SuccessMessage'
 
 
@@ -21,7 +20,6 @@ const Registration = ({dispatch, error}) => {
     const [termsAndConditions, setTermsAndConditions] = useState(false)
     const [showHideTermsAndConditions, setShowHideTermsAndConditions] = useState(false)
     let email = useRef('')
-    const history = useHistory()
     useResetErrors()
 
     const registrationHandler = async (e) => {
@@ -41,9 +39,9 @@ const Registration = ({dispatch, error}) => {
             </TermsConditions>
         </Modal>
         {showSuccess && <SuccessMessage
-                message={'A verification code has been sent to you email!'}
-                redirect={'/registration-validation'}
-            />}
+            message={'A verification code has been sent to you email!'}
+            redirect={'/registration-validation'}
+        />}
         <RegistrationForm>
             <Title>Registration</Title>
             <RegistrationInput
