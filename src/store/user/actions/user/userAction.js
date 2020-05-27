@@ -11,7 +11,7 @@ export const updateUser = data => {
     }
 }
 
-export const getUserProfile = (token) => async (dispatch, getState) => {
+export const getUserProfile = token => async (dispatch) => {
     const config = {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -28,7 +28,7 @@ export const getUserProfile = (token) => async (dispatch, getState) => {
 }
 
 
-export const userUpdateAction = (body) => async (dispatch, getState) => {
+export const userUpdateAction = body => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
     let form_data = new FormData()
     form_data.append('username', body.username)
@@ -53,3 +53,12 @@ export const userUpdateAction = (body) => async (dispatch, getState) => {
     }
 }
 
+export const deleteUserProfile = () => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    return await Axios.delete('users/me/', config)
+}

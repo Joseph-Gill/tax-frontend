@@ -1,84 +1,48 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components/macro'
 
 
 export const BaseButton = styled.button`
-      width: 135px;
-      height: 40px;
-      background: #eb4820;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-        
+    width: 125px;
+    height: 40px;
+    background: ${props => props.disabled ? 'lightgrey' : props.theme.accentColor};
+    color: white;
+    border: none;
+    border-radius: ${props => props.theme.borderRadius};
+    cursor: ${props => props.disabled ? '' : 'pointer'};
     :hover {
-       background: rgba(255,78,40,0.87);
+       background: ${props => props.disabled ? '' : props.theme.accentColorLighter};
     }
-    
     :active {
       transform: translateY(4px);
     }
-   
-`;
-
-export const DisableButton = styled.button`
-      width: 135px;
-      height: 40px;
-      background: rgba(155,155,155,0.25);
-      color: white;
-      border: none;
-      border-radius: 6px;   
-`;
+`
 
 export const CloseButton = styled.button`
     width: 30px;
     height: 30px;
-    color: #242424;
-    cursor: pointer;
     border: none;
     background: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    align-self: flex-end;
     font-size: 15px;
-    :active {
-      transform: translateY(4px);
-    }
-`;
-
-export const EditButton = styled.button`
-      width: 50px;
-      height: 28px;
-      background: #eb741c;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-        
-    :hover {
-      background: #eb8f10;
-    }
+    cursor: pointer;
     
-    :active {
-      transform: translateY(4px);
-    }
-`;
-
-export const DeleteButton = styled.button`
-      width: 50px;
-      height: 28px;
-      background: #eb3c3f;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-        
     :hover {
-      background: #eb3f3f;
+      font-size: 16px;
+      font-weight: bold;
     }
-    
     :active {
       transform: translateY(4px);
     }
-`;
+`
+
+export const EditButton = styled(BaseButton)`
+    width: 50px;
+    height: 28px;
+    background: orange;
+`
+
+export const DeleteButton = styled(BaseButton)`
+    width: 50px;
+    height: 28px;
+    background: red;
+`

@@ -6,10 +6,10 @@ import {Provider} from 'react-redux'
 import {GlobalStyle, defaultTheme} from './style'
 import {ThemeProvider} from 'styled-components'
 import * as Sentry from '@sentry/browser'
-import {AppContainer} from './style/containers'
 import Routes from './routes'
 
-if (process.env.NODE_ENV !== 'development') {
+
+if(process.env.NODE_ENV !== 'development'){
     Sentry.init({dsn: ''})
 }
 
@@ -17,9 +17,7 @@ ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={defaultTheme}>
             <GlobalStyle/>
-            <AppContainer>
-                <Routes/>
-            </AppContainer>
+            <Routes/>
         </ThemeProvider>
     </Provider>,
     document.getElementById('root')
