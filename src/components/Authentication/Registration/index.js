@@ -1,50 +1,50 @@
 import React, {useRef, useState} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {BaseButton, DisableButton} from '../../../style/buttons'
+import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
-import RegistrationSuccess from './RegistrationSucess'
 import {TermsConditions} from './TermsConditions'
 import Modal from './Modal/'
 import {CheckboxInput, CheckboxWrapper, ErrorMessage, RegistrationInput, TermsAndConditionsWrapper} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {userRegistrationAction} from '../../../store/user/actions/authentication/userRegistrationAction'
 import SignUpButton from '../SignUpButton'
-import {AuthenticationContainer} from '../../../style/containers'
+import {BasePageContainer} from '../../../style/containers'
 import {RegistrationForm} from '../../../style/forms'
 import {LinkBase} from '../../../style/links'
+import {useHistory} from 'react-router-dom'
+import SuccessMessage from '../../Shared/SuccessMessage'
 
 
-const Registration = ({dispatch, history, error, setShowValidation, showValidation}) => {
+const Registration = ({dispatch, error}) => {
     const [showSuccess, setShowSuccess] = useState(false)
-    let email = useRef('')
     const [termsAndConditions, setTermsAndConditions] = useState(false)
     const [showHideTermsAndConditions, setShowHideTermsAndConditions] = useState(false)
+    let email = useRef('')
+    const history = useHistory()
     useResetErrors()
 
     const registrationHandler = async (e) => {
         e.preventDefault()
         const data = await dispatch(userRegistrationAction(email.current.value))
-        if(data){
-            setShowSuccess(!showSuccess)
-            setTimeout(() => {
-                setShowValidation(!showValidation)
-            }, 2000)
-        }
+        if(data) setShowSuccess(!showSuccess)
     }
 
-    return <AuthenticationContainer>
+    return <BasePageContainer>
         <SignUpButton/>
+        <Modal
+            show={showHideTermsAndConditions}
+            clicked={() => setShowHideTermsAndConditions(false)}
+        >
+            <TermsConditions>
+                <button onClick={() => setShowHideTermsAndConditions(false)}>Close</button>
+            </TermsConditions>
+        </Modal>
+        {showSuccess && <SuccessMessage
+                message={'A verification code has been sent to you email!'}
+                redirect={'/registration-validation'}
+            />}
         <RegistrationForm>
-            <Modal
-                show={showHideTermsAndConditions}
-                clicked={() => setShowHideTermsAndConditions(false)}
-            >
-                <TermsConditions>
-                    <button onClick={() => setShowHideTermsAndConditions(false)}>Close</button>
-                </TermsConditions>
-            </Modal>
-            {showSuccess && <RegistrationSuccess/>}
             <Title>Registration</Title>
             <RegistrationInput
                 type='text'
@@ -67,12 +67,12 @@ const Registration = ({dispatch, history, error, setShowValidation, showValidati
 
             {termsAndConditions ? (
                     <BaseButton onClick={registrationHandler}>Register</BaseButton>)
-                : (<DisableButton disabled onClick={registrationHandler}>Register</DisableButton>)
+                : (<BaseButton disabled onClick={registrationHandler}>Register</BaseButton>)
             }
 
             <LinkBase to='/registration-validation'>Got a code already? Enter it here!</LinkBase>
         </RegistrationForm>
-    </AuthenticationContainer>
+    </BasePageContainer>
 }
 
 const mapStateToProps = ({errorReducer: {error}}) => ({

@@ -2,38 +2,39 @@ import React, {useRef, useState} from 'react'
 import {connect} from 'react-redux'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
-import SendResetCodeSuccess from './SendResetCodeSucess'
 import {ErrorMessage} from '../../../style/messages'
 import {LinkBase} from '../../../style/links'
 import {ResetPasswordInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {resetPassword} from '../../../store/user/actions/authentication/resetPasswordAction'
-import {AuthenticationContainer} from '../../../style/containers'
+import {BasePageContainer} from '../../../style/containers'
 import {ResetPasswordForm} from '../../../style/forms'
 import SignUpButton from '../SignUpButton'
-
+import SuccessMessage from '../../Shared/SuccessMessage'
+import {useHistory} from 'react-router-dom'
 
 const PasswordReset = ({dispatch, error}) => {
     let email = useRef('')
     const [showResetValidation, setShowResetValidation] = useState(false)
-    const [showResetCodeSuccess, setShowResetCodeSuccess] = useState(false)
+    const [showSuccess, setShowSuccess] = useState(false)
+    const history = useHistory()
     useResetErrors()
 
     const resetPasswordHandler = async e => {
         e.preventDefault()
         const data = await dispatch(resetPassword(email.current.value))
         if(data){
-            setShowResetCodeSuccess(!showResetCodeSuccess)
-            setTimeout(() => {
-                setShowResetValidation(!showResetValidation)
-            }, 2000)
+            setShowSuccess(!showSuccess)
         }
     }
 
-    return <AuthenticationContainer>
+    return <BasePageContainer>
         <SignUpButton/>
         <ResetPasswordForm>
-            {showResetCodeSuccess && <SendResetCodeSuccess/>}
+            {showSuccess && <SuccessMessage
+                message={'A code has been sent to you email!'}
+                redirect={'/password-reset-validation'}
+            />}
             <Title>Forgot You Password?</Title>
             <ResetPasswordInput
                 type='text'
@@ -46,7 +47,7 @@ const PasswordReset = ({dispatch, error}) => {
             <BaseButton onClick={resetPasswordHandler}>Send Code</BaseButton>
             <LinkBase to='/password-reset-validation'>I have the code already!</LinkBase>
         </ResetPasswordForm>
-    </AuthenticationContainer>
+    </BasePageContainer>
 }
 
 const mapStateToProps = ({errorReducer: {error}}) => ({

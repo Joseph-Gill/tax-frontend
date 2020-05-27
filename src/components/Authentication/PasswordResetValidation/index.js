@@ -5,15 +5,14 @@ import {ErrorMessage} from '../../../style/messages'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
 import {LinkBase} from '../../../style/links'
-import NewPasswordSuccess from './NewPasswordSucess'
 import {withRouter} from 'react-router-dom'
 import {ResetPasswordValidationInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {restPasswordValidate} from '../../../store/user/actions/authentication/resetPasswordAction'
-import {ROUTE_HOME} from '../../../routes'
-import {AuthenticationContainer} from '../../../style/containers'
+import {BasePageContainer} from '../../../style/containers'
 import {PasswordResetValidationForm} from '../../../style/forms'
 import SignUpButton from '../SignUpButton'
+import SuccessMessage from '../../Shared/SuccessMessage'
 
 
 const PasswordResetValidation = ({dispatch, error, history}) => {
@@ -22,7 +21,7 @@ const PasswordResetValidation = ({dispatch, error, history}) => {
     let password = useRef('')
     let password_repeat = useRef('')
     const [showHidePassword, setShowHidePassword] = useState(false)
-    const [showNewPasswordSuccess, setShowNewPasswordSuccess] = useState(false)
+    const [showSuccess, setShowSuccess] = useState(false)
     useResetErrors()
 
     const register = async e => {
@@ -33,20 +32,17 @@ const PasswordResetValidation = ({dispatch, error, history}) => {
             password: password.current.value,
             password_repeat: password_repeat.current.value,
         }
-
         const data = await dispatch(restPasswordValidate(credentials))
-        if(data){
-            setShowNewPasswordSuccess(!showNewPasswordSuccess)
-            setTimeout(() => {
-                history.push(ROUTE_HOME)
-            }, 2500)
-        }
+        if(data) setShowSuccess(!showSuccess)
     }
 
-    return <AuthenticationContainer>
+    return <BasePageContainer>
         <SignUpButton/>
         <PasswordResetValidationForm>
-            {showNewPasswordSuccess && <NewPasswordSuccess/>}
+            {showSuccess && <SuccessMessage
+                message={'You Password has been updated Successfully!'}
+                redirect={'/login'}
+            />}
             <Title>Create New Password</Title>
             <ResetPasswordValidationInput
                 type='text'
@@ -88,7 +84,7 @@ const PasswordResetValidation = ({dispatch, error, history}) => {
             <BaseButton onClick={register}>Reset Password</BaseButton>
             <LinkBase to='/password-reset'>I don't have the code yet!</LinkBase>
         </PasswordResetValidationForm>
-    </AuthenticationContainer>
+    </BasePageContainer>
 }
 
 const mapStateToProps = ({errorReducer: {error}}) => ({

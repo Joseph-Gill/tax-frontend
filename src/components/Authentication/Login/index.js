@@ -10,7 +10,7 @@ import {LoginInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {userLoginAction} from '../../../store/user/actions/authentication/userLoginAction'
 import SignUpButton from '../SignUpButton'
-import {AuthenticationContainer} from '../../../style/containers'
+import {BasePageContainer} from '../../../style/containers'
 import {LoginForm} from '../../../style/forms'
 
 
@@ -30,7 +30,7 @@ const Login = (({dispatch, history, error}) => {
         history.push('/home')
     }
 
-    return <AuthenticationContainer>
+    return <BasePageContainer>
         <SignUpButton/>
         <LoginForm>
             <Title>Login</Title>
@@ -40,16 +40,13 @@ const Login = (({dispatch, history, error}) => {
                 placeholder='Enter your email ...'
                 ref={email}
             />
-
             <LoginInput
                 type={showPassword ? 'text' : 'password'}
                 name='password'
                 placeholder='Enter your password ...'
                 ref={password}
             />
-
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-
             <ShowPasswordWrapper>
                 <input
                     type='checkbox'
@@ -60,7 +57,7 @@ const Login = (({dispatch, history, error}) => {
             <BaseButton onClick={login}>Login</BaseButton>
             <LinkBase to='/password-reset'>Forgot your password?</LinkBase>
         </LoginForm>
-    </AuthenticationContainer>
+    </BasePageContainer>
 })
 
 const mapStateToProps = ({errorReducer: {error}}) => ({

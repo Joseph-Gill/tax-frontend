@@ -11,7 +11,7 @@ import {registrationValidationAction} from '../../../store/user/actions/authenti
 import {ROUTE_HOME} from '../../../routes'
 import {Title} from '../../../style/titles'
 import {LinkBase} from '../../../style/links'
-import {AuthenticationContainer} from '../../../style/containers'
+import {AuthenticationContainer, BasePageContainer} from '../../../style/containers'
 import {RegistrationValidationForm} from '../../../style/forms'
 import SignUpButton from '../SignUpButton'
 
@@ -47,7 +47,7 @@ const RegistrationValidation = ({dispatch, history, error, showRegister, setShow
         }
     }
 
-    return <AuthenticationContainer>
+    return <BasePageContainer>
         <SignUpButton/>
         <RegistrationValidationForm>
             {showValidationSuccess && <ValidationSuccess/>}
@@ -113,7 +113,7 @@ const RegistrationValidation = ({dispatch, history, error, showRegister, setShow
             <BaseButton onClick={ValidationHandler}>Register</BaseButton>
             <LinkBase to='/login'>Registered already? login here!</LinkBase>
         </RegistrationValidationForm>
-    </AuthenticationContainer>
+    </BasePageContainer>
 }
 
 const mapStateToProps = ({errorReducer: {error}}) => ({
