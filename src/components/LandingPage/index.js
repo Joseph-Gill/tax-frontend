@@ -1,24 +1,13 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import {LinkBase} from '../../style/links'
-
-
-const LandingPageContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-`
+import {BasePageContainer} from '../../style/containers'
+import {Title} from '../../style/titles'
 
 const LandingPage = () => {
-
-    return <LandingPageContainer>
-        Landing Page
+    return <BasePageContainer>
+        <Title>Landing Page</Title>
         <LinkBase to='/login'>Login</LinkBase>
-    </LandingPageContainer>
-
+    </BasePageContainer>
 }
 
 export default LandingPage
