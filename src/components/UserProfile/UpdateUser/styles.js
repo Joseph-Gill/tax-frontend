@@ -40,11 +40,6 @@ export const EditUserContainerInternal = styled.div`
     }
 `;
 
-export const EditProfileCloseButton = styled(CloseButton)`
-  align-self: flex-end;
-  margin-right: 30px;
-`;
-
 export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;

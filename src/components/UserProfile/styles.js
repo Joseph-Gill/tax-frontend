@@ -28,11 +28,6 @@ export const UserDetailsContainer = styled.div`
     background: rgba(255,255,255,0.71);
 `;
 
-export const EditUserProfileButton = styled(EditButton)`
-  align-self: flex-end;
-`;
-
-
 export const UserInfoWrapper = styled.div`
     display: flex;
     height: 100%;

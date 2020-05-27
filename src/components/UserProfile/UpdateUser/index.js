@@ -1,6 +1,6 @@
 import React, {useRef, useState, useCallback} from 'react'
 import {connect} from 'react-redux'
-import {BaseButton} from '../../../style/buttons'
+import {BaseButton, CloseButton} from '../../../style/buttons'
 import {BaseInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
 import {EditUserContainerExternal, FormWrapper, EditProfileCloseButton, EditUserContainerInternal, ProfileInputTitle} from './styles'
@@ -45,7 +45,7 @@ const UpdateUser = ({showEdit, setShowEdit, dispatch, error, user}) => {
     return <>
         <EditUserContainerExternal>
             <EditUserContainerInternal>
-                <EditProfileCloseButton onClick={() => setShowEdit(!showEdit)}>X</EditProfileCloseButton>
+                <CloseButton onClick={() => setShowEdit(!showEdit)}>X</CloseButton>
                 <FormWrapper>
                     <img style={{width: '50px', height: '50px'}} src={avatarPreview || (!user.avatar ? astronaut : user.avatar)} alt="user profile"/>
                     <div {...getRootProps()}>

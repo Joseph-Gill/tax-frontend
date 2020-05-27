@@ -1,13 +1,25 @@
 import React, {useState} from 'react'
 import UpdateUser from './UpdateUser'
-import {connect} from 'react-redux'
-import {UserProfileContainer, EditUserProfileButton, InfoLabel, UserDetailsContainer, UserInfoWrapper} from './styles'
+import {connect, useDispatch} from 'react-redux'
+import {InfoLabel, UserDetailsContainer, UserInfoWrapper} from './styles'
 import astronaut from '../../assets/icons/astronaut.svg'
+import {BasePageContainer} from '../../style/containers'
+import {DeleteButton, EditButton} from '../../style/buttons'
+import {useHistory} from 'react-router-dom'
+import {deleteUserProfile} from '../../store/user/actions/user/userAction'
 
 
 const UserProfile = ({user}) => {
     const [showEdit, setShowEdit] = useState(false)
-    return <UserProfileContainer>
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    const deleteUserHandler = () => {
+        dispatch(deleteUserProfile())
+        history.push('/')
+    }
+
+    return <BasePageContainer>
         <UserDetailsContainer>
             <UserInfoWrapper>
                 <img style={{width: '50px', height: '50px'}} src={!user.avatar ? astronaut : user.avatar} alt="user profile"/>
@@ -36,10 +48,11 @@ const UserProfile = ({user}) => {
                     <p> Propulsion {user.is_admin ? 'administrator' : 'student'}</p>
                 </InfoLabel>
             </UserInfoWrapper>
-            <EditUserProfileButton onClick={() => setShowEdit(!showEdit)}>Edit</EditUserProfileButton>
+            <EditButton onClick={() => setShowEdit(!showEdit)}>Edit</EditButton>
+            <DeleteButton onClick={() => deleteUserHandler()}>Delete</DeleteButton>
             {showEdit && <UpdateUser setShowEdit={setShowEdit} showEdit={showEdit}/>}
         </UserDetailsContainer>
-    </UserProfileContainer>
+    </BasePageContainer>
 
 }
 
