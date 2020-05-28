@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import UpdateUser from './EditUserProfile'
 import {useDispatch, useSelector} from 'react-redux'
-// import astronaut from '../../assets/icons/astronaut.svg'
 import {BasePageContainer} from '../../style/containers'
 import {DeleteButton, EditButton} from '../../style/buttons'
 import {useHistory} from 'react-router-dom'
@@ -10,6 +9,8 @@ import {EDITUSERPROFILE, LANDING_PAGE} from '../../routes/paths'
 import styled from 'styled-components/macro'
 import {SubTitle, Title} from '../../style/titles'
 
+// FOR SOCIAL USE ONLY:
+// import astronaut from '../../assets/icons/astronaut.svg'
 
 const UserDetailsContainer = styled.div`
     box-shadow: ${props => props.theme.boxShadow};

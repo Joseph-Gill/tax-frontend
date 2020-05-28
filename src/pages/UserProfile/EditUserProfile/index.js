@@ -1,10 +1,8 @@
-import React, {useRef, useState, useCallback, useEffect} from 'react'
+import React, {useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton, CloseButton} from '../../../style/buttons'
 import {BaseInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
-import {useDropzone} from 'react-dropzone'
-import astronaut from '../../../assets/icons/astronaut.svg'
 import {userUpdateAction} from '../../../store/user/actions/user/userAction'
 import {SubTitle, Title} from '../../../style/titles'
 import {USERPROFILE} from '../../../routes/paths'
@@ -12,7 +10,13 @@ import {useHistory} from 'react-router-dom'
 import {ModalExternalContainer} from '../../../style/containers'
 import {useResetErrors} from '../../../hooks'
 import {EditProfileForm} from '../../../style/forms'
-import {Avatar} from '../../../style/images'
+
+// FOR SOCIAL USE ONLY:
+// import {Avatar} from '../../../style/images'
+// import astronaut from '../../../assets/icons/astronaut.svg'
+// import {useDropzone} from 'react-dropzone'
+// import React, {useRef, useState, useCallback, useEffect} from 'react'
+
 
 
 const EditUserProfile = () => {
@@ -24,23 +28,25 @@ const EditUserProfile = () => {
     const user = useSelector(state => state.userLoginReducer.user)
     const error = useSelector(state => state.errorReducer.error)
     const dispatch = useDispatch()
-    let [avatar, setAvatar] = useState(null)
-    let [avatarPreview, setAvatarPreview] = useState(null)
     useResetErrors()
 
-    const onDrop = useCallback(acceptedFiles => {
-        const reader = new FileReader()
-        reader.onloadend = () => {
-            setAvatarPreview(reader.result)
-        }
-        reader.readAsDataURL(acceptedFiles[0])
-        setAvatar(acceptedFiles[0])
-    }, [])
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+     // FOR SOCIAL USE ONLY:
+    // let [avatar, setAvatar] = useState(null)
+    // let [avatarPreview, setAvatarPreview] = useState(null)
 
-    useEffect(() => {
-        console.log(avatar, avatarPreview)
-    }, [avatar, avatarPreview])
+    // const onDrop = useCallback(acceptedFiles => {
+    //     const reader = new FileReader()
+    //     reader.onloadend = () => {
+    //         setAvatarPreview(reader.result)
+    //     }
+    //     reader.readAsDataURL(acceptedFiles[0])
+    //     setAvatar(acceptedFiles[0])
+    // }, [])
+    // const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+
+    // useEffect(() => {
+    //     console.log(avatar, avatarPreview)
+    // }, [avatar, avatarPreview])
 
     const updateUser = async e => {
         e.preventDefault()
@@ -48,8 +54,8 @@ const EditUserProfile = () => {
             username: username.current.value,
             first_name: first_name.current.value,
             last_name: last_name.current.value,
-            location: location.current.value,
-            avatar: avatar,
+            location: location.current.value
+            // avatar: avatar,
         }
         console.log(credentials)
 
