@@ -1,5 +1,6 @@
-import styled from 'styled-components/macro';
-import {Link} from "react-router-dom";
+import styled from 'styled-components/macro'
+import {Link} from 'react-router-dom'
+
 
 export const NavigationContainer = styled.div`
   width: 100%;
@@ -8,7 +9,7 @@ export const NavigationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
 
 
 export const MenuItem = styled(Link)`
@@ -30,15 +31,16 @@ export const MenuItem = styled(Link)`
     }
     
     ${props => {
-        if (props.isActive) {
-            return `
+    if(props.isActive){
+        return `
                 color: ${props.theme.accentColor};
                 border-right: solid 3px ${props.theme.accentColor};
                 font-weight: bold;
                 background: rgba(231,14,24,0.11);
-            `}
-        }
-    };
+            `
+    }
+}
+};
     
     :hover {
       background: rgba(216,15,25,0.13);
@@ -51,9 +53,9 @@ export const MenuItem = styled(Link)`
        font-weight: bold;
        background: rgba(231,14,24,0.11);
     }
-`;
+`
 
 export const NavigationIcons = styled.img`
   margin-right: 20px;
   max-width: 24px;
-`;
+`

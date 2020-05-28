@@ -10,6 +10,7 @@ export const BaseInput = styled.input`
     height: 36px;
     width: 75%;
     font-size: 15px;
+    
     :hover {
       border-bottom: ${props => props.theme.accentColor} solid 2px;
       cursor: pointer;

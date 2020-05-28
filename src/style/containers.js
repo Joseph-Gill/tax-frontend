@@ -22,21 +22,18 @@ export const ModalExternalContainer = styled.div`
   align-items: center;
   z-index: 1;
   background-color: rgba(0,0,0,0.68);
-`;
+`
 
 export const ModalInternalContainer = styled.div`
-  width: 40%;
-  height: 40%;
+  width: 50%;
+  height: 50%;
   background: white;
-  border-radius: 4px;
+  border-radius: ${props => props.theme.borderRadius};
   display: flex;
-  padding: 0 0 0 0;
-  margin-left: 200px;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-   animation: open 0.4s;
-   @keyframes open {
+  animation: open 0.4s;
+  @keyframes open {
       from {
         width: 0;
         opacity: 0;
@@ -46,4 +43,4 @@ export const ModalInternalContainer = styled.div`
         opacity: 1;
       }
     }
-`;
+`

@@ -1,18 +1,17 @@
-import React, {useRef, useState, useCallback} from 'react'
+import React, {useRef, useState, useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton, CloseButton} from '../../../style/buttons'
 import {BaseInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
-import {FormWrapper, ProfileInputTitle} from './styles'
 import {useDropzone} from 'react-dropzone'
 import astronaut from '../../../assets/icons/astronaut.svg'
 import {userUpdateAction} from '../../../store/user/actions/user/userAction'
 import {SubTitle} from '../../../style/titles'
 import {USERPROFILE} from '../../../routes/paths'
 import {useHistory} from 'react-router-dom'
-import {ModalExternalContainer, ModalInternalContainer} from '../../../style/containers'
+import {ModalExternalContainer} from '../../../style/containers'
 import {useResetErrors} from '../../../hooks'
-import {EditProfileForm, FormBase} from '../../../style/forms'
+import {EditProfileForm} from '../../../style/forms'
 import {Avatar} from '../../../style/images'
 
 
@@ -39,6 +38,10 @@ const EditUserProfile = () => {
     }, [])
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
+    useEffect(() => {
+        console.log(avatar, avatarPreview)
+    }, [avatar, avatarPreview])
+
     const updateUser = async e => {
         e.preventDefault()
         const credentials = {
@@ -48,6 +51,7 @@ const EditUserProfile = () => {
             location: location.current.value,
             avatar: avatar,
         }
+        console.log(credentials)
 
         let success = await dispatch(userUpdateAction(credentials))
         if(success) history.push(USERPROFILE)
@@ -65,53 +69,44 @@ const EditUserProfile = () => {
                         <p>Upload or Drop Avatar</p>
                 }
             </div>
-            <ProfileInputTitle>
-                <SubTitle>Username:</SubTitle>
-                <BaseInput
-                    type='text'
-                    name='username'
-                    placeholder='username'
-                    defaultValue={user.username}
-                    ref={username}
-                />
-            </ProfileInputTitle>
+            <SubTitle>Username:</SubTitle>
+            <BaseInput
+                type='text'
+                name='username'
+                placeholder='username'
+                defaultValue={user.username}
+                ref={username}
+            />
             {error && <ErrorMessage>{error.username}</ErrorMessage>}
-            <ProfileInputTitle>
-                First Name: <br/>
-                <BaseInput
-                    type='text'
-                    name='first_name'
-                    placeholder='first name'
-                    defaultValue={user.first_name}
-                    ref={first_name}
-                />
-            </ProfileInputTitle>
+            <SubTitle>First Name:</SubTitle>
+            <BaseInput
+                type='text'
+                name='first_name'
+                placeholder='first name'
+                defaultValue={user.first_name}
+                ref={first_name}
+            />
             {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
-            <ProfileInputTitle>
-                Last Name: <br/>
-                <BaseInput
-                    type='text'
-                    name='last_name'
-                    placeholder='last name'
-                    defaultValue={user.last_name}
-                    ref={last_name}
-                />
-            </ProfileInputTitle>
-            <ProfileInputTitle>
-                Location: <br/>
-                <BaseInput
-                    type='text'
-                    name='location'
-                    placeholder='location'
-                    defaultValue={user.location}
-                    ref={location}
-                />
-            </ProfileInputTitle>
+            <SubTitle>Last Name:</SubTitle>
+            <BaseInput
+                type='text'
+                name='last_name'
+                placeholder='last name'
+                defaultValue={user.last_name}
+                ref={last_name}
+            />
+            <SubTitle>Location:</SubTitle>
+            <BaseInput
+                type='text'
+                name='location'
+                placeholder='location'
+                defaultValue={user.location}
+                ref={location}
+            />
             {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
             {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
             <BaseButton onClick={updateUser}>Update</BaseButton>
-
         </EditProfileForm>
     </ModalExternalContainer>
 }

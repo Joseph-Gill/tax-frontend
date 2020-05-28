@@ -32,7 +32,7 @@ const SuccessMessage = ({message, redirect}) => {
 
     return <SuccessContainer>
         {message}
-        <img src={check}/>
+        <img src={check} alt="check icon"/>
     </SuccessContainer>
 
 }

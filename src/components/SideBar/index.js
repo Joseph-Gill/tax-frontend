@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import NavigationMenu from './NavigationMenu'
 import Logo from './Logo'
 import propulsion from '../../assets/logos/Propulsion_only_Rocket.png'
-import {useHistory} from 'react-router-dom'
+import {useHistory, useLocation} from 'react-router-dom'
 import PropulsionFooter from '../Shared/PropulsionFooter'
 import styled from 'styled-components/macro'
 
@@ -12,7 +12,7 @@ const SideBarContainer = styled.div`
     height: 100vh;
     background: #004972;
     width: 200px;
-    display: flex;
+    display: ${props => props.hidden ? "none" : 'flex'};
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
@@ -31,7 +31,7 @@ const SideBarNoAuthContainer = styled.div`
     height: 100%;
     width: 100px;
     background: #004972;
-    display: flex;
+    display: ${props => props.hidden ? "none" : 'flex'};
     flex-direction: column;
     align-items: center;
     position: fixed;
@@ -54,16 +54,24 @@ const SideBarNoAuthContainer = styled.div`
 const SideBar = ({children}) => {
     const authenticated = useSelector(state => state.userLoginReducer.authenticated)
     const history = useHistory()
+
+    let location = useLocation()
+    const [currentPath, setCurrentPath] = useState('')
+
+    useEffect(() => {
+        setCurrentPath(location.pathname)
+    }, [location])
+
     return <>
         {
             authenticated ?
-                <SideBarContainer>
+                <SideBarContainer hidden={currentPath === '/'}>
                     <Logo/>
                     <NavigationMenu/>
                     <PropulsionFooter/>
                 </SideBarContainer>
                 :
-                <SideBarNoAuthContainer>
+                <SideBarNoAuthContainer hidden={currentPath === '/'}>
                     <img onClick={() => history.push('/')} src={propulsion} alt="propulsion-logo"/>
                 </SideBarNoAuthContainer>
         }

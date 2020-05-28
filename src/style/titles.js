@@ -7,5 +7,5 @@ export const Title = styled.h1`
 
 export const SubTitle = styled.h2`
     color: ${props => props.theme.accentColor};
-    font-size: 14px;
 `
+
