@@ -1,5 +1,6 @@
 import {RESET_ERRORS, SET_ERROR} from '../types'
 
+
 export const catchError = (e, dispatch) => {
     try {
         dispatch(setError(e.response.data))

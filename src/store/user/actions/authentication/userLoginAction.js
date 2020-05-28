@@ -11,7 +11,7 @@ export const login = data => {
     }
 }
 
-export const userLoginAction = ({email, password}) => async (dispatch, getState) => {
+export const userLoginAction = ({email, password}) => async (dispatch) => {
     try {
         const {data} = await Axios.post(`auth/token/`, {email, password})
         if(data){
@@ -25,12 +25,11 @@ export const userLoginAction = ({email, password}) => async (dispatch, getState)
     }
 }
 
-
 const logOut = () => ({
     type: LOGOUT
 })
 
-export const userLogout = () => (dispatch, getState) => {
+export const userLogout = () => dispatch => {
     Cookie.remove('token')
     Cookie.remove('refresh')
     dispatch(logOut())

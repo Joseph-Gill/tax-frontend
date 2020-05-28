@@ -24,6 +24,7 @@ export const ModalExternalContainer = styled.div`
   background-color: rgba(0,0,0,0.68);
 `
 
+// if needed to create an internal div in the modal
 export const ModalInternalContainer = styled.div`
   width: 50%;
   height: 50%;

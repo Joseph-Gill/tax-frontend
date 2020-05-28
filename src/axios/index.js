@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios from 'axios'
 
-let baseUrl = '';
 
-if (process.env.NODE_ENV === 'development') {
+let baseUrl = ''
+
+if(process.env.NODE_ENV === 'development'){
     baseUrl = 'http://localhost:8000/backend/api/'
 } else {
     baseUrl = 'https://motion.propulsion-home.ch/backend/api/'
@@ -10,9 +11,9 @@ if (process.env.NODE_ENV === 'development') {
 
 const Axios = axios.create({
     baseURL: baseUrl
-});
+})
 
-Axios.defaults.baseURL = baseUrl;
-Axios.defaults.headers.post['Content-Type'] = 'application/json';
+Axios.defaults.baseURL = baseUrl
+Axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-export default Axios;
+export default Axios

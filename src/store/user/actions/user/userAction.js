@@ -22,11 +22,9 @@ export const getUserProfile = token => async (dispatch) => {
         access: token,
         user: response.data
     }
-
     dispatch(login(user))
     return response
 }
-
 
 export const userUpdateAction = body => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
