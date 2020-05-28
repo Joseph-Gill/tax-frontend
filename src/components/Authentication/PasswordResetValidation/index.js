@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {ErrorMessage} from '../../../style/messages'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
@@ -76,12 +75,10 @@ const PasswordResetValidation = () => {
             {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
             {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-            <ShowPasswordWrapper>
-                <input type='checkbox'
-                       onClick={() => setShowHidePassword(!showHidePassword)}
-                />
-                {showHidePassword ? 'Hide Passwords' : 'Show Passwords'}
-            </ShowPasswordWrapper>
+            <input type='checkbox'
+                   onClick={() => setShowHidePassword(!showHidePassword)}
+            />
+            {showHidePassword ? 'Hide Passwords' : 'Show Passwords'}
             <BaseButton onClick={register}>Reset Password</BaseButton>
             <LinkBase to='/password-reset'>I don't have the code yet!</LinkBase>
         </PasswordResetValidationForm>

@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {BaseButton} from '../../../style/buttons'
 import {ErrorMessage} from '../../../style/messages'
 import {useResetErrors} from '../../../hooks'
@@ -93,13 +92,13 @@ const RegistrationValidation = () => {
             {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
             {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-            <ShowPasswordWrapper>
-                <input
-                    type='checkbox'
-                    onClick={() => setShowPassword(!showPassword)}
-                />
-                {showPassword ? 'Hide Password' : 'Show Password'}
-            </ShowPasswordWrapper>
+
+            <input
+                type='checkbox'
+                onClick={() => setShowPassword(!showPassword)}
+            />
+            {showPassword ? 'Hide Password' : 'Show Password'}
+
             <BaseButton onClick={ValidationHandler}>Register</BaseButton>
             <LinkBase to='/login'>Registered already? login here!</LinkBase>
         </RegistrationValidationForm>

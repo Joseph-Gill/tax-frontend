@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton} from '../../../style/buttons'
 import {useHistory} from 'react-router-dom'
 import {Title} from '../../../style/titles'
-import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {LinkBase} from '../../../style/links'
 import {ErrorMessage} from '../../../style/messages'
 import {useResetErrors} from '../../../hooks'
@@ -11,7 +10,7 @@ import {userLoginAction} from '../../../store/user/actions/authentication/userLo
 import SignUpButton from '../SignUpButton'
 import {BasePageContainer} from '../../../style/containers'
 import {LoginForm} from '../../../style/forms'
-import {BaseInput, LoginInput} from '../../../style/inputs'
+import {BaseInput} from '../../../style/inputs'
 
 
 const Login = () => {
@@ -50,13 +49,11 @@ const Login = () => {
                 ref={password}
             />
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-            <ShowPasswordWrapper>
-                <input
-                    type='checkbox'
-                    onClick={() => setShowPassword(!showPassword)}
-                />
-                {showPassword ? 'Hide Password' : 'Show Password'}
-            </ShowPasswordWrapper>
+            <input
+                type='checkbox'
+                onClick={() => setShowPassword(!showPassword)}
+            />
+            {showPassword ? 'Hide Password' : 'Show Password'}
             <BaseButton onClick={login}>Login</BaseButton>
             <LinkBase to='/password-reset'>Forgot your password?</LinkBase>
         </LoginForm>

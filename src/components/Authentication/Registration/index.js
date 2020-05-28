@@ -4,7 +4,6 @@ import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
 import {TermsConditions} from './TermsConditions'
 import Modal from './Modal/'
-import {CheckboxInput, CheckboxWrapper, ErrorMessage, RegistrationInput, TermsAndConditionsWrapper} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {userRegistrationAction} from '../../../store/user/actions/authentication/userRegistrationAction'
 import SignUpButton from '../SignUpButton'
@@ -13,6 +12,29 @@ import {RegistrationForm} from '../../../style/forms'
 import {LinkBase} from '../../../style/links'
 import SuccessMessage from '../../Shared/SuccessMessage'
 import {BaseInput} from '../../../style/inputs'
+import {ErrorMessage} from '../../../style/messages'
+import styled from 'styled-components/macro'
+
+
+export const TermsAndConditionsWrapper = styled.div`
+  margin-top: 10px;
+  width: 75%;
+  color: rgba(0,0,0,0.82);
+  font-size: 12px;
+  height: 25%;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+  flex-direction: column;
+    label {
+    color: ${props => props.theme.accentColor};
+    cursor: pointer;
+    :hover {
+        text-decoration: underline;
+        color: #c47010;
+    }
+`
 
 
 const Registration = () => {
@@ -56,20 +78,17 @@ const Registration = () => {
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
             <TermsAndConditionsWrapper>
                 <label onClick={() => setShowHideTermsAndConditions(true)}>Term & Conditions</label>
-                <CheckboxWrapper>
-                    <CheckboxInput
-                        type="checkbox"
-                        value="I read and accept the Job-Tracker terms and conditions."
-                        onChange={() => setTermsAndConditions(!termsAndConditions)}
-                    /> I read and accept the terms and conditions.
-                </CheckboxWrapper>
+                <input
+                    type="checkbox"
+                    value="I read and accept the Job-Tracker terms and conditions."
+                    onChange={() => setTermsAndConditions(!termsAndConditions)}
+                />
+                I read and accept the terms and conditions.
             </TermsAndConditionsWrapper>
-
             {termsAndConditions ? (
                     <BaseButton onClick={registrationHandler}>Register</BaseButton>)
                 : (<BaseButton disabled onClick={registrationHandler}>Register</BaseButton>)
             }
-
             <LinkBase to='/registration-validation'>Got a code already? Enter it here!</LinkBase>
         </RegistrationForm>
     </BasePageContainer>
