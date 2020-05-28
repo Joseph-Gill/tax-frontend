@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {BaseButton} from '../../../style/buttons'
+import {BaseButton} from '../../style/buttons'
 import {useHistory} from 'react-router-dom'
 
 

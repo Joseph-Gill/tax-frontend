@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {BeatLoader} from 'react-spinners'
-import {LoaderContainer} from '../../../style/containers'
+import {LoaderContainer} from '../../style/containers'
 import styled from 'styled-components/macro'
 
 

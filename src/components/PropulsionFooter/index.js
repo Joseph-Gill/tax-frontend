@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import propulsion_logo from '../../../assets/logos/propulsion_logo_horizontal_white.png'
+import propulsion_logo from '../../assets/logos/propulsion_logo_horizontal_white.png'
 
 
 const PropulsionFooterLogoContainer = styled.a`

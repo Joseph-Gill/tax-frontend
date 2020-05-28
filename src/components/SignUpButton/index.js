@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useLocation, useHistory} from 'react-router-dom'
 import styled from 'styled-components/'
-import {BaseButton} from '../../../style/buttons'
+import {BaseButton} from '../../style/buttons'
 
 
 const SignUpButtonWrapper = styled.div`

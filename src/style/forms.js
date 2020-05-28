@@ -9,6 +9,7 @@ export const FormBase = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    margin-left: 200px;
     align-items: center;
     box-shadow: ${props => props.theme.boxShadow};
 `

@@ -1,5 +1,5 @@
 import React from 'react'
-import check from '../../../assets/icons/check.svg'
+import check from '../../assets/icons/check.svg'
 import styled from 'styled-components/macro'
 import { useHistory} from 'react-router-dom'
 

@@ -4,7 +4,7 @@ import NavigationMenu from './NavigationMenu'
 import Logo from './Logo'
 import propulsion from '../../assets/logos/Propulsion_only_Rocket.png'
 import {useHistory, useLocation} from 'react-router-dom'
-import PropulsionFooter from '../Shared/PropulsionFooter'
+import PropulsionFooter from '../PropulsionFooter'
 import styled from 'styled-components/macro'
 
 
