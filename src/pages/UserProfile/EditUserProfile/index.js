@@ -6,7 +6,7 @@ import {ErrorMessage} from '../../../style/messages'
 import {useDropzone} from 'react-dropzone'
 import astronaut from '../../../assets/icons/astronaut.svg'
 import {userUpdateAction} from '../../../store/user/actions/user/userAction'
-import {SubTitle} from '../../../style/titles'
+import {SubTitle, Title} from '../../../style/titles'
 import {USERPROFILE} from '../../../routes/paths'
 import {useHistory} from 'react-router-dom'
 import {ModalExternalContainer} from '../../../style/containers'
@@ -60,15 +60,17 @@ const EditUserProfile = () => {
     return <ModalExternalContainer>
         <EditProfileForm>
             <CloseButton onClick={() => history.push(USERPROFILE)}>X</CloseButton>
-            <Avatar src={avatarPreview || (!user.avatar ? astronaut : user.avatar)} alt="user avatar"/>
-            <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                {
-                    isDragActive ?
-                        <p>Drop the Avatar here ...</p> :
-                        <p>Upload or Drop Avatar</p>
-                }
-            </div>
+            {/*SOCIAL USE ONLY*/}
+            {/*<Avatar src={avatarPreview || (!user.avatar ? astronaut : user.avatar)} alt="user avatar"/>*/}
+            {/*<div {...getRootProps()}>*/}
+            {/*    <input {...getInputProps()} />*/}
+            {/*    {*/}
+            {/*        isDragActive ?*/}
+            {/*            <p>Drop the Avatar here ...</p> :*/}
+            {/*            <p>Upload or Drop Avatar</p>*/}
+            {/*    }*/}
+            {/*</div>*/}
+            <Title>Edit Your Profile</Title>
             <SubTitle>Username:</SubTitle>
             <BaseInput
                 type='text'
