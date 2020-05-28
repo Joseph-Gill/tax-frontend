@@ -1,22 +1,24 @@
 import React, {useState} from 'react'
-import UpdateUser from './UpdateUser'
-import {connect, useDispatch} from 'react-redux'
+import UpdateUser from './EditUserProfile'
+import {useDispatch, useSelector} from 'react-redux'
 import {InfoLabel, UserDetailsContainer, UserInfoWrapper} from './styles'
 import astronaut from '../../assets/icons/astronaut.svg'
 import {BasePageContainer} from '../../style/containers'
 import {DeleteButton, EditButton} from '../../style/buttons'
 import {useHistory} from 'react-router-dom'
 import {deleteUserProfile} from '../../store/user/actions/user/userAction'
+import {EDITUSERPROFILE, LANDING_PAGE} from '../../routes/paths'
 
 
-const UserProfile = ({user}) => {
+const UserProfile = () => {
     const [showEdit, setShowEdit] = useState(false)
     const dispatch = useDispatch()
     const history = useHistory()
+    const user = useSelector(state => state.userLoginReducer.user)
 
     const deleteUserHandler = () => {
         dispatch(deleteUserProfile())
-        history.push('/')
+        history.push(LANDING_PAGE)
     }
 
     return <BasePageContainer>
@@ -48,16 +50,11 @@ const UserProfile = ({user}) => {
                     <p> Propulsion {user.is_admin ? 'administrator' : 'student'}</p>
                 </InfoLabel>
             </UserInfoWrapper>
-            <EditButton onClick={() => setShowEdit(!showEdit)}>Edit</EditButton>
+            <EditButton onClick={() => history.push(EDITUSERPROFILE)}>Edit</EditButton>
             <DeleteButton onClick={() => deleteUserHandler()}>Delete</DeleteButton>
             {showEdit && <UpdateUser setShowEdit={setShowEdit} showEdit={showEdit}/>}
         </UserDetailsContainer>
     </BasePageContainer>
-
 }
 
-const mapStateToProps = ({userLoginReducer: {user}}) => ({
-    user
-})
-
-export default connect(mapStateToProps)(UserProfile)
+export default UserProfile

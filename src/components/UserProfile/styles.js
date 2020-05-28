@@ -1,17 +1,6 @@
 import styled from 'styled-components/macro';
-import {EditButton} from "../../style/buttons";
-import {InputTitle} from "../../style/titles";
+import {SubTitle} from '../../style/titles'
 
-
-export const UserProfileContainer = styled.div`
-    width: 100vw;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: -5px 6px 15px -5px rgba(0,0,0,0.64);
-
-`;
 
 export const UserDetailsContainer = styled.div`
     box-shadow: -5px 6px 15px -5px rgba(0,0,0,0.49);
@@ -36,7 +25,7 @@ export const UserInfoWrapper = styled.div`
     justify-content: space-around;
 `;
 
-export const InfoLabel = styled(InputTitle)`
+export const InfoLabel = styled(SubTitle)`
     p {
     font-size: 16px;
     color: rgba(0,0,0,0.71);
