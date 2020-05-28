@@ -6,12 +6,12 @@ import {Title} from '../../../style/titles'
 import {ShowPasswordWrapper} from '../../../style/wrappers'
 import {LinkBase} from '../../../style/links'
 import {ErrorMessage} from '../../../style/messages'
-import {LoginInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {userLoginAction} from '../../../store/user/actions/authentication/userLoginAction'
 import SignUpButton from '../SignUpButton'
 import {BasePageContainer} from '../../../style/containers'
 import {LoginForm} from '../../../style/forms'
+import {BaseInput, LoginInput} from '../../../style/inputs'
 
 
 const Login = () => {
@@ -37,13 +37,13 @@ const Login = () => {
         <SignUpButton/>
         <LoginForm>
             <Title>Login</Title>
-            <LoginInput
+            <BaseInput
                 type='text'
                 name='email'
                 placeholder='Enter your email ...'
                 ref={email}
             />
-            <LoginInput
+            <BaseInput
                 type={showPassword ? 'text' : 'password'}
                 name='password'
                 placeholder='Enter your password ...'

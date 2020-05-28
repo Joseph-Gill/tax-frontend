@@ -5,7 +5,7 @@ import Axios from './../axios'
 import {useHistory, useLocation} from 'react-router-dom'
 import {userLogout} from '../store/user/actions/authentication/userLoginAction'
 import {getUserProfile} from '../store/user/actions/user/userAction'
-import {LOGIN} from '../routes'
+import {LOGIN} from '../routes/paths'
 
 
 const useHandleHardReload = () => {

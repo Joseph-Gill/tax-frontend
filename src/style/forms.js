@@ -17,6 +17,9 @@ export const LoginForm = styled(FormBase)``
 export const RegistrationForm = styled(FormBase)``
 export const ResetPasswordForm = styled(FormBase)``
 export const PasswordResetValidationForm = styled(FormBase)``
+export const EditProfileForm = styled(FormBase)`
+  background: white;
+`
 export const RegistrationValidationForm = styled(FormBase)`
   height: 600px;
 `

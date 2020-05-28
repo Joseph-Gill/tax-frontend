@@ -5,7 +5,7 @@ export const Title = styled.h1`
     font-size: 30px;
 `
 
-export const InputTitle = styled.label`
+export const SubTitle = styled.h2`
     color: ${props => props.theme.accentColor};
     font-size: 14px;
 `

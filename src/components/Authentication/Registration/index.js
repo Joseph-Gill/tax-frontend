@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react'
-import {connect, useDispatch, useSelector} from 'react-redux'
-import {useHistory, withRouter} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
 import {TermsConditions} from './TermsConditions'
@@ -13,6 +12,7 @@ import {BasePageContainer} from '../../../style/containers'
 import {RegistrationForm} from '../../../style/forms'
 import {LinkBase} from '../../../style/links'
 import SuccessMessage from '../../Shared/SuccessMessage'
+import {BaseInput} from '../../../style/inputs'
 
 
 const Registration = () => {
@@ -46,7 +46,7 @@ const Registration = () => {
         />}
         <RegistrationForm>
             <Title>Registration</Title>
-            <RegistrationInput
+            <BaseInput
                 type='text'
                 name='email'
                 placeholder='Enter your email ... '

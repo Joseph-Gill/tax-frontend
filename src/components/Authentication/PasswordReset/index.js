@@ -1,16 +1,16 @@
 import React, {useRef, useState} from 'react'
-import {connect, useDispatch, useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
 import {ErrorMessage} from '../../../style/messages'
 import {LinkBase} from '../../../style/links'
-import {ResetPasswordInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {resetPassword} from '../../../store/user/actions/authentication/resetPasswordAction'
 import {BasePageContainer} from '../../../style/containers'
 import {ResetPasswordForm} from '../../../style/forms'
 import SignUpButton from '../SignUpButton'
 import SuccessMessage from '../../Shared/SuccessMessage'
+import {BaseInput} from '../../../style/inputs'
 
 
 const PasswordReset = () => {
@@ -34,7 +34,7 @@ const PasswordReset = () => {
                 redirect={'/password-reset-validation'}
             />}
             <Title>Forgot You Password?</Title>
-            <ResetPasswordInput
+            <BaseInput
                 type='text'
                 name='email'
                 placeholder='email'

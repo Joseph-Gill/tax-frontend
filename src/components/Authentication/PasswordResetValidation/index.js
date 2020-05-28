@@ -5,13 +5,13 @@ import {ErrorMessage} from '../../../style/messages'
 import {BaseButton} from '../../../style/buttons'
 import {Title} from '../../../style/titles'
 import {LinkBase} from '../../../style/links'
-import {ResetPasswordValidationInput} from './styles'
 import {useResetErrors} from '../../../hooks'
 import {restPasswordValidate} from '../../../store/user/actions/authentication/resetPasswordAction'
 import {BasePageContainer} from '../../../style/containers'
 import {PasswordResetValidationForm} from '../../../style/forms'
 import SignUpButton from '../SignUpButton'
 import SuccessMessage from '../../Shared/SuccessMessage'
+import {BaseInput} from '../../../style/inputs'
 
 
 const PasswordResetValidation = () => {
@@ -45,21 +45,21 @@ const PasswordResetValidation = () => {
                 redirect={'/login'}
             />}
             <Title>Create New Password</Title>
-            <ResetPasswordValidationInput
+            <BaseInput
                 type='text'
                 name='email'
                 placeholder='email'
                 ref={email}
             />
             {error && <ErrorMessage>{error.email}</ErrorMessage>}
-            <ResetPasswordValidationInput
+            <BaseInput
                 type='text'
                 name='code'
                 placeholder='code'
                 ref={code}
             />
             {error && <ErrorMessage>{error.code}</ErrorMessage>}
-            <ResetPasswordValidationInput
+            <BaseInput
                 type={showHidePassword ? 'text' : 'password'}
                 name='password'
                 placeholder='password'
@@ -67,7 +67,7 @@ const PasswordResetValidation = () => {
             />
             {error && <ErrorMessage>{error.password}</ErrorMessage>}
 
-            <ResetPasswordValidationInput
+            <BaseInput
                 type={showHidePassword ? 'text' : 'password'}
                 name='password_repeat'
                 placeholder='password repeat'

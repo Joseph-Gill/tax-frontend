@@ -6,8 +6,8 @@ import lock from '../../../assets/icons/lock.svg'
 import {connect} from 'react-redux'
 import styled from 'styled-components/macro'
 import {MenuItem, NavigationContainer, NavigationIcons} from './styles'
-import {ROUTE_HOME, ROUTE_USERPROFILE} from '../../../routes'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
+import {HOME, USERPROFILE} from '../../../routes/paths'
 
 
 const LogOutContainer = styled.div`
@@ -20,8 +20,8 @@ const NavigationMenu = ({dispatch, location}) => {
 
     return <>
         <NavigationContainer>
-            <MenuItem isActive={location.pathname === ROUTE_HOME} to={ROUTE_HOME}><NavigationIcons src={home}/>Home</MenuItem>
-            <MenuItem isActive={location.pathname === ROUTE_USERPROFILE} to={ROUTE_USERPROFILE}><NavigationIcons src={profile}/>Profile</MenuItem>
+            <MenuItem isActive={location.pathname === HOME} to={HOME}><NavigationIcons src={home}/>Home</MenuItem>
+            <MenuItem isActive={location.pathname === USERPROFILE} to={USERPROFILE}><NavigationIcons src={profile}/>Profile</MenuItem>
         </NavigationContainer>
         <LogOutContainer>
             <MenuItem to='' onClick={() => dispatch(userLogout())}>

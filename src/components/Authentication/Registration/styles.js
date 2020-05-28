@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro';
-import {BaseInput} from "../../../style/inputs";
 
 export const ErrorMessage = styled.span`
     font-size: 14px;
@@ -7,17 +6,6 @@ export const ErrorMessage = styled.span`
     position: absolute;
     top: 60%;
 `;
-
-export const RegistrationInput = styled(BaseInput)`
-   width: 75%;
-  :hover,
-  :active,
-  :focus {
-    width: 78%;
-  }
-
-`;
-
 
 export const CheckboxWrapper = styled.div`
   font-size: 12px;
