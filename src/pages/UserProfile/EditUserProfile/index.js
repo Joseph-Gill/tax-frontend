@@ -103,14 +103,15 @@ const EditUserProfile = () => {
                 defaultValue={user.last_name}
                 ref={last_name}
             />
-            <SubTitle>Location:</SubTitle>
-            <BaseInput
-                type='text'
-                name='location'
-                placeholder='location'
-                defaultValue={user.location}
-                ref={location}
-            />
+            {/*FOR SOCIAL USER ONLY*/}
+            {/*<SubTitle>Location:</SubTitle>*/}
+            {/*<BaseInput*/}
+            {/*    type='text'*/}
+            {/*    name='location'*/}
+            {/*    placeholder='location'*/}
+            {/*    defaultValue={user.location}*/}
+            {/*    ref={location}*/}
+            {/*/>*/}
             {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
             {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}

@@ -6,6 +6,7 @@ import propulsion from '../../assets/logos/Propulsion_only_Rocket.png'
 import {useHistory, useLocation} from 'react-router-dom'
 import PropulsionFooter from '../PropulsionFooter'
 import styled from 'styled-components/macro'
+import Feedback from '../Feedback'
 
 
 const SideBarContainer = styled.div`
@@ -68,6 +69,7 @@ const SideBar = ({children}) => {
                 <SideBarContainer hidden={currentPath === '/'}>
                     <Logo/>
                     <NavigationMenu/>
+                    <Feedback/>
                     <PropulsionFooter/>
                 </SideBarContainer>
                 :

@@ -50,8 +50,9 @@ const UserProfile = () => {
             <p>{user.first_name}</p>
             <SubTitle>Last Name:</SubTitle>
             <p>{user.last_name}</p>
-            <SubTitle>Location:</SubTitle>
-            <p>{user.location}</p>
+            {/*SOCIAL USE ONLY*/}
+            {/*<SubTitle>Location:</SubTitle>*/}
+            {/*<p>{user.location}</p>*/}
             <SubTitle>Profile Type:</SubTitle>
             <p> Propulsion {user.is_admin ? 'administrator' : 'student'}</p>
             <EditButton onClick={() => history.push(EDITUSERPROFILE)}>Edit</EditButton>
