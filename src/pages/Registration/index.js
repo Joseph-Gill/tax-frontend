@@ -63,7 +63,7 @@ const Registration = () => {
         </Modal>
         {showSuccess && <SuccessMessage
             message="A verification code has been sent to you email!"
-            redirect="/registration-validation"
+            redirect="/login"
                         />}
         <RegistrationForm>
             <Title>Registration</Title>

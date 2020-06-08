@@ -29,10 +29,10 @@ const PasswordReset = () => {
         <SignUpButton/>
         <ResetPasswordForm>
             {showSuccess && <SuccessMessage
-                message={'A code has been sent to you email!'}
-                redirect={'/password-reset-validation'}
+                message={'A code has been sent to your email!'}
+                redirect={'/login'}
             />}
-            <Title>Forgot You Password?</Title>
+            <Title>Forgot Your Password?</Title>
             <BaseInput
                 type='text'
                 name='email'

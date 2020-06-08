@@ -41,7 +41,7 @@ const PasswordResetValidation = () => {
             <PasswordResetValidationForm>
                 {showSuccess && (
                     <SuccessMessage
-                        message="You Password has been updated Successfully!"
+                        message="Your Password has been updated successfully!"
                         redirect="/login"
                     />
                 )}
