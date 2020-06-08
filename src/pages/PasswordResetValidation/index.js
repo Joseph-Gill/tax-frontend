@@ -4,7 +4,7 @@ import {ErrorMessage} from '../../style/messages'
 import {BaseButton} from '../../style/buttons'
 import {Title} from '../../style/titles'
 import {LinkBase} from '../../style/links'
-import {useResetErrors} from '../../hooks'
+    import {useCode, useResetErrors} from '../../hooks'
 import {restPasswordValidate} from '../../store/user/actions/authentication/resetPasswordAction'
 import {BasePageContainer} from '../../style/containers'
 import {PasswordResetValidationForm} from '../../style/forms'
@@ -15,7 +15,7 @@ import {BaseInput} from '../../style/inputs'
 
 const PasswordResetValidation = () => {
     let email = useRef('')
-    let code = useRef('')
+    const code = useCode('code')
     let password = useRef('')
     let password_repeat = useRef('')
     const [showHidePassword, setShowHidePassword] = useState(false)
@@ -28,7 +28,7 @@ const PasswordResetValidation = () => {
         e.preventDefault()
         const credentials = {
             email: email.current.value,
-            code: code.current.value,
+            code: code,
             password: password.current.value,
             password_repeat: password_repeat.current.value,
         }
@@ -51,13 +51,6 @@ const PasswordResetValidation = () => {
                 ref={email}
             />
             {error && <ErrorMessage>{error.email}</ErrorMessage>}
-            <BaseInput
-                type='text'
-                name='code'
-                placeholder='code'
-                ref={code}
-            />
-            {error && <ErrorMessage>{error.code}</ErrorMessage>}
             <BaseInput
                 type={showHidePassword ? 'text' : 'password'}
                 name='password'
