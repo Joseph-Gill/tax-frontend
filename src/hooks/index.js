@@ -31,9 +31,9 @@ export const useResetErrors = () => {
     }, [dispatch])
 }
 
-export const useCode = (param) => {
+export const useUrlQueryParams = (param) => {
     /*
-    Extracts code from query string for Registration Validation and Password Reset.
+    Extracts code/email from query string for Registration Validation and Password Reset emails.
     Can be used for other parameters in query string.
     */
     const code = new URLSearchParams(useLocation().search)
