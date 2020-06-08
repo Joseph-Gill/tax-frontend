@@ -1,24 +1,37 @@
-// https://eslint.org/docs/user-guide/configuring
-// https://eslint.vuejs.org
-
 module.exports = {
     root: true,
+    settings: {
+        react: {
+            'version': 'detect'
+        }
+    },
+    parserOptions: {
+        'ecmaVersion': 2017,
+        'sourceType': 'module',
+        'ecmaFeatures': {
+            'jsx': true
+        }
+    },
+    env: {
+        browser: true,
+    },
     extends: [
         'eslint:recommended',
-        'plugin:react/recommended'],
+        'plugin:react/all'
+    ],
     // required to lint *.jsx files
     plugins: [
         'react'
     ],
     // add your custom rules here
     rules: {
-        'vue/html-indent': ['error', 4], // Number is the base indent unit in spaces
-        'vue/script-indent': ['error', 4, {
-            'baseIndent': 1,
-            'switchCase': 0,
-            'ignores': []
-        }],
-        'vue/max-attributes-per-line': 'off',
-        'vue/mustache-interpolation-spacing': 'off',
+        'no-var': 'error',
+        'react/jsx-no-literals': 'off',
+        'react/jsx-no-bind': 'off',
+        'react/jsx-one-expression-per-line': 'off',
+        'react/function-component-definition': ['error', {
+            'namedComponents': 'arrow-function',
+            'unnamedComponents': 'function-expression'
+        }]
     }
 }

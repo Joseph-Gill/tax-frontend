@@ -36,53 +36,54 @@ const PasswordResetValidation = () => {
         if(data) setShowSuccess(!showSuccess)
     }
 
-    return <BasePageContainer>
-        <SignUpButton/>
+    return (<BasePageContainer>
+        <SignUpButton />
         <PasswordResetValidationForm>
             {showSuccess && <SuccessMessage
-                message={'You Password has been updated Successfully!'}
-                redirect={'/login'}
-            />}
+                message="You Password has been updated Successfully!"
+                redirect="/login"
+                            />}
             <Title>Create New Password</Title>
             <BaseInput
-                type='text'
                 name='email'
                 placeholder='email'
                 ref={email}
+                type='text'
             />
             {error && <ErrorMessage>{error.email}</ErrorMessage>}
             <BaseInput
-                type='text'
                 name='code'
                 placeholder='code'
                 ref={code}
+                type='text'
             />
             {error && <ErrorMessage>{error.code}</ErrorMessage>}
             <BaseInput
-                type={showHidePassword ? 'text' : 'password'}
                 name='password'
                 placeholder='password'
                 ref={password}
+                type={showHidePassword ? 'text' : 'password'}
             />
             {error && <ErrorMessage>{error.password}</ErrorMessage>}
 
             <BaseInput
-                type={showHidePassword ? 'text' : 'password'}
                 name='password_repeat'
                 placeholder='password repeat'
                 ref={password_repeat}
+                type={showHidePassword ? 'text' : 'password'}
             />
             {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
             {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-            <input type='checkbox'
-                   onClick={() => setShowHidePassword(!showHidePassword)}
+            <input
+                onClick={() => setShowHidePassword(!showHidePassword)}
+                type='checkbox'
             />
             {showHidePassword ? 'Hide Passwords' : 'Show Passwords'}
             <BaseButton onClick={register}>Reset Password</BaseButton>
             <LinkBase to='/password-reset'>I don't have the code yet!</LinkBase>
         </PasswordResetValidationForm>
-    </BasePageContainer>
+            </BasePageContainer>)
 }
 
 export default PasswordResetValidation

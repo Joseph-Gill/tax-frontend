@@ -32,32 +32,34 @@ const Login = () => {
         if(data) history.push('/home')
     }
 
-    return <BasePageContainer>
-        <SignUpButton/>
-        <LoginForm>
-            <Title>Login</Title>
-            <BaseInput
-                type='text'
-                name='email'
-                placeholder='Enter your email ...'
-                ref={email}
-            />
-            <BaseInput
-                type={showPassword ? 'text' : 'password'}
-                name='password'
-                placeholder='Enter your password ...'
-                ref={password}
-            />
-            {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-            <input
-                type='checkbox'
-                onClick={() => setShowPassword(!showPassword)}
-            />
-            {showPassword ? 'Hide Password' : 'Show Password'}
-            <BaseButton onClick={login}>Login</BaseButton>
-            <LinkBase to='/password-reset'>Forgot your password?</LinkBase>
-        </LoginForm>
-    </BasePageContainer>
+    return (
+        <BasePageContainer>
+            <SignUpButton />
+            <LoginForm>
+                <Title>Login</Title>
+                <BaseInput
+                    name='email'
+                    placeholder='Enter your email ...'
+                    ref={email}
+                    type='text'
+                />
+                <BaseInput
+                    name='password'
+                    placeholder='Enter your password ...'
+                    ref={password}
+                    type={showPassword ? 'text' : 'password'}
+                />
+                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                <input
+                    onClick={() => setShowPassword(!showPassword)}
+                    type='checkbox'
+                />
+                {showPassword ? 'Hide Password' : 'Show Password'}
+                <BaseButton onClick={login}>Login</BaseButton>
+                <LinkBase to='/password-reset'>Forgot your password?</LinkBase>
+            </LoginForm>
+        </BasePageContainer>
+    )
 }
 
 export default Login

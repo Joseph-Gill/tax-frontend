@@ -52,46 +52,49 @@ const Registration = () => {
         if(data) setShowSuccess(!showSuccess)
     }
 
-    return <BasePageContainer>
-        <SignUpButton/>
+    return (<BasePageContainer>
+        <SignUpButton />
         <Modal
-            show={showHideTermsAndConditions}
             clicked={() => setShowHideTermsAndConditions(false)}
+            show={showHideTermsAndConditions}
         >
             <TermsConditions>
                 <button onClick={() => setShowHideTermsAndConditions(false)}>Close</button>
             </TermsConditions>
         </Modal>
         {showSuccess && <SuccessMessage
-            message={'A verification code has been sent to you email!'}
-            redirect={'/registration-validation'}
-        />}
+            message="A verification code has been sent to you email!"
+            redirect="/registration-validation"
+                        />}
         <RegistrationForm>
             <Title>Registration</Title>
             <BaseInput
-                type='text'
                 name='email'
                 placeholder='Enter your email ... '
                 ref={email}
+                type='text'
             />
             {error && <ErrorMessage>{error.email}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
             <TermsAndConditionsWrapper>
                 <label onClick={() => setShowHideTermsAndConditions(true)}>Term & Conditions</label>
                 <input
+                    onChange={() => setTermsAndConditions(!termsAndConditions)}
                     type="checkbox"
                     value="I read and accept the Job-Tracker terms and conditions."
-                    onChange={() => setTermsAndConditions(!termsAndConditions)}
                 />
                 I read and accept the terms and conditions.
             </TermsAndConditionsWrapper>
             {termsAndConditions ? (
-                    <BaseButton onClick={registrationHandler}>Register</BaseButton>)
-                : (<BaseButton disabled onClick={registrationHandler}>Register</BaseButton>)
-            }
+                <BaseButton onClick={registrationHandler}>Register</BaseButton>)
+                : (<BaseButton
+                    disabled
+                    onClick={registrationHandler}
+                   >Register
+                </BaseButton>)}
             <LinkBase to='/registration-validation'>Got a code already? Enter it here!</LinkBase>
         </RegistrationForm>
-    </BasePageContainer>
+            </BasePageContainer>)
 }
 
 
