@@ -9,7 +9,6 @@ import {userRegistrationAction} from '../../store/user/actions/authentication/us
 import SignUpButton from '../../components/SignUpButton'
 import {BasePageContainer} from '../../style/containers'
 import {RegistrationForm} from '../../style/forms'
-import {LinkBase} from '../../style/links'
 import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
 import {ErrorMessage} from '../../style/messages'
@@ -92,7 +91,6 @@ const Registration = () => {
                     onClick={registrationHandler}
                    >Register
                 </BaseButton>)}
-            <LinkBase to='/registration-validation'>Got a code already? Enter it here!</LinkBase>
         </RegistrationForm>
             </BasePageContainer>)
 }

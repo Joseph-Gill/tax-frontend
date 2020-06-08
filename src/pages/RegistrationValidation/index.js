@@ -86,7 +86,7 @@ const RegistrationValidation = () => {
             {showPassword ? 'Hide Password' : 'Show Password'}
 
             <BaseButton onClick={ValidationHandler}>Register</BaseButton>
-            <LinkBase to='/login'>Registered already? login here!</LinkBase>
+            <LinkBase to='/login'>Registered already? Login here!</LinkBase>
         </RegistrationValidationForm>
     </BasePageContainer>
 }

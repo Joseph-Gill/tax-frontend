@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton} from '../../style/buttons'
 import {Title} from '../../style/titles'
 import {ErrorMessage} from '../../style/messages'
-import {LinkBase} from '../../style/links'
 import {useResetErrors} from '../../hooks'
 import {resetPassword} from '../../store/user/actions/authentication/resetPasswordAction'
 import {BasePageContainer} from '../../style/containers'
@@ -43,7 +42,6 @@ const PasswordReset = () => {
             {error && <ErrorMessage>{error.email}</ErrorMessage>}
             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
             <BaseButton onClick={resetPasswordHandler}>Send Code</BaseButton>
-            <LinkBase to='/password-reset-validation'>I have the code already!</LinkBase>
         </ResetPasswordForm>
     </BasePageContainer>
 }
