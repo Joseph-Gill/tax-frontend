@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton} from '../../style/buttons'
 import {ErrorMessage} from '../../style/messages'
-import {useResetErrors} from '../../hooks'
+import {useUrlQueryParams, useResetErrors} from '../../hooks'
 import {registrationValidationAction} from '../../store/user/actions/authentication/userRegistrationAction'
 import {Title} from '../../style/titles'
 import {LinkBase} from '../../style/links'
@@ -14,8 +14,8 @@ import {BaseInput} from '../../style/inputs'
 
 
 const RegistrationValidation = () => {
-    let email = useRef('')
-    let code = useRef('')
+    const email = useUrlQueryParams('email')
+    const code = useUrlQueryParams('code')
     let password = useRef('')
     let password_repeat = useRef('')
     let first_name = useRef('')
@@ -29,8 +29,8 @@ const RegistrationValidation = () => {
     const ValidationHandler = async e => {
         e.preventDefault()
         const credentials = {
-            email: email.current.value,
-            code: code.current.value,
+            email: email,
+            code: code,
             password: password.current.value,
             password_repeat: password_repeat.current.value,
             first_name: first_name.current.value,
@@ -48,20 +48,6 @@ const RegistrationValidation = () => {
         />}
         <RegistrationValidationForm>
             <Title>Create Your Account</Title>
-            <BaseInput
-                type='text'
-                name='email'
-                placeholder='email'
-                ref={email}
-            />
-            {error && <ErrorMessage>{error.email}</ErrorMessage>}
-            <BaseInput
-                type='text'
-                name='code'
-                placeholder='code'
-                ref={code}
-            />
-            {error && <ErrorMessage>{error.code}</ErrorMessage>}
             <BaseInput
                 type='text'
                 name='first_name'

@@ -1,6 +1,7 @@
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {resetErrors} from '../store/errors/actions/errorAction'
+import {useLocation} from 'react-router-dom'
 
 // Example Hook
 // export const useAdministeredUsers = (forceFetch = false) => {
@@ -28,6 +29,15 @@ export const useResetErrors = () => {
             dispatch(resetErrors())
         }
     }, [dispatch])
+}
+
+export const useUrlQueryParams = (param) => {
+    /*
+    Extracts code/email from query string for Registration Validation and Password Reset emails.
+    Can be used for other parameters in query string.
+    */
+    const parsedSearchUrl = new URLSearchParams(useLocation().search)
+    return parsedSearchUrl.get(param)
 }
 
 

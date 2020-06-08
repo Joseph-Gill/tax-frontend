@@ -4,7 +4,7 @@ import {ErrorMessage} from '../../style/messages'
 import {BaseButton} from '../../style/buttons'
 import {Title} from '../../style/titles'
 import {LinkBase} from '../../style/links'
-import {useResetErrors} from '../../hooks'
+import {useUrlQueryParams, useResetErrors} from '../../hooks'
 import {restPasswordValidate} from '../../store/user/actions/authentication/resetPasswordAction'
 import {BasePageContainer} from '../../style/containers'
 import {PasswordResetValidationForm} from '../../style/forms'
@@ -14,8 +14,8 @@ import {BaseInput} from '../../style/inputs'
 
 
 const PasswordResetValidation = () => {
-    let email = useRef('')
-    let code = useRef('')
+    const email = useUrlQueryParams('email')
+    const code = useUrlQueryParams('code')
     let password = useRef('')
     let password_repeat = useRef('')
     const [showHidePassword, setShowHidePassword] = useState(false)
@@ -27,8 +27,8 @@ const PasswordResetValidation = () => {
     const register = async e => {
         e.preventDefault()
         const credentials = {
-            email: email.current.value,
-            code: code.current.value,
+            email: email,
+            code: code,
             password: password.current.value,
             password_repeat: password_repeat.current.value,
         }
@@ -44,20 +44,6 @@ const PasswordResetValidation = () => {
                 redirect="/login"
                             />}
             <Title>Create New Password</Title>
-            <BaseInput
-                name='email'
-                placeholder='email'
-                ref={email}
-                type='text'
-            />
-            {error && <ErrorMessage>{error.email}</ErrorMessage>}
-            <BaseInput
-                name='code'
-                placeholder='code'
-                ref={code}
-                type='text'
-            />
-            {error && <ErrorMessage>{error.code}</ErrorMessage>}
             <BaseInput
                 name='password'
                 placeholder='password'
