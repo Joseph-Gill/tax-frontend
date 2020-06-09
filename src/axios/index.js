@@ -6,7 +6,7 @@ let baseUrl = ''
 if(process.env.NODE_ENV === 'development'){
     baseUrl = 'http://localhost:8000/backend/api/'
 } else {
-    baseUrl = 'https://motion.propulsion-home.ch/backend/api/'
+    baseUrl = 'https://templates.propulsion-home.ch/backend/api/'
 }
 
 const Axios = axios.create({

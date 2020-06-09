@@ -1,4 +1,4 @@
-FROM node:10.15.3
+FROM node:latest
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -qqy wget
 
