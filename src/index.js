@@ -15,6 +15,7 @@ if(process.env.NODE_ENV !== 'development'){
 }
 
 ReactDOM.render(
+    // eslint-disable-next-line react/jsx-filename-extension
     <Provider store={store}>
         <ThemeProvider theme={defaultTheme}>
             <GlobalStyle />
