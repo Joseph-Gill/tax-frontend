@@ -13,6 +13,7 @@ import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
 import {ErrorMessage} from '../../style/messages'
 import styled from 'styled-components/macro'
+import {LOGIN} from '../../routes/paths'
 
 
 export const TermsAndConditionsWrapper = styled.div`
@@ -63,7 +64,7 @@ const Registration = () => {
         </Modal>
         {showSuccess && <SuccessMessage
             message="A verification code has been sent to you email!"
-            redirect="/login"
+            redirect={LOGIN}
                         />}
         <RegistrationForm>
             <Title>Registration</Title>

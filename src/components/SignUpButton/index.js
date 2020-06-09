@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useLocation, useHistory} from 'react-router-dom'
 import styled from 'styled-components/'
 import {BaseButton} from '../../style/buttons'
+import {PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION} from '../../routes/paths'
 
 
 const SignUpButtonWrapper = styled.div`
@@ -28,10 +29,10 @@ const SignUpButton = () => {
 
     return <SignUpButtonWrapper>
         {
-            currentPath === '/registration' ||
-            currentPath === '/registration-validation' ||
-            currentPath === '/password-reset' ||
-            currentPath === '/password-reset-validation' ? <>
+            currentPath === REGISTRATION ||
+            currentPath === REGISTRATION_VALIDATION ||
+            currentPath === PASSWORD_RESET ||
+            currentPath === PASSWORD_RESET_VALIDATION ? <>
                 Already have an account?
                 <BaseButton onClick={() => history.push('login')}>Log In</BaseButton>
             </> : <>

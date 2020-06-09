@@ -11,6 +11,7 @@ import {RegistrationValidationForm} from '../../style/forms'
 import SignUpButton from '../../components/SignUpButton'
 import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
+import {LOGIN} from '../../routes/paths'
 
 
 const RegistrationValidation = () => {
@@ -44,7 +45,7 @@ const RegistrationValidation = () => {
         <SignUpButton/>
         {showSuccess && <SuccessMessage
             message={'Congratulations! Your account was successfully created!'}
-            redirect={'/login'}
+            redirect={LOGIN}
         />}
         <RegistrationValidationForm>
             <Title>Create Your Account</Title>
@@ -86,7 +87,7 @@ const RegistrationValidation = () => {
             {showPassword ? 'Hide Password' : 'Show Password'}
 
             <BaseButton onClick={ValidationHandler}>Register</BaseButton>
-            <LinkBase to='/login'>Registered already? Login here!</LinkBase>
+            <LinkBase to={LOGIN}>Registered already? Login here!</LinkBase>
         </RegistrationValidationForm>
     </BasePageContainer>
 }

@@ -11,6 +11,7 @@ import { PasswordResetValidationForm } from "../../style/forms"
 import SignUpButton from "../../components/SignUpButton"
 import SuccessMessage from "../../components/SuccessMessage"
 import { BaseInput } from "../../style/inputs"
+import {LOGIN} from '../../routes/paths'
 
 const PasswordResetValidation = () => {
     const email = useUrlQueryParams("email")
@@ -42,7 +43,7 @@ const PasswordResetValidation = () => {
                 {showSuccess && (
                     <SuccessMessage
                         message="Your Password has been updated successfully!"
-                        redirect="/login"
+                        redirect={LOGIN}
                     />
                 )}
                 <Title>Create New Password</Title>
@@ -69,7 +70,7 @@ const PasswordResetValidation = () => {
                 />
                 {showHidePassword ? "Hide Passwords" : "Show Passwords"}
                 <BaseButton onClick={register}>Reset Password</BaseButton>
-                <LinkBase to='/login'>Know your password? Login here!</LinkBase>
+                <LinkBase to={LOGIN}>Know your password? Login here!</LinkBase>
             </PasswordResetValidationForm>
         </BasePageContainer>
     )

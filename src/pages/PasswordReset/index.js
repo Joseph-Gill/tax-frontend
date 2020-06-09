@@ -10,6 +10,7 @@ import {ResetPasswordForm} from '../../style/forms'
 import SignUpButton from '../../components/SignUpButton'
 import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
+import {LOGIN} from '../../routes/paths'
 
 
 const PasswordReset = () => {
@@ -30,7 +31,7 @@ const PasswordReset = () => {
         <ResetPasswordForm>
             {showSuccess && <SuccessMessage
                 message={'A code has been sent to your email!'}
-                redirect={'/login'}
+                redirect={LOGIN}
             />}
             <Title>Forgot Your Password?</Title>
             <BaseInput

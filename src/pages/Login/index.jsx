@@ -11,6 +11,7 @@ import SignUpButton from '../../components/SignUpButton'
 import {BasePageContainer} from '../../style/containers'
 import {LoginForm} from '../../style/forms'
 import {BaseInput} from '../../style/inputs'
+import {HOME, PASSWORD_RESET} from '../../routes/paths'
 
 
 const Login = () => {
@@ -29,7 +30,7 @@ const Login = () => {
             password: password.current.value
         }
         const data = await dispatch(userLoginAction(credentials))
-        if(data) history.push('/home')
+        if(data) history.push(HOME)
     }
 
     return (
@@ -56,7 +57,7 @@ const Login = () => {
                 />
                 {showPassword ? 'Hide Password' : 'Show Password'}
                 <BaseButton onClick={login}>Login</BaseButton>
-                <LinkBase to='/password-reset'>Forgot your password?</LinkBase>
+                <LinkBase to={PASSWORD_RESET}>Forgot your password?</LinkBase>
             </LoginForm>
         </BasePageContainer>
     )
