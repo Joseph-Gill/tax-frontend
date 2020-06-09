@@ -23,7 +23,9 @@ build:
 eslint:
     stage: eslint
     script:
-        - docker-compose -f docker-compose.deploy.yml run frontend ./node_modules/.bin/eslint ./src/  --ext .js --ext .jsx
+        - export CI_PIPELINE_ID=$CI_PIPELINE_ID
+        - export CI_BUILD_REF_NAME=$CI_COMMIT_REF_NAME
+        - docker-compose -f docker-compose.ci.yml run frontend ./node_modules/.bin/eslint ./src/  --ext .js --ext .jsx
 
 push master:
   stage: push
