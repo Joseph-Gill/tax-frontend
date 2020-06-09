@@ -30,10 +30,15 @@ const SuccessMessage = ({message, redirect}) => {
         history.push(`${redirect}`)
     }, 2000)
 
-    return <SuccessContainer>
-        {message}
-        <img src={check} alt="check icon"/>
-    </SuccessContainer>
+    return (
+        <SuccessContainer>
+            {message}
+            <img
+                alt="check icon"
+                src={check}
+            />
+        </SuccessContainer>
+    )
 
 }
 

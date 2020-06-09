@@ -63,22 +63,29 @@ const SideBar = ({children}) => {
         setCurrentPath(location.pathname)
     }, [location])
 
-    return <>
-        {
-            authenticated ?
-                <SideBarContainer hidden={currentPath === '/'}>
-                    <Logo/>
-                    <NavigationMenu/>
-                    <Feedback/>
-                    <PropulsionFooter/>
-                </SideBarContainer>
+    return (
+        <>
+            {
+            authenticated
+                ?
+                    <SideBarContainer hidden={currentPath === '/'}>
+                        <Logo />
+                        <NavigationMenu />
+                        <Feedback />
+                        <PropulsionFooter />
+                    </SideBarContainer>
                 :
-                <SideBarNoAuthContainer hidden={currentPath === '/'}>
-                    <img onClick={() => history.push('/')} src={propulsion} alt="propulsion-logo"/>
-                </SideBarNoAuthContainer>
-        }
-        {children}
-    </>
+                    <SideBarNoAuthContainer hidden={currentPath === '/'}>
+                        <img
+                            alt="propulsion-logo"
+                            onClick={() => history.push('/')}
+                            src={propulsion}
+                        />
+                    </SideBarNoAuthContainer>
+            }
+            {children}
+        </>
+    )
 }
 
 export default SideBar

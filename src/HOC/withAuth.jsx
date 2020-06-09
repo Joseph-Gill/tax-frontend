@@ -48,7 +48,7 @@ const useHandleHardReload = () => {
 export default WrappedComponent => {
     const AuthComponent = (props) => {
         const authenticated = useHandleHardReload()
-        return authenticated ? <WrappedComponent {...props}/> : null
+        return authenticated ? <WrappedComponent {...props} /> : null
     }
     return AuthComponent
 }

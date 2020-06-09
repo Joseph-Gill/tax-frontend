@@ -16,22 +16,24 @@ import {EDITUSERPROFILE, HOME, LANDING_PAGE, LOGIN, PASSWORD_RESET, PASSWORD_RES
 
 
 const Routes = () => {
-    return <Router>
-        <SideBar>
-            <Switch>
-                <Route exact path={LANDING_PAGE} component={LandingPage}/>
-                <Route exact path={LOGIN} component={Login}/>
-                <Route exact path={PASSWORD_RESET} component={PasswordReset}/>
-                <Route exact path={PASSWORD_RESET_VALIDATION} component={PasswordResetValidation}/>
-                <Route exact path={REGISTRATION} component={Registration}/>
-                <Route exact path={REGISTRATION_VALIDATION} component={RegistrationValidation}/>
-                <Route exact path={HOME} component={WithAuth(Home)}/>
-                <Route exact path={USERPROFILE} component={WithAuth(UserProfile)}/>
-                <Route exact path={EDITUSERPROFILE} component={WithAuth(EditUserProfile)}/>
-                <Route component={Page404}/>
-            </Switch>
-        </SideBar>
-    </Router>
+    return (
+        <Router>
+            <SideBar>
+                <Switch>
+                    <Route component={LandingPage} exact path={LANDING_PAGE} />
+                    <Route component={Login} exact path={LOGIN} />
+                    <Route component={PasswordReset} exact path={PASSWORD_RESET} />
+                    <Route component={PasswordResetValidation} exact path={PASSWORD_RESET_VALIDATION} />
+                    <Route component={Registration} exact path={REGISTRATION} />
+                    <Route component={RegistrationValidation} exact path={REGISTRATION_VALIDATION} />
+                    <Route component={WithAuth(Home)} exact path={HOME} />
+                    <Route component={WithAuth(UserProfile)} exact path={USERPROFILE} />
+                    <Route component={WithAuth(EditUserProfile)} exact path={EDITUSERPROFILE} />
+                    <Route component={Page404} />
+                </Switch>
+            </SideBar>
+        </Router>
+    )
 }
 
 export default Routes

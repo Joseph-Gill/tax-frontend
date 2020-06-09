@@ -41,55 +41,57 @@ const RegistrationValidation = () => {
         if(data) setShowSuccess(!showSuccess)
     }
 
-    return <BasePageContainer>
-        <SignUpButton/>
-        {showSuccess && <SuccessMessage
-            message={'Congratulations! Your account was successfully created!'}
-            redirect={LOGIN}
-        />}
-        <RegistrationValidationForm>
-            <Title>Create Your Account</Title>
-            <BaseInput
-                type='text'
-                name='first_name'
-                placeholder='first name'
-                ref={first_name}
-            />
-            {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
-            <BaseInput
-                type='text'
-                name='last_name'
-                placeholder='last name'
-                ref={last_name}
-            />
-            {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
-            <BaseInput
-                type={showPassword ? 'text' : 'password'}
-                name='password'
-                placeholder='password'
-                ref={password}
-            />
-            {error && <ErrorMessage>{error.password}</ErrorMessage>}
-            <BaseInput
-                type={showPassword ? 'text' : 'password'}
-                name='password_repeat'
-                placeholder='password repeat'
-                ref={password_repeat}
-            />
-            {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
-            {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
-            {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+    return (
+        <BasePageContainer>
+            <SignUpButton />
+            {showSuccess && <SuccessMessage
+                message="Congratulations! Your account was successfully created!"
+                redirect={LOGIN}
+                            />}
+            <RegistrationValidationForm>
+                <Title>Create Your Account</Title>
+                <BaseInput
+                    name='first_name'
+                    placeholder='first name'
+                    ref={first_name}
+                    type='text'
+                />
+                {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
+                <BaseInput
+                    name='last_name'
+                    placeholder='last name'
+                    ref={last_name}
+                    type='text'
+                />
+                {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
+                <BaseInput
+                    name='password'
+                    placeholder='password'
+                    ref={password}
+                    type={showPassword ? 'text' : 'password'}
+                />
+                {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                <BaseInput
+                    name='password_repeat'
+                    placeholder='password repeat'
+                    ref={password_repeat}
+                    type={showPassword ? 'text' : 'password'}
+                />
+                {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
+                {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
+                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
 
-            <input
-                type='checkbox'
-                onClick={() => setShowPassword(!showPassword)}
-            />
-            {showPassword ? 'Hide Password' : 'Show Password'}
+                <input
+                    onClick={() => setShowPassword(!showPassword)}
+                    type='checkbox'
+                />
+                {showPassword ? 'Hide Password' : 'Show Password'}
 
-            <BaseButton onClick={ValidationHandler}>Register</BaseButton>
-            <LinkBase to={LOGIN}>Registered already? Login here!</LinkBase>
-        </RegistrationValidationForm>
-    </BasePageContainer>
+                <BaseButton onClick={ValidationHandler}>Register</BaseButton>
+                <LinkBase to={LOGIN}>Registered already? Login here!</LinkBase>
+            </RegistrationValidationForm>
+        </BasePageContainer>
+    )
 }
 
 

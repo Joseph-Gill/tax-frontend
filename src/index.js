@@ -9,11 +9,13 @@ import * as Sentry from '@sentry/browser'
 import Routes from './routes'
 
 
+// eslint-disable-next-line no-undef
 if(process.env.NODE_ENV !== 'development'){
     Sentry.init({dsn: ''})
 }
 
 ReactDOM.render(
+    // eslint-disable-next-line react/jsx-filename-extension
     <Provider store={store}>
         <ThemeProvider theme={defaultTheme}>
             <GlobalStyle />

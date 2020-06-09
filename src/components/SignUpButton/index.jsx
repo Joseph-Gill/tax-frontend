@@ -27,20 +27,25 @@ const SignUpButton = () => {
         setCurrentPath(location.pathname)
     }, [location])
 
-    return <SignUpButtonWrapper>
-        {
+    return (
+        <SignUpButtonWrapper>
+            {
             currentPath === REGISTRATION ||
             currentPath === REGISTRATION_VALIDATION ||
             currentPath === PASSWORD_RESET ||
-            currentPath === PASSWORD_RESET_VALIDATION ? <>
-                Already have an account?
-                <BaseButton onClick={() => history.push('login')}>Log In</BaseButton>
-            </> : <>
-                Don't have an account?
-                <BaseButton onClick={() => history.push('registration')}>Sign Up</BaseButton>
-            </>
+            currentPath === PASSWORD_RESET_VALIDATION
+                ?
+                    <>
+                        Already have an account?
+                        <BaseButton onClick={() => history.push('login')}>Log In</BaseButton>
+                    </>
+                :
+                    <>
+                        Don&apos;t have an account?
+                        <BaseButton onClick={() => history.push('registration')}>Sign Up</BaseButton>
+                    </>
         }
-    </SignUpButtonWrapper>
+        </SignUpButtonWrapper>)
 }
 
 export default SignUpButton

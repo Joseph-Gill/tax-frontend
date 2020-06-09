@@ -1,3 +1,4 @@
+/* eslint react/forbid-component-props: 0 */
 import React from 'react'
 import Backdrop from './Backdrop'
 import styled from 'styled-components/macro'
@@ -19,16 +20,19 @@ const ModalWrapper = styled.div`
 
 
 const Modal = ({children, clicked, show}) => {
-    return <>
-        <Backdrop show={show} clicked={clicked}/>
-        <ModalWrapper
-            style={{
+    return (
+        <>
+            <Backdrop clicked={clicked} show={show} />
+            <ModalWrapper
+                style={{
                 transform: show ? 'translateY(0)' : 'translateY(-200%)',
                 opacity: show ? '1' : '0'
-            }}>
-            {children}
-        </ModalWrapper>
-    </>
+            }}
+            >
+                {children}
+            </ModalWrapper>
+        </>
+    )
 }
 
 export default Modal

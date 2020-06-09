@@ -44,10 +44,15 @@ const LogoContainer = styled(Link)`
 
 const Logo = () => {
     const authenticated = useSelector(state => state.userLoginReducer.authenticated)
-    return <LogoContainer to={authenticated ? HOME : LOGIN}>
-        <img src={propulsion} alt="propulsion-logo"/>
-        <h1>Project</h1>
-    </LogoContainer>
+    return (
+        <LogoContainer to={authenticated ? HOME : LOGIN}>
+            <img
+                alt="propulsion-logo"
+                src={propulsion}
+            />
+            <h1>Project</h1>
+        </LogoContainer>
+    )
 }
 
 export default Logo

@@ -3,10 +3,11 @@ module.exports = {
     settings: {
         react: {
             'version': 'detect'
-        }
+        },
+        linkComponents: ['PropulsionFooterLogoContainer']       // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
     },
     parserOptions: {
-        'ecmaVersion': 2017,
+        'ecmaVersion': 2018,
         'sourceType': 'module',
         'ecmaFeatures': {
             'jsx': true
@@ -34,6 +35,11 @@ module.exports = {
             'unnamedComponents': 'function-expression'
         }],
         'react/jsx-props-no-spreading': 'off',
-        'react/prop-types': 'off'
+        'react/prop-types': 'off',
+        'react/jsx-max-depth': ['error', {'max': 3}],
+        'react/button-has-type': 'off',
+        'react/jsx-child-element-spacing': 'off',
+        'react/jsx-max-props-per-line': 'off'
+
     }
 }

@@ -39,10 +39,18 @@ const PropulsionFooterLogoContainer = styled.a`
 
 
 const PropulsionFooter = () => {
-    return <PropulsionFooterLogoContainer href='https://propulsion.academy/' target='_blank'>
-        <img src={propulsion_logo} alt="propulsion-academy-logo"/>
-        <p>© 2020 Propulsion Academy. All rights reserved.</p>
-    </PropulsionFooterLogoContainer>
+    return (
+        <PropulsionFooterLogoContainer
+            href='https://propulsion.academy/'
+            rel="noreferrer"
+            target='_blank'
+        >
+            <img
+                alt="propulsion-academy-logo"
+                src={propulsion_logo}
+            />
+            <p>© 2020 Propulsion Academy. All rights reserved.</p>
+        </PropulsionFooterLogoContainer>)
 }
 
 export default PropulsionFooter

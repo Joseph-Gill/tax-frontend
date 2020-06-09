@@ -63,61 +63,63 @@ const EditUserProfile = () => {
         if(success) history.push(USERPROFILE)
     }
 
-    return <ModalExternalContainer>
-        <EditProfileForm>
-            <CloseButton onClick={() => history.push(USERPROFILE)}>X</CloseButton>
-            {/*SOCIAL USE ONLY*/}
-            {/*<Avatar src={avatarPreview || (!user.avatar ? astronaut : user.avatar)} alt="user avatar"/>*/}
-            {/*<div {...getRootProps()}>*/}
-            {/*    <input {...getInputProps()} />*/}
-            {/*    {*/}
-            {/*        isDragActive ?*/}
-            {/*            <p>Drop the Avatar here ...</p> :*/}
-            {/*            <p>Upload or Drop Avatar</p>*/}
-            {/*    }*/}
-            {/*</div>*/}
-            <Title>Edit Your Profile</Title>
-            <SubTitle>Username:</SubTitle>
-            <BaseInput
-                type='text'
-                name='username'
-                placeholder='username'
-                defaultValue={user.username}
-                ref={username}
-            />
-            {error && <ErrorMessage>{error.username}</ErrorMessage>}
-            <SubTitle>First Name:</SubTitle>
-            <BaseInput
-                type='text'
-                name='first_name'
-                placeholder='first name'
-                defaultValue={user.first_name}
-                ref={first_name}
-            />
-            {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
-            <SubTitle>Last Name:</SubTitle>
-            <BaseInput
-                type='text'
-                name='last_name'
-                placeholder='last name'
-                defaultValue={user.last_name}
-                ref={last_name}
-            />
-            {/*FOR SOCIAL USER ONLY*/}
-            {/*<SubTitle>Location:</SubTitle>*/}
-            {/*<BaseInput*/}
-            {/*    type='text'*/}
-            {/*    name='location'*/}
-            {/*    placeholder='location'*/}
-            {/*    defaultValue={user.location}*/}
-            {/*    ref={location}*/}
-            {/*/>*/}
-            {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
-            {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
-            {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-            <BaseButton onClick={updateUser}>Update</BaseButton>
-        </EditProfileForm>
-    </ModalExternalContainer>
+    return (
+        <ModalExternalContainer>
+            <EditProfileForm>
+                <CloseButton onClick={() => history.push(USERPROFILE)}>X</CloseButton>
+                {/*SOCIAL USE ONLY*/}
+                {/*<Avatar src={avatarPreview || (!user.avatar ? astronaut : user.avatar)} alt="user avatar"/>*/}
+                {/*<div {...getRootProps()}>*/}
+                {/*    <input {...getInputProps()} />*/}
+                {/*    {*/}
+                {/*        isDragActive ?*/}
+                {/*            <p>Drop the Avatar here ...</p> :*/}
+                {/*            <p>Upload or Drop Avatar</p>*/}
+                {/*    }*/}
+                {/*</div>*/}
+                <Title>Edit Your Profile</Title>
+                <SubTitle>Username:</SubTitle>
+                <BaseInput
+                    defaultValue={user.username}
+                    name='username'
+                    placeholder='username'
+                    ref={username}
+                    type='text'
+                />
+                {error && <ErrorMessage>{error.username}</ErrorMessage>}
+                <SubTitle>First Name:</SubTitle>
+                <BaseInput
+                    defaultValue={user.first_name}
+                    name='first_name'
+                    placeholder='first name'
+                    ref={first_name}
+                    type='text'
+                />
+                {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
+                <SubTitle>Last Name:</SubTitle>
+                <BaseInput
+                    defaultValue={user.last_name}
+                    name='last_name'
+                    placeholder='last name'
+                    ref={last_name}
+                    type='text'
+                />
+                {/*FOR SOCIAL USER ONLY*/}
+                {/*<SubTitle>Location:</SubTitle>*/}
+                {/*<BaseInput*/}
+                {/*    type='text'*/}
+                {/*    name='location'*/}
+                {/*    placeholder='location'*/}
+                {/*    defaultValue={user.location}*/}
+                {/*    ref={location}*/}
+                {/*/>*/}
+                {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
+                {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
+                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                <BaseButton onClick={updateUser}>Update</BaseButton>
+            </EditProfileForm>
+        </ModalExternalContainer>
+    )
 }
 
 

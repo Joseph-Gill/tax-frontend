@@ -37,29 +37,34 @@ const UserProfile = () => {
         history.push(LANDING_PAGE)
     }
 
-    return <BasePageContainer>
-        <UserDetailsContainer>
-            {/*SOCIAL USE ONLY*/}
-            {/*<img style={{width: '50px', height: '50px'}} src={!user.avatar ? astronaut : user.avatar} alt="user profile"/>*/}
-            <Title>Your Profile</Title>
-            <SubTitle>Email:</SubTitle>
-            <p>{user.email}</p>
-            <SubTitle>Username:</SubTitle>
-            <p>{user.username}</p>
-            <SubTitle>First Name:</SubTitle>
-            <p>{user.first_name}</p>
-            <SubTitle>Last Name:</SubTitle>
-            <p>{user.last_name}</p>
-            {/*SOCIAL USE ONLY*/}
-            {/*<SubTitle>Location:</SubTitle>*/}
-            {/*<p>{user.location}</p>*/}
-            <SubTitle>Profile Type:</SubTitle>
-            <p> Propulsion {user.is_admin ? 'administrator' : 'student'}</p>
-            <EditButton onClick={() => history.push(EDITUSERPROFILE)}>Edit</EditButton>
-            <DeleteButton onClick={() => deleteUserHandler()}>Delete</DeleteButton>
-            {showEdit && <UpdateUser setShowEdit={setShowEdit} showEdit={showEdit}/>}
-        </UserDetailsContainer>
-    </BasePageContainer>
+    return (
+        <BasePageContainer>
+            <UserDetailsContainer>
+                {/*SOCIAL USE ONLY*/}
+                {/*<img style={{width: '50px', height: '50px'}} src={!user.avatar ? astronaut : user.avatar} alt="user profile"/>*/}
+                <Title>Your Profile</Title>
+                <SubTitle>Email:</SubTitle>
+                <p>{user.email}</p>
+                <SubTitle>Username:</SubTitle>
+                <p>{user.username}</p>
+                <SubTitle>First Name:</SubTitle>
+                <p>{user.first_name}</p>
+                <SubTitle>Last Name:</SubTitle>
+                <p>{user.last_name}</p>
+                {/*SOCIAL USE ONLY*/}
+                {/*<SubTitle>Location:</SubTitle>*/}
+                {/*<p>{user.location}</p>*/}
+                <SubTitle>Profile Type:</SubTitle>
+                <p> Propulsion {user.is_admin ? 'administrator' : 'student'}</p>
+                <EditButton onClick={() => history.push(EDITUSERPROFILE)}>Edit</EditButton>
+                <DeleteButton onClick={() => deleteUserHandler()}>Delete</DeleteButton>
+                {showEdit && <UpdateUser
+                    setShowEdit={setShowEdit}
+                    showEdit={showEdit}
+                             />}
+            </UserDetailsContainer>
+        </BasePageContainer>
+    )
 }
 
 export default UserProfile

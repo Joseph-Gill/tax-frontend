@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {BeatLoader} from 'react-spinners'
-import {LoaderContainer} from '../../style/containers'
 import styled from 'styled-components/macro'
 
 
@@ -20,13 +19,15 @@ const SpinnerContainer = styled.div`
 
 const Spinner = () => {
     const [loading] = useState(true)
-    return <SpinnerContainer>
-        <BeatLoader
-            size={30}
-            color={'#1fce90'}
-            loading={loading}
-        />
-    </SpinnerContainer>
+    return (
+        <SpinnerContainer>
+            <BeatLoader
+                color="#1fce90"
+                loading={loading}
+                size={30}
+            />
+        </SpinnerContainer>
+    )
 }
 
 export default Spinner

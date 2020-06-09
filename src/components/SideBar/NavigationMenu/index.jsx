@@ -18,20 +18,31 @@ const LogOutContainer = styled.div`
 const NavigationMenu = ({dispatch, location}) => {
 
 
-    return <>
-        <NavigationContainer>
-            <MenuItem isActive={location.pathname === HOME} to={HOME}><NavigationIcons src={home}/>Home</MenuItem>
-            <MenuItem isActive={location.pathname === USERPROFILE} to={USERPROFILE}><NavigationIcons src={profile}/>Profile</MenuItem>
-        </NavigationContainer>
-        <LogOutContainer>
-            <MenuItem to='' onClick={() => dispatch(userLogout())}>
-                <NavigationIcons src={lock}/>
-                Logout
-            </MenuItem>
-        </LogOutContainer>
-
-
-    </>
+    return (
+        <>
+            <NavigationContainer>
+                <MenuItem
+                    isActive={location.pathname === HOME}
+                    to={HOME}
+                ><NavigationIcons src={home} />Home
+                </MenuItem>
+                <MenuItem
+                    isActive={location.pathname === USERPROFILE}
+                    to={USERPROFILE}
+                ><NavigationIcons src={profile} />Profile
+                </MenuItem>
+            </NavigationContainer>
+            <LogOutContainer>
+                <MenuItem
+                    onClick={() => dispatch(userLogout())}
+                    to=''
+                >
+                    <NavigationIcons src={lock} />
+                    Logout
+                </MenuItem>
+            </LogOutContainer>
+        </>
+    )
 }
 
 

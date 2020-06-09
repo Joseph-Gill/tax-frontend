@@ -26,25 +26,31 @@ const PasswordReset = () => {
         if(data) setShowSuccess(!showSuccess)
     }
 
-    return <BasePageContainer>
-        <SignUpButton/>
-        <ResetPasswordForm>
-            {showSuccess && <SuccessMessage
-                message={'A code has been sent to your email!'}
-                redirect={LOGIN}
-            />}
-            <Title>Forgot Your Password?</Title>
-            <BaseInput
-                type='text'
-                name='email'
-                placeholder='email'
-                ref={email}
-            />
-            {error && <ErrorMessage>{error.email}</ErrorMessage>}
-            {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-            <BaseButton onClick={resetPasswordHandler}>Send Code</BaseButton>
-        </ResetPasswordForm>
-    </BasePageContainer>
+    return (
+        <BasePageContainer>
+            <SignUpButton />
+            <ResetPasswordForm>
+                {
+                    showSuccess
+                    &&
+                    <SuccessMessage
+                        message="A code has been sent to your email!"
+                        redirect={LOGIN}
+                    />
+                }
+                <Title>Forgot Your Password?</Title>
+                <BaseInput
+                    name='email'
+                    placeholder='email'
+                    ref={email}
+                    type='text'
+                />
+                {error && <ErrorMessage>{error.email}</ErrorMessage>}
+                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                <BaseButton onClick={resetPasswordHandler}>Send Code</BaseButton>
+            </ResetPasswordForm>
+        </BasePageContainer>
+    )
 }
 
 
