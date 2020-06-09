@@ -40,11 +40,13 @@ const Container404 = styled.div`
 
 const Page404 = () => {
     const history = useHistory()
-    return <Container404>
-        <h1>404</h1>
-        <h2>Where am I?</h2>
-        <BaseButton onClick={() => history.goBack()}>Take me out of here</BaseButton>
-    </Container404>
+    return (
+        <Container404>
+            <h1>404</h1>
+            <h2>Where am I?</h2>
+            <BaseButton onClick={() => history.goBack()}>Take me out of here</BaseButton>
+        </Container404>
+    )
 }
 
 export default Page404

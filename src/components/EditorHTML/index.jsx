@@ -10,9 +10,12 @@ const EditorHTML = ({data}) => {
     const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
     const editorState = EditorState.createWithContent(contentState);
 
-    return <>
-        <Editor readOnly={true} toolbarHidden editorState={editorState}/>
-    </>
+    return (
+        <Editor
+            editorState={editorState}
+            readOnly
+            toolbarHidden
+        />)
 };
 
 export default EditorHTML;

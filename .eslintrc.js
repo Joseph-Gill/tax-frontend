@@ -32,6 +32,8 @@ module.exports = {
         'react/function-component-definition': ['error', {
             'namedComponents': 'arrow-function',
             'unnamedComponents': 'function-expression'
-        }]
+        }],
+        'react/jsx-props-no-spreading': 'off',
+        'react/prop-types': 'off'
     }
 }

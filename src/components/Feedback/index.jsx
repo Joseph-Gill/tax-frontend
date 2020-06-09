@@ -136,32 +136,44 @@ const Feedback = () => {
         }
     }, [feedbackSuccess, dispatch])
 
-    return <FeedbackContainer showForm={openForm}>
-        {openForm ? <form>
-            <CloseButton onClick={() => setOpenForm(!openForm)}>X</CloseButton>
-            <Title>Feedback</Title>
-            <SubTitle>Subject</SubTitle>
-            <BaseInput
-                type='text'
-                name='title'
-                placeholder='Enter a subject for your feedback ...'
-                ref={title}
-            />
-            <SubTitle>Comments</SubTitle>
-            <BaseInput
-                type='text'
-                name='comment'
-                placeholder='Please enter your comments as detailed as possible ...'
-                ref={content}
-            />
-            <BaseButton onClick={submitFeedback}>Submit</BaseButton>
-            {showSuccessMessage && <p>Thanks! Your feedback has been sent.</p>}
-            {showError && <div>Sorry. Comments can not be empty</div>}
-        </form> : <>
-            <span>Feedback</span>
-            <img src={feedback_icon} onClick={() => setOpenForm(!openForm)} alt="feedback"/>
-        </>}
-    </FeedbackContainer>
+    return (
+        <FeedbackContainer showForm={openForm}>
+            {
+                openForm
+                    ?
+                        <form>
+                            <CloseButton onClick={() => setOpenForm(!openForm)}>X</CloseButton>
+                            <Title>Feedback</Title>
+                            <SubTitle>Subject</SubTitle>
+                            <BaseInput
+                                name='title'
+                                placeholder='Enter a subject for your feedback ...'
+                                ref={title}
+                                type='text'
+                            />
+                            <SubTitle>Comments</SubTitle>
+                            <BaseInput
+                                name='comment'
+                                placeholder='Please enter your comments as detailed as possible ...'
+                                ref={content}
+                                type='text'
+                            />
+                            <BaseButton onClick={submitFeedback}>Submit</BaseButton>
+                            {showSuccessMessage && <p>Thanks! Your feedback has been sent.</p>}
+                            {showError && <div>Sorry. Comments can not be empty</div>}
+                        </form>
+                    :
+                        <>
+                            <span>Feedback</span>
+                            <img
+                                alt="feedback"
+                                onClick={() => setOpenForm(!openForm)}
+                                src={feedback_icon}
+                            />
+                        </>
+            }
+        </FeedbackContainer>
+    )
 }
 
 export default Feedback

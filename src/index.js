@@ -16,8 +16,8 @@ if(process.env.NODE_ENV !== 'development'){
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={defaultTheme}>
-            <GlobalStyle/>
-            <Routes/>
+            <GlobalStyle />
+            <Routes />
         </ThemeProvider>
     </Provider>,
     document.getElementById('root')
