@@ -11,17 +11,23 @@ before_script:
 
 pull:
   stage: pull
+  tags:
+      - test
   allow_failure: true
   script:
     - docker pull "$CI_REGISTRY_IMAGE":latest
 
 build:
   stage: build
+  tags:
+      - test
   script:
     - docker build --tag="$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" --cache-from="$CI_REGISTRY_IMAGE":latest --pull .
 
 eslint:
     stage: eslint
+    tags:
+        - test
     script:
         - export CI_PIPELINE_ID=$CI_PIPELINE_ID
         - export CI_BUILD_REF_NAME=$CI_COMMIT_REF_NAME
@@ -29,31 +35,59 @@ eslint:
 
 push master:
   stage: push
+  tags:
+      - test
   only:
     - master
-    - tags
   script:
     - docker tag "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" "$CI_REGISTRY_IMAGE":"$CI_BUILD_REF_NAME"
     - docker push "$CI_REGISTRY_IMAGE":"$CI_BUILD_REF_NAME"
 
 push latest:
   stage: push
+  tags:
+      - test
   script:
     - docker tag "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" "$CI_REGISTRY_IMAGE":latest
     - docker push "$CI_REGISTRY_IMAGE":latest
 
 cleanup:
   stage: cleanup
+  tags:
+      - test
   when: always
   script:
     - docker rmi -f "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME"
 
+deploy test:
+    when: manual
+    stage: deploy
+    environment:
+        name: test
+    tags:
+        - test
+    variables:
+        ENVIRONMENT: "test"
+    script:
+        - echo "create volumes and network for very first deployment"
+        - docker network create templates-network || true
+        - docker volume create --name=frontend || true
+
+        - echo "update/restart"
+        - docker-compose -f docker-compose.test.yml pull
+        - docker-compose -f docker-compose.test.yml down --remove-orphans
+        - docker-compose -f docker-compose.test.yml up -d
+
 deploy:
   when: manual
   stage: deploy
+  environment:
+      name: prod
   only:
   - master
   - tags
+  variables:
+      ENVIRONMENT: "prod"
   script:
   - echo "create volumes and network for very first deployment"
   - docker network create templates-network || true
