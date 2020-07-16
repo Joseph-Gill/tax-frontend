@@ -1,9 +1,9 @@
-import {LOGIN, LOGOUT, UPDATE_USER} from './types'
+import {LOGIN, LOGOUT, REFRESH, UPDATE_USER} from './types'
 
 
 const initialState = {
     accessToken: null,
-    refreshToken: null,
+    // refreshToken: null, // refresh token is in cookies
     user: {
         id: null,
         email: null,
@@ -23,7 +23,7 @@ export const userLoginReducer = (state = initialState, action) => {
             return {
                 ...state,
                 accessToken: action.payload.access,
-                refreshToken: action.payload.refresh,
+                // refreshToken: action.payload.refresh, // refresh token is in cookies
                 user: action.payload.user,
                 authenticated: true,
             }
@@ -35,6 +35,12 @@ export const userLoginReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload,
+            }
+        }
+        case REFRESH:{
+            return {
+                ...state,
+                accessToken: action.payload.access,
             }
         }
         default:
