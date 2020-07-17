@@ -27,7 +27,7 @@ module.exports = {
     // add your custom rules here
     rules: {
         'no-var': 'error',
-        'indent': 'error',
+        'react/jsx-indent': ['error', 4],
         'react/jsx-no-literals': 'off',
         'react/jsx-no-bind': 'off',
         'react/jsx-one-expression-per-line': 'off',
