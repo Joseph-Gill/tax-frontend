@@ -22,7 +22,6 @@ export const addFeedbackAction = feedback => async (dispatch, getState) => {
         }
     }
     const response = await Axios.post('feedback/new/', feedback, config)
-    console.log(response)
     if(response.status === 201){
         dispatch(addFeedbackSuccess(true))
     }
