@@ -5,14 +5,13 @@ import SideBar from '../components/SideBar'
 import UserProfile from '../pages/UserProfile'
 import Page404 from '../components/404'
 import Home from '../pages/Home'
-import LandingPage from '../pages/LandingPage'
 import Login from '../pages/Login'
 import Registration from '../pages/Registration'
 import RegistrationValidation from '../pages/RegistrationValidation'
 import PasswordReset from '../pages/PasswordReset'
 import PasswordResetValidation from '../pages/PasswordResetValidation'
 import EditUserProfile from '../pages/UserProfile/EditUserProfile'
-import {EDITUSERPROFILE, HOME, LANDING_PAGE, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE} from './paths'
+import {EDITUSERPROFILE, HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE} from './paths'
 
 
 const Routes = () => {
@@ -20,7 +19,6 @@ const Routes = () => {
         <Router>
             <SideBar>
                 <Switch>
-                    <Route component={LandingPage} exact path={LANDING_PAGE} />
                     <Route component={Login} exact path={LOGIN} />
                     <Route component={PasswordReset} exact path={PASSWORD_RESET} />
                     <Route component={PasswordResetValidation} exact path={PASSWORD_RESET_VALIDATION} />
