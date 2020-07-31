@@ -1,4 +1,7 @@
 import axios from 'axios'
+import Cookie from 'js-cookie'
+import {getUserProfile} from '../store/user/actions/user/userAction'
+import {store} from '../store'
 
 
 let baseUrl = ''
@@ -19,5 +22,28 @@ const Axios = axios.create({
 
 Axios.defaults.baseURL = baseUrl
 Axios.defaults.headers.post['Content-Type'] = 'application/json'
+
+//response interceptor if access token expires
+Axios.interceptors.response.use(
+    // Response successful then return response
+    response => response,
+    async error => {
+        const  { config, response: { status }} = error
+        // Unsuccessful response then get new token a resubmit response
+        if(status === 401) {
+            let body = {refresh: Cookie.get('refresh')}
+            // refresh access token
+            const { data } = await Axios.post(`auth/token/refresh/`, body )
+            // update access token
+            await store.dispatch(getUserProfile(data.access))
+            // set new token to config
+            config.headers.Authorization = `Bearer ${data.access}`
+            // resend response
+            return Axios.request(config)
+        } else {
+            return Promise.reject(error)
+        }
+    }
+)
 
 export default Axios
