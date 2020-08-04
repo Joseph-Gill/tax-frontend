@@ -4,6 +4,8 @@ import Cookie from 'js-cookie'
 import {catchError} from '../../../errors/actions/errorAction'
 import {getUserProfile} from '../user/userAction'
 
+/* global gapi */
+
 
 export const login = data => {
     return {
@@ -25,11 +27,27 @@ export const userLoginAction = ({email, password}) => async (dispatch) => {
     }
 }
 
+export const userSocialLoginAction = ( id_token, backend ) => async (dispatch) => {
+    const reqdata = { convert_token: id_token, backend }
+    try {
+        const {data} = await Axios.post(`social-auth/convert-token/`, reqdata)
+        if (data){
+            dispatch(login(data))
+            Cookie.set('refresh', data.refresh, { expires: 30, sameSite: 'strict' })
+            return data
+        }
+    } catch(e) {
+        catchError(e, dispatch)
+    }
+}
+
 const logOut = () => ({
     type: LOGOUT
 })
 
 export const userLogout = () => dispatch => {
+    // If gapi.auth2 is defined, it was instantiated via Google social login and we need to sign out the AuthInstance
+    gapi.auth2 && gapi.auth2.getAuthInstance().signOut()
     Cookie.remove('refresh')
     dispatch(logOut())
 }
