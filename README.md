@@ -4,6 +4,9 @@ the django backend template. https://gitlab.propulsion-home.ch/propulsion/projec
 
 If you want to use it with another backend change the dispatched actions accordingly.
 
+On page load you will get a 404, as the "/" route is not defined. This was done intentionally, as our landing pages are mostly going to be made with Next.js.
+Add this route if it is needed for your project or go to "/login"
+
 ## Dev mode
 Run it without docker and with yarn:
 

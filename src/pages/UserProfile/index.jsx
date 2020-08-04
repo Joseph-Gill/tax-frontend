@@ -5,7 +5,7 @@ import {BasePageContainer} from '../../style/containers'
 import {DeleteButton, EditButton} from '../../style/buttons'
 import {useHistory} from 'react-router-dom'
 import {deleteUserProfile} from '../../store/user/actions/user/userAction'
-import {EDITUSERPROFILE, LANDING_PAGE} from '../../routes/paths'
+import {EDITUSERPROFILE, LOGIN} from '../../routes/paths'
 import styled from 'styled-components/macro'
 import {SubTitle, Title} from '../../style/titles'
 
@@ -34,7 +34,7 @@ const UserProfile = () => {
 
     const deleteUserHandler = () => {
         dispatch(deleteUserProfile())
-        history.push(LANDING_PAGE)
+        history.push(LOGIN)
     }
 
     return (

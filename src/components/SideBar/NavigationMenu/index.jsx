@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import styled from 'styled-components/macro'
 import {MenuItem, NavigationContainer, NavigationIcons} from './styles'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
-import {HOME, USERPROFILE} from '../../../routes/paths'
+import {HOME, USERPROFILE, LOGIN} from '../../../routes/paths'
 
 
 const LogOutContainer = styled.div`
@@ -35,7 +35,7 @@ const NavigationMenu = ({dispatch, location}) => {
             <LogOutContainer>
                 <MenuItem
                     onClick={() => dispatch(userLogout())}
-                    to=''
+                    to={LOGIN}
                 >
                     <NavigationIcons src={lock} />
                     Logout
