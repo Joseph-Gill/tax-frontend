@@ -1,11 +1,10 @@
 import React, {useState} from 'react'
 import UpdateUser from './EditUserProfile'
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {BasePageContainer} from '../../style/containers'
 import {DeleteButton, EditButton} from '../../style/buttons'
 import {useHistory} from 'react-router-dom'
-import {deleteUserProfile} from '../../store/user/actions/user/userAction'
-import {EDITUSERPROFILE, LOGIN} from '../../routes/paths'
+import {EDITUSERPROFILE} from '../../routes/paths'
 import styled from 'styled-components/macro'
 import {SubTitle, Title} from '../../style/titles'
 import DeleteModal from './DeleteModal'
@@ -55,7 +54,7 @@ const UserProfile = () => {
                 <p> Propulsion {user.is_admin ? 'administrator' : 'student'}</p>
                 <EditButton onClick={() => history.push(EDITUSERPROFILE)}>Edit</EditButton>
                 <DeleteButton onClick={() => setShowDeleteConfirmation(true)}>Delete</DeleteButton>
-                {showDeleteConfirmation && <DeleteModal setShowDeleteConfirmation={setShowDeleteConfirmation}/>}
+                {showDeleteConfirmation && <DeleteModal setShowDeleteConfirmation={setShowDeleteConfirmation} />}
                 {showEdit && <UpdateUser
                     setShowEdit={setShowEdit}
                     showEdit={showEdit}

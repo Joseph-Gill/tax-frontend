@@ -70,16 +70,18 @@ const DeleteModal = ({setShowDeleteConfirmation}) => {
         history.push('/registration')
     }
 
-    return <DeleteModalExternal>
-        <DeleteModalInternal>
-            Are you sure to delete your account?
-            <div>
-                <BaseButton onClick={() => setShowDeleteConfirmation(false)}>Cancel</BaseButton>
-                <BaseButton onClick={deleteUserHandler}>Delete</BaseButton>
-            </div>
-        </DeleteModalInternal>
+    return (
+        <DeleteModalExternal>
+            <DeleteModalInternal>
+                Are you sure to delete your account?
+                <div>
+                    <BaseButton onClick={() => setShowDeleteConfirmation(false)}>Cancel</BaseButton>
+                    <BaseButton onClick={deleteUserHandler}>Delete</BaseButton>
+                </div>
+            </DeleteModalInternal>
 
-    </DeleteModalExternal>
+        </DeleteModalExternal>
+    )
 }
 
 export default DeleteModal
