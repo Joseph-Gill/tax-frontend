@@ -2,6 +2,7 @@ import axios from 'axios'
 import Cookie from 'js-cookie'
 import {getUserProfile} from '../store/user/actions/user/userAction'
 import {store} from '../store'
+import {BACKEND_AUTH_URL} from '../routes/paths'
 
 
 let baseUrl = ''
@@ -30,7 +31,7 @@ Axios.interceptors.response.use(
     async error => {
         const  { config, response: { status }} = error
         // Unsuccessful response then get new token a resubmit response
-        if(status === 401) {
+        if(status === 401 && config.url !== BACKEND_AUTH_URL) {
             let body = {refresh: Cookie.get('refresh')}
             // refresh access token
             const { data } = await Axios.post(`auth/token/refresh/`, body )

@@ -8,6 +8,7 @@ import {deleteUserProfile} from '../../store/user/actions/user/userAction'
 import {EDITUSERPROFILE, LOGIN} from '../../routes/paths'
 import styled from 'styled-components/macro'
 import {SubTitle, Title} from '../../style/titles'
+import DeleteModal from './DeleteModal'
 
 // FOR SOCIAL USE ONLY:
 // import astronaut from '../../assets/icons/astronaut.svg'
@@ -28,14 +29,10 @@ const UserDetailsContainer = styled.div`
 
 const UserProfile = () => {
     const [showEdit, setShowEdit] = useState(false)
-    const dispatch = useDispatch()
     const history = useHistory()
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
     const user = useSelector(state => state.userLoginReducer.user)
 
-    const deleteUserHandler = () => {
-        dispatch(deleteUserProfile())
-        history.push(LOGIN)
-    }
 
     return (
         <BasePageContainer>
@@ -57,7 +54,8 @@ const UserProfile = () => {
                 <SubTitle>Profile Type:</SubTitle>
                 <p> Propulsion {user.is_admin ? 'administrator' : 'student'}</p>
                 <EditButton onClick={() => history.push(EDITUSERPROFILE)}>Edit</EditButton>
-                <DeleteButton onClick={() => deleteUserHandler()}>Delete</DeleteButton>
+                <DeleteButton onClick={() => setShowDeleteConfirmation(true)}>Delete</DeleteButton>
+                {showDeleteConfirmation && <DeleteModal setShowDeleteConfirmation={setShowDeleteConfirmation}/>}
                 {showEdit && <UpdateUser
                     setShowEdit={setShowEdit}
                     showEdit={showEdit}
