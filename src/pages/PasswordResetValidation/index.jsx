@@ -3,22 +3,26 @@ import { useDispatch, useSelector } from "react-redux"
 import { ErrorMessage } from "../../style/messages"
 import { BaseButton } from "../../style/buttons"
 import { Title } from "../../style/titles"
-import {LinkBase} from '../../style/links'
 import { useUrlQueryParams, useResetErrors } from "../../hooks"
 import { restPasswordValidate } from "../../store/user/actions/authentication/resetPasswordAction"
-import { BasePageContainer } from "../../style/containers"
-import { PasswordResetValidationForm } from "../../style/forms"
+import {BasePageContainer, LoginLogoContainer} from '../../style/containers'
+import {PasswordResetValidationForm} from '../../style/forms'
 import SignUpLink from "../../components/SignUpLink"
 import SuccessMessage from "../../components/SuccessMessage"
 import { BaseInput } from "../../style/inputs"
 import {LOGIN} from '../../routes/paths'
+import {InputLabel} from '../../style/labels'
+import PasswordLink from '../../components/PasswordLink'
+import LoginFooter from '../../components/LoginFooter'
+import {LoginLogo} from '../../style/logos'
+import {LogoPlaceholder} from '../../style'
+
 
 const PasswordResetValidation = () => {
     const email = useUrlQueryParams("email")
     const code = useUrlQueryParams("code")
     let password = useRef("")
     let password_repeat = useRef("")
-    const [showHidePassword, setShowHidePassword] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
     const error = useSelector(state => state.errorReducer.error)
     const dispatch = useDispatch()
@@ -38,8 +42,10 @@ const PasswordResetValidation = () => {
 
     return (
         <BasePageContainer>
-            <SignUpLink />
             <PasswordResetValidationForm>
+                <LoginLogoContainer>
+                    <LoginLogo alt="logo" src={LogoPlaceholder} />
+                </LoginLogoContainer>
                 {showSuccess && (
                     <SuccessMessage
                         message="Your Password has been updated successfully!"
@@ -47,30 +53,32 @@ const PasswordResetValidation = () => {
                     />
                 )}
                 <Title>Create New Password</Title>
-                <BaseInput
-                    name="password"
-                    placeholder="password"
-                    ref={password}
-                    type={showHidePassword ? "text" : "password"}
-                />
+                <div>
+                    <InputLabel>Password</InputLabel>
+                    <BaseInput
+                        name='password'
+                        placeholder='Set a new password'
+                        ref={password}
+                        type='password'
+                    />
+                </div>
                 {error && <ErrorMessage>{error.password}</ErrorMessage>}
-
-                <BaseInput
-                    name="password_repeat"
-                    placeholder="password repeat"
-                    ref={password_repeat}
-                    type={showHidePassword ? "text" : "password"}
-                />
+                <div>
+                    <InputLabel>Password</InputLabel>
+                    <BaseInput
+                        name='password_repeat'
+                        placeholder='Retype new password'
+                        ref={password_repeat}
+                        type='password'
+                    />
+                </div>
                 {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
                 {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
                 {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                <input
-                    onClick={() => setShowHidePassword(!showHidePassword)}
-                    type="checkbox"
-                />
-                {showHidePassword ? "Hide Passwords" : "Show Passwords"}
                 <BaseButton onClick={register}>Reset Password</BaseButton>
-                <LinkBase to={LOGIN}>Know your password? Login here!</LinkBase>
+                <PasswordLink />
+                <SignUpLink />
+                <LoginFooter />
             </PasswordResetValidationForm>
         </BasePageContainer>
     )
