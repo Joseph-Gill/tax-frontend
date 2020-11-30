@@ -29,6 +29,10 @@ export const BaseInput = styled.input`
     }
 `
 
+export const NameInput = styled(BaseInput)`
+    width: 145px;
+`
+
 
 
 

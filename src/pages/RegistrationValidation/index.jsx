@@ -5,13 +5,23 @@ import {ErrorMessage} from '../../style/messages'
 import {useUrlQueryParams, useResetErrors} from '../../hooks'
 import {registrationValidationAction} from '../../store/user/actions/authentication/userRegistrationAction'
 import {Title} from '../../style/titles'
-import {LinkBase} from '../../style/links'
-import {BasePageContainer} from '../../style/containers'
+import {BasePageContainer, LoginLogoContainer} from '../../style/containers'
 import {RegistrationValidationForm} from '../../style/forms'
 import SignUpLink from '../../components/SignUpLink'
 import SuccessMessage from '../../components/SuccessMessage'
-import {BaseInput} from '../../style/inputs'
+import {BaseInput, NameInput} from '../../style/inputs'
 import {LOGIN} from '../../routes/paths'
+import LoginFooter from '../../components/LoginFooter'
+import {LoginLogo} from '../../style/logos'
+import {LogoPlaceholder} from '../../style'
+import styled from 'styled-components/macro'
+import {InputLabel} from '../../style/labels'
+
+const NameInputContainer = styled.div`
+    display: flex;
+    width: 302px;
+    justify-content: space-between;
+`
 
 
 const RegistrationValidation = () => {
@@ -21,7 +31,7 @@ const RegistrationValidation = () => {
     let password_repeat = useRef('')
     let first_name = useRef('')
     let last_name = useRef('')
-    const [showPassword, setShowPassword] = useState(false)
+    let phone = useRef('')
     const [showSuccess, setShowSuccess] = useState(false)
     const error = useSelector(state => state.errorReducer.error)
     const dispatch = useDispatch()
@@ -43,52 +53,83 @@ const RegistrationValidation = () => {
 
     return (
         <BasePageContainer>
-            <SignUpLink />
             {showSuccess && <SuccessMessage
                 message="Congratulations! Your account was successfully created!"
                 redirect={LOGIN}
                             />}
             <RegistrationValidationForm>
-                <Title>Create Your Account</Title>
-                <BaseInput
-                    name='first_name'
-                    placeholder='first name'
-                    ref={first_name}
-                    type='text'
-                />
-                {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
-                <BaseInput
-                    name='last_name'
-                    placeholder='last name'
-                    ref={last_name}
-                    type='text'
-                />
-                {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
-                <BaseInput
-                    name='password'
-                    placeholder='password'
-                    ref={password}
-                    type={showPassword ? 'text' : 'password'}
-                />
+                <LoginLogoContainer>
+                    <LoginLogo alt="logo" src={LogoPlaceholder} />
+                </LoginLogoContainer>
+                <Title>Register</Title>
+                <NameInputContainer>
+                    <div>
+                        <InputLabel htmlFor='first_name'>Firstname</InputLabel>
+                        <NameInput
+                            name='first_name'
+                            placeholder='Enter firstname'
+                            ref={first_name}
+                            type='text'
+                        />
+                    </div>
+                    <div>
+                        <InputLabel htmlFor='last_name'>Lastname</InputLabel>
+                        <NameInput
+                            name='last_name'
+                            placeholder='Enter lastname'
+                            ref={last_name}
+                            type='text'
+                        />
+                    </div>
+                </NameInputContainer>
+                <NameInputContainer>
+                    {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
+                    {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
+                </NameInputContainer>
+                <div>
+                    <InputLabel>Email</InputLabel>
+                    <BaseInput
+                        disabled
+                        name='email'
+                        placeholder='Enter your email'
+                        type='text'
+                        value={email}
+                    />
+                </div>
+                <div>
+                    <InputLabel>Phone</InputLabel>
+                    <BaseInput
+                        name='phone'
+                        placeholder='+41 -'
+                        ref={phone}
+                        type='phone'
+                    />
+                </div>
+                <div>
+                    <InputLabel>Password</InputLabel>
+                    <BaseInput
+                        name='password'
+                        placeholder='Enter your password'
+                        ref={password}
+                        type='password'
+                    />
+                </div>
                 {error && <ErrorMessage>{error.password}</ErrorMessage>}
-                <BaseInput
-                    name='password_repeat'
-                    placeholder='password repeat'
-                    ref={password_repeat}
-                    type={showPassword ? 'text' : 'password'}
-                />
+                <div>
+                    <InputLabel>Password</InputLabel>
+                    <BaseInput
+                        name='password_repeat'
+                        placeholder='Retype new password'
+                        ref={password_repeat}
+                        type='password'
+                    />
+                </div>
                 {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
                 {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
                 {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-
-                <input
-                    onClick={() => setShowPassword(!showPassword)}
-                    type='checkbox'
-                />
-                {showPassword ? 'Hide Password' : 'Show Password'}
-
                 <BaseButton onClick={ValidationHandler}>Register</BaseButton>
-                <LinkBase to={LOGIN}>Registered already? Login here!</LinkBase>
+                <SignUpLink />
+                <LoginFooter />
             </RegistrationValidationForm>
         </BasePageContainer>
     )

@@ -28,5 +28,5 @@ export const EditProfileForm = styled(FormBase)`
   width: 500px;
 `
 export const RegistrationValidationForm = styled(FormBase)`
-  height: 600px;
+  height: 500px;
 `
