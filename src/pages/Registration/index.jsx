@@ -2,18 +2,20 @@ import React, {useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton} from '../../style/buttons'
 import {Title} from '../../style/titles'
-import {TermsConditions} from './TermsConditions'
-import Modal from './Modal'
 import {useResetErrors} from '../../hooks'
 import {userRegistrationAction} from '../../store/user/actions/authentication/userRegistrationAction'
 import SignUpLink from '../../components/SignUpLink'
-import {BasePageContainer} from '../../style/containers'
+import {BasePageContainer, LoginLogoContainer} from '../../style/containers'
 import {RegistrationForm} from '../../style/forms'
 import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
 import {ErrorMessage} from '../../style/messages'
 import styled from 'styled-components/macro'
 import {LOGIN} from '../../routes/paths'
+import LoginFooter from '../../components/LoginFooter'
+import {LoginLogo} from '../../style/logos'
+import {LogoPlaceholder} from '../../style'
+import {InputLabel} from '../../style/labels'
 
 
 export const TermsAndConditionsWrapper = styled.div`
@@ -39,8 +41,6 @@ export const TermsAndConditionsWrapper = styled.div`
 
 const Registration = () => {
     const [showSuccess, setShowSuccess] = useState(false)
-    const [termsAndConditions, setTermsAndConditions] = useState(false)
-    const [showHideTermsAndConditions, setShowHideTermsAndConditions] = useState(false)
     const error = useSelector(state => state.errorReducer.error)
     const dispatch = useDispatch()
     let email = useRef('')
@@ -54,49 +54,29 @@ const Registration = () => {
 
     return (
         <BasePageContainer>
-            <SignUpLink />
-            <Modal
-                clicked={() => setShowHideTermsAndConditions(false)}
-                show={showHideTermsAndConditions}
-            >
-                <TermsConditions>
-                    <button onClick={() => setShowHideTermsAndConditions(false)}>Close</button>
-                </TermsConditions>
-            </Modal>
             {showSuccess && <SuccessMessage
                 message="A verification code has been sent to you email!"
                 redirect={LOGIN}
                             />}
             <RegistrationForm>
+                <LoginLogoContainer>
+                    <LoginLogo alt="logo" src={LogoPlaceholder} />
+                </LoginLogoContainer>
                 <Title>Registration</Title>
-                <BaseInput
-                    name='email'
-                    placeholder='Enter your email ... '
-                    ref={email}
-                    type='text'
-                />
+                <div>
+                    <InputLabel>Email</InputLabel>
+                    <BaseInput
+                        name='email'
+                        placeholder='Enter your email'
+                        ref={email}
+                        type='text'
+                    />
+                </div>
                 {error && <ErrorMessage>{error.email}</ErrorMessage>}
                 {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                <TermsAndConditionsWrapper>
-                    <label onClick={() => setShowHideTermsAndConditions(true)}>Term & Conditions</label>
-                    <input
-                        onChange={() => setTermsAndConditions(!termsAndConditions)}
-                        type="checkbox"
-                        value="I read and accept the Job-Tracker terms and conditions."
-                    /> I read and accept the terms and conditions.
-                </TermsAndConditionsWrapper>
-                {
-                    termsAndConditions
-                        ?
-
-                            <BaseButton onClick={registrationHandler}>Register</BaseButton>
-                        :
-                            <BaseButton
-                                disabled
-                                onClick={registrationHandler}
-                            >Register
-                            </BaseButton>
-                }
+                <BaseButton onClick={registrationHandler}>Register</BaseButton>
+                <SignUpLink />
+                <LoginFooter />
             </RegistrationForm>
         </BasePageContainer>
     )

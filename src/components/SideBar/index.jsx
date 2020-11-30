@@ -37,7 +37,7 @@ const SideBarLoginContainer = styled.div`
     align-items: center;
     float: left;
     position: fixed;
-    z-index: 999;
+    z-index: 400;
     opacity: 0.8;
     background-image: url(${stark}), linear-gradient(#00709F, #00709F);
     background-blend-mode: multiply;

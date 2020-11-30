@@ -11,13 +11,14 @@ export const FormBase = styled.form`
     justify-content: space-evenly;
     margin-left: 600px;
     align-items: center;
-    //box-shadow: ${props => props.theme.boxShadow};
 `
 export const LoginForm = styled(FormBase)`
     height: 287px;
 
 `
-export const RegistrationForm = styled(FormBase)``
+export const RegistrationForm = styled(FormBase)`
+    height: 200px;
+`
 export const ResetPasswordForm = styled(FormBase)``
 export const PasswordResetValidationForm = styled(FormBase)``
 export const EditProfileForm = styled(FormBase)`

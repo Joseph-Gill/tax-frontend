@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react'
 import styled from 'styled-components/macro'
 import {FooterLink} from '../../style/links'
+import Modal from '../../components/LoginFooter/Modal'
+import {TermsConditions} from './TermsConditions'
 
 
 const LoginFooterContainer = styled.div`
@@ -17,12 +19,24 @@ const LoginFooterContainer = styled.div`
 `
 
 const LoginFooter = () => {
+    const [showHideTermsAndConditions, setShowHideTermsAndConditions] = useState(false)
+
     return (
-        <LoginFooterContainer>
-            <FooterLink>Terms & Conditions</FooterLink>
-            <FooterLink>Privacy Policy</FooterLink>
-            <FooterLink>© 2020 Company, Inc</FooterLink>
-        </LoginFooterContainer>
+        <>
+            <Modal
+                clicked={() => setShowHideTermsAndConditions(false)}
+                show={showHideTermsAndConditions}
+            >
+                <TermsConditions>
+                    <button onClick={() => setShowHideTermsAndConditions(false)}>Close</button>
+                </TermsConditions>
+            </Modal>
+            <LoginFooterContainer>
+                <FooterLink onClick={() => setShowHideTermsAndConditions(true)}>Terms & Conditions</FooterLink>
+                <FooterLink>Privacy Policy</FooterLink>
+                <FooterLink>© 2020 Company, Inc</FooterLink>
+            </LoginFooterContainer>
+        </>
     )
 }
 
