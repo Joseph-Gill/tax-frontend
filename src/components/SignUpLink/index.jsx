@@ -23,9 +23,7 @@ const SignUpLink = () => {
         <SignUpLinkContainer>
             {
             currentPath === REGISTRATION ||
-            currentPath === REGISTRATION_VALIDATION ||
-            currentPath === PASSWORD_RESET ||
-            currentPath === PASSWORD_RESET_VALIDATION
+            currentPath === REGISTRATION_VALIDATION
                 ?
                     <>
                         Already have an account?

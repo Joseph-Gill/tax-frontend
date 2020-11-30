@@ -16,6 +16,7 @@ import LoginFooter from '../../components/LoginFooter'
 import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
 import {InputLabel} from '../../style/labels'
+import PasswordLink from '../../components/PasswordLink'
 
 
 export const TermsAndConditionsWrapper = styled.div`
@@ -75,6 +76,7 @@ const Registration = () => {
                 {error && <ErrorMessage>{error.email}</ErrorMessage>}
                 {error && <ErrorMessage>{error.detail}</ErrorMessage>}
                 <BaseButton onClick={registrationHandler}>Register</BaseButton>
+                <PasswordLink />
                 <SignUpLink />
                 <LoginFooter />
             </RegistrationForm>

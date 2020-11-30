@@ -5,12 +5,17 @@ import {Title} from '../../style/titles'
 import {ErrorMessage} from '../../style/messages'
 import {useResetErrors} from '../../hooks'
 import {resetPassword} from '../../store/user/actions/authentication/resetPasswordAction'
-import {BasePageContainer} from '../../style/containers'
+import {BasePageContainer, LoginLogoContainer} from '../../style/containers'
 import {ResetPasswordForm} from '../../style/forms'
 import SignUpLink from '../../components/SignUpLink'
 import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
 import {LOGIN} from '../../routes/paths'
+import LoginFooter from '../../components/LoginFooter'
+import {LoginLogo} from '../../style/logos'
+import {LogoPlaceholder} from '../../style'
+import PasswordLink from '../../components/PasswordLink'
+import {InputLabel} from '../../style/labels'
 
 
 const PasswordReset = () => {
@@ -28,8 +33,10 @@ const PasswordReset = () => {
 
     return (
         <BasePageContainer>
-            <SignUpLink />
             <ResetPasswordForm>
+                <LoginLogoContainer>
+                    <LoginLogo alt="logo" src={LogoPlaceholder} />
+                </LoginLogoContainer>
                 {
                     showSuccess
                     &&
@@ -39,15 +46,21 @@ const PasswordReset = () => {
                     />
                 }
                 <Title>Forgot Your Password?</Title>
-                <BaseInput
-                    name='email'
-                    placeholder='email'
-                    ref={email}
-                    type='text'
-                />
+                <div>
+                    <InputLabel>Email</InputLabel>
+                    <BaseInput
+                        name='email'
+                        placeholder='Enter your email'
+                        ref={email}
+                        type='text'
+                    />
+                </div>
                 {error && <ErrorMessage>{error.email}</ErrorMessage>}
                 {error && <ErrorMessage>{error.detail}</ErrorMessage>}
                 <BaseButton onClick={resetPasswordHandler}>Send Code</BaseButton>
+                <PasswordLink />
+                <SignUpLink />
+                <LoginFooter />
             </ResetPasswordForm>
         </BasePageContainer>
     )
