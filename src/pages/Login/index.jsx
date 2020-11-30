@@ -15,6 +15,9 @@ import {HOME, PASSWORD_RESET} from '../../routes/paths'
 import GoogleLogin from './Google'
 import LinkedinLogin from './Linkedin'
 import PasswordLink from '../../components/PasswordLink'
+import {LoginLogo} from '../../style/logos'
+import {LogoPlaceholder} from '../../style'
+import styled from 'styled-components/macro'
 
 
 const Login = () => {
@@ -40,6 +43,7 @@ const Login = () => {
     return (
         <BasePageContainer>
             <LoginForm>
+                <LoginLogo alt="logo" src={LogoPlaceholder} />
                 <Title>Login</Title>
                 <BaseInput
                     name='email'
