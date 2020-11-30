@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 
 export const BaseButton = styled.button`
-    width: 125px;
+    width: 301px;
     height: 40px;
     background: ${props => props.disabled ? 'lightgrey' : props.theme.accentColor};
     color: white;
@@ -25,7 +25,7 @@ export const CloseButton = styled.button`
     align-self: flex-end;
     font-size: 15px;
     cursor: pointer;
-    
+
     :hover {
       font-size: 16px;
       font-weight: bold;

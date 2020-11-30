@@ -11,6 +11,18 @@ export const BasePageContainer = styled.div`
     align-items: center;
 `
 
+export const LinkContainer = styled.div`
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    //position: absolute;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    margin-right: 10px;
+`
+
 export const ModalExternalContainer = styled.div`
   position: absolute;
   top: 0;

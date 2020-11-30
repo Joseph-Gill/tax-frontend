@@ -8,7 +8,7 @@ import {Title} from '../../style/titles'
 import {LinkBase} from '../../style/links'
 import {BasePageContainer} from '../../style/containers'
 import {RegistrationValidationForm} from '../../style/forms'
-import SignUpButton from '../../components/SignUpButton'
+import SignUpLink from '../../components/SignUpLink'
 import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
 import {LOGIN} from '../../routes/paths'
@@ -43,7 +43,7 @@ const RegistrationValidation = () => {
 
     return (
         <BasePageContainer>
-            <SignUpButton />
+            <SignUpLink />
             {showSuccess && <SuccessMessage
                 message="Congratulations! Your account was successfully created!"
                 redirect={LOGIN}

@@ -1,0 +1,51 @@
+/*Sets the color of ALL rectangular Nodes*/
+/*[node-id] rect {*/
+/*    fill: #D3D8DD;*/
+/*}*/
+
+/*Sets the color of a specified rectangular Node*/
+/*[node-id='13'] rect {*/
+/*    fill: #FF413B;*/
+/*}*/
+
+/*[node-id='17'] rect {*/
+/*    fill: #FF413B;*/
+/*}*/
+
+/*Sets the color of all links in the chart*/
+[link-id] path {
+    stroke: #FFE594;
+}
+
+/*Sets the color of a specified link in the chart*/
+[link-id='[13][17]'] path {
+    stroke: #ff003b;
+    stroke-dasharray: 6;
+}
+
+[link-id='[1][2]'] path {
+    stroke: #ff003b;
+    stroke-dasharray: 6;
+}
+
+/*Sets the color to all nodes with a specified Tag*/
+.node.Test rect {
+    fill: blueviolet;
+}
+
+.svg-btn rect {
+    fill: #565a60;
+}
+
+
+.svg-btn:hover rect {
+    fill: #366292;
+}
+
+.node.myTemplate rect {
+    fill: #FF413B;
+}
+
+.test {
+    margin-left: 50px;
+}

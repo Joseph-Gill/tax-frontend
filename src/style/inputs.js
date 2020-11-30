@@ -2,29 +2,30 @@ import styled from 'styled-components/macro'
 
 
 export const BaseInput = styled.input`
-    background: none;
-    border: #d1d1d1 solid 2px;
-    color: #212121;
-    border-radius: 5px;
-    padding: 4px 8px;
-    height: 36px;
-    width: 75%;
-    font-size: 15px;
-    
+    background: #FAFAFA;
+    border: 1px solid #D3D8DD;
+    color: #949A9F;
+    border-radius: 4px;
+    padding: 12px 11px 10px 11px;
+    height: 42px;
+    width: 302px;
+    font-size: 14px;
+    font-family: ${props => props.theme.nunitoFontFamily};
+
     :hover {
-      border-bottom: ${props => props.theme.accentColor} solid 2px;
+      border: ${props => props.theme.accentColor} solid 1px;
       cursor: pointer;
       transition: 0.5s;
     }
     :focus {
-      border: ${props => props.theme.accentColor} solid 2px;
+      border: ${props => props.theme.accentColor} solid 1px;
       width: 76%;
       outline: none;
       transition: 1s;
     }
     ::placeholder {
-      color: #b4b4b4;
-      font-size: 15px;
+      color: #949A9F;
+      font-size: 14px;
     }
 `
 

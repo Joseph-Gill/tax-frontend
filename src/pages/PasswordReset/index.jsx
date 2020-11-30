@@ -7,7 +7,7 @@ import {useResetErrors} from '../../hooks'
 import {resetPassword} from '../../store/user/actions/authentication/resetPasswordAction'
 import {BasePageContainer} from '../../style/containers'
 import {ResetPasswordForm} from '../../style/forms'
-import SignUpButton from '../../components/SignUpButton'
+import SignUpLink from '../../components/SignUpLink'
 import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
 import {LOGIN} from '../../routes/paths'
@@ -28,7 +28,7 @@ const PasswordReset = () => {
 
     return (
         <BasePageContainer>
-            <SignUpButton />
+            <SignUpLink />
             <ResetPasswordForm>
                 {
                     showSuccess

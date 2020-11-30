@@ -8,12 +8,14 @@ export const FormBase = styled.form`
     border-radius: ${props => props.theme.borderRadius};
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    margin-left: 200px;
+    justify-content: space-evenly;
+    margin-left: 600px;
     align-items: center;
-    box-shadow: ${props => props.theme.boxShadow};
+    //box-shadow: ${props => props.theme.boxShadow};
 `
-export const LoginForm = styled(FormBase)``
+export const LoginForm = styled(FormBase)`
+    height: 287px;
+`
 export const RegistrationForm = styled(FormBase)``
 export const ResetPasswordForm = styled(FormBase)``
 export const PasswordResetValidationForm = styled(FormBase)``

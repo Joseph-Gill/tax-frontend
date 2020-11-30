@@ -6,7 +6,7 @@ import {TermsConditions} from './TermsConditions'
 import Modal from './Modal'
 import {useResetErrors} from '../../hooks'
 import {userRegistrationAction} from '../../store/user/actions/authentication/userRegistrationAction'
-import SignUpButton from '../../components/SignUpButton'
+import SignUpLink from '../../components/SignUpLink'
 import {BasePageContainer} from '../../style/containers'
 import {RegistrationForm} from '../../style/forms'
 import SuccessMessage from '../../components/SuccessMessage'
@@ -54,7 +54,7 @@ const Registration = () => {
 
     return (
         <BasePageContainer>
-            <SignUpButton />
+            <SignUpLink />
             <Modal
                 clicked={() => setShowHideTermsAndConditions(false)}
                 show={showHideTermsAndConditions}
