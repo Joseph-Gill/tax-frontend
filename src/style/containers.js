@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import {FooterLink} from './links'
 
 
 export const BasePageContainer = styled.div`
@@ -16,11 +17,18 @@ export const LinkContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    //position: absolute;
     font-size: 14px;
     font-weight: 600;
     font-family: ${props => props.theme.nunitoFontFamily};
     margin-right: 10px;
+`
+
+export const LoginLogoContainer = styled.div`
+  position: absolute;
+  top: 23px;
+  width: 50%;
+  display: flex;
+  justify-content: start;
 `
 
 export const ModalExternalContainer = styled.div`

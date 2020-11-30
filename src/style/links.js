@@ -15,3 +15,13 @@ export const LinkBase = styled(Link)`
       color: dodgerblue;
     }
 `
+
+export const FooterLink = styled(Link)`
+    cursor: pointer;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    color: ${props => props.theme.footerFontColor};
+    text-decoration: none;
+`
