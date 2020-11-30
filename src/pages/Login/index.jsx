@@ -15,6 +15,7 @@ import PasswordLink from '../../components/PasswordLink'
 import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
 import LoginFooter from '../../components/LoginFooter'
+import {InputLabel} from '../../style/labels'
 
 
 const Login = () => {
@@ -43,18 +44,24 @@ const Login = () => {
                     <LoginLogo alt="logo" src={LogoPlaceholder} />
                 </LoginLogoContainer>
                 <Title>Login</Title>
-                <BaseInput
-                    name='email'
-                    placeholder='Enter your email'
-                    ref={email}
-                    type='text'
-                />
-                <BaseInput
-                    name='password'
-                    placeholder='Enter your password'
-                    ref={password}
-                    type='password'
-                />
+                <div>
+                    <InputLabel>Email</InputLabel>
+                    <BaseInput
+                        name='email'
+                        placeholder='Enter your email'
+                        ref={email}
+                        type='text'
+                    />
+                </div>
+                <div>
+                    <InputLabel>Password</InputLabel>
+                    <BaseInput
+                        name='password'
+                        placeholder='Enter your password'
+                        ref={password}
+                        type='password'
+                    />
+                </div>
                 {error && <ErrorMessage>{error.detail}</ErrorMessage>}
                 <BaseButton onClick={login}>Log In</BaseButton>
                 <PasswordLink />

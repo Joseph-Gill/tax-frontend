@@ -6,7 +6,6 @@ import {PASSWORD_RESET, PASSWORD_RESET_VALIDATION} from '../../routes/paths'
 import {LinkContainer} from '../../style/containers'
 
 const PasswordLinkContainer = styled(LinkContainer)`
-  //bottom: 216px;
 `
 
 const PasswordLink = () => {

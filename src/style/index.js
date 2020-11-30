@@ -27,7 +27,8 @@ export const defaultTheme = {
     boxShadow: '-5px 6px 15px -5px rgba(0,0,0,0.49)',
     borderRadius: '4px',
     nunitoFontFamily: 'Nunito Sans, sans-serif',
-    footerFontColor: '#999EA3'
+    footerFontColor: '#999EA3',
+    inputBackgroundColor: '#FAFAFA',
 }
 
 export const LogoPlaceholder = 'https://via.placeholder.com/150x50'

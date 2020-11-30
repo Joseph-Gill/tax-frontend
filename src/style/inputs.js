@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 
 export const BaseInput = styled.input`
-    background: #FAFAFA;
+    background: ${props => props.theme.inputBackgroundColor};
     border: 1px solid #D3D8DD;
     color: #949A9F;
     border-radius: 4px;
@@ -19,7 +19,7 @@ export const BaseInput = styled.input`
     }
     :focus {
       border: ${props => props.theme.accentColor} solid 1px;
-      width: 76%;
+      //width: 76%;
       outline: none;
       transition: 1s;
     }

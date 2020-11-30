@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro'
-import {FooterLink} from './links'
 
 
 export const BasePageContainer = styled.div`
