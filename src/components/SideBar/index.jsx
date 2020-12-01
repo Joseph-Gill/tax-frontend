@@ -15,11 +15,11 @@ const SideBarContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    //justify-content: flex-start;
     position: fixed;
     z-index: 400;
     margin: 0;
     box-shadow: 0px 0px 20px #D9D9D9;
+    justify-content: space-between;
 `
 
 const SideBarLoginContainer = styled.div`

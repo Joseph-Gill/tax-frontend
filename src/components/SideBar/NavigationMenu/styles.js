@@ -4,8 +4,7 @@ import {Link} from 'react-router-dom'
 
 export const NavigationContainer = styled.div`
   width: 100%;
-  height: 100%;
-  min-height: 280px;
+  padding-top: 167px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,12 +19,17 @@ export const LogOutContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 14px;
+  position: absolute;
+  bottom: 0px;
 `
 
 export const SelectedGroupContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 17px;
+  margin-bottom: 60px;
+  width: 100%;
+  align-items: center;
 
   div {
     padding-top: 17px;
@@ -77,7 +81,7 @@ export const MenuItem = styled(Link)`
 };
 
     :hover {
-      //background: rgba(216,15,25,0.13);
+      background: ${props => props.theme.navigationBarActiveLinkBackgroundColor};
       transition: 0.25s;
       //border-right: solid 3px rgba(255,69,23,0.82);
     }
