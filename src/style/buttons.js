@@ -13,7 +13,7 @@ export const BaseButton = styled.button`
        background: ${props => props.disabled ? '' : props.theme.accentColorLighter};
     }
     :active {
-      transform: translateY(4px);
+      transform: translateY(1px);
     }
 `
 

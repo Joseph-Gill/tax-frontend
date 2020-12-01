@@ -13,7 +13,8 @@ export const BaseInput = styled.input`
     font-family: ${props => props.theme.nunitoFontFamily};
 
     :hover {
-      border: ${props => props.theme.accentColor} solid 1px;
+      //border: ${props => props.theme.accentColor} solid 1px;
+      filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
       cursor: pointer;
       transition: 0.5s;
     }

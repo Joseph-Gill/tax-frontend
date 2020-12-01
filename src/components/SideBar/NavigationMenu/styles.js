@@ -18,7 +18,6 @@ export const LogOutContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px;
   position: absolute;
   bottom: 0px;
 `
@@ -64,7 +63,7 @@ export const MenuItem = styled(Link)`
     border-right: solid 3px rgba(0,0,0,0);
     display: flex;
     align-items: center;
-    padding: 0 35px;
+    padding: 0 20px;
     border-radius: 0 1px 1px 0;
     cursor:pointer;
 
