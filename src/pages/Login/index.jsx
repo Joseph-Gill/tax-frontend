@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {BaseButton} from '../../style/buttons'
 import {useHistory} from 'react-router-dom'

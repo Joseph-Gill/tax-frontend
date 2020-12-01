@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const defaultTheme = {
-    // this is used for default button color
+    // this is used for default button color, active navigation link
     accentColor: '#00709F',
     buttonAccentColorGreen: '#00CA4E',
     accentColorLight: '#fc5f3a',
@@ -32,6 +32,12 @@ export const defaultTheme = {
     inputBorderColor: '#D3D8DD',
     disabledInputBorderColor: '#999EA3',
     disabledInputBackgroundColor: '#D3D8DD',
+    authenticatedSideboardBackgroundColor: '#FFFFFF',
+    navigationBarInactiveColor: '#66788A',
+    navigationBarTitleColor: '#8C8C8C',
+    navigationBarActiveLinkBackgroundColor: '#F5FCFF',
 }
 
 export const LogoPlaceholder = 'https://via.placeholder.com/150x50'
+
+export const BiggerLogoPlaceholder = 'https://via.placeholder.com/200x71'

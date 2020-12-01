@@ -3,28 +3,23 @@ import {useSelector} from 'react-redux'
 import NavigationMenu from './NavigationMenu'
 import Logo from './Logo'
 import {useHistory, useLocation} from 'react-router-dom'
-import PropulsionFooter from '../PropulsionFooter'
 import styled from 'styled-components/macro'
-import Feedback from '../Feedback'
 import stark from '../../assets/logos/stark-login-sidebar.png'
 
 
 const SideBarContainer = styled.div`
     height: 100vh;
-    background: #004972;
-    width: 200px;
-    display: ${props => props.hidden ? 'none' : 'flex'};
+    width: 270px;
+    background-color: ${props => props.theme.authenticatedSideboardBackgroundColor};
+    //display: ${props => props.hidden ? 'none' : 'flex'};
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    //justify-content: flex-start;
     position: fixed;
-    z-index: 999;
+    z-index: 400;
     margin: 0;
-    border-radius: 0 4px 4px 0;
-    animation: expand 1s;
-    @keyframes expand {
-      from {width: 100px;} to {width: 200px;}
-    }
+    box-shadow: 0px 0px 20px #D9D9D9;
 `
 
 const SideBarLoginContainer = styled.div`
@@ -89,8 +84,6 @@ const SideBar = ({children}) => {
                         <SideBarContainer hidden={currentPath === '/'}>
                             <Logo />
                             <NavigationMenu />
-                            <Feedback />
-                            <PropulsionFooter />
                         </SideBarContainer>
                     :
                         <SideBarLoginContainer hidden={currentPath === '/'}>

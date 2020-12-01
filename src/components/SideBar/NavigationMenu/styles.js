@@ -9,53 +9,87 @@ export const NavigationContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+`
+
+export const LogOutContainer = styled.div`
+  width: 238px;
+  height: 60px;
+  border-top: 1px solid ${props => props.theme.inputBorderColor};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px;
+`
+
+export const SelectedGroupContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 17px;
+
+  div {
+    padding-top: 17px;
+    display: flex;
+    align-items: center;
+
+    span {
+      padding-left: 43px;
+      font-family: ${props => props.theme.nunitoFontFamily};
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16.37px;
+      color: ${props => props.theme.accentColor};
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
 `
 
 
 export const MenuItem = styled(Link)`
+    font-size: 14px;
+    font-weight: 600;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    line-height: 19px;
     text-decoration: none;
-    color: white;
-    font-size: 16px;
+    color: ${props => props.theme.navigationBarInactiveColor};
     width: 100%;
     height: 60px;
-    font-weight: lighter;
     border-right: solid 3px rgba(0,0,0,0);
     display: flex;
     align-items: center;
-    padding: 0 30px;
+    padding: 0 35px;
     border-radius: 0 1px 1px 0;
     cursor:pointer;
-    animation: opacityMenu 2s;
-    @keyframes opacityMenu {
-        from {opacity: 0;} to {opacity: 1;}
-    }
-    
+
     ${props => {
     if(props.isActive){
         return `
+                border-right: solid 3px ${props.theme.accentColor}
                 color: ${props.theme.accentColor};
-                border-right: solid 3px ${props.theme.accentColor};
                 font-weight: bold;
-                background: rgba(231,14,24,0.11);
+                background: ${props.theme.navigationBarActiveLinkBackgroundColor};
             `
     }
 }
 };
-    
+
     :hover {
-      background: rgba(216,15,25,0.13);
+      //background: rgba(216,15,25,0.13);
       transition: 0.25s;
-      border-right: solid 3px rgba(255,69,23,0.82);
+      //border-right: solid 3px rgba(255,69,23,0.82);
     }
     :focus {
        border-right: solid 3px ${props => props.theme.accentColor};
        color: ${props => props.theme.accentColor};
        font-weight: bold;
-       background: rgba(231,14,24,0.11);
+       background: ${props => props.theme.navigationBarActiveLinkBackgroundColor};
     }
 `
 
 export const NavigationIcons = styled.img`
-  margin-right: 20px;
-  max-width: 24px;
+  margin-right: 16px;
+  min-width: 24px;
 `

@@ -25,3 +25,9 @@ export const FooterLink = styled(Link)`
     color: ${props => props.theme.footerFontColor};
     text-decoration: none;
 `
+
+export const LogOutLink = styled(Link)`
+  font-family: ${props => props.theme.nunitoFontFamily};
+  text-decoration: none;
+  color: ${props => props.theme.navigationBarInactiveColor};
+`
