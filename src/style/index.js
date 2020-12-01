@@ -29,6 +29,9 @@ export const defaultTheme = {
     nunitoFontFamily: 'Nunito Sans, sans-serif',
     footerFontColor: '#999EA3',
     inputBackgroundColor: '#FAFAFA',
+    inputBorderColor: '#D3D8DD',
+    disabledInputBorderColor: '#999EA3',
+    disabledInputBackgroundColor: '#D3D8DD',
 }
 
 export const LogoPlaceholder = 'https://via.placeholder.com/150x50'

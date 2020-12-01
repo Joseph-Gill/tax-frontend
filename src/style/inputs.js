@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 
 export const BaseInput = styled.input`
     background: ${props => props.theme.inputBackgroundColor};
-    border: 1px solid #D3D8DD;
+    border: 1px solid ${props => props.theme.inputBorderColor};
     color: #949A9F;
     border-radius: 4px;
     padding: 12px 11px 10px 11px;
@@ -26,6 +26,10 @@ export const BaseInput = styled.input`
     ::placeholder {
       color: #949A9F;
       font-size: 14px;
+    }
+    :disabled {
+      background-color: ${props => props.theme.disabledInputBackgroundColor};
+      border: 1px solid ${props => props.theme.disabledInputBorderColor};
     }
 `
 

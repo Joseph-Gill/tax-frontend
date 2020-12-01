@@ -15,7 +15,10 @@ import LoginFooter from '../../components/LoginFooter'
 import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
 import styled from 'styled-components/macro'
-import {InputLabel} from '../../style/labels'
+import {EmailInputLabel, ActiveInputLabel} from '../../style/labels'
+
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 const NameInputContainer = styled.div`
     display: flex;
@@ -31,8 +34,8 @@ const RegistrationValidation = () => {
     let password_repeat = useRef('')
     let first_name = useRef('')
     let last_name = useRef('')
-    let phone = useRef('')
     const [showSuccess, setShowSuccess] = useState(false)
+    const [phoneNumber, setPhoneNumber] = useState('')
     const error = useSelector(state => state.errorReducer.error)
     const dispatch = useDispatch()
     useResetErrors()
@@ -64,7 +67,7 @@ const RegistrationValidation = () => {
                 <Title>Register</Title>
                 <NameInputContainer>
                     <div>
-                        <InputLabel htmlFor='first_name'>Firstname</InputLabel>
+                        <ActiveInputLabel htmlFor='first_name'>Firstname</ActiveInputLabel>
                         <NameInput
                             name='first_name'
                             placeholder='Enter firstname'
@@ -73,7 +76,7 @@ const RegistrationValidation = () => {
                         />
                     </div>
                     <div>
-                        <InputLabel htmlFor='last_name'>Lastname</InputLabel>
+                        <ActiveInputLabel htmlFor='last_name'>Lastname</ActiveInputLabel>
                         <NameInput
                             name='last_name'
                             placeholder='Enter lastname'
@@ -87,7 +90,7 @@ const RegistrationValidation = () => {
                     {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
                 </NameInputContainer>
                 <div>
-                    <InputLabel>Email</InputLabel>
+                    <EmailInputLabel>Email</EmailInputLabel>
                     <BaseInput
                         disabled
                         name='email'
@@ -97,16 +100,22 @@ const RegistrationValidation = () => {
                     />
                 </div>
                 <div>
-                    <InputLabel>Phone</InputLabel>
-                    <BaseInput
-                        name='phone'
-                        placeholder='+41 -'
-                        ref={phone}
-                        type='phone'
+                    <ActiveInputLabel>Phone</ActiveInputLabel>
+                    <PhoneInput
+                        country='ch'
+                        inputClass='phoneInput'
+                        inputStyle={{
+                            background: '#FAFAFA',
+                            height: '42px',
+                            fontFamily: 'Nunito Sans, sans-serif',
+                            fontSize: '14px'
+                        }}
+                        onChange={phone => setPhoneNumber(phone)}
+                        value={phoneNumber}
                     />
                 </div>
                 <div>
-                    <InputLabel>Password</InputLabel>
+                    <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput
                         name='password'
                         placeholder='Enter your password'
@@ -116,7 +125,7 @@ const RegistrationValidation = () => {
                 </div>
                 {error && <ErrorMessage>{error.password}</ErrorMessage>}
                 <div>
-                    <InputLabel>Password</InputLabel>
+                    <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput
                         name='password_repeat'
                         placeholder='Retype new password'
