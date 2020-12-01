@@ -11,7 +11,7 @@ import SignUpLink from "../../components/SignUpLink"
 import SuccessMessage from "../../components/SuccessMessage"
 import { BaseInput } from "../../style/inputs"
 import {LOGIN} from '../../routes/paths'
-import {InputLabel} from '../../style/labels'
+import {ActiveInputLabel} from '../../style/labels'
 import PasswordLink from '../../components/PasswordLink'
 import LoginFooter from '../../components/LoginFooter'
 import {LoginLogo} from '../../style/logos'
@@ -54,7 +54,7 @@ const PasswordResetValidation = () => {
                 )}
                 <Title>Create New Password</Title>
                 <div>
-                    <InputLabel>Password</InputLabel>
+                    <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput
                         name='password'
                         placeholder='Set a new password'
@@ -64,7 +64,7 @@ const PasswordResetValidation = () => {
                 </div>
                 {error && <ErrorMessage>{error.password}</ErrorMessage>}
                 <div>
-                    <InputLabel>Password</InputLabel>
+                    <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput
                         name='password_repeat'
                         placeholder='Retype new password'

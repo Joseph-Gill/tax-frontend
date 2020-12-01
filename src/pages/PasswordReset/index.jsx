@@ -15,7 +15,7 @@ import LoginFooter from '../../components/LoginFooter'
 import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
 import PasswordLink from '../../components/PasswordLink'
-import {InputLabel} from '../../style/labels'
+import {ActiveInputLabel} from '../../style/labels'
 
 
 const PasswordReset = () => {
@@ -47,7 +47,7 @@ const PasswordReset = () => {
                 }
                 <Title>Forgot Your Password?</Title>
                 <div>
-                    <InputLabel>Email</InputLabel>
+                    <ActiveInputLabel>Email</ActiveInputLabel>
                     <BaseInput
                         name='email'
                         placeholder='Enter your email'

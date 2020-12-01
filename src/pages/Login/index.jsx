@@ -15,7 +15,7 @@ import PasswordLink from '../../components/PasswordLink'
 import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
 import LoginFooter from '../../components/LoginFooter'
-import {InputLabel} from '../../style/labels'
+import {ActiveInputLabel} from '../../style/labels'
 
 
 const Login = () => {
@@ -45,7 +45,7 @@ const Login = () => {
                 </LoginLogoContainer>
                 <Title>Login</Title>
                 <div>
-                    <InputLabel>Email</InputLabel>
+                    <ActiveInputLabel>Email</ActiveInputLabel>
                     <BaseInput
                         name='email'
                         placeholder='Enter your email'
@@ -54,7 +54,7 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <InputLabel>Password</InputLabel>
+                    <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput
                         name='password'
                         placeholder='Enter your password'

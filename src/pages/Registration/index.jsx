@@ -15,7 +15,7 @@ import {LOGIN} from '../../routes/paths'
 import LoginFooter from '../../components/LoginFooter'
 import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
-import {InputLabel} from '../../style/labels'
+import {ActiveInputLabel} from '../../style/labels'
 import PasswordLink from '../../components/PasswordLink'
 
 
@@ -65,7 +65,7 @@ const Registration = () => {
                 </LoginLogoContainer>
                 <Title>Registration</Title>
                 <div>
-                    <InputLabel>Email</InputLabel>
+                    <ActiveInputLabel>Email</ActiveInputLabel>
                     <BaseInput
                         name='email'
                         placeholder='Enter your email'
