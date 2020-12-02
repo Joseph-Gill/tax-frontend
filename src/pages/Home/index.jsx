@@ -1,11 +1,15 @@
 import React from 'react'
-import {BasePageContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, BasePageContainer} from '../../style/containers'
+import BreadCrumb from '../../components/BreadCrumb'
 
 
 const Home = () => {
     return (
         <BasePageContainer>
-            Home
+            <AuthenticatedPageContainer>
+                <BreadCrumb breadCrumbArray={[{'HOME': '/home'}]} />
+                <p>Home</p>
+            </AuthenticatedPageContainer>
         </BasePageContainer>
     )
 

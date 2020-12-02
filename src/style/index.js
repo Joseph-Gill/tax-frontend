@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const defaultTheme = {
-    // this is used for default button color, active navigation link
+    // this is used for default button color, active navigation link, breadcrumb color
     accentColor: '#00709F',
     buttonAccentColorGreen: '#00CA4E',
     accentColorLight: '#fc5f3a',

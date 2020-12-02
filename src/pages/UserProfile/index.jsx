@@ -3,8 +3,6 @@ import UpdateUser from './EditUserProfile'
 import {useSelector} from 'react-redux'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {useHistory} from 'react-router-dom'
-import {EDITUSERPROFILE} from '../../routes/paths'
-import styled from 'styled-components/macro'
 import {AuthenticatedPageSectionTitle, AuthenticatedPageTitle} from '../../style/titles'
 import DeleteModal from './DeleteModal'
 import {ActiveInputLabel} from '../../style/labels'
@@ -14,12 +12,12 @@ import PhoneInput from "react-phone-input-2"
 import {AuthenticatedText} from '../../style/text'
 import {GreenLargeButton} from '../../style/buttons'
 import {DeleteAccountText, SaveChangesButtonContainer, UserDetailsContainer, UserProfileFooterContainer, UserProfileInputContainer, UserProfileInputContainerLower} from './styles'
+import BreadCrumb from '../../components/BreadCrumb'
 
 // FOR SOCIAL USE ONLY:
 // import astronaut from '../../assets/icons/astronaut.svg'
 
 const UserProfile = () => {
-    const [showEdit, setShowEdit] = useState(false)
     const history = useHistory()
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
     const user = useSelector(state => state.userLoginReducer.user)
@@ -31,6 +29,7 @@ const UserProfile = () => {
 
     return (
         <AuthenticatedPageContainer>
+            <BreadCrumb breadCrumbArray={[{'USER ACCOUNT': '/userprofile'}]} />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Profile</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
