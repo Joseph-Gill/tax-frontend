@@ -27,3 +27,15 @@ export const MenuItemTitle = styled.h2`
   line-height: 19px;
   color: ${props => props.theme.navigationBarInactiveColor};
 `
+
+export const AuthenticatedPageTitle = styled.h1`
+  font-size: 26px;
+  line-height: 29px;
+  letter-spacing: 0.01em;
+  color: ${props => props.theme.authenticatedPageTitleColor}
+`
+
+export const AuthenticatedPageSectionTitle = styled(NavbarTitle)`
+  width: 800px;
+  margin-top: 30px;
+`

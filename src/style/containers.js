@@ -11,6 +11,16 @@ export const BasePageContainer = styled.div`
     align-items: center;
 `
 
+export const AuthenticatedPageContainer = styled(BasePageContainer)`
+    background-color: ${props => props.theme.authenticatedPageContainerBackgroundColor};
+    padding-left: 200px;
+`
+
+export const AuthenticatedPageTitleContainer = styled.div`
+    width: 860px;
+    border-bottom: 1px solid ${props => props.theme.authenticatedPageBorderColor};
+`
+
 export const LinkContainer = styled.div`
     color: black;
     display: flex;

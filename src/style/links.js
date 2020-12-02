@@ -30,4 +30,5 @@ export const LogOutLink = styled(Link)`
   font-family: ${props => props.theme.nunitoFontFamily};
   text-decoration: none;
   color: ${props => props.theme.navigationBarInactiveColor};
+  padding: 17px;
 `

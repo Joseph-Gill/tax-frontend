@@ -1,66 +1,121 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import UpdateUser from './EditUserProfile'
 import {useSelector} from 'react-redux'
-import {BasePageContainer} from '../../style/containers'
-import {DeleteButton, EditButton} from '../../style/buttons'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {useHistory} from 'react-router-dom'
 import {EDITUSERPROFILE} from '../../routes/paths'
 import styled from 'styled-components/macro'
-import {SubTitle, Title} from '../../style/titles'
+import {AuthenticatedPageSectionTitle, AuthenticatedPageTitle} from '../../style/titles'
 import DeleteModal from './DeleteModal'
+import {ActiveInputLabel} from '../../style/labels'
+import {BaseInput} from '../../style/inputs'
+import {ErrorMessage} from '../../style/messages'
+import PhoneInput from "react-phone-input-2"
+import {AuthenticatedText} from '../../style/text'
+import {GreenLargeButton} from '../../style/buttons'
+import {DeleteAccountText, SaveChangesButtonContainer, UserDetailsContainer, UserProfileFooterContainer, UserProfileInputContainer, UserProfileInputContainerLower} from './styles'
 
 // FOR SOCIAL USE ONLY:
 // import astronaut from '../../assets/icons/astronaut.svg'
-
-const UserDetailsContainer = styled.div`
-    box-shadow: ${props => props.theme.boxShadow};
-    border-radius: ${props => props.theme.borderRadius};
-    width: 500px;
-    height: 500px;
-    display: flex;
-    margin-left: 200px;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    padding: 2%;
-    background: white;
-`
 
 const UserProfile = () => {
     const [showEdit, setShowEdit] = useState(false)
     const history = useHistory()
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
     const user = useSelector(state => state.userLoginReducer.user)
+    const error = useSelector(state => state.errorReducer.error)
+    const [profileInfo, setProfileInfo] = useState({...user})
+    let password = useRef('')
+    let password_repeat = useRef('')
 
 
     return (
-        <BasePageContainer>
+        <AuthenticatedPageContainer>
+            <AuthenticatedPageTitleContainer>
+                <AuthenticatedPageTitle>Profile</AuthenticatedPageTitle>
+            </AuthenticatedPageTitleContainer>
             <UserDetailsContainer>
-                {/*SOCIAL USE ONLY*/}
-                {/*<img style={{width: '50px', height: '50px'}} src={!user.avatar ? astronaut : user.avatar} alt="user profile"/>*/}
-                <Title>Your Profile</Title>
-                <SubTitle>Email:</SubTitle>
-                <p>{user.email}</p>
-                <SubTitle>Username:</SubTitle>
-                <p>{user.username}</p>
-                <SubTitle>First Name:</SubTitle>
-                <p>{user.first_name}</p>
-                <SubTitle>Last Name:</SubTitle>
-                <p>{user.last_name}</p>
-                {/*SOCIAL USE ONLY*/}
-                {/*<SubTitle>Location:</SubTitle>*/}
-                {/*<p>{user.location}</p>*/}
-                <SubTitle>Profile Type:</SubTitle>
-                <p> Propulsion {user.is_admin ? 'administrator' : 'student'}</p>
-                <EditButton onClick={() => history.push(EDITUSERPROFILE)}>Edit</EditButton>
-                <DeleteButton onClick={() => setShowDeleteConfirmation(true)}>Delete</DeleteButton>
+                <AuthenticatedPageSectionTitle>Account Information</AuthenticatedPageSectionTitle>
+                <UserProfileInputContainer>
+                    <ActiveInputLabel>Firstname</ActiveInputLabel>
+                    <div>
+                        <BaseInput
+                            name='first_name'
+                            onChange={e => setProfileInfo({...profileInfo, first_name: e.target.value})}
+                            placeholder='Enter your firstname'
+                            type='text'
+                            value={profileInfo.first_name}
+                        />
+                    </div>
+                    <div>
+                        <ActiveInputLabel>Lastname</ActiveInputLabel>
+                        <BaseInput
+                            name='last_name'
+                            onChange={e => setProfileInfo({...profileInfo, last_name: e.target.value})}
+                            placeholder='Enter your lastname'
+                            type='text'
+                            value={profileInfo.last_name}
+                        />
+                    </div>
+                    <div>
+                        <ActiveInputLabel>Email</ActiveInputLabel>
+                        <BaseInput
+                            name='email'
+                            onChange={e => setProfileInfo({...profileInfo, email: e.target.value})}
+                            placeholder='Enter your email'
+                            type='text'
+                            value={profileInfo.email}
+                        />
+                    </div>
+                    <div>
+                        <ActiveInputLabel>Phone</ActiveInputLabel>
+                        <PhoneInput
+                            country='ch'
+                            inputClass='phoneInput'
+                            inputStyle={{
+                                background: '#FAFAFA',
+                                height: '42px',
+                                fontFamily: 'Nunito Sans, sans-serif',
+                                fontSize: '14px'
+                            }}
+                            onChange={phone => setProfileInfo({...profileInfo, phone: phone})}
+                            value={profileInfo.phone}
+                        />
+                    </div>
+                </UserProfileInputContainer>
+                <AuthenticatedPageSectionTitle>Change Password</AuthenticatedPageSectionTitle>
+                <UserProfileInputContainerLower>
+                    <div>
+                        <ActiveInputLabel>Password</ActiveInputLabel>
+                        <BaseInput
+                            name='password'
+                            placeholder='Enter your password'
+                            ref={password}
+                            type='password'
+                        />
+                    </div>
+                    {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                    <div>
+                        <ActiveInputLabel>Confirm Password</ActiveInputLabel>
+                        <BaseInput
+                            name='password_repeat'
+                            placeholder='Retype your new password'
+                            ref={password_repeat}
+                            type='password'
+                        />
+                    </div>
+                </UserProfileInputContainerLower>
+                <AuthenticatedPageSectionTitle>Delete Account</AuthenticatedPageSectionTitle>
+                <UserProfileFooterContainer>
+                    <AuthenticatedText>By deleting your account you will lose all your data</AuthenticatedText>
+                    <DeleteAccountText onClick={() => setShowDeleteConfirmation(true)}>Delete account</DeleteAccountText>
+                </UserProfileFooterContainer>
                 {showDeleteConfirmation && <DeleteModal setShowDeleteConfirmation={setShowDeleteConfirmation} />}
-                {showEdit && <UpdateUser
-                    setShowEdit={setShowEdit}
-                    showEdit={showEdit}
-                             />}
             </UserDetailsContainer>
-        </BasePageContainer>
+            <SaveChangesButtonContainer>
+                <GreenLargeButton>Save Changes</GreenLargeButton>
+            </SaveChangesButtonContainer>
+        </AuthenticatedPageContainer>
     )
 }
 

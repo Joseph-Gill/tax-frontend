@@ -23,8 +23,12 @@ export const defaultTheme = {
     accentColorDarker: '#ac361a',
     colorSuccess: '#10a711',
     colorFail: '#d60801',
+    colorDelete: '#FF605C',
+    colorButtonGreen: '#00993B',
+    colorButtonGreenHover: '#006627',
     white: 'rgba(255,255,255,0.1)',
-    boxShadow: '-5px 6px 15px -5px rgba(0,0,0,0.49)',
+    boxShadow: 'box-shadow: 0px 0px 20px #EFEFEF',
+    boxShadowButton: 'box-shadow: 0px 4px 10px rgba(0, 112, 159, 0.24)',
     borderRadius: '4px',
     nunitoFontFamily: 'Nunito Sans, sans-serif',
     footerFontColor: '#999EA3',
@@ -36,6 +40,9 @@ export const defaultTheme = {
     navigationBarInactiveColor: '#66788A',
     navigationBarTitleColor: '#8C8C8C',
     navigationBarActiveLinkBackgroundColor: '#F5FCFF',
+    authenticatedPageContainerBackgroundColor: '#F6F7F8',
+    authenticatedPageTitleColor: '#3A3B3F',
+    authenticatedPageBorderColor: '#D3D8DD',
 }
 
 export const LogoPlaceholder = 'https://via.placeholder.com/150x50'

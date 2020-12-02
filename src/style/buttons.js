@@ -5,6 +5,7 @@ export const BaseButton = styled.button`
     width: 301px;
     height: 40px;
     background: ${props => props.disabled ? 'lightgrey' : props.theme.accentColor};
+    box-shadow: ${props => props.theme.boxShadowButton};
     color: white;
     border: none;
     border-radius: ${props => props.theme.borderRadius};
@@ -15,6 +16,18 @@ export const BaseButton = styled.button`
     :active {
       transform: translateY(1px);
     }
+`
+
+export const AuthenticatedButtonLarge = styled(BaseButton)`
+    width: 148px;
+    height: 32px;
+`
+
+export const GreenLargeButton = styled(AuthenticatedButtonLarge)`
+    :hover {
+      background: ${props => props.theme.colorButtonGreenHover}
+    }
+    background: ${props => props.theme.colorButtonGreen}
 `
 
 export const CloseButton = styled.button`
