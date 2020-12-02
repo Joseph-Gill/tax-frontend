@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-const TermsAndConditions = styled.div`
+const Policy = styled.div`
     color: black;
     overflow-y: scroll;
     height: 70vh;
@@ -11,11 +11,11 @@ const TermsAndConditions = styled.div`
     };
 `;
 
-export const TermsConditions = ( { children } ) => {
+export const PrivacyPolicy = ( { children } ) => {
   return (
       // eslint-disable-next-line react/no-adjacent-inline-elements
-      <TermsAndConditions>
-          This is the Stark Terms and Conditions<br /><br />
+      <Policy>
+          This is the Stark Privacy Policy<br /><br />
 
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium sapien vel elit consequat, quis luctus mi
           lobortis. Duis malesuada consectetur libero eu cursus. Ut ac rhoncus mi. Class aptent taciti sociosqu ad litora torquent
@@ -59,6 +59,6 @@ export const TermsConditions = ( { children } ) => {
           <div>
               { children }
           </div>
-      </TermsAndConditions>
+      </Policy>
   );
 };

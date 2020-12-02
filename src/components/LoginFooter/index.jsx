@@ -3,6 +3,8 @@ import styled from 'styled-components/macro'
 import {FooterLink} from '../../style/links'
 import Modal from '../../components/LoginFooter/Modal'
 import {TermsConditions} from './TermsConditions'
+import {PrivacyPolicy} from './PrivacyPolicy'
+import {LOGIN} from '../../routes/paths'
 
 
 const LoginFooterContainer = styled.div`
@@ -20,6 +22,7 @@ const LoginFooterContainer = styled.div`
 
 const LoginFooter = () => {
     const [showHideTermsAndConditions, setShowHideTermsAndConditions] = useState(false)
+    const [showHidePrivacyPolicy, setShowHidePrivacyPolicy] = useState(false)
 
     return (
         <>
@@ -31,10 +34,18 @@ const LoginFooter = () => {
                     <button onClick={() => setShowHideTermsAndConditions(false)}>Close</button>
                 </TermsConditions>
             </Modal>
+            <Modal
+                clicked={() => setShowHidePrivacyPolicy(false)}
+                show={showHidePrivacyPolicy}
+            >
+                <PrivacyPolicy>
+                    <button onClick={() => setShowHidePrivacyPolicy(false)}>Close</button>
+                </PrivacyPolicy>
+            </Modal>
             <LoginFooterContainer>
                 <FooterLink onClick={() => setShowHideTermsAndConditions(true)}>Terms & Conditions</FooterLink>
-                <FooterLink>Privacy Policy</FooterLink>
-                <FooterLink>© 2020 Company, Inc</FooterLink>
+                <FooterLink onClick={() => setShowHidePrivacyPolicy(true)}>Privacy Policy</FooterLink>
+                <FooterLink to={LOGIN}>© 2020 Company, Inc</FooterLink>
             </LoginFooterContainer>
         </>
     )
