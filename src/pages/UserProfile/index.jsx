@@ -24,10 +24,10 @@ const UserProfile = () => {
     const error = useSelector(state => state.errorReducer.error)
     const profile = useSelector(state => state.profileReducer.profile)
     const [profileInfo, setProfileInfo] = useState({
-        phone: profile.phone_number,
-        email: profile.user.email,
-        first_name: profile.user.first_name,
-        last_name: profile.user.last_name
+        // phone: profile.phone_number,
+        // email: profile.user.email,
+        // first_name: profile.user.first_name,
+        // last_name: profile.user.last_name
     })
     let password = useRef('')
     let password_repeat = useRef('')
@@ -90,7 +90,6 @@ const UserProfile = () => {
                             type='text'
                             value={profileInfo.email}
                         />
-                        {error && <ErrorMessage>{error.email}</ErrorMessage>}
                     </div>
                     <div>
                         <ActiveInputLabel>Phone</ActiveInputLabel>
@@ -107,6 +106,7 @@ const UserProfile = () => {
                             value={profileInfo.phone}
                         />
                     </div>
+                    {error && <ErrorMessage>{error.email}</ErrorMessage>}
                 </UserProfileInputContainer>
                 <AuthenticatedPageSectionTitle>Change Password</AuthenticatedPageSectionTitle>
                 <UserProfileInputContainerLower>
@@ -119,7 +119,6 @@ const UserProfile = () => {
                             type='password'
                         />
                     </div>
-                    {error && <ErrorMessage>{error.password}</ErrorMessage>}
                     <div>
                         <ActiveInputLabel>Confirm Password</ActiveInputLabel>
                         <BaseInput
@@ -128,6 +127,8 @@ const UserProfile = () => {
                             ref={password_repeat}
                             type='password'
                         />
+                    </div>
+                    <div>
                         {error && <ErrorMessage>{error.detail}</ErrorMessage>}
                         {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
                         {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}

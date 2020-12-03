@@ -18,17 +18,18 @@ export const UserProfileInputContainer = styled.div`
     border-bottom: 1px solid ${props => props.theme.grayFour};
     display: grid;
     grid-template-columns: 332px 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 60px 1fr 1fr;
     margin-top: 20px;
 `
 
-export const UserProfileInputContainerLower = styled(UserProfileInputContainer)`
+export const UserProfileInputContainerLower = styled.div`
     height: 145px;
-    display: flex;
-
-    div:nth-child(1) {
-      margin-right: 30px;
-    }
+    width: 800px;
+    border-bottom: 1px solid ${props => props.theme.grayFour};
+    display: grid;
+    grid-template-columns: 332px 1fr;
+    grid-template-rows: 42px 1fr;
+    margin-top: 20px;
 `
 
 export const UserProfileFooterContainer = styled.div`
