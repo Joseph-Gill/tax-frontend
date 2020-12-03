@@ -20,7 +20,7 @@ const SuccessContainer = styled.div`
     justify-content: space-around;
     padding: 60px 40px;
     text-align: center;
-    z-index: 1;
+    z-index: 999;
 `
 
 const SuccessMessage = ({message, redirect}) => {
