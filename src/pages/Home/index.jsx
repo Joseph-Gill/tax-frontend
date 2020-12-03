@@ -1,9 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {AuthenticatedPageContainer, BasePageContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
+import {getProfileAction} from '../../store/profile/actions'
+import {useDispatch, useSelector} from 'react-redux'
 
 
 const Home = () => {
+    const dispatch = useDispatch()
+    const token = useSelector(state => state.userLoginReducer.accessToken)
+    const profile = useSelector(state => state.profileReducer)
+
+    useEffect(() => {
+        dispatch(getProfileAction(token))
+    }, [])
+
     return (
         <BasePageContainer>
             <AuthenticatedPageContainer>
@@ -16,3 +26,4 @@ const Home = () => {
 }
 
 export default Home
+

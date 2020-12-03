@@ -4,12 +4,14 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import {userLoginReducer} from './user/userLoginReducer'
 import {errorReducer} from './errors/errorReducer'
 import {feedbackReducer} from './feedback/feedbackReducer'
+import {profileReducer} from './profile/profileReducer'
 
 // Reducers
 export const reducers = combineReducers({
     userLoginReducer,
     errorReducer,
-    feedbackReducer
+    feedbackReducer,
+    profileReducer
 })
 
 // Thunk
