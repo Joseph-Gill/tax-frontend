@@ -4,14 +4,14 @@ import styled from 'styled-components/macro'
 export const BaseButton = styled.button`
     width: 301px;
     height: 40px;
-    background: ${props => props.disabled ? 'lightgrey' : props.theme.accentColor};
+    background: ${props => props.disabled ? 'lightgrey' : props.theme.colorButtonBlue};
     box-shadow: ${props => props.theme.boxShadowButton};
     color: white;
     border: none;
     border-radius: ${props => props.theme.borderRadius};
     cursor: ${props => props.disabled ? '' : 'pointer'};
     :hover {
-       background: ${props => props.disabled ? '' : props.theme.accentColorLighter};
+       background: ${props => props.disabled ? '' : props.theme.colorButtonBlueHover};
     }
     :active {
       transform: translateY(1px);

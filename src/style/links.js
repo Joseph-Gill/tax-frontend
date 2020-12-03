@@ -22,13 +22,13 @@ export const FooterLink = styled(Link)`
     font-weight: 600;
     font-size: 10px;
     line-height: 14px;
-    color: ${props => props.theme.footerFontColor};
+    color: ${props => props.theme.footerLinkColor};
     text-decoration: none;
 `
 
 export const LogOutLink = styled(Link)`
   font-family: ${props => props.theme.nunitoFontFamily};
   text-decoration: none;
-  color: ${props => props.theme.navigationBarInactiveColor};
+  color: ${props => props.theme.logoutLinkColor};
   padding: 17px;
 `
