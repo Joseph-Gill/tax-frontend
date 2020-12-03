@@ -15,9 +15,9 @@ export const InputLabel = styled.label`
 `
 
 export const ActiveInputLabel = styled(InputLabel)`
-  background: linear-gradient(#FFFFFF, ${props => props.theme.inputBackgroundColor});
+  background: linear-gradient(#FFFFFF, ${props => props.theme.graySix});
 `
 
 export const EmailInputLabel = styled(InputLabel)`
-  background: linear-gradient(#FFFFFF, #FFFFFF, #d4d4d4, ${props => props.theme.disabledInputBackgroundColor});
+  background: linear-gradient(#FFFFFF, #FFFFFF, #d4d4d4, ${props => props.theme.grayFour});
 `

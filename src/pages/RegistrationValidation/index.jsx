@@ -16,9 +16,9 @@ import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
 import styled from 'styled-components/macro'
 import {EmailInputLabel, ActiveInputLabel} from '../../style/labels'
-
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+
 
 const NameInputContainer = styled.div`
     display: flex;

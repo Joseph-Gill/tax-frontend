@@ -18,7 +18,7 @@ const BreadCrumbItem = styled(Link)`
     line-height: 16px;
     font-weight: 900;
     letter-spacing: 0.01em;
-    color: ${props => props.theme.accentColor};
+    color: ${props => props.theme.primaryBlue};
     padding-top: 1px;
     margin-right: 4px;
 `
@@ -30,10 +30,10 @@ const BreadCrumbImage = styled.img`
 const BreadCrumb = ({breadCrumbArray}) => {
 
     const breadCrumbPath = (array) => {
-        return array.map((item, index) => (
+        return array.map(item => (
             <>
                 <BreadCrumbImage alt='breadcrumb' src={rightChevron} />
-                <BreadCrumbItem key={index} to={Object.values(item)[0]}>{Object.keys(item)[0]}</BreadCrumbItem>
+                <BreadCrumbItem key={Object.values(item)[0]} to={Object.values(item)[0]}>{Object.keys(item)[0]}</BreadCrumbItem>
             </>
             )
         )}

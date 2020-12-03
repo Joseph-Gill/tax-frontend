@@ -10,15 +10,14 @@ import stark from '../../assets/logos/stark-login-sidebar.png'
 const SideBarContainer = styled.div`
     height: 100vh;
     width: 270px;
-    background-color: ${props => props.theme.authenticatedSideboardBackgroundColor};
-    //display: ${props => props.hidden ? 'none' : 'flex'};
+    background-color: ${props => props.theme.white};
     display: flex;
     flex-direction: column;
     align-items: center;
     position: fixed;
     z-index: 400;
     margin: 0;
-    box-shadow: 0px 0px 20px #D9D9D9;
+    box-shadow: 0 0 20px #D9D9D9;
     justify-content: space-between;
     padding: 14px;
 `
@@ -28,20 +27,18 @@ const SideBarLoginContainer = styled.div`
     height: 100%;
     width: 49.33%;
     max-width: 592px;
-    //display: ${props => props.hidden ? 'none' : 'flex'};
     flex-direction: column;
     align-items: center;
     float: left;
     position: fixed;
     z-index: 400;
     opacity: 0.8;
-    background-image: url(${stark}), linear-gradient(#00709F, #00709F);
+    background-image: url(${stark}), linear-gradient(${props => props.theme.primaryBlue}, ${props => props.theme.primaryBlue});
     background-blend-mode: multiply;
     background-size: cover;
     background-repeat: no-repeat;
-    box-shadow: 4px 0px 10px rgba(0, 112, 159, 0.24);
-    //left: 0px;
-    //top: 0px;
+    box-shadow: 4px 0 10px rgba(0, 112, 159, 0.24);
+
     h1 {
         margin-top: 385px;
         margin-bottom: 15px;
@@ -53,6 +50,7 @@ const SideBarLoginContainer = styled.div`
         text-align: left;
         color: #FFFFFF;
     }
+
     p {
         font-family: ${props => props.theme.nunitoFontFamily};
         font-size: 14px;

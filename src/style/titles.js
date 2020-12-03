@@ -6,7 +6,7 @@ export const Title = styled.h1`
 `
 
 export const SubTitle = styled.h2`
-    color: ${props => props.theme.accentColor};
+    color: ${props => props.theme.primaryBlue};
 `
 export const NavbarTitle = styled.h2`
   font-family: ${props => props.theme.nunitoFontFamily};
@@ -16,7 +16,7 @@ export const NavbarTitle = styled.h2`
   line-height: 14px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: ${props => props.theme.navigationBarTitleColor};
+  color: ${props => props.theme.graySeven};
   width: 195px;
 `
 
@@ -25,14 +25,14 @@ export const MenuItemTitle = styled.h2`
   font-weight: 600;
   font-family: ${props => props.theme.nunitoFontFamily};
   line-height: 19px;
-  color: ${props => props.theme.navigationBarInactiveColor};
+  color: ${props => props.theme.primaryShadeOne};
 `
 
 export const AuthenticatedPageTitle = styled.h1`
   font-size: 26px;
   line-height: 29px;
   letter-spacing: 0.01em;
-  color: ${props => props.theme.authenticatedPageTitleColor}
+  color: ${props => props.theme.grayOne}
 `
 
 export const AuthenticatedPageSectionTitle = styled(NavbarTitle)`

@@ -12,13 +12,13 @@ export const BasePageContainer = styled.div`
 `
 
 export const AuthenticatedPageContainer = styled(BasePageContainer)`
-    background-color: ${props => props.theme.authenticatedPageContainerBackgroundColor};
+    background-color: ${props => props.theme.grayFive};
     padding-left: 200px;
 `
 
 export const AuthenticatedPageTitleContainer = styled.div`
     width: 860px;
-    border-bottom: 1px solid ${props => props.theme.authenticatedPageBorderColor};
+    border-bottom: 1px solid ${props => props.theme.grayFour};
 `
 
 export const LinkContainer = styled.div`

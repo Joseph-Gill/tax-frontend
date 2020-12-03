@@ -10,34 +10,12 @@ import {RegistrationForm} from '../../style/forms'
 import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
 import {ErrorMessage} from '../../style/messages'
-import styled from 'styled-components/macro'
 import {LOGIN} from '../../routes/paths'
 import LoginFooter from '../../components/LoginFooter'
 import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
 import {ActiveInputLabel} from '../../style/labels'
 import PasswordLink from '../../components/PasswordLink'
-
-
-export const TermsAndConditionsWrapper = styled.div`
-  margin-top: 10px;
-  width: 75%;
-  color: rgba(0,0,0,0.82);
-  font-size: 12px;
-  height: 25%;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 10px;
-  flex-direction: column;
-    label {
-    color: ${props => props.theme.accentColor};
-    cursor: pointer;
-    :hover {
-        text-decoration: underline;
-        color: #c47010;
-    }
-`
 
 
 const Registration = () => {

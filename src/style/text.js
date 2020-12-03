@@ -8,5 +8,5 @@ export const AuthenticatedText = styled.p`
   letter-spacing: 0.01em;
   font-style: normal;
   font-weight: normal;
-  color: ${props => props.theme.authenticatedPageTitleColor};
+  color: ${props => props.theme.grayOne};
 `

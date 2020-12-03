@@ -11,7 +11,7 @@ export const LogOutIcon = styled.img`
 `
 
 export const SelectedGroupIcon = styled.img`
-  background-color: ${props => props.theme.navigationBarInactiveColor};
+  background-color: ${props => props.theme.primaryShadeOne};
   padding: 8px;
   border-radius: 50%;
   margin-right: 9px;

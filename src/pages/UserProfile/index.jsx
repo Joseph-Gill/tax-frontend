@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react'
-import UpdateUser from './EditUserProfile'
 import {useSelector} from 'react-redux'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {useHistory} from 'react-router-dom'
@@ -14,8 +13,6 @@ import {GreenLargeButton} from '../../style/buttons'
 import {DeleteAccountText, SaveChangesButtonContainer, UserDetailsContainer, UserProfileFooterContainer, UserProfileInputContainer, UserProfileInputContainerLower} from './styles'
 import BreadCrumb from '../../components/BreadCrumb'
 
-// FOR SOCIAL USE ONLY:
-// import astronaut from '../../assets/icons/astronaut.svg'
 
 const UserProfile = () => {
     const history = useHistory()

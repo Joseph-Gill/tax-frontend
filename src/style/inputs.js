@@ -2,9 +2,9 @@ import styled from 'styled-components/macro'
 
 
 export const BaseInput = styled.input`
-    background: ${props => props.theme.inputBackgroundColor};
-    border: 1px solid ${props => props.theme.inputBorderColor};
-    color: ${props => props.theme.inputColor};
+    background: ${props => props.theme.graySix};
+    border: 1px solid ${props => props.theme.grayFour};
+    color: ${props => props.theme.grayOne};
     border-radius: 4px;
     padding: 12px 11px 10px 11px;
     height: 42px;
@@ -19,17 +19,17 @@ export const BaseInput = styled.input`
       transition: 0.5s;
     }
     :focus {
-      border: ${props => props.theme.inputFocusBorderColor} solid 1px;
+      border: ${props => props.theme.primaryBlue} solid 1px;
       outline: none;
       transition: 1s;
     }
     ::placeholder {
-      color: ${props => props.theme.inputPlaceholderColor};
+      color: ${props => props.theme.grayTwo};
       font-size: 14px;
     }
     :disabled {
-      background-color: ${props => props.theme.disabledInputBackgroundColor};
-      border: 1px solid ${props => props.theme.disabledInputBorderColor};
+      background-color: ${props => props.theme.grayFour};
+      border: 1px solid ${props => props.theme.grayThree};
     }
 `
 

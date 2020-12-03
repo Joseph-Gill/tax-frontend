@@ -10,8 +10,7 @@ import Registration from '../pages/Registration'
 import RegistrationValidation from '../pages/RegistrationValidation'
 import PasswordReset from '../pages/PasswordReset'
 import PasswordResetValidation from '../pages/PasswordResetValidation'
-import EditUserProfile from '../pages/UserProfile/EditUserProfile'
-import {EDITUSERPROFILE, HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, CHART} from './paths'
+import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, CHART} from './paths'
 import Chart from '../pages/Chart'
 
 
@@ -27,7 +26,6 @@ const Routes = () => {
                     <Route component={RegistrationValidation} exact path={REGISTRATION_VALIDATION} />
                     <Route component={WithAuth(Home)} exact path={HOME} />
                     <Route component={WithAuth(UserProfile)} exact path={USERPROFILE} />
-                    <Route component={WithAuth(EditUserProfile)} exact path={EDITUSERPROFILE} />
                     <Route component={Chart} exact path={CHART} />
                     <Route component={Page404} />
                 </Switch>

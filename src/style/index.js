@@ -1,7 +1,7 @@
 import {createGlobalStyle} from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
-    //@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
     * {
     margin: 0;
     padding: 0;
@@ -13,53 +13,46 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const defaultTheme = {
-    // this is used for default button color, active navigation link, breadcrumb color
-    accentColor: '#00709F',
+    // Template Colors ( will eventually be removed )
     buttonAccentColorGreen: '#00CA4E',
     accentColorLight: '#fc5f3a',
-    // accentColorLighter: '#004866',
-    white: 'rgba(255,255,255,0.1)',
+    accentColorLighter: '#004866',
     accentColorDark: '#d74422',
     accentColorDarker: '#ac361a',
     colorSuccess: '#10a711',
     colorFail: '#d60801',
     colorDelete: '#FF605C',
-
-
-    // Buttons
-    colorButtonGreen: '#00993B',
-    colorButtonGreenHover: '#006627',
-    colorButtonBlue: '#00709F',
-    colorButtonBlueHover: '#004866',
-    // Fonts that are not default Spartan
-    nunitoFontFamily: 'Nunito Sans, sans-serif',
-    // Font Colors
-    footerFontColor: '#999EA3',
-    // Input Colors
-    inputColor: '#3A3B3F',
-    inputPlaceholderColor: '#949A9F',
-    inputBackgroundColor: '#FAFAFA',
-    inputBorderColor: '#D3D8DD',
-    inputFocusBorderColor: '#00709F',
-    disabledInputBorderColor: '#999EA3',
-    disabledInputBackgroundColor: '#D3D8DD',
-    // NavBar Colors
-    navigationBarInactiveColor: '#66788A',
-    navigationBarTitleColor: '#8C8C8C',
-    navigationBarActiveLinkBackgroundColor: '#F5FCFF',
-    // Authenticated Page Colors
-    authenticatedSideboardBackgroundColor: '#FFFFFF',
-    authenticatedPageContainerBackgroundColor: '#F6F7F8',
-    authenticatedPageTitleColor: '#3A3B3F',
-    authenticatedPageBorderColor: '#D3D8DD',
-    // Links
-    footerLinkColor: '#999EA3',
-    logoutLinkColor: '#66788A',
+    // Figma Colors
+    grayOne: '#3A3B3F',
+    grayTwo: '#949A9F',
+    grayThree: '#999EA3',
+    grayFour: '#D3D8DD',
+    grayFive: '#F6F7F8',
+    graySix: '#FAFAFA',
+    primaryBlue: '#00709F',
+    primaryDark: '#323C47',
+    primaryShadeOne: '#66788A',
+    primaryShadeTwo: '#F5FCFF',
+    greenDark: '#006627',
+    green: '#00993B',
+    greenBright: '#00CA4E',
+    greenLight: '#CCFFE0',
+    redDark: '#990400',
+    red: '#FF605C',
+    redLight: '#FF9C99',
+    yellowDark: '#996300',
+    yellow: '#FFBD44',
+    yellowLight: '#FFDB99',
+    white: '#FFFFFF',
+    // Not on Figma Styleguide, but used in design by designer
+    graySeven: '#8C8C8C',
+    blueHover: '#004866',
     // Box Shadows
     boxShadow: 'box-shadow: 0px 0px 20px #EFEFEF',
-    boxShadowButton: 'box-shadow: 0px 4px 10px rgba(0, 112, 159, 0.24)',
     // Border Radius
     borderRadius: '4px',
+    // Fonts that are not default Spartan
+    nunitoFontFamily: 'Nunito Sans, sans-serif',
 }
 
 export const LogoPlaceholder = 'https://via.placeholder.com/150x50'

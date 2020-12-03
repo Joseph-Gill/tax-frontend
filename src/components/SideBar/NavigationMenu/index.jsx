@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import styled from 'styled-components/macro'
-import {LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
+import {GroupMenuContainer, LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
 import {HOME, USERPROFILE, LOGIN, GROUPS, ORGCHART, TEAMMEMBERS, PROJECTS} from '../../../routes/paths'
 import account from '../../../assets/icons/account_circle_24px.png'
@@ -16,20 +15,6 @@ import projects from '../../../assets/icons/stark_projects.png'
 import {MenuItemTitle, NavbarTitle} from '../../../style/titles'
 import {LogOutLink} from '../../../style/links'
 import {SelectedGroupIcon} from '../../../style/images'
-
-
-const GroupMenuContainer = styled.div`
-  width: 100%;
-  height: 220px;
-  border-top: 1px solid ${props => props.theme.inputBorderColor};
-  border-bottom: 1px solid ${props => props.theme.inputBorderColor};
-  margin-bottom: 52px;
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
 
 
 const NavigationMenu = ({dispatch, location}) => {
