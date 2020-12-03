@@ -24,10 +24,10 @@ const UserProfile = () => {
     const error = useSelector(state => state.errorReducer.error)
     const profile = useSelector(state => state.profileReducer.profile)
     const [profileInfo, setProfileInfo] = useState({
-        // phone: profile.phone_number,
-        // email: profile.user.email,
-        // first_name: profile.user.first_name,
-        // last_name: profile.user.last_name
+        phone: profile.phone_number,
+        email: profile.user.email,
+        first_name: profile.user.first_name,
+        last_name: profile.user.last_name
     })
     let password = useRef('')
     let password_repeat = useRef('')

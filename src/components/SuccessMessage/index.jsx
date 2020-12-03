@@ -12,7 +12,7 @@ const SuccessContainer = styled.div`
     bottom: 0;
     height: 100vh;
     background: rgba(0,0,0,0.69);
-    color: ${props => props.theme.colorSuccess};
+    color: ${props => props.theme.green};
     font-size: 25px;
     display: flex;
     align-items: center;
