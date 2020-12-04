@@ -24,11 +24,49 @@ export const AuthenticatedButtonLarge = styled(BaseButton)`
 `
 
 export const GreenLargeButton = styled(AuthenticatedButtonLarge)`
+    background: ${props => props.theme.green};
     :hover {
-      background: ${props => props.theme.greenDark}
+      background: ${props => props.theme.greenDark};
     }
-    background: ${props => props.theme.green}
 `
+export const AuthenticatedButtonLargest = styled(BaseButton)`
+    width: 186px;
+    height: 32px;
+`
+
+export const RedLargestButton = styled(AuthenticatedButtonLargest)`
+    background: ${props => props.theme.red};
+    :hover {
+      background: ${props => props.theme.redDark};
+    }
+`
+
+
+
+export const AuthenticatedButtonCancel = styled.button`
+    width: 92px;
+    height: 32px;
+    background: ${props => props.theme.white};
+    color: ${props => props.theme.grayTwo};
+    border: 1px solid ${props => props.theme.grayTwo};
+    border-radius: ${props => props.theme.borderRadius};
+    cursor: ${props => props.disabled ? '' : 'pointer'};
+    :hover {
+       background: ${props => props.disabled ? '' : props.theme.grayFive};
+    }
+    :active {
+      transform: translateY(1px);
+    }
+`
+
+
+
+
+
+
+
+
+
 
 export const CloseButton = styled.button`
     width: 30px;

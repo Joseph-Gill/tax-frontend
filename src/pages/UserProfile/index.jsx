@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {AuthenticatedPageSectionTitle, AuthenticatedPageTitle} from '../../style/titles'
-import DeleteModal from './DeleteModal'
+import AddDeleteModal from '../../components/AddDeleteModal'
 import {ActiveInputLabel} from '../../style/labels'
 import {BaseInput} from '../../style/inputs'
 import {ErrorMessage} from '../../style/messages'
@@ -19,15 +19,15 @@ import {HOME} from '../../routes/paths'
 
 const UserProfile = () => {
     const dispatch = useDispatch()
-    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
+    const [showConfirmation, setShowConfirmation] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
     const error = useSelector(state => state.errorReducer.error)
     const profile = useSelector(state => state.profileReducer.profile)
     const [profileInfo, setProfileInfo] = useState({
-        phone: profile.phone_number,
-        email: profile.user.email,
-        first_name: profile.user.first_name,
-        last_name: profile.user.last_name
+        // phone: profile.phone_number,
+        // email: profile.user.email,
+        // first_name: profile.user.first_name,
+        // last_name: profile.user.last_name
     })
     let password = useRef('')
     let password_repeat = useRef('')
@@ -137,9 +137,9 @@ const UserProfile = () => {
                 <AuthenticatedPageSectionTitle>Delete Account</AuthenticatedPageSectionTitle>
                 <UserProfileFooterContainer>
                     <AuthenticatedText>By deleting your account you will lose all your data</AuthenticatedText>
-                    <DeleteAccountText onClick={() => setShowDeleteConfirmation(true)}>Delete account</DeleteAccountText>
+                    <DeleteAccountText onClick={() => setShowConfirmation(true)}>Delete account</DeleteAccountText>
                 </UserProfileFooterContainer>
-                {showDeleteConfirmation && <DeleteModal setShowDeleteConfirmation={setShowDeleteConfirmation} />}
+                {showConfirmation && <AddDeleteModal setShowConfirmation={setShowConfirmation} />}
             </UserDetailsContainer>
             <SaveChangesButtonContainer>
                 <GreenLargeButton onClick={handleSaveChanges}>Save Changes</GreenLargeButton>

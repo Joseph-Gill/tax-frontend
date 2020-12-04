@@ -21,3 +21,7 @@ export const ActiveInputLabel = styled(InputLabel)`
 export const EmailInputLabel = styled(InputLabel)`
   background: linear-gradient(#FFFFFF, #FFFFFF, #d4d4d4, ${props => props.theme.grayFour});
 `
+
+export const ModalInputLabel = styled(ActiveInputLabel)`
+  margin-top: -40px;
+`

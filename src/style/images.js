@@ -16,3 +16,15 @@ export const SelectedGroupIcon = styled.img`
   border-radius: 50%;
   margin-right: 9px;
 `
+
+export const Ellipse = styled.img`
+  height: 7px;
+  width: 7px;
+  margin-right: 13px;
+`
+
+export const CloseIcon = styled.img`
+  :hover {
+    cursor: pointer;
+  }
+`
