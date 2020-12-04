@@ -15,7 +15,7 @@ export const ModalText = styled.p`
   font-family: ${props => props.theme.nunitoFontFamily};
   font-size: 14px;
   line-height: 20px;
-  color: ${props => props.theme.grayOne}
+  color: ${props => props.theme.grayOne};
 `
 
 export const HomePageText = styled.p`

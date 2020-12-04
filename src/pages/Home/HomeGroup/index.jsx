@@ -4,7 +4,8 @@ import OpenComments from './OpenComments'
 import ReviewComments from './ReviewComments'
 import TasksOverdue from './OverdueTasks'
 import expandCollapse from '../../../assets/icons/stark_group_expand.svg'
-import {ExpandCollapgeImage, ExpandCollapseText, GroupTitle, HomeGroupButton, HomeGroupContainer, LowerRowContainer, LowerRowRightContainer, UpperRowContainer, UpperRowRightContainer} from './styles'
+import {ExpandCollapgeImage, ExpandCollapseText, GroupTitle, HomeGroupButton, HomeGroupContainer, LowerRowContainerCollapsed, LowerRowRightContainer, UpperRowContainer, UpperRowRightContainer} from './styles'
+import ExpandedGroup from './ExpandedGroup'
 
 
 const HomeGroup = ({group}) => {
@@ -19,13 +20,14 @@ const HomeGroup = ({group}) => {
                     <TasksOverdue number={5} />
                 </UpperRowRightContainer>
             </UpperRowContainer>
-            <LowerRowContainer>
+            <LowerRowContainerCollapsed>
                 <HomeGroupButton>Go to Project</HomeGroupButton>
-                <LowerRowRightContainer>
-                    <ExpandCollapseText>View More</ExpandCollapseText>
-                    <ExpandCollapgeImage alt='expand' src={expandCollapse} />
-                </LowerRowRightContainer>
-            </LowerRowContainer>
+                {/*<LowerRowRightContainer>*/}
+                {/*    <ExpandCollapseText>View More</ExpandCollapseText>*/}
+                {/*    <ExpandCollapgeImage alt='expand' src={expandCollapse} />*/}
+                {/*</LowerRowRightContainer>*/}
+            </LowerRowContainerCollapsed>
+            <ExpandedGroup />
 
         </HomeGroupContainer>
     )

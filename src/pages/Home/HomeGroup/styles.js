@@ -4,7 +4,6 @@ import {HomeGroupText} from '../../../style/text'
 
 export const HomeGroupContainer = styled.div`
   width: 860px;
-  height: 105px;
   background: ${props => props.theme.white};
   box-shadow: ${props => props.theme.boxShadow};
   border-radius: ${props => props.theme.borderRadius};
@@ -25,7 +24,7 @@ export const UpperRowRightContainer = styled.div`
   width: 469px;
 `
 
-export const LowerRowContainer = styled.div`
+export const LowerRowContainerCollapsed = styled.div`
   display: flex;
   justify-content: space-between;
   height: 36px;

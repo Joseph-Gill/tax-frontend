@@ -63,14 +63,21 @@ export const AuthenticatedButtonCancel = styled.button`
     }
 `
 
+export const TableButton = styled.button`
+  width: 97px;
+  height: 26px;
+  background: ${props => props.theme.white};
+  color: ${props => props.theme.primaryBlue};
+  border: 1px solid ${props => props.theme.primaryBlue};
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 13px;
 
-
-
-
-
-
-
-
+  :hover {
+    background: ${props => props.theme.grayFive};
+  }
+`
 
 export const CloseButton = styled.button`
     width: 30px;

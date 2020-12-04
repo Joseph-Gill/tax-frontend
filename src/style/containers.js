@@ -59,6 +59,37 @@ export const GroupCommentTaskContainer = styled.div`
   display: flex;
 `
 
+export const TableContainer = styled.div`
+  background: ${props => props.theme.white};
+  border-radius: ${props => props.theme.borderRadius};
+  max-height: 202px;
+  overflow: scroll;
+  overflow-x: hidden;
+  width: 779px;
+  margin-top: 11px;
+  margin-bottom: 20px;
+
+      /* width */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: ${props => props.theme.grayFive};
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${props => props.theme.grayFour};
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: ${props => props.theme.grayTwo};
+    }
+`
+
 
 
 
