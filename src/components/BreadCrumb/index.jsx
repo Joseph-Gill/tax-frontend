@@ -8,7 +8,7 @@ const BreadCrumbContainer = styled.div`
     display: flex;
     align-items: center;
     width: 860px;
-    //position: absolute;
+    margin-top: 36px;
 `
 
 const BreadCrumbItem = styled(Link)`

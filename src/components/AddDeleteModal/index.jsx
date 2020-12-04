@@ -1,5 +1,5 @@
 import React, {useRef} from 'react'
-import {AuthenticatedButtonCancel, RedLargestButton} from '../../style/buttons'
+import {AuthenticatedButtonCancel, RedLargerButton} from '../../style/buttons'
 import close from '../../assets/icons/stark_close_icon.svg'
 import ellipse from '../../assets/icons/stark_modal_ellipse.png'
 import {useDispatch} from 'react-redux'
@@ -54,7 +54,7 @@ const AddDeleteModal = ({setShowConfirmation}) => {
                 </div>
                 <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={() => setShowConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
-                    <RedLargestButton>Yes, delete account</RedLargestButton>
+                    <RedLargerButton>Yes, delete account</RedLargerButton>
                 </AddDeleteModalButtonContainer>
             </AddDeleteModalInternalContainer>
 

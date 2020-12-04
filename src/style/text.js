@@ -17,3 +17,15 @@ export const ModalText = styled.p`
   line-height: 20px;
   color: ${props => props.theme.grayOne}
 `
+
+export const HomePageText = styled.p`
+  font-size: 16px;
+  line-height: 18px;
+  color: ${props => props.theme.grayTwo};
+`
+
+export const HomeGroupText = styled.p`
+  font-family: ${props => props.theme.nunitoFontFamily};
+  font-size: 14px;
+  line-height: 19px;
+`

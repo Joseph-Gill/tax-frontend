@@ -44,6 +44,7 @@ export const defaultTheme = {
     yellow: '#FFBD44',
     yellowLight: '#FFDB99',
     white: '#FFFFFF',
+    black: '#000000',
     // Not on Figma Styleguide, but used in design by designer
     graySeven: '#8C8C8C',
     blueHover: '#004866',

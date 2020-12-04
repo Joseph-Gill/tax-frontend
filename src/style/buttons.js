@@ -29,18 +29,22 @@ export const GreenLargeButton = styled(AuthenticatedButtonLarge)`
       background: ${props => props.theme.greenDark};
     }
 `
-export const AuthenticatedButtonLargest = styled(BaseButton)`
+export const AuthenticatedButtonLarger = styled(BaseButton)`
     width: 186px;
     height: 32px;
 `
 
-export const RedLargestButton = styled(AuthenticatedButtonLargest)`
+export const RedLargerButton = styled(AuthenticatedButtonLarger)`
     background: ${props => props.theme.red};
     :hover {
       background: ${props => props.theme.redDark};
     }
 `
 
+export const AuthenticatedButtonLargest = styled(BaseButton)`
+    width: 213px;
+    height: 32px;
+`
 
 
 export const AuthenticatedButtonCancel = styled.button`

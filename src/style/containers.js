@@ -19,6 +19,7 @@ export const AuthenticatedPageContainer = styled(BasePageContainer)`
 export const AuthenticatedPageTitleContainer = styled.div`
     width: 860px;
     border-bottom: 1px solid ${props => props.theme.grayFour};
+    padding-bottom: 10px;
 `
 
 export const LinkContainer = styled.div`
@@ -39,6 +40,36 @@ export const LoginLogoContainer = styled.div`
   display: flex;
   justify-content: start;
 `
+
+export const GroupCommentTaskNumberContainer = styled.div`
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: ${props => props.theme.nunitoFontFamily};
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  margin-right: 10px;
+`
+
+export const GroupCommentTaskContainer = styled.div`
+  display: flex;
+`
+
+
+
+
+
+
+
+
+
+
+
+// Template Containers
 
 export const ModalExternalContainer = styled.div`
   position: absolute;
