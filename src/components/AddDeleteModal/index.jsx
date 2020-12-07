@@ -18,10 +18,12 @@ const AddDeleteModal = ({setShowConfirmation}) => {
     const history = useHistory()
     let password = useRef('')
 
-    const deleteUserHandler = () => {
-        dispatch(deleteUserProfile())
-        dispatch(userLogout())
-        history.push('/registration')
+    const deleteUserHandler = (password) => {
+        const currentPassword = {password}
+        console.log(currentPassword)
+        // dispatch(deleteUserProfile())
+        // dispatch(userLogout())
+        // history.push('/registration')
     }
 
     return (
@@ -54,7 +56,7 @@ const AddDeleteModal = ({setShowConfirmation}) => {
                 </div>
                 <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={() => setShowConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
-                    <RedLargerButton>Yes, delete account</RedLargerButton>
+                    <RedLargerButton onClick={() => deleteUserHandler(password.current.value)}>Yes, delete account</RedLargerButton>
                 </AddDeleteModalButtonContainer>
             </AddDeleteModalInternalContainer>
 

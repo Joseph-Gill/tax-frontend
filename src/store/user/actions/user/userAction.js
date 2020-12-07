@@ -51,12 +51,12 @@ export const userUpdateAction = body => async (dispatch, getState) => {
     }
 }
 
-export const deleteUserProfile = () => async (dispatch, getState) => {
+export const deleteUserProfile = (password) => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
-    const config = {
-        headers: {
-            'Authorization': `Bearer ${userLoginReducer.accessToken}`
-        }
-    }
-    return await Axios.delete('users/me/', config)
+    // const config = {
+    //     headers: {
+    //         'Authorization': `Bearer ${userLoginReducer.accessToken}`
+    //     }
+    // }
+    return await Axios.delete('users/me/', { data: password, headers: {'Authorization': `Bearer ${userLoginReducer.accessToken}`}})
 }
