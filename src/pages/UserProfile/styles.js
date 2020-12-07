@@ -10,6 +10,7 @@ export const UserDetailsContainer = styled.div`
     flex-direction: column;
     align-items: center;
     background: white;
+    margin-top: 20px\;
 `
 
 export const UserProfileInputContainer = styled.div`
@@ -50,4 +51,5 @@ export const SaveChangesButtonContainer = styled.div`
     width: 860px;
     display: flex;
     justify-content: flex-end;
+    margin-top: 20px;
 `

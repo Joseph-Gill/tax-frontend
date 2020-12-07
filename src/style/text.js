@@ -29,3 +29,7 @@ export const HomeGroupText = styled.p`
   font-size: 14px;
   line-height: 19px;
 `
+
+export const ExpandCollapseText = styled(HomeGroupText)`
+  color: ${props => props.theme.primaryBlue};
+`

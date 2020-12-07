@@ -15,12 +15,14 @@ export const AuthenticatedPageContainer = styled(BasePageContainer)`
     background-color: ${props => props.theme.grayFive};
     padding-left: 200px;
     min-height: 100vh;
+    justify-content: flex-start;
 `
 
 export const AuthenticatedPageTitleContainer = styled.div`
     width: 860px;
     border-bottom: 1px solid ${props => props.theme.grayFour};
     padding-bottom: 10px;
+    margin-top: 28px;
 `
 
 export const LinkContainer = styled.div`
@@ -89,6 +91,16 @@ export const TableContainer = styled.div`
     ::-webkit-scrollbar-thumb:hover {
       background: ${props => props.theme.grayTwo};
     }
+`
+
+export const HomeExpandCollapseContainer = styled.div`
+  display: flex;
+  align-self: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  :hover {
+    cursor: pointer;
+  }
 `
 
 

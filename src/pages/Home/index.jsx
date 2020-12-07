@@ -25,8 +25,7 @@ const Home = () => {
                 <AuthenticatedPageTitle>Welcome {first_name}</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
             {/*{true && <NoGroups />}*/}
-            {<HomeGroup />}
-
+            <HomeGroup />
         </AuthenticatedPageContainer>
     )
 

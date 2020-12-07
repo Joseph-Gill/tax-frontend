@@ -1,11 +1,13 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import OpenComments from './OpenComments'
 import ReviewComments from './ReviewComments'
 import TasksOverdue from './OverdueTasks'
 import expandCollapse from '../../../assets/icons/stark_group_expand.svg'
-import {ExpandCollapgeImage, ExpandCollapseText, GroupTitle, HomeGroupButton, HomeGroupContainer, LowerRowContainerCollapsed, LowerRowRightContainer, UpperRowContainer, UpperRowRightContainer} from './styles'
+import {BottomRowContainer, GroupTitle, HomeGroupButton, HomeGroupContainer, MiddleRowContainer, UpperRowContainer, UpperRowRightContainer} from './styles'
+import {CollapseImage, ExpandImage} from '../../../style/images'
 import ExpandedGroup from './ExpandedGroup'
+import {HomeExpandCollapseContainer} from '../../../style/containers'
+import {ExpandCollapseText} from '../../../style/text'
 
 
 const HomeGroup = ({group}) => {
@@ -20,15 +22,20 @@ const HomeGroup = ({group}) => {
                     <TasksOverdue number={5} />
                 </UpperRowRightContainer>
             </UpperRowContainer>
-            <LowerRowContainerCollapsed>
+            <MiddleRowContainer>
                 <HomeGroupButton>Go to Project</HomeGroupButton>
-                {/*<LowerRowRightContainer>*/}
-                {/*    <ExpandCollapseText>View More</ExpandCollapseText>*/}
-                {/*    <ExpandCollapgeImage alt='expand' src={expandCollapse} />*/}
-                {/*</LowerRowRightContainer>*/}
-            </LowerRowContainerCollapsed>
+                <HomeExpandCollapseContainer>
+                    <ExpandCollapseText>View More</ExpandCollapseText>
+                    <ExpandImage alt='expand' src={expandCollapse} />
+                </HomeExpandCollapseContainer>
+            </MiddleRowContainer>
             <ExpandedGroup />
-
+            <BottomRowContainer>
+                <HomeExpandCollapseContainer>
+                    <ExpandCollapseText>Collapse</ExpandCollapseText>
+                    <CollapseImage alt='expand' src={expandCollapse} />
+                </HomeExpandCollapseContainer>
+            </BottomRowContainer>
         </HomeGroupContainer>
     )
 
