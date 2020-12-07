@@ -10,7 +10,7 @@ export const UserDetailsContainer = styled.div`
     flex-direction: column;
     align-items: center;
     background: white;
-    margin-top: 20px\;
+    margin-top: 20px;
 `
 
 export const UserProfileInputContainer = styled.div`

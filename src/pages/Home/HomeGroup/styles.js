@@ -4,11 +4,11 @@ import {BaseButton} from '../../../style/buttons'
 export const HomeGroupContainer = styled.div`
     width: 860px;
     background: ${props => props.theme.white};
-    box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
     padding: 20px 20px 13px 20px;
     margin-bottom: 20px;
     margin-top: 30px;
+    box-shadow: 0 0 20px ${props => props.theme.boxShadowColor};
 `
 
 export const UpperRowContainer = styled.div`

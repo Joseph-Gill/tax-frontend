@@ -48,6 +48,7 @@ export const defaultTheme = {
     // Not on Figma Styleguide, but used in design by designer
     graySeven: '#8C8C8C',
     blueHover: '#004866',
+    boxShadowColor: '#EFEFEF',
     // Box Shadows
     boxShadow: 'box-shadow: 0px 0px 20px #EFEFEF',
     // Border Radius
