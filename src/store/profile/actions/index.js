@@ -16,11 +16,16 @@ export const getProfileAction = token => async (dispatch) => {
             'Authorization': `Bearer ${token}`
         }
     }
-    const response = await Axios.get('userprofiles/me/', config)
-    const userProfile = {
-        ...response.data
+    try {
+        const response = await Axios.get('userprofiles/me/', config)
+        const userProfile = {
+            ...response.data
+        }
+        dispatch(getProfile(userProfile))
+        return userProfile
+    } catch(e) {
+        console.log(e)
     }
-    dispatch(getProfile(userProfile))
 }
 
 export const updateProfileAction = updatedInfo => async (dispatch, getState) => {

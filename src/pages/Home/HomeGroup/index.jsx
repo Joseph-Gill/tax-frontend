@@ -10,14 +10,14 @@ import {HomeExpandCollapseContainer} from '../../../style/containers'
 import {ExpandCollapseText} from '../../../style/text'
 
 
-const HomeGroup = ({group}) => {
+const HomeGroup = ({groupName, project}) => {
 
     const [expandStatus, setExpandStatus] = useState(false)
 
     return (
         <HomeGroupContainer>
             <UpperRowContainer>
-                <GroupTitle>Group A - Project: Placeholder</GroupTitle>
+                <GroupTitle>{`Group ${groupName} - Project: ${project.name}`}</GroupTitle>
                 <UpperRowRightContainer>
                     <OpenComments number={2} />
                     <ReviewComments number={3} />
@@ -30,16 +30,16 @@ const HomeGroup = ({group}) => {
                     <HomeExpandCollapseContainer onClick={() => setExpandStatus(true)}>
                         <ExpandCollapseText>View More</ExpandCollapseText>
                         <ExpandImage alt='expand' src={expandCollapse} />
-                    </HomeExpandCollapseContainer> ) : null}
+                    </HomeExpandCollapseContainer>) : null}
             </MiddleRowContainer>
             {expandStatus ? <ExpandedGroup /> : null}
-            <BottomRowContainer>
-                {expandStatus? (
+            {expandStatus ? (
+                <BottomRowContainer>
                     <HomeExpandCollapseContainer onClick={() => setExpandStatus(false)}>
                         <ExpandCollapseText>Collapse</ExpandCollapseText>
                         <CollapseImage alt='expand' src={expandCollapse} />
-                    </HomeExpandCollapseContainer>) : null}
-            </BottomRowContainer>
+                    </HomeExpandCollapseContainer>
+                </BottomRowContainer>) : null}
         </HomeGroupContainer>
     )
 }

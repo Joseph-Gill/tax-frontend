@@ -5,9 +5,8 @@ export const HomeGroupContainer = styled.div`
     width: 860px;
     background: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
-    padding: 20px 20px 13px 20px;
+    padding: 20px 20px 0 20px;
     margin-bottom: 20px;
-    margin-top: 30px;
     box-shadow: 0 0 20px ${props => props.theme.boxShadowColor};
 `
 
@@ -29,6 +28,7 @@ export const MiddleRowContainer = styled.div`
     display: flex;
     justify-content: space-between;
     height: 36px;
+    margin-bottom: 13px;
 `
 
 export const BottomRowContainer = styled.div`
@@ -36,6 +36,7 @@ export const BottomRowContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
+    margin-bottom: 13px;
 `
 
 export const GroupTitle = styled.h4`

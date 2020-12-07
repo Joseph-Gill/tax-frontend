@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {getProfileAction} from '../../store/profile/actions'
@@ -10,6 +10,7 @@ import {AuthenticatedButtonLargest} from '../../style/buttons'
 import styled from 'styled-components/macro'
 import Spinner from '../../components/Spinner'
 import GroupFilter from './GroupFilter'
+
 
 const NoAccessContainer = styled.div`
       width: 860px;
@@ -27,6 +28,7 @@ const NoAccessContainer = styled.div`
 const ProjectAccessContainer = styled(NoAccessContainer)`
       flex-direction: row;
       justify-content: space-between;
+      margin-bottom: 30px;
 `
 
 
@@ -36,10 +38,29 @@ const Home = () => {
     const first_name = useSelector(state => state.userLoginReducer.user.first_name)
     const user_profile = useSelector(state => state.profileReducer)
     let filter = useRef('')
+    const [projectGroupPairings, setProjectGroupPairings] = useState([])
 
     useEffect(() => {
-        dispatch(getProfileAction(token))
+        getProfileCreatePairing()
     }, [])
+
+    const getProfileCreatePairing = async () => {
+        const response = await dispatch(getProfileAction(token))
+        setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
+    }
+
+    const createGroupProjectPairing = (groups) => {
+        const groupNameProjectPairing = []
+        groups.forEach(groupEntry => {
+            if (groupEntry.projects.length) {
+                groupEntry.projects.forEach(projectEntry => {
+                    let result = {id: groupEntry.id, groupName: groupEntry.name, project:projectEntry}
+                    groupNameProjectPairing.push(result)
+                })
+            }
+        })
+        return groupNameProjectPairing
+    }
 
     return (
         <AuthenticatedPageContainer>
@@ -48,9 +69,9 @@ const Home = () => {
                 <AuthenticatedPageTitle>Welcome {first_name}</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
             {!user_profile.loaded ? <Spinner /> :
-                !user_profile.profile.groups.length ? (
+                !projectGroupPairings.length ? (
                     <NoAccessContainer>
-                        <HomePageText>You have not created or been granted access to a group/project yet.</HomePageText>
+                        <HomePageText>You have not created or been granted access to a project yet.</HomePageText>
                         <AuthenticatedButtonLargest>Go to groups overview</AuthenticatedButtonLargest>
                     </NoAccessContainer>) : (
                         <>
@@ -58,7 +79,7 @@ const Home = () => {
                                 <HomePageText>Your current projects</HomePageText>
                                 <GroupFilter filter={filter} />
                             </ProjectAccessContainer>
-                            <HomeGroup />
+                            {projectGroupPairings.map(entry => <HomeGroup groupName={entry.groupName} key={entry.id} project={entry.project} />)}
                         </>
                     )}
         </AuthenticatedPageContainer>
