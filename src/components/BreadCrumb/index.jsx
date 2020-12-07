@@ -4,11 +4,15 @@ import {Link} from 'react-router-dom'
 import rightChevron from '../../assets/icons/stark_right_chevron.png'
 import { v4 as uuidv4 } from 'uuid';
 
-const BreadCrumbContainer = styled.div`
+const BreadCrumbBarContainer = styled.div`
     display: flex;
-    align-items: center;
     width: 860px;
     margin-top: 36px;
+`
+
+const BreakCrumbContainer = styled.div`
+    display: flex;
+    align-items: center;
 `
 
 const BreadCrumbItem = styled(Link)`
@@ -32,17 +36,17 @@ const BreadCrumb = ({breadCrumbArray}) => {
 
     const breadCrumbPath = (array) => {
         return array.map(item => (
-            <div key={uuidv4()}>
+            <BreakCrumbContainer key={uuidv4()}>
                 <BreadCrumbImage alt='breadcrumb' src={rightChevron} />
                 <BreadCrumbItem to={Object.values(item)[0]}>{Object.keys(item)[0]}</BreadCrumbItem>
-            </div>
+            </BreakCrumbContainer>
             )
         )}
 
     return (
-        <BreadCrumbContainer>
+        <BreadCrumbBarContainer>
             {breadCrumbPath(breadCrumbArray)}
-        </BreadCrumbContainer>
+        </BreadCrumbBarContainer>
     )
 }
 
