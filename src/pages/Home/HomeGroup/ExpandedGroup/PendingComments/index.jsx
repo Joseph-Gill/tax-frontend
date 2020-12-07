@@ -30,6 +30,14 @@ const PendingComments = ({comments}) => {
                         <TableButton>Go to step</TableButton>
                     </TableData>
                 </TableDataRow >
+                <TableDataRow >
+                    <TableData>12</TableData>
+                    <TableData>To Review</TableData>
+                    <TableData>Switzerland ( Tax ) C. Rohrl</TableData>
+                    <TableData>
+                        <TableButton>Go to step</TableButton>
+                    </TableData>
+                </TableDataRow >
             </CommentTable>
         </TableContainer>
     )

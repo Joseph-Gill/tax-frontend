@@ -18,8 +18,8 @@ export const NextStepContainer = styled.div`
   padding-left: 20px;
 
   div {
-    margin-top: 11px;
-    display: flex;
+      margin-top: 11px;
+      display: flex;
   }
 `
 
@@ -32,6 +32,8 @@ export const CommentsContainer = styled.div`
 export const TaskContainer = styled.div`
   width: 820px;
   padding-left: 20px;
+  padding-bottom: 20px;
+
 `
 
 export const GroupSectionTitle = styled(AuthenticatedPageSectionTitle)`

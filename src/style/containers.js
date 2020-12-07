@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 
 export const BasePageContainer = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
     color: black;
     display: flex;
     flex-direction: column;
@@ -14,6 +14,7 @@ export const BasePageContainer = styled.div`
 export const AuthenticatedPageContainer = styled(BasePageContainer)`
     background-color: ${props => props.theme.grayFive};
     padding-left: 200px;
+    min-height: 100vh;
 `
 
 export const AuthenticatedPageTitleContainer = styled.div`
