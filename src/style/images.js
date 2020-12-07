@@ -39,3 +39,10 @@ export const ExpandImage = styled.img`
 export const CollapseImage = styled(ExpandImage)`
     transform: rotate(90deg);
 `
+
+export const FilterImage = styled.img`
+    position: absolute;
+    z-index: 1;
+    margin-top: 8px;
+    margin-left: 14px;
+`
