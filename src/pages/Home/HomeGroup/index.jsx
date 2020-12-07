@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import OpenComments from './OpenComments'
 import ReviewComments from './ReviewComments'
 import TasksOverdue from './OverdueTasks'
@@ -12,6 +12,8 @@ import {ExpandCollapseText} from '../../../style/text'
 
 const HomeGroup = ({group}) => {
 
+    const [expandStatus, setExpandStatus] = useState(false)
+
     return (
         <HomeGroupContainer>
             <UpperRowContainer>
@@ -24,22 +26,22 @@ const HomeGroup = ({group}) => {
             </UpperRowContainer>
             <MiddleRowContainer>
                 <HomeGroupButton>Go to Project</HomeGroupButton>
-                <HomeExpandCollapseContainer>
-                    <ExpandCollapseText>View More</ExpandCollapseText>
-                    <ExpandImage alt='expand' src={expandCollapse} />
-                </HomeExpandCollapseContainer>
+                {!expandStatus ? (
+                    <HomeExpandCollapseContainer onClick={() => setExpandStatus(true)}>
+                        <ExpandCollapseText>View More</ExpandCollapseText>
+                        <ExpandImage alt='expand' src={expandCollapse} />
+                    </HomeExpandCollapseContainer> ) : null}
             </MiddleRowContainer>
-            <ExpandedGroup />
+            {expandStatus ? <ExpandedGroup /> : null}
             <BottomRowContainer>
-                <HomeExpandCollapseContainer>
-                    <ExpandCollapseText>Collapse</ExpandCollapseText>
-                    <CollapseImage alt='expand' src={expandCollapse} />
-                </HomeExpandCollapseContainer>
+                {expandStatus? (
+                    <HomeExpandCollapseContainer onClick={() => setExpandStatus(false)}>
+                        <ExpandCollapseText>Collapse</ExpandCollapseText>
+                        <CollapseImage alt='expand' src={expandCollapse} />
+                    </HomeExpandCollapseContainer>) : null}
             </BottomRowContainer>
         </HomeGroupContainer>
     )
-
 }
-
 
 export default HomeGroup
