@@ -8,7 +8,8 @@ const initialState = {
         groups: null,
         assigned_project_roles: null,
         assigned_task: null
-    }
+    },
+    loaded: false
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -17,7 +18,8 @@ export const profileReducer = (state = initialState, action) => {
             return {
                 profile: {
                     ...action.payload
-                }
+                },
+                loaded: true
             }
         }
         default:
