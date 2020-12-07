@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import {Link} from 'react-router-dom'
 import rightChevron from '../../assets/icons/stark_right_chevron.png'
-
+import { v4 as uuidv4 } from 'uuid';
 
 const BreadCrumbContainer = styled.div`
     display: flex;
@@ -32,10 +32,10 @@ const BreadCrumb = ({breadCrumbArray}) => {
 
     const breadCrumbPath = (array) => {
         return array.map(item => (
-            <>
+            <div key={uuidv4()}>
                 <BreadCrumbImage alt='breadcrumb' src={rightChevron} />
-                <BreadCrumbItem key={Object.values(item)[0]} to={Object.values(item)[0]}>{Object.keys(item)[0]}</BreadCrumbItem>
-            </>
+                <BreadCrumbItem to={Object.values(item)[0]}>{Object.keys(item)[0]}</BreadCrumbItem>
+            </div>
             )
         )}
 

@@ -26,9 +26,20 @@ export const FooterLink = styled(Link)`
     text-decoration: none;
 `
 
+export const FooterSpan = styled.span`
+    cursor: pointer;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    color: ${props => props.theme.grayThree};
+    text-decoration: none;
+`
+
 export const LogOutLink = styled(Link)`
   font-family: ${props => props.theme.nunitoFontFamily};
   text-decoration: none;
   color: ${props => props.theme.primaryShadeOne};
   padding: 17px;
 `
+

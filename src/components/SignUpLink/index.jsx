@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components/macro'
-import {useLocation, useHistory} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
 import {LinkBase} from '../../style/links'
-import {PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION} from '../../routes/paths'
+import {REGISTRATION, REGISTRATION_VALIDATION} from '../../routes/paths'
 import {LinkContainer} from '../../style/containers'
 
 const SignUpLinkContainer = styled(LinkContainer)`
@@ -12,7 +12,6 @@ const SignUpLinkContainer = styled(LinkContainer)`
 
 const SignUpLink = () => {
     const location = useLocation()
-    const history = useHistory()
     const [currentPath, setCurrentPath] = useState('')
 
     useEffect(() => {
@@ -21,20 +20,15 @@ const SignUpLink = () => {
 
     return (
         <SignUpLinkContainer>
-            {
-            currentPath === REGISTRATION ||
-            currentPath === REGISTRATION_VALIDATION
-                ?
-                    <>
-                        Already have an account?
-                        <LinkBase onClick={() => history.push('login')}>Log In</LinkBase>
-                    </>
-                :
-                    <>
-                        Don&apos;t have an account?
-                        <LinkBase onClick={() => history.push('registration')}>Register Now</LinkBase>
-                    </>
-        }
+            {currentPath === REGISTRATION || currentPath === REGISTRATION_VALIDATION ?
+                <>
+                    Already have an account?
+                    <LinkBase to='login'>Log In</LinkBase>
+                </> :
+                <>
+                    Don&apos;t have an account?
+                    <LinkBase to='registration'>Register Now</LinkBase>
+                </>}
         </SignUpLinkContainer>)
 }
 

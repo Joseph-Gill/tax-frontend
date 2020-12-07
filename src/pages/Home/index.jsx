@@ -10,6 +10,7 @@ import {AuthenticatedButtonLargest} from '../../style/buttons'
 import styled from 'styled-components/macro'
 import Spinner from '../../components/Spinner'
 import GroupFilter from './GroupFilter'
+import { v4 as uuidv4 } from 'uuid'
 
 
 const NoAccessContainer = styled.div`
@@ -41,13 +42,12 @@ const Home = () => {
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
 
     useEffect(() => {
-        getProfileCreatePairing()
-    }, [])
+        (async function getProfileCreateParing() {
+            const response = await dispatch(getProfileAction(token))
+            setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
+        })();
+    }, [dispatch, token])
 
-    const getProfileCreatePairing = async () => {
-        const response = await dispatch(getProfileAction(token))
-        setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
-    }
 
     const createGroupProjectPairing = (groups) => {
         const groupNameProjectPairing = []
@@ -79,12 +79,11 @@ const Home = () => {
                                 <HomePageText>Your current projects</HomePageText>
                                 <GroupFilter filter={filter} />
                             </ProjectAccessContainer>
-                            {projectGroupPairings.map(entry => <HomeGroup groupName={entry.groupName} key={entry.id} project={entry.project} />)}
+                            {projectGroupPairings.map(entry => <HomeGroup groupName={entry.groupName} key={uuidv4()} project={entry.project} />)}
                         </>
                     )}
         </AuthenticatedPageContainer>
     )
-
 }
 
 export default Home

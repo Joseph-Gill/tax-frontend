@@ -4,7 +4,6 @@ import {FilterLabel} from '../../../style/labels'
 import styled from 'styled-components/macro'
 import filterImage from '../../../assets/icons/stark_filter.svg'
 import {FilterImage} from '../../../style/images'
-import {FilterInput} from '../../../style/inputs'
 
 const GroupFilterContainer = styled.div`
 
@@ -15,9 +14,7 @@ const GroupFilter = ({filter}) => {
         <GroupFilterContainer>
             <FilterImage alt='filter' src={filterImage} />
             <FilterLabel>Filter</FilterLabel>
-            <FilterDropDown>
-                <input type='text' />
-            </FilterDropDown>
+            <FilterDropDown />
         </GroupFilterContainer>
     )
 }

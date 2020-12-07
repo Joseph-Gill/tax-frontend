@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components/macro'
-import {FooterLink} from '../../style/links'
+import {FooterLink, FooterSpan} from '../../style/links'
 import Modal from '../../components/LoginFooter/Modal'
 import {TermsConditions} from './TermsConditions'
 import {PrivacyPolicy} from './PrivacyPolicy'
@@ -14,7 +14,7 @@ const LoginFooterContainer = styled.div`
     width: 50%;
     justify-content: space-between;
 
-    ${FooterLink}:nth-child(2) {
+    ${FooterSpan}:nth-child(2) {
       position: absolute;
       left: 109px;
     }
@@ -43,8 +43,8 @@ const LoginFooter = () => {
                 </PrivacyPolicy>
             </Modal>
             <LoginFooterContainer>
-                <FooterLink onClick={() => setShowHideTermsAndConditions(true)}>Terms & Conditions</FooterLink>
-                <FooterLink onClick={() => setShowHidePrivacyPolicy(true)}>Privacy Policy</FooterLink>
+                <FooterSpan onClick={() => setShowHideTermsAndConditions(true)}>Terms & Conditions</FooterSpan>
+                <FooterSpan onClick={() => setShowHidePrivacyPolicy(true)}>Privacy Policy</FooterSpan>
                 <FooterLink to={LOGIN}>© 2020 Company, Inc</FooterLink>
             </LoginFooterContainer>
         </>

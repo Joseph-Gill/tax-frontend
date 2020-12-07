@@ -80,16 +80,16 @@ export const MenuItem = styled(Link)`
     cursor:pointer;
 
     ${props => {
-    if(props.isActive){
-        return `
-                border-right: solid 3px ${props.theme.primaryBlue}
-                color: ${props.theme.primaryBlue};
-                font-weight: bold;
-                background: ${props.theme.primaryShadeTwo};
-            `
-    }
-}
-};
+        if(props.isActive){
+            return `
+                    border-right: solid 3px ${props.theme.primaryBlue}
+                    color: ${props.theme.primaryBlue};
+                    font-weight: bold;
+                    background: ${props.theme.primaryShadeTwo};
+                    `
+            }
+        }
+    };
 
     :hover {
       background: ${props => props.theme.primaryShadeTwo};
