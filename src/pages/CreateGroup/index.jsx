@@ -10,6 +10,10 @@ import EntityInfo from './EntityInfo'
 const CreateGroup = () => {
     let groupName = useRef('')
     let hiddenFileInput = useRef(null)
+    let entityName = useRef('')
+    let parentName = useRef('')
+    let countryName = useRef('')
+    let taxRate = useRef('')
     const [groupImage, setGroupImage] = useState(null)
 
     const imageClickHandler = () => {
@@ -36,7 +40,12 @@ const CreateGroup = () => {
                 imageClickHandler={imageClickHandler}
                 setGroupImage={setGroupImage}
             />
-            <EntityInfo />
+            <EntityInfo
+                countryName={countryName}
+                entityName={entityName}
+                parentName={parentName}
+                taxRate={taxRate}
+            />
         </AuthenticatedPageContainer>
     )
 }
