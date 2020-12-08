@@ -1,7 +1,7 @@
 import Axios from '../../../../axios'
 import {LOGIN, LOGOUT, REFRESH} from '../../types'
 import Cookie from 'js-cookie'
-import {catchError} from '../../../errors/actions/errorAction'
+import {catchError, resetErrors} from '../../../errors/actions/errorAction'
 import {getUserProfile} from '../user/userAction'
 
 /* global gapi */
@@ -49,6 +49,7 @@ export const userLogout = () => dispatch => {
     // If gapi.auth2 is defined, it was instantiated via Google social login and we need to sign out the AuthInstance
     gapi.auth2 && gapi.auth2.getAuthInstance().signOut()
     Cookie.remove('refresh')
+    dispatch(resetErrors())
     dispatch(logOut())
 }
 

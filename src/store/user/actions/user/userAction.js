@@ -1,6 +1,6 @@
 import Axios from '../../../../axios'
 import {UPDATE_USER} from '../../types'
-import {catchError} from '../../../errors/actions/errorAction'
+import {catchError, setError} from '../../../errors/actions/errorAction'
 import {login} from '../authentication/userLoginAction'
 
 
@@ -53,10 +53,15 @@ export const userUpdateAction = body => async (dispatch, getState) => {
 
 export const deleteUserProfile = (password) => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
-    // const config = {
-    //     headers: {
-    //         'Authorization': `Bearer ${userLoginReducer.accessToken}`
-    //     }
-    // }
-    return await Axios.delete('users/me/', { data: password, headers: {'Authorization': `Bearer ${userLoginReducer.accessToken}`}})
+    const config = {
+        data: password,
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.delete('users/me/', config)
+    } catch(e) {
+        return dispatch(setError({detail: `Entered password doesn't match account password`}))
+    }
 }

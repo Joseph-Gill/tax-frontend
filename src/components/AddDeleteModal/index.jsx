@@ -2,7 +2,7 @@ import React, {useRef} from 'react'
 import {AuthenticatedButtonCancel, RedLargerButton} from '../../style/buttons'
 import close from '../../assets/icons/stark_close_icon.svg'
 import ellipse from '../../assets/icons/stark_modal_ellipse.png'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {userLogout} from '../../store/user/actions/authentication/userLoginAction'
 import {deleteUserProfile} from '../../store/user/actions/user/userAction'
@@ -12,18 +12,28 @@ import {ModalText} from '../../style/text'
 import {ActiveInputLabel} from '../../style/labels'
 import {BaseInput} from '../../style/inputs'
 import {CloseIcon, Ellipse} from '../../style/images'
+import {ErrorMessage} from '../../style/messages'
+import {resetErrors} from '../../store/errors/actions/errorAction'
 
 const AddDeleteModal = ({setShowConfirmation}) => {
     const dispatch = useDispatch()
     const history = useHistory()
+    const error = useSelector(state => state.errorReducer.error)
     let password = useRef('')
 
-    const deleteUserHandler = (password) => {
+    const deleteUserHandler = async (password) => {
+        dispatch(resetErrors())
         const currentPassword = {password}
-        console.log(currentPassword)
-        // dispatch(deleteUserProfile())
-        // dispatch(userLogout())
-        // history.push('/registration')
+        const response = await dispatch(deleteUserProfile(currentPassword))
+        if (response.status === 204){
+            dispatch(userLogout())
+            history.push('/registration')
+        }
+    }
+
+    const cancelButtonHandler = () => {
+        dispatch(resetErrors())
+        setShowConfirmation(false)
     }
 
     return (
@@ -54,8 +64,11 @@ const AddDeleteModal = ({setShowConfirmation}) => {
                         type='password'
                     />
                 </div>
+                <div>
+                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                </div>
                 <AddDeleteModalButtonContainer>
-                    <AuthenticatedButtonCancel onClick={() => setShowConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
+                    <AuthenticatedButtonCancel onClick={cancelButtonHandler}>Cancel</AuthenticatedButtonCancel>
                     <RedLargerButton onClick={() => deleteUserHandler(password.current.value)}>Yes, delete account</RedLargerButton>
                 </AddDeleteModalButtonContainer>
             </AddDeleteModalInternalContainer>

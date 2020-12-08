@@ -129,7 +129,6 @@ const UserProfile = () => {
                         />
                     </div>
                     <div>
-                        {error && <ErrorMessage>{error.detail}</ErrorMessage>}
                         {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
                         {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
                     </div>
