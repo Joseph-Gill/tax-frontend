@@ -10,8 +10,9 @@ import Registration from '../pages/Registration'
 import RegistrationValidation from '../pages/RegistrationValidation'
 import PasswordReset from '../pages/PasswordReset'
 import PasswordResetValidation from '../pages/PasswordResetValidation'
-import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, CHART} from './paths'
+import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, CHART, GROUPS} from './paths'
 import Chart from '../pages/Chart'
+import Groups from '../pages/Groups'
 
 
 const Routes = () => {
@@ -25,6 +26,7 @@ const Routes = () => {
                     <Route component={Registration} exact path={REGISTRATION} />
                     <Route component={RegistrationValidation} exact path={REGISTRATION_VALIDATION} />
                     <Route component={WithAuth(Home)} exact path={HOME} />
+                    <Route component={WithAuth(Groups)} exact path={GROUPS} />
                     <Route component={WithAuth(UserProfile)} exact path={USERPROFILE} />
                     <Route component={Chart} exact path={CHART} />
                     <Route component={Page404} />
