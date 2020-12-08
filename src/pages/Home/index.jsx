@@ -7,30 +7,10 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import HomeGroup from './HomeGroup'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedButtonLargest} from '../../style/buttons'
-import styled from 'styled-components/macro'
 import Spinner from '../../components/Spinner'
 import GroupFilter from './GroupFilter'
 import { v4 as uuidv4 } from 'uuid'
-
-
-const NoAccessContainer = styled.div`
-      width: 860px;
-      margin-top: 38px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-
-      p {
-        margin-bottom: 20px;
-      }
-`
-
-const ProjectAccessContainer = styled(NoAccessContainer)`
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 30px;
-`
+import {NoAccessContainer, ProjectAccessContainer} from './styles'
 
 
 const Home = () => {

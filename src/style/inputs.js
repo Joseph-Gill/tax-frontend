@@ -5,7 +5,7 @@ export const BaseInput = styled.input`
     background: ${props => props.theme.graySix};
     border: 1px solid ${props => props.theme.grayFour};
     color: ${props => props.theme.grayOne};
-    border-radius: 4px;
+    border-radius: ${props => props.theme.borderRadius};
     padding: 12px 11px 10px 11px;
     height: 42px;
     width: 302px;
@@ -19,7 +19,7 @@ export const BaseInput = styled.input`
       transition: 0.5s;
     }
     :focus {
-      border: ${props => props.theme.primaryBlue} solid 1px;
+      border: 1px solid ${props => props.theme.primaryBlue};
       outline: none;
       transition: 1s;
     }

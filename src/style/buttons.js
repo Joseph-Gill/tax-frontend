@@ -5,7 +5,7 @@ export const BaseButton = styled.button`
     width: 301px;
     height: 40px;
     background: ${props => props.disabled ? 'lightgrey' : props.theme.primaryBlue};
-    box-shadow: 0 4px 10px rgba(0, 112, 159, 0.24);
+    box-shadow: ${props => props.theme.buttonBoxShadow};
     color: white;
     border: none;
     border-radius: ${props => props.theme.borderRadius};

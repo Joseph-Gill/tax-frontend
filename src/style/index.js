@@ -50,7 +50,8 @@ export const defaultTheme = {
     blueHover: '#004866',
     boxShadowColor: '#EFEFEF',
     // Box Shadows
-    boxShadow: 'box-shadow: 0px 0px 20px #EFEFEF',
+    boxShadow: '0px 0px 20px #EFEFEF',
+    buttonBoxShadow: '0 4px 10px rgba(0, 112, 159, 0.24)',
     // Border Radius
     borderRadius: '4px',
     // Fonts that are not default Spartan
