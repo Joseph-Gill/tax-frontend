@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import {AuthenticatedText} from '../../style/text'
 
 export const UserDetailsContainer = styled.div`
-    box-shadow: 0 0 20px #EFEFEF;
+    box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
     width: 860px;
     height: 494px;

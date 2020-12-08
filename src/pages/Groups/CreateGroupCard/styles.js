@@ -22,6 +22,10 @@ export const CreateGroupTextContainer = styled.div`
 
 export const CreateGroupImage = styled.img`
     margin-top: 39px;
+
+    :hover {
+        cursor: pointer;
+    }
 `
 
 export const CreateGroupText = styled.p`

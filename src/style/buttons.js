@@ -10,11 +10,13 @@ export const BaseButton = styled.button`
     border: none;
     border-radius: ${props => props.theme.borderRadius};
     cursor: ${props => props.disabled ? '' : 'pointer'};
+
     :hover {
-       background: ${props => props.disabled ? '' : props.theme.blueHover};
+        background: ${props => props.disabled ? '' : props.theme.blueHover};
     }
+
     :active {
-      transform: translateY(1px);
+        transform: translateY(1px);
     }
 `
 
@@ -25,8 +27,9 @@ export const AuthenticatedButtonLarge = styled(BaseButton)`
 
 export const GreenLargeButton = styled(AuthenticatedButtonLarge)`
     background: ${props => props.theme.green};
+
     :hover {
-      background: ${props => props.theme.greenDark};
+        background: ${props => props.theme.greenDark};
     }
 `
 export const AuthenticatedButtonLarger = styled(BaseButton)`
@@ -36,8 +39,9 @@ export const AuthenticatedButtonLarger = styled(BaseButton)`
 
 export const RedLargerButton = styled(AuthenticatedButtonLarger)`
     background: ${props => props.theme.red};
+
     :hover {
-      background: ${props => props.theme.redDark};
+        background: ${props => props.theme.redDark};
     }
 `
 
@@ -64,18 +68,19 @@ export const AuthenticatedButtonCancel = styled.button`
 `
 
 export const TableButton = styled.button`
-  width: 97px;
-  height: 26px;
-  background: ${props => props.theme.white};
-  color: ${props => props.theme.primaryBlue};
-  border: 1px solid ${props => props.theme.primaryBlue};
-  border-radius: 2px;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 13px;
+    width: 97px;
+    height: 26px;
+    background: ${props => props.theme.white};
+    color: ${props => props.theme.primaryBlue};
+    border: 1px solid ${props => props.theme.primaryBlue};
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 13px;
 
   :hover {
-    background: ${props => props.theme.grayFive};
+      background: ${props => props.theme.grayFive};
+      cursor: pointer;
   }
 `
 
@@ -89,11 +94,11 @@ export const CloseButton = styled.button`
     cursor: pointer;
 
     :hover {
-      font-size: 16px;
-      font-weight: bold;
+        font-size: 16px;
+        font-weight: bold;
     }
     :active {
-      transform: translateY(4px);
+        transform: translateY(4px);
     }
 `
 

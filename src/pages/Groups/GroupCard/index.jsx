@@ -6,7 +6,7 @@ import {GroupCardContainer, GroupCardInfoContainer, GroupCardTitleText, GroupInf
 const GroupCard = ({group}) => {
     return (
         <GroupCardContainer>
-            <img alt='group image' src={groupImagePH} />
+            <img alt='group' src={groupImagePH} />
             <GroupCardTitleText>{group.name}</GroupCardTitleText>
             <GroupCardInfoContainer>
                 <GroupInfoText>{`${group.projects.length} Projects`}</GroupInfoText>
