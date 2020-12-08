@@ -3,6 +3,7 @@ import {BaseButton} from '../../../style/buttons'
 
 export const HomeGroupContainer = styled.div`
     width: 860px;
+    //min-height: 148px;
     background: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
     padding: 20px 20px 0 20px;
@@ -17,32 +18,28 @@ export const UpperRowContainer = styled.div`
     margin-bottom: 18px;
 `
 
-export const UpperRowRightContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 469px;
-`
-
 export const MiddleRowContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    height: 36px;
-    margin-bottom: 13px;
 `
 
 export const BottomRowContainer = styled.div`
     width: 820px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 20px;
-    margin-bottom: 13px;
+    margin-bottom: 20px;
 `
 
 export const GroupTitle = styled.h4`
     font-size: 16px;
     line-height: 18px;
     color: ${props => props.theme.black};
+`
+
+export const ProjectTitle = styled(GroupTitle)`
+    font-size: 12px;
 `
 
 export const HomeGroupButton = styled(BaseButton)`

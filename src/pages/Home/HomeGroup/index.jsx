@@ -3,7 +3,7 @@ import OpenComments from './OpenComments'
 import ReviewComments from './ReviewComments'
 import TasksOverdue from './OverdueTasks'
 import expandCollapse from '../../../assets/icons/stark_group_expand.svg'
-import {BottomRowContainer, GroupTitle, HomeGroupButton, HomeGroupContainer, MiddleRowContainer, UpperRowContainer, UpperRowRightContainer} from './styles'
+import {BottomRowContainer, GroupTitle, HomeGroupButton, HomeGroupContainer, MiddleRowContainer, ProjectTitle, UpperRowContainer} from './styles'
 import {CollapseImage, ExpandImage} from '../../../style/images'
 import ExpandedGroup from './ExpandedGroup'
 import {HomeExpandCollapseContainer} from '../../../style/containers'
@@ -17,29 +17,27 @@ const HomeGroup = ({groupName, project}) => {
     return (
         <HomeGroupContainer>
             <UpperRowContainer>
-                <GroupTitle>{`Group ${groupName} - Project: ${project.name}`}</GroupTitle>
-                <UpperRowRightContainer>
-                    <OpenComments number={2} />
-                    <ReviewComments number={3} />
-                    <TasksOverdue number={5} />
-                </UpperRowRightContainer>
+                <GroupTitle>{`Group: ${groupName}`}</GroupTitle>
+                <TasksOverdue number={5} />
             </UpperRowContainer>
             <MiddleRowContainer>
-                <HomeGroupButton>Go to Project</HomeGroupButton>
-                {!expandStatus ? (
-                    <HomeExpandCollapseContainer onClick={() => setExpandStatus(true)}>
-                        <ExpandCollapseText>View More</ExpandCollapseText>
-                        <ExpandImage alt='expand' src={expandCollapse} />
-                    </HomeExpandCollapseContainer>) : null}
+                <ProjectTitle>{`Project: ${project.name}`}</ProjectTitle>
             </MiddleRowContainer>
             {expandStatus ? <ExpandedGroup /> : null}
-            {expandStatus ? (
-                <BottomRowContainer>
+            <BottomRowContainer>
+                <HomeGroupButton>Go to Project</HomeGroupButton>
+                <OpenComments number={2} />
+                <ReviewComments number={3} />
+                {expandStatus ? (
                     <HomeExpandCollapseContainer onClick={() => setExpandStatus(false)}>
                         <ExpandCollapseText>Collapse</ExpandCollapseText>
                         <CollapseImage alt='expand' src={expandCollapse} />
-                    </HomeExpandCollapseContainer>
-                </BottomRowContainer>) : null}
+                    </HomeExpandCollapseContainer> ) : (
+                        <HomeExpandCollapseContainer onClick={() => setExpandStatus(true)}>
+                            <ExpandCollapseText>View More</ExpandCollapseText>
+                            <ExpandImage alt='expand' src={expandCollapse} />
+                        </HomeExpandCollapseContainer> )}
+            </BottomRowContainer>
         </HomeGroupContainer>
     )
 }

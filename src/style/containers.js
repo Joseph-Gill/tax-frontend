@@ -37,40 +37,40 @@ export const LinkContainer = styled.div`
 `
 
 export const LoginLogoContainer = styled.div`
-  position: absolute;
-  top: 23px;
-  width: 50%;
-  display: flex;
-  justify-content: start;
+    position: absolute;
+    top: 23px;
+    width: 50%;
+    display: flex;
+    justify-content: start;
 `
 
 export const GroupCommentTaskNumberContainer = styled.div`
-  height: 18px;
-  width: 18px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: ${props => props.theme.nunitoFontFamily};
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 16px;
-  margin-right: 10px;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    margin-right: 10px;
 `
 
 export const GroupCommentTaskContainer = styled.div`
-  display: flex;
+    display: flex;
 `
 
 export const TableContainer = styled.div`
-  background: ${props => props.theme.white};
-  border-radius: ${props => props.theme.borderRadius};
-  max-height: 202px;
-  overflow: scroll;
-  overflow-x: hidden;
-  width: 779px;
-  margin-top: 11px;
-  margin-bottom: 20px;
+    background: ${props => props.theme.white};
+    border-radius: ${props => props.theme.borderRadius};
+    max-height: 202px;
+    overflow: scroll;
+    overflow-x: hidden;
+    width: 779px;
+    margin-top: 11px;
+    margin-bottom: 20px;
 
       /* width */
     ::-webkit-scrollbar {
@@ -94,13 +94,15 @@ export const TableContainer = styled.div`
 `
 
 export const HomeExpandCollapseContainer = styled.div`
-  display: flex;
-  align-self: flex-end;
-  align-items: center;
-  justify-content: space-between;
-  :hover {
-    cursor: pointer;
-  }
+    display: flex;
+    align-self: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    height: 26px;
+
+    :hover {
+      cursor: pointer;
+    }
 `
 
 
