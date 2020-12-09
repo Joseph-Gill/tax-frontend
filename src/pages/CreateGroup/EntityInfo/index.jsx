@@ -1,25 +1,25 @@
 import React from 'react'
-import {CommentTable, TableHeader, TableTitleRow} from '../../../style/tables'
+import {TableHeader} from '../../../style/tables'
 import {CountryDropdown} from 'react-country-region-selector';
-import { v4 as uuidv4 } from 'uuid';
-import {EntityLegalFormSelect, EntityOption, EntityParentSelect, EntityTableContainer, EntityTitle, NameTableInput, TableFooterInputContainer, TaxRateTableInput} from './styles'
+import {EntitiesTable, EntitiesTableHeader, EntityLegalFormSelect, EntityOption, EntityParentSelect, EntityTableContainer, EntityTitleRow, NameTableInput, TableFooterInputContainer, TaxRateTableInput} from './styles'
 
 
-const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, parentName, setCountryName, taxRate}) => {
+const EntityInfo = ({countryName, entityName, legalForm, parentName, renderListOfEntities, renderParentNameOptions, setCountryName, taxRate}) => {
     return (
         <EntityTableContainer>
-            <EntityTitle>Entities</EntityTitle>
-            <CommentTable>
-                <thead>
-                    <TableTitleRow>
+            <EntitiesTable>
+                <EntitiesTableHeader>
+                    <EntityTitleRow>
                         <TableHeader>Name</TableHeader>
                         <TableHeader>Parent</TableHeader>
                         <TableHeader>Country</TableHeader>
                         <TableHeader>Legal Form</TableHeader>
                         <TableHeader>Tax Rate</TableHeader>
-                    </TableTitleRow>
-                </thead>
-                <tbody />
+                    </EntityTitleRow>
+                </EntitiesTableHeader>
+                <tbody>
+                    {renderListOfEntities}
+                </tbody>
                 <tfoot>
                     <tr>
                         <TableFooterInputContainer>
@@ -32,12 +32,7 @@ const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, p
                         </TableFooterInputContainer>
                         <TableFooterInputContainer>
                             <EntityParentSelect id='parentName' name='parentName' ref={parentName}>
-                                {!availableParentNames.length ?
-                                    <EntityOption value=''>Ultimate</EntityOption> : (
-                                        <>
-                                            <EntityOption value=''>Select a parent</EntityOption>
-                                            {availableParentNames.map(parent => <EntityOption key={uuidv4()} value={`${parent}`}>{parent}</EntityOption>)}
-                                        </>)}
+                                {renderParentNameOptions}
                             </EntityParentSelect>
                         </TableFooterInputContainer>
                         <TableFooterInputContainer>
@@ -81,7 +76,7 @@ const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, p
                         </TableFooterInputContainer>
                     </tr>
                 </tfoot>
-            </CommentTable>
+            </EntitiesTable>
         </EntityTableContainer>
     )
 }
