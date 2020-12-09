@@ -15,7 +15,6 @@ import {NoAccessContainer, ProjectAccessContainer} from './styles'
 
 const Home = () => {
     const dispatch = useDispatch()
-    const token = useSelector(state => state.userLoginReducer.accessToken)
     const first_name = useSelector(state => state.userLoginReducer.user.first_name)
     const user_profile = useSelector(state => state.profileReducer)
     let filter = useRef('')
@@ -23,10 +22,10 @@ const Home = () => {
 
     useEffect(() => {
         (async function getProfileCreateParing() {
-            const response = await dispatch(getProfileAction(token))
+            const response = await dispatch(getProfileAction())
             setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
         })();
-    }, [dispatch, token])
+    }, [dispatch])
 
 
     const createGroupProjectPairing = (groups) => {

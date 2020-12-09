@@ -1,5 +1,6 @@
-import Axios from '../../../../axios'
+import Axios from '../../../axios'
 import {GET_GROUP} from '../types'
+import {getProfileAction} from '../../profile/actions'
 
 
 export const getGroup = data => {
@@ -13,8 +14,8 @@ export const createGroupAction = groupInfo => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
     let form_data = new FormData()
     form_data.append('name', groupInfo.name)
-    form_data.append('entities', groupInfo.entities)
     form_data.append('avatar', groupInfo.avatar)
+    form_data.append('entities', JSON.stringify(groupInfo.entities))
     const config = {
         headers: {
             'Authorization': `Bearer ${userLoginReducer.accessToken}`,
@@ -22,9 +23,9 @@ export const createGroupAction = groupInfo => async (dispatch, getState) => {
         },
     }
     try {
-        const {data} = await Axios.post(`/groups/`, form_data, config)
+        await Axios.post(`/groups/`, form_data, config)
+        const {data} = await dispatch(getProfileAction())
         if (data) {
-            dispatch(getGroup(data))
             return true
         }
     } catch(e) {

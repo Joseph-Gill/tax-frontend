@@ -10,10 +10,11 @@ export const getProfile = data => {
     }
 }
 
-export const getProfileAction = token => async (dispatch) => {
+export const getProfileAction = () => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
     const config = {
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
         }
     }
     try {

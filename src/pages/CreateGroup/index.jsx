@@ -8,6 +8,10 @@ import {EntityOption, EntityTitle} from './EntityInfo/styles'
 import {v4 as uuidv4} from 'uuid'
 import {TableData, TableDataRow} from '../../style/tables'
 import {AddEntityButton, AddEntityButtonContainer, CreateGroupCancelButton, CreateGroupCancelSaveContainer, CreateGroupSaveButton, EntityTitleContainer} from './styles'
+import {useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
+import {createGroupAction} from '../../store/group/actions'
+import {getProfileAction} from '../../store/profile/actions'
 
 
 const CreateGroup = () => {
@@ -17,6 +21,8 @@ const CreateGroup = () => {
     let parentName = useRef('')
     let taxRate = useRef('')
     let legalForm = useRef('')
+    const dispatch = useDispatch()
+    const history = useHistory()
     const [groupImage, setGroupImage] = useState(null)
     const [countryName, setCountryName] = useState('')
     const [availableParentNames, setAvailableParentNames] = useState([])
@@ -42,6 +48,18 @@ const CreateGroup = () => {
         }
         setListOfEntities([...listOfEntities, newEntity])
         setAvailableParentNames([...availableParentNames, entityName.current.value])
+    }
+
+    const saveNewGroupClickHandler = async () => {
+        const newGroup = {
+            name: groupName.current.value,
+            avatar: groupImage,
+            entities: listOfEntities
+        }
+        const response = dispatch(createGroupAction(newGroup))
+        if (response) {
+            history.push('/groups')
+        }
     }
 
     const renderParentNameOptions = React.useMemo(() =>
@@ -98,7 +116,7 @@ const CreateGroup = () => {
             </AddEntityButtonContainer>
             <CreateGroupCancelSaveContainer>
                 <CreateGroupCancelButton>Cancel</CreateGroupCancelButton>
-                <CreateGroupSaveButton>Save</CreateGroupSaveButton>
+                <CreateGroupSaveButton onClick={saveNewGroupClickHandler}>Save</CreateGroupSaveButton>
             </CreateGroupCancelSaveContainer>
         </AuthenticatedPageContainer>
     )
