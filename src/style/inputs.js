@@ -14,22 +14,22 @@ export const BaseInput = styled.input`
     font-weight: 600;
 
     :hover {
-      filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
-      cursor: pointer;
-      transition: 0.5s;
+        filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
+        cursor: pointer;
+        transition: 0.5s;
     }
     :focus {
-      border: 1px solid ${props => props.theme.primaryBlue};
-      outline: none;
-      transition: 1s;
+        border: 1px solid ${props => props.theme.primaryBlue};
+        outline: none;
+        transition: 1s;
     }
     ::placeholder {
-      color: ${props => props.theme.grayTwo};
-      font-size: 14px;
+        color: ${props => props.theme.grayTwo};
+        font-size: 14px;
     }
     :disabled {
-      background-color: ${props => props.theme.grayFour};
-      border: 1px solid ${props => props.theme.grayThree};
+        background-color: ${props => props.theme.grayFour};
+        border: 1px solid ${props => props.theme.grayThree};
     }
 `
 

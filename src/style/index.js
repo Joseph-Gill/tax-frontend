@@ -3,12 +3,20 @@ import {createGlobalStyle} from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
     * {
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    font-family: Spartan,serif;
-    box-sizing: border-box;
-    color: rgba(0,0,0,0.92);
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        font-family: Spartan,serif;
+        box-sizing: border-box;
+        color: rgba(0,0,0,0.92);
+    }
+    // Used to Style the Options of the react-country-region-selector options
+    option {
+        font-family: Nunito Sans, sans-serif;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 16px;
+        color: ${props => props.theme.grayOne};
     }
 `
 

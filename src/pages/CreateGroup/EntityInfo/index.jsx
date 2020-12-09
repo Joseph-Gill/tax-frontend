@@ -1,58 +1,11 @@
 import React from 'react'
-import styled from 'styled-components/macro'
-import {AuthenticatedPageSectionTitle} from '../../../style/titles'
-import {TableContainer} from '../../../style/containers'
 import {CommentTable, TableHeader, TableTitleRow} from '../../../style/tables'
-import {BaseInput} from '../../../style/inputs'
+import {CountryDropdown} from 'react-country-region-selector';
+import { v4 as uuidv4 } from 'uuid';
+import {EntityLegalFormSelect, EntityOption, EntityParentSelect, EntityTableContainer, EntityTitle, NameTableInput, TableFooterInputContainer, TaxRateTableInput} from './styles'
 
 
-const EntityTitle = styled(AuthenticatedPageSectionTitle)`
-    margin-top: 0;
-    padding-left: 16px;
-    padding-bottom: 10px;
-`
-
-const EntityTableContainer = styled(TableContainer)`
-    width: 860px;
-    background: ${props => props.theme.white};
-    margin-top: 20px;
-    border-radius: ${props => props.theme.borderRadius};
-    box-shadow: ${props => props.theme.boxShadow};
-    padding-top: 20px;
-`
-
-const TableFooterInputContainer = styled.td`
-    width: 100%;
-    border: 1px solid ${props => props.theme.grayFour};
-`
-
-const NameTableInput = styled(BaseInput)`
-    width: 140px;
-    height: 34px;
-    font-size: 10px;
-    line-height: 16px;
-    margin: 17px 10px;
-
-    ::placeholder {
-        font-size: 10px;
-        line-height: 16px;
-    }
-`
-
-const ParentTableInput = styled(NameTableInput)`
-    width: 98px;
-`
-
-const CountryTableInput = styled(NameTableInput)`
-    width: 157px;
-`
-
-const TaxRateTableInput = styled(NameTableInput)`
-    width: 186px;
-`
-
-
-const EntityInfo = ({countryName, entityName, parentName, taxRate}) => {
+const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, parentName, setCountryName, taxRate}) => {
     return (
         <EntityTableContainer>
             <EntityTitle>Entities</EntityTitle>
@@ -66,8 +19,7 @@ const EntityInfo = ({countryName, entityName, parentName, taxRate}) => {
                         <TableHeader>Tax Rate</TableHeader>
                     </TableTitleRow>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody />
                 <tfoot>
                     <tr>
                         <TableFooterInputContainer>
@@ -79,23 +31,45 @@ const EntityInfo = ({countryName, entityName, parentName, taxRate}) => {
                             />
                         </TableFooterInputContainer>
                         <TableFooterInputContainer>
-                            <ParentTableInput
-                                name='parentName'
-                                placeholder='Enter parent'
-                                ref={parentName}
-                                type='text'
+                            <EntityParentSelect id='parentName' name='parentName' ref={parentName}>
+                                {!availableParentNames.length ?
+                                    <EntityOption value=''>Ultimate</EntityOption> : (
+                                        <>
+                                            <EntityOption value=''>Select a parent</EntityOption>
+                                            {availableParentNames.map(parent => <EntityOption key={uuidv4()} value={`${parent}`}>{parent}</EntityOption>)}
+                                        </>)}
+                            </EntityParentSelect>
+                        </TableFooterInputContainer>
+                        <TableFooterInputContainer>
+                            <CountryDropdown
+                                onChange={(val) => setCountryName(val)}
+                                 // eslint-disable-next-line react/forbid-component-props
+                                style={{
+                                    width: '157px',
+                                    height: '34px',
+                                    fontSize: '10px',
+                                    lineHeight: '16px',
+                                    margin: '17px 10px',
+                                    background: '#FAFAFA',
+                                    border: '1px solid #D3D8DD',
+                                    borderRadius: '4px',
+                                    fontFamily: 'Nunito Sans, sans-serif',
+                                    fontWeight: '600'
+                                }}
+                                value={countryName}
                             />
                         </TableFooterInputContainer>
                         <TableFooterInputContainer>
-                            <CountryTableInput
-                                name='countryName'
-                                placeholder='Enter Country Name'
-                                ref={countryName}
-                                type='text'
-                            />
-                        </TableFooterInputContainer>
-                        <TableFooterInputContainer>
-                            <input type='text' />
+                            <EntityLegalFormSelect id='legalForm' name='legalForm' ref={legalForm}>
+                                <EntityOption value=''>Select a legal form </EntityOption>
+                                <EntityOption value='Corporation'>Corporation</EntityOption>
+                                <EntityOption value='Partnership'>Partnership</EntityOption>
+                                <EntityOption value='Branch'>Branch</EntityOption>
+                                <EntityOption value='Disregarded Entity'>Disregarded Entity</EntityOption>
+                                <EntityOption value='Representative Office'>Representative Office</EntityOption>
+                                <EntityOption value='Hybrid Entity'>Hybrid Entity</EntityOption>
+                                <EntityOption value='Reverse Entity'>Reverse Entity</EntityOption>
+                            </EntityLegalFormSelect>
                         </TableFooterInputContainer>
                         <TableFooterInputContainer>
                             <TaxRateTableInput

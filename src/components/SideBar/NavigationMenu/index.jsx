@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {GroupMenuContainer, LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
-import {HOME, USERPROFILE, LOGIN, GROUPS, ORGCHART, TEAMMEMBERS, PROJECTS} from '../../../routes/paths'
+import {HOME, USERPROFILE, LOGIN, GROUPS, ORGCHART, TEAMMEMBERS, PROJECTS, CREATEGROUP} from '../../../routes/paths'
 import account from '../../../assets/icons/account_circle_24px.png'
 import layers from '../../../assets/icons/layers_24px.png'
 import dashboard from '../../../assets/icons/dashboard_24px.png'
@@ -32,7 +32,7 @@ const NavigationMenu = ({dispatch, location}) => {
                 </MenuItem>
                 {test &&
                 <MenuItem
-                    isActive={location.pathname === GROUPS}
+                    isActive={location.pathname === GROUPS || location.pathname === CREATEGROUP}
                     to={GROUPS}
                 ><NavigationIcons src={layers} />Groups
                 </MenuItem>}
