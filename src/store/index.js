@@ -5,13 +5,15 @@ import {userLoginReducer} from './user/userLoginReducer'
 import {errorReducer} from './errors/errorReducer'
 import {feedbackReducer} from './feedback/feedbackReducer'
 import {profileReducer} from './profile/profileReducer'
+import {groupReducer} from './group/groupReducer'
 
 // Reducers
 export const reducers = combineReducers({
     userLoginReducer,
     errorReducer,
     feedbackReducer,
-    profileReducer
+    profileReducer,
+    groupReducer
 })
 
 // Thunk
