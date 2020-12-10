@@ -11,6 +11,7 @@ import {AddEntityButton, AddEntityButtonContainer, CreateGroupCancelButton, Crea
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {createGroupAction} from '../../store/group/actions'
+import {CREATEGROUP, GROUPS} from '../../routes/paths'
 
 
 const CreateGroup = () => {
@@ -85,7 +86,7 @@ const CreateGroup = () => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:'/groups'}, {display:'CREATE GROUP', to:'/groups/create'}]} />
+            <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:GROUPS}, {display:'CREATE GROUP', to:CREATEGROUP}]} />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Create Group</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>

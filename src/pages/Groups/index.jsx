@@ -7,6 +7,7 @@ import CreateGroupCard from './CreateGroupCard'
 import GroupCard from './GroupCard'
 import {GroupDisplayContainer, GroupGridContainer, GroupsSectionTile} from './styles'
 import {resetGroup} from '../../store/group/actions'
+import {GROUPS} from '../../routes/paths'
 
 
 const Groups = () => {
@@ -19,7 +20,7 @@ const Groups = () => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:'/groups'}]} />
+            <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:GROUPS}]} />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Groups</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>

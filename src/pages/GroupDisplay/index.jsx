@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {useHistory, useRouteMatch} from 'react-router-dom'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {AuthenticatedPageContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {getGroupAction} from '../../store/group/actions'
@@ -44,7 +44,7 @@ const GroupDisplay = () => {
         <AuthenticatedPageContainer>
             {!loaded ? <Spinner /> :
             <>
-                <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:'/groups'}, {display:`GROUP ${group.name.toUpperCase()}`, to:`/groups/${group.id}`}]} />
+                <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:GROUPS}, {display:`GROUP ${group.name.toUpperCase()}`, to:`${GROUPS}/${group.id}`}]} />
                 <DisplayGroupTitleContainer>
                     <AuthenticatedPageTitle>Group {group.name}</AuthenticatedPageTitle>
                     <EditGroupButton>Edit Group</EditGroupButton>

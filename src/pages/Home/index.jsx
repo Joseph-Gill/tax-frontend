@@ -12,6 +12,7 @@ import GroupFilter from './GroupFilter'
 import { v4 as uuidv4 } from 'uuid'
 import {NoAccessContainer, ProjectAccessContainer} from './styles'
 import {resetGroup} from '../../store/group/actions'
+import {HOME} from '../../routes/paths'
 
 
 const Home = () => {
@@ -55,7 +56,7 @@ const Home = () => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[{display:'HOME', to:'/home'}]} />
+            <BreadCrumb breadCrumbArray={[{display:'HOME', to:HOME}]} />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Welcome {first_name}</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
