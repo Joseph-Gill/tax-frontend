@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {GroupMenuContainer, LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
+import {GroupMenuContainer, LogOutContainer, MenuItem, NavBarSpacer, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
 import {HOME, USERPROFILE, LOGIN, GROUPS, ORGCHART, TEAMMEMBERS, PROJECTS, CREATEGROUP} from '../../../routes/paths'
 import account from '../../../assets/icons/account_circle_24px.png'
