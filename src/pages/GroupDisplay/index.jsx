@@ -29,7 +29,7 @@ const GroupDisplay = () => {
 
     useEffect(() => {
         dispatch(getGroupAction(match.params.groupId))
-    }, [dispatch])
+    }, [dispatch, match.params.groupId])
 
     return (
         <AuthenticatedPageContainer>

@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro'
-import {HomeGroupText, HomePageText} from '../../../style/text'
 
 
 export const GroupCardContainer = styled.div`

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {getProfileAction} from '../../store/profile/actions'
@@ -52,9 +52,6 @@ const Home = () => {
         })
         return groupNameProjectPairing
     }
-
-    // const searchGroupProjectName = projectGroupPairings.length?
-    //     projectGroupPairings.filter(pair => pair.groupName.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1) : projectGroupPairings;
 
     return (
         <AuthenticatedPageContainer>
