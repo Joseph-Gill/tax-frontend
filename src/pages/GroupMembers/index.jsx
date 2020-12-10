@@ -1,28 +1,17 @@
-import React from 'react'
-import styled from 'styled-components/macro'
-import {AuthenticatedPageContainer, DisplayGroupTitleContainer} from '../../style/containers'
+import React, {useState} from 'react'
+import {AuthenticatedPageContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import {GROUPS, MEMBERS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
-
-
-const MembersStatusToggleContainer = styled.div`
-    width: 150px;
-    height: 40px;
-    background: rgba(224, 224, 224, 0.5);
-    box-shadow: inset 0 2px 4px rgba(44, 33, 120, 0.1), inset 0 1px 2px rgba(44, 33, 120, 0.1);
-    border-radius: 8px;
-`
-
-export const DisplayMembersTitleContainer = styled(DisplayGroupTitleContainer)`
-    margin-top: 16.5px;
-`
+import {DisplayMembersTitleContainer, GreyStatusText, MembersStatusToggleContainer, WhiteStatusContainer} from './styles'
 
 
 const GroupMembers = () => {
     const group = useSelector(state => state.groupReducer.group)
     const members = useSelector(state => state.groupReducer.group.users)
+    const [filterMemberStatus, setFilterMemberStatus] = useState(true)
+
     return (
         <AuthenticatedPageContainer>
             <BreadCrumb breadCrumbArray={[
@@ -32,7 +21,16 @@ const GroupMembers = () => {
             />
             <DisplayMembersTitleContainer>
                 <AuthenticatedPageTitle>Team Members</AuthenticatedPageTitle>
-                <MembersStatusToggleContainer />
+                <MembersStatusToggleContainer>
+                    {filterMemberStatus ? (
+                        <><WhiteStatusContainer>Active</WhiteStatusContainer>
+                            <GreyStatusText onClick={() => setFilterMemberStatus(!filterMemberStatus)}>Invited</GreyStatusText>
+                        </>) : (
+                            <>
+                                <GreyStatusText onClick={() => setFilterMemberStatus(!filterMemberStatus)}>Active</GreyStatusText>
+                                <WhiteStatusContainer>Invited</WhiteStatusContainer>
+                            </>)}
+                </MembersStatusToggleContainer>
             </DisplayMembersTitleContainer>
         </AuthenticatedPageContainer>
     )
