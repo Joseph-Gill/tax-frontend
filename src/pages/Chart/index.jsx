@@ -75,10 +75,10 @@ const Chart = () => {
                     (
                         <div className='test'>
                             <ChartEdit
-                                clinks={[{'from': '5', 'to': '1', 'template': 'blue', 'label': 'CLink Test'}]}
+                                // clinks={[{'from': '5', 'to': '1', 'template': 'blue', 'label': 'CLink Test'}]}
                                 nodes={chart}
                                 // Template colors for SLinks / CLinks: undefined = Orange, blue, yellow
-                                slinks={[{'from': '17', 'to': '8', 'template': 'myred', 'label': 'SLink Test'}]}
+                                // slinks={[{'from': '17', 'to': '8', 'template': 'myred', 'label': 'SLink Test'}]}
                             />
                             <button onClick={handleUpload}>Save Chart</button>
                         </div>
