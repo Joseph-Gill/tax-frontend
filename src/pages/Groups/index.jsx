@@ -1,15 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import CreateGroupCard from './CreateGroupCard'
 import GroupCard from './GroupCard'
 import {GroupDisplayContainer, GroupGridContainer, GroupsSectionTile} from './styles'
+import {resetGroup} from '../../store/group/actions'
 
 
 const Groups = () => {
     const groups = useSelector(state => state.profileReducer.profile.groups)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(resetGroup())
+    }, [dispatch])
 
     return (
         <AuthenticatedPageContainer>

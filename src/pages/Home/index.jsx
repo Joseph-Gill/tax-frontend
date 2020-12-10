@@ -11,6 +11,7 @@ import Spinner from '../../components/Spinner'
 import GroupFilter from './GroupFilter'
 import { v4 as uuidv4 } from 'uuid'
 import {NoAccessContainer, ProjectAccessContainer} from './styles'
+import {resetGroup} from '../../store/group/actions'
 
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
 
     useEffect(() => {
         (async function getProfileCreateParing() {
+            dispatch(resetGroup())
             const response = await dispatch(getProfileAction())
             setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
         })();

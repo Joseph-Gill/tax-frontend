@@ -65,7 +65,7 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
                 <NavbarTitle>Selected Group</NavbarTitle>
                 <div>
                     <SelectedGroupIcon src={layersv2} />
-                    <MenuItemTitle>None selected</MenuItemTitle>
+                    <MenuItemTitle>{loaded ? group.name : 'None selected'}</MenuItemTitle>
                     <span onClick={() => history.push('/groups')}>Switch</span>
                 </div>
             </SelectedGroupContainer>

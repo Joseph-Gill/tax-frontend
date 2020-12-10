@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {AuthenticatedPageSectionTitle, AuthenticatedPageTitle} from '../../style/titles'
@@ -15,6 +15,7 @@ import {updateProfileAction} from '../../store/profile/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import SuccessMessage from '../../components/SuccessMessage'
 import {HOME} from '../../routes/paths'
+import {resetGroup} from '../../store/group/actions'
 
 
 const UserProfile = () => {
@@ -31,6 +32,10 @@ const UserProfile = () => {
     })
     let password = useRef('')
     let password_repeat = useRef('')
+
+    useEffect(() => {
+        dispatch(resetGroup())
+    }, [dispatch])
 
     const handleSaveChanges = async () => {
         dispatch(resetErrors())
