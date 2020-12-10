@@ -1,4 +1,4 @@
-import {GET_GROUP} from './types'
+import {GET_GROUP, RESET_GROUP} from './types'
 
 
 const initialState = {
@@ -21,6 +21,20 @@ export const groupReducer = (state = initialState, action) => {
                     ...action.payload
                 },
                 loaded: true
+            }
+        }
+        case RESET_GROUP: {
+            return {
+                ...state,
+                group: {
+                    name: null,
+                    avatar: null,
+                    entities: null,
+                    projects: null,
+                    organizations: null,
+                    users: null
+                },
+                loaded: false
             }
         }
         default:

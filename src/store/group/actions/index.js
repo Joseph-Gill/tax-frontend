@@ -1,5 +1,5 @@
 import Axios from '../../../axios'
-import {GET_GROUP} from '../types'
+import {GET_GROUP, RESET_GROUP} from '../types'
 import {getProfileAction} from '../../profile/actions'
 
 
@@ -7,6 +7,31 @@ export const getGroup = data => {
     return {
         type: GET_GROUP,
         payload: data
+    }
+}
+
+export const resetGroup = () => {
+    return {
+        type: RESET_GROUP
+    }
+}
+
+export const getGroupAction = groupId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`/groups/group/${groupId}/`, config)
+        const groupInfo = {
+            ...response.data
+        }
+        dispatch(getGroup(groupInfo))
+        return groupInfo
+    } catch(e) {
+        console.log('Error getting specific group>', e)
     }
 }
 

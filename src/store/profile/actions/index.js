@@ -25,7 +25,7 @@ export const getProfileAction = () => async (dispatch, getState) => {
         dispatch(getProfile(userProfile))
         return userProfile
     } catch(e) {
-        console.log(e)
+        console.log('Error getting logged in user profile>', e)
     }
 }
 

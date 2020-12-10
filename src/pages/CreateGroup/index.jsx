@@ -11,7 +11,6 @@ import {AddEntityButton, AddEntityButtonContainer, CreateGroupCancelButton, Crea
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {createGroupAction} from '../../store/group/actions'
-import {getProfileAction} from '../../store/profile/actions'
 
 
 const CreateGroup = () => {
