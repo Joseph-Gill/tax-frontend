@@ -11,7 +11,7 @@ import organizationChartImage from '../../assets/icons/stark_group_display_org_c
 import projectImage from '../../assets/icons/stark_group_display_project_card_image.png'
 import membersImage from '../../assets/icons/stark_group_display_members_card_image.png'
 import {GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../routes/paths'
-import {DisplayCardsContaner} from './styling'
+import {DisplayCardsContaner, DisplayGroupTitleContainer, EditGroupButton} from './styling'
 
 
 const GroupDisplay = () => {
@@ -45,9 +45,10 @@ const GroupDisplay = () => {
             {!loaded ? <Spinner /> :
             <>
                 <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:'/groups'}, {display:`GROUP ${group.name.toUpperCase()}`, to:`/groups/${group.id}`}]} />
-                <AuthenticatedPageTitleContainer>
+                <DisplayGroupTitleContainer>
                     <AuthenticatedPageTitle>Group {group.name}</AuthenticatedPageTitle>
-                </AuthenticatedPageTitleContainer>
+                    <EditGroupButton>Edit Group</EditGroupButton>
+                </DisplayGroupTitleContainer>
                 <DisplayCardsContaner>
                     <DisplayCard content={group.entities} image={organizationChartImage} redirectOnClickHandler={redirectOnClickHandler} type='Organization Chart' />
                     <DisplayCard content={group.projects} image={projectImage} redirectOnClickHandler={redirectOnClickHandler} type='Projects' />
