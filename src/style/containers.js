@@ -105,7 +105,13 @@ export const HomeExpandCollapseContainer = styled.div`
     }
 `
 
-
+export const DisplayGroupTitleContainer = styled(AuthenticatedPageTitleContainer)`
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    align-items: flex-end;
+    margin-top: 24px;
+`
 
 
 

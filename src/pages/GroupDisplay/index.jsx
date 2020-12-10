@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {useHistory, useRouteMatch} from 'react-router-dom'
-import {AuthenticatedPageContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, DisplayGroupTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {getGroupAction} from '../../store/group/actions'
@@ -11,7 +11,7 @@ import organizationChartImage from '../../assets/icons/stark_group_display_org_c
 import projectImage from '../../assets/icons/stark_group_display_project_card_image.png'
 import membersImage from '../../assets/icons/stark_group_display_members_card_image.png'
 import {GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../routes/paths'
-import {DisplayCardsContaner, DisplayGroupTitleContainer, EditGroupButton} from './styling'
+import {DisplayCardsContaner, EditGroupButton} from './styling'
 
 
 const GroupDisplay = () => {
