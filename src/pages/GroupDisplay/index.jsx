@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
-import {useRouteMatch} from "react-router-dom";
-import styled from 'styled-components/macro'
+import {useHistory, useRouteMatch} from 'react-router-dom'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
@@ -11,25 +10,35 @@ import DisplayCard from './DisplayCard'
 import organizationChartImage from '../../assets/icons/stark_group_display_org_card_image.png'
 import projectImage from '../../assets/icons/stark_group_display_project_card_image.png'
 import membersImage from '../../assets/icons/stark_group_display_members_card_image.png'
-
-
-const DisplayCardsContaner = styled.div`
-    width: 860px;
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
-`
+import {GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../routes/paths'
+import {DisplayCardsContaner} from './styling'
 
 
 const GroupDisplay = () => {
     const dispatch = useDispatch()
     const match = useRouteMatch();
+    const history = useHistory()
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
 
     useEffect(() => {
         dispatch(getGroupAction(match.params.groupId))
     }, [dispatch, match.params.groupId])
+
+    const redirectOnClickHandler = (type) => {
+        switch (type) {
+            case 'Organization Chart': {
+                history.push(`${GROUPS}${ORG_CHART}`)
+                break
+            }
+            case 'Projects': {
+                history.push(`${GROUPS}${PROJECTS}`)
+                break
+            }
+            default:
+                history.push(`${GROUPS}${MEMBERS}`)
+        }
+    }
 
     return (
         <AuthenticatedPageContainer>
@@ -40,9 +49,9 @@ const GroupDisplay = () => {
                     <AuthenticatedPageTitle>Group {group.name}</AuthenticatedPageTitle>
                 </AuthenticatedPageTitleContainer>
                 <DisplayCardsContaner>
-                    <DisplayCard content={group.entities} image={organizationChartImage} type='Organization Chart' />
-                    <DisplayCard content={group.projects} image={projectImage} type='Projects' />
-                    <DisplayCard content={group.users} image={membersImage} type='Members' />
+                    <DisplayCard content={group.entities} image={organizationChartImage} redirectOnClickHandler={redirectOnClickHandler} type='Organization Chart' />
+                    <DisplayCard content={group.projects} image={projectImage} redirectOnClickHandler={redirectOnClickHandler} type='Projects' />
+                    <DisplayCard content={group.users} image={membersImage} redirectOnClickHandler={redirectOnClickHandler} type='Members' />
                 </DisplayCardsContaner>
             </>}
         </AuthenticatedPageContainer>

@@ -22,7 +22,7 @@ const Spinner = () => {
     return (
         <SpinnerContainer>
             <BeatLoader
-                color="#1fce90"
+                color="#00709F"
                 loading={loading}
                 size={30}
             />
