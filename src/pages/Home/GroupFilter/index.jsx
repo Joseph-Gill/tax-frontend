@@ -1,20 +1,42 @@
 import React from 'react'
-import {FilterDropDown} from '../../../style/dropdowns'
-import {FilterLabel} from '../../../style/labels'
 import styled from 'styled-components/macro'
 import filterImage from '../../../assets/icons/stark_filter.svg'
-import {FilterImage} from '../../../style/images'
+import {BaseInput} from '../../../style/inputs'
+
+
 
 const GroupFilterContainer = styled.div`
 
 `
 
-const GroupFilter = ({filter}) => {
+const FilterInput = styled(BaseInput)`
+    width: 170px;
+    border: 1px solid ${props => props.theme.primaryBlue};
+    background-image: url(${filterImage});
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 6%;
+    padding-left: 40px;
+
+    :focus {
+        background-image: none;
+        padding-left: 11px;
+    }
+
+    ::placeholder {
+        color: ${props => props.theme.primaryBlue};
+    }
+`
+
+const GroupFilter = ({filterString, setFilterString}) => {
     return (
         <GroupFilterContainer>
-            <FilterImage alt='filter' src={filterImage} />
-            <FilterLabel>Filter</FilterLabel>
-            <FilterDropDown />
+            <FilterInput
+                onChange={(e) => setFilterString(e.target.value)}
+                placeholder='Filter'
+                type='text'
+                value={filterString}
+            />
         </GroupFilterContainer>
     )
 }

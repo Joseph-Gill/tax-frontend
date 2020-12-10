@@ -17,7 +17,7 @@ const Home = () => {
     const dispatch = useDispatch()
     const first_name = useSelector(state => state.userLoginReducer.user.first_name)
     const user_profile = useSelector(state => state.profileReducer)
-    let filter = useRef('')
+    const [filterString, setFilterString] = useState('')
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
 
     useEffect(() => {
@@ -27,6 +27,16 @@ const Home = () => {
         })();
     }, [dispatch])
 
+    const searchedPairings = projectGroupPairings.filter(pair =>
+            pair.groupName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1 ||
+            pair.project.name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
+    );
+
+    const renderPairings = (searchedPairings) => {
+        return searchedPairings.map((pair) => (
+            <HomeGroup groupName={pair.groupName} key={uuidv4()} project={pair.project} />
+        ))
+    }
 
     const createGroupProjectPairing = (groups) => {
         const groupNameProjectPairing = []
@@ -40,6 +50,9 @@ const Home = () => {
         })
         return groupNameProjectPairing
     }
+
+    // const searchGroupProjectName = projectGroupPairings.length?
+    //     projectGroupPairings.filter(pair => pair.groupName.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1) : projectGroupPairings;
 
     return (
         <AuthenticatedPageContainer>
@@ -56,9 +69,9 @@ const Home = () => {
                         <>
                             <ProjectAccessContainer>
                                 <HomePageText>Your current projects</HomePageText>
-                                <GroupFilter filter={filter} />
+                                <GroupFilter filterString={filterString} setFilterString={setFilterString} />
                             </ProjectAccessContainer>
-                            {projectGroupPairings.map(entry => <HomeGroup groupName={entry.groupName} key={uuidv4()} project={entry.project} />)}
+                            {renderPairings(searchedPairings)}
                         </>
                     )}
         </AuthenticatedPageContainer>

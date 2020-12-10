@@ -36,7 +36,3 @@ export const BaseInput = styled.input`
 export const NameInput = styled(BaseInput)`
     width: 145px;
 `
-
-export const FilterInput = styled(BaseInput)`
-    width: 160px;
-`
