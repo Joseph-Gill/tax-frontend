@@ -17,7 +17,7 @@ import {LogOutLink} from '../../../style/links'
 import {SelectedGroupIcon} from '../../../style/images'
 
 
-const NavigationMenu = ({dispatch, location}) => {
+const NavigationMenu = ({dispatch, group, location, loaded}) => {
 
     const [test, setTest] = useState(true)
 
@@ -42,7 +42,7 @@ const NavigationMenu = ({dispatch, location}) => {
                 ><NavigationIcons src={account} />Account
                 </MenuItem>
             </NavigationContainer>
-            {!test &&
+            {loaded &&
             <GroupMenuContainer>
                 <NavbarTitle>Group Menu</NavbarTitle>
                 <MenuItem
