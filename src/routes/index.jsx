@@ -14,6 +14,7 @@ import Chart from '../pages/Chart'
 import Groups from '../pages/Groups'
 import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, CHART, GROUPS, CREATEGROUP} from './paths'
 import CreateGroup from '../pages/CreateGroup'
+import GroupDisplay from '../pages/GroupDisplay'
 
 
 const Routes = () => {
@@ -29,6 +30,7 @@ const Routes = () => {
                     <Route component={WithAuth(Home)} exact path={HOME} />
                     <Route component={WithAuth(Groups)} exact path={GROUPS} />
                     <Route component={WithAuth(CreateGroup)} exact path={CREATEGROUP} />
+                    <Route component={WithAuth(GroupDisplay)} path={`${GROUPS}/:groupId/`} />
                     <Route component={WithAuth(UserProfile)} exact path={USERPROFILE} />
                     <Route component={Chart} exact path={CHART} />
                     <Route component={Page404} />

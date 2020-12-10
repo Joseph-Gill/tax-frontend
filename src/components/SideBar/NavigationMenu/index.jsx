@@ -15,11 +15,11 @@ import projects from '../../../assets/icons/stark_projects.png'
 import {MenuItemTitle, NavbarTitle} from '../../../style/titles'
 import {LogOutLink} from '../../../style/links'
 import {SelectedGroupIcon} from '../../../style/images'
+import {useHistory} from 'react-router-dom'
 
 
 const NavigationMenu = ({dispatch, group, location, loaded}) => {
-
-    const [test, setTest] = useState(true)
+    const history = useHistory()
 
     return (
         <>
@@ -30,7 +30,7 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
                     to={HOME}
                 ><NavigationIcons src={dashboard} />Home
                 </MenuItem>
-                {test &&
+                {!loaded &&
                 <MenuItem
                     isActive={location.pathname === GROUPS || location.pathname === CREATEGROUP}
                     to={GROUPS}
@@ -66,7 +66,7 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
                 <div>
                     <SelectedGroupIcon src={layersv2} />
                     <MenuItemTitle>None selected</MenuItemTitle>
-                    <span onClick={() => setTest(!test)}>Switch</span>
+                    <span onClick={() => history.push('/groups')}>Switch</span>
                 </div>
             </SelectedGroupContainer>
             <LogOutContainer>

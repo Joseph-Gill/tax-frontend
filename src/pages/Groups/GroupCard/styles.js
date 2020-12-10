@@ -9,6 +9,11 @@ export const GroupCardContainer = styled.div`
     border: 1px solid ${props => props.theme.primaryBlue};
     border-radius: ${props => props.theme.borderRadius};
     padding: 20px 15px 18px 15px;
+
+    :hover {
+        cursor: pointer;
+        box-shadow: ${props => props.theme.boxShadow};
+    }
 `
 
 export const GroupCardInfoContainer = styled.div`
