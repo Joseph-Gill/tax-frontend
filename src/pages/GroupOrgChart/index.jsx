@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
@@ -22,9 +21,7 @@ const GroupOrgChart = () => {
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Organization Chart</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
-            <div>
-                <CurrentOrgChart nodes={entities} />
-            </div>
+            <CurrentOrgChart nodes={entities} />
         </AuthenticatedPageContainer>
     )
 }

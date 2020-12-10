@@ -1,5 +1,15 @@
 import React, {useEffect} from 'react'
 import OrgChart from '@balkangraph/orgchart.js'
+import styled from 'styled-components/macro'
+
+const OrgChartContainer = styled.div`
+    width: 860px;
+    background: ${props => props.theme.white};
+    margin-top: 30px;
+    height: 516px;
+    border-radius: ${props => props.theme.borderRadius};
+    box-shadow: ${props => props.theme.boxShadow};
+`
 
 
 const CurrentOrgChart = ({nodes}) => {
@@ -38,7 +48,7 @@ const CurrentOrgChart = ({nodes}) => {
     })
 
     return (
-        <div id="tree" ref={divRef} />
+        <OrgChartContainer id="tree" ref={divRef} />
     )
 }
 
