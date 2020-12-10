@@ -33,3 +33,14 @@ export const HomeGroupText = styled.p`
 export const ExpandCollapseText = styled(HomeGroupText)`
   color: ${props => props.theme.primaryBlue};
 `
+
+export const CardTitleText = styled(HomePageText)`
+    color: ${props => props.theme.grayOne};
+    font-weight: 600;
+    margin-top: 16px;
+`
+
+export const CardInfoText = styled(HomeGroupText)`
+    color: ${props => props.theme.grayOne};
+    font-weight: 600;
+`

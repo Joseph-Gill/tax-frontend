@@ -21,14 +21,3 @@ export const GroupCardInfoContainer = styled.div`
     justify-content: space-between;
     margin-top: 10px;
 `
-
-export const GroupCardTitleText = styled(HomePageText)`
-    color: ${props => props.theme.grayOne};
-    font-weight: 600;
-    margin-top: 16px;
-`
-
-export const GroupInfoText = styled(HomeGroupText)`
-    color: ${props => props.theme.grayOne};
-    font-weight: 600;
-`

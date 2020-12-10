@@ -54,7 +54,7 @@ const UserProfile = () => {
                 message="Your profile has been successfully updated!"
                 redirect={HOME}
                             />}
-            <BreadCrumb breadCrumbArray={[{'USER ACCOUNT': '/userprofile'}]} />
+            <BreadCrumb breadCrumbArray={[{display:'USER ACCOUNT', to:'/userprofile'}]} />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Profile</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>

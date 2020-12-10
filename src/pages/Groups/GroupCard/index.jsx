@@ -1,7 +1,8 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
 import groupImagePH from '../../../assets/icons/stark_group_card_image_ph.png'
-import {GroupCardContainer, GroupCardInfoContainer, GroupCardTitleText, GroupInfoText} from './styles'
+import {GroupCardContainer, GroupCardInfoContainer} from './styles'
+import {CardInfoText, CardTitleText} from '../../../style/text'
 
 
 const GroupCard = ({group}) => {
@@ -10,10 +11,10 @@ const GroupCard = ({group}) => {
     return (
         <GroupCardContainer onClick={() => history.push(`/groups/${group.id}/`)}>
             <img alt='group' src={groupImagePH} />
-            <GroupCardTitleText>{group.name}</GroupCardTitleText>
+            <CardTitleText>{group.name}</CardTitleText>
             <GroupCardInfoContainer>
-                <GroupInfoText>{`${group.projects.length} Projects`}</GroupInfoText>
-                <GroupInfoText>{`${group.users.length} Members`}</GroupInfoText>
+                <CardInfoText>{`${group.projects.length} Projects`}</CardInfoText>
+                <CardInfoText>{`${group.users.length} Members`}</CardInfoText>
             </GroupCardInfoContainer>
         </GroupCardContainer>
     )

@@ -56,7 +56,7 @@ const Home = () => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[{'HOME': '/home'}]} />
+            <BreadCrumb breadCrumbArray={[{display:'HOME', to:'/home'}]} />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Welcome {first_name}</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>

@@ -13,7 +13,7 @@ const Groups = () => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[{'GROUPS': '/groups'}]} />
+            <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:'/groups'}]} />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Groups</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>

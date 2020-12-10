@@ -38,7 +38,7 @@ const BreadCrumb = ({breadCrumbArray}) => {
         return array.map(item => (
             <BreakCrumbContainer key={uuidv4()}>
                 <BreadCrumbImage alt='breadcrumb' src={rightChevron} />
-                <BreadCrumbItem to={Object.values(item)[0]}>{Object.keys(item)[0]}</BreadCrumbItem>
+                <BreadCrumbItem to={item.to}>{item.display}</BreadCrumbItem>
             </BreakCrumbContainer>
             )
         )}

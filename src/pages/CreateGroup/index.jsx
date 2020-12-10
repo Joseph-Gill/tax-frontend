@@ -85,7 +85,7 @@ const CreateGroup = () => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[{'GROUPS': '/groups'}, {'CREATE GROUP': '/groups/create'}]} />
+            <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:'/groups'}, {display:'CREATE GROUP', to:'/groups/create'}]} />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Create Group</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
