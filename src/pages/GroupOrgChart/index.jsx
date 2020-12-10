@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {GROUPS, ORG_CHART} from '../../routes/paths'
+import CurrentOrgChart from '../../components/CurrentOrgChart'
 
 
 const GroupOrgChart = () => {
@@ -21,6 +22,9 @@ const GroupOrgChart = () => {
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Organization Chart</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
+            <div>
+                <CurrentOrgChart nodes={entities} />
+            </div>
         </AuthenticatedPageContainer>
     )
 }

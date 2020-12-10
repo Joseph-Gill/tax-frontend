@@ -13,39 +13,39 @@
 /*}*/
 
 /*Sets the color of all links in the chart*/
-[link-id] path {
-    stroke: #FFE594;
-}
+/*[link-id] path {*/
+/*    stroke: #FFE594;*/
+/*}*/
 
 /*Sets the color of a specified link in the chart*/
-[link-id='[13][17]'] path {
-    stroke: #ff003b;
-    stroke-dasharray: 6;
-}
+/*[link-id='[13][17]'] path {*/
+/*    stroke: #ff003b;*/
+/*    stroke-dasharray: 6;*/
+/*}*/
 
-[link-id='[1][2]'] path {
-    stroke: #ff003b;
-    stroke-dasharray: 6;
-}
+/*[link-id='[1][2]'] path {*/
+/*    stroke: #ff003b;*/
+/*    stroke-dasharray: 6;*/
+/*}*/
 
 /*Sets the color to all nodes with a specified Tag*/
-.node.Test rect {
-    fill: blueviolet;
-}
+/*.node.Test rect {*/
+/*    fill: blueviolet;*/
+/*}*/
 
-.svg-btn rect {
-    fill: #565a60;
-}
+/*.svg-btn rect {*/
+/*    fill: #565a60;*/
+/*}*/
 
 
-.svg-btn:hover rect {
-    fill: #366292;
-}
+/*.svg-btn:hover rect {*/
+/*    fill: #366292;*/
+/*}*/
 
-.node.myTemplate rect {
-    fill: #FF413B;
-}
+/*.node.myTemplate rect {*/
+/*    fill: #FF413B;*/
+/*}*/
 
-.test {
-    margin-left: 50px;
-}
+/*.test {*/
+/*    margin-left: 50px;*/
+/*}*/
