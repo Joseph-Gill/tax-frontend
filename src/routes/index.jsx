@@ -12,10 +12,12 @@ import PasswordReset from '../pages/PasswordReset'
 import PasswordResetValidation from '../pages/PasswordResetValidation'
 import Chart from '../pages/Chart'
 import Groups from '../pages/Groups'
-import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, CHART, GROUPS, CREATEGROUP, ORG_CHART} from './paths'
 import CreateGroup from '../pages/CreateGroup'
 import GroupDisplay from '../pages/GroupDisplay'
 import GroupOrgChart from '../pages/GroupOrgChart'
+import GroupProjects from '../pages/GroupProjects'
+import GroupMembers from '../pages/GroupMembers'
+import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, CHART, GROUPS, CREATEGROUP, ORG_CHART, PROJECTS, MEMBERS} from './paths'
 
 
 const Routes = () => {
@@ -33,6 +35,8 @@ const Routes = () => {
                     <Route component={WithAuth(UserProfile)} exact path={USERPROFILE} />
                     <Route component={WithAuth(CreateGroup)} exact path={CREATEGROUP} />
                     <Route component={WithAuth(GroupOrgChart)} exact path={`${GROUPS}${ORG_CHART}`} />
+                    <Route component={WithAuth(GroupProjects)} exact path={`${GROUPS}${PROJECTS}`} />
+                    <Route component={WithAuth(GroupMembers)} exact path={`${GROUPS}${MEMBERS}`} />
                     <Route component={WithAuth(GroupDisplay)} path={`${GROUPS}/:groupId/`} />
                     <Route component={Chart} exact path={CHART} />
                     <Route component={Page404} />

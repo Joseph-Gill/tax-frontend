@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {GroupMenuContainer, LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
-import {HOME, USERPROFILE, LOGIN, GROUPS, ORGCHART, TEAMMEMBERS, PROJECTS, CREATEGROUP} from '../../../routes/paths'
+import {HOME, USERPROFILE, LOGIN, GROUPS, MEMBERS, PROJECTS, CREATEGROUP, ORG_CHART} from '../../../routes/paths'
 import account from '../../../assets/icons/account_circle_24px.png'
 import layers from '../../../assets/icons/layers_24px.png'
 import dashboard from '../../../assets/icons/dashboard_24px.png'
@@ -46,18 +46,18 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
             <GroupMenuContainer>
                 <NavbarTitle>Group Menu</NavbarTitle>
                 <MenuItem
-                    isActive={location.pathname === ORGCHART}
-                    to={ORGCHART}
+                    isActive={location.pathname === `${GROUPS}${ORG_CHART}`}
+                    to={`${GROUPS}${ORG_CHART}`}
                 ><NavigationIcons src={organization} />Organization Chart
                 </MenuItem>
                 <MenuItem
-                    isActive={location.pathname === PROJECTS}
-                    to={PROJECTS}
+                    isActive={location.pathname === `${GROUPS}${PROJECTS}`}
+                    to={`${GROUPS}${PROJECTS}`}
                 ><NavigationIcons src={projects} />Projects
                 </MenuItem>
                 <MenuItem
-                    isActive={location.pathname === TEAMMEMBERS}
-                    to={TEAMMEMBERS}
+                    isActive={location.pathname === `${GROUPS}${MEMBERS}`}
+                    to={`${GROUPS}${MEMBERS}`}
                 ><NavigationIcons src={teamMembers} />Team Members
                 </MenuItem>
             </GroupMenuContainer>}
@@ -66,7 +66,7 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
                 <div>
                     <SelectedGroupIcon src={layersv2} />
                     <MenuItemTitle>{loaded ? group.name : 'None selected'}</MenuItemTitle>
-                    <span onClick={() => history.push('/groups')}>Switch</span>
+                    <span onClick={() => history.push(GROUPS)}>Switch</span>
                 </div>
             </SelectedGroupContainer>
             <LogOutContainer>

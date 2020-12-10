@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import {useHistory} from 'react-router-dom'
 import {CardInfoText, CardTitleText} from '../../../style/text'
+import {GROUPS, ORG_CHART, PROJECTS, MEMBERS} from '../../../routes/paths'
 
 
 const DisplayCardContainer = styled.div`
@@ -27,8 +29,25 @@ const DisplayCardImageContainer = styled.div`
 `
 
 const DisplayCard = ({type, image, content}) => {
+    const history = useHistory()
+
+    const redirectOnClickHandler = () => {
+        switch (type) {
+            case 'Organization Chart': {
+                history.push(`${GROUPS}${ORG_CHART}`)
+                break
+            }
+            case 'Projects': {
+                history.push(`${GROUPS}${PROJECTS}`)
+                break
+            }
+            default:
+                history.push(`${GROUPS}${MEMBERS}`)
+        }
+    }
+
     return (
-        <DisplayCardContainer>
+        <DisplayCardContainer onClick={redirectOnClickHandler}>
             <DisplayCardImageContainer>
                 <img alt={type} src={image} />
             </DisplayCardImageContainer>
