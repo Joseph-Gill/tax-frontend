@@ -49,6 +49,7 @@ const RegistrationValidation = () => {
             password_repeat: password_repeat.current.value,
             first_name: first_name.current.value,
             last_name: last_name.current.value,
+            phone_number: phoneNumber
         }
         const data = await dispatch(registrationValidationAction(credentials))
         if(data) setShowSuccess(!showSuccess)
