@@ -12,7 +12,7 @@ import {DropdownOption} from '../../style/options'
 import {ProjectDescriptionTextArea} from '../../style/textarea'
 
 
-const ProjectNew = () => {
+const ProjectAdd = () => {
     const group = useSelector(state => state.groupReducer.group)
     const name = useRef('')
     const history = useHistory()
@@ -23,7 +23,7 @@ const ProjectNew = () => {
                 {display: 'GROUPS', to:GROUPS},
                 {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`},
                 {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`},
-                {display: 'PROJECT  :  ADD', to: `${GROUPS}${PROJECTS}${ADD_PROJECT}`}]}
+                {display: 'PROJECT : ADD', to: `${GROUPS}${PROJECTS}${ADD_PROJECT}`}]}
             />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Add Project</AuthenticatedPageTitle>
@@ -41,11 +41,11 @@ const ProjectNew = () => {
                 <ProjectInputContainer>
                     <AddEditProjectSectionTitles>Project Status</AddEditProjectSectionTitles>
                     <StatusDropdown>
-                        <DropdownOption value='' disabled selected>Select a status</DropdownOption>
-                        <DropdownOption value='Not Started'>Not Started</DropdownOption>
-                        <DropdownOption value='Ongoing'>Ongoing</DropdownOption>
-                        <DropdownOption value='Not Implemented'>Not Implemented</DropdownOption>
-                        <DropdownOption value='Completed'>Completed</DropdownOption>
+                        {/*<DropdownOption value='' disabled selected>Select a status</DropdownOption>*/}
+                        <DropdownOption selected value='Not Started'>Not Started</DropdownOption>
+                        {/*<DropdownOption value='Ongoing'>Ongoing</DropdownOption>*/}
+                        {/*<DropdownOption value='Not Implemented'>Not Implemented</DropdownOption>*/}
+                        {/*<DropdownOption value='Completed'>Completed</DropdownOption>*/}
                     </StatusDropdown>
                 </ProjectInputContainer>
             </AddEditProjectNameStatusContainer>
@@ -64,4 +64,4 @@ const ProjectNew = () => {
     )
 }
 
-export default ProjectNew
+export default ProjectAdd
