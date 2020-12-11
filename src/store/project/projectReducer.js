@@ -10,7 +10,7 @@ const initialState = {
         status: null,
         steps: null,
         group: null,
-        assigned_user_roles: null
+        assigned_users_roles: null
     },
     loaded: false
 }
@@ -36,7 +36,7 @@ export const projectReducer = (state = initialState, action) => {
                     status: null,
                     steps: null,
                     group: null,
-                    assigned_user_roles: null
+                    assigned_users_roles: null
                 },
                 loaded: false
             }

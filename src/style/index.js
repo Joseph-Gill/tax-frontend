@@ -61,6 +61,7 @@ export const defaultTheme = {
     // Box Shadows
     boxShadow: '0px 0px 20px #EFEFEF',
     buttonBoxShadow: '0 4px 10px rgba(0, 112, 159, 0.24)',
+    projectCardBoxShadow: '0px 0px 20px #D9D9D9;',
     // Border Radius
     borderRadius: '4px',
     // Fonts that are not default Spartan

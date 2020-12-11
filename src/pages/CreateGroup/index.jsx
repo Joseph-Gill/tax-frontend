@@ -9,9 +9,8 @@ import {v4 as uuidv4} from 'uuid'
 import {TableData, TableDataRow} from '../../style/tables'
 import {AddEntityButton, AddEntityButtonContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from './styles'
 import {useDispatch} from 'react-redux'
-import {useHistory} from 'react-router-dom'
 import {createGroupAction} from '../../store/group/actions'
-import {CREATEGROUP, GROUPS, HOME} from '../../routes/paths'
+import {CREATEGROUP, GROUPS} from '../../routes/paths'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import SuccessMessage from '../../components/SuccessMessage'
 
@@ -24,7 +23,6 @@ const CreateGroup = () => {
     let taxRate = useRef('')
     let legalForm = useRef('')
     const dispatch = useDispatch()
-    const history = useHistory()
     const [groupImage, setGroupImage] = useState(null)
     const [countryName, setCountryName] = useState('')
     const [availableParentNames, setAvailableParentNames] = useState([])

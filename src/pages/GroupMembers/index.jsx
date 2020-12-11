@@ -9,7 +9,7 @@ import {DisplayMembersTitleContainer, GreyStatusText, MembersStatusToggleContain
 
 const GroupMembers = () => {
     const group = useSelector(state => state.groupReducer.group)
-    const members = useSelector(state => state.groupReducer.group.users)
+    // const members = useSelector(state => state.groupReducer.group.users)
     const [filterMemberStatus, setFilterMemberStatus] = useState(true)
 
     return (
