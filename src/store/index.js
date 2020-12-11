@@ -6,6 +6,7 @@ import {errorReducer} from './errors/errorReducer'
 import {feedbackReducer} from './feedback/feedbackReducer'
 import {profileReducer} from './profile/profileReducer'
 import {groupReducer} from './group/groupReducer'
+import {projectReducer} from './project/projectReducer'
 
 // Reducers
 export const reducers = combineReducers({
@@ -13,7 +14,8 @@ export const reducers = combineReducers({
     errorReducer,
     feedbackReducer,
     profileReducer,
-    groupReducer
+    groupReducer,
+    projectReducer
 })
 
 // Thunk

@@ -1,0 +1,2 @@
+export const GET_PROJECT = 'GET_PROJECT'
+export const RESET_PROJECT = 'RESET_PROJECT'

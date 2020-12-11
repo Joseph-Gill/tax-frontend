@@ -54,7 +54,7 @@ export const createGroupAction = groupInfo => async (dispatch, getState) => {
             return true
         }
     } catch(e) {
-        console.log('error creating group')
+        console.log('error creating group>', e)
         return e
     }
 }
