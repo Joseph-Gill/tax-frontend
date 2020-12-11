@@ -1,91 +1,71 @@
-import React, {useRef, useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import React, {useState} from 'react'
 import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
+import {EDIT_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
-import {useDispatch, useSelector} from 'react-redux'
-import {GROUPS, ADD_PROJECT, PROJECTS} from '../../routes/paths'
+import {useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
 import {ProjectNameInput} from '../../style/inputs'
-import {CancelButton, SaveButton} from '../../style/buttons'
 import {StatusDropdown} from '../../style/dropdowns'
 import {DropdownOption} from '../../style/options'
 import {ProjectDescriptionTextArea} from '../../style/textarea'
-import {createProjectAction} from '../../store/project/actions'
-import SuccessMessage from '../../components/SuccessMessage'
-import {getProfileAction} from '../../store/profile/actions'
+import {CancelButton, SaveButton} from '../../style/buttons'
 
 
-const ProjectAdd = () => {
-    const [showSuccess, setShowSuccess] = useState(false)
+const ProjectEdit = () => {
     const group = useSelector(state => state.groupReducer.group)
-    const status = useRef('')
-    const name = useRef('')
-    const description = useRef('')
+    const project = useSelector(state => state.projectReducer.project)
+    const [projectName, setProjectName] = useState(project.name)
+    const [projectDescription, setProjectDescription] = useState(project.description)
     const history = useHistory()
-    const dispatch = useDispatch()
-
-    const clickSaveButtonHandler =  async () => {
-        const projectData = {
-            name: name.current.value,
-            description: description.current.value,
-            status: status.current.value
-        }
-        const response = await dispatch(createProjectAction(projectData, group.id))
-        if (response.status === 201) {
-            dispatch(getProfileAction())
-            setShowSuccess(!showSuccess)
-        }
-    }
 
     return (
         <AuthenticatedPageContainer>
-            {showSuccess &&
-            <SuccessMessage
-                message="Your project has been successfully created!"
-                redirect={`${GROUPS}${PROJECTS}`}
-            />}
             <BreadCrumb breadCrumbArray={[
                 {display: 'GROUPS', to:GROUPS},
                 {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`},
                 {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`},
-                {display: 'PROJECT : ADD', to: `${GROUPS}${PROJECTS}${ADD_PROJECT}`}]}
+                {display: `PROJECT : ${project.name}`, to: `${GROUPS}${PROJECTS}${EDIT_PROJECT}/${project.id}`}]}
             />
             <AuthenticatedPageTitleContainer>
-                <AuthenticatedPageTitle>Add Project</AuthenticatedPageTitle>
+                <AuthenticatedPageTitle>Edit Project</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
             <AddEditProjectNameStatusContainer>
                 <ProjectInputContainer>
                     <AddEditProjectSectionTitles>Project Name</AddEditProjectSectionTitles>
                     <ProjectNameInput
                         name='name'
+                        onChange={(e) => setProjectName(e.target.value)}
                         placeholder='Enter your project name'
-                        ref={name}
                         type='text'
+                        value={projectName}
                     />
                 </ProjectInputContainer>
                 <ProjectInputContainer>
                     <AddEditProjectSectionTitles>Project Status</AddEditProjectSectionTitles>
-                    <StatusDropdown
-                        ref={status}
-                    >
+                    <StatusDropdown>
+                        <DropdownOption disabled selected value=''>Select a status</DropdownOption>
                         <DropdownOption value='Not Started'>Not Started</DropdownOption>
+                        <DropdownOption value='Ongoing'>Ongoing</DropdownOption>
+                        <DropdownOption value='Not Implemented'>Not Implemented</DropdownOption>
+                        <DropdownOption value='Completed'>Completed</DropdownOption>
                     </StatusDropdown>
                 </ProjectInputContainer>
             </AddEditProjectNameStatusContainer>
             <AddEditProjectDescriptionContainer>
                 <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>
                 <ProjectDescriptionTextArea
+                    onChange={(e) => setProjectDescription(e.target.value)}
                     placeholder='Write your project description...'
-                    ref={description}
+                    value={projectDescription}
                 />
             </AddEditProjectDescriptionContainer>
             <ProjectSaveCancelButtonContainer>
                 <CancelButton onClick={() => history.push(`${GROUPS}/${group.id}`)} >Cancel</CancelButton>
-                <SaveButton onClick={clickSaveButtonHandler}>Save</SaveButton>
+                <SaveButton>Save</SaveButton>
             </ProjectSaveCancelButtonContainer>
         </AuthenticatedPageContainer>
-
     )
 }
 
-export default ProjectAdd
+export default ProjectEdit

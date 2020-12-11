@@ -17,8 +17,9 @@ import GroupDisplay from '../pages/GroupDisplay'
 import GroupOrgChart from '../pages/GroupOrgChart'
 import GroupProjects from '../pages/GroupProjects'
 import GroupMembers from '../pages/GroupMembers'
-import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, CHART, GROUPS, CREATEGROUP, ORG_CHART, PROJECTS, MEMBERS, ADD_PROJECT} from './paths'
+import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, CHART, GROUPS, CREATEGROUP, ORG_CHART, PROJECTS, MEMBERS, ADD_PROJECT, EDIT_PROJECT} from './paths'
 import ProjectAdd from '../pages/ProjectAdd'
+import ProjectEdit from '../pages/ProjectEdit'
 
 
 const Routes = () => {
@@ -39,8 +40,8 @@ const Routes = () => {
                     <Route component={WithAuth(GroupProjects)} exact path={`${GROUPS}${PROJECTS}`} />
                     <Route component={WithAuth(GroupMembers)} exact path={`${GROUPS}${MEMBERS}`} />
                     <Route component={WithAuth(ProjectAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} />
+                    <Route component={WithAuth(ProjectEdit)} path={`${GROUPS}${PROJECTS}${EDIT_PROJECT}/:projectId/`} />
                     <Route component={WithAuth(GroupDisplay)} path={`${GROUPS}/:groupId/`} />
-                    <Route component={Chart} exact path={CHART} />
                     <Route component={Page404} />
                 </Switch>
             </SideBar>

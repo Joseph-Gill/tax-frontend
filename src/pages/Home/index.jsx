@@ -18,12 +18,13 @@ import {HOME} from '../../routes/paths'
 const Home = () => {
     const dispatch = useDispatch()
     const first_name = useSelector(state => state.userLoginReducer.user.first_name)
-    const user_profile = useSelector(state => state.profileReducer)
     const [filterString, setFilterString] = useState('')
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         (async function getProfileCreateParing() {
+            setLoading(true)
             dispatch(resetGroup())
             const response = await dispatch(getProfileAction())
             setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
@@ -36,9 +37,13 @@ const Home = () => {
     );
 
     const renderPairings = (searchedPairings) => {
-        return searchedPairings.map((pair) => (
-            <HomeGroup groupName={pair.groupName} key={uuidv4()} project={pair.project} />
-        ))
+        if (searchedPairings.length){
+            return searchedPairings.map((pair) => (
+                <HomeGroup groupName={pair.groupName} key={uuidv4()} project={pair.project}/>
+            ))
+        } else {
+            return <div>No Matching Groups or Projects</div>
+        }
     }
 
     const createGroupProjectPairing = (groups) => {
@@ -51,6 +56,7 @@ const Home = () => {
                 })
             }
         })
+        setLoading(false)
         return groupNameProjectPairing
     }
 
@@ -60,7 +66,7 @@ const Home = () => {
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Welcome {first_name}</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
-            {!user_profile.loaded ? <Spinner /> :
+            {loading ? <Spinner /> :
                 !projectGroupPairings.length ? (
                     <NoAccessContainer>
                         <HomePageText>You have not created or been granted access to a project yet.</HomePageText>

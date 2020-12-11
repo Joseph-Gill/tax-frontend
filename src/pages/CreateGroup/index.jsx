@@ -11,8 +11,9 @@ import {AddEntityButton, AddEntityButtonContainer, CreateGroupCancelSaveContaine
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {createGroupAction} from '../../store/group/actions'
-import {CREATEGROUP, GROUPS} from '../../routes/paths'
+import {CREATEGROUP, GROUPS, HOME} from '../../routes/paths'
 import {CancelButton, SaveButton} from '../../style/buttons'
+import SuccessMessage from '../../components/SuccessMessage'
 
 
 const CreateGroup = () => {
@@ -28,6 +29,7 @@ const CreateGroup = () => {
     const [countryName, setCountryName] = useState('')
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [listOfEntities, setListOfEntities] = useState([])
+    const [showSuccess, setShowSuccess] = useState(false)
 
     const imageClickHandler = () => {
         hiddenFileInput.current.click();
@@ -59,7 +61,7 @@ const CreateGroup = () => {
         }
         const response = dispatch(createGroupAction(newGroup))
         if (response) {
-            history.push('/groups')
+            setShowSuccess(!showSuccess)
         }
     }
 
@@ -87,7 +89,15 @@ const CreateGroup = () => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[{display: 'GROUPS', to: GROUPS}, {display: 'CREATE GROUP', to: CREATEGROUP}]}/>
+            {showSuccess &&
+            <SuccessMessage
+                message="Your group has been successfully created!"
+                redirect={GROUPS}
+            />}
+            <BreadCrumb breadCrumbArray={[
+                {display: 'GROUPS', to: GROUPS},
+                {display: 'CREATE GROUP', to: CREATEGROUP}]}
+            />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Create Group</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
