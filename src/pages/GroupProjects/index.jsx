@@ -1,23 +1,35 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
-import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer, DisplayGroupTitleContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import {ADD_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import {BaseButton} from '../../style/buttons'
 import ProjectCard from './ProjectCard'
+import {AddProjectButton, ProjectCardListContainer} from './styles'
 
-export const AddProjectButton = styled(BaseButton)`
-    width: 168px;
-    height: 32px;
-`
 
 const GroupProjects = () => {
     const group = useSelector(state => state.groupReducer.group)
     const projects = useSelector(state => state.groupReducer.group.projects)
     const history = useHistory()
+
+    const setProjectCardDisplayOrder = () => {
+        let onGoingNotStarted = []
+        let completed = []
+        let notImplemented = []
+
+        projects.map(project => {
+            if (project.status === "Ongoing" || project.status === "Not Started") {
+                onGoingNotStarted.push(project)
+            } else if (project.status === "Completed") {
+                completed.push(project)
+            } else {
+                notImplemented.push(project)
+            }
+        })
+        return onGoingNotStarted.concat(completed.concat(notImplemented))
+    }
 
     return (
         <AuthenticatedPageContainer>
@@ -30,7 +42,9 @@ const GroupProjects = () => {
                 <AuthenticatedPageTitle>Projects</AuthenticatedPageTitle>
                 <AddProjectButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_PROJECT}`)}>Add New Project</AddProjectButton>
             </DisplayGroupTitleContainer>
-            {projects.length ? projects.map(project => <ProjectCard key={project.id} project={project} />) : null}
+            <ProjectCardListContainer>
+                {projects.length ? setProjectCardDisplayOrder(projects).map(project => <ProjectCard key={project.id} project={project} />) : null}
+            </ProjectCardListContainer>
         </AuthenticatedPageContainer>
     )
 }

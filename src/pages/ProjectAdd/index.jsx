@@ -13,6 +13,7 @@ import {ProjectDescriptionTextArea} from '../../style/textarea'
 import {createProjectAction} from '../../store/project/actions'
 import SuccessMessage from '../../components/SuccessMessage'
 import {getProfileAction} from '../../store/profile/actions'
+import {getGroupAction} from '../../store/group/actions'
 
 
 const ProjectAdd = () => {
@@ -33,6 +34,7 @@ const ProjectAdd = () => {
         const response = await dispatch(createProjectAction(projectData, group.id))
         if (response.status === 201) {
             dispatch(getProfileAction())
+            dispatch(getGroupAction(group.id))
             setShowSuccess(!showSuccess)
         }
     }

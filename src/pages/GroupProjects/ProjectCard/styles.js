@@ -12,7 +12,7 @@ export const ProjectCardContainer = styled.div`
 
     ${props => {
         if (props.status === 'Ongoing' || props.status === 'Not Started' ){
-            return `background: ${props.theme.yellow};`
+            return `background: ${props.theme.yellowLight};`
             }
         }
     };
