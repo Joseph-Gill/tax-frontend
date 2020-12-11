@@ -7,11 +7,12 @@ import EntityInfo from './EntityInfo'
 import {EntityOption, EntityTitle} from './EntityInfo/styles'
 import {v4 as uuidv4} from 'uuid'
 import {TableData, TableDataRow} from '../../style/tables'
-import {AddEntityButton, AddEntityButtonContainer, CreateGroupCancelButton, CreateGroupCancelSaveContainer, CreateGroupSaveButton, EntityTitleContainer} from './styles'
+import {AddEntityButton, AddEntityButtonContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from './styles'
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {createGroupAction} from '../../store/group/actions'
 import {CREATEGROUP, GROUPS} from '../../routes/paths'
+import {CancelButton, SaveButton} from '../../style/buttons'
 
 
 const CreateGroup = () => {
@@ -86,7 +87,7 @@ const CreateGroup = () => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:GROUPS}, {display:'CREATE GROUP', to:CREATEGROUP}]} />
+            <BreadCrumb breadCrumbArray={[{display: 'GROUPS', to: GROUPS}, {display: 'CREATE GROUP', to: CREATEGROUP}]}/>
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Create Group</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
@@ -115,11 +116,12 @@ const CreateGroup = () => {
                 <AddEntityButton onClick={addNewEntityClickHandler}>Add new entity</AddEntityButton>
             </AddEntityButtonContainer>
             <CreateGroupCancelSaveContainer>
-                <CreateGroupCancelButton>Cancel</CreateGroupCancelButton>
-                <CreateGroupSaveButton onClick={saveNewGroupClickHandler}>Save</CreateGroupSaveButton>
+                <CancelButton>Cancel</CancelButton>
+                <SaveButton onClick={saveNewGroupClickHandler}>Save</SaveButton>
             </CreateGroupCancelSaveContainer>
         </AuthenticatedPageContainer>
     )
+
 }
 
 export default CreateGroup

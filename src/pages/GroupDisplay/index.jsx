@@ -44,7 +44,11 @@ const GroupDisplay = () => {
         <AuthenticatedPageContainer>
             {!loaded ? <Spinner /> :
             <>
-                <BreadCrumb breadCrumbArray={[{display:'GROUPS', to:GROUPS}, {display:`GROUP ${group.name.toUpperCase()}`, to:`${GROUPS}/${group.id}`}]} />
+                <BreadCrumb
+                    breadCrumbArray={[
+                        {display:'GROUPS', to:GROUPS},
+                        {display:`GROUP ${group.name.toUpperCase()}`, to:`${GROUPS}/${group.id}`}]}
+                />
                 <DisplayGroupTitleContainer>
                     <AuthenticatedPageTitle>Group {group.name}</AuthenticatedPageTitle>
                     <EditGroupButton>Edit Group</EditGroupButton>

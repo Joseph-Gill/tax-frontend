@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import {CancelButton} from './buttons'
 
 
 export const BasePageContainer = styled.div`
@@ -113,13 +114,41 @@ export const DisplayGroupTitleContainer = styled(AuthenticatedPageTitleContainer
     margin-top: 24px;
 `
 
+export const AddEditProjectNameStatusContainer = styled.div`
+    width: 860px;
+    height: 92px;
+    margin-top: 30px;
+    background: ${props => props.theme.white};
+    border-radius: ${props => props.theme.borderRadius};
+    box-shadow: ${props => props.theme.boxShadow};
+    display: flex;
+    padding: 16px;
+`
 
+export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatusContainer)`
+    width: 860px;
+    height: 342px;
+    flex-direction: column;
+    justify-content: space-between;
+`
 
+export const ProjectInputContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 30px;
+`
 
+export const ProjectSaveCancelButtonContainer = styled.div`
+    width: 860px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: flex-end;
 
-
-
-
+    ${CancelButton} {
+        margin-right: 13px;
+    }
+`
 
 // Template Containers
 

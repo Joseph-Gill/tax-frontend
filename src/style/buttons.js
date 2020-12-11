@@ -102,6 +102,23 @@ export const CloseButton = styled.button`
     }
 `
 
+export const CancelButton = styled(TableButton)`
+    height: 32px;
+    width: 92px;
+    color: ${props => props.theme.grayTwo};
+    border: 1px solid ${props => props.theme.grayTwo};
+`
+
+export const SaveButton = styled(BaseButton)`
+    height: 32px;
+    width: 78px;
+    background: ${props => props.theme.green};
+
+    :hover {
+        background: ${props => props.theme.greenDark};
+    }
+`
+
 export const EditButton = styled(BaseButton)`
     width: 50px;
     height: 28px;

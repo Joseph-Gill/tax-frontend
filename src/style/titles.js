@@ -39,3 +39,8 @@ export const AuthenticatedPageSectionTitle = styled(NavbarTitle)`
   width: 800px;
   margin-top: 30px;
 `
+
+export const AddEditProjectSectionTitles = styled(AuthenticatedPageSectionTitle)`
+    width: 302px;
+    margin-top: 0;
+`

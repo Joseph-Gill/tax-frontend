@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {GroupMenuContainer, LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
-import {HOME, USERPROFILE, LOGIN, GROUPS, MEMBERS, PROJECTS, CREATEGROUP, ORG_CHART} from '../../../routes/paths'
+import {HOME, USERPROFILE, LOGIN, GROUPS, MEMBERS, PROJECTS, CREATEGROUP, ORG_CHART, ADD_PROJECT} from '../../../routes/paths'
 import account from '../../../assets/icons/account_circle_24px.png'
 import layers from '../../../assets/icons/layers_24px.png'
 import dashboard from '../../../assets/icons/dashboard_24px.png'
@@ -51,7 +51,7 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
                 ><NavigationIcons src={organization} />Organization Chart
                 </MenuItem>
                 <MenuItem
-                    isActive={location.pathname === `${GROUPS}${PROJECTS}`}
+                    isActive={location.pathname === `${GROUPS}${PROJECTS}` || location.pathname === `${GROUPS}${PROJECTS}${ADD_PROJECT}`}
                     to={`${GROUPS}${PROJECTS}`}
                 ><NavigationIcons src={projects} />Projects
                 </MenuItem>

@@ -1,8 +1,9 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer, DisplayGroupTitleContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
-import {GROUPS, PROJECTS} from '../../routes/paths'
+import {ADD_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {BaseButton} from '../../style/buttons'
@@ -15,6 +16,7 @@ export const AddProjectButton = styled(BaseButton)`
 const GroupProjects = () => {
     const group = useSelector(state => state.groupReducer.group)
     const projects = useSelector(state => state.groupReducer.group.projects)
+    const history = useHistory()
 
     return (
         <AuthenticatedPageContainer>
@@ -25,7 +27,7 @@ const GroupProjects = () => {
             />
             <DisplayGroupTitleContainer>
                 <AuthenticatedPageTitle>Projects</AuthenticatedPageTitle>
-                <AddProjectButton>Add New Project</AddProjectButton>
+                <AddProjectButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_PROJECT}`)}>Add New Project</AddProjectButton>
             </DisplayGroupTitleContainer>
         </AuthenticatedPageContainer>
     )
