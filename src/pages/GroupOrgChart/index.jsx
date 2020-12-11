@@ -14,9 +14,9 @@ const GroupOrgChart = () => {
     return (
         <AuthenticatedPageContainer>
             <BreadCrumb breadCrumbArray={[
-                {display:'GROUPS', to:GROUPS},
-                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`},
-                {display: 'ORGANIZATION CHART', to:`${GROUPS}${ORG_CHART}`}]}
+                {display: 'GROUPS', to: GROUPS, active: false},
+                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
+                {display: 'ORGANIZATION CHART', to:`${GROUPS}${ORG_CHART}`, active: true}]}
             />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Organization Chart</AuthenticatedPageTitle>

@@ -62,7 +62,9 @@ const Home = () => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[{display:'HOME', to:HOME}]} />
+            <BreadCrumb breadCrumbArray={[
+                {display: 'HOME', to: HOME, active: true}]}
+            />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Welcome {first_name}</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>

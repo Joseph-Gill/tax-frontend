@@ -15,9 +15,9 @@ const GroupMembers = () => {
     return (
         <AuthenticatedPageContainer>
             <BreadCrumb breadCrumbArray={[
-                {display:'GROUPS', to:GROUPS},
-                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`},
-                {display: 'TEAM MEMBERS', to:`${GROUPS}${MEMBERS}`}]}
+                {display: 'GROUPS', to: GROUPS, active: false},
+                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
+                {display: 'TEAM MEMBERS', to:`${GROUPS}${MEMBERS}`, active: true}]}
             />
             <DisplayMembersTitleContainer>
                 <AuthenticatedPageTitle>Team Members</AuthenticatedPageTitle>

@@ -46,8 +46,8 @@ const GroupDisplay = () => {
             <>
                 <BreadCrumb
                     breadCrumbArray={[
-                        {display:'GROUPS', to:GROUPS},
-                        {display:`GROUP ${group.name.toUpperCase()}`, to:`${GROUPS}/${group.id}`}]}
+                        {display: 'GROUPS', to: GROUPS, active: false},
+                        {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: true}]}
                 />
                 <DisplayGroupTitleContainer>
                     <AuthenticatedPageTitle>Group {group.name}</AuthenticatedPageTitle>

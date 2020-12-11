@@ -45,10 +45,10 @@ const ProjectAdd = () => {
                 redirect={`${GROUPS}${PROJECTS}`}
             />}
             <BreadCrumb breadCrumbArray={[
-                {display: 'GROUPS', to:GROUPS},
-                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`},
-                {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`},
-                {display: 'PROJECT : ADD', to: `${GROUPS}${PROJECTS}${ADD_PROJECT}`}]}
+                {display: 'GROUPS', to: GROUPS, active: false},
+                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
+                {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`, active: false},
+                {display: 'PROJECT : ADD', to: `${GROUPS}${PROJECTS}${ADD_PROJECT}`, active: true}]}
             />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Add Project</AuthenticatedPageTitle>

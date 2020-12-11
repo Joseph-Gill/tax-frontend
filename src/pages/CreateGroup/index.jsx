@@ -95,8 +95,8 @@ const CreateGroup = () => {
                 redirect={GROUPS}
             />}
             <BreadCrumb breadCrumbArray={[
-                {display: 'GROUPS', to: GROUPS},
-                {display: 'CREATE GROUP', to: CREATEGROUP}]}
+                {display: 'GROUPS', to: GROUPS, active: false},
+                {display: 'CREATE GROUP', to: CREATEGROUP, active: true}]}
             />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Create Group</AuthenticatedPageTitle>

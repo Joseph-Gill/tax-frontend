@@ -15,7 +15,7 @@ const BreakCrumbContainer = styled.div`
     align-items: center;
 `
 
-const BreadCrumbItem = styled(Link)`
+const BreadCrumbItemActive = styled(Link)`
     text-decoration: none;
     text-transform: uppercase;
     font-family: ${props => props.theme.nunitoFontFamily};
@@ -28,21 +28,34 @@ const BreadCrumbItem = styled(Link)`
     margin-right: 4px;
 `
 
+const BreadCrumbItem = styled(BreadCrumbItemActive)`
+    color: ${props => props.theme.grayOne};
+    font-weight: 600;
+
+    :hover {
+        text-decoration: underline;
+    }
+`
+
+
+
 const BreadCrumbImage = styled.img`
     margin-right: 4px;
 `
 
 const BreadCrumb = ({breadCrumbArray}) => {
-
     const breadCrumbPath = (array) => {
-        return array.map(item => (
-            <BreakCrumbContainer key={uuidv4()}>
-                <BreadCrumbImage alt='breadcrumb' src={rightChevron} />
-                <BreadCrumbItem to={item.to}>{item.display}</BreadCrumbItem>
-            </BreakCrumbContainer>
-            )
-        )}
-
+        return array.map(item =>
+            item.active ? (
+                <BreakCrumbContainer key={uuidv4()}>
+                    <BreadCrumbImage alt='breadcrumb' src={rightChevron} />
+                    <BreadCrumbItemActive to={item.to}>{item.display}</BreadCrumbItemActive>
+                </BreakCrumbContainer>
+                ) : (
+                    <BreakCrumbContainer key={uuidv4()}>
+                        <BreadCrumbImage alt='breadcrumb' src={rightChevron} />
+                        <BreadCrumbItem to={item.to}>{item.display}</BreadCrumbItem>
+                    </BreakCrumbContainer>))}
     return (
         <BreadCrumbBarContainer>
             {breadCrumbPath(breadCrumbArray)}

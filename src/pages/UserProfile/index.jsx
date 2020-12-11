@@ -14,7 +14,7 @@ import BreadCrumb from '../../components/BreadCrumb'
 import {updateProfileAction} from '../../store/profile/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import SuccessMessage from '../../components/SuccessMessage'
-import {HOME} from '../../routes/paths'
+import {HOME, USERPROFILE} from '../../routes/paths'
 import {resetGroup} from '../../store/group/actions'
 
 
@@ -59,7 +59,9 @@ const UserProfile = () => {
                 message="Your profile has been successfully updated!"
                 redirect={HOME}
                             />}
-            <BreadCrumb breadCrumbArray={[{display:'USER ACCOUNT', to:'/userprofile'}]} />
+            <BreadCrumb breadCrumbArray={[
+                {display: 'USER ACCOUNT', to: USERPROFILE, active: false}]}
+            />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Profile</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>

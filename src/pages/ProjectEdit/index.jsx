@@ -22,10 +22,10 @@ const ProjectEdit = () => {
     return (
         <AuthenticatedPageContainer>
             <BreadCrumb breadCrumbArray={[
-                {display: 'GROUPS', to:GROUPS},
-                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`},
-                {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`},
-                {display: `PROJECT : ${project.name}`, to: `${GROUPS}${PROJECTS}${EDIT_PROJECT}/${project.id}`}]}
+                {display: 'GROUPS', to: GROUPS, active: false},
+                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
+                {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`, active: false},
+                {display: `PROJECT : ${project.name}`, to: `${GROUPS}${PROJECTS}${EDIT_PROJECT}/${project.id}`, active: true}]}
             />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Edit Project</AuthenticatedPageTitle>
