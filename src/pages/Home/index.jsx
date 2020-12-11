@@ -5,14 +5,15 @@ import {getProfileAction} from '../../store/profile/actions'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import HomeGroup from './HomeGroup'
-import {HomePageText} from '../../style/text'
+import {CardInfoText, CardTitleText, HomePageText} from '../../style/text'
 import {AuthenticatedButtonLargest} from '../../style/buttons'
 import Spinner from '../../components/Spinner'
 import GroupFilter from './GroupFilter'
 import { v4 as uuidv4 } from 'uuid'
-import {NoAccessContainer, ProjectAccessContainer} from './styles'
+import {NoAccessContainer, NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, ProjectAccessContainer} from './styles'
 import {resetGroup} from '../../store/group/actions'
 import {HOME} from '../../routes/paths'
+import noResults from '../../assets/icons/stark_no_filter_results.png'
 
 
 const Home = () => {
@@ -42,7 +43,15 @@ const Home = () => {
                 <HomeGroup groupName={pair.groupName} key={uuidv4()} project={pair.project}/>
             ))
         } else {
-            return <div>No Matching Groups or Projects</div>
+            return (
+                <NoFilterResultsContainer>
+                    <img alt='no results' src={noResults} />
+                    <CardTitleText>Sorry, no result found</CardTitleText>
+                    <NoFilterTextContainer>
+                        <NoFilterResultText>What you searched was unfortunately</NoFilterResultText>
+                        <NoFilterResultText>not found or doesn&apos;t exist.</NoFilterResultText>
+                    </NoFilterTextContainer>
+                </NoFilterResultsContainer> )
         }
     }
 
