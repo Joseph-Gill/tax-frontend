@@ -23,7 +23,7 @@ const CurrentOrgChart = ({nodes}) => {
         OrgChart.templates.olivia.field_2 =
             '<text class="field_2" style="font-size: 14px;" fill="#000000" x="125" y="80" text-anchor="middle">{val}</text>'
 
-
+        // eslint-disable-next-line no-unused-vars
         const chart = new OrgChart(divRef.current, {
             template: 'olivia',
 

@@ -19,7 +19,7 @@ const GroupProjects = () => {
         let completed = []
         let notImplemented = []
 
-        projects.map(project => {
+        projects.forEach(project => {
             if (project.status === "Ongoing" || project.status === "Not Started") {
                 onGoingNotStarted.push(project)
             } else if (project.status === "Completed") {

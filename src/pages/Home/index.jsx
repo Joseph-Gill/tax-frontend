@@ -1,23 +1,25 @@
 import React, {useEffect, useState} from 'react'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {useHistory} from 'react-router-dom'
+import {v4 as uuidv4} from 'uuid'
 import BreadCrumb from '../../components/BreadCrumb'
-import {getProfileAction} from '../../store/profile/actions'
-import {useDispatch, useSelector} from 'react-redux'
-import {AuthenticatedPageTitle} from '../../style/titles'
 import HomeGroup from './HomeGroup'
-import {CardInfoText, CardTitleText, HomePageText} from '../../style/text'
-import {AuthenticatedButtonLargest} from '../../style/buttons'
 import Spinner from '../../components/Spinner'
 import GroupFilter from './GroupFilter'
-import { v4 as uuidv4 } from 'uuid'
-import {NoAccessContainer, NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, ProjectAccessContainer} from './styles'
+import {getProfileAction} from '../../store/profile/actions'
 import {resetGroup} from '../../store/group/actions'
-import {HOME} from '../../routes/paths'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {useDispatch, useSelector} from 'react-redux'
+import {AuthenticatedPageTitle} from '../../style/titles'
+import {CardTitleText, HomePageText} from '../../style/text'
+import {AuthenticatedButtonLargest} from '../../style/buttons'
+import {NoAccessContainer, NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, ProjectAccessContainer} from './styles'
+import {GROUPS, HOME} from '../../routes/paths'
 import noResults from '../../assets/icons/stark_no_filter_results.png'
 
 
 const Home = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const first_name = useSelector(state => state.userLoginReducer.user.first_name)
     const [filterString, setFilterString] = useState('')
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
@@ -40,7 +42,7 @@ const Home = () => {
     const renderPairings = (searchedPairings) => {
         if (searchedPairings.length){
             return searchedPairings.map((pair) => (
-                <HomeGroup groupName={pair.groupName} key={uuidv4()} project={pair.project}/>
+                <HomeGroup groupName={pair.groupName} key={uuidv4()} project={pair.project} />
             ))
         } else {
             return (
@@ -81,7 +83,7 @@ const Home = () => {
                 !projectGroupPairings.length ? (
                     <NoAccessContainer>
                         <HomePageText>You have not created or been granted access to a project yet.</HomePageText>
-                        <AuthenticatedButtonLargest>Go to groups overview</AuthenticatedButtonLargest>
+                        <AuthenticatedButtonLargest onClick={() => history.push(GROUPS)}>Go to groups overview</AuthenticatedButtonLargest>
                     </NoAccessContainer>) : (
                         <>
                             <ProjectAccessContainer>
