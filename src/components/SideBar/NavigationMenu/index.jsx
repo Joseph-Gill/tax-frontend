@@ -26,18 +26,18 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
             <NavigationContainer>
                 <NavbarTitle>DASHBOARD</NavbarTitle>
                 <MenuItem
-                    isActive={location.pathname === HOME}
+                    active={location.pathname === HOME}
                     to={HOME}
                 ><NavigationIcons src={dashboard} />Home
                 </MenuItem>
                 {!loaded &&
                 <MenuItem
-                    isActive={location.pathname === GROUPS || location.pathname === CREATEGROUP}
+                    active={location.pathname === GROUPS || location.pathname === CREATEGROUP}
                     to={GROUPS}
                 ><NavigationIcons src={layers} />Groups
                 </MenuItem>}
                 <MenuItem
-                    isActive={location.pathname === USERPROFILE}
+                    active={location.pathname === USERPROFILE}
                     to={USERPROFILE}
                 ><NavigationIcons src={account} />Account
                 </MenuItem>
@@ -46,17 +46,17 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
             <GroupMenuContainer>
                 <NavbarTitle>Group Menu</NavbarTitle>
                 <MenuItem
-                    isActive={location.pathname === `${GROUPS}${ORG_CHART}`}
+                    active={location.pathname === `${GROUPS}${ORG_CHART}`}
                     to={`${GROUPS}${ORG_CHART}`}
                 ><NavigationIcons src={organization} />Organization Chart
                 </MenuItem>
                 <MenuItem
-                    isActive={location.pathname === `${GROUPS}${PROJECTS}` || location.pathname === `${GROUPS}${PROJECTS}${ADD_PROJECT}`}
+                    active={location.pathname === `${GROUPS}${PROJECTS}` || location.pathname === `${GROUPS}${PROJECTS}${ADD_PROJECT}`}
                     to={`${GROUPS}${PROJECTS}`}
                 ><NavigationIcons src={projects} />Projects
                 </MenuItem>
                 <MenuItem
-                    isActive={location.pathname === `${GROUPS}${MEMBERS}`}
+                    active={location.pathname === `${GROUPS}${MEMBERS}`}
                     to={`${GROUPS}${MEMBERS}`}
                 ><NavigationIcons src={teamMembers} />Team Members
                 </MenuItem>

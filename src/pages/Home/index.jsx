@@ -14,6 +14,7 @@ import {NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, Pro
 import {GROUPS, HOME} from '../../routes/paths'
 import noResults from '../../assets/icons/stark_no_filter_results.png'
 import NoContent from '../../components/NoContent'
+import Slide from 'react-reveal/Slide'
 
 
 const Home = () => {
