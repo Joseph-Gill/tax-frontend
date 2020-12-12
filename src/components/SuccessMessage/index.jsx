@@ -1,5 +1,5 @@
 import React from 'react'
-import check from '../../assets/icons/check.svg'
+import check from '../../assets/icons/stark_success_message_check.svg'
 import styled from 'styled-components/macro'
 import { useHistory} from 'react-router-dom'
 
@@ -18,7 +18,7 @@ const SuccessContainer = styled.div`
     align-items: center;
     flex-direction: column;
     justify-content: space-around;
-    padding: 60px 40px;
+    padding: 60px 40px 60px 200px;
     text-align: center;
     z-index: 999;
 `
@@ -28,7 +28,7 @@ const SuccessMessage = ({message, redirect}) => {
 
     setTimeout(() => {
         history.push(`${redirect}`)
-    }, 2000)
+    }, 3000)
 
     return (
         <SuccessContainer>
