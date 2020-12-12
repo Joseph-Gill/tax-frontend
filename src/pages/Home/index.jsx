@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {useHistory} from 'react-router-dom'
 import {v4 as uuidv4} from 'uuid'
 import BreadCrumb from '../../components/BreadCrumb'
 import HomeGroup from './HomeGroup'
@@ -11,8 +10,7 @@ import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../..
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CardTitleText, HomePageText} from '../../style/text'
-import {AuthenticatedButtonLargest} from '../../style/buttons'
-import {NoAccessContainer, NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, ProjectAccessContainer} from './styles'
+import {NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, ProjectAccessContainer} from './styles'
 import {GROUPS, HOME} from '../../routes/paths'
 import noResults from '../../assets/icons/stark_no_filter_results.png'
 import NoContent from '../../components/NoContent'
@@ -20,7 +18,6 @@ import NoContent from '../../components/NoContent'
 
 const Home = () => {
     const dispatch = useDispatch()
-    const history = useHistory()
     const first_name = useSelector(state => state.userLoginReducer.user.first_name)
     const [filterString, setFilterString] = useState('')
     const [projectGroupPairings, setProjectGroupPairings] = useState([])

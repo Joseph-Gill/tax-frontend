@@ -7,6 +7,7 @@ import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import ProjectCard from './ProjectCard'
 import {AddProjectButton, ProjectCardListContainer} from './styles'
+import NoContent from '../../components/NoContent'
 
 
 const GroupProjects = () => {
@@ -42,9 +43,11 @@ const GroupProjects = () => {
                 <AuthenticatedPageTitle>Projects</AuthenticatedPageTitle>
                 <AddProjectButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_PROJECT}`)}>Add New Project</AddProjectButton>
             </DisplayGroupTitleContainer>
-            <ProjectCardListContainer>
-                {projects.length ? setProjectCardDisplayOrder(projects).map(project => <ProjectCard key={project.id} project={project} />) : null}
-            </ProjectCardListContainer>
+            {!projects.length ?
+                <NoContent buttonText='Create Project' redirect={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} text='Your group does not have any projects yet.' /> : (
+                    <ProjectCardListContainer>
+                        {projects.length ? setProjectCardDisplayOrder(projects).map(project => <ProjectCard key={project.id} project={project} />) : null}
+                    </ProjectCardListContainer>)}
         </AuthenticatedPageContainer>
     )
 }
