@@ -7,7 +7,8 @@ import CreateGroupCard from './CreateGroupCard'
 import GroupCard from './GroupCard'
 import {GroupDisplayContainer, GroupGridContainer, GroupsSectionTile} from './styles'
 import {resetGroup} from '../../store/group/actions'
-import {GROUPS} from '../../routes/paths'
+import {CREATEGROUP, GROUPS} from '../../routes/paths'
+import NoContent from '../../components/NoContent'
 
 
 const Groups = () => {
@@ -26,13 +27,15 @@ const Groups = () => {
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Groups</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
-            <GroupDisplayContainer>
-                <GroupsSectionTile>Choose a Group</GroupsSectionTile>
-                <GroupGridContainer>
-                    {groups.map(group => <GroupCard group={group} key={group.id} />)}
-                    <CreateGroupCard />
-                </GroupGridContainer>
-            </GroupDisplayContainer>
+            {!groups.length ?
+                <NoContent buttonText='Create Group' redirect={CREATEGROUP} text='You do not have any groups yet.' /> : (
+                    <GroupDisplayContainer>
+                        <GroupsSectionTile>Choose a Group</GroupsSectionTile>
+                        <GroupGridContainer>
+                            {groups.map(group => <GroupCard group={group} key={group.id} />)}
+                            <CreateGroupCard />
+                        </GroupGridContainer>
+                    </GroupDisplayContainer>)}
         </AuthenticatedPageContainer>
     )
 }

@@ -15,6 +15,7 @@ import {AuthenticatedButtonLargest} from '../../style/buttons'
 import {NoAccessContainer, NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, ProjectAccessContainer} from './styles'
 import {GROUPS, HOME} from '../../routes/paths'
 import noResults from '../../assets/icons/stark_no_filter_results.png'
+import NoContent from '../../components/NoContent'
 
 
 const Home = () => {
@@ -80,11 +81,8 @@ const Home = () => {
                 <AuthenticatedPageTitle>Welcome {first_name}</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
             {loading ? <Spinner /> :
-                !projectGroupPairings.length ? (
-                    <NoAccessContainer>
-                        <HomePageText>You have not created or been granted access to a project yet.</HomePageText>
-                        <AuthenticatedButtonLargest onClick={() => history.push(GROUPS)}>Go to groups overview</AuthenticatedButtonLargest>
-                    </NoAccessContainer>) : (
+                !projectGroupPairings.length ?
+                    <NoContent buttonText='Go to groups overview' redirect={GROUPS} text='You have not created or been granted access to a group/project yet.' /> : (
                         <>
                             <ProjectAccessContainer>
                                 <HomePageText>Your current projects</HomePageText>

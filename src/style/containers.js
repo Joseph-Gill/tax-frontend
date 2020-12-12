@@ -150,6 +150,10 @@ export const ProjectSaveCancelButtonContainer = styled.div`
     }
 `
 
+export const ErrorMessageContainer = styled.div`
+    height: 10px;
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

@@ -5,7 +5,7 @@ import { BaseButton } from "../../style/buttons"
 import { Title } from "../../style/titles"
 import { useUrlQueryParams, useResetErrors } from "../../hooks"
 import { restPasswordValidate } from "../../store/user/actions/authentication/resetPasswordAction"
-import {BasePageContainer, LoginLogoContainer} from '../../style/containers'
+import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
 import {PasswordResetValidationForm} from '../../style/forms'
 import SignUpLink from "../../components/SignUpLink"
 import SuccessMessage from "../../components/SuccessMessage"
@@ -62,7 +62,9 @@ const PasswordResetValidation = () => {
                         type='password'
                     />
                 </div>
-                {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                <ErrorMessageContainer>
+                    {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                </ErrorMessageContainer>
                 <div>
                     <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput
@@ -72,9 +74,11 @@ const PasswordResetValidation = () => {
                         type='password'
                     />
                 </div>
-                {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
-                {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
-                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                <ErrorMessageContainer>
+                    {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
+                    {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
+                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                </ErrorMessageContainer>
                 <BaseButton onClick={register}>Reset Password</BaseButton>
                 <PasswordLink />
                 <SignUpLink />

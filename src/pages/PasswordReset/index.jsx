@@ -5,7 +5,7 @@ import {Title} from '../../style/titles'
 import {ErrorMessage} from '../../style/messages'
 import {useResetErrors} from '../../hooks'
 import {resetPassword} from '../../store/user/actions/authentication/resetPasswordAction'
-import {BasePageContainer, LoginLogoContainer} from '../../style/containers'
+import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
 import {ResetPasswordForm} from '../../style/forms'
 import SignUpLink from '../../components/SignUpLink'
 import SuccessMessage from '../../components/SuccessMessage'
@@ -55,8 +55,10 @@ const PasswordReset = () => {
                         type='text'
                     />
                 </div>
-                {error && <ErrorMessage>{error.email}</ErrorMessage>}
-                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                <ErrorMessageContainer>
+                    {error && <ErrorMessage>{error.email}</ErrorMessage>}
+                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                </ErrorMessageContainer>
                 <BaseButton onClick={resetPasswordHandler}>Send Code</BaseButton>
                 <PasswordLink />
                 <SignUpLink />

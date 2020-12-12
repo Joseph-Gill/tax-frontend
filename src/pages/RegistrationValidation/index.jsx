@@ -5,7 +5,7 @@ import {ErrorMessage} from '../../style/messages'
 import {useUrlQueryParams, useResetErrors} from '../../hooks'
 import {registrationValidationAction} from '../../store/user/actions/authentication/userRegistrationAction'
 import {Title} from '../../style/titles'
-import {BasePageContainer, LoginLogoContainer} from '../../style/containers'
+import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
 import {RegistrationValidationForm} from '../../style/forms'
 import SignUpLink from '../../components/SignUpLink'
 import SuccessMessage from '../../components/SuccessMessage'
@@ -24,6 +24,10 @@ const NameInputContainer = styled.div`
     display: flex;
     width: 302px;
     justify-content: space-between;
+`
+
+const NameInputErrorMessageContainer = styled(NameInputContainer)`
+    height: 10px;
 `
 
 
@@ -86,10 +90,10 @@ const RegistrationValidation = () => {
                         />
                     </div>
                 </NameInputContainer>
-                <NameInputContainer>
+                <NameInputErrorMessageContainer>
                     {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
                     {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
-                </NameInputContainer>
+                </NameInputErrorMessageContainer>
                 <div>
                     <EmailInputLabel>Email</EmailInputLabel>
                     <BaseInput
@@ -115,6 +119,9 @@ const RegistrationValidation = () => {
                         value={phoneNumber}
                     />
                 </div>
+                <ErrorMessageContainer>
+                    {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                </ErrorMessageContainer>
                 <div>
                     <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput
@@ -124,7 +131,9 @@ const RegistrationValidation = () => {
                         type='password'
                     />
                 </div>
-                {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                <ErrorMessageContainer>
+                    {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                </ErrorMessageContainer>
                 <div>
                     <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput
@@ -134,9 +143,11 @@ const RegistrationValidation = () => {
                         type='password'
                     />
                 </div>
-                {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
-                {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
-                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                <ErrorMessageContainer>
+                    {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
+                    {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
+                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                </ErrorMessageContainer>
                 <BaseButton onClick={ValidationHandler}>Register</BaseButton>
                 <SignUpLink />
                 <LoginFooter />

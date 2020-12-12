@@ -1,20 +1,20 @@
 import React, {useRef} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {BaseButton} from '../../style/buttons'
 import {useHistory} from 'react-router-dom'
-import {Title} from '../../style/titles'
-import {ErrorMessage} from '../../style/messages'
+import {useDispatch, useSelector} from 'react-redux'
+import SignUpLink from '../../components/SignUpLink'
+import PasswordLink from '../../components/PasswordLink'
+import LoginFooter from '../../components/LoginFooter'
 import {useResetErrors} from '../../hooks'
 import {userLoginAction} from '../../store/user/actions/authentication/userLoginAction'
-import SignUpLink from '../../components/SignUpLink'
-import {BasePageContainer, LoginLogoContainer} from '../../style/containers'
+import {HOME} from '../../routes/paths'
+import {BaseButton} from '../../style/buttons'
+import {Title} from '../../style/titles'
+import {ErrorMessage} from '../../style/messages'
+import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
 import {LoginForm} from '../../style/forms'
 import {BaseInput} from '../../style/inputs'
-import {HOME} from '../../routes/paths'
-import PasswordLink from '../../components/PasswordLink'
 import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
-import LoginFooter from '../../components/LoginFooter'
 import {ActiveInputLabel} from '../../style/labels'
 
 
@@ -62,7 +62,9 @@ const Login = () => {
                         type='password'
                     />
                 </div>
-                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                <ErrorMessageContainer>
+                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                </ErrorMessageContainer>
                 <BaseButton onClick={login}>Log In</BaseButton>
                 <PasswordLink />
                 <SignUpLink />

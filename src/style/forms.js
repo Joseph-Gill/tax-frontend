@@ -11,21 +11,27 @@ export const FormBase = styled.form`
     margin-left: 600px;
     align-items: center;
 `
-export const LoginForm = styled(FormBase)``
+export const LoginForm = styled(FormBase)`
+`
+
 export const RegistrationForm = styled(FormBase)`
     height: 287px;
 `
+
 export const ResetPasswordForm = styled(FormBase)`
     height: 287px;
 `
+
 export const PasswordResetValidationForm = styled(FormBase)`
     height: 350px;
 `
+
 export const EditProfileForm = styled(FormBase)`
-  background: white;
-  height: 500px;
-  width: 500px;
+    background: white;
+    height: 500px;
+    width: 500px;
 `
+
 export const RegistrationValidationForm = styled(FormBase)`
-  height: 500px;
+    height: 500px;
 `

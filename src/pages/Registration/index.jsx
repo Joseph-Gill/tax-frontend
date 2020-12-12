@@ -5,7 +5,7 @@ import {Title} from '../../style/titles'
 import {useResetErrors} from '../../hooks'
 import {userRegistrationAction} from '../../store/user/actions/authentication/userRegistrationAction'
 import SignUpLink from '../../components/SignUpLink'
-import {BasePageContainer, LoginLogoContainer} from '../../style/containers'
+import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
 import {RegistrationForm} from '../../style/forms'
 import SuccessMessage from '../../components/SuccessMessage'
 import {BaseInput} from '../../style/inputs'
@@ -51,8 +51,10 @@ const Registration = () => {
                         type='text'
                     />
                 </div>
-                {error && <ErrorMessage>{error.email}</ErrorMessage>}
-                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                <ErrorMessageContainer>
+                    {error && <ErrorMessage>{error.email}</ErrorMessage>}
+                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                </ErrorMessageContainer>
                 <BaseButton onClick={registrationHandler}>Register</BaseButton>
                 <PasswordLink />
                 <SignUpLink />
