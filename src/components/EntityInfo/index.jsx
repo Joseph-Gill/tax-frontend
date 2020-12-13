@@ -1,5 +1,5 @@
 import React from 'react'
-import {TableHeader} from '../../../style/tables'
+import {TableHeader} from '../../style/tables'
 import {CountryDropdown} from 'react-country-region-selector';
 import {EntitiesTable, EntitiesTableHeader, EntityLegalFormSelect, EntityOption, EntityParentSelect, EntityTableContainer, EntityTitleRow, NameTableInput, TableFooterInputContainer, TaxRateTableInput} from './styles'
 

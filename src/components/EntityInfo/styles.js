@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
-import {AuthenticatedPageSectionTitle} from '../../../style/titles'
-import {TableContainer} from '../../../style/containers'
-import {BaseInput} from '../../../style/inputs'
+import {AuthenticatedPageSectionTitle} from '../../style/titles'
+import {TableContainer} from '../../style/containers'
+import {BaseInput} from '../../style/inputs'
 
 
 export const EntityTitle = styled(AuthenticatedPageSectionTitle)`
