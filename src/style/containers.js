@@ -107,7 +107,7 @@ export const HomeExpandCollapseContainer = styled(animated.div)`
     }
 `
 
-export const DisplayGroupTitleContainer = styled(AuthenticatedPageTitleContainer)`
+export const DisplayTitleWithButtonContainer = styled(AuthenticatedPageTitleContainer)`
     display: flex;
     justify-content: space-between;
     padding-bottom: 10px;

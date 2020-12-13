@@ -13,6 +13,7 @@ const NoContent = ({buttonText, redirect, text}) => {
     })
 
     return (
+        // eslint-disable-next-line react/forbid-component-props
         <NoAccessContainer style={props}>
             <HomePageText>{text}</HomePageText>
             <NoContentButton onClick={() => history.push(redirect)} redirect={redirect}>{buttonText}</NoContentButton>

@@ -16,6 +16,7 @@ import {resetErrors} from '../../store/errors/actions/errorAction'
 import SuccessMessage from '../../components/SuccessMessage'
 import {HOME, USERPROFILE} from '../../routes/paths'
 import {resetGroup} from '../../store/group/actions'
+import {resetProject} from '../../store/project/actions'
 
 
 const UserProfile = () => {
@@ -35,6 +36,7 @@ const UserProfile = () => {
 
     useEffect(() => {
         dispatch(resetGroup())
+        dispatch(resetProject())
     }, [dispatch])
 
     const handleSaveChanges = async () => {

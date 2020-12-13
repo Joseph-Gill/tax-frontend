@@ -1,19 +1,25 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
-import {AuthenticatedPageContainer, DisplayGroupTitleContainer} from '../../style/containers'
-import {useSelector} from 'react-redux'
+import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
+import {useDispatch, useSelector} from 'react-redux'
 import {ADD_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import ProjectCard from './ProjectCard'
 import {AddProjectButton, ProjectCardListContainer} from './styles'
 import NoContent from '../../components/NoContent'
+import {resetProject} from '../../store/project/actions'
 
 
 const GroupProjects = () => {
     const group = useSelector(state => state.groupReducer.group)
     const projects = useSelector(state => state.groupReducer.group.projects)
     const history = useHistory()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(resetProject())
+    }, [dispatch])
 
     const setProjectCardDisplayOrder = () => {
         let onGoingNotStarted = []
@@ -39,10 +45,10 @@ const GroupProjects = () => {
                 {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
                 {display: 'PROJECTS', to:`${GROUPS}${PROJECTS}`, active: true}]}
             />
-            <DisplayGroupTitleContainer>
+            <DisplayTitleWithButtonContainer>
                 <AuthenticatedPageTitle>Projects</AuthenticatedPageTitle>
                 <AddProjectButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_PROJECT}`)}>Add New Project</AddProjectButton>
-            </DisplayGroupTitleContainer>
+            </DisplayTitleWithButtonContainer>
             {!projects.length ?
                 <NoContent buttonText='Create Project' redirect={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} text='Your group does not have any projects yet.' /> : (
                     <ProjectCardListContainer>

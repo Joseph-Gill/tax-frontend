@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import {AuthenticatedButtonLargest} from '../../style/buttons'
-import {ADD_GROUP, ADD_PROJECT, CREATEGROUP, GROUPS, PROJECTS} from '../../routes/paths'
+import {ADD_GROUP, ADD_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import {animated} from 'react-spring'
 
 

@@ -14,6 +14,7 @@ import {NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, Pro
 import {GROUPS, HOME} from '../../routes/paths'
 import noResults from '../../assets/icons/stark_no_filter_results.png'
 import NoContent from '../../components/NoContent'
+import {resetProject} from '../../store/project/actions'
 
 
 const Home = () => {
@@ -27,6 +28,7 @@ const Home = () => {
         (async function getProfileCreateParing() {
             setLoading(true)
             dispatch(resetGroup())
+            dispatch(resetProject())
             const response = await dispatch(getProfileAction())
             setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
         })();

@@ -20,6 +20,7 @@ import ProjectAdd from '../pages/ProjectAdd'
 import ProjectEdit from '../pages/ProjectEdit'
 import GroupEdit from '../pages/GroupEdit'
 import GroupAdd from '../pages/GroupAdd'
+import ProjectDisplay from '../pages/ProjectDisplay'
 
 
 const Routes = () => {
@@ -42,6 +43,7 @@ const Routes = () => {
                     <Route component={WithAuth(ProjectAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} />
                     <Route component={WithAuth(GroupEdit)} exact path={`${GROUPS}${EDIT_GROUP}`} />
                     <Route component={WithAuth(ProjectEdit)} path={`${GROUPS}${PROJECTS}${EDIT_PROJECT}/:projectId/`} />
+                    <Route component={WithAuth(ProjectDisplay)} path={`${GROUPS}${PROJECTS}/:projectId/`} />
                     <Route component={WithAuth(GroupDisplay)} path={`${GROUPS}/:groupId/`} />
                     <Route component={Page404} />
                 </Switch>

@@ -33,7 +33,7 @@ const GroupEdit = () => {
             const pidName = group.entities.filter(index => index.id === parseInt(entity.pid))
             return {...entity, pid: pidName[0].name}
         })])
-    }, [])
+    }, [group.entities])
 
     const addNewEntityClickHandler = () => {
         const newEntity = {

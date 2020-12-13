@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {DisplayGroupTitleContainer} from '../../style/containers'
+import {DisplayTitleWithButtonContainer} from '../../style/containers'
 
 
 export const MembersStatusToggleContainer = styled.div`
@@ -18,7 +18,7 @@ export const MembersStatusToggleContainer = styled.div`
     }
 `
 
-export const DisplayMembersTitleContainer = styled(DisplayGroupTitleContainer)`
+export const DisplayMembersTitleContainer = styled(DisplayTitleWithButtonContainer)`
     margin-top: 16.5px;
 `
 

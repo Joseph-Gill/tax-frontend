@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import {useHistory, useRouteMatch} from 'react-router-dom'
-import {AuthenticatedPageContainer, DisplayGroupTitleContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {getGroupAction} from '../../store/group/actions'
@@ -12,6 +12,7 @@ import projectImage from '../../assets/icons/stark_group_display_project_card_im
 import membersImage from '../../assets/icons/stark_group_display_members_card_image.png'
 import {EDIT_GROUP, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../routes/paths'
 import {DisplayCardsContaner, EditGroupButton} from './styling'
+import {resetProject} from '../../store/project/actions'
 
 
 const GroupDisplay = () => {
@@ -23,6 +24,7 @@ const GroupDisplay = () => {
 
     useEffect(() => {
         dispatch(getGroupAction(match.params.groupId))
+        dispatch(resetProject())
     }, [dispatch, match.params.groupId])
 
     const redirectOnClickHandler = (type) => {
@@ -49,10 +51,10 @@ const GroupDisplay = () => {
                         {display: 'GROUPS', to: GROUPS, active: false},
                         {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: true}]}
                 />
-                <DisplayGroupTitleContainer>
+                <DisplayTitleWithButtonContainer>
                     <AuthenticatedPageTitle>Group {group.name}</AuthenticatedPageTitle>
                     <EditGroupButton onClick={() => history.push(`${GROUPS}${EDIT_GROUP}`)}>Edit Group</EditGroupButton>
-                </DisplayGroupTitleContainer>
+                </DisplayTitleWithButtonContainer>
                 <DisplayCardsContaner>
                     <DisplayCard content={group.entities} image={organizationChartImage} redirectOnClickHandler={redirectOnClickHandler} type='Organization Chart' />
                     <DisplayCard content={group.projects} image={projectImage} redirectOnClickHandler={redirectOnClickHandler} type='Projects' />

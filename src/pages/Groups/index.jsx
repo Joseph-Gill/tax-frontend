@@ -9,6 +9,7 @@ import {GroupDisplayContainer, GroupGridContainer, GroupsSectionTile} from './st
 import {resetGroup} from '../../store/group/actions'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import NoContent from '../../components/NoContent'
+import {resetProject} from '../../store/project/actions'
 
 
 const Groups = () => {
@@ -17,6 +18,7 @@ const Groups = () => {
 
     useEffect(() => {
         dispatch(resetGroup())
+        dispatch(resetProject())
     }, [dispatch])
 
     return (

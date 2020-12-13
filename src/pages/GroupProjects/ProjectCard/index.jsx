@@ -1,10 +1,13 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 import {CardInfoText} from '../../../style/text'
 import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText, StatusText} from './styles'
 import {useSpring} from 'react-spring'
+import {GROUPS, PROJECTS} from '../../../routes/paths'
 
 
 const ProjectCard = ({project}) => {
+    const history = useHistory()
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},
@@ -12,7 +15,7 @@ const ProjectCard = ({project}) => {
 
     return (
         // eslint-disable-next-line react/forbid-component-props
-        <ProjectCardContainer status={project.status} style={props}>
+        <ProjectCardContainer onClick={() => history.push(`${GROUPS}${PROJECTS}/${project.id}/`)} status={project.status} style={props}>
             <ProjectCardNameStatusContainer>
                 <ProjectCardNameText>{project.name}</ProjectCardNameText>
                 <StatusText status={project.status}>{project.status}</StatusText>
