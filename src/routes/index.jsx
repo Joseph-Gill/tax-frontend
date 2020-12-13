@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, GROUPS, CREATEGROUP, ORG_CHART, PROJECTS, MEMBERS, ADD_PROJECT, EDIT_PROJECT} from './paths'
+import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, GROUPS, CREATEGROUP, ORG_CHART, PROJECTS, MEMBERS, ADD_PROJECT, EDIT_PROJECT, EDIT_GROUP} from './paths'
 import WithAuth from '../HOC/withAuth'
 import SideBar from '../components/SideBar'
 import UserProfile from '../pages/UserProfile'
@@ -19,6 +19,7 @@ import GroupProjects from '../pages/GroupProjects'
 import GroupMembers from '../pages/GroupMembers'
 import ProjectAdd from '../pages/ProjectAdd'
 import ProjectEdit from '../pages/ProjectEdit'
+import GroupEdit from '../pages/GroupEdit'
 
 
 const Routes = () => {
@@ -39,6 +40,7 @@ const Routes = () => {
                     <Route component={WithAuth(GroupProjects)} exact path={`${GROUPS}${PROJECTS}`} />
                     <Route component={WithAuth(GroupMembers)} exact path={`${GROUPS}${MEMBERS}`} />
                     <Route component={WithAuth(ProjectAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} />
+                    <Route component={WithAuth(GroupEdit)} exact path={`${GROUPS}${EDIT_GROUP}`} />
                     <Route component={WithAuth(ProjectEdit)} path={`${GROUPS}${PROJECTS}${EDIT_PROJECT}/:projectId/`} />
                     <Route component={WithAuth(GroupDisplay)} path={`${GROUPS}/:groupId/`} />
                     <Route component={Page404} />

@@ -10,7 +10,7 @@ import DisplayCard from './DisplayCard'
 import organizationChartImage from '../../assets/icons/stark_group_display_org_card_image.png'
 import projectImage from '../../assets/icons/stark_group_display_project_card_image.png'
 import membersImage from '../../assets/icons/stark_group_display_members_card_image.png'
-import {GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../routes/paths'
+import {EDIT_GROUP, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../routes/paths'
 import {DisplayCardsContaner, EditGroupButton} from './styling'
 
 
@@ -51,7 +51,7 @@ const GroupDisplay = () => {
                 />
                 <DisplayGroupTitleContainer>
                     <AuthenticatedPageTitle>Group {group.name}</AuthenticatedPageTitle>
-                    <EditGroupButton>Edit Group</EditGroupButton>
+                    <EditGroupButton onClick={() => history.push(`${GROUPS}${EDIT_GROUP}`)}>Edit Group</EditGroupButton>
                 </DisplayGroupTitleContainer>
                 <DisplayCardsContaner>
                     <DisplayCard content={group.entities} image={organizationChartImage} redirectOnClickHandler={redirectOnClickHandler} type='Organization Chart' />
