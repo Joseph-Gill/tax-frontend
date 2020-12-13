@@ -119,6 +119,12 @@ export const SaveButton = styled(BaseButton)`
     }
 `
 
+export const AddEntityButton = styled(BaseButton)`
+    width: 129px;
+    height: 26px;
+    font-size: 12px;
+`
+
 export const EditButton = styled(BaseButton)`
     width: 50px;
     height: 28px;

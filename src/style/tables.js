@@ -33,5 +33,5 @@ export const TableData = styled.td`
   font-size: 12px;
   line-height: 16px;
   color: ${props => props.theme.black};
-  padding-left: 16px;
+  padding: 0 16px;
 `

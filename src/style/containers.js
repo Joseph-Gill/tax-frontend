@@ -155,6 +155,36 @@ export const ErrorMessageContainer = styled.div`
     height: 10px;
 `
 
+export const EntityTitleContainer = styled.div`
+    width: 860px;
+    height: 44px;
+    background: ${props => props.theme.white};
+    margin-top: 20px;
+    padding-top: 20px;
+    z-index: 1;
+    border-top-left-radius: ${props => props.theme.borderRadius};
+    border-top-right-radius: ${props => props.theme.borderRadius};
+    border-bottom: 1px solid ${props => props.theme.grayFour};
+`
+
+export const AddEntityButtonContainer = styled.div`
+    width: 860px;
+    display: flex;
+    justify-content: flex-end;
+`
+
+export const CreateGroupCancelSaveContainer = styled.div`
+    width: 860px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 64px;
+    margin-bottom: 35px;
+
+    button:nth-child(1) {
+        margin-right: 13px;
+    }
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

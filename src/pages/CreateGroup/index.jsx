@@ -1,18 +1,15 @@
 import React, {useRef, useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import GroupInfo from '../../components/GroupInfo'
 import EntityInfo from '../../components/EntityInfo'
-import {EntityOption, EntityTitle} from '../../components/EntityInfo/styles'
-import {v4 as uuidv4} from 'uuid'
-import {TableData, TableDataRow} from '../../style/tables'
-import {AddEntityButton, AddEntityButtonContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from './styles'
+import {EntityTitle} from '../../components/EntityInfo/styles'
 import {useDispatch} from 'react-redux'
 import {createGroupAction} from '../../store/group/actions'
 import {CREATEGROUP, GROUPS} from '../../routes/paths'
-import {CancelButton, SaveButton} from '../../style/buttons'
+import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import SuccessMessage from '../../components/SuccessMessage'
 
 
@@ -34,10 +31,10 @@ const CreateGroup = () => {
     const addNewEntityClickHandler = () => {
         const newEntity = {
             name: entityName.current.value,
-            parent: parentName.current.value,
-            country: countryName,
-            legalForm: legalForm.current.value,
-            taxRate: taxRate.current.value
+            pid: parentName.current.value,
+            location: countryName,
+            legal_form: legalForm.current.value,
+            tax_rate: taxRate.current.value
         }
         setListOfEntities([...listOfEntities, newEntity])
         setAvailableParentNames([...availableParentNames, entityName.current.value])
@@ -55,27 +52,6 @@ const CreateGroup = () => {
         }
     }
 
-    const renderParentNameOptions = React.useMemo(() =>
-    !availableParentNames.length ?
-        <EntityOption value='Ultimate'>Ultimate</EntityOption> : (
-            <>
-                <EntityOption value=''>Select a parent</EntityOption>
-                {availableParentNames.map(parent => <EntityOption key={uuidv4()} value={parent}>{parent}</EntityOption>)}
-            </>), [availableParentNames]
-    )
-
-    const renderListOfEntities = React.useMemo(() =>
-    listOfEntities.length ?
-        listOfEntities.map(entity => (
-            <TableDataRow key={uuidv4()}>
-                <TableData>{entity.name}</TableData>
-                <TableData>{entity.parent}</TableData>
-                <TableData>{entity.country}</TableData>
-                <TableData>{entity.legalForm}</TableData>
-                <TableData>{entity.taxRate}</TableData>
-            </TableDataRow>
-        )) : null, [listOfEntities]
-    )
 
     return (
         <AuthenticatedPageContainer>
@@ -103,12 +79,12 @@ const CreateGroup = () => {
                 <EntityTitle>Entities</EntityTitle>
             </EntityTitleContainer>
             <EntityInfo
+                availableParentNames={availableParentNames}
                 countryName={countryName}
                 entityName={entityName}
                 legalForm={legalForm}
+                listOfEntities={listOfEntities}
                 parentName={parentName}
-                renderListOfEntities={renderListOfEntities}
-                renderParentNameOptions={renderParentNameOptions}
                 setCountryName={setCountryName}
                 taxRate={taxRate}
             />
