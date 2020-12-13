@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import {Link} from 'react-router-dom'
+import {animated} from 'react-spring'
 
 
 export const NavigationContainer = styled.div`
@@ -54,7 +55,7 @@ export const SelectedGroupContainer = styled.div`
     }
 `
 
-export const GroupMenuContainer = styled.div`
+export const GroupMenuContainer = styled(animated.div)`
     width: 100%;
     height: 220px;
     border-top: 1px solid ${props => props.theme.grayFour};
@@ -66,7 +67,7 @@ export const GroupMenuContainer = styled.div`
     align-items: center;
 `
 
-export const MenuItem = styled(Link)`
+export const MenuItem = styled(animated(Link))`
     font-size: 14px;
     font-weight: 600;
     font-family: ${props => props.theme.nunitoFontFamily};
@@ -83,7 +84,7 @@ export const MenuItem = styled(Link)`
     cursor:pointer;
 
     ${props => {
-        if(props.active){
+        if(props.isActive){
             return `
                     border-right: solid 3px ${props.theme.primaryBlue}
                     color: ${props.theme.primaryBlue};

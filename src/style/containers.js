@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import {CancelButton} from './buttons'
+import {animated} from 'react-spring'
 
 
 export const BasePageContainer = styled.div`
@@ -94,7 +95,7 @@ export const TableContainer = styled.div`
     }
 `
 
-export const HomeExpandCollapseContainer = styled.div`
+export const HomeExpandCollapseContainer = styled(animated.div)`
     display: flex;
     align-self: flex-end;
     align-items: center;

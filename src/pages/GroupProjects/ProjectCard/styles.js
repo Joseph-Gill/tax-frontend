@@ -1,8 +1,9 @@
 import styled from 'styled-components/macro'
 import {CardInfoText, CardTitleText} from '../../../style/text'
+import {animated} from 'react-spring'
 
 
-export const ProjectCardContainer = styled.div`
+export const ProjectCardContainer = styled(animated.div)`
     width: 860px;
     height: 163px;
     box-shadow: ${props => props.theme.projectCardBoxShadow};

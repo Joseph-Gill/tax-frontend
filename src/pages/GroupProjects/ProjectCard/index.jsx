@@ -1,11 +1,18 @@
 import React from 'react'
 import {CardInfoText} from '../../../style/text'
 import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText, StatusText} from './styles'
+import {useSpring} from 'react-spring'
 
 
 const ProjectCard = ({project}) => {
+    const props = useSpring({
+        opacity: 1,
+        from: {opacity: 0},
+    })
+
     return (
-        <ProjectCardContainer status={project.status}>
+        // eslint-disable-next-line react/forbid-component-props
+        <ProjectCardContainer status={project.status} style={props}>
             <ProjectCardNameStatusContainer>
                 <ProjectCardNameText>{project.name}</ProjectCardNameText>
                 <StatusText status={project.status}>{project.status}</StatusText>

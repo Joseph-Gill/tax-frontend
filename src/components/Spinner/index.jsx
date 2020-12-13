@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import {BeatLoader} from 'react-spinners'
 import styled from 'styled-components/macro'
+import {animated, useSpring} from 'react-spring'
 
 
-const SpinnerContainer = styled.div`
+const SpinnerContainer = styled(animated.div)`
     position: absolute;
     z-index: 999;
     top: 0;
@@ -20,8 +21,14 @@ const SpinnerContainer = styled.div`
 
 const Spinner = () => {
     const [loading] = useState(true)
+    const props = useSpring({
+        opacity: 1,
+        from: {opacity: 0},
+    })
+
     return (
-        <SpinnerContainer>
+        // eslint-disable-next-line react/forbid-component-props
+        <SpinnerContainer style={props}>
             <BeatLoader
                 color="#00709F"
                 loading={loading}

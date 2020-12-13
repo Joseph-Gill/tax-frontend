@@ -1,8 +1,9 @@
 import styled from 'styled-components/macro'
 import {device as devices} from '../../style/devices'
+import {animated} from 'react-spring'
 
 
-export const AddDeleteModalExternalContainer = styled.div`
+export const AddDeleteModalExternalContainer = styled(animated.div)`
   position: absolute;
   top: 0;
   right: 0;

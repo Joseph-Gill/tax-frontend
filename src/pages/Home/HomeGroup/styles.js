@@ -1,7 +1,8 @@
 import styled from 'styled-components/macro'
 import {BaseButton} from '../../../style/buttons'
+import {animated} from 'react-spring'
 
-export const HomeGroupContainer = styled.div`
+export const HomeGroupContainer = styled(animated.div)`
     width: 860px;
     //min-height: 148px;
     background: ${props => props.theme.white};

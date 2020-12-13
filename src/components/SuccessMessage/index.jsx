@@ -2,9 +2,10 @@ import React from 'react'
 import check from '../../assets/icons/stark_success_message_check.svg'
 import styled from 'styled-components/macro'
 import { useHistory} from 'react-router-dom'
+import {animated, useSpring} from 'react-spring'
 
 
-const SuccessContainer = styled.div`
+const SuccessContainer = styled(animated.div)`
     position: absolute;
     top: 0;
     left: 0;
@@ -25,13 +26,18 @@ const SuccessContainer = styled.div`
 
 const SuccessMessage = ({message, redirect}) => {
     const history = useHistory()
+    const props = useSpring({
+        opacity: 1,
+        from: {opacity: 0},
+    })
 
     setTimeout(() => {
         history.push(`${redirect}`)
     }, 3000)
 
     return (
-        <SuccessContainer>
+        // eslint-disable-next-line react/forbid-component-props
+        <SuccessContainer style={props}>
             {message}
             <img
                 alt="check icon"

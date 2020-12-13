@@ -1,7 +1,8 @@
 import styled from 'styled-components/macro'
+import {animated} from 'react-spring'
 
 
-export const DisplayCardContainer = styled.div`
+export const DisplayCardContainer = styled(animated.div)`
     width: 272px;
     height: 250px;
     background: ${props => props.theme.white};

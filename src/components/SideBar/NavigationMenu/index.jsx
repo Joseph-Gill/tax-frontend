@@ -1,73 +1,51 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {GroupMenuContainer, LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
+import {LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
-import {HOME, USERPROFILE, LOGIN, GROUPS, MEMBERS, PROJECTS, CREATEGROUP, ORG_CHART, ADD_PROJECT} from '../../../routes/paths'
+import {HOME, USERPROFILE, LOGIN, GROUPS} from '../../../routes/paths'
 import account from '../../../assets/icons/account_circle_24px.png'
-import layers from '../../../assets/icons/layers_24px.png'
 import dashboard from '../../../assets/icons/dashboard_24px.png'
 import layersv2 from '../../../assets/icons/layers_v2_24px.svg'
 import logout from '../../../assets/icons/stark_logout_icon.png'
-import organization from '../../../assets/icons/stark_organization.png'
-import teamMembers from '../../../assets/icons/stark_team_members.png'
-import projects from '../../../assets/icons/stark_projects.png'
 import {MenuItemTitle, NavbarTitle} from '../../../style/titles'
 import {LogOutLink} from '../../../style/links'
 import {SelectedGroupIcon} from '../../../style/images'
 import {useHistory} from 'react-router-dom'
+import {useSpring, animated} from 'react-spring'
+import GroupMenu from './GroupMenu'
 
 
 const NavigationMenu = ({dispatch, group, location, loaded}) => {
     const history = useHistory()
+    const props = useSpring({
+        opacity: 1,
+        from: {opacity: 0},
+    })
 
     return (
         <>
             <NavigationContainer>
                 <NavbarTitle>DASHBOARD</NavbarTitle>
                 <MenuItem
-                    active={location.pathname === HOME}
+                    isActive={location.pathname === HOME}
                     to={HOME}
                 ><NavigationIcons src={dashboard} />Home
                 </MenuItem>
-                {!loaded &&
                 <MenuItem
-                    active={location.pathname === GROUPS || location.pathname === CREATEGROUP}
-                    to={GROUPS}
-                ><NavigationIcons src={layers} />Groups
-                </MenuItem>}
-                <MenuItem
-                    active={location.pathname === USERPROFILE}
+                    isActive={location.pathname === USERPROFILE}
                     to={USERPROFILE}
                 ><NavigationIcons src={account} />Account
                 </MenuItem>
+                <GroupMenu loaded={loaded} location={location} />
             </NavigationContainer>
-            {loaded &&
-            <GroupMenuContainer>
-                <NavbarTitle>Group Menu</NavbarTitle>
-                <MenuItem
-                    active={location.pathname === `${GROUPS}${ORG_CHART}`}
-                    to={`${GROUPS}${ORG_CHART}`}
-                ><NavigationIcons src={organization} />Organization Chart
-                </MenuItem>
-                <MenuItem
-                    active={location.pathname === `${GROUPS}${PROJECTS}` || location.pathname === `${GROUPS}${PROJECTS}${ADD_PROJECT}`}
-                    to={`${GROUPS}${PROJECTS}`}
-                ><NavigationIcons src={projects} />Projects
-                </MenuItem>
-                <MenuItem
-                    active={location.pathname === `${GROUPS}${MEMBERS}`}
-                    to={`${GROUPS}${MEMBERS}`}
-                ><NavigationIcons src={teamMembers} />Team Members
-                </MenuItem>
-            </GroupMenuContainer>}
             <SelectedGroupContainer>
                 <NavbarTitle>Selected Group</NavbarTitle>
-                <div>
+                <animated.div style={props}>
                     <SelectedGroupIcon src={layersv2} />
                     <MenuItemTitle>{loaded ? group.name : 'None selected'}</MenuItemTitle>
                     <span onClick={() => history.push(GROUPS)}>Switch</span>
-                </div>
+                </animated.div>
             </SelectedGroupContainer>
             <LogOutContainer>
                 <LogOutLink

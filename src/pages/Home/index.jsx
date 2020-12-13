@@ -14,7 +14,6 @@ import {NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, Pro
 import {GROUPS, HOME} from '../../routes/paths'
 import noResults from '../../assets/icons/stark_no_filter_results.png'
 import NoContent from '../../components/NoContent'
-import Slide from 'react-reveal/Slide'
 
 
 const Home = () => {
@@ -38,7 +37,7 @@ const Home = () => {
             pair.project.name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
     );
 
-    const renderPairings = (searchedPairings) => {
+    const renderPairings = () => {
         if (searchedPairings.length){
             return searchedPairings.map((pair) => (
                 <HomeGroup groupName={pair.groupName} key={uuidv4()} project={pair.project} />
@@ -86,7 +85,7 @@ const Home = () => {
                                 <HomePageText>Your current projects</HomePageText>
                                 <GroupFilter filterString={filterString} setFilterString={setFilterString} />
                             </ProjectAccessContainer>
-                            {renderPairings(searchedPairings)}
+                            {renderPairings()}
                         </>
                     )}
         </AuthenticatedPageContainer>

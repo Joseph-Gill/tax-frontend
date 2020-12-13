@@ -14,6 +14,8 @@ import {BaseInput} from '../../style/inputs'
 import {CloseIcon, Ellipse} from '../../style/images'
 import {ErrorMessage} from '../../style/messages'
 import {resetErrors} from '../../store/errors/actions/errorAction'
+import {useSpring} from 'react-spring'
+
 
 const AddDeleteModal = ({setShowConfirmation}) => {
     const dispatch = useDispatch()
@@ -36,8 +38,14 @@ const AddDeleteModal = ({setShowConfirmation}) => {
         setShowConfirmation(false)
     }
 
+    const props = useSpring({
+        opacity: 1,
+        from: {opacity: 0},
+    })
+
     return (
-        <AddDeleteModalExternalContainer>
+        // eslint-disable-next-line react/forbid-component-props
+        <AddDeleteModalExternalContainer style={props}>
             <AddDeleteModalInternalContainer>
                 <AddDeleteModalCloseContainer>
                     <CloseIcon alt='close' onClick={() => setShowConfirmation(false)} src={close} />

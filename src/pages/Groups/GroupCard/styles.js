@@ -1,7 +1,8 @@
 import styled from 'styled-components/macro'
+import {animated} from 'react-spring'
 
 
-export const GroupCardContainer = styled.div`
+export const GroupCardContainer = styled(animated.div)`
     height: 245px;
     width: 256px;
     background: ${props => props.theme.white};
