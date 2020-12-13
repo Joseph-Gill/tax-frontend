@@ -36,7 +36,7 @@ const GroupMenu = ({loaded, location}) => {
                     ><NavigationIcons src={organization} />Organization Chart
                     </MenuItem>
                     <MenuItem
-                        isActive={location.pathname === `${GROUPS}${PROJECTS}` || location.pathname === `${GROUPS}${PROJECTS}${ADD_PROJECT}`}
+                        isActive={location.pathname.includes(`${GROUPS}${PROJECTS}`) || location.pathname === `${GROUPS}${PROJECTS}${ADD_PROJECT}`}
                         to={`${GROUPS}${PROJECTS}`}
                     ><NavigationIcons src={projects} />Projects
                     </MenuItem>

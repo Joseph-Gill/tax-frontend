@@ -2,13 +2,23 @@ import React, {useEffect} from 'react'
 import {useRouteMatch} from 'react-router-dom'
 import styled from 'styled-components/macro'
 import {useDispatch, useSelector} from 'react-redux'
-import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
+import {AddEditProjectDescriptionContainer, AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import Spinner from '../../components/Spinner'
 import {GROUPS, PROJECTS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
-import {AuthenticatedPageTitle} from '../../style/titles'
+import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
 import {EditGroupButton} from '../GroupDisplay/styling'
 import {getProjectAction} from '../../store/project/actions'
+import {AuthenticatedText} from '../../style/text'
+
+
+const ProjectDisplayDescriptionContainer = styled(AddEditProjectDescriptionContainer)`
+    justify-content: flex-start;
+`
+
+const ProjectDisplayDescriptionText = styled(AuthenticatedText)`
+    margin-top: 10px;
+`
 
 
 const ProjectDisplay = () => {
@@ -38,6 +48,10 @@ const ProjectDisplay = () => {
                         <AuthenticatedPageTitle>Project - {project.name}</AuthenticatedPageTitle>
                         <EditGroupButton>Edit Project</EditGroupButton>
                     </DisplayTitleWithButtonContainer>
+                    <ProjectDisplayDescriptionContainer>
+                        <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>
+                        <ProjectDisplayDescriptionText>{project.description}</ProjectDisplayDescriptionText>
+                    </ProjectDisplayDescriptionContainer>
                 </>)}
         </AuthenticatedPageContainer>
     )
