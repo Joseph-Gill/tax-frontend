@@ -8,36 +8,38 @@ const PendingComments = ({comments}) => {
     return (
         <TableContainer>
             <CommentTable>
-                <TableTitleRow>
-                    <TableHeader>Step</TableHeader>
-                    <TableHeader>Status</TableHeader>
-                    <TableHeader>Last edited by</TableHeader>
-                    <TableHeader>Action</TableHeader>
-                </TableTitleRow>
-                <TableDataRow>
-                    <TableData>12</TableData>
-                    <TableData>Open</TableData>
-                    <TableData />
-                    <TableData>
-                        <TableButton>Go to step</TableButton>
-                    </TableData>
-                </TableDataRow >
-                <TableDataRow >
-                    <TableData>12</TableData>
-                    <TableData>To Review</TableData>
-                    <TableData>Switzerland ( Tax ) C. Rohrl</TableData>
-                    <TableData>
-                        <TableButton>Go to step</TableButton>
-                    </TableData>
-                </TableDataRow >
-                <TableDataRow >
-                    <TableData>12</TableData>
-                    <TableData>To Review</TableData>
-                    <TableData>Switzerland ( Tax ) C. Rohrl</TableData>
-                    <TableData>
-                        <TableButton>Go to step</TableButton>
-                    </TableData>
-                </TableDataRow >
+                <tbody>
+                    <TableTitleRow>
+                        <TableHeader>Step</TableHeader>
+                        <TableHeader>Status</TableHeader>
+                        <TableHeader>Last edited by</TableHeader>
+                        <TableHeader>Action</TableHeader>
+                    </TableTitleRow>
+                    <TableDataRow>
+                        <TableData>12</TableData>
+                        <TableData>Open</TableData>
+                        <TableData />
+                        <TableData>
+                            <TableButton>Go to step</TableButton>
+                        </TableData>
+                    </TableDataRow >
+                    <TableDataRow >
+                        <TableData>12</TableData>
+                        <TableData>To Review</TableData>
+                        <TableData>Switzerland ( Tax ) C. Rohrl</TableData>
+                        <TableData>
+                            <TableButton>Go to step</TableButton>
+                        </TableData>
+                    </TableDataRow >
+                    <TableDataRow >
+                        <TableData>12</TableData>
+                        <TableData>To Review</TableData>
+                        <TableData>Switzerland ( Tax ) C. Rohrl</TableData>
+                        <TableData>
+                            <TableButton>Go to step</TableButton>
+                        </TableData>
+                    </TableDataRow >
+                </tbody>
             </CommentTable>
         </TableContainer>
     )
