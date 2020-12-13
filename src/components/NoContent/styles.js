@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import {AuthenticatedButtonLargest} from '../../style/buttons'
-import {ADD_PROJECT, CREATEGROUP, GROUPS, PROJECTS} from '../../routes/paths'
+import {ADD_GROUP, ADD_PROJECT, CREATEGROUP, GROUPS, PROJECTS} from '../../routes/paths'
 import {animated} from 'react-spring'
 
 
@@ -19,7 +19,7 @@ export const NoAccessContainer = styled(animated.div)`
 
 export const NoContentButton = styled(AuthenticatedButtonLargest)`
     ${props => {
-        if (props.redirect === CREATEGROUP){
+        if (props.redirect === `${GROUPS}${ADD_GROUP}`){
             return 'width: 144px;'
             }
         }

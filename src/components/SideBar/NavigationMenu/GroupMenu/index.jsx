@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTransition} from 'react-spring'
 import {GroupMenuContainer, MenuItem, NavigationIcons} from '../styles'
-import {ADD_PROJECT, CREATEGROUP, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../../../routes/paths'
+import {ADD_GROUP, ADD_PROJECT, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../../../routes/paths'
 import layers from '../../../../assets/icons/layers_24px.png'
 import {NavbarTitle} from '../../../../style/titles'
 import organization from '../../../../assets/icons/stark_organization.png'
@@ -19,7 +19,7 @@ const GroupMenu = ({loaded, location}) => {
     return transitions.map(({item, key, props}) =>
         !item ? (
             <MenuItem
-                isActive={location.pathname === GROUPS || location.pathname === CREATEGROUP}
+                isActive={location.pathname === GROUPS || location.pathname === `${GROUPS}${ADD_GROUP}`}
                 key={key}
                 //eslint-disable-next-line react/forbid-component-props
                 style={props}

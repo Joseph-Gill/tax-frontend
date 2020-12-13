@@ -8,12 +8,12 @@ import EntityInfo from '../../components/EntityInfo'
 import {EntityTitle} from '../../components/EntityInfo/styles'
 import {useDispatch} from 'react-redux'
 import {createGroupAction} from '../../store/group/actions'
-import {CREATEGROUP, GROUPS} from '../../routes/paths'
+import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import SuccessMessage from '../../components/SuccessMessage'
 
 
-const CreateGroup = () => {
+const GroupAdd = () => {
     let hiddenFileInput = useRef(null)
     let entityName = useRef('')
     let parentName = useRef('')
@@ -62,7 +62,7 @@ const CreateGroup = () => {
             />}
             <BreadCrumb breadCrumbArray={[
                 {display: 'GROUPS', to: GROUPS, active: false},
-                {display: 'CREATE GROUP', to: CREATEGROUP, active: true}]}
+                {display: 'CREATE GROUP', to: `${GROUPS}${ADD_GROUP}`, active: true}]}
             />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Create Group</AuthenticatedPageTitle>
@@ -100,4 +100,4 @@ const CreateGroup = () => {
 
 }
 
-export default CreateGroup
+export default GroupAdd
