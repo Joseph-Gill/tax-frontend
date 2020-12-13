@@ -1,9 +1,10 @@
 import React from 'react'
-import phImage from '../../../assets/icons/stark_create_grp_ph_image.png'
+import phImage from '../../assets/icons/stark_create_grp_ph_image.png'
 import {FileUploadContainer, GroupImage, GroupImageLowerConatainer, GroupImageRemoveButton, GroupNameInput, InputGroupInfoContainer, InputLeftContainer, InputRightContainer, InputTitle} from './styles'
+import {imageChangeHandler, imageClickHandler} from '../../helpers'
 
 
-const GroupInfo = ({groupImage, groupName, hiddenFileInput, imageChangeHandler, imageClickHandler, setGroupImage}) => {
+const GroupInfo = ({groupImage, groupName, hiddenFileInput, nameDisabled, setGroupImage, setGroupName}) => {
 
     return (
         <InputGroupInfoContainer>
@@ -16,10 +17,10 @@ const GroupInfo = ({groupImage, groupName, hiddenFileInput, imageChangeHandler, 
                         alt='group'
                         src={groupImage ? URL.createObjectURL(groupImage) : phImage}
                     />
-                    <FileUploadContainer onClick={imageClickHandler}>
+                    <FileUploadContainer onClick={() => imageClickHandler(hiddenFileInput)}>
                         <input
                             name='avatar'
-                            onChange={imageChangeHandler}
+                            onChange={(e) => imageChangeHandler(e, setGroupImage)}
                             ref={hiddenFileInput}
                             style={{ display: "none" }}
                             type='file'
@@ -32,10 +33,12 @@ const GroupInfo = ({groupImage, groupName, hiddenFileInput, imageChangeHandler, 
             <InputRightContainer>
                 <InputTitle>Group Name</InputTitle>
                 <GroupNameInput
+                    disabled={nameDisabled}
                     name='group_name'
+                    onChange={(e) => setGroupName(e.target.value)}
                     placeholder='Name your group'
-                    ref={groupName}
                     type='text'
+                    value={groupName}
                 />
             </InputRightContainer>
         </InputGroupInfoContainer>

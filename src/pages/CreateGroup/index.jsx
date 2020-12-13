@@ -1,8 +1,9 @@
 import React, {useRef, useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import GroupInfo from './GroupInfo'
+import GroupInfo from '../../components/GroupInfo'
 import EntityInfo from './EntityInfo'
 import {EntityOption, EntityTitle} from './EntityInfo/styles'
 import {v4 as uuidv4} from 'uuid'
@@ -16,28 +17,19 @@ import SuccessMessage from '../../components/SuccessMessage'
 
 
 const CreateGroup = () => {
-    let groupName = useRef('')
     let hiddenFileInput = useRef(null)
     let entityName = useRef('')
     let parentName = useRef('')
     let taxRate = useRef('')
     let legalForm = useRef('')
     const dispatch = useDispatch()
+    const history = useHistory()
+    const [groupName, setGroupName] = useState('')
     const [groupImage, setGroupImage] = useState(null)
     const [countryName, setCountryName] = useState('')
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [listOfEntities, setListOfEntities] = useState([])
     const [showSuccess, setShowSuccess] = useState(false)
-
-    const imageClickHandler = () => {
-        hiddenFileInput.current.click();
-    }
-
-    const imageChangeHandler = (e) => {
-        if (e.target.files[0]) {
-            setGroupImage(e.target.files[0])
-        }
-    }
 
     const addNewEntityClickHandler = () => {
         const newEntity = {
@@ -53,7 +45,7 @@ const CreateGroup = () => {
 
     const saveNewGroupClickHandler = async () => {
         const newGroup = {
-            name: groupName.current.value,
+            name: groupName,
             avatar: groupImage,
             entities: listOfEntities
         }
@@ -103,9 +95,9 @@ const CreateGroup = () => {
                 groupImage={groupImage}
                 groupName={groupName}
                 hiddenFileInput={hiddenFileInput}
-                imageChangeHandler={imageChangeHandler}
-                imageClickHandler={imageClickHandler}
+                nameDisabled={false}
                 setGroupImage={setGroupImage}
+                setGroupName={setGroupName}
             />
             <EntityTitleContainer>
                 <EntityTitle>Entities</EntityTitle>
@@ -124,7 +116,7 @@ const CreateGroup = () => {
                 <AddEntityButton onClick={addNewEntityClickHandler}>Add new entity</AddEntityButton>
             </AddEntityButtonContainer>
             <CreateGroupCancelSaveContainer>
-                <CancelButton>Cancel</CancelButton>
+                <CancelButton onClick={() => history.push(GROUPS)}>Cancel</CancelButton>
                 <SaveButton onClick={saveNewGroupClickHandler}>Save</SaveButton>
             </CreateGroupCancelSaveContainer>
         </AuthenticatedPageContainer>

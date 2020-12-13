@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
-import {AuthenticatedPageSectionTitle} from '../../../style/titles'
-import {BaseInput} from '../../../style/inputs'
-import {TableButton} from '../../../style/buttons'
+import {AuthenticatedPageSectionTitle} from '../../style/titles'
+import {BaseInput} from '../../style/inputs'
+import {TableButton} from '../../style/buttons'
 
 
 export const InputGroupInfoContainer = styled.div`
