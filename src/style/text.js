@@ -44,3 +44,26 @@ export const CardInfoText = styled(HomeGroupText)`
     color: ${props => props.theme.grayOne};
     font-weight: 600;
 `
+
+export const StatusText = styled(CardInfoText)`
+    ${props => {
+        if (props.status === 'Ongoing' || props.status === 'Not Started' ){
+            return `color: ${props.theme.yellowDark};`
+            }
+        }
+    };
+
+    ${props => {
+        if (props.status === 'Completed'){
+            return `color: ${props.theme.greenDark};`
+            }
+        }
+    };
+
+    ${props => {
+        if (props.status === 'Not Implemented') {
+            return `color: ${props.theme.redDark};`
+            }
+        }
+    };
+`

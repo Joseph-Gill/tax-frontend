@@ -1,7 +1,7 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
-import {CardInfoText} from '../../../style/text'
-import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText, StatusText} from './styles'
+import {CardInfoText, StatusText} from '../../../style/text'
+import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText} from './styles'
 import {useSpring} from 'react-spring'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
 

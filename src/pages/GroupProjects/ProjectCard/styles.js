@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {CardInfoText, CardTitleText} from '../../../style/text'
+import {CardTitleText} from '../../../style/text'
 import {animated} from 'react-spring'
 
 
@@ -48,30 +48,6 @@ export const ProjectCardMembersContainer = styled.div `
     display: flex;
     justify-content: flex-end;
     margin-top: 13px;
-`
-
-export const StatusText = styled(CardInfoText)`
-    ${props => {
-        if (props.status === 'Ongoing' || props.status === 'Not Started' ){
-            return `color: ${props.theme.yellowDark};`
-            }
-        }
-    };
-
-    ${props => {
-        if (props.status === 'Completed'){
-            return `color: ${props.theme.greenDark};`
-            }
-        }
-    };
-
-    ${props => {
-        if (props.status === 'Not Implemented') {
-            return `color: ${props.theme.redDark};`
-            }
-        }
-    };
-
 `
 
 export const ProjectCardNameText = styled(CardTitleText)`

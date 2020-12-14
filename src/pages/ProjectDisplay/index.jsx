@@ -10,6 +10,12 @@ import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/t
 import {EditGroupButton} from '../GroupDisplay/styling'
 import {getProjectAction} from '../../store/project/actions'
 import {AuthenticatedText} from '../../style/text'
+import {ProjectDisplayInfoBox, ProjectDisplayInfoBoxesContainer, ViewItemLink, ViewItemLinkContainer} from './styles'
+import StatusCard from './StatusCard'
+import MembersCard from './MembersCard'
+import rightArrow from '../../assets/icons/stark_right_facing_arrow.svg'
+import TasksCard from './TasksCard'
+import StepsCard from './StepsCard'
 
 
 const ProjectDisplayDescriptionContainer = styled(AddEditProjectDescriptionContainer)`
@@ -20,11 +26,9 @@ const ProjectDisplayDescriptionText = styled(AuthenticatedText)`
     margin-top: 10px;
 `
 
-
 const ProjectDisplay = () => {
     const dispatch = useDispatch()
     const match = useRouteMatch();
-    const group = useSelector(state => state.groupReducer.group)
     const project = useSelector(state => state.projectReducer.project)
     const loaded = useSelector(state => state.projectReducer.loaded)
 
@@ -39,7 +43,7 @@ const ProjectDisplay = () => {
                     <BreadCrumb
                         breadCrumbArray={[
                             {display: 'GROUPS', to: GROUPS, active: false},
-                            {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
+                            {display: `GROUP ${project.group.name.toUpperCase()}`, to: `${GROUPS}/${project.group.id}`, active: false},
                             {display: 'PROJECTS', to:`${GROUPS}${PROJECTS}`, active: false},
                             {display: `PROJECT ${project.name.toUpperCase()}`, to: `${GROUPS}${PROJECTS}/${project.id}`, active: true}
                         ]}
@@ -52,6 +56,12 @@ const ProjectDisplay = () => {
                         <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>
                         <ProjectDisplayDescriptionText>{project.description}</ProjectDisplayDescriptionText>
                     </ProjectDisplayDescriptionContainer>
+                    <ProjectDisplayInfoBoxesContainer>
+                        <StepsCard steps={project.steps} />
+                        <TasksCard steps={project.steps} />
+                        <MembersCard members={project.assigned_users_roles} />
+                        <StatusCard status={project.status} />
+                    </ProjectDisplayInfoBoxesContainer>
                 </>)}
         </AuthenticatedPageContainer>
     )

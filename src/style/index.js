@@ -38,6 +38,7 @@ export const defaultTheme = {
     grayFive: '#F6F7F8',
     graySix: '#FAFAFA',
     primaryBlue: '#00709F',
+    primaryBlueLight: '#CCF0FF',
     primaryDark: '#323C47',
     primaryShadeOne: '#66788A',
     primaryShadeTwo: '#F5FCFF',

@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import OpenComments from './OpenComments'
 import ReviewComments from './ReviewComments'
 import TasksOverdue from './OverdueTasks'
@@ -9,10 +10,11 @@ import ExpandedGroup from './ExpandedGroup'
 import {HomeExpandCollapseContainer} from '../../../style/containers'
 import {ExpandCollapseText} from '../../../style/text'
 import {useSpring} from 'react-spring'
+import {GROUPS, PROJECTS} from '../../../routes/paths'
 
 
 const HomeGroup = ({groupName, project}) => {
-
+    const history = useHistory()
     const [expandStatus, setExpandStatus] = useState(false)
     const props = useSpring({
         opacity: 1,
@@ -31,11 +33,11 @@ const HomeGroup = ({groupName, project}) => {
             </MiddleRowContainer>
             {expandStatus ? <ExpandedGroup /> : null}
             <BottomRowContainer>
-                <HomeGroupButton>Go to Project</HomeGroupButton>
+                <HomeGroupButton onClick={() => history.push(`${GROUPS}${PROJECTS}/${project.id}/`)}>Go to Project</HomeGroupButton>
                 <OpenComments number={2} />
                 <ReviewComments number={3} />
                 {expandStatus ? (
-                    <HomeExpandCollapseContainer onClick={() => setExpandStatus(false)}>
+                    <HomeExpandCollapseContainer style onClick={() => setExpandStatus(false)}>
                         <ExpandCollapseText>Collapse</ExpandCollapseText>
                         <CollapseImage alt='expand' src={expandCollapse} />
                     </HomeExpandCollapseContainer> ) : (
