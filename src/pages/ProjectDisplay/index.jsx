@@ -1,44 +1,40 @@
 import React, {useEffect} from 'react'
 import {useRouteMatch} from 'react-router-dom'
-import styled from 'styled-components/macro'
 import {useDispatch, useSelector} from 'react-redux'
-import {AddEditProjectDescriptionContainer, AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import Spinner from '../../components/Spinner'
-import {GROUPS, PROJECTS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
-import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
-import {EditGroupButton} from '../GroupDisplay/styling'
-import {getProjectAction} from '../../store/project/actions'
-import {AuthenticatedText} from '../../style/text'
-import {ProjectDisplayInfoBox, ProjectDisplayInfoBoxesContainer, ViewItemLink, ViewItemLinkContainer} from './styles'
 import StatusCard from './StatusCard'
 import MembersCard from './MembersCard'
-import rightArrow from '../../assets/icons/stark_right_facing_arrow.svg'
 import TasksCard from './TasksCard'
 import StepsCard from './StepsCard'
+import {getProjectAction} from '../../store/project/actions'
+import {getGroupAction} from '../../store/group/actions'
+import {GROUPS, PROJECTS} from '../../routes/paths'
+import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
+import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
+import {EditGroupButton} from '../GroupDisplay/styling'
+import {ProjectDisplayDescriptionContainer, ProjectDisplayDescriptionText, ProjectDisplayInfoBoxesContainer} from './styles'
 
-
-const ProjectDisplayDescriptionContainer = styled(AddEditProjectDescriptionContainer)`
-    justify-content: flex-start;
-`
-
-const ProjectDisplayDescriptionText = styled(AuthenticatedText)`
-    margin-top: 10px;
-`
 
 const ProjectDisplay = () => {
     const dispatch = useDispatch()
     const match = useRouteMatch();
+    const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
-    const loaded = useSelector(state => state.projectReducer.loaded)
+    const projectLoaded = useSelector(state => state.projectReducer.loaded)
 
     useEffect(() => {
-        dispatch(getProjectAction(match.params.projectId))
-    }, [dispatch, match.params.projectId])
+        (async function getProfileGetGroupIfNeeded() {
+            const response = await dispatch(getProjectAction(match.params.projectId))
+            if (!groupLoaded) {
+                dispatch(getGroupAction(response.group.id))
+            }
+        })();
+    }, [dispatch, match.params.projectId, groupLoaded])
 
     return(
         <AuthenticatedPageContainer>
-            {!loaded ? <Spinner /> : (
+            {!projectLoaded  ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
