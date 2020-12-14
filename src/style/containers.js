@@ -185,6 +185,25 @@ export const CreateGroupCancelSaveContainer = styled.div`
     }
 `
 
+export const DropdownChoiceContainer = styled.div`
+    width: 100%;
+    height: 42px;
+    padding-left: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: ${props => props.theme.white};
+    border-radius: ${props => props.theme.borderRadius};
+
+    :hover {
+        cursor: pointer;
+    }
+`
+
+export const DropDownChoiceWithBorder = styled(DropdownChoiceContainer)`
+    border-bottom: 1px solid ${props => props.theme.grayFive};
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

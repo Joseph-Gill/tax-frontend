@@ -67,3 +67,16 @@ export const StatusText = styled(CardInfoText)`
         }
     };
 `
+
+export const BlueDropdownText = styled.p`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 14px;
+    color: ${props => props.theme.primaryBlue};
+    margin-left: 10px;
+`
+
+export const RedDropdownText = styled(BlueDropdownText)`
+    color: ${props => props.theme.red};
+`

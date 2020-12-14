@@ -1,10 +1,21 @@
 import React, {useState} from 'react'
+import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import {GROUPS, MEMBERS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {DisplayMembersTitleContainer, GreyStatusText, MembersStatusToggleContainer, WhiteStatusContainer} from './styles'
+import ActionDropdown from './ActionDropdown'
+import FilterDropdown from './FilterDropdown'
+
+
+const ActionFilterDropdownContainer = styled.div`
+    width: 860px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+`
 
 
 const GroupMembers = () => {
@@ -32,6 +43,11 @@ const GroupMembers = () => {
                             </>)}
                 </MembersStatusToggleContainer>
             </DisplayMembersTitleContainer>
+            <ActionFilterDropdownContainer>
+                <ActionDropdown />
+                <FilterDropdown />
+            </ActionFilterDropdownContainer>
+
         </AuthenticatedPageContainer>
     )
 }
