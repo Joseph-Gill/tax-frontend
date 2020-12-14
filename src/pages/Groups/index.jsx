@@ -12,7 +12,7 @@ import NoContent from '../../components/NoContent'
 import {resetProject} from '../../store/project/actions'
 
 
-const Groups = () => {
+const Groups = ({history}) => {
     const groups = useSelector(state => state.profileReducer.profile.groups)
     const dispatch = useDispatch()
 
@@ -34,8 +34,8 @@ const Groups = () => {
                     <GroupDisplayContainer>
                         <GroupsSectionTile>Choose a Group</GroupsSectionTile>
                         <GroupGridContainer>
-                            {groups.map(group => <GroupCard group={group} key={group.id} />)}
-                            <CreateGroupCard />
+                            {groups.map(group => <GroupCard group={group} history={history} key={group.id} />)}
+                            <CreateGroupCard history={history} />
                         </GroupGridContainer>
                     </GroupDisplayContainer>)}
         </AuthenticatedPageContainer>

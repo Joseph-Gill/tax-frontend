@@ -1,13 +1,11 @@
 import React from 'react'
-import {useHistory} from 'react-router-dom'
 import {CardInfoText, StatusText} from '../../../style/text'
 import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText} from './styles'
 import {useSpring} from 'react-spring'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
 
 
-const ProjectCard = ({project}) => {
-    const history = useHistory()
+const ProjectCard = ({project, history}) => {
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

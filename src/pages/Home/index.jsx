@@ -17,7 +17,7 @@ import NoContent from '../../components/NoContent'
 import {resetProject} from '../../store/project/actions'
 
 
-const Home = () => {
+const Home = ({history}) => {
     const dispatch = useDispatch()
     const first_name = useSelector(state => state.userLoginReducer.user.first_name)
     const [filterString, setFilterString] = useState('')
@@ -42,7 +42,7 @@ const Home = () => {
     const renderPairings = () => {
         if (searchedPairings.length){
             return searchedPairings.map((pair) => (
-                <HomeGroup groupName={pair.groupName} key={uuidv4()} project={pair.project} />
+                <HomeGroup groupName={pair.groupName} history={history} key={uuidv4()} project={pair.project} />
             ))
         } else {
             return (

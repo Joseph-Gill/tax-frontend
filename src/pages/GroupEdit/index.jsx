@@ -1,6 +1,5 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
 import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {EDIT_GROUP, GROUPS} from '../../routes/paths'
@@ -11,8 +10,7 @@ import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import EntityInfo from '../../components/EntityInfo'
 
 
-const GroupEdit = () => {
-    const history = useHistory()
+const GroupEdit = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     let hiddenFileInput = useRef(null)
     let entityName = useRef('')

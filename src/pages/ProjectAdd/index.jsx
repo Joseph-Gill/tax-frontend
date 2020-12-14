@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react'
-import {useHistory} from 'react-router-dom'
 import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
@@ -16,13 +15,12 @@ import {getProfileAction} from '../../store/profile/actions'
 import {getGroupAction} from '../../store/group/actions'
 
 
-const ProjectAdd = () => {
+const ProjectAdd = ({history}) => {
     const [showSuccess, setShowSuccess] = useState(false)
     const group = useSelector(state => state.groupReducer.group)
     const status = useRef('')
     const name = useRef('')
     const description = useRef('')
-    const history = useHistory()
     const dispatch = useDispatch()
 
     const clickSaveButtonHandler =  async () => {

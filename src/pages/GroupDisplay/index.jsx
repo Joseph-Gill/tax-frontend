@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {useHistory, useRouteMatch} from 'react-router-dom'
+import {useRouteMatch} from 'react-router-dom'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
@@ -15,10 +15,9 @@ import {DisplayCardsContaner, EditGroupButton} from './styling'
 import {resetProject} from '../../store/project/actions'
 
 
-const GroupDisplay = () => {
+const GroupDisplay = ({history}) => {
     const dispatch = useDispatch()
     const match = useRouteMatch();
-    const history = useHistory()
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
 

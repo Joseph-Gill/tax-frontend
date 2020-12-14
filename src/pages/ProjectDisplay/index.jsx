@@ -9,14 +9,14 @@ import TasksCard from './TasksCard'
 import StepsCard from './StepsCard'
 import {getProjectAction} from '../../store/project/actions'
 import {getGroupAction} from '../../store/group/actions'
-import {GROUPS, PROJECTS} from '../../routes/paths'
+import {EDIT_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
 import {EditGroupButton} from '../GroupDisplay/styling'
 import {ProjectDisplayDescriptionContainer, ProjectDisplayDescriptionText, ProjectDisplayInfoBoxesContainer} from './styles'
 
 
-const ProjectDisplay = () => {
+const ProjectDisplay = ({history}) => {
     const dispatch = useDispatch()
     const match = useRouteMatch();
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
@@ -46,7 +46,7 @@ const ProjectDisplay = () => {
                     />
                     <DisplayTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Project - {project.name}</AuthenticatedPageTitle>
-                        <EditGroupButton>Edit Project</EditGroupButton>
+                        <EditGroupButton onClick={() => {history.push(`${GROUPS}${PROJECTS}${EDIT_PROJECT}`)}}>Edit Project</EditGroupButton>
                     </DisplayTitleWithButtonContainer>
                     <ProjectDisplayDescriptionContainer>
                         <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>

@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react'
-import {useHistory} from 'react-router-dom'
 import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
@@ -13,14 +12,13 @@ import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import SuccessMessage from '../../components/SuccessMessage'
 
 
-const GroupAdd = () => {
+const GroupAdd = ({history}) => {
     let hiddenFileInput = useRef(null)
     let entityName = useRef('')
     let parentName = useRef('')
     let taxRate = useRef('')
     let legalForm = useRef('')
     const dispatch = useDispatch()
-    const history = useHistory()
     const [groupName, setGroupName] = useState('')
     const [groupImage, setGroupImage] = useState(null)
     const [countryName, setCountryName] = useState('')

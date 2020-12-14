@@ -3,7 +3,6 @@ import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, A
 import {EDIT_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
 import {ProjectNameInput} from '../../style/inputs'
 import {StatusDropdown} from '../../style/dropdowns'
@@ -12,12 +11,11 @@ import {ProjectDescriptionTextArea} from '../../style/textarea'
 import {CancelButton, SaveButton} from '../../style/buttons'
 
 
-const ProjectEdit = () => {
+const ProjectEdit = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const project = useSelector(state => state.projectReducer.project)
     const [projectName, setProjectName] = useState(project.name)
     const [projectDescription, setProjectDescription] = useState(project.description)
-    const history = useHistory()
 
     return (
         <AuthenticatedPageContainer>

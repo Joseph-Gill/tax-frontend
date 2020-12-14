@@ -37,12 +37,12 @@ const Routes = () => {
                     <Route component={WithAuth(Groups)} exact path={GROUPS} />
                     <Route component={WithAuth(UserProfile)} exact path={USERPROFILE} />
                     <Route component={WithAuth(GroupAdd)} exact path={`${GROUPS}${ADD_GROUP}`} />
+                    <Route component={WithAuth(GroupEdit)} exact path={`${GROUPS}${EDIT_GROUP}`} />
                     <Route component={WithAuth(GroupOrgChart)} exact path={`${GROUPS}${ORG_CHART}`} />
                     <Route component={WithAuth(GroupProjects)} exact path={`${GROUPS}${PROJECTS}`} />
                     <Route component={WithAuth(GroupMembers)} exact path={`${GROUPS}${MEMBERS}`} />
                     <Route component={WithAuth(ProjectAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} />
-                    <Route component={WithAuth(GroupEdit)} exact path={`${GROUPS}${EDIT_GROUP}`} />
-                    <Route component={WithAuth(ProjectEdit)} path={`${GROUPS}${PROJECTS}${EDIT_PROJECT}/:projectId/`} />
+                    <Route component={WithAuth(ProjectEdit)} exact path={`${GROUPS}${PROJECTS}${EDIT_PROJECT}`} />
                     <Route component={WithAuth(ProjectDisplay)} path={`${GROUPS}${PROJECTS}/:projectId/`} />
                     <Route component={WithAuth(GroupDisplay)} path={`${GROUPS}/:groupId/`} />
                     <Route component={Page404} />

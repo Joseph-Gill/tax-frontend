@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {useHistory} from 'react-router-dom'
 import OpenComments from './OpenComments'
 import ReviewComments from './ReviewComments'
 import TasksOverdue from './OverdueTasks'
@@ -13,8 +12,7 @@ import {useSpring} from 'react-spring'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
 
 
-const HomeGroup = ({groupName, project}) => {
-    const history = useHistory()
+const HomeGroup = ({groupName, history, project}) => {
     const [expandStatus, setExpandStatus] = useState(false)
     const props = useSpring({
         opacity: 1,

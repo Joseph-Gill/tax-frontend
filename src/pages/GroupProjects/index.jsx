@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import {useHistory} from 'react-router-dom'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
 import {ADD_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
@@ -11,10 +10,9 @@ import NoContent from '../../components/NoContent'
 import {resetProject} from '../../store/project/actions'
 
 
-const GroupProjects = () => {
+const GroupProjects = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const projects = useSelector(state => state.groupReducer.group.projects)
-    const history = useHistory()
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -52,7 +50,7 @@ const GroupProjects = () => {
             {!projects.length ?
                 <NoContent buttonText='Create Project' redirect={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} text='Your group does not have any projects yet.' /> : (
                     <ProjectCardListContainer>
-                        {projects.length ? setProjectCardDisplayOrder(projects).map(project => <ProjectCard key={project.id} project={project} />) : null}
+                        {projects.length ? setProjectCardDisplayOrder(projects).map(project => <ProjectCard history={history} key={project.id} project={project} />) : null}
                     </ProjectCardListContainer>)}
         </AuthenticatedPageContainer>
     )
