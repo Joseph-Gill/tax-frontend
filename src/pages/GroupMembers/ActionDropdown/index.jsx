@@ -4,6 +4,7 @@ import {BlueDropdownText, RedDropdownText} from '../../../style/text'
 import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/containers'
 import deleteIcon from '../../../assets/icons/stark_delete_icon.svg'
 import {Dropdown, DropdownButton, DropdownOptions} from '../../../style/dropdowns'
+import {DropdownImage} from '../../../style/images'
 
 
 const ActionDropdown = () => {
@@ -12,11 +13,11 @@ const ActionDropdown = () => {
             <DropdownButton>Action</DropdownButton>
             <DropdownOptions>
                 <DropDownChoiceWithBorder>
-                    <img alt='email' src={emailIcon} />
+                    <DropdownImage alt='email' src={emailIcon} />
                     <BlueDropdownText>Send Email</BlueDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropdownChoiceContainer>
-                    <img alt='delete' src={deleteIcon} />
+                    <DropdownImage alt='delete' src={deleteIcon} />
                     <RedDropdownText>Delete Members</RedDropdownText>
                 </DropdownChoiceContainer>
             </DropdownOptions>

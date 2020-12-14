@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
@@ -22,6 +22,7 @@ const GroupMembers = () => {
     const group = useSelector(state => state.groupReducer.group)
     // const members = useSelector(state => state.groupReducer.group.users)
     const [filterMemberStatus, setFilterMemberStatus] = useState(true)
+    let filterString = useRef('')
 
     return (
         <AuthenticatedPageContainer>
@@ -45,7 +46,7 @@ const GroupMembers = () => {
             </DisplayMembersTitleContainer>
             <ActionFilterDropdownContainer>
                 <ActionDropdown />
-                <FilterDropdown />
+                <FilterDropdown filterString={filterString} />
             </ActionFilterDropdownContainer>
 
         </AuthenticatedPageContainer>

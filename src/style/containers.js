@@ -188,7 +188,7 @@ export const CreateGroupCancelSaveContainer = styled.div`
 export const DropdownChoiceContainer = styled.div`
     width: 100%;
     height: 42px;
-    padding-left: 9px;
+    padding-left: 5px;
     display: flex;
     align-items: center;
     justify-content: flex-start;

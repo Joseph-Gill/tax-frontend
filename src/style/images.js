@@ -46,3 +46,7 @@ export const FilterImage = styled.img`
     margin-top: 8px;
     margin-left: 14px;
 `
+
+export const DropdownImage = styled.img`
+    margin-left: 10px;
+`
