@@ -1,5 +1,6 @@
 import Axios from '../../../axios'
 import {GET_PROJECT, RESET_PROJECT} from '../types'
+import {getGroupAction} from '../../group/actions'
 
 
 export const getProject = data => {
@@ -46,6 +47,24 @@ export const createProjectAction = (projectInfo, groupId) => async (dispatch, ge
         return await Axios.post(`/projects/${groupId}/`, projectInfo, config)
     } catch (e) {
         console.log('error creating project>', e)
+        return e
+    }
+}
+
+export const updateProjectAction = (projectInfo, projectId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+        const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.patch(`/projects/project/${projectId}/`, projectInfo, config)
+        if (response.status === 200) {
+            return await dispatch(getGroupAction(response.data.group.id))
+        }
+    } catch (e) {
+        console.log('error updating project>', e)
         return e
     }
 }
