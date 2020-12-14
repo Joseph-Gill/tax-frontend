@@ -3,7 +3,6 @@ import {v4 as uuidv4} from 'uuid'
 import BreadCrumb from '../../components/BreadCrumb'
 import HomeGroup from './HomeGroup'
 import Spinner from '../../components/Spinner'
-import GroupFilter from './GroupFilter'
 import {getProfileAction} from '../../store/profile/actions'
 import {resetGroup} from '../../store/group/actions'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
@@ -15,6 +14,7 @@ import {GROUPS, HOME} from '../../routes/paths'
 import noResults from '../../assets/icons/stark_no_filter_results.png'
 import NoContent from '../../components/NoContent'
 import {resetProject} from '../../store/project/actions'
+import HomeFilterDropdown from './HomeFilterDropdown'
 
 
 const Home = ({history}) => {
@@ -85,7 +85,7 @@ const Home = ({history}) => {
                         <>
                             <ProjectAccessContainer>
                                 <HomePageText>Your current projects</HomePageText>
-                                <GroupFilter filterString={filterString} setFilterString={setFilterString} />
+                                <HomeFilterDropdown filterString={filterString} setFilterString={setFilterString} />
                             </ProjectAccessContainer>
                             {renderPairings()}
                         </>

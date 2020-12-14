@@ -40,3 +40,8 @@ export const NameInput = styled(BaseInput)`
 export const ProjectNameInput = styled(BaseInput)`
     width: 302px;
 `
+
+export const FilterInput = styled(BaseInput)`
+    width: 160px;
+    height: 32px;
+`
