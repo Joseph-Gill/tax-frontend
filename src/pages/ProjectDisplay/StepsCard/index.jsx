@@ -7,7 +7,7 @@ import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
 const StepsCard = ({steps}) => {
     return (
         <ProjectDisplayInfoBox>
-            <AddEditProjectSectionTitles>Tasks</AddEditProjectSectionTitles>
+            <AddEditProjectSectionTitles>Steps</AddEditProjectSectionTitles>
             <ProjectDisplayStatusesContainer>
                 <ProjectDisplayColorTextContainer>
                     <ProjectDisplayColorTextBackground status='Ongoing / Planned'>5</ProjectDisplayColorTextBackground>
