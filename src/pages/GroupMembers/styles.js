@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import {DisplayTitleWithButtonContainer} from '../../style/containers'
+import {BaseButton} from '../../style/buttons'
 
 
 export const MembersStatusToggleContainer = styled.div`
@@ -47,4 +48,22 @@ export const GreyStatusText = styled.p`
     letter-spacing: 0.22px;
     color: ${props => props.theme.grayThree};
     margin: 0 12px;
+`
+
+export const ActionFilterDropdownContainer = styled.div`
+    width: 860px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+`
+
+export const AddMemberButtonContainer = styled.div`
+    width: 860px;
+    display: flex;
+    justify-content: flex-end;
+`
+
+export const AddMemberButton = styled(BaseButton)`
+    width: 183px;
+    margin-top: 84px;
 `

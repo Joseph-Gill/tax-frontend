@@ -1,26 +1,19 @@
 import React, {useState, useRef} from 'react'
-import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import {GROUPS, MEMBERS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import {DisplayMembersTitleContainer, GreyStatusText, MembersStatusToggleContainer, WhiteStatusContainer} from './styles'
+import {ActionFilterDropdownContainer, AddMemberButton, AddMemberButtonContainer, DisplayMembersTitleContainer, GreyStatusText, MembersStatusToggleContainer, WhiteStatusContainer} from './styles'
 import ActionDropdown from './ActionDropdown'
 import FilterDropdown from './FilterDropdown'
-
-
-const ActionFilterDropdownContainer = styled.div`
-    width: 860px;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-`
+import GroupMembersTable from './GroupMembersTable'
 
 
 const GroupMembers = () => {
     const group = useSelector(state => state.groupReducer.group)
-    // const members = useSelector(state => state.groupReducer.group.users)
+    const members = useSelector(state => state.groupReducer.group.users)
+    const invitedMembers = useSelector(state => state.groupReducer.group.invited_new_users)
     const [filterMemberStatus, setFilterMemberStatus] = useState(true)
     let filterString = useRef('')
 
@@ -48,7 +41,14 @@ const GroupMembers = () => {
                 <ActionDropdown />
                 <FilterDropdown filterString={filterString} />
             </ActionFilterDropdownContainer>
-
+            <GroupMembersTable
+                filterMemberStatus={filterMemberStatus}
+                invitedMembers={invitedMembers}
+                members={members}
+            />
+            <AddMemberButtonContainer>
+                <AddMemberButton>Add team member</AddMemberButton>
+            </AddMemberButtonContainer>
         </AuthenticatedPageContainer>
     )
 }
