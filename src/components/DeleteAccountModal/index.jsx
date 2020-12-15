@@ -80,7 +80,6 @@ const DeleteAccountModal = ({setShowConfirmation}) => {
                     <RedLargerButton onClick={() => deleteUserHandler(password.current.value)}>Yes, delete account</RedLargerButton>
                 </AddDeleteModalButtonContainer>
             </AddDeleteModalInternalContainer>
-
         </AddDeleteModalExternalContainer>
     )
 }

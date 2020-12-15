@@ -5,11 +5,11 @@ import HomeGroup from './HomeGroup'
 import Spinner from '../../components/Spinner'
 import {getProfileAction} from '../../store/profile/actions'
 import {resetGroup} from '../../store/group/actions'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, NoFilterResultsContainer, NoFilterTextContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import {CardTitleText, HomePageText} from '../../style/text'
-import {NoFilterResultsContainer, NoFilterResultText, NoFilterTextContainer, ProjectAccessContainer} from './styles'
+import {CardTitleText, HomePageText, NoFilterResultText} from '../../style/text'
+import {ProjectAccessContainer} from './styles'
 import {GROUPS, HOME} from '../../routes/paths'
 import noResults from '../../assets/icons/stark_no_filter_results.png'
 import NoContent from '../../components/NoContent'
@@ -53,8 +53,7 @@ const Home = ({history}) => {
                         <NoFilterResultText>What you searched was unfortunately</NoFilterResultText>
                         <NoFilterResultText>not found or doesn&apos;t exist.</NoFilterResultText>
                     </NoFilterTextContainer>
-                </NoFilterResultsContainer> )
-        }
+                </NoFilterResultsContainer> )}
     }
 
     const createGroupProjectPairing = (groups) => {

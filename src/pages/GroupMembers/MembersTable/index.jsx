@@ -4,10 +4,13 @@ import {getMemberOrganizationNameAction} from '../../../store/organization/actio
 import {useDispatch} from 'react-redux'
 import Spinner from '../../../components/Spinner'
 import headerCheckbox from '../../../assets/icons/stark_checkbox_header.svg'
-import {ActiveMemberUserContainer, ActiveMemberUserText, CheckBox, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText, TableDataCheckbox} from './styles'
+import {ActiveMemberUserContainer, ActiveMemberUserText, CheckBox, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText, NoInvitedMembersButton, TableDataCheckbox} from './styles'
+import noMembers from '../../../assets/icons/stark_no_invited_members.jpg'
+import {CardTitleText, NoFilterResultText} from '../../../style/text'
+import {NoFilterResultsContainer, NoFilterTextContainer} from '../../../style/containers'
 
 
-const MembersTable = ({filterMemberStatus, group, invitedMembers, members}) => {
+const MembersTable = ({filterMemberStatus, group, invitedMembers, members, setShowAddMember}) => {
     const [activeRenderData, setActiveRenderData] = useState([])
     const [invitedRenderData, setInvitedRenderData] = useState([...invitedMembers])
     const [loaded, setLoaded] = useState(false)
@@ -31,8 +34,8 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members}) => {
                         email: member.user.email,
                         phone_number: member.phone_number,
                         organization: response.name,
-                        project_role: project_roles[0].role,
-                        project_access: project_roles.length === group_projects ? 'All' : 'Limited',
+                        project_role: project_roles.length ? project_roles[0].role : 'Unassigned',
+                        project_access: !group_projects ? 'Group has no Projects' : project_roles.length === group_projects ? 'All' : 'Limited',
                         country: 'N/A',
                         isChecked: false
                     }
@@ -46,7 +49,7 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members}) => {
                         phone_number: member.phone_number,
                         organization: 'Unassigned',
                         project_role: project_roles.length ? project_roles[0].role : 'Unassigned',
-                        project_access: project_roles.length === group_projects ? 'All' : 'Limited',
+                        project_access: !group_projects ? 'Group has no Projects' : project_roles.length === group_projects ? 'All' : 'Limited',
                         isChecked: false
                     }
                     activeResult.push(data)
@@ -167,7 +170,7 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members}) => {
                                 <TableHeader>Projects Access</TableHeader>
                                 <TableHeader>Country</TableHeader>
                                 <TableHeader>Role</TableHeader>
-                            </TableTitleRow>) : (
+                            </TableTitleRow>) : invitedMembers.length ? (
                                 <TableTitleRow>
                                     <TableDataCheckbox>
                                         <img
@@ -181,7 +184,16 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members}) => {
                                     <TableHeader>Projects Access</TableHeader>
                                     <TableHeader>Country</TableHeader>
                                     <TableHeader>Status</TableHeader>
-                                </TableTitleRow>)}
+                                </TableTitleRow>) : (
+                                    <NoFilterResultsContainer>
+                                        <img alt='no members' src={noMembers} />
+                                        <CardTitleText>No pending Invites</CardTitleText>
+                                        <NoFilterTextContainer>
+                                            <NoFilterResultText>You don&apos;t have any pending invites to</NoFilterResultText>
+                                            <NoFilterResultText>your team members.</NoFilterResultText>
+                                        </NoFilterTextContainer>
+                                        <NoInvitedMembersButton onClick={() => setShowAddMember(true)}>Add team member</NoInvitedMembersButton>
+                                    </NoFilterResultsContainer>)}
                     </thead>
                     <tbody>
                         {filterMemberStatus ?

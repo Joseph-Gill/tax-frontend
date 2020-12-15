@@ -8,6 +8,7 @@ import {ActionFilterDropdownContainer, AddMemberButton, AddMemberButtonContainer
 import ActionDropdown from './ActionDropdown'
 import FilterDropdown from './FilterDropdown'
 import MembersTable from './MembersTable'
+import AddMemberModal from '../../components/AddMemberModal'
 
 
 const GroupMembers = () => {
@@ -15,10 +16,12 @@ const GroupMembers = () => {
     const members = useSelector(state => state.groupReducer.group.users)
     const invitedMembers = useSelector(state => state.groupReducer.group.invited_new_users)
     const [filterMemberStatus, setFilterMemberStatus] = useState(true)
+    const [showAddMember, setShowAddMember] = useState(false)
     let filterString = useRef('')
 
     return (
         <AuthenticatedPageContainer>
+            {showAddMember && <AddMemberModal setShowAddMember={setShowAddMember} />}
             <BreadCrumb breadCrumbArray={[
                 {display: 'GROUPS', to: GROUPS, active: false},
                 {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
@@ -38,17 +41,22 @@ const GroupMembers = () => {
                 </MembersStatusToggleContainer>
             </DisplayMembersTitleContainer>
             <ActionFilterDropdownContainer>
-                <ActionDropdown />
-                <FilterDropdown filterString={filterString} />
+                {!filterMemberStatus && !invitedMembers.length ? null : (
+                    <>
+                        <ActionDropdown />
+                        <FilterDropdown filterString={filterString} />
+                    </>)}
             </ActionFilterDropdownContainer>
             <MembersTable
                 filterMemberStatus={filterMemberStatus}
                 group={group}
                 invitedMembers={invitedMembers}
                 members={members}
+                setShowAddMember={setShowAddMember}
             />
             <AddMemberButtonContainer>
-                <AddMemberButton>Add team member</AddMemberButton>
+                {!filterMemberStatus && !invitedMembers.length ? null : (
+                    <AddMemberButton onClick={() => setShowAddMember(!showAddMember)}>Add team member</AddMemberButton> )}
             </AddMemberButtonContainer>
         </AuthenticatedPageContainer>
     )

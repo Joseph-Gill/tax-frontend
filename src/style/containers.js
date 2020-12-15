@@ -204,6 +204,25 @@ export const DropDownChoiceWithBorder = styled(DropdownChoiceContainer)`
     border-bottom: 1px solid ${props => props.theme.grayFive};
 `
 
+export const NoFilterResultsContainer = styled.div`
+    width: 860px;
+    height: 462px;
+    background: ${props => props.theme.white};
+    box-shadow: ${props => props.theme.boxShadow};
+    border-radius: ${props => props.theme.borderRadius};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
+export const NoFilterTextContainer = styled.div`
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

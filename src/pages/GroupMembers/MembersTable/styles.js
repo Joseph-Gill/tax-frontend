@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 import {TableData} from '../../../style/tables'
 import {CardInfoText} from '../../../style/text'
+import {BaseButton} from '../../../style/buttons'
 
 
 export const CheckBox = styled.input`
@@ -40,4 +41,10 @@ export const NewMemberGreenText = styled(CardInfoText)`
 
 export const NewMemberYellowText = styled(CardInfoText)`
     color: ${props => props.theme.yellowDark};
+`
+
+export const NoInvitedMembersButton = styled(BaseButton)`
+    width: 183px;
+    height: 32px;
+    margin-top: 20px;
 `

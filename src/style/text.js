@@ -84,3 +84,7 @@ export const RedDropdownText = styled(DefaultDropdownText)`
 export const BlueDropdownText = styled(DefaultDropdownText)`
     color: ${props => props.theme.primaryBlue};
 `
+
+export const NoFilterResultText = styled(CardInfoText)`
+    color: ${props => props.theme.grayTwo}
+`
