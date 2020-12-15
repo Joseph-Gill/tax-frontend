@@ -11,6 +11,8 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members}) => {
     const [activeRenderData, setActiveRenderData] = useState([])
     const [invitedRenderData, setInvitedRenderData] = useState([...invitedMembers])
     const [loaded, setLoaded] = useState(false)
+    const [allActiveStatus, setAllActiveStatus] = useState(true)
+    const [allInvitedStatus, setAllInvitedStatus] = useState(true)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -78,6 +80,24 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members}) => {
         setInvitedRenderData([...dataCopy])
     }
 
+    const checkAllActiveMembersHandler = () => {
+        const dataCopy = [...activeRenderData]
+        for (const member of dataCopy) {
+            member.isChecked = allActiveStatus
+        }
+        setActiveRenderData([...dataCopy])
+        setAllActiveStatus(!allActiveStatus)
+    }
+
+    const checkAllInvitedMembersHandler = () => {
+        const dataCopy = [...invitedRenderData]
+        for (const member of dataCopy) {
+            member.isChecked = allInvitedStatus
+        }
+        setInvitedRenderData([...dataCopy])
+        setAllInvitedStatus(!allInvitedStatus)
+    }
+
     const renderActiveMembers = (array) => {
         return array.map((member, index) => (
             <TableDataRow key={member.id}>
@@ -136,7 +156,11 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members}) => {
                         {filterMemberStatus ? (
                             <TableTitleRow>
                                 <TableDataCheckbox>
-                                    <img alt='checkbox' src={headerCheckbox} />
+                                    <img
+                                        alt='checkbox'
+                                        onClick={checkAllActiveMembersHandler}
+                                        src={headerCheckbox}
+                                    />
                                 </TableDataCheckbox>
                                 <TableHeader>User</TableHeader>
                                 <TableHeader>Organization</TableHeader>
@@ -146,7 +170,11 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members}) => {
                             </TableTitleRow>) : (
                                 <TableTitleRow>
                                     <TableDataCheckbox>
-                                        <img alt='checkbox' src={headerCheckbox} />
+                                        <img
+                                            alt='checkbox'
+                                            onClick={checkAllInvitedMembersHandler}
+                                            src={headerCheckbox}
+                                        />
                                     </TableDataCheckbox>
                                     <TableHeader>User</TableHeader>
                                     <TableHeader>Organization</TableHeader>
