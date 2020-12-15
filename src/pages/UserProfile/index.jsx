@@ -2,7 +2,7 @@ import React, {useRef, useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {AuthenticatedPageSectionTitle, AuthenticatedPageTitle} from '../../style/titles'
-import DeleteModal from '../../components/DeleteModal'
+import DeleteAccountModal from '../../components/DeleteAccountModal'
 import {ActiveInputLabel} from '../../style/labels'
 import {BaseInput} from '../../style/inputs'
 import {ErrorMessage} from '../../style/messages'
@@ -147,7 +147,7 @@ const UserProfile = () => {
                     <AuthenticatedText>By deleting your account you will lose all your data</AuthenticatedText>
                     <DeleteAccountText onClick={() => setShowConfirmation(true)}>Delete account</DeleteAccountText>
                 </UserProfileFooterContainer>
-                {showConfirmation && <DeleteModal setShowConfirmation={setShowConfirmation} />}
+                {showConfirmation && <DeleteAccountModal setShowConfirmation={setShowConfirmation} />}
             </UserDetailsContainer>
             <SaveChangesButtonContainer>
                 <GreenLargeButton onClick={handleSaveChanges}>Save Changes</GreenLargeButton>

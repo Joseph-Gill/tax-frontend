@@ -17,7 +17,7 @@ import {resetErrors} from '../../store/errors/actions/errorAction'
 import {useSpring} from 'react-spring'
 
 
-const DeleteModal = ({setShowConfirmation}) => {
+const DeleteAccountModal = ({setShowConfirmation}) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const error = useSelector(state => state.errorReducer.error)
@@ -85,4 +85,4 @@ const DeleteModal = ({setShowConfirmation}) => {
     )
 }
 
-export default DeleteModal
+export default DeleteAccountModal
