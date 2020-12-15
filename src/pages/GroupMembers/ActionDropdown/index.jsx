@@ -18,7 +18,7 @@ const ActionDropdown = () => {
                 </DropDownChoiceWithBorder>
                 <DropdownChoiceContainer>
                     <DropdownImage alt='delete' src={deleteIcon} />
-                    <RedDropdownText>Delete Members</RedDropdownText>
+                    <RedDropdownText>Remove Members</RedDropdownText>
                 </DropdownChoiceContainer>
             </DropdownOptions>
         </Dropdown>

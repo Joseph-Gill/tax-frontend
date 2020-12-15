@@ -7,7 +7,7 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {ActionFilterDropdownContainer, AddMemberButton, AddMemberButtonContainer, DisplayMembersTitleContainer, GreyStatusText, MembersStatusToggleContainer, WhiteStatusContainer} from './styles'
 import ActionDropdown from './ActionDropdown'
 import FilterDropdown from './FilterDropdown'
-import GroupMembersTable from './GroupMembersTable'
+import MembersTable from './MembersTable'
 
 
 const GroupMembers = () => {
@@ -41,8 +41,9 @@ const GroupMembers = () => {
                 <ActionDropdown />
                 <FilterDropdown filterString={filterString} />
             </ActionFilterDropdownContainer>
-            <GroupMembersTable
+            <MembersTable
                 filterMemberStatus={filterMemberStatus}
+                group={group}
                 invitedMembers={invitedMembers}
                 members={members}
             />
