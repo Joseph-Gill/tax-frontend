@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import {Link} from 'react-router-dom'
-import {AddEditProjectDescriptionContainer} from '../../style/containers'
+import {AddEditProjectDescriptionContainer, TableContainer} from '../../style/containers'
 import {AuthenticatedText} from '../../style/text'
 
 
@@ -149,10 +149,36 @@ export const ProjectDisplayColorTextBackground = styled.div`
     };
 `
 
-export const ProjectDisplayDescriptionContainer = styled(AddEditProjectDescriptionContainer)`
+export const ProjectDisplayTitleDescriptionContainer = styled(AddEditProjectDescriptionContainer)`
     justify-content: flex-start;
 `
 
 export const ProjectDisplayDescriptionText = styled(AuthenticatedText)`
     margin-top: 10px;
+`
+
+export const ProjectDisplayTextContainer = styled.div`
+    max-height: 284px;
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+        ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: ${props => props.theme.grayFive};
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${props => props.theme.grayFour};
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: ${props => props.theme.grayTwo};
+    }
 `

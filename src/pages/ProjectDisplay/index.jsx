@@ -13,7 +13,7 @@ import {EDIT_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
 import {EditGroupButton} from '../GroupDisplay/styling'
-import {ProjectDisplayDescriptionContainer, ProjectDisplayDescriptionText, ProjectDisplayInfoBoxesContainer} from './styles'
+import {ProjectDisplayDescriptionText, ProjectDisplayInfoBoxesContainer, ProjectDisplayTextContainer, ProjectDisplayTitleDescriptionContainer} from './styles'
 
 
 const ProjectDisplay = ({history}) => {
@@ -48,10 +48,12 @@ const ProjectDisplay = ({history}) => {
                         <AuthenticatedPageTitle>Project - {project.name}</AuthenticatedPageTitle>
                         <EditGroupButton onClick={() => {history.push(`${GROUPS}${PROJECTS}${EDIT_PROJECT}`)}}>Edit Project</EditGroupButton>
                     </DisplayTitleWithButtonContainer>
-                    <ProjectDisplayDescriptionContainer>
+                    <ProjectDisplayTitleDescriptionContainer>
                         <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>
-                        <ProjectDisplayDescriptionText>{project.description}</ProjectDisplayDescriptionText>
-                    </ProjectDisplayDescriptionContainer>
+                        <ProjectDisplayTextContainer>
+                            <ProjectDisplayDescriptionText>{project.description}</ProjectDisplayDescriptionText>
+                        </ProjectDisplayTextContainer>
+                    </ProjectDisplayTitleDescriptionContainer>
                     <ProjectDisplayInfoBoxesContainer>
                         <StepsCard steps={project.steps} />
                         <TasksCard steps={project.steps} />
