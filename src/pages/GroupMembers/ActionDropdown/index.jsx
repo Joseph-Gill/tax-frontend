@@ -7,7 +7,7 @@ import {Dropdown, DropdownButton, DropdownOptions} from '../../../style/dropdown
 import {DropdownImage} from '../../../style/images'
 
 
-const ActionDropdown = ({filterMemberStatus}) => {
+const ActionDropdown = () => {
     return(
         <Dropdown>
             <DropdownButton>Action</DropdownButton>
@@ -16,11 +16,10 @@ const ActionDropdown = ({filterMemberStatus}) => {
                     <DropdownImage alt='email' src={emailIcon} />
                     <BlueDropdownText>Send Email</BlueDropdownText>
                 </DropDownChoiceWithBorder>
-                {filterMemberStatus &&
-                    <DropdownChoiceContainer>
-                        <DropdownImage alt='delete' src={deleteIcon} />
-                        <RedDropdownText>Remove Members</RedDropdownText>
-                    </DropdownChoiceContainer>}
+                <DropdownChoiceContainer>
+                    <DropdownImage alt='delete' src={deleteIcon} />
+                    <RedDropdownText>Remove Members</RedDropdownText>
+                </DropdownChoiceContainer>
             </DropdownOptions>
         </Dropdown>
     )

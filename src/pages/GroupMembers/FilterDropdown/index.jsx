@@ -14,7 +14,8 @@ const FilterCheckBox = styled.input`
 
 const FilterDropdown = ({filterMemberStraus, filterString}) => {
     const [filterOption, setFilterOption] = useState([
-        {isChecked: true, type: 'name'},
+        {isChecked: true, type: 'email'},
+        {isChecked: false, type: 'name'},
         {isChecked: false, type: 'organization'},
         {isChecked: false, type: 'project_access'},
         {isChecked: false, type: 'country'},
@@ -51,44 +52,56 @@ const FilterDropdown = ({filterMemberStraus, filterString}) => {
                         type='checkbox'
                         value={0}
                     />
-                    <DefaultDropdownText>Name</DefaultDropdownText>
+                    <DefaultDropdownText>Email</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
-                <DropDownChoiceWithBorder>
-                    <FilterCheckBox
-                        checked={filterOption[1].isChecked}
-                        onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
-                        type='checkbox'
-                        value={1}
-                    />
-                    <DefaultDropdownText>Organization</DefaultDropdownText>
-                </DropDownChoiceWithBorder>
-                <DropDownChoiceWithBorder>
-                    <FilterCheckBox
-                        checked={filterOption[2].isChecked}
-                        onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
-                        type='checkbox'
-                        value={2}
-                    />
-                    <DefaultDropdownText>Project Access</DefaultDropdownText>
-                </DropDownChoiceWithBorder>
-                <DropDownChoiceWithBorder>
-                    <FilterCheckBox
-                        checked={filterOption[3].isChecked}
-                        onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
-                        type='checkbox'
-                        value={3}
-                    />
-                    <DefaultDropdownText>Country</DefaultDropdownText>
-                </DropDownChoiceWithBorder>
-                <DropdownChoiceContainer>
-                    <FilterCheckBox
-                        checked={filterOption[4].isChecked}
-                        onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
-                        type='checkbox'
-                        value={4}
-                    />
-                    <DefaultDropdownText>Role</DefaultDropdownText>
-                </DropdownChoiceContainer>
+                {filterMemberStraus && (
+                    <>
+                        <DropDownChoiceWithBorder>
+                            <FilterCheckBox
+                                checked={filterOption[1].isChecked}
+                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                type='checkbox'
+                                value={1}
+                            />
+                            <DefaultDropdownText>Name</DefaultDropdownText>
+                        </DropDownChoiceWithBorder>
+                        <DropDownChoiceWithBorder>
+                            <FilterCheckBox
+                                checked={filterOption[2].isChecked}
+                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                type='checkbox'
+                                value={2}
+                            />
+                            <DefaultDropdownText>Organization</DefaultDropdownText>
+                        </DropDownChoiceWithBorder>
+                        <DropDownChoiceWithBorder>
+                            <FilterCheckBox
+                                checked={filterOption[3].isChecked}
+                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                type='checkbox'
+                                value={3}
+                            />
+                            <DefaultDropdownText>Project Access</DefaultDropdownText>
+                        </DropDownChoiceWithBorder>
+                        <DropDownChoiceWithBorder>
+                            <FilterCheckBox
+                                checked={filterOption[4].isChecked}
+                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                type='checkbox'
+                                value={4}
+                            />
+                            <DefaultDropdownText>Country</DefaultDropdownText>
+                        </DropDownChoiceWithBorder>
+                        <DropdownChoiceContainer>
+                            <FilterCheckBox
+                                checked={filterOption[5].isChecked}
+                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                type='checkbox'
+                                value={5}
+                            />
+                            <DefaultDropdownText>Role</DefaultDropdownText>
+                        </DropdownChoiceContainer>
+                    </>)}
             </DropdownOptions>
         </Dropdown>
     )
