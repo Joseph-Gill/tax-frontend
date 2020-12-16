@@ -32,6 +32,7 @@ export const getGroupAction = groupId => async (dispatch, getState) => {
         return groupInfo
     } catch(e) {
         console.log('Error getting specific group>', e)
+        return e
     }
 }
 

@@ -8,9 +8,10 @@ import {ActiveMemberUserContainer, ActiveMemberUserText, CheckBox, GroupMembersT
 import noMembers from '../../../assets/icons/stark_no_invited_members.jpg'
 import {CardTitleText, NoFilterResultText} from '../../../style/text'
 import {NoFilterResultsContainer, NoFilterTextContainer} from '../../../style/containers'
+import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
 
 
-const MembersTable = ({filterMemberStatus, group, invitedMembers, members, setShowAddMember}) => {
+const MembersTable = ({filterMemberStatus, group, history, invitedMembers, members, setShowAddMember}) => {
     const [activeRenderData, setActiveRenderData] = useState([])
     const [invitedRenderData, setInvitedRenderData] = useState([...invitedMembers])
     const [loaded, setLoaded] = useState(false)
@@ -28,7 +29,7 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members, setSh
                 const group_projects = group.projects.length
                 if (response) {
                     let data = {
-                        id: member.user.id,
+                        id: member.id,
                         first_name: member.user.first_name,
                         last_name: member.user.last_name,
                         email: member.user.email,
@@ -42,7 +43,7 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members, setSh
                     activeResult.push(data)
                 } else {
                     let data = {
-                        id: member.user.id,
+                        id: member.id,
                         first_name: member.user.first_name,
                         last_name: member.user.last_name,
                         email: member.user.email,
@@ -57,7 +58,7 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members, setSh
             }
             for (const member of invitedMembers) {
                 let data = {
-                    id: member.user.id,
+                    id: member.id,
                     email: member.user.email,
                     code_used: member.code_used,
                     isChecked: false
@@ -113,7 +114,7 @@ const MembersTable = ({filterMemberStatus, group, invitedMembers, members, setSh
                     />
                 </TableDataCheckbox>
                 <TableData>
-                    <ActiveMemberUserContainer>
+                    <ActiveMemberUserContainer onClick={() => history.push(`${GROUPS}${MEMBERS}${EDIT_MEMBER}/${member.id}/`)}>
                         <ActiveMemberUserText>{`${member.first_name} ${member.last_name}`}</ActiveMemberUserText>
                         <ActiveMemberUserText>{member.email}</ActiveMemberUserText>
                         <ActiveMemberUserText>{member.phone_number}</ActiveMemberUserText>

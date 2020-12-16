@@ -19,6 +19,10 @@ export const ActiveMemberUserContainer = styled.div`
     justify-content: space-evenly;
     height: 100%;
     width: 100%;
+
+    :hover {
+        cursor: pointer;
+    }
 `
 
 export const ActiveMemberUserText = styled.p`

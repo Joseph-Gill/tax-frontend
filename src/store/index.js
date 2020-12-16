@@ -7,6 +7,7 @@ import {feedbackReducer} from './feedback/feedbackReducer'
 import {profileReducer} from './profile/profileReducer'
 import {groupReducer} from './group/groupReducer'
 import {projectReducer} from './project/projectReducer'
+import {memberReducer} from './member/memberReducer'
 
 // Reducers
 export const reducers = combineReducers({
@@ -15,7 +16,8 @@ export const reducers = combineReducers({
     feedbackReducer,
     profileReducer,
     groupReducer,
-    projectReducer
+    projectReducer,
+    memberReducer
 })
 
 // Thunk
