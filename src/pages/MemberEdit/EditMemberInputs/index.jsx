@@ -1,40 +1,12 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import {AuthenticatedText} from '../../../style/text'
-import {BaseInput} from '../../../style/inputs'
 import AccessProjectList from './AccessProjectList'
-
-const EditInputsContainer = styled.div`
-    width: 860px;
-    height: 484px;
-    background-color: ${props => props.theme.white};
-    box-shadow: ${props => props.theme.boxShadow};
-    border-radius: ${props => props.theme.borderRadius};
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px 0 50px 20px;
-`
-
-const EmailAccessOrgCountryInputContainer = styled.div`
-    width: 471px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`
-
-const RoleInputContainer = styled.div`
-    width: 795px;
-    display: flex;
-    justify-content: space-between;
-`
-
-const EditMemberEmailInput = styled(BaseInput)`
-    width: 302px;
-`
+import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputContainer, RoleInputContainer} from './style'
+import RoleProjectList from './RoleProjectList'
 
 
-const EditMemberInputs = ({allGroupProjects, allProjectsChecked, memberEmail, setAllGroupProjects, setAllProjectsChecked}) => {
+const EditMemberInputs = ({allGroupProjects, allProjectsChecked, memberEmail, roleChecked, setAllGroupProjects, setAllProjectsChecked, setRoleChecked}) => {
     return (
         <EditInputsContainer>
             <EmailAccessOrgCountryInputContainer>
@@ -57,6 +29,10 @@ const EditMemberInputs = ({allGroupProjects, allProjectsChecked, memberEmail, se
             </EmailAccessOrgCountryInputContainer>
             <RoleInputContainer>
                 <AuthenticatedText>Role</AuthenticatedText>
+                <RoleProjectList
+                    roleChecked={roleChecked}
+                    setRoleChecked={setRoleChecked}
+                />
             </RoleInputContainer>
             <EmailAccessOrgCountryInputContainer>
                 <AuthenticatedText>Organization</AuthenticatedText>

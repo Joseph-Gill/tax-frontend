@@ -34,6 +34,12 @@ const MemberEdit = () => {
     const [allProjectsChecked, setAllProjectsChecked] = useState(false)
     const [allGroupProjects, setAllGroupProjects] = useState([])
     const [userAssignedRoles, setUserAssignedRoles] = useState([])
+    const [roleChecked, setRoleChecked] = useState([
+        {isChecked: false, role: 'Core'},
+        {isChecked: false, role: 'Legal'},
+        {isChecked: false, role: 'Tax'},
+        {isChecked: false, role: 'Other'}
+    ])
 
     useEffect(() => {
         const listAllGroupProjectsCheckIfAssigned = async () => {
@@ -74,8 +80,10 @@ const MemberEdit = () => {
                         allGroupProjects={allGroupProjects}
                         allProjectsChecked={allProjectsChecked}
                         memberEmail={member.user.email}
+                        roleChecked={roleChecked}
                         setAllGroupProjects={setAllGroupProjects}
                         setAllProjectsChecked={setAllProjectsChecked}
+                        setRoleChecked={setRoleChecked}
                     />
                     <MemberEditCancelSaveDeleteButtonContainer>
                         <CancelButton>Cancel</CancelButton>

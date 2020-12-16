@@ -4,6 +4,7 @@ import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/
 import {DefaultDropdownText} from '../../../style/text'
 import {FilterInput} from '../../../style/inputs'
 import styled from 'styled-components/macro'
+import {allowOnlyOneCheckedBox} from '../../../helpers'
 
 
 const FilterCheckBox = styled.input`
@@ -22,18 +23,6 @@ const FilterDropdown = ({filterMemberStraus, filterString}) => {
         {isChecked: false, type: 'project_role'}
     ])
 
-    const filterOptionCheckBoxChangeHandler = (e) => {
-        const dataCopy = [...filterOption]
-        for (let i = 0; i < dataCopy.length; i++) {
-            if (i === parseInt(e.target.value)) {
-                dataCopy[i].isChecked = !dataCopy[i].isChecked
-            } else {
-                dataCopy[i].isChecked = false
-            }
-        }
-        setFilterOption([...dataCopy])
-    }
-
     return (
         <Dropdown>
             <FilterDropdownButton>Filter</FilterDropdownButton>
@@ -48,7 +37,7 @@ const FilterDropdown = ({filterMemberStraus, filterString}) => {
                 <DropDownChoiceWithBorder>
                     <FilterCheckBox
                         checked={filterOption[0].isChecked}
-                        onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                        onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                         type='checkbox'
                         value={0}
                     />
@@ -59,7 +48,7 @@ const FilterDropdown = ({filterMemberStraus, filterString}) => {
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
                                 checked={filterOption[1].isChecked}
-                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={1}
                             />
@@ -68,7 +57,7 @@ const FilterDropdown = ({filterMemberStraus, filterString}) => {
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
                                 checked={filterOption[2].isChecked}
-                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={2}
                             />
@@ -77,7 +66,7 @@ const FilterDropdown = ({filterMemberStraus, filterString}) => {
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
                                 checked={filterOption[3].isChecked}
-                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={3}
                             />
@@ -86,7 +75,7 @@ const FilterDropdown = ({filterMemberStraus, filterString}) => {
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
                                 checked={filterOption[4].isChecked}
-                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={4}
                             />
@@ -95,7 +84,7 @@ const FilterDropdown = ({filterMemberStraus, filterString}) => {
                         <DropdownChoiceContainer>
                             <FilterCheckBox
                                 checked={filterOption[5].isChecked}
-                                onChange={(e) => filterOptionCheckBoxChangeHandler(e)}
+                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={5}
                             />
