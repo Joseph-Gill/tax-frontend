@@ -8,6 +8,7 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {getMemberAction} from '../../store/member/actions'
 import {useRouteMatch} from 'react-router-dom'
 import Spinner from '../../components/Spinner'
+import {CancelButton, DeleteButton, SaveButton} from '../../style/buttons'
 
 
 const MemberInfoContainer = styled.div`
@@ -16,6 +17,17 @@ const MemberInfoContainer = styled.div`
     background-color: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
+`
+
+const MemberEditCancelSaveDeleteButtonContainer = styled.div`
+    width: 860px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    button {
+        margin-left: 20px;
+    }
 `
 
 
@@ -46,6 +58,11 @@ const MemberEdit = () => {
                     <MemberInfoContainer>
 
                     </MemberInfoContainer>
+                    <MemberEditCancelSaveDeleteButtonContainer>
+                        <CancelButton>Cancel</CancelButton>
+                        <DeleteButton>Remove</DeleteButton>
+                        <SaveButton>Save</SaveButton>
+                    </MemberEditCancelSaveDeleteButtonContainer>
                 </>
             )}
         </AuthenticatedPageContainer>

@@ -52,3 +52,25 @@ export const NoInvitedMembersButton = styled(BaseButton)`
     height: 32px;
     margin-top: 20px;
 `
+
+export const RoleFieldText = styled.p`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 12px;
+    line-height: 16px;
+    color: ${props => props.theme.black};
+`
+
+export const RoleTextImageContainer = styled.td`
+    border-right: 1px solid ${props => props.theme.grayFour};
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 77px;
+`
+
+export const RoleFieldChevron = styled.img`
+    :hover {
+        cursor: pointer;
+    }
+`

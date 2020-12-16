@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro'
-import {CardInfoText} from '../../style/text'
 
 
 export const NoAccessContainer = styled.div`

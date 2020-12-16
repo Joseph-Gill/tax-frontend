@@ -4,11 +4,25 @@ import {getMemberOrganizationNameAction} from '../../../store/organization/actio
 import {useDispatch} from 'react-redux'
 import Spinner from '../../../components/Spinner'
 import headerCheckbox from '../../../assets/icons/stark_checkbox_header.svg'
-import {ActiveMemberUserContainer, ActiveMemberUserText, CheckBox, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText, NoInvitedMembersButton, TableDataCheckbox} from './styles'
+import {
+    ActiveMemberUserContainer,
+    ActiveMemberUserText,
+    CheckBox,
+    GroupMembersTableContainer,
+    NewMemberGreenText,
+    NewMemberYellowText,
+    NoInvitedMembersButton,
+    RoleFieldChevron,
+    RoleFieldText,
+    RoleTextImageContainer,
+    TableDataCheckbox
+} from './styles'
 import noMembers from '../../../assets/icons/stark_no_invited_members.jpg'
+import rightChevron from '../../../assets/icons/stark_right_chevron.png'
 import {CardTitleText, NoFilterResultText} from '../../../style/text'
 import {NoFilterResultsContainer, NoFilterTextContainer} from '../../../style/containers'
 import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
+import {v4 as uuidv4} from 'uuid'
 
 
 const MembersTable = ({filterMemberStatus, group, history, invitedMembers, members, setShowAddMember}) => {
@@ -123,14 +137,21 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
                 <TableData>{member.organization}</TableData>
                 <TableData>{member.project_access}</TableData>
                 <TableData>{member.country}</TableData>
-                <TableData>{member.project_role}</TableData>
+                <RoleTextImageContainer>
+                    <RoleFieldText>{member.project_role}</RoleFieldText>
+                    <RoleFieldChevron
+                        alt='edit member'
+                        onClick={() => history.push(`${GROUPS}${MEMBERS}${EDIT_MEMBER}/${member.id}/`)}
+                        src={rightChevron}
+                    />
+                </RoleTextImageContainer>
             </TableDataRow>)
         )
     }
 
     const renderInvitedMembers = (array) => {
         return array.map((member, index) => (
-            <TableDataRow key={member.id}>
+            <TableDataRow key={uuidv4()}>
                 <TableDataCheckbox>
                     <CheckBox
                         checked={invitedRenderData[index].isChecked}

@@ -119,20 +119,20 @@ export const SaveButton = styled(BaseButton)`
     }
 `
 
+export const DeleteButton = styled(BaseButton)`
+    height: 32px;
+    width: 89px;
+    background: ${props => props.theme.red};
+    box-shadow: 0 4px 10px rgba(255, 96, 92, 0.24);
+
+    :hover {
+        background: ${props => props.theme.redDark};
+    }
+`
+
+
 export const AddEntityButton = styled(BaseButton)`
     width: 129px;
     height: 26px;
     font-size: 12px;
-`
-
-export const EditButton = styled(BaseButton)`
-    width: 50px;
-    height: 28px;
-    background: orange;
-`
-
-export const DeleteButton = styled(BaseButton)`
-    width: 50px;
-    height: 28px;
-    background: red;
 `
