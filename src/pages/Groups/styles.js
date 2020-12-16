@@ -7,7 +7,6 @@ export const GroupDisplayContainer = styled.div`
     background: ${props => props.theme.white};
     padding: 10px 20px 16px 20px;
     margin-top: 20px;
-    margin-bottom: 87px;
     box-shadow: ${props => props.theme.boxShadow};
 `
 

@@ -178,7 +178,6 @@ export const CreateGroupCancelSaveContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     margin-top: 64px;
-    margin-bottom: 35px;
 
     button:nth-child(1) {
         margin-right: 13px;

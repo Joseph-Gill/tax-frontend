@@ -17,7 +17,7 @@ export const EntityTableContainer = styled(TableContainer)`
     border-radius: ${props => props.theme.borderRadius};
     box-shadow: ${props => props.theme.boxShadow};
     margin-bottom: 10px;
-    max-height: 338px;
+    max-height: 250px;
 `
 
 export const TableFooterInputContainer = styled.td`

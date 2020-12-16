@@ -61,3 +61,28 @@ export const createGroupAction = groupInfo => async (dispatch, getState) => {
         return catchError(e, dispatch)
     }
 }
+
+export const updateGroupAction = (updatedGroupInfo, groupId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    let form_data = new FormData()
+    if (updatedGroupInfo.avatar) {
+        form_data.append('avatar', updatedGroupInfo.avatar)
+    }
+    form_data.append('entities', JSON.stringify(updatedGroupInfo.entities))
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`,
+            'Content-Type': 'multipart/form-data'
+        },
+    }
+    try {
+        const response = await Axios.patch(`/groups/group/${groupId}/`, form_data, config)
+        if (response.status === 200) {
+            await dispatch(getProfileAction())
+            return true
+        }
+    } catch(e) {
+        console.log('error updating group>', e)
+        return e
+    }
+}

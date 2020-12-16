@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect} from 'react'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {EDIT_GROUP, GROUPS} from '../../routes/paths'
@@ -8,15 +8,19 @@ import GroupInfo from '../../components/GroupInfo'
 import {EntityTitle} from '../../components/EntityInfo/styles'
 import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import EntityInfo from '../../components/EntityInfo'
+import {updateGroupAction} from '../../store/group/actions'
+import SuccessMessage from '../../components/SuccessMessage'
 
 
 const GroupEdit = ({history}) => {
+    const dispatch = useDispatch()
     const group = useSelector(state => state.groupReducer.group)
     let hiddenFileInput = useRef(null)
     let entityName = useRef('')
     let parentName = useRef('')
     let taxRate = useRef('')
     let legalForm = useRef('')
+    const [showSuccess, setShowSuccess] = useState(false)
     const [groupImage, setGroupImage] = useState(null)
     const [countryName, setCountryName] = useState('')
     const [listOfEntities, setListOfEntities] = useState([])
@@ -46,15 +50,26 @@ const GroupEdit = ({history}) => {
         setAvailableParentNames([...availableParentNames, entityName.current.value])
     }
 
-    const saveGroupChangesHandler = () => {
-        console.log('list of Entities')
+    const saveGroupChangesHandler = async () => {
         const newEntities = listOfEntities.filter(entity => entity.new)
-        console.log(newEntities)
+        const updatedGroupInfo = {
+            avatar: groupImage,
+            entities: newEntities
+        }
+        const response = await dispatch(updateGroupAction(updatedGroupInfo, group.id))
+        if (response) {
+            setShowSuccess(!showSuccess)
+        }
     }
 
 
     return (
         <AuthenticatedPageContainer>
+            {showSuccess &&
+            <SuccessMessage
+                message="Your group has been successfully updated!"
+                redirect={`${GROUPS}/${group.id}/`}
+            />}
             <BreadCrumb breadCrumbArray={[
                 {display: 'GROUPS', to: GROUPS, active: false},
                 {display: `GROUP ${group.name} : EDIT`, to: `${GROUPS}${EDIT_GROUP}`, active: true}]}

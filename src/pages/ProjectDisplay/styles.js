@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import {Link} from 'react-router-dom'
-import {AddEditProjectDescriptionContainer, TableContainer} from '../../style/containers'
+import {AddEditProjectDescriptionContainer} from '../../style/containers'
 import {AuthenticatedText} from '../../style/text'
 
 
