@@ -15,7 +15,8 @@ export const userRegistrationAction = email => async (dispatch) => {
 export const registrationValidationAction = body => async (dispatch) => {
     try {
         const response = await Axios.patch(`auth/registration/validation/`, body)
-        if(response.status === 200) return true
+        if (response.status === 200)
+            return true
     } catch(e) {
         return catchError(e, dispatch)
     }

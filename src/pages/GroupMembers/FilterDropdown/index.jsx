@@ -12,11 +12,9 @@ const FilterCheckBox = styled.input`
     margin-left: 3px;
 `
 
-
-
-const FilterDropdown = ({filterString}) => {
+const FilterDropdown = ({filterMemberStraus, filterString}) => {
     const [filterOption, setFilterOption] = useState([
-        {isChecked: false, type: 'last_name'},
+        {isChecked: true, type: 'name'},
         {isChecked: false, type: 'organization'},
         {isChecked: false, type: 'project_access'},
         {isChecked: false, type: 'country'},

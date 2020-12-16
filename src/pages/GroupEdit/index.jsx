@@ -39,11 +39,19 @@ const GroupEdit = ({history}) => {
             pid: parentName.current.value,
             location: countryName,
             legal_form: legalForm.current.value,
-            tax_rate: taxRate.current.value
+            tax_rate: taxRate.current.value,
+            new: true
         }
         setListOfEntities([...listOfEntities, newEntity])
         setAvailableParentNames([...availableParentNames, entityName.current.value])
     }
+
+    const saveGroupChangesHandler = () => {
+        console.log('list of Entities')
+        const newEntities = listOfEntities.filter(entity => entity.new)
+        console.log(newEntities)
+    }
+
 
     return (
         <AuthenticatedPageContainer>
@@ -79,7 +87,7 @@ const GroupEdit = ({history}) => {
             </AddEntityButtonContainer>
             <CreateGroupCancelSaveContainer>
                 <CancelButton onClick={() => history.push(GROUPS)}>Cancel</CancelButton>
-                <SaveButton >Save</SaveButton>
+                <SaveButton onClick={saveGroupChangesHandler}>Save</SaveButton>
             </CreateGroupCancelSaveContainer>
         </AuthenticatedPageContainer>
     )

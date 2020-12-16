@@ -44,7 +44,7 @@ const GroupAdd = ({history}) => {
             avatar: groupImage,
             entities: listOfEntities
         }
-        const response = dispatch(createGroupAction(newGroup))
+        const response = await dispatch(createGroupAction(newGroup))
         if (response) {
             setShowSuccess(!showSuccess)
         }

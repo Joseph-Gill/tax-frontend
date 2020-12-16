@@ -52,7 +52,8 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
                         project_role: project_roles.length ? project_roles[0].role : 'Unassigned',
                         project_access: !group_projects ? 'Group has no Projects' : project_roles.length === group_projects ? 'All' : 'Limited',
                         country: 'N/A',
-                        isChecked: false
+                        isChecked: false,
+                        updated: member.updated
                     }
                     activeResult.push(data)
                 } else {
@@ -65,7 +66,9 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
                         organization: 'Unassigned',
                         project_role: project_roles.length ? project_roles[0].role : 'Unassigned',
                         project_access: !group_projects ? 'Group has no Projects' : project_roles.length === group_projects ? 'All' : 'Limited',
-                        isChecked: false
+                        country: 'N/A',
+                        isChecked: false,
+                        updated: member.updated
                     }
                     activeResult.push(data)
                 }
@@ -79,6 +82,7 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
                 }
                 invitedResult.push(data)
             }
+            activeResult.sort((a, b) => (a.updated > b.updated) ? -1 : ((b.updated > a.updated) ? 1 : 0));
             setActiveRenderData([...activeResult])
             setInvitedRenderData([...invitedResult])
             setLoaded(true)

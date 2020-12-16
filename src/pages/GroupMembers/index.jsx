@@ -49,8 +49,8 @@ const GroupMembers = ({history}) => {
             <ActionFilterDropdownContainer>
                 {!filterMemberStatus && !invitedMembers.length ? null : (
                     <>
-                        <ActionDropdown />
-                        <FilterDropdown filterString={filterString} />
+                        <ActionDropdown filterMemberStatus={filterMemberStatus} />
+                        <FilterDropdown filterMemberStraus={filterMemberStatus} filterString={filterString} />
                     </>)}
             </ActionFilterDropdownContainer>
             <MembersTable
