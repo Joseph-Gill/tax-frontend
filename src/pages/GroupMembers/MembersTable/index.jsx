@@ -7,7 +7,6 @@ import headerCheckbox from '../../../assets/icons/stark_checkbox_header.svg'
 import {
     ActiveMemberUserContainer,
     ActiveMemberUserText,
-    CheckBox,
     GroupMembersTableContainer,
     NewMemberGreenText,
     NewMemberYellowText,
@@ -23,6 +22,7 @@ import {CardTitleText, NoFilterResultText} from '../../../style/text'
 import {NoFilterResultsContainer, NoFilterTextContainer} from '../../../style/containers'
 import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
 import {v4 as uuidv4} from 'uuid'
+import {CheckBox} from '../../../style/inputs'
 
 
 const MembersTable = ({filterMemberStatus, group, history, invitedMembers, members, setShowAddMember}) => {

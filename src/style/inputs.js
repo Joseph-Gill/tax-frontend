@@ -45,3 +45,8 @@ export const FilterInput = styled(BaseInput)`
     width: 160px;
     height: 32px;
 `
+
+export const CheckBox = styled.input`
+    width: 20px;
+    height: 20px;
+`

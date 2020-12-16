@@ -4,11 +4,6 @@ import {CardInfoText} from '../../../style/text'
 import {BaseButton} from '../../../style/buttons'
 
 
-export const CheckBox = styled.input`
-    width: 20px;
-    height: 20px;
-`
-
 export const TableDataCheckbox = styled(TableData)`
     width: 45px;
 `
