@@ -2,20 +2,28 @@ import React from 'react'
 import {CheckBox} from '../../../../style/inputs'
 import {AuthenticatedText} from '../../../../style/text'
 import tooltipAnchor from '../../../../assets/icons/stark_tooltip_anchor.png'
-import {allowOnlyOneCheckedBox} from '../../../../helpers'
 import RoleTooltip from './RoleTooltip'
 import {CheckBoxRoleContainer, ProjectRolesContainer, TooltipAnchor} from './styles'
 
 
 const RoleProjectList = ({roleChecked, setRoleChecked}) => {
+    const roleCheckBoxChangeHandler = e => {
+        setRoleChecked({
+            Core: false,
+            Legal: false,
+            Tax: false,
+            Other: false
+            , [e.target.value]: !roleChecked[e.target.value]})
+        }
+
     return (
         <ProjectRolesContainer>
             <CheckBoxRoleContainer>
                 <CheckBox
-                    checked={roleChecked[0].isChecked}
-                    onChange={(e) => allowOnlyOneCheckedBox(e, roleChecked, setRoleChecked)}
+                    checked={roleChecked.Core}
+                    onChange={(e) => roleCheckBoxChangeHandler(e)}
                     type='checkbox'
-                    value={0}
+                    value='Core'
                 />
                 <AuthenticatedText>Core</AuthenticatedText>
                 <TooltipAnchor data-for='core' data-tip>
@@ -29,10 +37,10 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
             </CheckBoxRoleContainer>
             <CheckBoxRoleContainer>
                 <CheckBox
-                    checked={roleChecked[1].isChecked}
-                    onChange={(e) => allowOnlyOneCheckedBox(e, roleChecked, setRoleChecked)}
+                    checked={roleChecked.Legal}
+                    onChange={(e) => roleCheckBoxChangeHandler(e)}
                     type='checkbox'
-                    value={1}
+                    value='Legal'
                 />
                 <AuthenticatedText>Legal</AuthenticatedText>
                 <TooltipAnchor data-for='legal' data-tip>
@@ -46,10 +54,10 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
             </CheckBoxRoleContainer>
             <CheckBoxRoleContainer>
                 <CheckBox
-                    checked={roleChecked[2].isChecked}
-                    onChange={(e) => allowOnlyOneCheckedBox(e, roleChecked, setRoleChecked)}
+                    checked={roleChecked.Tax}
+                    onChange={(e) => roleCheckBoxChangeHandler(e)}
                     type='checkbox'
-                    value={2}
+                    value='Tax'
                 />
                 <AuthenticatedText>Tax</AuthenticatedText>
                 <TooltipAnchor data-for='legal' data-tip>
@@ -63,10 +71,10 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
             </CheckBoxRoleContainer>
             <CheckBoxRoleContainer>
                 <CheckBox
-                    checked={roleChecked[3].isChecked}
-                    onChange={(e) => allowOnlyOneCheckedBox(e, roleChecked, setRoleChecked)}
+                    checked={roleChecked.Other}
+                    onChange={(e) => roleCheckBoxChangeHandler(e)}
                     type='checkbox'
-                    value={3}
+                    value='Other'
                 />
                 <AuthenticatedText>Other (View Only)</AuthenticatedText>
                 <TooltipAnchor data-for='other' data-tip>

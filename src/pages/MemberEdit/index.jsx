@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
@@ -12,21 +11,10 @@ import {CancelButton, DeleteButton, SaveButton} from '../../style/buttons'
 import EditMemberInputs from './EditMemberInputs'
 import {getRolesForProfileGroupAction} from '../../store/projectRole/actions'
 import {createOrganizationForGroupAction} from '../../store/organization/actions'
+import {MemberEditCancelSaveDeleteButtonContainer} from './styles'
 
 
-const MemberEditCancelSaveDeleteButtonContainer = styled.div`
-    width: 860px;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-
-    button {
-        margin-left: 20px;
-    }
-`
-
-
-const MemberEdit = () => {
+const MemberEdit = ({history}) => {
     let newOrg = useRef('')
     const dispatch = useDispatch()
     const match = useRouteMatch();
@@ -35,24 +23,24 @@ const MemberEdit = () => {
     const loaded = useSelector(state => state.memberReducer.loaded)
     const [allProjectsChecked, setAllProjectsChecked] = useState(false)
     const [allGroupProjects, setAllGroupProjects] = useState([])
-    const [userAssignedRoles, setUserAssignedRoles] = useState([])
+    const [userAssignedProjects, setUserAssignedProjects] = useState([])
     const [selectNewOrgStatus, setSelectNewOrgStatus] = useState(false)
     const [selectOrgName, setSelectOrgName] = useState('')
-    const [roleChecked, setRoleChecked] = useState([
-        {isChecked: false, role: 'Core'},
-        {isChecked: false, role: 'Legal'},
-        {isChecked: false, role: 'Tax'},
-        {isChecked: false, role: 'Other'}
-    ])
+    const [roleChecked, setRoleChecked] = useState({
+        Core: false,
+        Legal: false,
+        Tax: false,
+        Other: false
+    })
 
     useEffect(() => {
         const listAllGroupProjectsCheckIfAssigned = async () => {
-            const result = [];
-            const assignedRoles = await dispatch(getRolesForProfileGroupAction(match.params.memberId, group.id))
-            setUserAssignedRoles([...assignedRoles])
+            const assignedProjects = await dispatch(getRolesForProfileGroupAction(match.params.memberId, group.id))
+            setUserAssignedProjects([...assignedProjects])
             if (group.projects) {
+                let result = [];
                 group.projects.forEach(project => {
-                    const isChecked = assignedRoles.filter(role => role.project.id === project.id)
+                    const isChecked = assignedProjects.filter(role => role.project.id === project.id)
                     let data = {
                         id: project.id,
                         name: project.name,
@@ -62,10 +50,21 @@ const MemberEdit = () => {
                 })
                 setAllGroupProjects([...result])
             }
+            if (assignedProjects.length) {
+                const checkedRole = {
+                    Core: false,
+                    Legal: false,
+                    Tax: false,
+                    Other: false,
+                    [assignedProjects[0].role]: true,
+                }
+                setRoleChecked(checkedRole)
+            }
         }
-        dispatch(getMemberAction(match.params.memberId))
         listAllGroupProjectsCheckIfAssigned()
-    }, [dispatch, match.params.memberId, group.projects, group.id])
+        dispatch(getMemberAction(match.params.memberId))
+    }, [dispatch, match.params.memberId, group.id, group.projects])
+
 
     const handleCreateNewOrganization = async () => {
         const newOrgInfo = {
@@ -103,9 +102,10 @@ const MemberEdit = () => {
                         setRoleChecked={setRoleChecked}
                         setSelectNewOrgStatus={setSelectNewOrgStatus}
                         setSelectOrgName={setSelectOrgName}
+                        userAssignedProjects={userAssignedProjects}
                     />
                     <MemberEditCancelSaveDeleteButtonContainer>
-                        <CancelButton>Cancel</CancelButton>
+                        <CancelButton onClick={() => history.push(`${GROUPS}${MEMBERS}`)}>Cancel</CancelButton>
                         <DeleteButton>Remove</DeleteButton>
                         <SaveButton>Save</SaveButton>
                     </MemberEditCancelSaveDeleteButtonContainer>

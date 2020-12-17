@@ -14,6 +14,6 @@ export const TooltipRowText = styled.p`
 `
 
 export const TooltipRowImage = styled.img`
-    width: 7px;
-    height: 7px;
+    width: 5px;
+    height: 5px;
 `
