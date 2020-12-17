@@ -31,7 +31,29 @@ export const GroupMembersTableContainer = styled.div`
     background-color: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
     margin-top: 21px;
-    max-height: 350px;
+    max-height: 375px;
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: ${props => props.theme.grayFive};
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${props => props.theme.grayFour};
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: ${props => props.theme.grayTwo};
+    }
 `
 
 export const NewMemberGreenText = styled(CardInfoText)`
