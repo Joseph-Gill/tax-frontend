@@ -27,7 +27,7 @@ const GroupMembers = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {showAddMember && <AddMemberModal setShowAddMember={setShowAddMember} />}
+            {showAddMember && <AddMemberModal groupId={group.id} setShowAddMember={setShowAddMember} />}
             <BreadCrumb breadCrumbArray={[
                 {display: 'GROUPS', to: GROUPS, active: false},
                 {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},

@@ -43,11 +43,13 @@ const UserProfile = () => {
         dispatch(resetErrors())
         const updatedInfo = {
             phone_number: profileInfo.phone,
-            email: profileInfo.email,
             first_name: profileInfo.first_name,
             last_name: profileInfo.last_name,
             password: password.current.value,
             password_repeat: password_repeat.current.value
+        }
+        if (profileInfo.email !== profile.user.email) {
+            updatedInfo.email = profileInfo.email
         }
         const response = await dispatch(updateProfileAction(updatedInfo))
         if (response.status === 200) {

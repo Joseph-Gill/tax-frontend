@@ -7,15 +7,29 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {ModalText} from '../../style/text'
 import {ActiveInputLabel} from '../../style/labels'
 import {BaseInput} from '../../style/inputs'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedButtonCancel} from '../../style/buttons'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {AddMemberCenterTextContainer, AddMemberModalButtonContainer, AddTeamMemberContentContainer, AddTeamMemberModalContainer, AddTeamMemberRedText, BlueAddMemberButton} from './styles'
+import {ErrorMessage} from '../../style/messages'
+import {addMemberToGroupAction} from '../../store/member/actions'
 
 
-const AddMemberModal = ({setShowAddMember}) => {
+
+const AddMemberModal = ({groupId, setShowAddMember}) => {
     let email = useRef('')
     const dispatch = useDispatch()
+    const error = useSelector(state => state.errorReducer.error)
+
+    const addUserHandler = async() => {
+        dispatch(resetErrors())
+        const newUserEmail = {
+            email: email.current.value}
+        const response = await dispatch(addMemberToGroupAction(newUserEmail, groupId))
+        if (response.status === 201) {
+            setShowAddMember(false)
+        }
+    }
 
     const props = useSpring({
         opacity: 1,
@@ -55,9 +69,12 @@ const AddMemberModal = ({setShowAddMember}) => {
                         type='email'
                     />
                 </AddTeamMemberContentContainer>
+                <div>
+                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                </div>
                 <AddMemberModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={cancelButtonHandler}>Cancel</AuthenticatedButtonCancel>
-                    <BlueAddMemberButton>Send Invite</BlueAddMemberButton>
+                    <BlueAddMemberButton onClick={addUserHandler}>Send Invite</BlueAddMemberButton>
                 </AddMemberModalButtonContainer>
             </AddTeamMemberModalContainer>
         </AddDeleteModalExternalContainer>
