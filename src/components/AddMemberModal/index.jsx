@@ -1,6 +1,5 @@
 import React, {useRef} from 'react'
-import styled from 'styled-components/macro'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTitleContainer} from '../DeleteAccountModal/styles'
+import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer} from '../DeleteAccountModal/styles'
 import {useSpring} from 'react-spring'
 import {CloseIcon} from '../../style/images'
 import close from '../../assets/icons/stark_close_icon.svg'
@@ -9,24 +8,9 @@ import {ModalText} from '../../style/text'
 import {ActiveInputLabel} from '../../style/labels'
 import {BaseInput} from '../../style/inputs'
 import {useDispatch} from 'react-redux'
-import {AuthenticatedButtonCancel, BaseButton} from '../../style/buttons'
+import {AuthenticatedButtonCancel} from '../../style/buttons'
 import {resetErrors} from '../../store/errors/actions/errorAction'
-
-
-const BlueAddMemberButton = styled(BaseButton)`
-    width: 125px;
-    height: 32px;
-    margin-left: 20px;
-`
-
-const AddMemberModalText = styled(ModalText)`
-    margin-left: 19px;
-`
-
-const AddMemberModalButtonContainer = styled(AddDeleteModalButtonContainer)`
-    display: flex;
-    justify-content: flex-end;
-`
+import {AddMemberCenterTextContainer, AddMemberModalButtonContainer, AddTeamMemberContentContainer, AddTeamMemberModalContainer, AddTeamMemberRedText, BlueAddMemberButton} from './styles'
 
 
 const AddMemberModal = ({setShowAddMember}) => {
@@ -46,19 +30,23 @@ const AddMemberModal = ({setShowAddMember}) => {
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <AddDeleteModalInternalContainer>
+            <AddTeamMemberModalContainer>
                 <AddDeleteModalCloseContainer>
                     <CloseIcon alt='close' onClick={() => setShowAddMember(false)} src={close} />
                 </AddDeleteModalCloseContainer>
                 <AddDeleteModalTitleContainer>
                     <AuthenticatedPageTitle>Add Team Member</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
-                <div>
-                    <AddMemberModalText>For a New User: They must complete their registration email, then they can be added to your Group from the Invited Members panel</AddMemberModalText>
-                    <AddMemberModalText>For an Existing User: They will be added to your Group immediately</AddMemberModalText>
-                    <AddMemberModalText>Once a user is added, you can assign projects by clicking on the User</AddMemberModalText>
-                </div>
-                <div>
+                <AddMemberCenterTextContainer>
+                    <ModalText>For a New User:</ModalText>
+                    <ModalText>Must complete their registration email, to be added in a group.</ModalText>
+                    <ModalText>For an Existing User:</ModalText>
+                    <ModalText>Will be added to group immediately.</ModalText>
+                </AddMemberCenterTextContainer>
+                <AddTeamMemberContentContainer>
+                    <AddTeamMemberRedText>Once user(s) added, you can assign projects by clicking on the user role.</AddTeamMemberRedText>
+                </AddTeamMemberContentContainer>
+                <AddTeamMemberContentContainer>
                     <ActiveInputLabel>Email</ActiveInputLabel>
                     <BaseInput
                         name='email'
@@ -66,12 +54,12 @@ const AddMemberModal = ({setShowAddMember}) => {
                         ref={email}
                         type='email'
                     />
-                </div>
+                </AddTeamMemberContentContainer>
                 <AddMemberModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={cancelButtonHandler}>Cancel</AuthenticatedButtonCancel>
                     <BlueAddMemberButton>Send Invite</BlueAddMemberButton>
                 </AddMemberModalButtonContainer>
-            </AddDeleteModalInternalContainer>
+            </AddTeamMemberModalContainer>
         </AddDeleteModalExternalContainer>
     )
 }

@@ -57,7 +57,7 @@ const ProjectDisplay = ({history}) => {
                     <ProjectDisplayInfoBoxesContainer>
                         <StepsCard steps={project.steps} />
                         <TasksCard steps={project.steps} />
-                        <MembersCard members={project.assigned_users_roles} />
+                        <MembersCard history={history} members={project.group.users} />
                         <StatusCard status={project.status} />
                     </ProjectDisplayInfoBoxesContainer>
                 </>)}

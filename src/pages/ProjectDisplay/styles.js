@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro'
-import {Link} from 'react-router-dom'
 import {AddEditProjectDescriptionContainer} from '../../style/containers'
 import {AuthenticatedText} from '../../style/text'
 
@@ -40,7 +39,7 @@ export const ViewItemLinkContainer = styled.div`
     }
 `
 
-export const ViewItemLink = styled(Link)`
+export const ViewItemLink = styled.p`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-weight: bold;
     font-size: 14px;

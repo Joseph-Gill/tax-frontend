@@ -4,9 +4,10 @@ import groupIcon from '../../../assets/icons/stark_display_project_member_icon.s
 import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
 import {ProjectDisplayInfoBoxSmaller, ViewItemLink, ViewItemLinkContainer} from '../styles'
 import {MemberBox, MemberImage, MemberText} from './styles'
+import {GROUPS, MEMBERS} from '../../../routes/paths'
 
 
-const MembersCard = ({members}) => {
+const MembersCard = ({history, members}) => {
     return (
         <ProjectDisplayInfoBoxSmaller>
             <AddEditProjectSectionTitles>Team</AddEditProjectSectionTitles>
@@ -14,7 +15,7 @@ const MembersCard = ({members}) => {
                 <MemberImage alt='members' src={groupIcon} />
                 <MemberText>{members.length}</MemberText>
             </MemberBox>
-            <ViewItemLinkContainer>
+            <ViewItemLinkContainer onClick={() => history.push(`${GROUPS}${MEMBERS}`)}>
                 <ViewItemLink>View Members</ViewItemLink>
                 <img alt="members" src={rightArrow} />
             </ViewItemLinkContainer>
