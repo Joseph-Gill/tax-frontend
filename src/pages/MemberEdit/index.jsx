@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
@@ -26,6 +26,7 @@ const MemberEditCancelSaveDeleteButtonContainer = styled.div`
 
 
 const MemberEdit = () => {
+    let newOrg = useRef('')
     const dispatch = useDispatch()
     const match = useRouteMatch();
     const group = useSelector(state => state.groupReducer.group)
@@ -34,6 +35,8 @@ const MemberEdit = () => {
     const [allProjectsChecked, setAllProjectsChecked] = useState(false)
     const [allGroupProjects, setAllGroupProjects] = useState([])
     const [userAssignedRoles, setUserAssignedRoles] = useState([])
+    const [selectNewOrgStatus, setSelectNewOrgStatus] = useState(false)
+    const [selectOrgName, setSelectOrgName] = useState('')
     const [roleChecked, setRoleChecked] = useState([
         {isChecked: false, role: 'Core'},
         {isChecked: false, role: 'Legal'},
@@ -79,11 +82,17 @@ const MemberEdit = () => {
                     <EditMemberInputs
                         allGroupProjects={allGroupProjects}
                         allProjectsChecked={allProjectsChecked}
+                        groupOrganizations={group.organizations}
                         memberEmail={member.user.email}
+                        newOrg={newOrg}
                         roleChecked={roleChecked}
+                        selectNewOrgStatus={selectNewOrgStatus}
+                        selectOrgName={selectOrgName}
                         setAllGroupProjects={setAllGroupProjects}
                         setAllProjectsChecked={setAllProjectsChecked}
                         setRoleChecked={setRoleChecked}
+                        setSelectNewOrgStatus={setSelectNewOrgStatus}
+                        setSelectOrgName={setSelectOrgName}
                     />
                     <MemberEditCancelSaveDeleteButtonContainer>
                         <CancelButton>Cancel</CancelButton>

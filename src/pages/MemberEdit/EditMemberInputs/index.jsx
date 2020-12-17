@@ -4,9 +4,22 @@ import {AuthenticatedText} from '../../../style/text'
 import AccessProjectList from './AccessProjectList'
 import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputContainer, RoleInputContainer} from './style'
 import RoleProjectList from './RoleProjectList'
+import OrgDropdown from './OrgDropdown'
 
 
-const EditMemberInputs = ({allGroupProjects, allProjectsChecked, memberEmail, roleChecked, setAllGroupProjects, setAllProjectsChecked, setRoleChecked}) => {
+const EditMemberInputs = ({allGroupProjects,
+                          allProjectsChecked,
+                          groupOrganizations,
+                          memberEmail,
+                          newOrg,
+                          roleChecked,
+                          selectNewOrgStatus,
+                          selectOrgName,
+                          setAllGroupProjects,
+                          setAllProjectsChecked,
+                          setRoleChecked,
+                          setSelectNewOrgStatus,
+                          setSelectOrgName}) => {
     return (
         <EditInputsContainer>
             <EmailAccessOrgCountryInputContainer>
@@ -36,9 +49,14 @@ const EditMemberInputs = ({allGroupProjects, allProjectsChecked, memberEmail, ro
             </RoleInputContainer>
             <EmailAccessOrgCountryInputContainer>
                 <AuthenticatedText>Organization</AuthenticatedText>
-            </EmailAccessOrgCountryInputContainer>
-            <EmailAccessOrgCountryInputContainer>
-                <AuthenticatedText>Country</AuthenticatedText>
+                <OrgDropdown
+                    groupOrganizations={groupOrganizations}
+                    newOrg={newOrg}
+                    selectNewOrgStatus={selectNewOrgStatus}
+                    selectOrgName={selectOrgName}
+                    setSelectNewOrgStatus={setSelectNewOrgStatus}
+                    setSelectOrgName={setSelectOrgName}
+                />
             </EmailAccessOrgCountryInputContainer>
         </EditInputsContainer>
     )
