@@ -96,13 +96,12 @@ const NewOrgInput = styled(BaseInput)`
 `
 
 
-const OrgDropdown = ({newOrg, groupOrganizations, selectNewOrgStatus, selectOrgName, setSelectNewOrgStatus, setSelectOrgName}) => {
+const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, selectNewOrgStatus, selectOrgName, setSelectNewOrgStatus, setSelectOrgName}) => {
     const handleNewOrgInputPressEnter = (e) => {
         if (e.key === 'Enter') {
-            console.log('Enter pressed')
+            handleCreateNewOrganization()
         }
     }
-
 
     return (
         <OrganizationDropdown>

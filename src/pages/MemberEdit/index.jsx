@@ -11,6 +11,7 @@ import Spinner from '../../components/Spinner'
 import {CancelButton, DeleteButton, SaveButton} from '../../style/buttons'
 import EditMemberInputs from './EditMemberInputs'
 import {getRolesForProfileGroupAction} from '../../store/projectRole/actions'
+import {createOrganizationForGroupAction} from '../../store/organization/actions'
 
 
 const MemberEditCancelSaveDeleteButtonContainer = styled.div`
@@ -66,6 +67,14 @@ const MemberEdit = () => {
         listAllGroupProjectsCheckIfAssigned()
     }, [dispatch, match.params.memberId, group.projects, group.id])
 
+    const handleCreateNewOrganization = () => {
+        const newOrgInfo = {
+            name: newOrg.current.value
+        }
+        setSelectNewOrgStatus(!selectNewOrgStatus)
+        dispatch(createOrganizationForGroupAction(newOrgInfo, group.id))
+    }
+
     return (
         <AuthenticatedPageContainer>
             {!loaded ? <Spinner /> : (
@@ -83,6 +92,7 @@ const MemberEdit = () => {
                         allGroupProjects={allGroupProjects}
                         allProjectsChecked={allProjectsChecked}
                         groupOrganizations={group.organizations}
+                        handleCreateNewOrganization={handleCreateNewOrganization}
                         memberEmail={member.user.email}
                         newOrg={newOrg}
                         roleChecked={roleChecked}

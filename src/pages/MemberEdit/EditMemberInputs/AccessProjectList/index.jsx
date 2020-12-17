@@ -31,7 +31,7 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
                 />
                 <AuthenticatedText>{project.name}</AuthenticatedText>
             </ProjectNameCheckboxContainer>
-        ) )
+        ))
     }
 
     return (

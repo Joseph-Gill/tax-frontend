@@ -10,6 +10,7 @@ import OrgDropdown from './OrgDropdown'
 const EditMemberInputs = ({allGroupProjects,
                           allProjectsChecked,
                           groupOrganizations,
+                          handleCreateNewOrganization,
                           memberEmail,
                           newOrg,
                           roleChecked,
@@ -51,6 +52,7 @@ const EditMemberInputs = ({allGroupProjects,
                 <AuthenticatedText>Organization</AuthenticatedText>
                 <OrgDropdown
                     groupOrganizations={groupOrganizations}
+                    handleCreateNewOrganization={handleCreateNewOrganization}
                     newOrg={newOrg}
                     selectNewOrgStatus={selectNewOrgStatus}
                     selectOrgName={selectOrgName}
