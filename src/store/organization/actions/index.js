@@ -1,5 +1,5 @@
 import Axios from '../../../axios'
-import {getGroup} from '../../group/actions'
+import {setGroupOrgs} from '../../group/actions'
 
 
 export const getMemberOrganizationNameAction = (groupId, userId) => async (dispatch, getState) => {
@@ -28,11 +28,8 @@ export const createOrganizationForGroupAction = (orgData, groupId) => async (dis
     try {
         const response = await Axios.post(`/orgs/group/${groupId}/`, orgData, config)
         if (response.status === 201) {
-            const groupInfo = {
-                ...response.data
-            }
-            await dispatch(getGroup(groupInfo))
-            return groupInfo
+            await dispatch(setGroupOrgs(response.data))
+            return response
         }
     } catch(e) {
         console.log('error creating new organization>', e)

@@ -20,8 +20,8 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
         setAllProjectsChecked(!allProjectsChecked)
     }
 
-    const renderProjectNameWithCheckBox = (array) => {
-        return array.map((project, index) => (
+    const renderProjectNameWithCheckBox = () => (
+        allGroupProjects.map((project, index) => (
             <ProjectNameCheckboxContainer key={project.id}>
                 <CheckBox
                     checked={allGroupProjects[index].isChecked}
@@ -30,9 +30,7 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
                     value={index}
                 />
                 <AuthenticatedText>{project.name}</AuthenticatedText>
-            </ProjectNameCheckboxContainer>
-        ))
-    }
+            </ProjectNameCheckboxContainer>)))
 
     return (
         <AccessProjectListContainer>
@@ -46,7 +44,7 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
                 <AuthenticatedText>Select all projects in the group</AuthenticatedText>
             </AccessProjectListUpperContainer>
             <AccessProjectListLowerContainer>
-                {renderProjectNameWithCheckBox(allGroupProjects)}
+                {renderProjectNameWithCheckBox()}
             </AccessProjectListLowerContainer>
         </AccessProjectListContainer>
     )

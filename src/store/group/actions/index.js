@@ -1,5 +1,5 @@
 import Axios from '../../../axios'
-import {GET_GROUP, RESET_GROUP} from '../types'
+import {GET_GROUP, RESET_GROUP, SET_GROUP_ORGS} from '../types'
 import {getProfileAction} from '../../profile/actions'
 import {catchError} from '../../errors/actions/errorAction'
 
@@ -14,6 +14,13 @@ export const getGroup = data => {
 export const resetGroup = () => {
     return {
         type: RESET_GROUP
+    }
+}
+
+export const setGroupOrgs = data => {
+    return {
+        type: SET_GROUP_ORGS,
+        payload: data
     }
 }
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import {AuthenticatedText} from '../../../style/text'
 import AccessProjectList from './AccessProjectList'
 import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputContainer, RoleInputContainer} from './style'

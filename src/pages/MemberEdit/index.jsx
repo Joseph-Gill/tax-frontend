@@ -67,12 +67,12 @@ const MemberEdit = () => {
         listAllGroupProjectsCheckIfAssigned()
     }, [dispatch, match.params.memberId, group.projects, group.id])
 
-    const handleCreateNewOrganization = () => {
+    const handleCreateNewOrganization = async () => {
         const newOrgInfo = {
             name: newOrg.current.value
         }
         setSelectNewOrgStatus(!selectNewOrgStatus)
-        dispatch(createOrganizationForGroupAction(newOrgInfo, group.id))
+        await dispatch(createOrganizationForGroupAction(newOrgInfo, group.id))
     }
 
     return (
