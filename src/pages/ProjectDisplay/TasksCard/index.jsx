@@ -2,9 +2,10 @@ import React from 'react'
 import {ProjectDisplayColorText, ProjectDisplayColorTextBackground, ProjectDisplayColorTextContainer, ProjectDisplayInfoBox, ProjectDisplayStatusesContainer, ViewItemLink, ViewItemLinkContainer} from '../styles'
 import {AddEditProjectSectionTitles} from '../../../style/titles'
 import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
+import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
 
 
-const TasksCard = ({steps}) => {
+const TasksCard = ({history, steps}) => {
     return (
         <ProjectDisplayInfoBox>
             <AddEditProjectSectionTitles>Tasks</AddEditProjectSectionTitles>
@@ -22,7 +23,7 @@ const TasksCard = ({steps}) => {
                     <ProjectDisplayColorText status='Not Started'>Not Started</ProjectDisplayColorText>
                 </ProjectDisplayColorTextContainer>
             </ProjectDisplayStatusesContainer>
-            <ViewItemLinkContainer>
+            <ViewItemLinkContainer onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}`)}>
                 <ViewItemLink>View Tasks</ViewItemLink>
                 <img alt="tasks" src={rightArrow} />
             </ViewItemLinkContainer>
