@@ -9,9 +9,10 @@ import {useRouteMatch} from 'react-router-dom'
 import Spinner from '../../components/Spinner'
 import {CancelButton, DeleteButton, SaveButton} from '../../style/buttons'
 import EditMemberInputs from './EditMemberInputs'
-import {getRolesForProfileGroupAction} from '../../store/projectRole/actions'
+import {getRolesForProfileGroupAction, updateRolesForProfileGroupAction} from '../../store/projectRole/actions'
 import {createOrganizationForGroupAction} from '../../store/organization/actions'
 import {MemberEditCancelSaveDeleteButtonContainer} from './styles'
+import SuccessMessage from '../../components/SuccessMessage'
 
 
 const MemberEdit = ({history}) => {
@@ -21,6 +22,7 @@ const MemberEdit = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const member = useSelector(state => state.memberReducer.member)
     const loaded = useSelector(state => state.memberReducer.loaded)
+    const [showSuccess, setShowSuccess] = useState(false)
     const [allProjectsChecked, setAllProjectsChecked] = useState(false)
     const [allGroupProjects, setAllGroupProjects] = useState([])
     const [userAssignedProjects, setUserAssignedProjects] = useState([])
@@ -61,8 +63,15 @@ const MemberEdit = ({history}) => {
                 setRoleChecked(checkedRole)
             }
         }
+        const getMemberOrgMatchingGroup = async () => {
+            const response = await dispatch(getMemberAction(match.params.memberId))
+            const result = response.organizations.filter(org => org.group === group.id)
+            if (result.length) {
+                setSelectOrgName(result[0].name)
+            }
+        }
         listAllGroupProjectsCheckIfAssigned()
-        dispatch(getMemberAction(match.params.memberId))
+        getMemberOrgMatchingGroup()
     }, [dispatch, match.params.memberId, group.id, group.projects])
 
 
@@ -74,10 +83,34 @@ const MemberEdit = ({history}) => {
         await dispatch(createOrganizationForGroupAction(newOrgInfo, group.id))
     }
 
+    const saveMemberChangesHandler = async () => {
+        const updatedProjectAccess = []
+        allGroupProjects.forEach(project => {
+            let projectInfo = {
+                id: project.id,
+                access: project.isChecked
+            }
+            updatedProjectAccess.push(projectInfo)
+        })
+        const selectedRole = Object.keys(roleChecked).find(key => roleChecked[key])
+        const updatedMemberInfo = {
+            member_project_access: updatedProjectAccess,
+            role: selectedRole
+        }
+        const response = await dispatch(updateRolesForProfileGroupAction(updatedMemberInfo, group.id, member.id))
+        if (response.status === 202) {
+            setShowSuccess(!showSuccess)
+        }
+    }
+
     return (
         <AuthenticatedPageContainer>
             {!loaded ? <Spinner /> : (
                 <>
+                    {showSuccess && <SuccessMessage
+                        message="The member has been successfully updated!"
+                        redirect={`${GROUPS}${MEMBERS}`}
+                                    />}
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: false},
                         {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
@@ -107,7 +140,7 @@ const MemberEdit = ({history}) => {
                     <MemberEditCancelSaveDeleteButtonContainer>
                         <CancelButton onClick={() => history.push(`${GROUPS}${MEMBERS}`)}>Cancel</CancelButton>
                         <DeleteButton>Remove</DeleteButton>
-                        <SaveButton>Save</SaveButton>
+                        <SaveButton onClick={saveMemberChangesHandler}>Save</SaveButton>
                     </MemberEditCancelSaveDeleteButtonContainer>
                 </>
             )}

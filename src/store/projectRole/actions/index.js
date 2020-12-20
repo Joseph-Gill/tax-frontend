@@ -16,3 +16,18 @@ export const getRolesForProfileGroupAction = (profileId, groupId) => async (disp
         return e
     }
 }
+
+export const updateRolesForProfileGroupAction = (memberProjectAccess, groupId, userProfileId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.post(`/userprofiles/group/${groupId}/userprofile/${userProfileId}/`, memberProjectAccess, config)
+    } catch(e) {
+        console.log('Error updating a member>', e)
+        return e
+    }
+}
