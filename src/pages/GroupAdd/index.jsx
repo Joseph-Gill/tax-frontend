@@ -10,6 +10,7 @@ import {createGroupAction} from '../../store/group/actions'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import SuccessMessage from '../../components/SuccessMessage'
+import {resetErrors} from '../../store/errors/actions/errorAction'
 
 
 const GroupAdd = ({history}) => {
@@ -39,6 +40,7 @@ const GroupAdd = ({history}) => {
     }
 
     const saveNewGroupClickHandler = async () => {
+        dispatch(resetErrors())
         const newGroup = {
             name: groupName,
             avatar: groupImage,

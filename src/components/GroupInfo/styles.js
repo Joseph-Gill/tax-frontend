@@ -10,7 +10,7 @@ export const InputGroupInfoContainer = styled.div`
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     display: flex;
     margin-top: 20px;
 `
@@ -77,4 +77,9 @@ export const GroupImageLowerConatainer = styled.div`
     align-items: flex-end;
     justify-content: space-between;
     padding-right: 33px;
+    padding-bottom: 20px;
+`
+
+export const GroupInfoErrorMessageContainer = styled.div`
+    height: 20px;
 `

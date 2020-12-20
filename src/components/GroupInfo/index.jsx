@@ -1,6 +1,6 @@
 import React from 'react'
 import phImage from '../../assets/icons/stark_create_grp_ph_image.png'
-import {FileUploadContainer, GroupImage, GroupImageLowerConatainer, GroupImageRemoveButton, GroupNameInput, InputGroupInfoContainer, InputLeftContainer, InputRightContainer, InputTitle} from './styles'
+import {FileUploadContainer, GroupImage, GroupImageLowerConatainer, GroupImageRemoveButton, GroupInfoErrorMessageContainer, GroupNameInput, InputGroupInfoContainer, InputLeftContainer, InputRightContainer, InputTitle} from './styles'
 import {imageChangeHandler, imageClickHandler} from '../../helpers'
 import {useSelector} from 'react-redux'
 import {ErrorMessage} from '../../style/messages'
@@ -43,8 +43,10 @@ const GroupInfo = ({groupImage, groupName, hiddenFileInput, nameDisabled, setGro
                     type='text'
                     value={groupName}
                 />
+                <GroupInfoErrorMessageContainer>
+                    {error && <ErrorMessage>{error.name}</ErrorMessage>}
+                </GroupInfoErrorMessageContainer>
             </InputRightContainer>
-            {error && <ErrorMessage>{error.name}</ErrorMessage>}
         </InputGroupInfoContainer>
     )
 }
