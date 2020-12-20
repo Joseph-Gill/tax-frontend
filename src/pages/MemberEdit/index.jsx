@@ -14,6 +14,7 @@ import {createOrganizationForGroupAction} from '../../store/organization/actions
 import {MemberEditCancelSaveDeleteButtonContainer} from './styles'
 import SuccessMessage from '../../components/SuccessMessage'
 import DeleteMemberModal from '../../components/DeleteAccountModal/DeleteMemberModal'
+import {getGroupAction} from '../../store/group/actions'
 
 
 const MemberEdit = ({history}) => {
@@ -101,6 +102,7 @@ const MemberEdit = ({history}) => {
         }
         const response = await dispatch(updateRolesForProfileGroupAction(updatedMemberInfo, group.id, member.id))
         if (response.status === 202) {
+            dispatch(getGroupAction(group.id))
             setShowSuccess(!showSuccess)
         }
     }
