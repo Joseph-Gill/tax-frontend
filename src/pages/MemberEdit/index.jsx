@@ -13,6 +13,7 @@ import {getRolesForProfileGroupAction, updateRolesForProfileGroupAction} from '.
 import {createOrganizationForGroupAction} from '../../store/organization/actions'
 import {MemberEditCancelSaveDeleteButtonContainer} from './styles'
 import SuccessMessage from '../../components/SuccessMessage'
+import DeleteMemberModal from '../../components/DeleteAccountModal/DeleteMemberModal'
 
 
 const MemberEdit = ({history}) => {
@@ -22,6 +23,7 @@ const MemberEdit = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const member = useSelector(state => state.memberReducer.member)
     const loaded = useSelector(state => state.memberReducer.loaded)
+    const [showConfirmation, setShowConfirmation] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
     const [allProjectsChecked, setAllProjectsChecked] = useState(false)
     const [allGroupProjects, setAllGroupProjects] = useState([])
@@ -107,10 +109,16 @@ const MemberEdit = ({history}) => {
         <AuthenticatedPageContainer>
             {!loaded ? <Spinner /> : (
                 <>
-                    {showSuccess && <SuccessMessage
-                        message="The member has been successfully updated!"
-                        redirect={`${GROUPS}${MEMBERS}`}
-                                    />}
+                    {showSuccess &&
+                        <SuccessMessage
+                            message="The member has been successfully updated!"
+                            redirect={`${GROUPS}${MEMBERS}`}
+                        />}
+                    {showConfirmation &&
+                        <DeleteMemberModal
+                            history={history}
+                            setShowConfirmation={setShowConfirmation}
+                        />}
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: false},
                         {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
@@ -139,7 +147,7 @@ const MemberEdit = ({history}) => {
                     />
                     <MemberEditCancelSaveDeleteButtonContainer>
                         <CancelButton onClick={() => history.push(`${GROUPS}${MEMBERS}`)}>Cancel</CancelButton>
-                        <DeleteButton>Remove</DeleteButton>
+                        <DeleteButton onClick={() => setShowConfirmation(!showConfirmation)}>Remove</DeleteButton>
                         <SaveButton onClick={saveMemberChangesHandler}>Save</SaveButton>
                     </MemberEditCancelSaveDeleteButtonContainer>
                 </>

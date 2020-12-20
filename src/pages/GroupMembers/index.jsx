@@ -10,6 +10,7 @@ import FilterDropdown from './FilterDropdown'
 import MembersTable from './MembersTable'
 import AddMemberModal from '../../components/AddMemberModal'
 import {resetMember} from '../../store/member/actions'
+import DeleteMemberModal from '../../components/DeleteAccountModal/DeleteMemberModal'
 
 
 const GroupMembers = ({history}) => {
@@ -17,6 +18,7 @@ const GroupMembers = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const members = useSelector(state => state.groupReducer.group.users)
     const invitedMembers = useSelector(state => state.groupReducer.group.invited_new_users)
+    const [showConfirmation, setShowConfirmation] = useState(false)
     const [filterMemberStatus, setFilterMemberStatus] = useState(true)
     const [showAddMember, setShowAddMember] = useState(false)
     let filterString = useRef('')
@@ -27,6 +29,11 @@ const GroupMembers = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
+            {showConfirmation &&
+                <DeleteMemberModal
+                    history={history}
+                    setShowConfirmation={setShowConfirmation}
+                />}
             {showAddMember && <AddMemberModal groupId={group.id} setShowAddMember={setShowAddMember} />}
             <BreadCrumb breadCrumbArray={[
                 {display: 'GROUPS', to: GROUPS, active: false},
@@ -49,8 +56,13 @@ const GroupMembers = ({history}) => {
             <ActionFilterDropdownContainer>
                 {!filterMemberStatus && !invitedMembers.length ? null : (
                     <>
-                        <ActionDropdown />
-                        <FilterDropdown filterMemberStraus={filterMemberStatus} filterString={filterString} />
+                        <ActionDropdown
+                            setShowConfirmation={setShowConfirmation}
+                        />
+                        <FilterDropdown
+                            filterMemberStraus={filterMemberStatus}
+                            filterString={filterString}
+                        />
                     </>)}
             </ActionFilterDropdownContainer>
             <MembersTable

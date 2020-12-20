@@ -19,7 +19,7 @@ import {resetGroup} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
 
 
-const UserProfile = () => {
+const UserProfile = ({history}) => {
     const dispatch = useDispatch()
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
@@ -149,7 +149,11 @@ const UserProfile = () => {
                     <AuthenticatedText>By deleting your account you will lose all your data</AuthenticatedText>
                     <DeleteAccountText onClick={() => setShowConfirmation(true)}>Delete account</DeleteAccountText>
                 </UserProfileFooterContainer>
-                {showConfirmation && <DeleteAccountModal setShowConfirmation={setShowConfirmation} />}
+                {showConfirmation &&
+                    <DeleteAccountModal
+                        history={history}
+                        setShowConfirmation={setShowConfirmation}
+                    />}
             </UserDetailsContainer>
             <SaveChangesButtonContainer>
                 <GreenLargeButton onClick={handleSaveChanges}>Save Changes</GreenLargeButton>

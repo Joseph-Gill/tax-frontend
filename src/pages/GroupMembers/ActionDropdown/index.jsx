@@ -7,7 +7,7 @@ import {Dropdown, DropdownButton, DropdownOptions} from '../../../style/dropdown
 import {DropdownImage} from '../../../style/images'
 
 
-const ActionDropdown = () => {
+const ActionDropdown = ({setShowConfirmation}) => {
     return(
         <Dropdown>
             <DropdownButton>Action</DropdownButton>
@@ -16,7 +16,7 @@ const ActionDropdown = () => {
                     <DropdownImage alt='email' src={emailIcon} />
                     <BlueDropdownText>Send Email</BlueDropdownText>
                 </DropDownChoiceWithBorder>
-                <DropdownChoiceContainer>
+                <DropdownChoiceContainer onClick={() => setShowConfirmation(true)}>
                     <DropdownImage alt='delete' src={deleteIcon} />
                     <RedDropdownText>Remove Members</RedDropdownText>
                 </DropdownChoiceContainer>
