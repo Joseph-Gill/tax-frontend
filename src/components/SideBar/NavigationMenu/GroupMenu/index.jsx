@@ -19,7 +19,7 @@ const GroupMenu = ({loaded, location}) => {
     return transitions.map(({item, key, props}) =>
         !item ? (
             <MenuItem
-                isActive={location.pathname === GROUPS || location.pathname === `${GROUPS}${ADD_GROUP}`}
+                isactive={location.pathname === GROUPS || location.pathname === `${GROUPS}${ADD_GROUP}` ? 1 : 0}
                 key={key}
                 //eslint-disable-next-line react/forbid-component-props
                 style={props}
@@ -27,21 +27,21 @@ const GroupMenu = ({loaded, location}) => {
             >
                 <NavigationIcons src={layers} />Groups
             </MenuItem>) : (
-            //eslint-disable-next-line react/forbid-component-props
+                //eslint-disable-next-line react/forbid-component-props
                 <GroupMenuContainer key={key} style={props}>
                     <NavbarTitle>Group Menu</NavbarTitle>
                     <MenuItem
-                        isActive={location.pathname === `${GROUPS}${ORG_CHART}`}
+                        isactive={location.pathname === `${GROUPS}${ORG_CHART}` ? 1 : 0}
                         to={`${GROUPS}${ORG_CHART}`}
                     ><NavigationIcons src={organization} />Organization Chart
                     </MenuItem>
                     <MenuItem
-                        isActive={location.pathname.includes(`${GROUPS}${PROJECTS}`) || location.pathname === `${GROUPS}${PROJECTS}${ADD_PROJECT}`}
+                        isactive={location.pathname.includes(`${GROUPS}${PROJECTS}`) ? 1 : 0}
                         to={`${GROUPS}${PROJECTS}`}
                     ><NavigationIcons src={projects} />Projects
                     </MenuItem>
                     <MenuItem
-                        isActive={location.pathname === `${GROUPS}${MEMBERS}`}
+                        isactive={location.pathname.includes(`${GROUPS}${MEMBERS}`) ? 1 : 0}
                         to={`${GROUPS}${MEMBERS}`}
                     ><NavigationIcons src={teamMembers} />Team Members
                     </MenuItem>

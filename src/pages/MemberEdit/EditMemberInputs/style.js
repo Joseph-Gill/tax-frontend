@@ -30,3 +30,8 @@ export const RoleInputContainer = styled.div`
 export const EditMemberEmailInput = styled(BaseInput)`
     width: 302px;
 `
+
+export const SelectOrgErrorMessageContainer = styled.div`
+    height: 10px;
+    margin-left: 179px;
+`

@@ -15,6 +15,7 @@ import {MemberEditCancelSaveDeleteButtonContainer} from './styles'
 import SuccessMessage from '../../components/SuccessMessage'
 import DeleteMemberModal from '../../components/DeleteAccountModal/DeleteMemberModal'
 import {getGroupAction} from '../../store/group/actions'
+import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 
 
 const MemberEdit = ({history}) => {
@@ -24,6 +25,7 @@ const MemberEdit = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const member = useSelector(state => state.memberReducer.member)
     const loaded = useSelector(state => state.memberReducer.loaded)
+    const error = useSelector(state => state.errorReducer.error)
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
     const [allProjectsChecked, setAllProjectsChecked] = useState(false)
@@ -87,23 +89,30 @@ const MemberEdit = ({history}) => {
     }
 
     const saveMemberChangesHandler = async () => {
-        const updatedProjectAccess = []
-        allGroupProjects.forEach(project => {
-            let projectInfo = {
-                id: project.id,
-                access: project.isChecked
+        dispatch(resetErrors())
+        if (!selectOrgName) {
+            dispatch(setError({detail: `You must select an organization for this member.`}))
+        } else {
+            const updatedProjectAccess = []
+            allGroupProjects.forEach(project => {
+                let projectInfo = {
+                    id: project.id,
+                    access: project.isChecked
+                }
+                updatedProjectAccess.push(projectInfo)
+            })
+            const selectedRole = Object.keys(roleChecked).find(key => roleChecked[key])
+            const selectedOrg = group.organizations.filter(org => org.name === selectOrgName)[0]
+            const updatedMemberInfo = {
+                member_project_access: updatedProjectAccess,
+                role: selectedRole,
+                organization: selectedOrg
             }
-            updatedProjectAccess.push(projectInfo)
-        })
-        const selectedRole = Object.keys(roleChecked).find(key => roleChecked[key])
-        const updatedMemberInfo = {
-            member_project_access: updatedProjectAccess,
-            role: selectedRole
-        }
-        const response = await dispatch(updateRolesForProfileGroupAction(updatedMemberInfo, group.id, member.id))
-        if (response.status === 202) {
-            dispatch(getGroupAction(group.id))
-            setShowSuccess(!showSuccess)
+            const response = await dispatch(updateRolesForProfileGroupAction(updatedMemberInfo, group.id, member.id))
+            if (response.status === 202) {
+                dispatch(getGroupAction(group.id))
+                setShowSuccess(!showSuccess)
+            }
         }
     }
 
@@ -133,6 +142,7 @@ const MemberEdit = ({history}) => {
                     <EditMemberInputs
                         allGroupProjects={allGroupProjects}
                         allProjectsChecked={allProjectsChecked}
+                        error={error}
                         groupOrganizations={group.organizations}
                         handleCreateNewOrganization={handleCreateNewOrganization}
                         memberEmail={member.user.email}

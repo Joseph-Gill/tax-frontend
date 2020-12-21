@@ -1,18 +1,19 @@
 import React from 'react'
 import {AuthenticatedText} from '../../../style/text'
 import AccessProjectList from './AccessProjectList'
-import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputContainer, RoleInputContainer} from './style'
+import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputContainer, RoleInputContainer, SelectOrgErrorMessageContainer} from './style'
 import RoleProjectList from './RoleProjectList'
 import OrgDropdown from './OrgDropdown'
+import {ErrorMessage} from '../../../style/messages'
 
 
 const EditMemberInputs = ({allGroupProjects,
                           allProjectsChecked,
+                          error,
                           groupOrganizations,
                           handleCreateNewOrganization,
                           memberEmail,
                           newOrg,
-                          orgId,
                           roleChecked,
                           selectNewOrgStatus,
                           selectOrgName,
@@ -60,6 +61,9 @@ const EditMemberInputs = ({allGroupProjects,
                     setSelectOrgName={setSelectOrgName}
                 />
             </EmailAccessOrgCountryInputContainer>
+            <SelectOrgErrorMessageContainer>
+                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+            </SelectOrgErrorMessageContainer>
         </EditInputsContainer>
     )
 }

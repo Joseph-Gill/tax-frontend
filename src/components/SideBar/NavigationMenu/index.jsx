@@ -28,12 +28,12 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
             <NavigationContainer>
                 <NavbarTitle>DASHBOARD</NavbarTitle>
                 <MenuItem
-                    isActive={location.pathname === HOME}
+                    isactive={location.pathname === HOME ? 1 : 0}
                     to={HOME}
                 ><NavigationIcons src={dashboard} />Home
                 </MenuItem>
                 <MenuItem
-                    isActive={location.pathname === USERPROFILE}
+                    isactive={location.pathname === USERPROFILE ? 1 : 0}
                     to={USERPROFILE}
                 ><NavigationIcons src={account} />Account
                 </MenuItem>

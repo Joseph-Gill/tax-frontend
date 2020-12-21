@@ -84,7 +84,7 @@ export const MenuItem = styled(animated(Link))`
     cursor:pointer;
 
     ${props => {
-        if(props.isActive){
+        if(props.isactive){
             return `
                     border-right: solid 3px ${props.theme.primaryBlue}
                     color: ${props.theme.primaryBlue};
