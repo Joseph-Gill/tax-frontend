@@ -10,7 +10,7 @@ import {BaseInput} from '../../style/inputs'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedButtonCancel} from '../../style/buttons'
 import {resetErrors} from '../../store/errors/actions/errorAction'
-import {AddMemberCenterTextContainer, AddMemberModalButtonContainer, AddTeamMemberContentContainer, AddTeamMemberModalContainer, AddTeamMemberRedText, BlueAddMemberButton} from './styles'
+import {AddMemberCenterTextContainer, AddMemberErrorMessageContainer, AddMemberModalButtonContainer, AddTeamMemberContentContainer, AddTeamMemberModalContainer, AddTeamMemberRedText, BlueAddMemberButton} from './styles'
 import {ErrorMessage} from '../../style/messages'
 import {addMemberToGroupAction} from '../../store/member/actions'
 
@@ -68,10 +68,11 @@ const AddMemberModal = ({groupId, setShowAddMember}) => {
                         ref={email}
                         type='email'
                     />
+                    <AddMemberErrorMessageContainer>
+                        {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                        {error && <ErrorMessage>{error.email}</ErrorMessage>}
+                    </AddMemberErrorMessageContainer>
                 </AddTeamMemberContentContainer>
-                <div>
-                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                </div>
                 <AddMemberModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={cancelButtonHandler}>Cancel</AuthenticatedButtonCancel>
                     <BlueAddMemberButton onClick={addUserHandler}>Send Invite</BlueAddMemberButton>

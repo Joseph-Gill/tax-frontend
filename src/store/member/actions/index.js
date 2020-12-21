@@ -1,6 +1,7 @@
 import Axios from '../../../axios'
 import {GET_MEMBER, RESET_MEMBER} from '../types'
 import {getGroupAction} from '../../group/actions'
+import {catchError, setError} from '../../errors/actions/errorAction'
 
 
 export const getMember = data => {
@@ -49,8 +50,11 @@ export const addMemberToGroupAction = (memberEmail, groupId) => async (dispatch,
             await dispatch(getGroupAction(groupId))
             return response
         }
+        else if (response.status === 204) {
+            dispatch(setError({detail: 'This New User has a pending Registration to verify.'}))
+            return response
+        }
     } catch (e) {
-        console.log('Error adding a member to a group>', e)
-        return e
+        return catchError(e, dispatch)
     }
 }

@@ -42,3 +42,7 @@ export const AddMemberCenterTextContainer = styled.div`
     grid-row-gap: 30px;
     margin-left: 19px;
 `
+
+export const AddMemberErrorMessageContainer = styled.div`
+    height: 10px;
+`

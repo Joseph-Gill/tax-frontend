@@ -26,15 +26,14 @@ import {CheckBox} from '../../../style/inputs'
 import {checkBoxChangeHandler} from '../../../helpers'
 
 
-const MembersTable = ({filterMemberStatus, group, history, filterOption, filterString, invitedMembers, members, setShowAddMember}) => {
-    const [activeRenderData, setActiveRenderData] = useState([])
-    const [invitedRenderData, setInvitedRenderData] = useState([...invitedMembers])
+const MembersTable = ({activeRenderData, filterMemberStatus, group, history, filterOption, filterString, invitedMembers, invitedRenderData, members, setActiveRenderData, setInvitedRenderData, setShowAddMember}) => {
     const [loaded, setLoaded] = useState(false)
     const [allActiveStatus, setAllActiveStatus] = useState(true)
     const [allInvitedStatus, setAllInvitedStatus] = useState(true)
     const dispatch = useDispatch()
 
     useEffect(() => {
+        console.log('useEffect trigger')
         const listActiveWithOrgAndInvited = async () => {
             const activeResult = [];
             const invitedResult = [];
@@ -89,7 +88,7 @@ const MembersTable = ({filterMemberStatus, group, history, filterOption, filterS
             setLoaded(true)
         }
         listActiveWithOrgAndInvited()
-    }, [dispatch, group.id, group.projects.length, members, invitedMembers])
+    }, [dispatch, group.id, group.projects.length, members, invitedMembers, setActiveRenderData, setInvitedRenderData])
 
     const checkAllMembersHandler = (array, setArray, status, setStatus) => {
         const dataCopy = [...array]

@@ -20,6 +20,8 @@ const GroupMembers = ({history}) => {
     const invitedMembers = useSelector(state => state.groupReducer.group.invited_new_users)
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [filterMemberStatus, setFilterMemberStatus] = useState(true)
+    const [activeRenderData, setActiveRenderData] = useState([])
+    const [invitedRenderData, setInvitedRenderData] = useState([])
     const [showAddMember, setShowAddMember] = useState(false)
     const [filterString, setFilterString] = useState('')
     const [filterOption, setFilterOption] = useState([
@@ -39,7 +41,9 @@ const GroupMembers = ({history}) => {
         <AuthenticatedPageContainer>
             {showConfirmation &&
                 <DeleteMemberModal
+                    activeRenderData={activeRenderData}
                     history={history}
+                    invitedRenderData={invitedRenderData}
                     setShowConfirmation={setShowConfirmation}
                 />}
             {showAddMember && <AddMemberModal groupId={group.id} setShowAddMember={setShowAddMember} />}
@@ -77,13 +81,17 @@ const GroupMembers = ({history}) => {
                     </>)}
             </ActionFilterDropdownContainer>
             <MembersTable
+                activeRenderData={activeRenderData}
                 filterMemberStatus={filterMemberStatus}
                 filterOption={filterOption}
                 filterString={filterString}
                 group={group}
                 history={history}
                 invitedMembers={invitedMembers}
+                invitedRenderData={invitedRenderData}
                 members={members}
+                setActiveRenderData={setActiveRenderData}
+                setInvitedRenderData={setInvitedRenderData}
                 setShowAddMember={setShowAddMember}
             />
             <AddMemberButtonContainer>
