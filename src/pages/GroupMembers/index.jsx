@@ -35,10 +35,6 @@ const GroupMembers = ({history}) => {
         dispatch(resetMember())
     }, [dispatch])
 
-    const filteredMembers = members.filter(member =>
-        member.user.email.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
-    )
-
     return (
         <AuthenticatedPageContainer>
             {showConfirmation &&
@@ -82,10 +78,12 @@ const GroupMembers = ({history}) => {
             </ActionFilterDropdownContainer>
             <MembersTable
                 filterMemberStatus={filterMemberStatus}
+                filterOption={filterOption}
+                filterString={filterString}
                 group={group}
                 history={history}
                 invitedMembers={invitedMembers}
-                members={filteredMembers}
+                members={members}
                 setShowAddMember={setShowAddMember}
             />
             <AddMemberButtonContainer>

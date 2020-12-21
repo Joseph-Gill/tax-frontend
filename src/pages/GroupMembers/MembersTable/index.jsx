@@ -26,7 +26,7 @@ import {CheckBox} from '../../../style/inputs'
 import {checkBoxChangeHandler} from '../../../helpers'
 
 
-const MembersTable = ({filterMemberStatus, group, history, invitedMembers, members, setShowAddMember}) => {
+const MembersTable = ({filterMemberStatus, group, history, filterOption, filterString, invitedMembers, members, setShowAddMember}) => {
     const [activeRenderData, setActiveRenderData] = useState([])
     const [invitedRenderData, setInvitedRenderData] = useState([...invitedMembers])
     const [loaded, setLoaded] = useState(false)
@@ -35,7 +35,6 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log('UseEffect Triggered')
         const listActiveWithOrgAndInvited = async () => {
             const activeResult = [];
             const invitedResult = [];
@@ -100,6 +99,22 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
         setArray([...dataCopy])
         setStatus(!status)
     }
+
+    const filteredMembers = () => {
+        const selectedFilterOption = filterOption.filter(option => option.isChecked)[0]
+        switch (selectedFilterOption.type) {
+            case 'name':
+                return activeRenderData.filter(member => member.first_name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1 ||
+                    member.last_name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
+            default:
+                return activeRenderData.filter(member => member[selectedFilterOption.type].toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
+
+        }
+    }
+
+    const filteredInviteMembers = () => (
+        invitedRenderData.filter(member => member.email.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
+    )
 
     const renderActiveMembers = (array) => {
         return array.map((member, index) => (
@@ -204,8 +219,8 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
                     </thead>
                     <tbody>
                         {filterMemberStatus ?
-                            renderActiveMembers(activeRenderData) :
-                            renderInvitedMembers(invitedRenderData)}
+                            renderActiveMembers(filteredMembers()) :
+                            renderInvitedMembers(filteredInviteMembers())}
                     </tbody>
                 </CommentTable>)}
         </GroupMembersTableContainer>
