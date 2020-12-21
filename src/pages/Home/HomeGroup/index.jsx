@@ -35,7 +35,7 @@ const HomeGroup = ({groupName, history, project}) => {
                 <OpenComments number={2} />
                 <ReviewComments number={3} />
                 {expandStatus ? (
-                    <HomeExpandCollapseContainer style onClick={() => setExpandStatus(false)}>
+                    <HomeExpandCollapseContainer onClick={() => setExpandStatus(false)}>
                         <ExpandCollapseText>Collapse</ExpandCollapseText>
                         <CollapseImage alt='expand' src={expandCollapse} />
                     </HomeExpandCollapseContainer> ) : (

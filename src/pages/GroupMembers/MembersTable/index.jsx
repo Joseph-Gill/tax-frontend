@@ -35,6 +35,7 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
     const dispatch = useDispatch()
 
     useEffect(() => {
+        console.log('UseEffect Triggered')
         const listActiveWithOrgAndInvited = async () => {
             const activeResult = [];
             const invitedResult = [];

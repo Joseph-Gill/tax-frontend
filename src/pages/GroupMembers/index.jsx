@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {AuthenticatedPageContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
@@ -21,11 +21,23 @@ const GroupMembers = ({history}) => {
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [filterMemberStatus, setFilterMemberStatus] = useState(true)
     const [showAddMember, setShowAddMember] = useState(false)
-    let filterString = useRef('')
+    const [filterString, setFilterString] = useState('')
+    const [filterOption, setFilterOption] = useState([
+        {isChecked: true, type: 'email'},
+        {isChecked: false, type: 'name'},
+        {isChecked: false, type: 'organization'},
+        {isChecked: false, type: 'project_access'},
+        {isChecked: false, type: 'country'},
+        {isChecked: false, type: 'project_role'}
+    ])
 
     useEffect(() => {
         dispatch(resetMember())
     }, [dispatch])
+
+    const filteredMembers = members.filter(member =>
+        member.user.email.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
+    )
 
     return (
         <AuthenticatedPageContainer>
@@ -61,7 +73,10 @@ const GroupMembers = ({history}) => {
                         />
                         <FilterDropdown
                             filterMemberStraus={filterMemberStatus}
+                            filterOption={filterOption}
                             filterString={filterString}
+                            setFilterOption={setFilterOption}
+                            setFilterString={setFilterString}
                         />
                     </>)}
             </ActionFilterDropdownContainer>
@@ -70,7 +85,7 @@ const GroupMembers = ({history}) => {
                 group={group}
                 history={history}
                 invitedMembers={invitedMembers}
-                members={members}
+                members={filteredMembers}
                 setShowAddMember={setShowAddMember}
             />
             <AddMemberButtonContainer>

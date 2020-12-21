@@ -50,3 +50,9 @@ export const CheckBox = styled.input`
     width: 20px;
     height: 20px;
 `
+
+export const FilterCheckBox = styled.input`
+    height: 14px;
+    width: 14px;
+    margin-left: 3px;
+`

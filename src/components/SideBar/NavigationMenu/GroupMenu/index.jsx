@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTransition} from 'react-spring'
 import {GroupMenuContainer, MenuItem, NavigationIcons} from '../styles'
-import {ADD_GROUP, ADD_PROJECT, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../../../routes/paths'
+import {ADD_GROUP, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../../../routes/paths'
 import layers from '../../../../assets/icons/layers_24px.png'
 import {NavbarTitle} from '../../../../style/titles'
 import organization from '../../../../assets/icons/stark_organization.png'

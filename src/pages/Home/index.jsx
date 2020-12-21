@@ -37,8 +37,8 @@ const Home = ({history}) => {
     }, [dispatch])
 
     const searchedPairings = projectGroupPairings.filter(pair =>
-            pair.groupName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1 ||
-            pair.project.name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
+        pair.groupName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1 ||
+        pair.project.name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
     );
 
     const renderPairings = () => {

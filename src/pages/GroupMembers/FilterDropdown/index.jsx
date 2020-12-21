@@ -1,37 +1,22 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Dropdown, DropdownOptions, FilterDropdownButton} from '../../../style/dropdowns'
 import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/containers'
 import {DefaultDropdownText} from '../../../style/text'
-import {FilterInput} from '../../../style/inputs'
-import styled from 'styled-components/macro'
+import {FilterCheckBox, FilterInput} from '../../../style/inputs'
 import {allowOnlyOneCheckedBox} from '../../../helpers'
 
 
-const FilterCheckBox = styled.input`
-    height: 14px;
-    width: 14px;
-    margin-left: 3px;
-`
-
-const FilterDropdown = ({filterMemberStraus, filterString}) => {
-    const [filterOption, setFilterOption] = useState([
-        {isChecked: true, type: 'email'},
-        {isChecked: false, type: 'name'},
-        {isChecked: false, type: 'organization'},
-        {isChecked: false, type: 'project_access'},
-        {isChecked: false, type: 'country'},
-        {isChecked: false, type: 'project_role'}
-    ])
-
+const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilterOption, setFilterString}) => {
     return (
         <Dropdown>
             <FilterDropdownButton>Filter</FilterDropdownButton>
             <DropdownOptions>
                 <DropDownChoiceWithBorder>
                     <FilterInput
+                        onChange={(e) => setFilterString(e.target.value)}
                         placeholder='Search and select'
-                        ref={filterString}
                         type='text'
+                        value={filterString}
                     />
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
