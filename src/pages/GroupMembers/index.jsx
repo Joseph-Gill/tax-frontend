@@ -10,7 +10,7 @@ import FilterDropdown from './FilterDropdown'
 import MembersTable from './MembersTable'
 import AddMemberModal from '../../components/AddMemberModal'
 import {resetMember} from '../../store/member/actions'
-import DeleteMemberModal from '../../components/DeleteAccountModal/DeleteMemberModal'
+import RemoveMemberModal from '../../components/DeleteAccountModal/RemoveMemberModal'
 
 
 const GroupMembers = ({history}) => {
@@ -40,10 +40,11 @@ const GroupMembers = ({history}) => {
     return (
         <AuthenticatedPageContainer>
             {showConfirmation &&
-                <DeleteMemberModal
-                    activeRenderData={activeRenderData}
+                <RemoveMemberModal
+                    activeMembers={activeRenderData}
+                    group={group}
                     history={history}
-                    invitedRenderData={invitedRenderData}
+                    invitedMembers={invitedRenderData}
                     setShowConfirmation={setShowConfirmation}
                 />}
             {showAddMember && <AddMemberModal groupId={group.id} setShowAddMember={setShowAddMember} />}

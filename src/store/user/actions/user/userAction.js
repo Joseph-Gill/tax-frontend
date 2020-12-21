@@ -1,6 +1,6 @@
 import Axios from '../../../../axios'
 import {UPDATE_USER} from '../../types'
-import {catchError, setError} from '../../../errors/actions/errorAction'
+import {catchError} from '../../../errors/actions/errorAction'
 import {login} from '../authentication/userLoginAction'
 
 
@@ -62,6 +62,7 @@ export const deleteUserProfile = (password) => async (dispatch, getState) => {
     try {
         return await Axios.delete('users/me/', config)
     } catch(e) {
-        return dispatch(setError({detail: `Entered password doesn't match account password`}))
+        console.log('Error while deleting User>', e)
+        return e
     }
 }

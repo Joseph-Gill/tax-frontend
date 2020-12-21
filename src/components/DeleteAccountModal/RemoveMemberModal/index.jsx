@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 import {useSpring} from 'react-spring'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer} from '../styles'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer} from '../styles'
 import {CloseIcon, Ellipse} from '../../../style/images'
 import close from '../../../assets/icons/stark_close_icon.svg'
 import {AuthenticatedPageTitle} from '../../../style/titles'
@@ -11,10 +11,13 @@ import {BaseInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
+import {removeMembersFromGroupAction} from '../../../store/member/actions'
+import {GROUPS, MEMBERS} from '../../../routes/paths'
+import {getGroupAction} from '../../../store/group/actions'
 
 
-const DeleteMemberModal = ({memberEmails, history, setShowConfirmation}) => {
+const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setShowConfirmation}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     let password = useRef('')
@@ -29,6 +32,25 @@ const DeleteMemberModal = ({memberEmails, history, setShowConfirmation}) => {
         setShowConfirmation(false)
     }
 
+    const removeButtonHandler = async () => {
+        dispatch(resetErrors())
+        const membersToRemove = activeMembers.filter(member => member.isChecked)
+        const emailsToRemove = []
+        membersToRemove.forEach(member => emailsToRemove.push(member.email))
+        const removeData = {
+            users: membersToRemove,
+            password: password.current.value
+        }
+        const response = await dispatch(removeMembersFromGroupAction(removeData, group.id))
+        if (response.status === 200) {
+            setShowConfirmation(false)
+            await dispatch(getGroupAction(group.id))
+            history.push(`${GROUPS}${MEMBERS}`)
+        } else if (response.status === 204) {
+            dispatch(setError({detail: `Entered password doesn't match account password`}))
+        }
+    }
+
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
@@ -37,7 +59,7 @@ const DeleteMemberModal = ({memberEmails, history, setShowConfirmation}) => {
                     <CloseIcon alt='close' onClick={() => setShowConfirmation(false)} src={close} />
                 </AddDeleteModalCloseContainer>
                 <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Delete Member(s)?</AuthenticatedPageTitle>
+                    <AuthenticatedPageTitle>Remove Member(s)?</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
                 <div>
                     <AddDeleteModalTextContainer>
@@ -58,16 +80,16 @@ const DeleteMemberModal = ({memberEmails, history, setShowConfirmation}) => {
                         type='password'
                     />
                 </div>
-                <div>
+                <AddDeleteModalErrorContainer>
                     {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                </div>
+                </AddDeleteModalErrorContainer>
                 <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={cancelButtonHandler}>Cancel</AuthenticatedButtonCancel>
-                    <RedLargerButton >Yes, delete member(s)</RedLargerButton>
+                    <RedLargerButton onClick={removeButtonHandler}>Yes, remove member(s)</RedLargerButton>
                 </AddDeleteModalButtonContainer>
             </AddDeleteModalInternalContainer>
         </AddDeleteModalExternalContainer>
     )
 }
 
-export default DeleteMemberModal
+export default RemoveMemberModal

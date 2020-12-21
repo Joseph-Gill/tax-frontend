@@ -6,13 +6,13 @@ import {useDispatch, useSelector} from 'react-redux'
 import {userLogout} from '../../store/user/actions/authentication/userLoginAction'
 import {deleteUserProfile} from '../../store/user/actions/user/userAction'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer} from './styles'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer} from './styles'
 import {ModalText} from '../../style/text'
 import {ActiveInputLabel} from '../../style/labels'
 import {BaseInput} from '../../style/inputs'
 import {CloseIcon, Ellipse} from '../../style/images'
 import {ErrorMessage} from '../../style/messages'
-import {resetErrors} from '../../store/errors/actions/errorAction'
+import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {useSpring} from 'react-spring'
 
 
@@ -25,9 +25,11 @@ const DeleteAccountModal = ({history, setShowConfirmation}) => {
         dispatch(resetErrors())
         const currentPassword = {password}
         const response = await dispatch(deleteUserProfile(currentPassword))
-        if (response.status === 204){
+        if (response.status === 200) {
             dispatch(userLogout())
             history.push('/registration')
+        } else if (response.status === 204) {
+            dispatch(setError({detail: `Entered password doesn't match account password`}))
         }
     }
 
@@ -70,9 +72,9 @@ const DeleteAccountModal = ({history, setShowConfirmation}) => {
                         type='password'
                     />
                 </div>
-                <div>
+                <AddDeleteModalErrorContainer>
                     {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                </div>
+                </AddDeleteModalErrorContainer>
                 <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={cancelButtonHandler}>Cancel</AuthenticatedButtonCancel>
                     <RedLargerButton onClick={() => deleteUserHandler(password.current.value)}>Yes, delete account</RedLargerButton>

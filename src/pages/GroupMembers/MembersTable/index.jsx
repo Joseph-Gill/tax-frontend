@@ -33,7 +33,6 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log('useEffect trigger')
         const listActiveWithOrgAndInvited = async () => {
             const activeResult = [];
             const invitedResult = [];

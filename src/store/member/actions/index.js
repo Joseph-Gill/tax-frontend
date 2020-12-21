@@ -58,3 +58,19 @@ export const addMemberToGroupAction = (memberEmail, groupId) => async (dispatch,
         return catchError(e, dispatch)
     }
 }
+
+export const removeMembersFromGroupAction = (removeData, groupId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        data: removeData,
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.delete(`groups/group/${groupId}/removeusers/`, config)
+    } catch (e) {
+        console.log('Error removing members from a group>', e)
+        return e
+    }
+}

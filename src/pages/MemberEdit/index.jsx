@@ -13,9 +13,9 @@ import {getRolesForProfileGroupAction, updateRolesForProfileGroupAction} from '.
 import {createOrganizationForGroupAction} from '../../store/organization/actions'
 import {MemberEditCancelSaveDeleteButtonContainer} from './styles'
 import SuccessMessage from '../../components/SuccessMessage'
-import DeleteMemberModal from '../../components/DeleteAccountModal/DeleteMemberModal'
 import {getGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
+import RemoveMemberModal from '../../components/DeleteAccountModal/RemoveMemberModal'
 
 
 const MemberEdit = ({history}) => {
@@ -126,8 +126,10 @@ const MemberEdit = ({history}) => {
                             redirect={`${GROUPS}${MEMBERS}`}
                         />}
                     {showConfirmation &&
-                        <DeleteMemberModal
+                        <RemoveMemberModal
+                            activeMembers={[{isChecked: true, email: member.user.email}]}
                             history={history}
+                            invitedMembers={[]}
                             setShowConfirmation={setShowConfirmation}
                         />}
                     <BreadCrumb breadCrumbArray={[

@@ -61,3 +61,8 @@ export const AddDeleteModalButtonContainer = styled.div`
     justify-content: space-between;
     width: 302px;
 `
+
+export const AddDeleteModalErrorContainer = styled.div`
+    height: 10px;
+    margin-bottom: 10px;
+`
