@@ -35,10 +35,10 @@ const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setSh
     const removeButtonHandler = async () => {
         dispatch(resetErrors())
         const membersToRemove = activeMembers.filter(member => member.isChecked)
-        const emailsToRemove = []
-        membersToRemove.forEach(member => emailsToRemove.push(member.email))
+        const invitedToRemove = invitedMembers.filter(member => member.isChecked)
         const removeData = {
             users: membersToRemove,
+            invited_users: invitedToRemove,
             password: password.current.value
         }
         const response = await dispatch(removeMembersFromGroupAction(removeData, group.id))
