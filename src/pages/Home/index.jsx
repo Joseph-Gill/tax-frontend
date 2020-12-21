@@ -5,17 +5,17 @@ import HomeGroup from './HomeGroup'
 import Spinner from '../../components/Spinner'
 import {getProfileAction} from '../../store/profile/actions'
 import {resetGroup} from '../../store/group/actions'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, NoFilterResultsContainer, NoFilterTextContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import {CardTitleText, HomePageText, NoFilterResultText} from '../../style/text'
+import {HomePageText} from '../../style/text'
 import {ProjectAccessContainer} from './styles'
 import {GROUPS, HOME} from '../../routes/paths'
-import noResults from '../../assets/icons/stark_no_filter_results.png'
 import NoContent from '../../components/NoContent'
 import {resetProject} from '../../store/project/actions'
 import HomeFilterDropdown from './HomeFilterDropdown'
 import {resetMember} from '../../store/member/actions'
+import NoFilterResults from '../../components/NoFilterResults'
 
 
 const Home = ({history}) => {
@@ -47,15 +47,7 @@ const Home = ({history}) => {
                 <HomeGroup groupName={pair.groupName} history={history} key={uuidv4()} project={pair.project} />
             ))
         } else {
-            return (
-                <NoFilterResultsContainer>
-                    <img alt='no results' src={noResults} />
-                    <CardTitleText>Sorry, no result found</CardTitleText>
-                    <NoFilterTextContainer>
-                        <NoFilterResultText>What you searched was unfortunately</NoFilterResultText>
-                        <NoFilterResultText>not found or doesn&apos;t exist.</NoFilterResultText>
-                    </NoFilterTextContainer>
-                </NoFilterResultsContainer> )}
+            return <NoFilterResults />}
     }
 
     const createGroupProjectPairing = (groups) => {
