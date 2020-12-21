@@ -37,6 +37,18 @@ const GroupMembers = ({history}) => {
         dispatch(resetMember())
     }, [dispatch])
 
+    const resetAllCheckedChangeFilterMemberStatus = () => {
+        const activeDataCopy = [...activeRenderData]
+        const inviteDataCopy = [...invitedRenderData]
+        for (const member of activeDataCopy) {
+            member.isChecked = false
+        }
+        for (const member of inviteDataCopy) {
+            member.isChecked = false
+        }
+        setFilterMemberStatus(!filterMemberStatus)
+    }
+
     return (
         <AuthenticatedPageContainer>
             {showConfirmation &&
@@ -58,10 +70,10 @@ const GroupMembers = ({history}) => {
                 <MembersStatusToggleContainer>
                     {filterMemberStatus ? (
                         <><WhiteStatusContainer>Active</WhiteStatusContainer>
-                            <GreyStatusText onClick={() => setFilterMemberStatus(!filterMemberStatus)}>Invited</GreyStatusText>
+                            <GreyStatusText onClick={resetAllCheckedChangeFilterMemberStatus}>Invited</GreyStatusText>
                         </>) : (
                             <>
-                                <GreyStatusText onClick={() => setFilterMemberStatus(!filterMemberStatus)}>Active</GreyStatusText>
+                                <GreyStatusText onClick={resetAllCheckedChangeFilterMemberStatus}>Active</GreyStatusText>
                                 <WhiteStatusContainer>Invited</WhiteStatusContainer>
                             </>)}
                 </MembersStatusToggleContainer>

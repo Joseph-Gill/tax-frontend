@@ -128,6 +128,7 @@ const MemberEdit = ({history}) => {
                     {showConfirmation &&
                         <RemoveMemberModal
                             activeMembers={[{isChecked: true, email: member.user.email}]}
+                            group={group}
                             history={history}
                             invitedMembers={[]}
                             setShowConfirmation={setShowConfirmation}
