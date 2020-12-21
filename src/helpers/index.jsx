@@ -9,13 +9,19 @@ export const imageChangeHandler = (e, set) => {
 }
 
 export const allowOnlyOneCheckedBox = (e, initialArray, arraySet) => {
-        const dataCopy = [...initialArray]
-        for (let i = 0; i < dataCopy.length; i++) {
-            if (i === parseInt(e.target.value)) {
-                dataCopy[i].isChecked = !dataCopy[i].isChecked
-            } else {
-                dataCopy[i].isChecked = false
-            }
+    const dataCopy = [...initialArray]
+    for (let i = 0; i < dataCopy.length; i++) {
+        if (i === parseInt(e.target.value)) {
+            dataCopy[i].isChecked = !dataCopy[i].isChecked
+        } else {
+            dataCopy[i].isChecked = false
         }
-        arraySet([...dataCopy])
     }
+    arraySet([...dataCopy])
+}
+
+export const checkBoxChangeHandler = (e, initialArray, arraySet) => {
+    const dataCopy = [...initialArray]
+    dataCopy[e.target.value].isChecked = !dataCopy[e.target.value].isChecked
+    arraySet([...dataCopy])
+}

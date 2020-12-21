@@ -23,6 +23,7 @@ import {NoFilterResultsContainer, NoFilterTextContainer} from '../../../style/co
 import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
 import {v4 as uuidv4} from 'uuid'
 import {CheckBox} from '../../../style/inputs'
+import {checkBoxChangeHandler} from '../../../helpers'
 
 
 const MembersTable = ({filterMemberStatus, group, history, invitedMembers, members, setShowAddMember}) => {
@@ -90,34 +91,13 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
         listActiveWithOrgAndInvited()
     }, [dispatch, group.id, group.projects.length, members, invitedMembers])
 
-    const activeCheckBoxChangeHandler = (e) => {
-        const dataCopy = [...activeRenderData]
-        dataCopy[e.target.value].isChecked = !dataCopy[e.target.value].isChecked
-        setActiveRenderData([...dataCopy])
-    }
-
-    const invitedCheckBoxChangeHandler = (e) => {
-        const dataCopy = [...invitedRenderData]
-        dataCopy[e.target.value].isChecked = !dataCopy[e.target.value].isChecked
-        setInvitedRenderData([...dataCopy])
-    }
-
-    const checkAllActiveMembersHandler = () => {
-        const dataCopy = [...activeRenderData]
+    const checkAllMembersHandler = (array, setArray, status, setStatus) => {
+        const dataCopy = [...array]
         for (const member of dataCopy) {
-            member.isChecked = allActiveStatus
+            member.isChecked = status
         }
-        setActiveRenderData([...dataCopy])
-        setAllActiveStatus(!allActiveStatus)
-    }
-
-    const checkAllInvitedMembersHandler = () => {
-        const dataCopy = [...invitedRenderData]
-        for (const member of dataCopy) {
-            member.isChecked = allInvitedStatus
-        }
-        setInvitedRenderData([...dataCopy])
-        setAllInvitedStatus(!allInvitedStatus)
+        setArray([...dataCopy])
+        setStatus(!status)
     }
 
     const renderActiveMembers = (array) => {
@@ -126,7 +106,7 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
                 <TableDataCheckbox>
                     <CheckBox
                         checked={activeRenderData[index].isChecked}
-                        onChange={(e) => activeCheckBoxChangeHandler(e)}
+                        onChange={(e) => checkBoxChangeHandler(e, activeRenderData, setActiveRenderData)}
                         type='checkbox'
                         value={index}
                     />
@@ -159,7 +139,7 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
                 <TableDataCheckbox>
                     <CheckBox
                         checked={invitedRenderData[index].isChecked}
-                        onChange={(e) => invitedCheckBoxChangeHandler(e)}
+                        onChange={(e) => checkBoxChangeHandler(e, invitedRenderData, setInvitedRenderData)}
                         type='checkbox'
                         value={index}
                     />
@@ -187,7 +167,7 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
                                 <TableDataCheckbox>
                                     <img
                                         alt='checkbox'
-                                        onClick={checkAllActiveMembersHandler}
+                                        onClick={() => checkAllMembersHandler(activeRenderData, setActiveRenderData, allActiveStatus, setAllActiveStatus)}
                                         src={headerCheckbox}
                                     />
                                 </TableDataCheckbox>
@@ -201,7 +181,7 @@ const MembersTable = ({filterMemberStatus, group, history, invitedMembers, membe
                                     <TableDataCheckbox>
                                         <img
                                             alt='checkbox'
-                                            onClick={checkAllInvitedMembersHandler}
+                                            onClick={() => checkAllMembersHandler(invitedRenderData, setInvitedRenderData, allInvitedStatus, setAllInvitedStatus)}
                                             src={headerCheckbox}
                                         />
                                     </TableDataCheckbox>

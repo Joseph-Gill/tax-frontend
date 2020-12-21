@@ -2,15 +2,10 @@ import React from 'react'
 import {CheckBox} from '../../../../style/inputs'
 import {AuthenticatedText} from '../../../../style/text'
 import {AccessProjectListContainer, AccessProjectListLowerContainer, AccessProjectListUpperContainer, ProjectNameCheckboxContainer} from './styles'
+import {checkBoxChangeHandler} from '../../../../helpers'
 
 
 const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupProjects, setAllProjectsChecked}) => {
-    const projectCheckBoxChangeHandler = (e) => {
-        const dataCopy = [...allGroupProjects]
-        dataCopy[e.target.value].isChecked = !dataCopy[e.target.value].isChecked
-        setAllGroupProjects([...dataCopy])
-    }
-
     const checkAllProjectsChangeHandler = () => {
         const dataCopy = [...allGroupProjects]
         dataCopy.forEach(project => {
@@ -25,7 +20,7 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
             <ProjectNameCheckboxContainer key={project.id}>
                 <CheckBox
                     checked={allGroupProjects[index].isChecked}
-                    onChange={(e) => projectCheckBoxChangeHandler(e)}
+                    onChange={(e) => checkBoxChangeHandler(e, allGroupProjects, setAllGroupProjects)}
                     type='checkbox'
                     value={index}
                 />
