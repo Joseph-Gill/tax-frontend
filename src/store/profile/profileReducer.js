@@ -7,7 +7,8 @@ const initialState = {
         organizations: null,
         groups: null,
         assigned_project_roles: null,
-        assigned_task: null
+        assigned_task: null,
+        country: null,
     },
     loaded: false
 }

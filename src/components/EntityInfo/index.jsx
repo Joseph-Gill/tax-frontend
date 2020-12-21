@@ -72,7 +72,6 @@ const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, l
                                     border: '1px solid #D3D8DD',
                                     borderRadius: '4px',
                                     fontFamily: 'Nunito Sans, sans-serif',
-                                    fontWeight: '600'
                                 }}
                                 value={countryName}
                             />

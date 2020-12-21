@@ -14,22 +14,22 @@ export const UserDetailsContainer = styled.div`
 `
 
 export const UserProfileInputContainer = styled.div`
-    height: 134px;
+    height: 196px;
     width: 800px;
     border-bottom: 1px solid ${props => props.theme.grayFour};
     display: grid;
     grid-template-columns: 332px 1fr;
-    grid-template-rows: 60px 1fr 1fr;
+    grid-template-rows: 65px 1fr 1fr;
     margin-top: 20px;
 `
 
 export const UserProfileInputContainerLower = styled.div`
-    height: 145px;
+    height: 72px;
     width: 800px;
     border-bottom: 1px solid ${props => props.theme.grayFour};
     display: grid;
     grid-template-columns: 332px 1fr;
-    grid-template-rows: 42px 1fr;
+    grid-template-rows: 42px 42px 1fr;
     margin-top: 20px;
 `
 
@@ -52,4 +52,13 @@ export const SaveChangesButtonContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
+`
+
+export const UserProfileInputErrorContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+export const UserProfileErrorContainer = styled.div`
+    height: 10px;
 `

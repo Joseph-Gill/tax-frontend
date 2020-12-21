@@ -9,7 +9,7 @@ import {ErrorMessage} from '../../style/messages'
 import PhoneInput from "react-phone-input-2"
 import {AuthenticatedText} from '../../style/text'
 import {GreenLargeButton} from '../../style/buttons'
-import {DeleteAccountText, SaveChangesButtonContainer, UserDetailsContainer, UserProfileFooterContainer, UserProfileInputContainer, UserProfileInputContainerLower} from './styles'
+import {DeleteAccountText, SaveChangesButtonContainer, UserDetailsContainer, UserProfileFooterContainer, UserProfileInputContainer, UserProfileInputContainerLower, UserProfileInputErrorContainer} from './styles'
 import BreadCrumb from '../../components/BreadCrumb'
 import {updateProfileAction} from '../../store/profile/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
@@ -17,6 +17,7 @@ import SuccessMessage from '../../components/SuccessMessage'
 import {HOME, USERPROFILE} from '../../routes/paths'
 import {resetGroup} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
+import {CountryDropdown} from 'react-country-region-selector'
 
 
 const UserProfile = ({history}) => {
@@ -29,7 +30,8 @@ const UserProfile = ({history}) => {
         phone: profile.phone_number,
         email: profile.user.email,
         first_name: profile.user.first_name,
-        last_name: profile.user.last_name
+        last_name: profile.user.last_name,
+        country: profile.country
     })
     let password = useRef('')
     let password_repeat = useRef('')
@@ -45,6 +47,7 @@ const UserProfile = ({history}) => {
             phone_number: profileInfo.phone,
             first_name: profileInfo.first_name,
             last_name: profileInfo.last_name,
+            country: profileInfo.country,
             password: password.current.value,
             password_repeat: password_repeat.current.value
         }
@@ -73,7 +76,7 @@ const UserProfile = ({history}) => {
                 <AuthenticatedPageSectionTitle>Account Information</AuthenticatedPageSectionTitle>
                 <UserProfileInputContainer>
                     <ActiveInputLabel>Firstname</ActiveInputLabel>
-                    <div>
+                    <UserProfileInputErrorContainer>
                         <BaseInput
                             name='first_name'
                             onChange={e => setProfileInfo({...profileInfo, first_name: e.target.value})}
@@ -81,8 +84,9 @@ const UserProfile = ({history}) => {
                             type='text'
                             value={profileInfo.first_name}
                         />
-                    </div>
-                    <div>
+                        {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
+                    </UserProfileInputErrorContainer>
+                    <UserProfileInputErrorContainer>
                         <ActiveInputLabel>Lastname</ActiveInputLabel>
                         <BaseInput
                             name='last_name'
@@ -91,8 +95,9 @@ const UserProfile = ({history}) => {
                             type='text'
                             value={profileInfo.last_name}
                         />
-                    </div>
-                    <div>
+                        {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
+                    </UserProfileInputErrorContainer>
+                    <UserProfileInputErrorContainer>
                         <ActiveInputLabel>Email</ActiveInputLabel>
                         <BaseInput
                             name='email'
@@ -101,8 +106,9 @@ const UserProfile = ({history}) => {
                             type='text'
                             value={profileInfo.email}
                         />
-                    </div>
-                    <div>
+                        {error && <ErrorMessage>{error.email}</ErrorMessage>}
+                    </UserProfileInputErrorContainer>
+                    <UserProfileInputErrorContainer>
                         <ActiveInputLabel>Phone</ActiveInputLabel>
                         <PhoneInput
                             country='ch'
@@ -116,8 +122,25 @@ const UserProfile = ({history}) => {
                             onChange={phone => setProfileInfo({...profileInfo, phone: phone})}
                             value={profileInfo.phone}
                         />
-                    </div>
-                    {error && <ErrorMessage>{error.email}</ErrorMessage>}
+                        {error && <ErrorMessage>{error.phone_number}</ErrorMessage>}
+                    </UserProfileInputErrorContainer>
+                    <CountryDropdown
+                        onChange={(val) => setProfileInfo({...profileInfo, country: val})}
+                        // eslint-disable-next-line react/forbid-component-props
+                        style={{
+                            width: '302px',
+                            height: '42px',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            lineHeight: '19px',
+                            background: '#FAFAFA',
+                            border: '1px solid #D3D8DD',
+                            borderRadius: '4px',
+                            fontFamily: 'Nunito Sans, sans-serif',
+                            paddingLeft: '7px',
+                        }}
+                        value={profileInfo.country}
+                    />
                 </UserProfileInputContainer>
                 <AuthenticatedPageSectionTitle>Change Password</AuthenticatedPageSectionTitle>
                 <UserProfileInputContainerLower>
