@@ -10,6 +10,17 @@ export const PreviousNextStepHeaderContainer = styled.div`
 
 export const ImageTextStepHeaderContainer = styled.div`
     display: flex;
+
+    ${props => {
+        if (props.active) {
+            return `
+                    : hover {
+                        cursor: pointer;
+                    }
+                    `
+            }
+        }
+    };
 `
 
 export const PreviousNextArrowLeft = styled.img`

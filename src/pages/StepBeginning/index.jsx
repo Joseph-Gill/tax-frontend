@@ -1,6 +1,6 @@
 import React from 'react'
 import {AuthenticatedPageContainer} from '../../style/containers'
-import {BEGINNING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
@@ -37,6 +37,7 @@ const StepBeginning = () => {
             <PreviousNextStepHeader
                 next={steps.length ? 1 : 0}
                 previous={0}
+                stepBeginning
             />
             {steps.length ? (
                 <StepPageTitleContainer>
