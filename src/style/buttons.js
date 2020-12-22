@@ -130,9 +130,13 @@ export const DeleteButton = styled(BaseButton)`
     }
 `
 
-
 export const AddEntityButton = styled(BaseButton)`
     width: 129px;
     height: 26px;
     font-size: 12px;
+`
+
+export const AddNewStepButton = styled(BaseButton)`
+    width: 149px;
+    height: 32px;
 `

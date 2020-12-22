@@ -1,6 +1,5 @@
 import React from 'react'
-import styled from 'styled-components/macro'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {AuthenticatedPageContainer} from '../../style/containers'
 import {BEGINNING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useSelector} from 'react-redux'
@@ -8,11 +7,9 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import CurrentOrgChart from '../../components/CurrentOrgChart'
 import StepDisplayFooter from '../../components/StepDisplayFooter'
+import {AddNewStepButton} from '../../style/buttons'
+import {StepPageTitleContainer, StepPageTitleWithButtonContainer} from './styles'
 
-
-const StepPageTitleContainer = styled(AuthenticatedPageTitleContainer)`
-    margin-top: 23px;
-`
 
 const StepBeginning = () => {
     const project = useSelector(state => state.projectReducer.project)
@@ -35,9 +32,14 @@ const StepBeginning = () => {
                 next={steps.length ? 1 : 0}
                 previous={0}
             />
-            <StepPageTitleContainer>
-                <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
-            </StepPageTitleContainer>
+            {steps.length ? (
+                <StepPageTitleContainer>
+                    <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
+                </StepPageTitleContainer> ) : (
+                    <StepPageTitleWithButtonContainer>
+                        <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
+                        <AddNewStepButton>Add New Step</AddNewStepButton>
+                    </StepPageTitleWithButtonContainer>)}
             <CurrentOrgChart componentCalling='StepBeginning' nodes={entities} />
             <StepDisplayFooter />
         </AuthenticatedPageContainer>
