@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
-import {GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {BEGINNING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import noMembers from '../../assets/icons/stark_no_invited_members.jpg'
@@ -14,12 +14,6 @@ import StepCard from './StepCard'
 
 
 const ProjectSteps = ({history}) => {
-    const placeholderStep = {
-        id: 1,
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget malesuada arcu, sed tristique massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget malesuada arcu, sed tristique massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        effective_date: '10 October 2020',
-        status: 'Not Started'
-    }
     const project = useSelector(state => state.projectReducer.project)
     const steps = useSelector(state => state.projectReducer.project.steps)
     const [filterString, setFilterString] = useState('')
@@ -37,7 +31,7 @@ const ProjectSteps = ({history}) => {
             />
             <DisplayTitleWithButtonContainer>
                 <AuthenticatedPageTitle>{project.name} - Steps</AuthenticatedPageTitle>
-                <BeginningStructureButton>Beginning Structure</BeginningStructureButton>
+                <BeginningStructureButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)}>Beginning Structure</BeginningStructureButton>
             </DisplayTitleWithButtonContainer>
             <StatusLegendFilterDropdownContainer>
                 <StepStatusLegendContainer>
@@ -46,14 +40,14 @@ const ProjectSteps = ({history}) => {
                 </StepStatusLegendContainer>
                 <StepFilterDropdown filterString={filterString} setFilterString={setFilterString} />
             </StatusLegendFilterDropdownContainer>
-            {/*{!steps.length ? (*/}
-            {/*    <NoStepsContainer>*/}
-            {/*        <img alt='no members' src={noMembers} />*/}
-            {/*        <CardTitleText>Your project has no steps yet</CardTitleText>*/}
-            {/*        <NoStepsButton>Add step</NoStepsButton>*/}
-            {/*    </NoStepsContainer>*/}
-            {/*) : null}*/}
-            <StepCard history={history} number={1} project={project} step={placeholderStep} />
+            {!steps.length ? (
+                <NoStepsContainer>
+                    <img alt='no members' src={noMembers} />
+                    <CardTitleText>Your project has no steps yet</CardTitleText>
+                    <NoStepsButton>Add step</NoStepsButton>
+                </NoStepsContainer>
+            ) : null}
+            {/*<StepCard history={history} number={1} project={project} step={placeholderStep} />*/}
         </AuthenticatedPageContainer>
     )
 }

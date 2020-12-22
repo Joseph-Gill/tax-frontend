@@ -19,7 +19,7 @@ import {
     EDIT_MEMBER,
     TASKS,
     ADD_TASK,
-    STEPS
+    STEPS, BEGINNING
 } from './paths'
 import WithAuth from '../HOC/withAuth'
 import SideBar from '../components/SideBar'
@@ -45,6 +45,7 @@ import MemberEdit from '../pages/MemberEdit'
 import ProjectTasks from '../pages/ProjectTasks'
 import TaskAdd from '../pages/TaskAdd'
 import ProjectSteps from '../pages/ProjectSteps'
+import StepBeginning from '../pages/StepBeginning'
 
 
 const Routes = () => {
@@ -69,6 +70,7 @@ const Routes = () => {
                     <Route component={WithAuth(ProjectEdit)} exact path={`${GROUPS}${PROJECTS}${EDIT_PROJECT}`} />
                     <Route component={WithAuth(TaskAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_TASK}`} />
                     <Route component={WithAuth(ProjectSteps)} exact path={`${GROUPS}${PROJECTS}${STEPS}`} />
+                    <Route component={WithAuth(StepBeginning)} exact path={`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`} />
                     <Route component={WithAuth(ProjectTasks)} path={`${GROUPS}${PROJECTS}${TASKS}/:projectId/`} />
                     <Route component={WithAuth(MemberEdit)} path={`${GROUPS}${MEMBERS}${EDIT_MEMBER}/:memberId/`} />
                     <Route component={WithAuth(ProjectDisplay)} path={`${GROUPS}${PROJECTS}/:projectId/`} />

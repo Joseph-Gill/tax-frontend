@@ -24,6 +24,9 @@ export const TASKS = '/tasks'
 export const ADD_TASK = '/add-task'
 // Steps
 export const STEPS = '/steps'
+export const DISPLAY_STEP = '/display-step'
+export const BEGINNING = '/beginning'
+export const ENDING = '/ending'
 // Charts
 export const ORG_CHART = '/orgchart'
 export const CHART = '/chart'
