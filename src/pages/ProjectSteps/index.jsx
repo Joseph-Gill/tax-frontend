@@ -16,15 +16,13 @@ import StepCard from './StepCard'
 const ProjectSteps = ({history}) => {
     const placeholderStep = {
         id: 1,
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget malesuada arcu, sed tristique massa.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget malesuada arcu, sed tristique massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget malesuada arcu, sed tristique massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         effective_date: '10 October 2020',
         status: 'Not Started'
     }
     const project = useSelector(state => state.projectReducer.project)
     const steps = useSelector(state => state.projectReducer.project.steps)
     const [filterString, setFilterString] = useState('')
-
-
 
     return (
         <AuthenticatedPageContainer>

@@ -23,7 +23,7 @@ const ProjectTasks = ({history}) => {
         if (!loaded) {
             dispatch(getProjectAction(match.params.projectId))
         }
-    }, [match.params.projectId])
+    }, [match.params.projectId, loaded, dispatch])
 
     return (
         <AuthenticatedPageContainer>

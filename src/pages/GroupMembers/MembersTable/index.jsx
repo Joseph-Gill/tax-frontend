@@ -19,7 +19,7 @@ import {
 import noMembers from '../../../assets/icons/stark_no_invited_members.jpg'
 import rightChevron from '../../../assets/icons/stark_right_chevron.png'
 import {CardTitleText, NoFilterResultText} from '../../../style/text'
-import {NoFilterResultsContainer, NoFilterTextContainer} from '../../../style/containers'
+import {NoFilterTextContainer} from '../../../style/containers'
 import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
 import {v4 as uuidv4} from 'uuid'
 import {CheckBox} from '../../../style/inputs'

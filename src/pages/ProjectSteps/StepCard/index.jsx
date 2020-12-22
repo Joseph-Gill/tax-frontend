@@ -3,7 +3,7 @@ import {useSpring} from 'react-spring'
 import {CardInfoText} from '../../../style/text'
 import {DateText} from '../../Home/HomeGroup/ExpandedGroup/styles'
 import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
-import {StepCardButton, StepCardContainer, StepCardRowContainer, StepCardStatusColorContainer, StepCardStatusColorStepNumberContainer, StepCardTitleText} from './styles'
+import {StepCardButton, StepCardContainer, StepCardDescripionContainer, StepCardRowContainer, StepCardStatusColorContainer, StepCardStatusColorStepNumberContainer, StepCardTitleText} from './styles'
 
 
 const StepCard = ({history, number, project, step}) => {
@@ -23,7 +23,9 @@ const StepCard = ({history, number, project, step}) => {
                 <DateText>{step.effective_date}</DateText>
             </StepCardRowContainer>
             <StepCardRowContainer>
-                <CardInfoText>{step.description}</CardInfoText>
+                <StepCardDescripionContainer>
+                    <CardInfoText>{step.description.length > 170 ? step.description.slice(0, 170).concat('... ') : project.description}</CardInfoText>
+                </StepCardDescripionContainer>
                 <StepCardButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Tasks</StepCardButton>
             </StepCardRowContainer>
         </StepCardContainer>

@@ -36,6 +36,10 @@ export const StepCardButton = styled(TableButton)`
     height: 26px;
 `
 
+export const StepCardDescripionContainer = styled.div`
+    width: 569px;
+`
+
 export const StepCardStatusColorContainer = styled.div`
     height: 11px;
     width: 11px;
