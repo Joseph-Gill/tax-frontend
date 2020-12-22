@@ -41,7 +41,7 @@ const StepBeginning = () => {
                         <AddNewStepButton>Add New Step</AddNewStepButton>
                     </StepPageTitleWithButtonContainer>)}
             <CurrentOrgChart componentCalling='StepBeginning' nodes={entities} />
-            <StepDisplayFooter />
+            <StepDisplayFooter steps={steps} />
         </AuthenticatedPageContainer>
     )
 }
