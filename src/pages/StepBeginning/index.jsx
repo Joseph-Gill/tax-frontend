@@ -5,6 +5,7 @@ import {BEGINNING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
+import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 
 
 const StepBeginning = () => {
@@ -22,6 +23,10 @@ const StepBeginning = () => {
                     {display: 'STEPS', to: `${GROUPS}${PROJECTS}${STEPS}`, active: false},
                     {display: 'BEGINNING', to: `${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`, active: true},
                 ]}
+            />
+            <PreviousNextStepHeader
+                next={1}
+                previous={0}
             />
             <AuthenticatedPageTitleContainer>
                 <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
