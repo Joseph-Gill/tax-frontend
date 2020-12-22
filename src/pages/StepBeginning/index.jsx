@@ -6,11 +6,17 @@ import BreadCrumb from '../../components/BreadCrumb'
 import {useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
+import CurrentOrgChart from '../../components/CurrentOrgChart'
 
+
+const StepPageTitleContainer = styled(AuthenticatedPageTitleContainer)`
+    margin-top: 23px;
+`
 
 const StepBeginning = () => {
     const project = useSelector(state => state.projectReducer.project)
     const steps = useSelector(state => state.projectReducer.project.steps)
+    const entities = useSelector(state => state.groupReducer.group.entities)
 
     return (
         <AuthenticatedPageContainer>
@@ -25,12 +31,13 @@ const StepBeginning = () => {
                 ]}
             />
             <PreviousNextStepHeader
-                next={1}
+                next={steps.length ? 1 : 0}
                 previous={0}
             />
-            <AuthenticatedPageTitleContainer>
+            <StepPageTitleContainer>
                 <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
-            </AuthenticatedPageTitleContainer>
+            </StepPageTitleContainer>
+            <CurrentOrgChart componentCalling='StepBeginning' nodes={entities} />
         </AuthenticatedPageContainer>
     )
 }

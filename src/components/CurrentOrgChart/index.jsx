@@ -11,8 +11,12 @@ const OrgChartContainer = styled.div`
     box-shadow: ${props => props.theme.boxShadow};
 `
 
+const BeginningOrgChartContainer = styled(OrgChartContainer)`
+    height: 437px;
+`
 
-const CurrentOrgChart = ({nodes}) => {
+
+const CurrentOrgChart = ({componentCalling, nodes}) => {
     const divRef = React.createRef()
 
     useEffect(() => {
@@ -48,7 +52,10 @@ const CurrentOrgChart = ({nodes}) => {
     })
 
     return (
-        <OrgChartContainer id="tree" ref={divRef} />
+        <>
+            {componentCalling === 'StepBeginning' ?
+                <BeginningOrgChartContainer id="tree" ref={divRef} /> : <OrgChartContainer id="tree" ref={divRef} />}
+        </>
     )
 }
 
