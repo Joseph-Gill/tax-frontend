@@ -5,7 +5,7 @@ import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
 import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
 
 
-const TasksCard = ({history, steps}) => {
+const TasksCard = ({history, project, steps}) => {
     return (
         <ProjectDisplayInfoBox>
             <AddEditProjectSectionTitles>Tasks</AddEditProjectSectionTitles>
@@ -23,7 +23,7 @@ const TasksCard = ({history, steps}) => {
                     <ProjectDisplayColorText status='Not Started'>Not Started</ProjectDisplayColorText>
                 </ProjectDisplayColorTextContainer>
             </ProjectDisplayStatusesContainer>
-            <ViewItemLinkContainer onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}`)}>
+            <ViewItemLinkContainer onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>
                 <ViewItemLink>View Tasks</ViewItemLink>
                 <img alt="tasks" src={rightArrow} />
             </ViewItemLinkContainer>

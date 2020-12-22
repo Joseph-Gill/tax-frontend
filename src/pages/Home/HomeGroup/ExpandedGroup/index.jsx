@@ -4,9 +4,10 @@ import {AccountInfoContainer, CommentsContainer, DateText, ExpandedGroupContaine
 import PendingComments from './PendingComments'
 import PendingTasks from './UpcomingTasks'
 import {TableButton} from '../../../../style/buttons'
+import {GROUPS, PROJECTS, TASKS} from '../../../../routes/paths'
 
 
-const ExpandedGroup = ({group}) => {
+const ExpandedGroup = ({history, project}) => {
 
     return (
         <ExpandedGroupContainer>
@@ -26,7 +27,7 @@ const ExpandedGroup = ({group}) => {
                 <GroupSectionTitle>Upcoming Tasks</GroupSectionTitle>
                 <PendingTasks />
                 <TaskButtonContainer>
-                    <TaskTableButton>Go to tasklist</TaskTableButton>
+                    <TaskTableButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Go to tasklist</TaskTableButton>
                 </TaskButtonContainer>
             </TaskContainer>
         </ExpandedGroupContainer>

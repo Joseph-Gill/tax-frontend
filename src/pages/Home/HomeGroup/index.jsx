@@ -29,7 +29,7 @@ const HomeGroup = ({groupName, history, project}) => {
             <MiddleRowContainer>
                 <ProjectTitle>{`Project: ${project.name}`}</ProjectTitle>
             </MiddleRowContainer>
-            {expandStatus ? <ExpandedGroup /> : null}
+            {expandStatus ? <ExpandedGroup history={history} project={project} /> : null}
             <BottomRowContainer>
                 <HomeGroupButton onClick={() => history.push(`${GROUPS}${PROJECTS}/${project.id}/`)}>Go to Project</HomeGroupButton>
                 <OpenComments number={2} />

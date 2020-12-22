@@ -1,6 +1,26 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE, GROUPS, ORG_CHART, PROJECTS, MEMBERS, ADD_PROJECT, EDIT_PROJECT, EDIT_GROUP, ADD_GROUP, EDIT_MEMBER, TASKS, ADD_TASK} from './paths'
+import {
+    HOME,
+    LOGIN,
+    PASSWORD_RESET,
+    PASSWORD_RESET_VALIDATION,
+    REGISTRATION,
+    REGISTRATION_VALIDATION,
+    USERPROFILE,
+    GROUPS,
+    ORG_CHART,
+    PROJECTS,
+    MEMBERS,
+    ADD_PROJECT,
+    EDIT_PROJECT,
+    EDIT_GROUP,
+    ADD_GROUP,
+    EDIT_MEMBER,
+    TASKS,
+    ADD_TASK,
+    STEPS
+} from './paths'
 import WithAuth from '../HOC/withAuth'
 import SideBar from '../components/SideBar'
 import UserProfile from '../pages/UserProfile'
@@ -24,6 +44,7 @@ import ProjectDisplay from '../pages/ProjectDisplay'
 import MemberEdit from '../pages/MemberEdit'
 import ProjectTasks from '../pages/ProjectTasks'
 import TaskAdd from '../pages/TaskAdd'
+import ProjectSteps from '../pages/ProjectSteps'
 
 
 const Routes = () => {
@@ -46,8 +67,9 @@ const Routes = () => {
                     <Route component={WithAuth(GroupMembers)} exact path={`${GROUPS}${MEMBERS}`} />
                     <Route component={WithAuth(ProjectAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} />
                     <Route component={WithAuth(ProjectEdit)} exact path={`${GROUPS}${PROJECTS}${EDIT_PROJECT}`} />
-                    <Route component={WithAuth(ProjectTasks)} exact path={`${GROUPS}${PROJECTS}${TASKS}`} />
                     <Route component={WithAuth(TaskAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_TASK}`} />
+                    <Route component={WithAuth(ProjectSteps)} exact path={`${GROUPS}${PROJECTS}${STEPS}`} />
+                    <Route component={WithAuth(ProjectTasks)} path={`${GROUPS}${PROJECTS}${TASKS}/:projectId/`} />
                     <Route component={WithAuth(MemberEdit)} path={`${GROUPS}${MEMBERS}${EDIT_MEMBER}/:memberId/`} />
                     <Route component={WithAuth(ProjectDisplay)} path={`${GROUPS}${PROJECTS}/:projectId/`} />
                     <Route component={WithAuth(GroupDisplay)} path={`${GROUPS}/:groupId/`} />

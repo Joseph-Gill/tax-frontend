@@ -28,6 +28,7 @@ const Home = ({history}) => {
     useEffect(() => {
         (async function getProfileCreateParing() {
             setLoading(true)
+            dispatch(resetProject())
             dispatch(resetGroup())
             dispatch(resetProject())
             dispatch(resetMember())
