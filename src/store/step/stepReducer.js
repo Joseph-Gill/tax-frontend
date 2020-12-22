@@ -1,4 +1,4 @@
-import {DECREMENT_STEP_TO_VIEW, INCREMENT_STEP_TO_VIEW, RESET_STEP_TO_VIEW} from './types'
+import {DECREMENT_STEP_TO_VIEW, INCREMENT_STEP_TO_VIEW, RESET_STEP_TO_VIEW, SKIP_TO_SPECIFIED_STEP} from './types'
 
 
 const initialState = {
@@ -20,6 +20,11 @@ export const stepReducer = (state = initialState, action) => {
         case RESET_STEP_TO_VIEW: {
             return {
                 indexOfCurrentStepToDisplay: 0
+            }
+        }
+        case SKIP_TO_SPECIFIED_STEP: {
+            return {
+                indexOfCurrentStepToDisplay: action.payload
             }
         }
         default:

@@ -1,6 +1,6 @@
 import React from 'react'
 import {AuthenticatedPageContainer} from '../../style/containers'
-import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {BEGINNING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'

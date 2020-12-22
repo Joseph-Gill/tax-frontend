@@ -1,4 +1,4 @@
-import {DECREMENT_STEP_TO_VIEW, INCREMENT_STEP_TO_VIEW, RESET_STEP_TO_VIEW} from '../types'
+import {DECREMENT_STEP_TO_VIEW, INCREMENT_STEP_TO_VIEW, RESET_STEP_TO_VIEW, SKIP_TO_SPECIFIED_STEP} from '../types'
 
 
 export const incrementStepToView = () => {
@@ -16,5 +16,12 @@ export const decrementStepToView = () => {
 export const resetStepToView = () => {
     return {
         type: RESET_STEP_TO_VIEW
+    }
+}
+
+export const skipToSpecifiedStep = stepNum => {
+    return {
+        type: SKIP_TO_SPECIFIED_STEP,
+        payload: stepNum
     }
 }
