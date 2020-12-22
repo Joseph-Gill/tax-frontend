@@ -60,7 +60,7 @@ const ProjectTasks = ({history}) => {
                             {display: `GROUP ${project.group.name.toUpperCase()}`, to: `${GROUPS}/${project.group.id}`, active: false},
                             {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`, active: false},
                             {display: `PROJECT ${project.name.toUpperCase()}`, to: `${GROUPS}${PROJECTS}/${project.id}`, active: false},
-                            {display: 'TASKS', to: `${GROUPS}${PROJECTS}${TASKS}`, active: true}
+                            {display: 'TASKS', to: `${GROUPS}${PROJECTS}${TASKS}/${project.id}/`, active: true}
                         ]}
                     />
                     <DisplayTitleWithButtonContainer>

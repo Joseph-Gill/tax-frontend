@@ -2,9 +2,10 @@ import React from 'react'
 import {AddEditProjectSectionTitles} from '../../../style/titles'
 import {ProjectDisplayColorText, ProjectDisplayColorTextBackground, ProjectDisplayColorTextContainer, ProjectDisplayInfoBox, ProjectDisplayStatusesContainer, ViewItemLink, ViewItemLinkContainer} from '../styles'
 import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
+import {GROUPS, PROJECTS, STEPS} from '../../../routes/paths'
 
 
-const StepsCard = ({steps}) => {
+const StepsCard = ({history, steps}) => {
     return (
         <ProjectDisplayInfoBox>
             <AddEditProjectSectionTitles>Steps</AddEditProjectSectionTitles>
@@ -23,7 +24,7 @@ const StepsCard = ({steps}) => {
                 </ProjectDisplayColorTextContainer>
             </ProjectDisplayStatusesContainer>
             <ViewItemLinkContainer>
-                <ViewItemLink>View Steps</ViewItemLink>
+                <ViewItemLink onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}`)}>View Steps</ViewItemLink>
                 <img alt="tasks" src={rightArrow} />
             </ViewItemLinkContainer>
         </ProjectDisplayInfoBox>
