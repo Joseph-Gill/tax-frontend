@@ -14,21 +14,11 @@ import {LOGIN} from '../../routes/paths'
 import LoginFooter from '../../components/LoginFooter'
 import {LoginLogo} from '../../style/logos'
 import {LogoPlaceholder} from '../../style'
-import styled from 'styled-components/macro'
 import {EmailInputLabel, ActiveInputLabel} from '../../style/labels'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-
-
-const NameInputContainer = styled.div`
-    display: flex;
-    width: 302px;
-    justify-content: space-between;
-`
-
-const NameInputErrorMessageContainer = styled(NameInputContainer)`
-    height: 10px;
-`
+import {CountryDropdown} from 'react-country-region-selector'
+import {NameErrorMessageContainer, NameInputContainer} from './styles'
 
 
 const RegistrationValidation = () => {
@@ -40,6 +30,7 @@ const RegistrationValidation = () => {
     let last_name = useRef('')
     const [showSuccess, setShowSuccess] = useState(false)
     const [phoneNumber, setPhoneNumber] = useState('')
+    const [countryName, setCountryName] = useState('')
     const error = useSelector(state => state.errorReducer.error)
     const dispatch = useDispatch()
     useResetErrors()
@@ -89,11 +80,13 @@ const RegistrationValidation = () => {
                             type='text'
                         />
                     </div>
+                    <NameErrorMessageContainer>
+                        {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
+                    </NameErrorMessageContainer>
+                    <NameErrorMessageContainer>
+                        {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
+                    </NameErrorMessageContainer>
                 </NameInputContainer>
-                <NameInputErrorMessageContainer>
-                    {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
-                    {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
-                </NameInputErrorMessageContainer>
                 <div>
                     <EmailInputLabel>Email</EmailInputLabel>
                     <BaseInput
@@ -118,10 +111,10 @@ const RegistrationValidation = () => {
                         onChange={phone => setPhoneNumber(phone)}
                         value={phoneNumber}
                     />
+                    <ErrorMessageContainer>
+                        {error && <ErrorMessage>{error.phone_number}</ErrorMessage>}
+                    </ErrorMessageContainer>
                 </div>
-                <ErrorMessageContainer>
-                    {error && <ErrorMessage>{error.password}</ErrorMessage>}
-                </ErrorMessageContainer>
                 <div>
                     <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput
@@ -130,21 +123,43 @@ const RegistrationValidation = () => {
                         ref={password}
                         type='password'
                     />
+                    <ErrorMessageContainer>
+                        {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                    </ErrorMessageContainer>
                 </div>
-                <ErrorMessageContainer>
-                    {error && <ErrorMessage>{error.password}</ErrorMessage>}
-                </ErrorMessageContainer>
                 <div>
-                    <ActiveInputLabel>Password</ActiveInputLabel>
+                    <ActiveInputLabel>Password Repeat</ActiveInputLabel>
                     <BaseInput
                         name='password_repeat'
                         placeholder='Retype new password'
                         ref={password_repeat}
                         type='password'
                     />
+                    <ErrorMessageContainer>
+                        {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
+                    </ErrorMessageContainer>
+                </div>
+                <div>
+                    <ActiveInputLabel>Country</ActiveInputLabel>
+                    <CountryDropdown
+                        onChange={(val) => setCountryName(val)}
+                        // eslint-disable-next-line react/forbid-component-props
+                        style={{
+                            width: '302px',
+                            height: '42px',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            lineHeight: '19px',
+                            background: '#FAFAFA',
+                            border: '1px solid #D3D8DD',
+                            borderRadius: '4px',
+                            fontFamily: 'Nunito Sans, sans-serif',
+                            paddingLeft: '7px',
+                        }}
+                        value={countryName}
+                    />
                 </div>
                 <ErrorMessageContainer>
-                    {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
                     {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
                     {error && <ErrorMessage>{error.detail}</ErrorMessage>}
                 </ErrorMessageContainer>

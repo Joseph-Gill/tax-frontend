@@ -50,7 +50,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                         organization: response.name,
                         project_role: project_roles.length ? project_roles[0].role : 'Unassigned',
                         project_access: !group_projects ? 'Group has no Projects' : project_roles.length === group_projects ? 'All' : 'Limited',
-                        country: 'N/A',
+                        country: member.country ? member.country : 'N/A',
                         isChecked: false,
                         updated: member.updated
                     }
@@ -65,7 +65,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                         organization: 'Unassigned',
                         project_role: project_roles.length ? project_roles[0].role : 'Unassigned',
                         project_access: !group_projects ? 'Group has no Projects' : project_roles.length === group_projects ? 'All' : 'Limited',
-                        country: 'N/A',
+                        country: member.country ? member.country : 'N/A',
                         isChecked: false,
                         updated: member.updated
                     }

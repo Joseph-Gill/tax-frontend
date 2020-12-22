@@ -34,4 +34,5 @@ export const EditProfileForm = styled(FormBase)`
 
 export const RegistrationValidationForm = styled(FormBase)`
     height: 500px;
+    justify-content: space-between;
 `

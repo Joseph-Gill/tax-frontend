@@ -26,6 +26,7 @@ const AddMemberModal = ({groupId, setShowAddMember}) => {
         const newUserEmail = {
             email: email.current.value}
         const response = await dispatch(addMemberToGroupAction(newUserEmail, groupId))
+        console.log(response)
         if (response.status === 201) {
             setShowAddMember(false)
         }
