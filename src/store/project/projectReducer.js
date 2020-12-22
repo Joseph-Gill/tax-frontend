@@ -8,7 +8,7 @@ const initialState = {
         start_date: null,
         end_date: null,
         status: null,
-        steps: null,
+        steps: [],
         group: null,
         assigned_users_roles: null
     },
@@ -34,7 +34,7 @@ export const projectReducer = (state = initialState, action) => {
                     start_date: null,
                     end_date: null,
                     status: null,
-                    steps: null,
+                    steps: [],
                     group: null,
                     assigned_users_roles: null
                 },
