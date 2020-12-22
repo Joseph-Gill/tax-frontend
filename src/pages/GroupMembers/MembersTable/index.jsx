@@ -10,7 +10,7 @@ import {
     GroupMembersTableContainer,
     NewMemberGreenText,
     NewMemberYellowText,
-    NoInvitedMembersButton,
+    NoInvitedMembersButton, NoInvitedMembersContainer,
     RoleFieldChevron,
     RoleFieldText,
     RoleTextImageContainer,
@@ -205,7 +205,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                                     <TableHeader>Country</TableHeader>
                                     <TableHeader>Status</TableHeader>
                                 </TableTitleRow>) : (
-                                    <NoFilterResultsContainer>
+                                    <NoInvitedMembersContainer>
                                         <img alt='no members' src={noMembers} />
                                         <CardTitleText>No pending Invites</CardTitleText>
                                         <NoFilterTextContainer>
@@ -213,7 +213,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                                             <NoFilterResultText>your team members.</NoFilterResultText>
                                         </NoFilterTextContainer>
                                         <NoInvitedMembersButton onClick={() => setShowAddMember(true)}>Add team member</NoInvitedMembersButton>
-                                    </NoFilterResultsContainer>)}
+                                    </NoInvitedMembersContainer>)}
                     </thead>
                     <tbody>
                         {filterMemberStatus ?

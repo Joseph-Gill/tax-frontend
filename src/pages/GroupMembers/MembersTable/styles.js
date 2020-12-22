@@ -2,6 +2,7 @@ import styled from 'styled-components/macro'
 import {TableData} from '../../../style/tables'
 import {CardInfoText} from '../../../style/text'
 import {BaseButton} from '../../../style/buttons'
+import {NoFilterResultsContainer} from '../../../style/containers'
 
 
 export const TableDataCheckbox = styled(TableData)`
@@ -90,4 +91,8 @@ export const RoleFieldChevron = styled.img`
     :hover {
         cursor: pointer;
     }
+`
+
+export const NoInvitedMembersContainer = styled(NoFilterResultsContainer)`
+    height: 370px;
 `
