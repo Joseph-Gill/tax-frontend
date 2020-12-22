@@ -1,41 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import styled from 'styled-components/macro'
-import {BaseButton} from '../../style/buttons'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {ADD_TASK, GROUPS, PROJECTS, TASKS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import StatusLegendEntry from './StatusLegendEntry'
 import TaskFilterDropdown from './TasksFilterDropdown'
 import {getProjectAction} from '../../store/project/actions'
 import {useRouteMatch} from 'react-router-dom'
 import Spinner from '../../components/Spinner'
+import TaskStatusLegendEntry from './TaskStatusLegendEntry'
+import {AddTaskButton, StatusLegendFilterDropdownContainer, TaskStatusLegendContainer} from './styles'
 
-
-const AddTaskButton = styled(BaseButton)`
-    width: 109px;
-    height: 32px;
-`
-
-const StatusLegendFilterDropdownContainer = styled.div`
-    width: 860px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-`
-
-const StatusLegendContainer = styled.div`
-    width: 405px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px 0 20px;
-    border-radius: ${props => props.theme.borderRadius};
-    background: ${props => props.theme.white};
-`
 
 const ProjectTasks = ({history}) => {
     const dispatch = useDispatch()
@@ -68,11 +43,11 @@ const ProjectTasks = ({history}) => {
                         <AddTaskButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_TASK}`)}>Add Task</AddTaskButton>
                     </DisplayTitleWithButtonContainer>
                     <StatusLegendFilterDropdownContainer>
-                        <StatusLegendContainer>
-                            <StatusLegendEntry status='Ongoing / Planned' />
-                            <StatusLegendEntry status='Completed' />
-                            <StatusLegendEntry status='Not Started' />
-                        </StatusLegendContainer>
+                        <TaskStatusLegendContainer>
+                            <TaskStatusLegendEntry status='Ongoing / Planned' />
+                            <TaskStatusLegendEntry status='Completed' />
+                            <TaskStatusLegendEntry status='Not Started' />
+                        </TaskStatusLegendContainer>
                         <TaskFilterDropdown
                             filterString={filterString}
                             setFilterString={setFilterString}

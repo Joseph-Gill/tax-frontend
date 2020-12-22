@@ -222,6 +222,21 @@ export const NoFilterTextContainer = styled.div`
     align-items: center;
 `
 
+export const StatusEntryContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const StatusLegendContainer = styled.div`
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px 0 20px;
+    border-radius: ${props => props.theme.borderRadius};
+    background: ${props => props.theme.white};
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

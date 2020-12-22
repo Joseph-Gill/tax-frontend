@@ -88,3 +88,11 @@ export const BlueDropdownText = styled(DefaultDropdownText)`
 export const NoFilterResultText = styled(CardInfoText)`
     color: ${props => props.theme.grayTwo}
 `
+
+export const StatusEntryText = styled.p`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: ${props => props.theme.grayTwo};
+`

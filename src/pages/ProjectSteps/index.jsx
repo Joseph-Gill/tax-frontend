@@ -1,34 +1,21 @@
-import React from 'react'
-import styled from 'styled-components/macro'
-import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilterResultsContainer} from '../../style/containers'
+import React, {useState} from 'react'
+import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import {GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import {BaseButton} from '../../style/buttons'
 import noMembers from '../../assets/icons/stark_no_invited_members.jpg'
 import {CardTitleText} from '../../style/text'
-
-
-const BeginningStructureButton = styled(BaseButton)`
-    width: 180px;
-    height: 32px;
-`
-
-const NoStepsContainer = styled(NoFilterResultsContainer)`
-    margin-top: 21px;
-`
-
-const NoStepsButton = styled(BaseButton)`
-    width: 108px;
-    height: 32px;
-    margin-top: 25px;
-`
+import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
+import StepStatusLegendEntry from './StepStatusLegendEntry'
+import {BeginningStructureButton, NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styles'
+import StepFilterDropdown from './StepsFilterDropdown'
 
 
 const ProjectSteps = () => {
     const project = useSelector(state => state.projectReducer.project)
     const steps = useSelector(state => state.projectReducer.project.steps)
+    const [filterString, setFilterString] = useState('')
     return (
         <AuthenticatedPageContainer>
             <BreadCrumb
@@ -44,6 +31,13 @@ const ProjectSteps = () => {
                 <AuthenticatedPageTitle>{project.name} - Steps</AuthenticatedPageTitle>
                 <BeginningStructureButton>Beginning Structure</BeginningStructureButton>
             </DisplayTitleWithButtonContainer>
+            <StatusLegendFilterDropdownContainer>
+                <StepStatusLegendContainer>
+                    <StepStatusLegendEntry status='Ongoing / Not Started' />
+                    <StepStatusLegendEntry status='Completed' />
+                </StepStatusLegendContainer>
+                <StepFilterDropdown filterString={filterString} setFilterString={setFilterString} />
+            </StatusLegendFilterDropdownContainer>
             {!steps.length ? (
                 <NoStepsContainer>
                     <img alt='no members' src={noMembers} />
