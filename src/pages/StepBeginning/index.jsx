@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import CurrentOrgChart from '../../components/CurrentOrgChart'
+import StepDisplayFooter from '../../components/StepDisplayFooter'
 
 
 const StepPageTitleContainer = styled(AuthenticatedPageTitleContainer)`
@@ -38,6 +39,7 @@ const StepBeginning = () => {
                 <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
             </StepPageTitleContainer>
             <CurrentOrgChart componentCalling='StepBeginning' nodes={entities} />
+            <StepDisplayFooter />
         </AuthenticatedPageContainer>
     )
 }
