@@ -69,8 +69,8 @@ const Routes = () => {
                     <Route component={WithAuth(ProjectAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} />
                     <Route component={WithAuth(ProjectEdit)} exact path={`${GROUPS}${PROJECTS}${EDIT_PROJECT}`} />
                     <Route component={WithAuth(TaskAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_TASK}`} />
-                    <Route component={WithAuth(ProjectSteps)} exact path={`${GROUPS}${PROJECTS}${STEPS}`} />
                     <Route component={WithAuth(StepBeginning)} exact path={`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`} />
+                    <Route component={WithAuth(ProjectSteps)} path={`${GROUPS}${PROJECTS}${STEPS}/:projectId/`} />
                     <Route component={WithAuth(ProjectTasks)} path={`${GROUPS}${PROJECTS}${TASKS}/:projectId/`} />
                     <Route component={WithAuth(MemberEdit)} path={`${GROUPS}${MEMBERS}${EDIT_MEMBER}/:memberId/`} />
                     <Route component={WithAuth(ProjectDisplay)} path={`${GROUPS}${PROJECTS}/:projectId/`} />

@@ -1,4 +1,4 @@
-import {GET_PROJECT, RESET_PROJECT} from './types'
+import {ADD_NEW_STEP, GET_PROJECT, RESET_PROJECT} from './types'
 
 
 const initialState = {
@@ -39,6 +39,23 @@ export const projectReducer = (state = initialState, action) => {
                     assigned_users_roles: null
                 },
                 loaded: false
+            }
+        }
+        case ADD_NEW_STEP: {
+            return {
+                project: {
+                    ...state.project,
+                    steps: [...state.project.steps, {
+                        id: null,
+                        description: null,
+                        effective_date: null,
+                        status: null,
+                        chart: null,
+                        tax_consequences: [],
+                        tasks: []
+                    }]
+                },
+                loaded: true
             }
         }
         default:

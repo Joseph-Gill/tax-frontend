@@ -1,5 +1,5 @@
 import Axios from '../../../axios'
-import {GET_PROJECT, RESET_PROJECT} from '../types'
+import {ADD_NEW_STEP, GET_PROJECT, RESET_PROJECT} from '../types'
 import {getGroupAction} from '../../group/actions'
 
 
@@ -13,6 +13,12 @@ export const getProject = data => {
 export const resetProject = () => {
     return {
         type: RESET_PROJECT
+    }
+}
+
+export const addNewStepToProject = () => {
+    return {
+        type: ADD_NEW_STEP
     }
 }
 
