@@ -10,12 +10,22 @@ import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
 import StepStatusLegendEntry from './StepStatusLegendEntry'
 import {BeginningStructureButton, NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styles'
 import StepFilterDropdown from './StepsFilterDropdown'
+import StepCard from './StepCard'
 
 
-const ProjectSteps = () => {
+const ProjectSteps = ({history}) => {
+    const placeholderStep = {
+        id: 1,
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget malesuada arcu, sed tristique massa.',
+        effective_date: '10 October 2020',
+        status: 'Not Started'
+    }
     const project = useSelector(state => state.projectReducer.project)
     const steps = useSelector(state => state.projectReducer.project.steps)
     const [filterString, setFilterString] = useState('')
+
+
+
     return (
         <AuthenticatedPageContainer>
             <BreadCrumb
@@ -38,13 +48,14 @@ const ProjectSteps = () => {
                 </StepStatusLegendContainer>
                 <StepFilterDropdown filterString={filterString} setFilterString={setFilterString} />
             </StatusLegendFilterDropdownContainer>
-            {!steps.length ? (
-                <NoStepsContainer>
-                    <img alt='no members' src={noMembers} />
-                    <CardTitleText>Your project has no steps yet</CardTitleText>
-                    <NoStepsButton>Add step</NoStepsButton>
-                </NoStepsContainer>
-            ) : null}
+            {/*{!steps.length ? (*/}
+            {/*    <NoStepsContainer>*/}
+            {/*        <img alt='no members' src={noMembers} />*/}
+            {/*        <CardTitleText>Your project has no steps yet</CardTitleText>*/}
+            {/*        <NoStepsButton>Add step</NoStepsButton>*/}
+            {/*    </NoStepsContainer>*/}
+            {/*) : null}*/}
+            <StepCard history={history} number={1} project={project} step={placeholderStep} />
         </AuthenticatedPageContainer>
     )
 }
