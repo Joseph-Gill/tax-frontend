@@ -1,6 +1,6 @@
 import React from 'react'
 import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
-import {BEGINNING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
@@ -12,7 +12,7 @@ import {StepPageTitleContainer} from './styles'
 import {addNewStepToProject} from '../../store/project/actions'
 
 
-const StepBeginning = () => {
+const StepBeginning = ({history}) => {
     const dispatch = useDispatch()
     const project = useSelector(state => state.projectReducer.project)
     const steps = useSelector(state => state.projectReducer.project.steps)
@@ -20,6 +20,7 @@ const StepBeginning = () => {
 
     const addNewStepHandler = () => {
         dispatch(addNewStepToProject())
+        history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
     }
 
     return (

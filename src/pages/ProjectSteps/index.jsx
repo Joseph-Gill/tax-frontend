@@ -1,19 +1,19 @@
 import React, {useState, useEffect} from 'react'
-import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
+import {useRouteMatch} from 'react-router-dom'
+import {addNewStepToProject, getProjectAction, resetProject} from '../../store/project/actions'
+import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilterTextContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
-import {BEGINNING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import noMembers from '../../assets/icons/stark_no_invited_members.jpg'
-import {CardTitleText} from '../../style/text'
+import noSteps from '../../assets/icons/stark_no_steps.svg'
+import {CardTitleText, NoFilterResultText} from '../../style/text'
 import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
 import StepStatusLegendEntry from './StepStatusLegendEntry'
 import {BeginningStructureButton, NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styles'
 import StepFilterDropdown from './StepsFilterDropdown'
 import StepCard from './StepCard'
 import Spinner from '../../components/Spinner'
-import {getProjectAction, resetProject} from '../../store/project/actions'
-import {useRouteMatch} from 'react-router-dom'
 
 
 const ProjectSteps = ({history}) => {
@@ -29,6 +29,10 @@ const ProjectSteps = ({history}) => {
         dispatch(getProjectAction(match.params.projectId))
     }, [dispatch, match.params.projectId])
 
+    const addNewStepHandler = () => {
+        dispatch(addNewStepToProject())
+        history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+    }
 
     return (
         <AuthenticatedPageContainer>
@@ -56,9 +60,13 @@ const ProjectSteps = ({history}) => {
                     </StatusLegendFilterDropdownContainer>
                     {!steps.length ? (
                         <NoStepsContainer>
-                            <img alt='no members' src={noMembers} />
-                            <CardTitleText>Your project has no steps yet</CardTitleText>
-                            <NoStepsButton>Add step</NoStepsButton>
+                            <img alt='no steps' src={noSteps} />
+                            <CardTitleText>No Steps found</CardTitleText>
+                            <NoFilterTextContainer>
+                                <NoFilterResultText>You haven&apos;t created any steps for</NoFilterResultText>
+                                <NoFilterResultText>this project.</NoFilterResultText>
+                            </NoFilterTextContainer>
+                            <NoStepsButton onClick={addNewStepHandler}>Add New Step</NoStepsButton>
                         </NoStepsContainer>
                     ) : null}
                 </>)}
