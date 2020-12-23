@@ -111,6 +111,13 @@ export const CancelButton = styled(TableButton)`
     border: 1px solid ${props => props.theme.grayTwo};
 `
 
+export const WireFrameDeleteButton = styled(TableButton)`
+    width: 72px;
+    height: 26px;
+    border: 1px solid ${props => props.theme.red};
+    color: ${props => props.theme.red};
+`
+
 export const SaveButton = styled(BaseButton)`
     height: 32px;
     width: 78px;

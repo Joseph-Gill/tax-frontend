@@ -6,6 +6,8 @@ import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer
 import {CardInfoText} from '../../../style/text'
 import {ProjectDescriptionTextArea} from '../../../style/textarea'
 import {StepChartPlaceholder} from '../../../style'
+import {TableButton, WireFrameDeleteButton} from '../../../style/buttons'
+import {StatusDropdown} from '../../../style/dropdowns'
 
 
 const StepInfoContainer = styled.div`
@@ -31,9 +33,9 @@ const StepInfoSaveImage = styled.img`
 `
 
 const StepInfoDescriptionContainer = styled.div`
-    margin-top: 10px;
-    height: 78px;
-    max-height: 78px;
+    margin-top: 7px;
+    height: 80px;
+    max-height: 80px;
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
@@ -61,13 +63,38 @@ const StepInfoDescriptionContainer = styled.div`
 const StepInfoTextArea = styled(ProjectDescriptionTextArea)`
     width: 302px;
     height: 78px;
-    margin-top: 10px;
+    margin-top: 5px;
 `
 
 const StepInfoChartContainer = styled.div`
     width: 302px;
     height: 228px;
     margin-top: 20px;
+    background: ${props => props.theme.graySix};
+    border-radius: ${props => props.theme.borderRadius};
+`
+
+const StepInfoStatusButtonsContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+`
+
+const StepInfoButtonsContainer = styled.div`
+    display: flex;
+`
+
+const StepInfoTasklistButton = styled(TableButton)`
+    width: 78px;
+    height: 26px;
+    margin-right: 10px;
+`
+
+const StepInfoStatus = styled(StatusDropdown)`
+    width: 82px;
+    height: 26px;
+    background-position-x: 61px;
 `
 
 const StepInfo = ({description, editStatus, setEditStatus, step}) => {
@@ -90,15 +117,22 @@ const StepInfo = ({description, editStatus, setEditStatus, step}) => {
             </DisplayStepTitleContainer>
             {!editStatus ? (
                 <StepInfoDescriptionContainer>
-                    <CardInfoText>{step.description ? step.description : "No Description to display, please edit and enter one."}</CardInfoText>
+                    <CardInfoText>{step.description ? step.description : "No Step Description to display, please edit and enter a Step Description."}</CardInfoText>
                 </StepInfoDescriptionContainer>) : (
                         <StepInfoTextArea
                             placeholder='Write your step description...'
                             ref={description}
                         />)}
             <StepInfoChartContainer>
-                <img alt='chart' src={StepChartPlaceholder} />
+                {/*<img alt='chart' src={StepChartPlaceholder} />*/}
             </StepInfoChartContainer>
+            <StepInfoStatusButtonsContainer>
+                <StepInfoStatus />
+                <StepInfoButtonsContainer>
+                    <StepInfoTasklistButton>Tasklist</StepInfoTasklistButton>
+                    <WireFrameDeleteButton>Delete</WireFrameDeleteButton>
+                </StepInfoButtonsContainer>
+            </StepInfoStatusButtonsContainer>
         </StepInfoContainer>
     )
 }
