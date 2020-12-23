@@ -75,6 +75,7 @@ export const TableButton = styled.button`
     color: ${props => props.theme.primaryBlue};
     border: 1px solid ${props => props.theme.primaryBlue};
     border-radius: 2px;
+    font-family: ${props => props.theme.spartanFontFamily};
     font-size: 12px;
     font-weight: 600;
     line-height: 13px;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useRef} from 'react'
 import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
@@ -12,9 +12,11 @@ import TaxInfo from './TaxInfo'
 
 
 const StepDisplay = () => {
+    let description = useRef('')
     const indexOfStepToDisplay = useSelector(state => state.stepReducer.indexOfCurrentStepToDisplay)
     const steps = useSelector(state => state.projectReducer.project.steps)
     const project = useSelector(state => state.projectReducer.project)
+    const [editStatus, setEditStatus] = useState(false)
 
     return (
         <AuthenticatedPageContainer>
@@ -46,7 +48,12 @@ const StepDisplay = () => {
                         <DateInput label />
                     </StepPageTitleWithButtonContainer>)}
             <StepInfoTaxConsequencesContainer>
-                <StepInfo />
+                <StepInfo
+                    description={description}
+                    editStatus={editStatus}
+                    setEditStatus={setEditStatus}
+                    step={steps[indexOfStepToDisplay]}
+                />
                 <TaxInfo />
             </StepInfoTaxConsequencesContainer>
         </AuthenticatedPageContainer>

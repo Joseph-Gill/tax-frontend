@@ -48,4 +48,8 @@ export const DisplayStepImage = styled.img`
 export const DisplayStepImageButtonContainer = styled.div`
     display: flex;
     align-items: center;
+
+    : hover {
+      cursor: pointer;
+    }
 `

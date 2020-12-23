@@ -70,5 +70,5 @@ export const defaultTheme = {
 }
 
 export const LogoPlaceholder = 'https://via.placeholder.com/150x50'
-
 export const BiggerLogoPlaceholder = 'https://via.placeholder.com/200x71'
+export const StepChartPlaceholder = 'https://via.placeholder.com/302x228'

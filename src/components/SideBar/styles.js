@@ -35,6 +35,7 @@ export const SideBarLoginContainer = styled.div`
     box-shadow: 4px 0 10px rgba(0, 112, 159, 0.24);
 
     h1 {
+        font-family: ${props => props.theme.spartanFontFamily};
         margin-top: 385px;
         margin-bottom: 15px;
         font-size: 24px;
