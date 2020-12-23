@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import {AuthenticatedPageContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
+import {AuthenticatedPageTitle} from '../../style/titles'
+import DateInput from '../../components/DateInput'
 
 
 const StepDisplay = () => {
@@ -29,7 +31,10 @@ const StepDisplay = () => {
                 next={steps.length > indexOfStepToDisplay + 1 ? 1 : 0}
                 previous={1}
             />
-
+            <StepPageTitleWithButtonContainer>
+                <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
+                <DateInput />
+            </StepPageTitleWithButtonContainer>
         </AuthenticatedPageContainer>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {AuthenticatedPageContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {BEGINNING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
@@ -8,7 +8,7 @@ import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import CurrentOrgChart from '../../components/CurrentOrgChart'
 import StepDisplayFooter from '../../components/StepDisplayFooter'
 import {AddNewStepButton} from '../../style/buttons'
-import {StepPageTitleContainer, StepPageTitleWithButtonContainer} from './styles'
+import {StepPageTitleContainer} from './styles'
 import {addNewStepToProject} from '../../store/project/actions'
 
 
@@ -42,7 +42,7 @@ const StepBeginning = () => {
             {steps.length ? (
                 <StepPageTitleContainer>
                     <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
-                </StepPageTitleContainer> ) : (
+                </StepPageTitleContainer>) : (
                     <StepPageTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
                         <AddNewStepButton onClick={addNewStepHandler}>Add New Step</AddNewStepButton>
