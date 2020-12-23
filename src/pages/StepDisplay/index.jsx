@@ -7,6 +7,17 @@ import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import DateInput from '../../components/DateInput'
+import {AddNewStepButton} from '../../style/buttons'
+
+
+const DateInputAddStepButtonContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+const StepDisplayAddStepButton = styled(AddNewStepButton)`
+    margin-left: 40px;
+`
 
 
 const StepDisplay = () => {
@@ -31,10 +42,18 @@ const StepDisplay = () => {
                 next={steps.length > indexOfStepToDisplay + 1 ? 1 : 0}
                 previous={1}
             />
-            <StepPageTitleWithButtonContainer>
-                <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
-                <DateInput />
-            </StepPageTitleWithButtonContainer>
+            {indexOfStepToDisplay + 1 === steps.length ? (
+                <StepPageTitleWithButtonContainer>
+                    <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
+                    <DateInputAddStepButtonContainer>
+                        <DateInput label />
+                        <StepDisplayAddStepButton>Add New Step</StepDisplayAddStepButton>
+                    </DateInputAddStepButtonContainer>
+                </StepPageTitleWithButtonContainer>) : (
+                    <StepPageTitleWithButtonContainer>
+                        <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
+                        <DateInput label />
+                    </StepPageTitleWithButtonContainer>)}
         </AuthenticatedPageContainer>
     )
 }

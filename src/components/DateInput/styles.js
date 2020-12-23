@@ -1,5 +1,19 @@
 import styled from 'styled-components/macro'
 
+export const DateInputAndLabelContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const DateInputLabelText = styled.p`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    color: ${props => props.theme.grayOne};
+    margin-right: 10px;
+`
+
 
 export const DateInputContainer = styled.div`
     width: 128px;
