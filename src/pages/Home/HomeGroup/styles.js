@@ -34,6 +34,7 @@ export const BottomRowContainer = styled.div`
 `
 
 export const GroupTitle = styled.h4`
+    font-family: ${props => props.theme.spartanFontFamily};
     font-size: 16px;
     line-height: 18px;
     color: ${props => props.theme.black};

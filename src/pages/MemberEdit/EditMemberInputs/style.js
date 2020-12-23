@@ -12,6 +12,7 @@ export const EditInputsContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
     padding: 20px 0 114px 20px;
+    margin-top: 30px;
 `
 
 export const EmailAccessOrgCountryInputContainer = styled.div`

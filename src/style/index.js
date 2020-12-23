@@ -6,7 +6,6 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         font-size: 14px;
-        font-family: Spartan,serif;
         box-sizing: border-box;
         color: rgba(0,0,0,0.92);
     }
@@ -67,6 +66,7 @@ export const defaultTheme = {
     borderRadius: '4px',
     // Fonts that are not default Spartan
     nunitoFontFamily: 'Nunito Sans, sans-serif',
+    spartanFontFamily: 'Spartan, serif',
 }
 
 export const LogoPlaceholder = 'https://via.placeholder.com/150x50'

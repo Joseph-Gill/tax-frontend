@@ -2,6 +2,7 @@ import styled from 'styled-components/macro'
 
 
 export const BaseButton = styled.button`
+    font-family: ${props => props.theme.spartanFontFamily};
     width: 301px;
     height: 40px;
     background: ${props => props.disabled ? 'lightgrey' : props.theme.primaryBlue};

@@ -29,6 +29,7 @@ export const CreateGroupImage = styled.img`
 `
 
 export const CreateGroupText = styled.p`
+    font-family: ${props => props.theme.spartanFontFamily};
     font-size: 16px;
     line-height: 20px;
     text-transform: uppercase;
