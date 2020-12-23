@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
@@ -7,17 +6,9 @@ import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import DateInput from '../../components/DateInput'
-import {AddNewStepButton} from '../../style/buttons'
-
-
-const DateInputAddStepButtonContainer = styled.div`
-    display: flex;
-    align-items: center;
-`
-
-const StepDisplayAddStepButton = styled(AddNewStepButton)`
-    margin-left: 40px;
-`
+import {DateInputAddStepButtonContainer, StepDisplayAddStepButton, StepInfoTaxConsequencesContainer} from './styles'
+import StepInfo from './StepInfo'
+import TaxInfo from './TaxInfo'
 
 
 const StepDisplay = () => {
@@ -54,6 +45,10 @@ const StepDisplay = () => {
                         <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
                         <DateInput label />
                     </StepPageTitleWithButtonContainer>)}
+            <StepInfoTaxConsequencesContainer>
+                <StepInfo />
+                <TaxInfo />
+            </StepInfoTaxConsequencesContainer>
         </AuthenticatedPageContainer>
     )
 }
