@@ -13,6 +13,7 @@ import TaxInfo from './TaxInfo'
 
 const StepDisplay = () => {
     let description = useRef('')
+    let statusOption = useRef('')
     const indexOfStepToDisplay = useSelector(state => state.stepReducer.indexOfCurrentStepToDisplay)
     const steps = useSelector(state => state.projectReducer.project.steps)
     const project = useSelector(state => state.projectReducer.project)
@@ -52,6 +53,7 @@ const StepDisplay = () => {
                     description={description}
                     editStatus={editStatus}
                     setEditStatus={setEditStatus}
+                    statusOption={statusOption}
                     step={steps[indexOfStepToDisplay]}
                 />
                 <TaxInfo />

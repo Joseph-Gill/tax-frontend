@@ -1,103 +1,25 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import pencil from '../../../assets/icons/stark_edit_pencil_icon.svg'
 import save from '../../../assets/icons/stark_step_save_icon.svg'
 import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, DisplayStepSectionTitle, DisplayStepTitleContainer} from '../styles'
 import {CardInfoText} from '../../../style/text'
-import {ProjectDescriptionTextArea} from '../../../style/textarea'
-import {StepChartPlaceholder} from '../../../style'
-import {TableButton, WireFrameDeleteButton} from '../../../style/buttons'
-import {StatusDropdown} from '../../../style/dropdowns'
+import {WireFrameDeleteButton} from '../../../style/buttons'
+import {
+    StepInfoButtonsContainer,
+    StepInfoCancelButton,
+    StepInfoChartContainer,
+    StepInfoContainer,
+    StepInfoDescriptionContainer, StepInfoOption,
+    StepInfoSaveButton,
+    StepInfoSaveImage,
+    StepInfoStatus,
+    StepInfoStatusButtonsContainer,
+    StepInfoTasklistButton,
+    StepInfoTextArea
+} from './styles'
 
 
-const StepInfoContainer = styled.div`
-    width: 343px;
-    height: 438px;
-    background: ${props => props.theme.white};
-    box-shadow: ${props => props.theme.boxShadow};
-    border-radius: ${props => props.theme.borderRadius};
-    padding: 16px 21px 24px 20px;
-`
-
-const StepInfoCancelButton = styled(DisplayStepButtonText)`
-    color: ${props => props.theme.grayTwo};
-    margin-right: 19px;
-`
-
-const StepInfoSaveButton = styled(DisplayStepButtonText)`
-    color: ${props => props.theme.green};
-`
-
-const StepInfoSaveImage = styled.img`
-    margin-right: 9px;
-`
-
-const StepInfoDescriptionContainer = styled.div`
-    margin-top: 7px;
-    height: 80px;
-    max-height: 80px;
-    overflow: scroll;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${props => props.theme.grayTwo};
-    }
-`
-
-const StepInfoTextArea = styled(ProjectDescriptionTextArea)`
-    width: 302px;
-    height: 78px;
-    margin-top: 5px;
-`
-
-const StepInfoChartContainer = styled.div`
-    width: 302px;
-    height: 228px;
-    margin-top: 20px;
-    background: ${props => props.theme.graySix};
-    border-radius: ${props => props.theme.borderRadius};
-`
-
-const StepInfoStatusButtonsContainer = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-`
-
-const StepInfoButtonsContainer = styled.div`
-    display: flex;
-`
-
-const StepInfoTasklistButton = styled(TableButton)`
-    width: 78px;
-    height: 26px;
-    margin-right: 10px;
-`
-
-const StepInfoStatus = styled(StatusDropdown)`
-    width: 82px;
-    height: 26px;
-    background-position-x: 61px;
-`
-
-const StepInfo = ({description, editStatus, setEditStatus, step}) => {
+const StepInfo = ({description, editStatus, setEditStatus, statusOption, step}) => {
     return (
         <StepInfoContainer>
             <DisplayStepTitleContainer>
@@ -119,15 +41,28 @@ const StepInfo = ({description, editStatus, setEditStatus, step}) => {
                 <StepInfoDescriptionContainer>
                     <CardInfoText>{step.description ? step.description : "No Step Description to display, please edit and enter a Step Description."}</CardInfoText>
                 </StepInfoDescriptionContainer>) : (
-                        <StepInfoTextArea
-                            placeholder='Write your step description...'
-                            ref={description}
-                        />)}
+                    <StepInfoTextArea
+                        placeholder='Write your step description...'
+                        ref={description}
+                    />)}
             <StepInfoChartContainer>
                 {/*<img alt='chart' src={StepChartPlaceholder} />*/}
             </StepInfoChartContainer>
             <StepInfoStatusButtonsContainer>
-                <StepInfoStatus />
+                {!editStatus ? (
+                    <StepInfoStatus defaultValue={step.status} disabled ref={statusOption}>
+                        {step.status ?
+                            <StepInfoOption value={step.status}>{step.status}</StepInfoOption> :
+                            <StepInfoOption value='None'>None</StepInfoOption>}
+                    </StepInfoStatus>
+                    ) : (
+                        <StepInfoStatus defaultValue={step.status} ref={statusOption}>
+                            <StepInfoOption disabled value=''>Status</StepInfoOption>
+                            <StepInfoOption value='Not Started'>Not Started</StepInfoOption>
+                            <StepInfoOption value='Ongoing'>Ongoing</StepInfoOption>
+                            <StepInfoOption value='Completed'>Completed</StepInfoOption>
+                        </StepInfoStatus>
+                )}
                 <StepInfoButtonsContainer>
                     <StepInfoTasklistButton>Tasklist</StepInfoTasklistButton>
                     <WireFrameDeleteButton>Delete</WireFrameDeleteButton>
