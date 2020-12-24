@@ -19,7 +19,7 @@ import {
 } from './styles'
 
 
-const StepInfo = ({description, editStatus, saveNewStepHandler, setEditStatus, statusOption, step}) => {
+const StepInfo = ({description, editStatus, saveNewStepHandler, setDescription, setEditStatus, statusOption, step, updateExistingStepHandler}) => {
     return (
         <StepInfoContainer>
             <DisplayStepTitleContainer>
@@ -33,7 +33,9 @@ const StepInfo = ({description, editStatus, saveNewStepHandler, setEditStatus, s
                             <StepInfoCancelButton onClick={() => setEditStatus(false)}>Cancel</StepInfoCancelButton>
                             <DisplayStepImageButtonContainer>
                                 <StepInfoSaveImage alt='save' src={save} />
-                                <StepInfoSaveButton onClick={saveNewStepHandler}>Save</StepInfoSaveButton>
+                                {step.id ?
+                                    <StepInfoSaveButton onClick={updateExistingStepHandler}>Save</StepInfoSaveButton> :
+                                    <StepInfoSaveButton onClick={saveNewStepHandler}>Save</StepInfoSaveButton>}
                             </DisplayStepImageButtonContainer>
                         </DisplayStepImageButtonContainer>)}
             </DisplayStepTitleContainer>
@@ -42,8 +44,9 @@ const StepInfo = ({description, editStatus, saveNewStepHandler, setEditStatus, s
                     <CardInfoText>{step.description ? step.description : "No Step Description to display, please edit and enter a Step Description."}</CardInfoText>
                 </StepInfoDescriptionContainer>) : (
                     <StepInfoTextArea
+                        onChange={(e) => setDescription(e.target.value)}
                         placeholder='Write your step description...'
-                        ref={description}
+                        value={description}
                     />)}
             <StepInfoChartContainer>
                 {/*<img alt='chart' src={StepChartPlaceholder} />*/}

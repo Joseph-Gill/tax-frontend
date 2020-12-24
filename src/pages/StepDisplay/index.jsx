@@ -11,19 +11,17 @@ import StepInfo from './StepInfo'
 import TaxInfo from './TaxInfo'
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
-import {getStepsForProjectAction} from '../../store/step/actions'
-import Spinner from '../../components/Spinner'
 
 
 const StepDisplay = () => {
     const dispatch = useDispatch()
-    let description = useRef('')
     let statusOption = useRef('')
     const indexOfStepToDisplay = useSelector(state => state.stepReducer.indexOfCurrentStepToDisplay)
     const steps = useSelector(state => state.stepReducer.steps)
     const project = useSelector(state => state.projectReducer.project)
     const [editStatus, setEditStatus] = useState(false)
     const [date, setDate] = useState(new Date());
+    const [description, setDescription] = useState(steps[indexOfStepToDisplay].description)
 
     useEffect(() => {
         if (!steps[indexOfStepToDisplay].id) {
@@ -34,7 +32,7 @@ const StepDisplay = () => {
 
     const saveNewStepHandler = async () => {
         const newStepData = {
-            description: description.current.value,
+            description: description,
             effective_date: convertDate(date),
             number: indexOfStepToDisplay + 1,
             status: statusOption.current.value
@@ -42,6 +40,10 @@ const StepDisplay = () => {
         // const response = await dispatch(createNewStepAction(newStepData, project.id))
         // console.log(response)
         console.log(newStepData)
+    }
+
+    const updateExistingStepHandler = async () => {
+
     }
 
     return (
@@ -96,9 +98,11 @@ const StepDisplay = () => {
                     description={description}
                     editStatus={editStatus}
                     saveNewStepHandler={saveNewStepHandler}
+                    setDescription={setDescription}
                     setEditStatus={setEditStatus}
                     statusOption={statusOption}
                     step={steps[indexOfStepToDisplay]}
+                    updateExistingStepHandler={updateExistingStepHandler}
                 />
                 <TaxInfo />
             </StepInfoTaxConsequencesContainer>

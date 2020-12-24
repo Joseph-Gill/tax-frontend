@@ -36,7 +36,7 @@ export const stepReducer = (state = initialState, action) => {
         case GET_ALL_PROJECT_STEPS: {
             return {
                 ...state,
-                steps : action.payload.concat([...state.steps]),
+                steps : action.payload,
                 loaded: true
             }
         }
@@ -45,7 +45,7 @@ export const stepReducer = (state = initialState, action) => {
                 ...state,
                 steps: [...state.steps, {
                         chart: null,
-                        description: null,
+                        description: '',
                         effective_date: null,
                         id: null,
                         number: action.payload,
