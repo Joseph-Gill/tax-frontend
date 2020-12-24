@@ -14,24 +14,27 @@ import {BeginningStructureButton, NoStepsButton, NoStepsContainer, StepStatusLeg
 import StepFilterDropdown from './StepsFilterDropdown'
 import StepCard from './StepCard'
 import Spinner from '../../components/Spinner'
-import {addNewStep} from '../../store/step/actions'
+import {addNewStep, getStepsForProjectAction} from '../../store/step/actions'
 
 
 const ProjectSteps = ({history}) => {
     const dispatch = useDispatch()
     const match = useRouteMatch()
     const project = useSelector(state => state.projectReducer.project)
-    const loaded = useSelector(state => state.projectReducer.loaded)
-    const steps = useSelector(state => state.projectReducer.project.steps)
+    const loaded = useSelector(state => state.stepReducer.loaded)
+    const steps = useSelector(state => state.stepReducer.steps)
     const [filterString, setFilterString] = useState('')
 
     useEffect(() => {
-        dispatch(resetProject())
-        dispatch(getProjectAction(match.params.projectId))
+        (async function getProjectGetSteps() {
+            dispatch(resetProject())
+            const response = await dispatch(getProjectAction(match.params.projectId))
+            dispatch(getStepsForProjectAction(response.id))
+        })();
     }, [dispatch, match.params.projectId])
 
     const addNewStepHandler = () => {
-        dispatch(addNewStep())
+        dispatch(addNewStep(1))
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
     }
 

@@ -44,11 +44,12 @@ export const stepReducer = (state = initialState, action) => {
             return {
                 ...state,
                 steps: [...state.steps, {
-                        id: null,
+                        chart: null,
                         description: null,
                         effective_date: null,
+                        id: null,
+                        number: action.payload,
                         status: null,
-                        chart: null,
                         tax_consequences: [],
                         tasks: []
                     }]

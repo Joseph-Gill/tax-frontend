@@ -14,7 +14,7 @@ const StepDisplayFooter = ({steps}) => {
             // eslint-disable-next-line react/forbid-component-props
             <NodeContainer key={step.id} style={props}>
                 <StepNode />
-                <StepDisplayText>Step {index + 1}</StepDisplayText>
+                <StepDisplayText>Step {step.number}</StepDisplayText>
             </NodeContainer>
         ))
     )

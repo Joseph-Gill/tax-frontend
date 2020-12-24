@@ -22,13 +22,14 @@ const StepDisplay = () => {
     const indexOfStepToDisplay = useSelector(state => state.stepReducer.indexOfCurrentStepToDisplay)
     const steps = useSelector(state => state.stepReducer.steps)
     const project = useSelector(state => state.projectReducer.project)
-    const loaded = useSelector(state => state.stepReducer.loaded)
     const [editStatus, setEditStatus] = useState(false)
     const [date, setDate] = useState(new Date());
 
     useEffect(() => {
-        dispatch(getStepsForProjectAction(project.id))
-    }, [dispatch, project.id])
+        if (!steps[indexOfStepToDisplay].id) {
+            setEditStatus(true)
+        }
+    }, [steps, indexOfStepToDisplay])
 
 
     const saveNewStepHandler = async () => {
@@ -45,65 +46,62 @@ const StepDisplay = () => {
 
     return (
         <AuthenticatedPageContainer>
-            {!loaded ? <Spinner /> : (
-                <>
-                    <BreadCrumb
-                        breadCrumbArray={[
-                            {display: 'GROUPS', to: GROUPS, active: false},
-                            {display: `GROUP ${project.group.name.toUpperCase()}`, to: `${GROUPS}/${project.group.id}`, active: false},
-                            {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`, active: false},
-                            {display: `PROJECT ${project.name.toUpperCase()}`, to: `${GROUPS}${PROJECTS}/${project.id}`, active: false},
-                            {display: 'STEPS', to: `${GROUPS}${PROJECTS}${STEPS}/${project.id}/`, active: false},
-                            {display: `STEP ${indexOfStepToDisplay + 1}`, to: `${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`, active: true},
-                        ]}
-                    />
-                    <PreviousNextStepHeader
-                        indexOfStepToDisplay={indexOfStepToDisplay}
-                        next={steps.length > indexOfStepToDisplay + 1 ? 1 : 0}
-                        previous={1}
-                    />
-                    {indexOfStepToDisplay + 1 === steps.length ? (
-                        <StepPageTitleWithButtonContainer>
-                            <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
-                            <DateInputAddStepButtonContainer>
-                                {editStatus ? (
-                                    <DateInput
-                                        date={date}
-                                        label
-                                        setDate={setDate}
-                                    />) : (
-                                        <>
-                                            <DateInputLabelText>Effective Date:</DateInputLabelText>
-                                            <DisabledDateInput
-                                                disabled
-                                                type='text'
-                                                value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
-                                            />
-                                        </>)}
-                                {indexOfStepToDisplay + 1 === steps.length ?
-                                    <StepDisplayAddStepButton>Add New Step</StepDisplayAddStepButton> : null}
-                            </DateInputAddStepButtonContainer>
-                        </StepPageTitleWithButtonContainer>) : (
-                            <StepPageTitleWithButtonContainer>
-                                <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
-                                <DateInput
-                                    date={date}
-                                    label
-                                    setDate={setDate}
-                                />
-                            </StepPageTitleWithButtonContainer>)}
-                    <StepInfoTaxConsequencesContainer>
-                        <StepInfo
-                            description={description}
-                            editStatus={editStatus}
-                            saveNewStepHandler={saveNewStepHandler}
-                            setEditStatus={setEditStatus}
-                            statusOption={statusOption}
-                            step={steps[indexOfStepToDisplay]}
+            <BreadCrumb
+                breadCrumbArray={[
+                    {display: 'GROUPS', to: GROUPS, active: false},
+                    {display: `GROUP ${project.group.name.toUpperCase()}`, to: `${GROUPS}/${project.group.id}`, active: false},
+                    {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`, active: false},
+                    {display: `PROJECT ${project.name.toUpperCase()}`, to: `${GROUPS}${PROJECTS}/${project.id}`, active: false},
+                    {display: 'STEPS', to: `${GROUPS}${PROJECTS}${STEPS}/${project.id}/`, active: false},
+                    {display: `STEP ${indexOfStepToDisplay + 1}`, to: `${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`, active: true},
+                ]}
+            />
+            <PreviousNextStepHeader
+                indexOfStepToDisplay={indexOfStepToDisplay}
+                next={steps.length > indexOfStepToDisplay + 1 ? 1 : 0}
+                previous={1}
+            />
+            {indexOfStepToDisplay + 1 === steps.length ? (
+                <StepPageTitleWithButtonContainer>
+                    <AuthenticatedPageTitle>Step {steps[indexOfStepToDisplay].number}</AuthenticatedPageTitle>
+                    <DateInputAddStepButtonContainer>
+                        {editStatus ? (
+                            <DateInput
+                                date={date}
+                                label
+                                setDate={setDate}
+                            />) : (
+                                <>
+                                    <DateInputLabelText>Effective Date:</DateInputLabelText>
+                                    <DisabledDateInput
+                                        disabled
+                                        type='text'
+                                        value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
+                                    />
+                                </>)}
+                        {indexOfStepToDisplay + 1 === steps.length && steps[indexOfStepToDisplay].id ?
+                            <StepDisplayAddStepButton>Add New Step</StepDisplayAddStepButton> : null}
+                    </DateInputAddStepButtonContainer>
+                </StepPageTitleWithButtonContainer>) : (
+                    <StepPageTitleWithButtonContainer>
+                        <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
+                        <DateInput
+                            date={date}
+                            label
+                            setDate={setDate}
                         />
-                        <TaxInfo />
-                    </StepInfoTaxConsequencesContainer>
-                </>)}
+                    </StepPageTitleWithButtonContainer>)}
+            <StepInfoTaxConsequencesContainer>
+                <StepInfo
+                    description={description}
+                    editStatus={editStatus}
+                    saveNewStepHandler={saveNewStepHandler}
+                    setEditStatus={setEditStatus}
+                    statusOption={statusOption}
+                    step={steps[indexOfStepToDisplay]}
+                />
+                <TaxInfo />
+            </StepInfoTaxConsequencesContainer>
         </AuthenticatedPageContainer>
     )
 }

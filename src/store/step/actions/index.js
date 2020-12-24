@@ -35,9 +35,10 @@ export const getAllProjectSteps = data => {
     }
 }
 
-export const addNewStep = () => {
+export const addNewStep = number => {
     return {
-        type: ADD_NEW_STEP
+        type: ADD_NEW_STEP,
+        payload: number
     }
 }
 
