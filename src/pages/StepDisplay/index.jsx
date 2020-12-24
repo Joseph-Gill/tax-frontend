@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {useSelector} from 'react-redux'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
@@ -6,9 +6,11 @@ import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import DateInput from '../../components/DateInput'
-import {DateInputAddStepButtonContainer, StepDisplayAddStepButton, StepInfoTaxConsequencesContainer} from './styles'
+import {DateInputAddStepButtonContainer, DisabledDateInput, StepDisplayAddStepButton, StepInfoTaxConsequencesContainer} from './styles'
 import StepInfo from './StepInfo'
 import TaxInfo from './TaxInfo'
+import {DateInputLabelText} from '../../style/text'
+import {convertDate} from '../../helpers'
 
 
 const StepDisplay = () => {
@@ -18,6 +20,22 @@ const StepDisplay = () => {
     const steps = useSelector(state => state.projectReducer.project.steps)
     const project = useSelector(state => state.projectReducer.project)
     const [editStatus, setEditStatus] = useState(false)
+    const [date, setDate] = useState(new Date());
+
+    useEffect(() => {
+        if (!steps[indexOfStepToDisplay].id){
+            setEditStatus(true)
+        }
+    }, [indexOfStepToDisplay, steps])
+
+    const saveNewStepHandler = () => {
+        const newStepData = {
+            description: description.current.value,
+            status: statusOption.current.value,
+            effective_date: convertDate(date)
+        }
+        console.log(newStepData)
+    }
 
     return (
         <AuthenticatedPageContainer>
@@ -40,18 +58,37 @@ const StepDisplay = () => {
                 <StepPageTitleWithButtonContainer>
                     <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
                     <DateInputAddStepButtonContainer>
-                        <DateInput label />
-                        <StepDisplayAddStepButton>Add New Step</StepDisplayAddStepButton>
+                        {editStatus ? (
+                            <DateInput
+                                date={date}
+                                label
+                                setDate={setDate}
+                            />) : (
+                                <>
+                                    <DateInputLabelText>Effective Date:</DateInputLabelText>
+                                    <DisabledDateInput
+                                        disabled
+                                        type='text'
+                                        value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
+                                    />
+                                </>)}
+                        {!indexOfStepToDisplay + 1 === steps.length ?
+                            <StepDisplayAddStepButton>Add New Step</StepDisplayAddStepButton> : null}
                     </DateInputAddStepButtonContainer>
                 </StepPageTitleWithButtonContainer>) : (
                     <StepPageTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
-                        <DateInput label />
+                        <DateInput
+                            date={date}
+                            label
+                            setDate={setDate}
+                        />
                     </StepPageTitleWithButtonContainer>)}
             <StepInfoTaxConsequencesContainer>
                 <StepInfo
                     description={description}
                     editStatus={editStatus}
+                    saveNewStepHandler={saveNewStepHandler}
                     setEditStatus={setEditStatus}
                     statusOption={statusOption}
                     step={steps[indexOfStepToDisplay]}

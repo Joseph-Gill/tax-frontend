@@ -60,6 +60,7 @@ export const StepInfoTextArea = styled(ProjectDescriptionTextArea)`
     width: 302px;
     height: 78px;
     margin-top: 5px;
+    padding: 7px;
 `
 
 export const StepInfoChartContainer = styled.div`

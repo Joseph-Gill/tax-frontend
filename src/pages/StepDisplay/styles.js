@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 import {AddNewStepButton} from '../../style/buttons'
 import {NavbarTitle} from '../../style/titles'
+import {BaseInput} from '../../style/inputs'
 
 
 export const DateInputAddStepButtonContainer = styled.div`
@@ -53,4 +54,9 @@ export const DisplayStepImageButtonContainer = styled.div`
     : hover {
       cursor: pointer;
     }
+`
+
+export const DisabledDateInput = styled(BaseInput)`
+    width: 128px;
+    height: 32px;
 `

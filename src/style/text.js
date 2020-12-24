@@ -97,3 +97,12 @@ export const StatusEntryText = styled.p`
     line-height: 16px;
     color: ${props => props.theme.grayTwo};
 `
+
+export const DateInputLabelText = styled.p`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    color: ${props => props.theme.grayOne};
+    margin-right: 10px;
+`

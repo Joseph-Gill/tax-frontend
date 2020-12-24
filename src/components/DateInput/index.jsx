@@ -1,14 +1,13 @@
-import React, {useState, forwardRef} from 'react'
-import DatePicker, {CalendarContainer} from 'react-datepicker'
+import React, {forwardRef} from 'react'
+import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import "./styles.css"
-import {CardInfoText} from '../../style/text'
+import {CardInfoText, DateInputLabelText} from '../../style/text'
 import calendar from '../../assets/icons/stark_calendar_icon.svg'
-import {DateInputAndLabelContainer, DateInputContainer, DateInputLabelText} from './styles'
+import {DateInputAndLabelContainer, DateInputContainer} from './styles'
 
 
-const DateInput = ({label}) => {
-    const [date, setDate] = useState(new Date());
+const DateInput = ({date, label, setDate}) => {
     const ref = React.createRef()
 
     // eslint-disable-next-line react/display-name,react/no-multi-comp
@@ -19,25 +18,13 @@ const DateInput = ({label}) => {
         </DateInputContainer>
     ))
 
-    // eslint-disable-next-line react/no-multi-comp
-    // const CustomerCalendarContainer = ({className, children}) => {
-    //     return (
-    //         <div style={{fontFamily: 'Nunito Sans, sans-serif'}}>
-    //             {/* eslint-disable-next-line react/forbid-component-props */}
-    //             <CalendarContainer className={className}>
-    //                 {children}
-    //             </CalendarContainer>
-    //         </div>
-    //     )
-    // }
-
     return (
         <DateInputAndLabelContainer>
             {label ? <DateInputLabelText>Effective Date:</DateInputLabelText> : null}
             <DatePicker
-                // calendarContainer={CustomerCalendarContainer}
                 customInput={<CustomInput ref={ref} />}
-                dateFormat='dd/MM/yyyy'
+                dateFormat='yyyy-MM-dd'
+                minDate={new Date()}
                 onChange={date => setDate(date)}
                 selected={date}
             />

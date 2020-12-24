@@ -19,7 +19,7 @@ import {
 } from './styles'
 
 
-const StepInfo = ({description, editStatus, setEditStatus, statusOption, step}) => {
+const StepInfo = ({description, editStatus, saveNewStepHandler, setEditStatus, statusOption, step}) => {
     return (
         <StepInfoContainer>
             <DisplayStepTitleContainer>
@@ -33,7 +33,7 @@ const StepInfo = ({description, editStatus, setEditStatus, statusOption, step}) 
                             <StepInfoCancelButton onClick={() => setEditStatus(false)}>Cancel</StepInfoCancelButton>
                             <DisplayStepImageButtonContainer>
                                 <StepInfoSaveImage alt='save' src={save} />
-                                <StepInfoSaveButton>Save</StepInfoSaveButton>
+                                <StepInfoSaveButton onClick={saveNewStepHandler}>Save</StepInfoSaveButton>
                             </DisplayStepImageButtonContainer>
                         </DisplayStepImageButtonContainer>)}
             </DisplayStepTitleContainer>
@@ -51,9 +51,7 @@ const StepInfo = ({description, editStatus, setEditStatus, statusOption, step}) 
             <StepInfoStatusButtonsContainer>
                 {!editStatus ? (
                     <StepInfoStatus defaultValue={step.status} disabled ref={statusOption}>
-                        {step.status ?
-                            <StepInfoOption value={step.status}>{step.status}</StepInfoOption> :
-                            <StepInfoOption value='None'>None</StepInfoOption>}
+                        <StepInfoOption value={step.status}>{step.status}</StepInfoOption>
                     </StepInfoStatus>
                     ) : (
                         <StepInfoStatus defaultValue={step.status} ref={statusOption}>

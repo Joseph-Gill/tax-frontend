@@ -21,3 +21,7 @@ export const checkBoxChangeHandler = (e, initialArray, arraySet) => {
     dataCopy[e.target.value].isChecked = !dataCopy[e.target.value].isChecked
     arraySet([...dataCopy])
 }
+
+export const convertDate = date => {
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+}
