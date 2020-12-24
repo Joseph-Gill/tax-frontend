@@ -1,30 +1,62 @@
-import {DECREMENT_STEP_TO_VIEW, INCREMENT_STEP_TO_VIEW, RESET_STEP_TO_VIEW, SKIP_TO_SPECIFIED_STEP} from './types'
+import {ADD_NEW_STEP, DECREMENT_STEP_TO_VIEW, GET_ALL_PROJECT_STEPS, INCREMENT_STEP_TO_VIEW, RESET_STEP_TO_VIEW, RESET_STEPS_FOR_PROJECT, SKIP_TO_SPECIFIED_STEP} from './types'
 
 
 const initialState = {
     indexOfCurrentStepToDisplay: 0,
+    steps: [],
+    loaded: false
 }
 
 export const stepReducer = (state = initialState, action) => {
     switch(action.type) {
         case INCREMENT_STEP_TO_VIEW: {
             return {
-                indexOfCurrentStepToDisplay: state.indexOfCurrentStepToDisplay++
+                ...state,
+                indexOfCurrentStepToDisplay: state.indexOfCurrentStepToDisplay++,
             }
         }
         case DECREMENT_STEP_TO_VIEW: {
             return {
-                indexOfCurrentStepToDisplay: state.indexOfCurrentStepToDisplay--
+                ...state,
+                indexOfCurrentStepToDisplay: state.indexOfCurrentStepToDisplay--,
             }
         }
         case RESET_STEP_TO_VIEW: {
             return {
-                indexOfCurrentStepToDisplay: 0
+                ...state,
+                indexOfCurrentStepToDisplay: 0,
             }
         }
         case SKIP_TO_SPECIFIED_STEP: {
             return {
-                indexOfCurrentStepToDisplay: action.payload
+                ...state,
+                indexOfCurrentStepToDisplay: action.payload,
+            }
+        }
+        case GET_ALL_PROJECT_STEPS: {
+            return {
+                ...state,
+                steps : action.payload.concat([...state.steps]),
+                loaded: true
+            }
+        }
+        case ADD_NEW_STEP: {
+            return {
+                ...state,
+                steps: [...state.steps, {
+                        id: null,
+                        description: null,
+                        effective_date: null,
+                        status: null,
+                        chart: null,
+                        tax_consequences: [],
+                        tasks: []
+                    }]
+            }
+        }
+        case RESET_STEPS_FOR_PROJECT: {
+            return {
+                ...initialState
             }
         }
         default:

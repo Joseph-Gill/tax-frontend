@@ -24,7 +24,7 @@ const StepCard = ({history, number, project, step}) => {
             </StepCardRowContainer>
             <StepCardRowContainer>
                 <StepCardDescripionContainer>
-                    <CardInfoText>{step.description.length > 170 ? step.description.slice(0, 170).concat('... ') : project.description}</CardInfoText>
+                    <CardInfoText>{step.description.length > 170 ? step.description.slice(0, 170).concat('... ') : step.description}</CardInfoText>
                 </StepCardDescripionContainer>
                 <StepCardButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Tasks</StepCardButton>
             </StepCardRowContainer>

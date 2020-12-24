@@ -9,7 +9,7 @@ import CurrentOrgChart from '../../components/CurrentOrgChart'
 import StepDisplayFooter from '../../components/StepDisplayFooter'
 import {AddNewStepButton} from '../../style/buttons'
 import {StepPageTitleContainer} from './styles'
-import {addNewStepToProject} from '../../store/project/actions'
+import {addNewStep} from '../../store/step/actions'
 
 
 const StepBeginning = ({history}) => {
@@ -19,7 +19,7 @@ const StepBeginning = ({history}) => {
     const entities = useSelector(state => state.groupReducer.group.entities)
 
     const addNewStepHandler = () => {
-        dispatch(addNewStepToProject())
+        dispatch(addNewStep())
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
     }
 

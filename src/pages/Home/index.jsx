@@ -16,6 +16,7 @@ import {resetProject} from '../../store/project/actions'
 import HomeFilterDropdown from './HomeFilterDropdown'
 import {resetMember} from '../../store/member/actions'
 import NoFilterResults from '../../components/NoFilterResults'
+import {resetSteps} from '../../store/step/actions'
 
 
 const Home = ({history}) => {
@@ -30,8 +31,8 @@ const Home = ({history}) => {
             setLoading(true)
             dispatch(resetProject())
             dispatch(resetGroup())
-            dispatch(resetProject())
             dispatch(resetMember())
+            dispatch(resetSteps())
             const response = await dispatch(getProfileAction())
             setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
         })();

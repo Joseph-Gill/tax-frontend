@@ -1,6 +1,7 @@
 import Axios from '../../../axios'
-import {ADD_NEW_STEP, GET_PROJECT, RESET_PROJECT} from '../types'
+import {GET_PROJECT, RESET_PROJECT} from '../types'
 import {getGroupAction} from '../../group/actions'
+import {catchError} from '../../errors/actions/errorAction'
 
 
 export const getProject = data => {
@@ -13,12 +14,6 @@ export const getProject = data => {
 export const resetProject = () => {
     return {
         type: RESET_PROJECT
-    }
-}
-
-export const addNewStepToProject = () => {
-    return {
-        type: ADD_NEW_STEP
     }
 }
 
@@ -38,7 +33,7 @@ export const getProjectAction = projectId => async (dispatch, getState) => {
         return projectInfo
     } catch(e) {
         console.log('Error getting specific project>', e)
-        return e
+        return catchError(e, dispatch)
     }
 }
 
@@ -53,7 +48,7 @@ export const createProjectAction = (projectInfo, groupId) => async (dispatch, ge
         return await Axios.post(`/projects/${groupId}/`, projectInfo, config)
     } catch (e) {
         console.log('error creating project>', e)
-        return e
+        return catchError(e, dispatch)
     }
 }
 
@@ -71,6 +66,6 @@ export const updateProjectAction = (projectInfo, projectId) => async (dispatch, 
         }
     } catch (e) {
         console.log('error updating project>', e)
-        return e
+        return catchError(e, dispatch)
     }
 }

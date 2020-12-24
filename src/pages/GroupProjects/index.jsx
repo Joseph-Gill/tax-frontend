@@ -8,6 +8,7 @@ import ProjectCard from './ProjectCard'
 import {AddProjectButton, ProjectCardListContainer} from './styles'
 import NoContent from '../../components/NoContent'
 import {resetProject} from '../../store/project/actions'
+import {resetSteps} from '../../store/step/actions'
 
 
 const GroupProjects = ({history}) => {
@@ -17,6 +18,7 @@ const GroupProjects = ({history}) => {
 
     useEffect(() => {
         dispatch(resetProject())
+        dispatch(resetSteps())
     }, [dispatch])
 
     const setProjectCardDisplayOrder = () => {

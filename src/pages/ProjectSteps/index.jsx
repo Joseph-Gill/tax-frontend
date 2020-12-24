@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {useRouteMatch} from 'react-router-dom'
-import {addNewStepToProject, getProjectAction, resetProject} from '../../store/project/actions'
+import {getProjectAction, resetProject} from '../../store/project/actions'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilterTextContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
 import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
@@ -14,6 +14,7 @@ import {BeginningStructureButton, NoStepsButton, NoStepsContainer, StepStatusLeg
 import StepFilterDropdown from './StepsFilterDropdown'
 import StepCard from './StepCard'
 import Spinner from '../../components/Spinner'
+import {addNewStep} from '../../store/step/actions'
 
 
 const ProjectSteps = ({history}) => {
@@ -30,7 +31,7 @@ const ProjectSteps = ({history}) => {
     }, [dispatch, match.params.projectId])
 
     const addNewStepHandler = () => {
-        dispatch(addNewStepToProject())
+        dispatch(addNewStep())
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
     }
 
@@ -68,7 +69,13 @@ const ProjectSteps = ({history}) => {
                             </NoFilterTextContainer>
                             <NoStepsButton onClick={addNewStepHandler}>Add New Step</NoStepsButton>
                         </NoStepsContainer>
-                    ) : null}
+                    ) : steps.map(step => (
+                        <StepCard
+                            key={step.id}
+                            number={step.number}
+                            project={project}
+                            step={step}
+                        />))}
                 </>)}
         </AuthenticatedPageContainer>
     )
