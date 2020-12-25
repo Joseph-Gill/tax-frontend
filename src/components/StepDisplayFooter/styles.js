@@ -40,7 +40,14 @@ export const EndingNode = styled(BeginningNode)`
 `
 
 export const StepNode = styled(BeginningNode)`
-    background: ${props => props.theme.primaryBlue};
+    background: ${props => props.theme.grayFour};
+
+    ${props => {
+        if (props.isactive) {
+            return `background: ${props.theme.primaryBlue};`
+            }
+        }
+    };
 `
 
 export const StepDisplayText = styled.p`
@@ -91,5 +98,10 @@ export const EndingLeftBar = styled.div`
 `
 
 export const StepLeftBar = styled(EndingLeftBar)`
-
+    ${props => {
+        if (props.isactive) {
+            return `background: ${props.theme.primaryBlue}`
+            }
+        }
+    };
 `

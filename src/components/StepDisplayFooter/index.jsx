@@ -10,18 +10,31 @@ const StepDisplayFooter = ({history, endingActive, steps}) => {
         from: {opacity: 0},
     })
 
-    const renderStepNodes = () => (
-        steps.map(step => (
-            // eslint-disable-next-line react/forbid-component-props
-            <BarNodeContainer key={step.id} style={props}>
-                <StepLeftBar  />
-                <NodeContainer>
-                    <StepNode />
-                    <StepDisplayText>Step {step.number}</StepDisplayText>
-                </NodeContainer>
-            </BarNodeContainer>
-        ))
-    )
+    const renderStepNodes = () => {
+        if (endingActive) {
+            return steps.map(step => (
+                // eslint-disable-next-line react/forbid-component-props
+                <BarNodeContainer key={step.id} style={props}>
+                    <StepLeftBar isactive={1} />
+                    <NodeContainer>
+                        <StepNode isactive={1} />
+                        <StepDisplayText>Step {step.number}</StepDisplayText>
+                    </NodeContainer>
+                </BarNodeContainer>
+            ))
+        } else {
+            return steps.map((step, index) => (
+                // eslint-disable-next-line react/forbid-component-props
+                <BarNodeContainer key={step.id} style={props}>
+                    <StepLeftBar />
+                    <NodeContainer>
+                        <StepNode />
+                        <StepDisplayText>Step {step.number}</StepDisplayText>
+                    </NodeContainer>
+                </BarNodeContainer>
+            ))
+        }
+    }
 
 
     return (
