@@ -5,18 +5,19 @@ import nextActive from '../../assets/icons/stark_step_header_right_active.png'
 import previousInactive from '../../assets/icons/stark_step_header_left_inactive.png'
 import nextInactive from '../../assets/icons/stark_step_header_right_inactive.png'
 import {ImageTextStepHeaderContainer, PreviousNextActiveText, PreviousNextArrowLeft, PreviousNextArrowRight, PreviousNextStepHeaderContainer} from './styles'
-import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
-import {useDispatch} from 'react-redux'
-import {decrementStepToView, incrementStepToView} from '../../store/step/actions'
+import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {useDispatch, useSelector} from 'react-redux'
+import {decrementStepToView, incrementStepToView, skipToSpecifiedStep} from '../../store/step/actions'
 
 
 const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBeginning, stepEnding}) => {
     const history = useHistory()
     const dispatch = useDispatch()
+    const steps = useSelector(state => state.stepReducer.steps)
 
     const previousClickHandler = () => {
         if (stepEnding) {
-            // Need to add to this Changing the indexOfStepToDisplay to be the last index of steps
+            dispatch(skipToSpecifiedStep(steps.length - 1))
             history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
         } else if (!indexOfStepToDisplay) {
             history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
@@ -26,8 +27,11 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
     }
 
     const nextClickHandler = () => {
-        if (stepBeginning) {
+        console.log('clicked - indexOfStepToDisplay>', indexOfStepToDisplay)
+        if (stepBeginning){
             history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+        } else if (steps.length === indexOfStepToDisplay + 1) {
+            history.push(`${GROUPS}${PROJECTS}${STEPS}${ENDING}`)
         } else {
             dispatch(incrementStepToView())
         }

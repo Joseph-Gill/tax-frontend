@@ -11,9 +11,10 @@ import StepInfo from './StepInfo'
 import TaxInfo from './TaxInfo'
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
+import StepDisplayFooter from '../../components/StepDisplayFooter'
 
 
-const StepDisplay = () => {
+const StepDisplay = ({history}) => {
     const dispatch = useDispatch()
     let statusOption = useRef('')
     const indexOfStepToDisplay = useSelector(state => state.stepReducer.indexOfCurrentStepToDisplay)
@@ -60,7 +61,7 @@ const StepDisplay = () => {
             />
             <PreviousNextStepHeader
                 indexOfStepToDisplay={indexOfStepToDisplay}
-                next={steps.length > indexOfStepToDisplay + 1 ? 1 : 0}
+                next={1}
                 previous={1}
             />
             {indexOfStepToDisplay + 1 === steps.length ? (
@@ -106,6 +107,12 @@ const StepDisplay = () => {
                 />
                 <TaxInfo />
             </StepInfoTaxConsequencesContainer>
+            <StepDisplayFooter
+                endingActive={0}
+                history={history}
+                indexOfStepToDisplay={indexOfStepToDisplay}
+                steps={steps}
+            />
         </AuthenticatedPageContainer>
     )
 }

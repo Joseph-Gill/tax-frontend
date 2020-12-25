@@ -12,13 +12,13 @@ export const stepReducer = (state = initialState, action) => {
         case INCREMENT_STEP_TO_VIEW: {
             return {
                 ...state,
-                indexOfCurrentStepToDisplay: state.indexOfCurrentStepToDisplay++,
+                indexOfCurrentStepToDisplay: state.indexOfCurrentStepToDisplay + 1,
             }
         }
         case DECREMENT_STEP_TO_VIEW: {
             return {
                 ...state,
-                indexOfCurrentStepToDisplay: state.indexOfCurrentStepToDisplay--,
+                indexOfCurrentStepToDisplay: state.indexOfCurrentStepToDisplay - 1,
             }
         }
         case RESET_STEP_TO_VIEW: {

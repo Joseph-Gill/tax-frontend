@@ -46,6 +46,7 @@ const StepEnding = ({history}) => {
             </StepPageTitleWithButtonContainer>
             <EndingStructurePlaceholder />
             <StepDisplayFooter
+                beginningActive={0}
                 endingActive={1}
                 history={history}
                 steps={steps}

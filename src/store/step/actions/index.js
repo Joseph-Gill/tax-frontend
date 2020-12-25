@@ -21,10 +21,10 @@ export const resetStepToView = () => {
     }
 }
 
-export const skipToSpecifiedStep = stepNum => {
+export const skipToSpecifiedStep = index => {
     return {
         type: SKIP_TO_SPECIFIED_STEP,
-        payload: stepNum
+        payload: index
     }
 }
 

@@ -17,7 +17,7 @@ export const StepInfoTaxConsequencesContainer = styled.div`
     width: 860px;
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 30px;
 `
 
 export const StepInfoText = styled.p`
