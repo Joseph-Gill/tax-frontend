@@ -50,7 +50,8 @@ const StepBeginning = ({history}) => {
                     </StepPageTitleWithButtonContainer>)}
             <CurrentOrgChart componentCalling='StepBeginning' nodes={entities} />
             <StepDisplayFooter
-                isactive={0}
+                endingActive={0}
+                history={history}
                 steps={steps}
             />
         </AuthenticatedPageContainer>

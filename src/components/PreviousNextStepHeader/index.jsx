@@ -10,12 +10,15 @@ import {useDispatch} from 'react-redux'
 import {decrementStepToView, incrementStepToView} from '../../store/step/actions'
 
 
-const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBeginning}) => {
+const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBeginning, stepEnding}) => {
     const history = useHistory()
     const dispatch = useDispatch()
 
     const previousClickHandler = () => {
-        if (!indexOfStepToDisplay) {
+        if (stepEnding) {
+            // Need to add to this Changing the indexOfStepToDisplay to be the last index of steps
+            history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+        } else if (!indexOfStepToDisplay) {
             history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
         } else {
             dispatch(decrementStepToView())

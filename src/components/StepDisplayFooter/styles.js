@@ -22,14 +22,18 @@ export const BeginningNode = styled.div`
     border-radius: ${props => props.theme.borderRadius};
     margin-bottom: 3px;
     background: ${props => props.theme.greenBright};
+
+    :hover {
+        cursor: pointer;
+    };
 `
 
 export const EndingNode = styled(BeginningNode)`
     background: ${props => props.theme.grayFour};
 
     ${props => {
-        if (props.isactive) {
-            return `background: props.theme.primaryBlue`
+        if (props.endingActive) {
+            return `background: ${props.theme.primaryBlue};`
             }
         }
     };
@@ -47,4 +51,45 @@ export const StepDisplayText = styled.p`
     color: ${props => props.theme.grayOne};
     position: absolute;
     margin-top: 30px;
+`
+
+export const BarNodeContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const BeginningEndingBar = styled.div`
+    width: 57px;
+    height: 4px;
+
+    ${props => {
+        if (props.type === 'beginning') {
+            return `background: ${props.theme.greenBright};`
+            }
+        }
+    };
+
+    ${props => {
+        if (props.type === 'ending') {
+            return `background: ${props.theme.grayFour};`
+            }
+        }
+    };
+`
+
+export const EndingLeftBar = styled.div`
+    width: 102px;
+    height: 4px;
+    background: ${props => props.theme.grayFour};
+
+    ${props => {
+        if (props.endingActive) {
+            return `background: ${props.theme.primaryBlue};`
+            }
+        }
+    };
+`
+
+export const StepLeftBar = styled(EndingLeftBar)`
+
 `

@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {
     HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE,
     GROUPS, ORG_CHART, PROJECTS, MEMBERS, ADD_PROJECT, EDIT_PROJECT, EDIT_GROUP, ADD_GROUP, EDIT_MEMBER, TASKS,
-    ADD_TASK, STEPS, BEGINNING, DISPLAY_STEP
+    ADD_TASK, STEPS, BEGINNING, DISPLAY_STEP, ENDING
 } from './paths'
 import WithAuth from '../HOC/withAuth'
 import SideBar from '../components/SideBar'
@@ -31,6 +31,7 @@ import TaskAdd from '../pages/TaskAdd'
 import ProjectSteps from '../pages/ProjectSteps'
 import StepBeginning from '../pages/StepBeginning'
 import StepDisplay from '../pages/StepDisplay'
+import StepEnding from '../pages/StepEnding'
 
 
 const Routes = () => {
@@ -56,6 +57,7 @@ const Routes = () => {
                     <Route component={WithAuth(TaskAdd)} exact path={`${GROUPS}${PROJECTS}${ADD_TASK}`} />
                     <Route component={WithAuth(StepBeginning)} exact path={`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`} />
                     <Route component={WithAuth(StepDisplay)} exact path={`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`} />
+                    <Route component={WithAuth(StepEnding)} exact path={`${GROUPS}${PROJECTS}${STEPS}${ENDING}`} />
                     <Route component={WithAuth(ProjectSteps)} path={`${GROUPS}${PROJECTS}${STEPS}/:projectId/`} />
                     <Route component={WithAuth(ProjectTasks)} path={`${GROUPS}${PROJECTS}${TASKS}/:projectId/`} />
                     <Route component={WithAuth(MemberEdit)} path={`${GROUPS}${MEMBERS}${EDIT_MEMBER}/:memberId/`} />
