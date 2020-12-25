@@ -49,7 +49,10 @@ const StepBeginning = ({history}) => {
                         <AddNewStepButton onClick={addNewStepHandler}>Add New Step</AddNewStepButton>
                     </StepPageTitleWithButtonContainer>)}
             <CurrentOrgChart componentCalling='StepBeginning' nodes={entities} />
-            <StepDisplayFooter steps={steps} />
+            <StepDisplayFooter
+                isactive={0}
+                steps={steps}
+            />
         </AuthenticatedPageContainer>
     )
 }

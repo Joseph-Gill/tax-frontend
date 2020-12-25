@@ -3,9 +3,10 @@ import styled from 'styled-components/macro'
 
 export const StepDisplayFooterContainer = styled.div`
     width: 860px;
+    max-width: 860px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 21px;
 `
 
@@ -23,6 +24,17 @@ export const BeginningNode = styled.div`
     background: ${props => props.theme.greenBright};
 `
 
+export const EndingNode = styled(BeginningNode)`
+    background: ${props => props.theme.grayFour};
+
+    ${props => {
+        if (props.isactive) {
+            return `background: props.theme.primaryBlue`
+            }
+        }
+    };
+`
+
 export const StepNode = styled(BeginningNode)`
     background: ${props => props.theme.primaryBlue};
 `
@@ -32,5 +44,7 @@ export const StepDisplayText = styled.p`
     font-weight: bold;
     font-size: 14px;
     line-height: 19px;
-    color: ${props => props.theme.greenBright};
+    color: ${props => props.theme.grayOne};
+    position: absolute;
+    margin-top: 30px;
 `
