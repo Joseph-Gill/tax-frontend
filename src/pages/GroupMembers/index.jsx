@@ -11,6 +11,7 @@ import MembersTable from './MembersTable'
 import AddMemberModal from '../../components/AddMemberModal'
 import {resetMember} from '../../store/member/actions'
 import RemoveMemberModal from '../../components/DeleteAccountModal/RemoveMemberModal'
+import StatusToggle from './StatusToggle'
 
 
 const GroupMembers = ({history}) => {
@@ -19,7 +20,7 @@ const GroupMembers = ({history}) => {
     const members = useSelector(state => state.groupReducer.group.users)
     const invitedMembers = useSelector(state => state.groupReducer.group.invited_new_users)
     const [showConfirmation, setShowConfirmation] = useState(false)
-    const [filterMemberStatus, setFilterMemberStatus] = useState(true)
+    const [filterMemberStatus, setFilterMemberStatus] = useState(false)
     const [activeRenderData, setActiveRenderData] = useState([])
     const [invitedRenderData, setInvitedRenderData] = useState([])
     const [showAddMember, setShowAddMember] = useState(false)
@@ -67,16 +68,10 @@ const GroupMembers = ({history}) => {
             />
             <DisplayMembersTitleContainer>
                 <AuthenticatedPageTitle>Team Members</AuthenticatedPageTitle>
-                <MembersStatusToggleContainer>
-                    {filterMemberStatus ? (
-                        <><WhiteStatusContainer>Active</WhiteStatusContainer>
-                            <GreyStatusText onClick={resetAllCheckedChangeFilterMemberStatus}>Invited</GreyStatusText>
-                        </>) : (
-                            <>
-                                <GreyStatusText onClick={resetAllCheckedChangeFilterMemberStatus}>Active</GreyStatusText>
-                                <WhiteStatusContainer>Invited</WhiteStatusContainer>
-                            </>)}
-                </MembersStatusToggleContainer>
+                <StatusToggle
+                    filterMemberStatus={filterMemberStatus}
+                    resetAllCheckedChangeFilterMemberStatus={resetAllCheckedChangeFilterMemberStatus}
+                />
             </DisplayMembersTitleContainer>
             <ActionFilterDropdownContainer>
                 {!filterMemberStatus && !invitedMembers.length ? null : (

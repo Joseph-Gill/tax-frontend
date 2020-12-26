@@ -176,7 +176,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
             {!loaded ? <Spinner /> : (
                 <CommentTable>
                     <thead>
-                        {filterMemberStatus ? (
+                        {!filterMemberStatus ? (
                             <TableTitleRow>
                                 <TableDataCheckbox>
                                     <img
@@ -216,7 +216,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                                     </NoInvitedMembersContainer>)}
                     </thead>
                     <tbody>
-                        {filterMemberStatus ?
+                        {!filterMemberStatus ?
                             renderActiveMembers(filteredMembers()) :
                             renderInvitedMembers(filteredInviteMembers())}
                     </tbody>

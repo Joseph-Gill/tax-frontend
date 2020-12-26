@@ -20,7 +20,7 @@ export const MembersStatusToggleContainer = styled.div`
 `
 
 export const DisplayMembersTitleContainer = styled(DisplayTitleWithButtonContainer)`
-    margin-top: 16.5px;
+    margin-top: 0;
 `
 
 export const WhiteStatusContainer = styled.div`
