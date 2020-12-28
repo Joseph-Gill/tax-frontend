@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
@@ -20,28 +20,32 @@ import {
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
 import StepDisplayFooter from '../../components/StepDisplayFooter'
-import {addNewStep, createNewStepAction, skipToSpecifiedStep} from '../../store/step/actions'
+import {addNewStep, createNewStepAction, getStepsForProjectAction, skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
 import StepDisplayToggle from './StepDisplayToggle'
 import StepChart from './StepChart'
 import {WireFrameDeleteButton} from '../../style/buttons'
 import StepDetails from './StepDetails'
+import Spinner from '../../components/Spinner'
 
 
 const StepDisplay = ({history}) => {
     const dispatch = useDispatch()
-    let statusOption = useRef('')
     const indexOfStepToDisplay = useSelector(state => state.stepReducer.indexOfCurrentStepToDisplay)
     const steps = useSelector(state => state.stepReducer.steps)
     const project = useSelector(state => state.projectReducer.project)
     const [editStatus, setEditStatus] = useState(false)
     const [date, setDate] = useState(new Date());
-    const [description, setDescription] = useState(steps[indexOfStepToDisplay].description)
+    const [description, setDescription] = useState('')
     const [stepDetailStatus, setStepDetailStatus] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [stepStatus, setStepStatus] = useState('')
 
     useEffect(() => {
         if (!steps[indexOfStepToDisplay].id) {
             setEditStatus(true)
         }
+        setDescription(steps[indexOfStepToDisplay].description)
+        setStepStatus(steps[indexOfStepToDisplay].status)
     }, [steps, indexOfStepToDisplay])
 
 
@@ -50,16 +54,34 @@ const StepDisplay = ({history}) => {
             description: description,
             effective_date: convertDate(date),
             number: indexOfStepToDisplay + 1,
-            status: statusOption.current.value
+            status: stepStatus
         }
         const response = await dispatch(createNewStepAction(newStepData, project.id))
         if (response.status === 201) {
-            history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)
+            const response = await dispatch(getStepsForProjectAction(project.id))
+            if (response) {
+                setEditStatus(false)
+                setLoading(false)
+            }
         }
     }
 
     const updateExistingStepHandler = async () => {
-
+        setLoading(true)
+        const updatedStepData = {
+            description: description,
+            effective_date: convertDate(date),
+            number: indexOfStepToDisplay + 1,
+            status: stepStatus
+        }
+        const response = await dispatch(updateStepAction(updatedStepData, steps[indexOfStepToDisplay].id))
+        if (response.status === 200) {
+            const response = await dispatch(getStepsForProjectAction(project.id))
+            if (response) {
+                setEditStatus(false)
+                setLoading(false)
+            }
+        }
     }
 
     const addNewStepHandler = () => {
@@ -70,6 +92,7 @@ const StepDisplay = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
+            {loading ? <Spinner /> : null}
             <BreadCrumb
                 breadCrumbArray={[
                     {display: 'GROUPS', to: GROUPS, active: false},
@@ -134,11 +157,11 @@ const StepDisplay = ({history}) => {
                     {indexOfStepToDisplay + 1 === steps.length ? <WireFrameDeleteButton>Delete</WireFrameDeleteButton> : null}
                     <StepDetailsTasklistButton>Tasklist</StepDetailsTasklistButton>
                     {!editStatus ? (
-                        <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} disabled ref={statusOption}>
+                        <StepDetailsStatus disabled onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
                             <StepDetailsOption value={steps[indexOfStepToDisplay].status}>{steps[indexOfStepToDisplay].status}</StepDetailsOption>
                         </StepDetailsStatus>
                         ) : (
-                            <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} ref={statusOption}>
+                            <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
                                 <StepDetailsOption disabled value=''>Status</StepDetailsOption>
                                 <StepDetailsOption value='Not Started'>Not Started</StepDetailsOption>
                                 <StepDetailsOption value='Ongoing'>Ongoing</StepDetailsOption>

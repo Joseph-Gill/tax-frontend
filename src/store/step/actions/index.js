@@ -81,4 +81,19 @@ export const createNewStepAction = (stepData, projectId) => async (dispatch, get
     }
 }
 
+export const updateStepAction = (stepData, stepId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.patch(`/steps/step/${stepId}/`, stepData, config)
+    } catch (e) {
+        console.log('Error updating a Step>', e)
+        return catchError(e, dispatch)
+    }
+}
+
 

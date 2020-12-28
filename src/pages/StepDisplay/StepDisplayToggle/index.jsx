@@ -1,15 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import {NavbarTitle} from '../../../style/titles'
 
 const DisplayToggleContainer = styled.div`
     display: flex;
-    //flex-direction: column;
     align-items: center;
-`
-
-const DisplayToggleLabel = styled(NavbarTitle)`
-    width: 120px;
 `
 
 const ToggleContainer = styled.label`
