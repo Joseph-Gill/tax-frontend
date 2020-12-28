@@ -27,7 +27,6 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
     }
 
     const nextClickHandler = () => {
-        console.log('clicked - indexOfStepToDisplay>', indexOfStepToDisplay)
         if (stepBeginning){
             history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
         } else if (steps.length === indexOfStepToDisplay + 1) {

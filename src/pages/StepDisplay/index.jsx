@@ -12,6 +12,7 @@ import TaxInfo from './TaxInfo'
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
 import StepDisplayFooter from '../../components/StepDisplayFooter'
+import {createNewStepAction} from '../../store/step/actions'
 
 
 const StepDisplay = ({history}) => {
@@ -38,9 +39,10 @@ const StepDisplay = ({history}) => {
             number: indexOfStepToDisplay + 1,
             status: statusOption.current.value
         }
-        // const response = await dispatch(createNewStepAction(newStepData, project.id))
-        // console.log(response)
-        console.log(newStepData)
+        const response = await dispatch(createNewStepAction(newStepData, project.id))
+        if (response.status === 201) {
+            history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)
+        }
     }
 
     const updateExistingStepHandler = async () => {

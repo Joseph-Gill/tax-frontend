@@ -14,15 +14,16 @@ import {BeginningStructureButton, NoStepsButton, NoStepsContainer, StepStatusLeg
 import StepFilterDropdown from './StepsFilterDropdown'
 import StepCard from './StepCard'
 import Spinner from '../../components/Spinner'
-import {addNewStep, getStepsForProjectAction} from '../../store/step/actions'
+import {addNewStep, getStepsForProjectAction, skipToSpecifiedStep} from '../../store/step/actions'
 
 
 const ProjectSteps = ({history}) => {
     const dispatch = useDispatch()
     const match = useRouteMatch()
     const project = useSelector(state => state.projectReducer.project)
-    const loaded = useSelector(state => state.stepReducer.loaded)
+    const projectLoaded = useSelector(state => state.projectReducer.loaded)
     const steps = useSelector(state => state.stepReducer.steps)
+    const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const [filterString, setFilterString] = useState('')
 
     useEffect(() => {
@@ -38,9 +39,14 @@ const ProjectSteps = ({history}) => {
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
     }
 
+    const stepCardClickHandler = indexOfStep => {
+        dispatch(skipToSpecifiedStep(indexOfStep))
+        history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+    }
+
     return (
         <AuthenticatedPageContainer>
-            {!loaded ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
@@ -74,10 +80,12 @@ const ProjectSteps = ({history}) => {
                         </NoStepsContainer>
                     ) : steps.map(step => (
                         <StepCard
+                            history={history}
                             key={step.id}
                             number={step.number}
                             project={project}
                             step={step}
+                            stepCardClickHandler={stepCardClickHandler}
                         />))}
                 </>)}
         </AuthenticatedPageContainer>

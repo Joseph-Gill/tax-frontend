@@ -31,6 +31,12 @@ export const StepCardRowContainer = styled.div`
     align-items: center;
 `
 
+export const StepCardUpperRowContainer = styled(StepCardRowContainer)`
+    :hover {
+        cursor: pointer;
+    }
+`
+
 export const StepCardButton = styled(TableButton)`
     width: 65px;
     height: 26px;

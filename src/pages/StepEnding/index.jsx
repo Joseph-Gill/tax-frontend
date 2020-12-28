@@ -21,7 +21,7 @@ const EndingStructurePlaceholder = styled.div`
 
 const StepEnding = ({history}) => {
     const project = useSelector(state => state.projectReducer.project)
-    const steps = useSelector(state => state.projectReducer.project.steps)
+    const steps = useSelector(state => state.stepReducer.steps)
 
     return (
         <AuthenticatedPageContainer>

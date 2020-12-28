@@ -15,7 +15,7 @@ import {addNewStep} from '../../store/step/actions'
 const StepBeginning = ({history}) => {
     const dispatch = useDispatch()
     const project = useSelector(state => state.projectReducer.project)
-    const steps = useSelector(state => state.projectReducer.project.steps)
+    const steps = useSelector(state => state.stepReducer.steps)
     const entities = useSelector(state => state.groupReducer.group.entities)
 
     const addNewStepHandler = () => {

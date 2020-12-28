@@ -14,6 +14,7 @@ export const BaseButton = styled.button`
 
     :hover {
         background: ${props => props.disabled ? '' : props.theme.blueHover};
+        transition: 0.5s;
     }
 
     :active {
