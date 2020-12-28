@@ -6,7 +6,7 @@ import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import DateInput from '../../components/DateInput'
-import {DateInputAddStepButtonContainer, DisabledDateInput, StepDisplayAddStepButton, StepInfoTaxConsequencesContainer} from './styles'
+import {DateInputAddStepButtonContainer, DisabledDateInput, DisabledDateLabelContainer, StepDisplayAddStepButton, StepInfoTaxConsequencesContainer} from './styles'
 import StepInfo from './StepInfo'
 import TaxInfo from './TaxInfo'
 import {DateInputLabelText} from '../../style/text'
@@ -96,11 +96,20 @@ const StepDisplay = ({history}) => {
                 </StepPageTitleWithButtonContainer>) : (
                     <StepPageTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
-                        <DateInput
-                            date={date}
-                            label
-                            setDate={setDate}
-                        />
+                        {editStatus ? (
+                            <DateInput
+                                date={date}
+                                label
+                                setDate={setDate}
+                            />) : (
+                                <DisabledDateLabelContainer>
+                                    <DateInputLabelText>Effective Date:</DateInputLabelText>
+                                    <DisabledDateInput
+                                        disabled
+                                        type='text'
+                                        value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
+                                    />
+                                </DisabledDateLabelContainer>)}
                     </StepPageTitleWithButtonContainer>)}
             <StepInfoTaxConsequencesContainer>
                 <StepInfo

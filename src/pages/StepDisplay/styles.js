@@ -60,3 +60,8 @@ export const DisabledDateInput = styled(BaseInput)`
     width: 128px;
     height: 32px;
 `
+
+export const DisabledDateLabelContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
