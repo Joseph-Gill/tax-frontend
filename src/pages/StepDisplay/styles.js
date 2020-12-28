@@ -21,11 +21,6 @@ export const StepInfoText = styled.p`
     line-height: 19px;
 `
 
-export const DisplayStepButtonText = styled(StepInfoText)`
-    font-weight: bold;
-    color: ${props => props.theme.primaryBlue};
-`
-
 export const DisplayStepTitleContainer = styled.div`
     width: 100%;
     height: 19px;
@@ -36,19 +31,6 @@ export const DisplayStepTitleContainer = styled.div`
 
 export const DisplayStepSectionTitle = styled(NavbarTitle)`
     width: 113px;
-`
-
-export const DisplayStepImage = styled.img`
-    margin-right: 9px;
-`
-
-export const DisplayStepImageButtonContainer = styled.div`
-    display: flex;
-    align-items: center;
-
-    : hover {
-      cursor: pointer;
-    }
 `
 
 export const DisabledDateInput = styled(BaseInput)`
@@ -98,7 +80,6 @@ export const StepDetailsStatus = styled(StatusDropdown)`
     font-size: 12px;
     line-height: 16px;
     margin-left: 20px;
-    background: ${props => props.theme.grayFour};
 `
 
 export const StepDetailsOption = styled(DropdownOption)`

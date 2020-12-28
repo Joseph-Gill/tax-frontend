@@ -24,6 +24,7 @@ import {addNewStep, createNewStepAction, skipToSpecifiedStep} from '../../store/
 import StepDisplayToggle from './StepDisplayToggle'
 import StepChart from './StepChart'
 import {WireFrameDeleteButton} from '../../style/buttons'
+import StepDetails from './StepDetails'
 
 
 const StepDisplay = ({history}) => {
@@ -130,7 +131,7 @@ const StepDisplay = ({history}) => {
                     stepDetailStatus={stepDetailStatus}
                 />
                 <ButtonsStatusContainer>
-                    <WireFrameDeleteButton>Delete</WireFrameDeleteButton>
+                    {indexOfStepToDisplay + 1 === steps.length ? <WireFrameDeleteButton>Delete</WireFrameDeleteButton> : null}
                     <StepDetailsTasklistButton>Tasklist</StepDetailsTasklistButton>
                     {!editStatus ? (
                         <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} disabled ref={statusOption}>
@@ -147,7 +148,17 @@ const StepDisplay = ({history}) => {
                 </ButtonsStatusContainer>
             </ToggleButtonsStatusContainer>
             <StepChartDetailsContainer>
-                {!stepDetailStatus ? <StepChart /> : null}
+                {!stepDetailStatus ?
+                    <StepChart /> :
+                    <StepDetails
+                        description={description}
+                        editStatus={editStatus}
+                        saveNewStepHandler={saveNewStepHandler}
+                        setDescription={setDescription}
+                        setEditStatus={setEditStatus}
+                        step={steps[indexOfStepToDisplay]}
+                        updateExistingStepHandler={updateExistingStepHandler}
+                    />}
             </StepChartDetailsContainer>
             <StepDisplayFooter
                 endingActive={0}
