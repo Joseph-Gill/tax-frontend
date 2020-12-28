@@ -12,7 +12,7 @@ import TaxInfo from './TaxInfo'
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
 import StepDisplayFooter from '../../components/StepDisplayFooter'
-import {createNewStepAction} from '../../store/step/actions'
+import {addNewStep, createNewStepAction, skipToSpecifiedStep} from '../../store/step/actions'
 
 
 const StepDisplay = ({history}) => {
@@ -47,6 +47,12 @@ const StepDisplay = ({history}) => {
 
     const updateExistingStepHandler = async () => {
 
+    }
+
+    const addNewStepHandler = () => {
+        setDescription('')
+        dispatch(addNewStep(indexOfStepToDisplay + 2))
+        dispatch(skipToSpecifiedStep(indexOfStepToDisplay + 1))
     }
 
     return (
@@ -85,7 +91,7 @@ const StepDisplay = ({history}) => {
                                     />
                                 </>)}
                         {indexOfStepToDisplay + 1 === steps.length && steps[indexOfStepToDisplay].id ?
-                            <StepDisplayAddStepButton>Add New Step</StepDisplayAddStepButton> : null}
+                            <StepDisplayAddStepButton onClick={addNewStepHandler}>Add New Step</StepDisplayAddStepButton> : null}
                     </DateInputAddStepButtonContainer>
                 </StepPageTitleWithButtonContainer>) : (
                     <StepPageTitleWithButtonContainer>

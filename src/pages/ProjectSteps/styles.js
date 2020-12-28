@@ -9,7 +9,6 @@ export const BeginningStructureButton = styled(BaseButton)`
 `
 
 export const NoStepsContainer = styled(NoFilterResultsContainer)`
-    margin-top: 21px;
 `
 
 export const NoStepsButton = styled(AddNewStepButton)`

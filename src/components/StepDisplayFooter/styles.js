@@ -3,9 +3,9 @@ import styled from 'styled-components/macro'
 
 export const StepDisplayFooterContainer = styled.div`
     width: 860px;
-    max-width: 860px;
+    //height: 80px;
     display: flex;
-    align-items: center;
+    //align-items: center;
     justify-content: center;
     margin-top: 21px;
 `

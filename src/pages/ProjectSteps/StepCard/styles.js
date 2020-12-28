@@ -13,7 +13,7 @@ export const StepCardContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
     padding: 20px 19px 19px 20px;
-    margin-top: 20px;
+    margin-bottom: 20px;
 `
 
 export const StepCardStatusColorStepNumberContainer = styled.div`

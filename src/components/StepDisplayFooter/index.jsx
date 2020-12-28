@@ -20,7 +20,7 @@ const StepDisplayFooter = ({beginningActive, endingActive, history, indexOfStepT
 
     const renderStepNodes = () => {
         if (beginningActive) {
-            return steps.map((step, index) => (
+            return steps.slice(0, 5).map((step, index) => (
                 // eslint-disable-next-line react/forbid-component-props
                 <BarNodeContainer key={step.id} style={props}>
                     <StepLeftBar />
@@ -31,45 +31,93 @@ const StepDisplayFooter = ({beginningActive, endingActive, history, indexOfStepT
                 </BarNodeContainer>
             ))
         } else if (endingActive) {
-            return steps.map((step, index) => (
+            return steps.slice(-5).map(step => (
                 // eslint-disable-next-line react/forbid-component-props
                 <BarNodeContainer key={step.id} style={props}>
                     <StepLeftBar isactive={1} />
-                    <NodeContainer onClick={() => stepNodeClickHandler(index)}>
+                    <NodeContainer onClick={() => stepNodeClickHandler(step.number - 1)}>
                         <StepNode isactive={1} />
                         <StepDisplayText>Step {step.number}</StepDisplayText>
                     </NodeContainer>
                 </BarNodeContainer>
             ))
         } else {
-            return steps.map((step, index) => {
-                if (index <= indexOfStepToDisplay) {
-                    return (
+            if(indexOfStepToDisplay === 0 || indexOfStepToDisplay === 1){
+                return steps.slice(0, indexOfStepToDisplay + 1).map(step => (
+                    // eslint-disable-next-line react/forbid-component-props
+                    <BarNodeContainer key={step.id} style={props}>
+                        <StepLeftBar isactive={1} />
+                        <NodeContainer onClick={() => stepNodeClickHandler(step.number - 1)}>
+                            <StepNode isactive={1} />
+                            <StepDisplayText>Step {step.number}</StepDisplayText>
+                        </NodeContainer>
+                    </BarNodeContainer>
+                )).concat(steps.slice(indexOfStepToDisplay + 1, 5).map(step => (
+                    // eslint-disable-next-line react/forbid-component-props
+                    <BarNodeContainer key={step.id} style={props}>
+                        <StepLeftBar />
+                        <NodeContainer onClick={() => stepNodeClickHandler(step.number - 1)}>
+                            <StepNode />
+                            <StepDisplayText>Step {step.number}</StepDisplayText>
+                        </NodeContainer>
+                    </BarNodeContainer>
+                )))
+            } else if (indexOfStepToDisplay >= steps.length - 2) {
+                if (indexOfStepToDisplay === steps.length - 1) {
+                    return steps.slice(-5).map(step => (
                         // eslint-disable-next-line react/forbid-component-props
                         <BarNodeContainer key={step.id} style={props}>
                             <StepLeftBar isactive={1} />
-                            <NodeContainer onClick={() => stepNodeClickHandler(index)}>
+                            <NodeContainer onClick={() => stepNodeClickHandler(step.number - 1)}>
                                 <StepNode isactive={1} />
                                 <StepDisplayText>Step {step.number}</StepDisplayText>
                             </NodeContainer>
                         </BarNodeContainer>
-                    )
+                    ))
                 } else {
-                    return (
+                    return steps.slice(-5, -1).map(step => (
+                        // eslint-disable-next-line react/forbid-component-props
+                        <BarNodeContainer key={step.id} style={props}>
+                            <StepLeftBar isactive={1} />
+                            <NodeContainer onClick={() => stepNodeClickHandler(step.number - 1)}>
+                                <StepNode isactive={1} />
+                                <StepDisplayText>Step {step.number}</StepDisplayText>
+                            </NodeContainer>
+                        </BarNodeContainer>
+                    )).concat(steps.slice(-1).map(step => (
                         // eslint-disable-next-line react/forbid-component-props
                         <BarNodeContainer key={step.id} style={props}>
                             <StepLeftBar />
-                            <NodeContainer onClick={() => stepNodeClickHandler(index)}>
+                            <NodeContainer onClick={() => stepNodeClickHandler(step.number - 1)}>
                                 <StepNode />
                                 <StepDisplayText>Step {step.number}</StepDisplayText>
                             </NodeContainer>
                         </BarNodeContainer>
-                    )
+                    )))
                 }
-            })
+            } else {
+                return steps.slice(indexOfStepToDisplay - 2, indexOfStepToDisplay + 1).map(step => (
+                    // eslint-disable-next-line react/forbid-component-props
+                    <BarNodeContainer key={step.id} style={props}>
+                        <StepLeftBar isactive={1} />
+                        <NodeContainer onClick={() => stepNodeClickHandler(step.number - 1)}>
+                            <StepNode isactive={1} />
+                            <StepDisplayText>Step {step.number}</StepDisplayText>
+                        </NodeContainer>
+                    </BarNodeContainer>
+                )).concat(steps.slice(indexOfStepToDisplay + 1, indexOfStepToDisplay + 3).map(step => (
+                    // eslint-disable-next-line react/forbid-component-props
+                    <BarNodeContainer key={step.id} style={props}>
+                        <StepLeftBar />
+                        <NodeContainer onClick={() => stepNodeClickHandler(step.number - 1)}>
+                            <StepNode />
+                            <StepDisplayText>Step {step.number}</StepDisplayText>
+                        </NodeContainer>
+                    </BarNodeContainer>
+                )))
+            }
         }
     }
-
 
     return (
         <StepDisplayFooterContainer>

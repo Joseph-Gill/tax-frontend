@@ -19,7 +19,7 @@ const StepBeginning = ({history}) => {
     const entities = useSelector(state => state.groupReducer.group.entities)
 
     const addNewStepHandler = () => {
-        dispatch(addNewStep())
+        dispatch(addNewStep(1))
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
     }
 
