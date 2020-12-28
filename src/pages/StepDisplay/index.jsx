@@ -6,13 +6,24 @@ import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import DateInput from '../../components/DateInput'
-import {DateInputAddStepButtonContainer, DisabledDateInput, DisabledDateLabelContainer, StepDisplayAddStepButton, StepInfoTaxConsequencesContainer} from './styles'
-import StepInfo from './StepInfo'
-import TaxInfo from './TaxInfo'
+import {
+    ButtonsStatusContainer,
+    DateInputAddStepButtonContainer,
+    DisabledDateInput,
+    DisabledDateLabelContainer,
+    StepChartDetailsContainer, StepDetailsOption,
+    StepDetailsStatus,
+    StepDetailsTasklistButton,
+    StepDisplayAddStepButton,
+    ToggleButtonsStatusContainer
+} from './styles'
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
 import StepDisplayFooter from '../../components/StepDisplayFooter'
 import {addNewStep, createNewStepAction, skipToSpecifiedStep} from '../../store/step/actions'
+import StepDisplayToggle from './StepDisplayToggle'
+import StepChart from './StepChart'
+import {WireFrameDeleteButton} from '../../style/buttons'
 
 
 const StepDisplay = ({history}) => {
@@ -24,6 +35,7 @@ const StepDisplay = ({history}) => {
     const [editStatus, setEditStatus] = useState(false)
     const [date, setDate] = useState(new Date());
     const [description, setDescription] = useState(steps[indexOfStepToDisplay].description)
+    const [stepDetailStatus, setStepDetailStatus] = useState(false)
 
     useEffect(() => {
         if (!steps[indexOfStepToDisplay].id) {
@@ -111,19 +123,32 @@ const StepDisplay = ({history}) => {
                                     />
                                 </DisabledDateLabelContainer>)}
                     </StepPageTitleWithButtonContainer>)}
-            <StepInfoTaxConsequencesContainer>
-                <StepInfo
-                    description={description}
-                    editStatus={editStatus}
-                    saveNewStepHandler={saveNewStepHandler}
-                    setDescription={setDescription}
-                    setEditStatus={setEditStatus}
-                    statusOption={statusOption}
-                    step={steps[indexOfStepToDisplay]}
-                    updateExistingStepHandler={updateExistingStepHandler}
+
+            <ToggleButtonsStatusContainer>
+                <StepDisplayToggle
+                    setStepDetailStatus={setStepDetailStatus}
+                    stepDetailStatus={stepDetailStatus}
                 />
-                <TaxInfo />
-            </StepInfoTaxConsequencesContainer>
+                <ButtonsStatusContainer>
+                    <WireFrameDeleteButton>Delete</WireFrameDeleteButton>
+                    <StepDetailsTasklistButton>Tasklist</StepDetailsTasklistButton>
+                    {!editStatus ? (
+                        <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} disabled ref={statusOption}>
+                            <StepDetailsOption value={steps[indexOfStepToDisplay].status}>{steps[indexOfStepToDisplay].status}</StepDetailsOption>
+                        </StepDetailsStatus>
+                        ) : (
+                            <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} ref={statusOption}>
+                                <StepDetailsOption disabled value=''>Status</StepDetailsOption>
+                                <StepDetailsOption value='Not Started'>Not Started</StepDetailsOption>
+                                <StepDetailsOption value='Ongoing'>Ongoing</StepDetailsOption>
+                                <StepDetailsOption value='Completed'>Completed</StepDetailsOption>
+                            </StepDetailsStatus>
+                    )}
+                </ButtonsStatusContainer>
+            </ToggleButtonsStatusContainer>
+            <StepChartDetailsContainer>
+                {!stepDetailStatus ? <StepChart /> : null}
+            </StepChartDetailsContainer>
             <StepDisplayFooter
                 endingActive={0}
                 history={history}

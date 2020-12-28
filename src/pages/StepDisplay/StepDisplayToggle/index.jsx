@@ -1,19 +1,18 @@
+import React from 'react'
 import styled from 'styled-components/macro'
 import {NavbarTitle} from '../../../style/titles'
 
-
-export const StatusToggleContainer = styled.div`
+const DisplayToggleContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    //flex-direction: column;
     align-items: center;
 `
 
-export const StatusToggleLabel = styled(NavbarTitle)`
-    width: 90px;
+const DisplayToggleLabel = styled(NavbarTitle)`
+    width: 120px;
 `
 
-
-export const ToggleContainer = styled.label`
+const ToggleContainer = styled.label`
     position: relative;
     cursor: pointer;
     margin-top: 2px;
@@ -23,10 +22,10 @@ export const ToggleContainer = styled.label`
         display: none;
 
         :checked ~ i {
-            left: 71px;
+            left: 101px;
 
             ::before {
-                content: 'Invited'
+                content: 'Details'
             }
         }
     }
@@ -37,7 +36,7 @@ export const ToggleContainer = styled.label`
         background: rgba(224, 224, 224, 0.5);
         box-shadow: inset 0 2px 4px rgba(44, 33, 120, 0.1), inset 0 1px 2px rgba(44, 33, 120, 0.1);
         border-radius: 8px;
-        width: 150px;
+        width: 222px;
         height: 40px;
     }
 
@@ -45,7 +44,7 @@ export const ToggleContainer = styled.label`
         position: absolute;
         top: 0;
         left: 0;
-        width: 69px;
+        width: 110px;
         height: 30px;
         background: ${props => props.theme.white};
         box-shadow: 0 1px 2px rgba(97, 97, 97, 0.1), 0 2px 4px rgba(97, 97, 97, 0.1);
@@ -54,7 +53,7 @@ export const ToggleContainer = styled.label`
         transition: 0.5s;
 
         ::before {
-            content: 'Active';
+            content: 'Chart';
             position: absolute;
             font-family: ${props => props.theme.nunitoFontFamily};
             font-weight: 600;
@@ -68,3 +67,21 @@ export const ToggleContainer = styled.label`
         }
     }
 `
+
+const StepDisplayToggle = ({stepDetailStatus, setStepDetailStatus}) => {
+    return (
+        <DisplayToggleContainer>
+            <ToggleContainer>
+                <input
+                    checked={stepDetailStatus}
+                    onChange={() => setStepDetailStatus(!stepDetailStatus)}
+                    type='checkbox'
+                />
+                <span />
+                <i />
+            </ToggleContainer>
+        </DisplayToggleContainer>
+    )
+}
+
+export default StepDisplayToggle

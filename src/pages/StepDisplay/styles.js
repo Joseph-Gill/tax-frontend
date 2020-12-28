@@ -1,7 +1,9 @@
 import styled from 'styled-components/macro'
-import {AddNewStepButton} from '../../style/buttons'
+import {AddNewStepButton, TableButton} from '../../style/buttons'
 import {NavbarTitle} from '../../style/titles'
 import {BaseInput} from '../../style/inputs'
+import {StatusDropdown} from '../../style/dropdowns'
+import {DropdownOption} from '../../style/options'
 
 
 export const DateInputAddStepButtonContainer = styled.div`
@@ -11,13 +13,6 @@ export const DateInputAddStepButtonContainer = styled.div`
 
 export const StepDisplayAddStepButton = styled(AddNewStepButton)`
     margin-left: 40px;
-`
-
-export const StepInfoTaxConsequencesContainer = styled.div`
-    width: 860px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
 `
 
 export const StepInfoText = styled.p`
@@ -64,4 +59,49 @@ export const DisabledDateInput = styled(BaseInput)`
 export const DisabledDateLabelContainer = styled.div`
     display: flex;
     align-items: center;
+`
+
+export const ToggleButtonsStatusContainer = styled.div`
+    width: 860px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+`
+
+export const ButtonsStatusContainer = styled.div`
+    display: flex;
+`
+
+export const StepChartDetailsContainer = styled.div`
+    width: 860px;
+    height: 400px;
+    background: ${props => props.theme.white};
+    box-shadow: ${props => props.theme.boxShadow};
+    border-radius: ${props => props.theme.borderRadius};
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+export const StepDetailsTasklistButton = styled(TableButton)`
+    width: 78px;
+    height: 26px;
+    margin-left: 20px;
+`
+
+export const StepDetailsStatus = styled(StatusDropdown)`
+    width: 102px;
+    height: 26px;
+    background-position-x: 84px;
+    font-size: 12px;
+    line-height: 16px;
+    margin-left: 20px;
+    background: ${props => props.theme.grayFour};
+`
+
+export const StepDetailsOption = styled(DropdownOption)`
+    font-size: 10px;
+    line-height: 14px;
 `

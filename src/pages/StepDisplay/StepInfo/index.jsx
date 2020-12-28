@@ -3,18 +3,12 @@ import pencil from '../../../assets/icons/stark_edit_pencil_icon.svg'
 import save from '../../../assets/icons/stark_step_save_icon.svg'
 import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, DisplayStepSectionTitle, DisplayStepTitleContainer} from '../styles'
 import {CardInfoText} from '../../../style/text'
-import {WireFrameDeleteButton} from '../../../style/buttons'
 import {
-    StepInfoButtonsContainer,
     StepInfoCancelButton,
-    StepInfoChartContainer,
     StepInfoContainer,
-    StepInfoDescriptionContainer, StepInfoOption,
+    StepInfoDescriptionContainer,
     StepInfoSaveButton,
     StepInfoSaveImage,
-    StepInfoStatus,
-    StepInfoStatusButtonsContainer,
-    StepInfoTasklistButton,
     StepInfoTextArea
 } from './styles'
 
@@ -48,27 +42,6 @@ const StepInfo = ({description, editStatus, saveNewStepHandler, setDescription, 
                         placeholder='Write your step description...'
                         value={description}
                     />)}
-            <StepInfoChartContainer>
-                {/*<img alt='chart' src={StepChartPlaceholder} />*/}
-            </StepInfoChartContainer>
-            <StepInfoStatusButtonsContainer>
-                {!editStatus ? (
-                    <StepInfoStatus defaultValue={step.status} disabled ref={statusOption}>
-                        <StepInfoOption value={step.status}>{step.status}</StepInfoOption>
-                    </StepInfoStatus>
-                    ) : (
-                        <StepInfoStatus defaultValue={step.status} ref={statusOption}>
-                            <StepInfoOption disabled value=''>Status</StepInfoOption>
-                            <StepInfoOption value='Not Started'>Not Started</StepInfoOption>
-                            <StepInfoOption value='Ongoing'>Ongoing</StepInfoOption>
-                            <StepInfoOption value='Completed'>Completed</StepInfoOption>
-                        </StepInfoStatus>
-                )}
-                <StepInfoButtonsContainer>
-                    <StepInfoTasklistButton>Tasklist</StepInfoTasklistButton>
-                    <WireFrameDeleteButton>Delete</WireFrameDeleteButton>
-                </StepInfoButtonsContainer>
-            </StepInfoStatusButtonsContainer>
         </StepInfoContainer>
     )
 }

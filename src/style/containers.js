@@ -116,7 +116,7 @@ export const DisplayTitleWithButtonContainer = styled(AuthenticatedPageTitleCont
 `
 
 export const StepPageTitleWithButtonContainer = styled(DisplayTitleWithButtonContainer)`
-    margin-top: 23px;
+    margin-top: 15px;
 `
 
 export const AddEditProjectNameStatusContainer = styled.div`
