@@ -36,7 +36,7 @@ const StepBeginning = ({history}) => {
                 ]}
             />
             <PreviousNextStepHeader
-                next={steps.length ? 1 : 0}
+                next={1}
                 previous={0}
                 stepBeginning
             />

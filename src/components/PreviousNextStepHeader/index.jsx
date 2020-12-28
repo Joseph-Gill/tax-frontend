@@ -17,8 +17,12 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
 
     const previousClickHandler = () => {
         if (stepEnding) {
-            dispatch(skipToSpecifiedStep(steps.length - 1))
-            history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+            if (!steps.length) {
+                history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
+            } else {
+                dispatch(skipToSpecifiedStep(steps.length - 1))
+                history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+            }
         } else if (!indexOfStepToDisplay) {
             history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
         } else {
@@ -28,7 +32,11 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
 
     const nextClickHandler = () => {
         if (stepBeginning){
-            history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+            if (!steps.length) {
+                history.push(`${GROUPS}${PROJECTS}${STEPS}${ENDING}`)
+            } else {
+                history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+            }
         } else if (steps.length === indexOfStepToDisplay + 1) {
             history.push(`${GROUPS}${PROJECTS}${STEPS}${ENDING}`)
         } else {
