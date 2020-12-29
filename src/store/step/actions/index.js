@@ -96,4 +96,18 @@ export const updateStepAction = (stepData, stepId) => async (dispatch, getState)
     }
 }
 
+export const deleteStepAction = stepId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.delete(`/steps/step/${stepId}/`, config)
+    } catch (e) {
+        console.log('Error deleting a Step>', e)
+        return catchError(e, dispatch)
+    }
+}
 

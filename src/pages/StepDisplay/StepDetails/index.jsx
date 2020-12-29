@@ -12,7 +12,7 @@ import {CardInfoText} from '../../../style/text'
 import {
     DisplayStepButtonText,
     DisplayStepImage,
-    DisplayStepImageButtonContainer, StepDescriptionTaxTitleContainer,
+    DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer,
     StepDescriptionTitleContainer,
     StepDetailsContainer,
     StepInfoCancelButton,
@@ -30,7 +30,9 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
     const loaded = useSelector(state => state.taxConsequenceReducer.loaded)
 
     useEffect(() => {
-        dispatch(getAllTaxConsequencesForStepAction(step.id))
+        if (step.id) {
+            dispatch(getAllTaxConsequencesForStepAction(step.id))
+        }
     }, [dispatch, step.id])
 
     const addNewTaxConsequenceHandler = () => {
@@ -81,16 +83,22 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                         placeholder='Write your step description...'
                         value={description}
                     />)}
-            <StepDescriptionTaxTitleContainer>
-                <NavbarTitle>Tax Consequences</NavbarTitle>
-                <DisplayStepImageButtonContainer>
-                    <DisplayStepImage alt='add country consequence' src={addConsequence} />
-                    <DisplayStepButtonText onClick={addNewTaxConsequenceHandler}>Add Country Consequence</DisplayStepButtonText>
-                </DisplayStepImageButtonContainer>
-            </StepDescriptionTaxTitleContainer>
-            <TaxConsequencesContainer>
-                {!loaded ? <Spinner /> : renderTaxConsequences()}
-            </TaxConsequencesContainer>
+            {step.id ? (
+                <>
+                    <StepDescriptionTaxTitleContainer>
+                        <NavbarTitle>Tax Consequences</NavbarTitle>
+                        <DisplayStepImageButtonContainer>
+                            <DisplayStepImage alt='add country consequence' src={addConsequence} />
+                            <DisplayStepButtonText onClick={addNewTaxConsequenceHandler}>Add Country Consequence</DisplayStepButtonText>
+                        </DisplayStepImageButtonContainer>
+                    </StepDescriptionTaxTitleContainer>
+                    <TaxConsequencesContainer>
+                        {!loaded ? <Spinner /> : renderTaxConsequences()}
+                    </TaxConsequencesContainer>
+                </>) : (
+                    <NewStepNoTaxConsequencesContainer>
+                        You must save your step before you can add Tax Consequences.
+                    </NewStepNoTaxConsequencesContainer>)}
         </StepDetailsContainer>
     )
 }

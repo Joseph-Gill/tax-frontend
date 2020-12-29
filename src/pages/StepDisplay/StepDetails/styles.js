@@ -116,3 +116,9 @@ export const TaxConsequencesContainer = styled.div`
       background: ${props => props.theme.grayTwo};
     }
 `
+
+export const NewStepNoTaxConsequencesContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`

@@ -20,12 +20,13 @@ import {
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
 import StepDisplayFooter from '../../components/StepDisplayFooter'
-import {addNewStep, createNewStepAction, getStepsForProjectAction, skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
+import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
 import StepDisplayToggle from './StepDisplayToggle'
 import StepChart from './StepChart'
 import {WireFrameDeleteButton} from '../../style/buttons'
 import StepDetails from './StepDetails'
 import Spinner from '../../components/Spinner'
+import DeleteStepModal from '../../components/DeleteAccountModal/DeleteStepModal'
 
 
 const StepDisplay = ({history}) => {
@@ -39,6 +40,7 @@ const StepDisplay = ({history}) => {
     const [stepDetailStatus, setStepDetailStatus] = useState(false)
     const [loading, setLoading] = useState(false)
     const [stepStatus, setStepStatus] = useState('')
+    const [showConfirmation, setShowConfirmation] = useState(false)
 
     useEffect(() => {
         if (!steps[indexOfStepToDisplay].id) {
@@ -90,9 +92,27 @@ const StepDisplay = ({history}) => {
         dispatch(skipToSpecifiedStep(indexOfStepToDisplay + 1))
     }
 
+    const deleteStepHandler = async () => {
+        setLoading(true)
+        const response = await dispatch(deleteStepAction(steps[indexOfStepToDisplay].id))
+        if (response.status === 204) {
+            dispatch(skipToSpecifiedStep(indexOfStepToDisplay - 1))
+            const response = await dispatch(getStepsForProjectAction(project.id))
+            if (response) {
+                setShowConfirmation(false)
+                setLoading(false)
+            }
+        }
+    }
+
     return (
         <AuthenticatedPageContainer>
             {loading ? <Spinner /> : null}
+            {showConfirmation ?
+                <DeleteStepModal
+                    deleteStepHandler={deleteStepHandler}
+                    setShowConfirmation={setShowConfirmation}
+                /> : null}
             <BreadCrumb
                 breadCrumbArray={[
                     {display: 'GROUPS', to: GROUPS, active: false},
@@ -154,7 +174,7 @@ const StepDisplay = ({history}) => {
                     stepDetailStatus={stepDetailStatus}
                 />
                 <ButtonsStatusContainer>
-                    {indexOfStepToDisplay + 1 === steps.length ? <WireFrameDeleteButton>Delete</WireFrameDeleteButton> : null}
+                    {indexOfStepToDisplay + 1 === steps.length ? <WireFrameDeleteButton onClick={() => setShowConfirmation(true)}>Delete</WireFrameDeleteButton> : null}
                     <StepDetailsTasklistButton>Tasklist</StepDetailsTasklistButton>
                     {!editStatus ? (
                         <StepDetailsStatus disabled onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
