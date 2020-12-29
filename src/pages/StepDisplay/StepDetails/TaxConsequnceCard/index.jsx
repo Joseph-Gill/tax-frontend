@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {CountryDropdown} from 'react-country-region-selector'
 import {CardInfoText} from '../../../../style/text'
 import {
@@ -14,10 +14,17 @@ import {
 } from './styles'
 
 
-const TaxConsequenceCard = () => {
+const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, taxConsequence}) => {
     const [editStatus, setEditStatus] = useState(false)
     const [countryName, setCountryName] = useState('')
     const [taxDescription, setTaxDescription] = useState('')
+
+    useEffect(() => {
+        if (!taxConsequence.id) {
+            setEditStatus(true)
+        }
+        setTaxDescription(taxConsequence.description)
+    })
 
     return (
         <TaxConsequenceContainer>
@@ -39,10 +46,12 @@ const TaxConsequenceCard = () => {
                         }}
                         value={countryName}
                     /> :
-                    <TaxConsequenceCountryLabel>United States</TaxConsequenceCountryLabel>}
+                    <TaxConsequenceCountryLabel>{taxConsequence.location}</TaxConsequenceCountryLabel>}
                 {editStatus ? (
                     <TaxConsequenceButtonContainer>
-                        <GrayTaxConsequenceButton onClick={() => setEditStatus(false)}>Cancel</GrayTaxConsequenceButton>
+                        {taxConsequence.id ?
+                            <GrayTaxConsequenceButton onClick={() => setEditStatus(false)}>Cancel</GrayTaxConsequenceButton> :
+                            <GrayTaxConsequenceButton onClick={cancelNewTaxConsequenceHandler}>Cancel</GrayTaxConsequenceButton>}
                         <TaxConsequenceButton>Save</TaxConsequenceButton>
                     </TaxConsequenceButtonContainer>) : (
                         <TaxConsequenceButtonContainer>
@@ -57,9 +66,10 @@ const TaxConsequenceCard = () => {
                 /> : (
                     <TaxConsequenceTextUsernameContainer>
                         <TaxConsequenceTextContainer>
-                            <CardInfoText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc malesuada laoreet risus, ac condimentum mauris viverra in. Nullam ultricies, mi non pulvinar vestibulum, purus ligula cursus lectus, id eleifend arcu enim eu velit. Ut dapibus eleifend consectetur. Nam elit nisl, mollis ac diam non, semper hendrerit massa. Nam risus ipsum, eleifend quis urna vel, suscipit finibus ligula. Sed suscipit eros ipsum, a laoreet lorem posuere ac. Aliquam consectetur velit in mi mattis tempus. Nulla non elit ornare, feugiat nibh lobortis, imperdiet metus. Vestibulum vel diam ipsum. Mauris vehicula massa mauris. Pellentesque non quam sit amet diam tempus fringilla nec eu massa.</CardInfoText>
+                            <CardInfoText>{taxConsequence.description}</CardInfoText>
                         </TaxConsequenceTextContainer>
-                        <TaxConsequenceUserDateText>created by PH User on 01/09/20</TaxConsequenceUserDateText>
+                        {taxConsequence.creating_user ?
+                            <TaxConsequenceUserDateText>created by PH User on 01/09/20</TaxConsequenceUserDateText> : null}
                     </TaxConsequenceTextUsernameContainer>)}
         </TaxConsequenceContainer>
     )

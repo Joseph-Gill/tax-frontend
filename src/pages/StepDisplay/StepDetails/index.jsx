@@ -1,8 +1,13 @@
-import React from 'react'
-import {NavbarTitle} from '../../../style/titles'
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {v4 as uuidv4} from 'uuid'
+import {addNewTaxConsequence, getAllTaxConsequencesForStepAction, resetStepTaxConsequences} from '../../../store/taxConsequence/actions'
+import Spinner from '../../../components/Spinner'
+import TaxConsequenceCard from './TaxConsequnceCard'
 import pencil from '../../../assets/icons/stark_edit_pencil_icon.svg'
 import addConsequence from '../../../assets/icons/stark_add_country_consequence_icon.svg'
 import save from '../../../assets/icons/stark_step_save_icon.svg'
+import {NavbarTitle} from '../../../style/titles'
 import {CardInfoText} from '../../../style/text'
 import {
     DisplayStepButtonText,
@@ -16,11 +21,37 @@ import {
     StepInfoSaveImage,
     StepInfoTextArea, TaxConsequencesContainer
 } from './styles'
-import TaxConsequenceCard from './TaxConsequnceCard'
 
 
 
 const StepDetails = ({description, editStatus, saveNewStepHandler, setDescription, setEditStatus, step, updateExistingStepHandler}) => {
+    const dispatch = useDispatch()
+    const taxConsequences = useSelector(state => state.taxConsequenceReducer.taxConsequences)
+    const loaded = useSelector(state => state.taxConsequenceReducer.loaded)
+
+    useEffect(() => {
+        dispatch(getAllTaxConsequencesForStepAction(step.id))
+    }, [dispatch, step.id])
+
+    const addNewTaxConsequenceHandler = () => {
+        dispatch(addNewTaxConsequence())
+    }
+
+    const cancelNewTaxConsequenceHandler = () => {
+        dispatch(resetStepTaxConsequences())
+        dispatch(getAllTaxConsequencesForStepAction(step.id))
+    }
+
+    const renderTaxConsequences = () => (
+        taxConsequences.map(taxConsequence => (
+            <TaxConsequenceCard
+                cancelNewTaxConsequenceHandler={cancelNewTaxConsequenceHandler}
+                key={uuidv4()}
+                taxConsequence={taxConsequence}
+            />
+        ))
+    )
+
     return (
         <StepDetailsContainer>
             <StepDescriptionTitleContainer>
@@ -53,11 +84,11 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                 <NavbarTitle>Tax Consequences</NavbarTitle>
                 <DisplayStepImageButtonContainer>
                     <DisplayStepImage alt='add country consequence' src={addConsequence} />
-                    <DisplayStepButtonText>Add Country Consequence</DisplayStepButtonText>
+                    <DisplayStepButtonText onClick={addNewTaxConsequenceHandler}>Add Country Consequence</DisplayStepButtonText>
                 </DisplayStepImageButtonContainer>
             </StepDescriptionTaxTitleContainer>
             <TaxConsequencesContainer>
-                <TaxConsequenceCard />
+                {!loaded ? <Spinner /> : renderTaxConsequences()}
             </TaxConsequencesContainer>
         </StepDetailsContainer>
     )

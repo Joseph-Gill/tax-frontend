@@ -1,4 +1,4 @@
-import {ADD_NEW_TAX_CONSEQUENCE, GET_ALL_STEP_TAX_CONSEQUENCES} from './types'
+import {ADD_NEW_TAX_CONSEQUENCE, GET_ALL_STEP_TAX_CONSEQUENCES, RESET_STEP_TAX_CONSEQUENCES} from './types'
 
 
 const initialState = {
@@ -18,10 +18,20 @@ export const taxConsequenceReducer = (state = initialState, action) => {
             return {
                 ...state,
                 taxConsequences: [{
+                    id: null,
                     location: null,
                     type: '',
                     description: null,
+                    creating_user: null,
+                    created: null,
                 }].concat(state.taxConsequences)
+            }
+        }
+        case RESET_STEP_TAX_CONSEQUENCES: {
+            return {
+                ...state,
+                taxConsequences: [],
+                loaded: false
             }
         }
         default:

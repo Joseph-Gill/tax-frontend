@@ -1,9 +1,9 @@
 import Axios from '../../../axios'
-import {ADD_NEW_TAX_CONSEQUENCE, GET_ALL_STEP_TAX_CONSEQUENCES} from '../types'
+import {ADD_NEW_TAX_CONSEQUENCE, GET_ALL_STEP_TAX_CONSEQUENCES, RESET_STEP_TAX_CONSEQUENCES} from '../types'
 import {catchError} from '../../errors/actions/errorAction'
 
 
-export const getAllTaxConsequencesStep = data => {
+export const getAllStepTaxConsequences = data => {
     return {
         type: GET_ALL_STEP_TAX_CONSEQUENCES,
         payload: data
@@ -13,6 +13,12 @@ export const getAllTaxConsequencesStep = data => {
 export const addNewTaxConsequence = () => {
     return {
         type: ADD_NEW_TAX_CONSEQUENCE
+    }
+}
+
+export const resetStepTaxConsequences = () => {
+    return {
+        type: RESET_STEP_TAX_CONSEQUENCES
     }
 }
 
@@ -26,7 +32,7 @@ export const getAllTaxConsequencesForStepAction = stepId => async (dispatch, get
     try {
         const response = await Axios.get(`taxes/step/${stepId}/`, config)
         const taxConsequences = [...response.data]
-        dispatch(getAllTaxConsequencesStep(taxConsequences))
+        dispatch(getAllStepTaxConsequences(taxConsequences))
         return taxConsequences
     } catch (e) {
         console.log('Error getting all Tax Consequences of Step>', e)
