@@ -69,7 +69,9 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, taxConsequence}) =>
                             <CardInfoText>{taxConsequence.description}</CardInfoText>
                         </TaxConsequenceTextContainer>
                         {taxConsequence.creating_user ?
-                            <TaxConsequenceUserDateText>created by PH User on 01/09/20</TaxConsequenceUserDateText> : null}
+                            <TaxConsequenceUserDateText>
+                                created by {taxConsequence.creating_user.user.first_name} {taxConsequence.creating_user.user.last_name} on {taxConsequence.created.slice(0, 10)}
+                            </TaxConsequenceUserDateText> : null}
                     </TaxConsequenceTextUsernameContainer>)}
         </TaxConsequenceContainer>
     )

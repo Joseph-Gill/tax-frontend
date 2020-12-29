@@ -39,3 +39,18 @@ export const getAllTaxConsequencesForStepAction = stepId => async (dispatch, get
         return catchError(e, dispatch)
     }
 }
+
+export const createNewTaxConsequenceAction = (taxConsequenceData, stepId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.post(`taxes/step/${stepId}/`, config)
+    } catch (e) {
+        console.log('Error creating new Tax Consequence>', e)
+        return catchError(e, dispatch)
+    }
+}
