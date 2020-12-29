@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux'
 import {CountryDropdown} from 'react-country-region-selector'
 import {CardInfoText} from '../../../../style/text'
 import {
-    GrayTaxConsequenceButton,
+    GrayTaxConsequenceButton, GreenReviewedText,
     NewTaxConsequenceText,
     TaxConsequenceButton,
     TaxConsequenceButtonContainer,
@@ -97,8 +97,12 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
                                 </>)}
                     </TaxConsequenceButtonContainer>) : (
                         <TaxConsequenceButtonContainer>
-                            <TaxConsequenceButton onClick={() => setEditStatus(true)}>Edit</TaxConsequenceButton>
-                            <TaxConsequenceButton>Review</TaxConsequenceButton>
+                            {taxConsequence.reviewed ?
+                                <GreenReviewedText>reviewed by {taxConsequence.reviewing_user.user.first_name} {taxConsequence.reviewing_user.user.last_name}</GreenReviewedText> : (
+                                    <>
+                                        <TaxConsequenceButton onClick={() => setEditStatus(true)}>Edit</TaxConsequenceButton>
+                                        <TaxConsequenceButton>Review</TaxConsequenceButton>
+                                    </>)}
                         </TaxConsequenceButtonContainer>)}
             </TaxConsequenceTitleContainer>
             {editStatus ?

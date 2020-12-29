@@ -49,7 +49,7 @@ export const TaxConsequenceTextUsernameContainer = styled.div`
 
 export const TaxConsequenceTextContainer = styled.div`
     width: 100%;
-    height: 75px;
+    //height: 75px;
     max-height: 75px;
     overflow: scroll;
     overflow-y: auto;
@@ -107,4 +107,12 @@ export const TaxConsequenceCountryLabel = styled.div`
     line-height: 19px;
     color: ${props => props.theme.primaryBlue};
     margin-left: 15px;
+`
+
+export const GreenReviewedText = styled.p`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: ${props => props.theme.green};
 `
