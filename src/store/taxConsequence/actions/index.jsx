@@ -48,7 +48,7 @@ export const createNewTaxConsequenceAction = (taxConsequenceData, stepId) => asy
         }
     }
     try {
-        return await Axios.post(`taxes/step/${stepId}/`, config)
+        return await Axios.post(`taxes/step/${stepId}/`, taxConsequenceData, config)
     } catch (e) {
         console.log('Error creating new Tax Consequence>', e)
         return catchError(e, dispatch)

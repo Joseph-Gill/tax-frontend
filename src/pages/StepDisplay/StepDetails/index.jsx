@@ -47,6 +47,7 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
             <TaxConsequenceCard
                 cancelNewTaxConsequenceHandler={cancelNewTaxConsequenceHandler}
                 key={uuidv4()}
+                step={step}
                 taxConsequence={taxConsequence}
             />
         ))

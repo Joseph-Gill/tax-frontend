@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {useDispatch} from 'react-redux'
 import {CountryDropdown} from 'react-country-region-selector'
 import {CardInfoText} from '../../../../style/text'
 import {
@@ -12,22 +13,43 @@ import {
     TaxConsequenceTextUsernameContainer,
     TaxConsequenceTitleContainer, TaxConsequenceUserDateText
 } from './styles'
+import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction} from '../../../../store/taxConsequence/actions'
+import Spinner from '../../../../components/Spinner'
 
 
-const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, taxConsequence}) => {
+const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequence}) => {
+    const dispatch = useDispatch()
     const [editStatus, setEditStatus] = useState(false)
     const [countryName, setCountryName] = useState('')
     const [taxDescription, setTaxDescription] = useState('')
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        console.log('taxConsequence UseEffect trigger')
         if (!taxConsequence.id) {
             setEditStatus(true)
         }
         setTaxDescription(taxConsequence.description)
-    })
+    }, [taxConsequence.id, taxConsequence.description])
+
+    const saveNewTaxConsequenceHandler = async () => {
+        setLoading(true)
+        const newTaxConsequenceData = {
+            location: countryName,
+            description: taxDescription
+        }
+        const response = await dispatch(createNewTaxConsequenceAction(newTaxConsequenceData, step.id))
+        if (response.status === 201) {
+            const response = dispatch(getAllTaxConsequencesForStepAction(step.id))
+            if (response) {
+                setLoading(false)
+            }
+        }
+    }
 
     return (
         <TaxConsequenceContainer>
+            {loading ? <Spinner /> : null}
             <TaxConsequenceTitleContainer>
                 {editStatus ?
                     <CountryDropdown
@@ -49,10 +71,15 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, taxConsequence}) =>
                     <TaxConsequenceCountryLabel>{taxConsequence.location}</TaxConsequenceCountryLabel>}
                 {editStatus ? (
                     <TaxConsequenceButtonContainer>
-                        {taxConsequence.id ?
-                            <GrayTaxConsequenceButton onClick={() => setEditStatus(false)}>Cancel</GrayTaxConsequenceButton> :
-                            <GrayTaxConsequenceButton onClick={cancelNewTaxConsequenceHandler}>Cancel</GrayTaxConsequenceButton>}
-                        <TaxConsequenceButton>Save</TaxConsequenceButton>
+                        {taxConsequence.id ? (
+                            <>
+                                <GrayTaxConsequenceButton onClick={() => setEditStatus(false)}>Cancel</GrayTaxConsequenceButton>
+                                <TaxConsequenceButton>Save</TaxConsequenceButton>
+                            </>) : (
+                                <>
+                                    <GrayTaxConsequenceButton onClick={cancelNewTaxConsequenceHandler}>Cancel</GrayTaxConsequenceButton>
+                                    <TaxConsequenceButton onClick={saveNewTaxConsequenceHandler}>Save</TaxConsequenceButton>
+                                </>)}
                     </TaxConsequenceButtonContainer>) : (
                         <TaxConsequenceButtonContainer>
                             <TaxConsequenceButton onClick={() => setEditStatus(true)}>Edit</TaxConsequenceButton>

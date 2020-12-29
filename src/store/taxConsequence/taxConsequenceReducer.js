@@ -21,7 +21,7 @@ export const taxConsequenceReducer = (state = initialState, action) => {
                     id: null,
                     location: null,
                     type: '',
-                    description: null,
+                    description: '',
                     creating_user: null,
                     created: null,
                 }].concat(state.taxConsequences)
