@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 import {device as devices} from '../../style/devices'
 import {animated} from 'react-spring'
+import {BaseButton} from '../../style/buttons'
 
 
 export const AddDeleteModalExternalContainer = styled(animated.div)`
@@ -65,4 +66,14 @@ export const AddDeleteModalButtonContainer = styled.div`
 export const AddDeleteModalErrorContainer = styled.div`
     height: 10px;
     margin-bottom: 10px;
+`
+
+export const DeleteStepReviewModalInternalContainer = styled(AddDeleteModalInternalContainer)`
+    width: 370px;
+    height: 240px;
+`
+
+export const BlueConfirmReviewedButton = styled(BaseButton)`
+    width: 186px;
+    height: 32px;
 `

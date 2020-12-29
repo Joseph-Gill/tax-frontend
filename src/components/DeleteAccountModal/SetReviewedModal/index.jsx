@@ -1,22 +1,15 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import {
-    AddDeleteModalButtonContainer,
-    AddDeleteModalCloseContainer,
-    AddDeleteModalExternalContainer,
-    AddDeleteModalTextContainer,
-    AddDeleteModalTitleContainer,
-    DeleteStepReviewModalInternalContainer
-} from '../styles'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, BlueConfirmReviewedButton, DeleteStepReviewModalInternalContainer} from '../styles'
 import {CloseIcon, Ellipse} from '../../../style/images'
 import close from '../../../assets/icons/stark_close_icon.svg'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import ellipse from '../../../assets/icons/stark_modal_ellipse.png'
 import {ModalText} from '../../../style/text'
-import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
+import {AuthenticatedButtonCancel} from '../../../style/buttons'
 
 
-const DeleteStepModal = ({deleteStepHandler, setShowConfirmation}) => {
+const SetReviewedModal = ({setReviewedHandler, setShowConfirmation}) => {
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},
@@ -35,16 +28,16 @@ const DeleteStepModal = ({deleteStepHandler, setShowConfirmation}) => {
                 <div>
                     <AddDeleteModalTextContainer>
                         <Ellipse alt='ellipse' src={ellipse} />
-                        <ModalText>All saved tax consequences in this step will be deleted</ModalText>
+                        <ModalText>This tax consequence will be marked as reviewed by you</ModalText>
                     </AddDeleteModalTextContainer>
                 </div>
                 <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={() => setShowConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
-                    <RedLargerButton onClick={deleteStepHandler}>Confirm Delete</RedLargerButton>
+                    <BlueConfirmReviewedButton onClick={setReviewedHandler}>Confirm Reviewed</BlueConfirmReviewedButton>
                 </AddDeleteModalButtonContainer>
             </DeleteStepReviewModalInternalContainer>
         </AddDeleteModalExternalContainer>
     )
 }
 
-export default DeleteStepModal
+export default SetReviewedModal

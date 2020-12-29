@@ -13,8 +13,9 @@ import {
     TaxConsequenceTextUsernameContainer,
     TaxConsequenceTitleContainer, TaxConsequenceUserDateText
 } from './styles'
-import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
+import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
 import Spinner from '../../../../components/Spinner'
+import SetReviewedModal from '../../../../components/DeleteAccountModal/SetReviewedModal'
 
 
 const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequence}) => {
@@ -23,6 +24,7 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
     const [countryName, setCountryName] = useState('')
     const [taxDescription, setTaxDescription] = useState('')
     const [loading, setLoading] = useState(false)
+    const [showConfirmation, setShowConfirmation] = useState(false)
 
     useEffect(() => {
         if (!taxConsequence.id) {
@@ -62,9 +64,25 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
         }
     }
 
+    const setReviewedHandler = async () => {
+        setLoading(true)
+        const response = await dispatch(setReviewedTaxConsequenceAction(taxConsequence.id))
+        if (response.status === 200) {
+            const response = dispatch(getAllTaxConsequencesForStepAction(step.id))
+            if (response) {
+                setLoading(false)
+            }
+        }
+    }
+
     return (
         <TaxConsequenceContainer>
             {loading ? <Spinner /> : null}
+            {showConfirmation ?
+                <SetReviewedModal
+                    setReviewedHandler={setReviewedHandler}
+                    setShowConfirmation={setShowConfirmation}
+                /> : null}
             <TaxConsequenceTitleContainer>
                 {editStatus ?
                     <CountryDropdown
@@ -101,7 +119,7 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
                                 <GreenReviewedText>reviewed by {taxConsequence.reviewing_user.user.first_name} {taxConsequence.reviewing_user.user.last_name}</GreenReviewedText> : (
                                     <>
                                         <TaxConsequenceButton onClick={() => setEditStatus(true)}>Edit</TaxConsequenceButton>
-                                        <TaxConsequenceButton>Review</TaxConsequenceButton>
+                                        <TaxConsequenceButton onClick={() => setShowConfirmation(true)}>Review</TaxConsequenceButton>
                                     </>)}
                         </TaxConsequenceButtonContainer>)}
             </TaxConsequenceTitleContainer>
