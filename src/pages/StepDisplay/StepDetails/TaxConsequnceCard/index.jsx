@@ -13,7 +13,7 @@ import {
     TaxConsequenceTextUsernameContainer,
     TaxConsequenceTitleContainer, TaxConsequenceUserDateText
 } from './styles'
-import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction} from '../../../../store/taxConsequence/actions'
+import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
 import Spinner from '../../../../components/Spinner'
 
 
@@ -25,12 +25,12 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        console.log('taxConsequence UseEffect trigger')
         if (!taxConsequence.id) {
             setEditStatus(true)
         }
         setTaxDescription(taxConsequence.description)
-    }, [taxConsequence.id, taxConsequence.description])
+        setCountryName(taxConsequence.location)
+    }, [taxConsequence.id, taxConsequence.description, taxConsequence.location])
 
     const saveNewTaxConsequenceHandler = async () => {
         setLoading(true)
@@ -40,6 +40,21 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
         }
         const response = await dispatch(createNewTaxConsequenceAction(newTaxConsequenceData, step.id))
         if (response.status === 201) {
+            const response = dispatch(getAllTaxConsequencesForStepAction(step.id))
+            if (response) {
+                setLoading(false)
+            }
+        }
+    }
+
+    const updateTaxConsequenceHandler = async () => {
+        setLoading(true)
+        const updatedTaxConsequenceData = {
+            location: countryName,
+            description: taxDescription
+        }
+        const response = await dispatch(updateTaxConsequenceAction(updatedTaxConsequenceData, taxConsequence.id))
+        if (response.status === 200) {
             const response = dispatch(getAllTaxConsequencesForStepAction(step.id))
             if (response) {
                 setLoading(false)
@@ -74,7 +89,7 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
                         {taxConsequence.id ? (
                             <>
                                 <GrayTaxConsequenceButton onClick={() => setEditStatus(false)}>Cancel</GrayTaxConsequenceButton>
-                                <TaxConsequenceButton>Save</TaxConsequenceButton>
+                                <TaxConsequenceButton onClick={updateTaxConsequenceHandler}>Save</TaxConsequenceButton>
                             </>) : (
                                 <>
                                     <GrayTaxConsequenceButton onClick={cancelNewTaxConsequenceHandler}>Cancel</GrayTaxConsequenceButton>

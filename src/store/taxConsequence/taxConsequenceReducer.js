@@ -19,7 +19,7 @@ export const taxConsequenceReducer = (state = initialState, action) => {
                 ...state,
                 taxConsequences: [{
                     id: null,
-                    location: null,
+                    location: '',
                     type: '',
                     description: '',
                     creating_user: null,

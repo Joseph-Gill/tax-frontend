@@ -54,3 +54,18 @@ export const createNewTaxConsequenceAction = (taxConsequenceData, stepId) => asy
         return catchError(e, dispatch)
     }
 }
+
+export const updateTaxConsequenceAction = (taxConsequenceData, taxConsequenceId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.patch(`taxes/tax/${taxConsequenceId}/`, taxConsequenceData, config)
+    } catch (e) {
+        console.log('Error updating a Tax Consequence>', e)
+        return catchError(e, dispatch)
+    }
+}
