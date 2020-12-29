@@ -9,6 +9,7 @@ import {groupReducer} from './group/groupReducer'
 import {projectReducer} from './project/projectReducer'
 import {memberReducer} from './member/memberReducer'
 import {stepReducer} from './step/stepReducer'
+import {taxConsequenceReducer} from './taxConsequence/taxConsequenceReducer'
 
 // Reducers
 export const reducers = combineReducers({
@@ -19,7 +20,8 @@ export const reducers = combineReducers({
     groupReducer,
     projectReducer,
     memberReducer,
-    stepReducer
+    stepReducer,
+    taxConsequenceReducer
 })
 
 // Thunk
