@@ -67,6 +67,8 @@ const StepDisplay = ({history}) => {
                 setEditStatus(false)
                 setLoading(false)
             }
+        } else {
+           setLoading(false)
         }
     }
 
@@ -85,6 +87,9 @@ const StepDisplay = ({history}) => {
                 setEditStatus(false)
                 setLoading(false)
             }
+        }
+        else {
+            setLoading(false)
         }
     }
 

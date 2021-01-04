@@ -22,6 +22,7 @@ import {
     StepInfoTextArea, TaxConsequencesContainer
 } from './styles'
 import {ErrorMessage} from '../../../style/messages'
+import {resetErrors} from '../../../store/errors/actions/errorAction'
 
 
 
@@ -46,6 +47,12 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
         dispatch(getAllTaxConsequencesForStepAction(step.id))
     }
 
+    const cancelEditStepHandler = () => {
+        dispatch(resetErrors())
+        setEditStatus(false)
+        setDescription(step.description)
+    }
+
     const renderTaxConsequences = () => (
         taxConsequences.map(taxConsequence => (
             <TaxConsequenceCard
@@ -67,7 +74,7 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                         <DisplayStepButtonText>Edit</DisplayStepButtonText>
                     </DisplayStepImageButtonContainer>) : (
                         <DisplayStepImageButtonContainer>
-                            <StepInfoCancelButton onClick={() => setEditStatus(false)}>Cancel</StepInfoCancelButton>
+                            <StepInfoCancelButton onClick={cancelEditStepHandler}>Cancel</StepInfoCancelButton>
                             <DisplayStepImageButtonContainer>
                                 <StepInfoSaveImage alt='save' src={save} />
                                 {step.id ?
