@@ -7,7 +7,6 @@ import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import DateInput from '../../components/DateInput'
 import {
-    ActiveStepDetailStatus,
     ButtonsStatusContainer,
     DateInputAddStepButtonContainer,
     DisabledDateInput,
@@ -15,7 +14,7 @@ import {
     StepChartDetailsContainer, StepDetailsOption,
     StepDetailsStatus,
     StepDetailsTasklistButton,
-    StepDisplayAddStepButton, StepDisplayErrorContainer,
+    StepDisplayAddStepButton, StepDisplayErrorContainer, StepTooltipAnchor,
     ToggleButtonsStatusContainer
 } from './styles'
 import {DateInputLabelText} from '../../style/text'
@@ -30,6 +29,8 @@ import Spinner from '../../components/Spinner'
 import DeleteStepModal from '../../components/DeleteAccountModal/DeleteStepModal'
 import {ErrorMessage} from '../../style/messages'
 import {resetErrors} from '../../store/errors/actions/errorAction'
+import tooltipAnchor from '../../assets/icons/stark_tooltip_anchor.png'
+import StepToolTip from './StepToolTip'
 
 
 const StepDisplay = ({history}) => {
@@ -45,15 +46,24 @@ const StepDisplay = ({history}) => {
     const [loading, setLoading] = useState(false)
     const [stepStatus, setStepStatus] = useState('')
     const [showConfirmation, setShowConfirmation] = useState(false)
+    const [ableToComplete, setAbleToComplete] = useState(false)
 
     useEffect(() => {
         if (!steps[indexOfStepToDisplay].id) {
             setEditStatus(true)
         }
+        const checkIfStepCanComplete = () => {
+            for (let i = 0; i < indexOfStepToDisplay; i++) {
+                if (steps[i].status !== 'Completed') {
+                    return false
+                }
+            }
+            return true
+        }
         setDescription(steps[indexOfStepToDisplay].description)
         setStepStatus(steps[indexOfStepToDisplay].status)
+        setAbleToComplete(checkIfStepCanComplete())
     }, [steps, indexOfStepToDisplay])
-
 
     const saveNewStepHandler = async () => {
         dispatch(resetErrors())
@@ -144,11 +154,7 @@ const StepDisplay = ({history}) => {
                     <AuthenticatedPageTitle>Step {steps[indexOfStepToDisplay].number}</AuthenticatedPageTitle>
                     <DateInputAddStepButtonContainer>
                         {editStatus ? (
-                            <DateInput
-                                date={date}
-                                label
-                                setDate={setDate}
-                            />) : (
+                            <DateInput date={date} label setDate={setDate} />) : (
                                 <>
                                     <DateInputLabelText>Effective Date:</DateInputLabelText>
                                     <DisabledDateInput
@@ -196,9 +202,18 @@ const StepDisplay = ({history}) => {
                                 <StepDetailsOption disabled value=''>Status</StepDetailsOption>
                                 <StepDetailsOption value='Not Started'>Not Started</StepDetailsOption>
                                 <StepDetailsOption value='Ongoing'>Ongoing</StepDetailsOption>
-                                <StepDetailsOption value='Completed'>Completed</StepDetailsOption>
+                                {ableToComplete ?
+                                    <StepDetailsOption value='Completed'>Completed</StepDetailsOption> :
+                                    <StepDetailsOption disabled value='Completed'>Completed</StepDetailsOption>}
                             </StepDetailsStatus>
                     )}
+                    {!ableToComplete ? (
+                        <>
+                            <StepTooltipAnchor>
+                                <img alt='tooltip' data-for='complete' data-tip src={tooltipAnchor} />
+                            </StepTooltipAnchor>
+                            <StepToolTip anchorId='complete' />
+                        </>) : null}
                 </ButtonsStatusContainer>
             </ToggleButtonsStatusContainer>
             <StepDisplayErrorContainer>

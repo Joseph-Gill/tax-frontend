@@ -53,6 +53,7 @@ export const ToggleButtonsStatusContainer = styled.div`
 
 export const ButtonsStatusContainer = styled.div`
     display: flex;
+    align-items: center;
 `
 
 export const StepChartDetailsContainer = styled.div`
@@ -93,4 +94,8 @@ export const StepDisplayErrorContainer = styled.div`
     height: 10px;
     display: flex;
     justify-content: flex-end;
+`
+
+export const StepTooltipAnchor = styled.a`
+    margin-left: 10px;
 `
