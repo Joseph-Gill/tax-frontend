@@ -13,14 +13,15 @@ import {
     TaxConsequenceTextUsernameContainer,
     TaxConsequenceTitleContainer, TaxConsequenceUserDateText
 } from './styles'
-import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
+import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, resetStepTaxConsequences, setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
 import Spinner from '../../../../components/Spinner'
 import SetReviewedModal from '../../../../components/DeleteAccountModal/SetReviewedModal'
 import SetNotReviewedModal from '../../../../components/DeleteAccountModal/SetNotReviewedModal'
 import {ErrorMessage} from '../../../../style/messages'
+import {resetErrors} from '../../../../store/errors/actions/errorAction'
 
 
-const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequence}) => {
+const TaxConsequenceCard = ({step, taxConsequence}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [editStatus, setEditStatus] = useState(false)
@@ -31,14 +32,16 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
     const [showSecondConfirmation, setShowSecondConfirmation] = useState(false)
 
     useEffect(() => {
+        console.log('useEffect trigger')
         if (!taxConsequence.id) {
             setEditStatus(true)
         }
-        setTaxDescription(taxConsequence.description)
         setCountryName(taxConsequence.location)
-    }, [taxConsequence.id, taxConsequence.description, taxConsequence.location])
+        setTaxDescription(taxConsequence.description)
+    }, [taxConsequence.id, taxConsequence.location, taxConsequence.description])
 
     const saveNewTaxConsequenceHandler = async () => {
+        dispatch(resetErrors())
         setLoading(true)
         const newTaxConsequenceData = {
             location: countryName,
@@ -50,10 +53,13 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
             if (response) {
                 setLoading(false)
             }
+        } else {
+            setLoading(false)
         }
     }
 
     const updateTaxConsequenceHandler = async () => {
+        dispatch(resetErrors())
         setLoading(true)
         const updatedTaxConsequenceData = {
             location: countryName,
@@ -65,7 +71,15 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
             if (response) {
                 setLoading(false)
             }
+        } else {
+            setLoading(false)
         }
+    }
+
+    const cancelNewTaxConsequenceHandler = () => {
+        dispatch(resetErrors())
+        dispatch(resetStepTaxConsequences())
+        dispatch(getAllTaxConsequencesForStepAction(step.id))
     }
 
     const setReviewedHandler = async () => {
@@ -104,7 +118,7 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
                     setShowSecondConfirmation={setShowSecondConfirmation}
                 /> : null}
             <TaxConsequenceLocationErrorContainer>
-                {error && <ErrorMessage>{error.location}</ErrorMessage>}
+                {error && editStatus && <ErrorMessage>{error.location}</ErrorMessage>}
             </TaxConsequenceLocationErrorContainer>
             <TaxConsequenceTitleContainer>
                 {editStatus ?
@@ -126,7 +140,7 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
                     /> :
                     <TaxConsequenceCountryLabel>{taxConsequence.location}</TaxConsequenceCountryLabel>}
                 <TaxConsequenceDescriptionErrorContainer>
-                    {error && <ErrorMessage>{error.tax_description}</ErrorMessage>}
+                    {error && editStatus && <ErrorMessage>{error.tax_description}</ErrorMessage>}
                 </TaxConsequenceDescriptionErrorContainer>
                 {editStatus ? (
                     <TaxConsequenceButtonContainer>

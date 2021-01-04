@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
-import {addNewTaxConsequence, getAllTaxConsequencesForStepAction, resetStepTaxConsequences} from '../../../store/taxConsequence/actions'
+import {addNewTaxConsequence, getAllTaxConsequencesForStepAction} from '../../../store/taxConsequence/actions'
 import Spinner from '../../../components/Spinner'
 import TaxConsequenceCard from './TaxConsequnceCard'
 import pencil from '../../../assets/icons/stark_edit_pencil_icon.svg'
@@ -42,10 +42,6 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
         dispatch(addNewTaxConsequence())
     }
 
-    const cancelNewTaxConsequenceHandler = () => {
-        dispatch(resetStepTaxConsequences())
-        dispatch(getAllTaxConsequencesForStepAction(step.id))
-    }
 
     const cancelEditStepHandler = () => {
         dispatch(resetErrors())
@@ -53,16 +49,15 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
         setDescription(step.description)
     }
 
-    const renderTaxConsequences = () => (
+    const renderTaxConsequences = React.useMemo(() => (
         taxConsequences.map(taxConsequence => (
             <TaxConsequenceCard
-                cancelNewTaxConsequenceHandler={cancelNewTaxConsequenceHandler}
                 key={uuidv4()}
                 step={step}
                 taxConsequence={taxConsequence}
             />
         ))
-    )
+    ), [taxConsequences, step])
 
     return (
         <StepDetailsContainer>
@@ -105,7 +100,7 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                         </DisplayStepImageButtonContainer>
                     </StepDescriptionTaxTitleContainer>
                     <TaxConsequencesContainer>
-                        {!loaded ? <Spinner /> : renderTaxConsequences()}
+                        {!loaded ? <Spinner /> : renderTaxConsequences}
                     </TaxConsequencesContainer>
                 </>) : (
                     <NewStepNoTaxConsequencesContainer>
