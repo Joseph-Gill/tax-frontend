@@ -28,6 +28,7 @@ import StepDetails from './StepDetails'
 import Spinner from '../../components/Spinner'
 import DeleteStepModal from '../../components/DeleteAccountModal/DeleteStepModal'
 import {ErrorMessage} from '../../style/messages'
+import {resetErrors} from '../../store/errors/actions/errorAction'
 
 
 const StepDisplay = ({history}) => {
@@ -54,6 +55,7 @@ const StepDisplay = ({history}) => {
 
 
     const saveNewStepHandler = async () => {
+        dispatch(resetErrors())
         const newStepData = {
             description: description,
             effective_date: convertDate(date),
@@ -73,6 +75,7 @@ const StepDisplay = ({history}) => {
     }
 
     const updateExistingStepHandler = async () => {
+        dispatch(resetErrors())
         setLoading(true)
         const updatedStepData = {
             description: description,
