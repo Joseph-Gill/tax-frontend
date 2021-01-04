@@ -28,7 +28,7 @@ const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilt
                     />
                     <DefaultDropdownText>Email</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
-                {filterMemberStraus && (
+                {!filterMemberStraus && (
                     <>
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
