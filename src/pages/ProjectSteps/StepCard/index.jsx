@@ -4,7 +4,7 @@ import {CardInfoText} from '../../../style/text'
 import {DateText} from '../../Home/HomeGroup/ExpandedGroup/styles'
 import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
 import {
-    StepCardButton,
+    StepCardButton, StepCardButtonDateContainer,
     StepCardContainer,
     StepCardDescriptionContainer,
     StepCardRowContainer,
@@ -13,6 +13,7 @@ import {
     StepCardTitleText,
     StepCardUpperRowContainer
 } from './styles'
+import StepCardTaxLocations from './StepCardTaxLocations'
 
 
 const StepCard = ({history, number, project, step, stepCardClickHandler}) => {
@@ -29,13 +30,16 @@ const StepCard = ({history, number, project, step, stepCardClickHandler}) => {
                     <StepCardStatusColorContainer status={step.status} />
                     <StepCardTitleText>Step {number}</StepCardTitleText>
                 </StepCardStatusColorStepNumberContainer>
-                <DateText>{step.effective_date}</DateText>
+                <StepCardTaxLocations taxConsequences={step.tax_consequences} />
             </StepCardUpperRowContainer>
             <StepCardRowContainer>
                 <StepCardDescriptionContainer onClick={() => stepCardClickHandler(step.number - 1)}>
                     <CardInfoText>{step.description.length > 170 ? step.description.slice(0, 170).concat('... ') : step.description}</CardInfoText>
                 </StepCardDescriptionContainer>
-                <StepCardButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Tasks</StepCardButton>
+                <StepCardButtonDateContainer>
+                    <DateText>{step.effective_date}</DateText>
+                    <StepCardButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Tasks</StepCardButton>
+                </StepCardButtonDateContainer>
             </StepCardRowContainer>
         </StepCardContainer>
     )

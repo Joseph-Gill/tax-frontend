@@ -53,7 +53,11 @@ const ProjectSteps = ({history}) => {
         const selectedFilterOption = filterOption.filter(option => option.isChecked)[0]
         switch (selectedFilterOption.type) {
             case 'location':
-                return steps.filter(step => step.tax_consequences.filter(tax => tax.location.toLowerCase().indexOf(filterString.toLowerCase()) !== -1).length > 0)
+                if (filterString) {
+                    return steps.filter(step => step.tax_consequences.filter(tax => tax.location.toLowerCase().indexOf(filterString.toLowerCase()) !== -1).length > 0)
+                } else {
+                    return steps
+                }
             default:
                 return steps.filter(step => step[selectedFilterOption.type].toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
         }

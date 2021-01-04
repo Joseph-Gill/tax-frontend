@@ -40,6 +40,7 @@ export const StepCardUpperRowContainer = styled(StepCardRowContainer)`
 export const StepCardButton = styled(TableButton)`
     width: 65px;
     height: 26px;
+    margin-left: 15px;
 `
 
 export const StepCardDescriptionContainer = styled.div`
@@ -73,4 +74,9 @@ export const StepCardStatusColorContainer = styled.div`
         }
     }
     };
+`
+
+export const StepCardButtonDateContainer = styled.div`
+    display: flex;
+    align-items: center;
 `
