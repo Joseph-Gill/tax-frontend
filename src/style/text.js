@@ -106,3 +106,11 @@ export const DateInputLabelText = styled.p`
     color: ${props => props.theme.grayOne};
     margin-right: 10px;
 `
+
+export const TooltipRowText = styled.p`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 12px;
+    color: ${props => props.theme.grayOne};
+    margin-left: 13px;
+`
+

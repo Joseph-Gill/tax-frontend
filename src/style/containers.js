@@ -241,6 +241,11 @@ export const StatusLegendContainer = styled.div`
     background: ${props => props.theme.white};
 `
 
+export const TooltipRowContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

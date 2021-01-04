@@ -50,3 +50,8 @@ export const FilterImage = styled.img`
 export const DropdownImage = styled.img`
     margin-left: 10px;
 `
+
+export const TooltipRowImage = styled.img`
+    width: 5px;
+    height: 5px;
+`

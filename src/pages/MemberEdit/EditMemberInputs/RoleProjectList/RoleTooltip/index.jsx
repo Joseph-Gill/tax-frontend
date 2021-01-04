@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
 import ellipse from '../../../../../assets/icons/stark_tooltip_ellipse.png'
-import {TooltipRowContainer, TooltipRowImage, TooltipRowText} from './styles'
+import {TooltipRowContainer} from '../../../../../style/containers'
+import {TooltipRowImage} from '../../../../../style/images'
+import {TooltipRowText} from '../../../../../style/text'
 
 
 const RoleTooltip = ({anchorId, topRowText, bottomRowText}) => {
