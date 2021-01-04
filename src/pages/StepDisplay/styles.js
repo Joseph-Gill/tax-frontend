@@ -61,7 +61,7 @@ export const StepChartDetailsContainer = styled.div`
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
-    margin-top: 15px;
+    margin-top: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,4 +85,11 @@ export const StepDetailsStatus = styled(StatusDropdown)`
 export const StepDetailsOption = styled(DropdownOption)`
     font-size: 10px;
     line-height: 14px;
+`
+
+export const StepDisplayErrorContainer = styled.div`
+    width: 860px;
+    height: 10px;
+    display: flex;
+    justify-content: flex-end;
 `

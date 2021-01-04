@@ -13,7 +13,7 @@ import {
     DisplayStepButtonText,
     DisplayStepImage,
     DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer,
-    StepDescriptionTitleContainer,
+    StepDescriptionTitleContainer, StepDetailErrorContainer,
     StepDetailsContainer,
     StepInfoCancelButton,
     StepInfoDescriptionContainer,
@@ -21,6 +21,7 @@ import {
     StepInfoSaveImage,
     StepInfoTextArea, TaxConsequencesContainer
 } from './styles'
+import {ErrorMessage} from '../../../style/messages'
 
 
 
@@ -28,6 +29,7 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
     const dispatch = useDispatch()
     const taxConsequences = useSelector(state => state.taxConsequenceReducer.taxConsequences)
     const loaded = useSelector(state => state.taxConsequenceReducer.loaded)
+    const error = useSelector(state => state.errorReducer.error)
 
     useEffect(() => {
         if (step.id) {
@@ -83,6 +85,9 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                         placeholder='Write your step description...'
                         value={description}
                     />)}
+            <StepDetailErrorContainer>
+                {error && <ErrorMessage>{error.description}</ErrorMessage>}
+            </StepDetailErrorContainer>
             {step.id ? (
                 <>
                     <StepDescriptionTaxTitleContainer>
@@ -97,7 +102,8 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                     </TaxConsequencesContainer>
                 </>) : (
                     <NewStepNoTaxConsequencesContainer>
-                        You must save your step before you can add Tax Consequences.
+                        <p>You must save your step before you</p>
+                        <p>can add Tax Consequences.</p>
                     </NewStepNoTaxConsequencesContainer>)}
         </StepDetailsContainer>
     )

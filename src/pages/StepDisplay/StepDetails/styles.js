@@ -17,7 +17,13 @@ export const StepDescriptionTitleContainer = styled.div`
 `
 
 export const StepDescriptionTaxTitleContainer = styled(StepDescriptionTitleContainer)`
-    margin-top: 20px;
+    margin-top: 10px;
+`
+
+export const StepDetailErrorContainer = styled.div`
+    height: 10px;
+    display: flex;
+    justify-content: center;
 `
 
 export const DisplayStepImageButtonContainer = styled.div`
@@ -118,7 +124,17 @@ export const TaxConsequencesContainer = styled.div`
 `
 
 export const NewStepNoTaxConsequencesContainer = styled.div`
+    height: 268px;
+    width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    p {
+        font-family: ${props => props.theme.nunitoFontFamily};
+        font-size: 14px;
+        line-height: 19px;
+        color: ${props => props.theme.grayTwo};
+    }
 `

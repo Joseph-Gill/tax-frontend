@@ -14,7 +14,7 @@ import {
     StepChartDetailsContainer, StepDetailsOption,
     StepDetailsStatus,
     StepDetailsTasklistButton,
-    StepDisplayAddStepButton,
+    StepDisplayAddStepButton, StepDisplayErrorContainer,
     ToggleButtonsStatusContainer
 } from './styles'
 import {DateInputLabelText} from '../../style/text'
@@ -27,6 +27,7 @@ import {WireFrameDeleteButton} from '../../style/buttons'
 import StepDetails from './StepDetails'
 import Spinner from '../../components/Spinner'
 import DeleteStepModal from '../../components/DeleteAccountModal/DeleteStepModal'
+import {ErrorMessage} from '../../style/messages'
 
 
 const StepDisplay = ({history}) => {
@@ -34,6 +35,7 @@ const StepDisplay = ({history}) => {
     const indexOfStepToDisplay = useSelector(state => state.stepReducer.indexOfCurrentStepToDisplay)
     const steps = useSelector(state => state.stepReducer.steps)
     const project = useSelector(state => state.projectReducer.project)
+    const error = useSelector(state => state.errorReducer.error)
     const [editStatus, setEditStatus] = useState(false)
     const [date, setDate] = useState(new Date());
     const [description, setDescription] = useState('')
@@ -190,6 +192,9 @@ const StepDisplay = ({history}) => {
                     )}
                 </ButtonsStatusContainer>
             </ToggleButtonsStatusContainer>
+            <StepDisplayErrorContainer>
+                {error && <ErrorMessage>{error.status}</ErrorMessage>}
+            </StepDisplayErrorContainer>
             <StepChartDetailsContainer>
                 {!stepDetailStatus ?
                     <StepChart /> :
