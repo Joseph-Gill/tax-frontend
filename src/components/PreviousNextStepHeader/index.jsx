@@ -8,6 +8,7 @@ import {ImageTextStepHeaderContainer, PreviousNextActiveText, PreviousNextArrowL
 import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import {useDispatch, useSelector} from 'react-redux'
 import {decrementStepToView, incrementStepToView, skipToSpecifiedStep} from '../../store/step/actions'
+import {resetErrors} from '../../store/errors/actions/errorAction'
 
 
 const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBeginning, stepEnding}) => {
@@ -16,6 +17,7 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
     const steps = useSelector(state => state.stepReducer.steps)
 
     const previousClickHandler = () => {
+        dispatch(resetErrors())
         if (stepEnding) {
             if (!steps.length) {
                 history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
@@ -31,6 +33,7 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
     }
 
     const nextClickHandler = () => {
+        dispatch(resetErrors())
         if (stepBeginning){
             if (!steps.length) {
                 history.push(`${GROUPS}${PROJECTS}${STEPS}${ENDING}`)
