@@ -12,7 +12,12 @@ const StatusToggle = ({filterMemberStatus, resetAllCheckedChangeFilterMemberStat
                     onChange={resetAllCheckedChangeFilterMemberStatus}
                     type='checkbox'
                 />
-                <span />
+                <span>
+                    <div>
+                        <p>Active</p>
+                        <p>Invited</p>
+                    </div>
+                </span>
                 <i />
             </ToggleContainer>
         </StatusToggleContainer>

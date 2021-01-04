@@ -32,7 +32,6 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
     const [showSecondConfirmation, setShowSecondConfirmation] = useState(false)
 
     useEffect(() => {
-        console.log('useEffect trigger')
         if (!taxConsequence.id) {
             setEditStatus(true)
         }

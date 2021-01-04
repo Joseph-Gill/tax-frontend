@@ -11,7 +11,12 @@ const StepDisplayToggle = ({stepDetailStatus, setStepDetailStatus}) => {
                     onChange={() => setStepDetailStatus(!stepDetailStatus)}
                     type='checkbox'
                 />
-                <span />
+                <span>
+                    <div>
+                        <p>Chart</p>
+                        <p>Details</p>
+                    </div>
+                </span>
                 <i />
             </ToggleContainer>
         </DisplayToggleContainer>

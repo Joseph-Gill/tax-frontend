@@ -32,6 +32,22 @@ export const ToggleContainer = styled.label`
         border-radius: 8px;
         width: 222px;
         height: 40px;
+
+        div {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            p {
+                font-family: ${props => props.theme.nunitoFontFamily};
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 22px;
+                color: ${props => props.theme.grayOne};
+            }
+        }
     }
 
     i {
@@ -53,6 +69,7 @@ export const ToggleContainer = styled.label`
             font-weight: 600;
             font-size: 14px;
             line-height: 22px;
+            font-style: normal;
             color: ${props => props.theme.grayOne};
             top: 50%;
             left: 50%;
