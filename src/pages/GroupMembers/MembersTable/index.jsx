@@ -205,15 +205,20 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                                     <TableHeader>Country</TableHeader>
                                     <TableHeader>Status</TableHeader>
                                 </TableTitleRow>) : (
-                                    <NoInvitedMembersContainer>
-                                        <img alt='no members' src={noMembers} />
-                                        <CardTitleText>No pending Invites</CardTitleText>
-                                        <NoFilterTextContainer>
-                                            <NoFilterResultText>You don&apos;t have any pending invites to</NoFilterResultText>
-                                            <NoFilterResultText>your team members.</NoFilterResultText>
-                                        </NoFilterTextContainer>
-                                        <NoInvitedMembersButton onClick={() => setShowAddMember(true)}>Add team member</NoInvitedMembersButton>
-                                    </NoInvitedMembersContainer>)}
+                                    <tr>
+                                        <td>
+                                            <NoInvitedMembersContainer>
+                                                <img alt='no members' src={noMembers} />
+                                                <CardTitleText>No pending Invites</CardTitleText>
+                                                <NoFilterTextContainer>
+                                                    <NoFilterResultText>You don&apos;t have any pending invites to</NoFilterResultText>
+                                                    <NoFilterResultText>your team members.</NoFilterResultText>
+                                                </NoFilterTextContainer>
+                                                <NoInvitedMembersButton onClick={() => setShowAddMember(true)}>Add team member</NoInvitedMembersButton>
+                                            </NoInvitedMembersContainer>
+
+                                        </td>
+                                    </tr>)}
                     </thead>
                     <tbody>
                         {!filterMemberStatus ?
