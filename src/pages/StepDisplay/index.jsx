@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
-import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
@@ -20,7 +20,7 @@ import {
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
 import StepDisplayFooter from '../../components/StepDisplayFooter'
-import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
+import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, removeNewStep, skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
 import StepDisplayToggle from './StepDisplayToggle'
 import StepChart from './StepChart'
 import {WireFrameDeleteButton} from '../../style/buttons'
@@ -114,14 +114,31 @@ const StepDisplay = ({history}) => {
     }
 
     const deleteStepHandler = async () => {
-        setLoading(true)
-        const response = await dispatch(deleteStepAction(steps[indexOfStepToDisplay].id))
-        if (response.status === 204) {
-            dispatch(skipToSpecifiedStep(indexOfStepToDisplay - 1))
-            const response = await dispatch(getStepsForProjectAction(project.id))
-            if (response) {
+        if (steps[indexOfStepToDisplay].id) {
+            setLoading(true)
+            const response = await dispatch(deleteStepAction(steps[indexOfStepToDisplay].id))
+            if (response.status === 204) {
+                if (indexOfStepToDisplay) {
+                    dispatch(skipToSpecifiedStep(indexOfStepToDisplay - 1))
+                    const response = await dispatch(getStepsForProjectAction(project.id))
+                    if (response) {
+                        setShowConfirmation(false)
+                        setLoading(false)
+                    }
+                } else {
+                    history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
+                }
+            }
+        } else {
+            const stepData = [...steps]
+            stepData.pop()
+            dispatch(removeNewStep(stepData))
+            if (indexOfStepToDisplay) {
+                dispatch(skipToSpecifiedStep(indexOfStepToDisplay - 1))
                 setShowConfirmation(false)
-                setLoading(false)
+                setEditStatus(false)
+            } else {
+                history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
             }
         }
     }

@@ -1,5 +1,5 @@
 import Axios from '../../../axios'
-import {ADD_NEW_STEP, DECREMENT_STEP_TO_VIEW, GET_ALL_PROJECT_STEPS, INCREMENT_STEP_TO_VIEW, RESET_STEP_TO_VIEW, RESET_STEPS_FOR_PROJECT, SKIP_TO_SPECIFIED_STEP} from '../types'
+import {ADD_NEW_STEP, DECREMENT_STEP_TO_VIEW, GET_ALL_PROJECT_STEPS, INCREMENT_STEP_TO_VIEW, REMOVE_NEW_STEP, RESET_STEP_TO_VIEW, RESET_STEPS_FOR_PROJECT, SKIP_TO_SPECIFIED_STEP} from '../types'
 import {catchError} from '../../errors/actions/errorAction'
 
 
@@ -45,6 +45,13 @@ export const addNewStep = number => {
 export const resetSteps = () => {
     return {
         type: RESET_STEPS_FOR_PROJECT
+    }
+}
+
+export const removeNewStep = data => {
+    return {
+        type: REMOVE_NEW_STEP,
+        payload: data
     }
 }
 
