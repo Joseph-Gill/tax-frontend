@@ -115,4 +115,8 @@ export const GreenReviewedText = styled.p`
     font-size: 12px;
     line-height: 16px;
     color: ${props => props.theme.green};
+
+    :hover {
+        cursor: pointer;
+    }
 `

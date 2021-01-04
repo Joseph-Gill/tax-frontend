@@ -13,9 +13,10 @@ import {
     TaxConsequenceTextUsernameContainer,
     TaxConsequenceTitleContainer, TaxConsequenceUserDateText
 } from './styles'
-import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
+import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
 import Spinner from '../../../../components/Spinner'
 import SetReviewedModal from '../../../../components/DeleteAccountModal/SetReviewedModal'
+import SetNotReviewedModal from '../../../../components/DeleteAccountModal/SetNotReviewedModal'
 
 
 const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequence}) => {
@@ -25,6 +26,7 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
     const [taxDescription, setTaxDescription] = useState('')
     const [loading, setLoading] = useState(false)
     const [showConfirmation, setShowConfirmation] = useState(false)
+    const [showSecondConfirmation, setShowSecondConfirmation] = useState(false)
 
     useEffect(() => {
         if (!taxConsequence.id) {
@@ -75,6 +77,17 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
         }
     }
 
+    const setNotReviewedHandler = async () => {
+        setLoading(true)
+        const response = await dispatch(setNotReviewedTaxConsequenceAction(taxConsequence.id))
+        if (response.status === 200) {
+            const response = dispatch(getAllTaxConsequencesForStepAction(step.id))
+            if (response) {
+                setLoading(false)
+            }
+        }
+    }
+
     return (
         <TaxConsequenceContainer>
             {loading ? <Spinner /> : null}
@@ -82,6 +95,11 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
                 <SetReviewedModal
                     setReviewedHandler={setReviewedHandler}
                     setShowConfirmation={setShowConfirmation}
+                /> : null}
+            {showSecondConfirmation ?
+                <SetNotReviewedModal
+                    setNotReviewedHandler={setNotReviewedHandler}
+                    setShowSecondConfirmation={setShowSecondConfirmation}
                 /> : null}
             <TaxConsequenceTitleContainer>
                 {editStatus ?
@@ -116,7 +134,11 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
                     </TaxConsequenceButtonContainer>) : (
                         <TaxConsequenceButtonContainer>
                             {taxConsequence.reviewed ?
-                                <GreenReviewedText>reviewed by {taxConsequence.reviewing_user.user.first_name} {taxConsequence.reviewing_user.user.last_name}</GreenReviewedText> : (
+                                <GreenReviewedText onClick={() => setShowSecondConfirmation(true)}>
+                                    {taxConsequence.reviewing_user ?
+                                        `reviewed by ${taxConsequence.reviewing_user.user.first_name} ${taxConsequence.reviewing_user.user.last_name}` :
+                                        `reviewed by N/A`}
+                                </GreenReviewedText> : (
                                     <>
                                         <TaxConsequenceButton onClick={() => setEditStatus(true)}>Edit</TaxConsequenceButton>
                                         <TaxConsequenceButton onClick={() => setShowConfirmation(true)}>Review</TaxConsequenceButton>

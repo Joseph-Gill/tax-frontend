@@ -84,3 +84,18 @@ export const setReviewedTaxConsequenceAction = taxConsequenceId => async (dispat
         return catchError(e, dispatch)
     }
 }
+
+export const setNotReviewedTaxConsequenceAction = taxConsequenceId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.post(`taxes/tax/${taxConsequenceId}/notreviewed/`, config)
+    } catch (e) {
+        console.log('Error setting a Tax Consequence reviewed to False>', e)
+        return catchError(e, dispatch)
+    }
+}
