@@ -25,6 +25,11 @@ const ProjectSteps = ({history}) => {
     const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const [filterString, setFilterString] = useState('')
+    const [filterOption, setFilterOption] = useState([
+        {isChecked: true, type: 'status'},
+        {isChecked: false, type: 'location'},
+        {isChecked: false, type: 'description'}
+    ])
 
     useEffect(() => {
         (async function getProjectGetSteps() {
@@ -42,6 +47,29 @@ const ProjectSteps = ({history}) => {
     const stepCardClickHandler = indexOfStep => {
         dispatch(skipToSpecifiedStep(indexOfStep))
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+    }
+
+    const filteredSteps = () => {
+        const selectedFilterOption = filterOption.filter(option => option.isChecked)[0]
+        switch (selectedFilterOption.type) {
+            case 'location':
+                return steps.filter(step => step.tax_consequences.filter(tax => tax.location.toLowerCase().indexOf(filterString.toLowerCase()) !== -1).length > 0)
+            default:
+                return steps.filter(step => step[selectedFilterOption.type].toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
+        }
+    }
+
+    const renderSteps = array => {
+        return array.map(step => (
+            <StepCard
+                history={history}
+                key={step.id}
+                number={step.number}
+                project={project}
+                step={step}
+                stepCardClickHandler={stepCardClickHandler}
+            />
+        ))
     }
 
     return (
@@ -66,7 +94,12 @@ const ProjectSteps = ({history}) => {
                             <StepStatusLegendEntry status='Ongoing / Not Started' />
                             <StepStatusLegendEntry status='Completed' />
                         </StepStatusLegendContainer>
-                        <StepFilterDropdown filterString={filterString} setFilterString={setFilterString} />
+                        <StepFilterDropdown
+                            filterOption={filterOption}
+                            filterString={filterString}
+                            setFilterOption={setFilterOption}
+                            setFilterString={setFilterString}
+                        />
                     </StatusLegendFilterDropdownContainer>
                     {!steps.length ? (
                         <NoStepsContainer>
@@ -78,15 +111,7 @@ const ProjectSteps = ({history}) => {
                             </NoFilterTextContainer>
                             <NoStepsButton onClick={addNewStepHandler}>Add New Step</NoStepsButton>
                         </NoStepsContainer>
-                    ) : steps.map(step => (
-                        <StepCard
-                            history={history}
-                            key={step.id}
-                            number={step.number}
-                            project={project}
-                            step={step}
-                            stepCardClickHandler={stepCardClickHandler}
-                        />))}
+                    ) : renderSteps(filteredSteps())}
                 </>)}
         </AuthenticatedPageContainer>
     )
