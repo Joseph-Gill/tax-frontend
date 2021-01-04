@@ -7,6 +7,7 @@ import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import DateInput from '../../components/DateInput'
 import {
+    ActiveStepDetailStatus,
     ButtonsStatusContainer,
     DateInputAddStepButtonContainer,
     DisabledDateInput,

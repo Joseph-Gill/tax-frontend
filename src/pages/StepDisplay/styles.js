@@ -76,6 +76,7 @@ export const StepDetailsTasklistButton = styled(TableButton)`
 export const StepDetailsStatus = styled(StatusDropdown)`
     width: 102px;
     height: 26px;
+    background-color: ${props => props.theme.white};
     background-position-x: 84px;
     font-size: 12px;
     line-height: 16px;
