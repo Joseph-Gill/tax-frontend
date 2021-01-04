@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {CountryDropdown} from 'react-country-region-selector'
 import {CardInfoText} from '../../../../style/text'
 import {
@@ -8,7 +8,7 @@ import {
     TaxConsequenceButton,
     TaxConsequenceButtonContainer,
     TaxConsequenceContainer,
-    TaxConsequenceCountryLabel,
+    TaxConsequenceCountryLabel, TaxConsequenceDescriptionErrorContainer, TaxConsequenceLocationErrorContainer,
     TaxConsequenceTextContainer,
     TaxConsequenceTextUsernameContainer,
     TaxConsequenceTitleContainer, TaxConsequenceUserDateText
@@ -17,10 +17,12 @@ import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, setNo
 import Spinner from '../../../../components/Spinner'
 import SetReviewedModal from '../../../../components/DeleteAccountModal/SetReviewedModal'
 import SetNotReviewedModal from '../../../../components/DeleteAccountModal/SetNotReviewedModal'
+import {ErrorMessage} from '../../../../style/messages'
 
 
 const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequence}) => {
     const dispatch = useDispatch()
+    const error = useSelector(state => state.errorReducer.error)
     const [editStatus, setEditStatus] = useState(false)
     const [countryName, setCountryName] = useState('')
     const [taxDescription, setTaxDescription] = useState('')
@@ -101,6 +103,9 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
                     setNotReviewedHandler={setNotReviewedHandler}
                     setShowSecondConfirmation={setShowSecondConfirmation}
                 /> : null}
+            <TaxConsequenceLocationErrorContainer>
+                {error && <ErrorMessage>{error.location}</ErrorMessage>}
+            </TaxConsequenceLocationErrorContainer>
             <TaxConsequenceTitleContainer>
                 {editStatus ?
                     <CountryDropdown
@@ -120,6 +125,9 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
                         value={countryName}
                     /> :
                     <TaxConsequenceCountryLabel>{taxConsequence.location}</TaxConsequenceCountryLabel>}
+                <TaxConsequenceDescriptionErrorContainer>
+                    {error && <ErrorMessage>{error.tax_description}</ErrorMessage>}
+                </TaxConsequenceDescriptionErrorContainer>
                 {editStatus ? (
                     <TaxConsequenceButtonContainer>
                         {taxConsequence.id ? (
@@ -148,6 +156,7 @@ const TaxConsequenceCard = ({cancelNewTaxConsequenceHandler, step, taxConsequenc
             {editStatus ?
                 <NewTaxConsequenceText
                     onChange={(e) => setTaxDescription(e.target.value)}
+                    placeholder='Write a tax consequence.'
                     value={taxDescription}
                 /> : (
                     <TaxConsequenceTextUsernameContainer>

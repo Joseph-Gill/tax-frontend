@@ -7,13 +7,22 @@ export const TaxConsequenceContainer = styled.div`
     display: flex;
     flex-direction: column;
     background: ${props => props.theme.white};
-    padding-top: 10px;
+    padding-top: 3px;
     border-bottom: 1px solid ${props => props.theme.grayFour};
+`
+
+export const TaxConsequenceLocationErrorContainer = styled.div`
+    height: 10px;
+    margin-left: 15px;
+`
+
+export const TaxConsequenceDescriptionErrorContainer = styled.div`
+
 `
 
 export const TaxConsequenceTitleContainer = styled.div`
     width: 100%;
-    height: 36px;
+    height: 29px;
     display: flex;
     align-items: center;
     justify-content: space-between;

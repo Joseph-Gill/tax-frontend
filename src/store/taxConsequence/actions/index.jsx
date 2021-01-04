@@ -1,6 +1,6 @@
 import Axios from '../../../axios'
 import {ADD_NEW_TAX_CONSEQUENCE, GET_ALL_STEP_TAX_CONSEQUENCES, RESET_STEP_TAX_CONSEQUENCES} from '../types'
-import {catchError} from '../../errors/actions/errorAction'
+import {catchError, setError} from '../../errors/actions/errorAction'
 
 
 export const getAllStepTaxConsequences = data => {
@@ -51,7 +51,17 @@ export const createNewTaxConsequenceAction = (taxConsequenceData, stepId) => asy
         return await Axios.post(`taxes/step/${stepId}/`, taxConsequenceData, config)
     } catch (e) {
         console.log('Error creating new Tax Consequence>', e)
-        return catchError(e, dispatch)
+        if ('description' in e.response.data) {
+            const errorData = {
+                tax_description: e.response.data['description']
+            }
+            if ('location' in e.response.data) {
+                errorData.location = e.response.data['location']
+            }
+            return dispatch(setError(errorData))
+        } else {
+            return catchError(e, dispatch)
+        }
     }
 }
 
@@ -66,7 +76,17 @@ export const updateTaxConsequenceAction = (taxConsequenceData, taxConsequenceId)
         return await Axios.patch(`taxes/tax/${taxConsequenceId}/`, taxConsequenceData, config)
     } catch (e) {
         console.log('Error updating a Tax Consequence>', e)
-        return catchError(e, dispatch)
+        if ('description' in e.response.data) {
+            const errorData = {
+                tax_description: e.response.data['description']
+            }
+            if ('location' in e.response.data) {
+                errorData.location = e.response.data['location']
+            }
+            return dispatch(setError(errorData))
+        } else {
+            return catchError(e, dispatch)
+        }
     }
 }
 
