@@ -11,6 +11,7 @@ import Spinner from '../../components/Spinner'
 import TaskStatusLegendEntry from './TaskStatusLegendEntry'
 import {AddTaskButton, StatusLegendFilterDropdownContainer, TaskStatusLegendContainer} from './styles'
 import {getStepsForProjectAction} from '../../store/step/actions'
+import {getTasksForProjectAction} from '../../store/task/actions'
 
 
 const ProjectTasks = ({history}) => {
@@ -20,6 +21,8 @@ const ProjectTasks = ({history}) => {
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
     const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.loaded)
+    const tasks = useSelector(state => state.taskReducer.tasks)
+    const tasksLoaded = useSelector(state => state.taskReducer.loaded)
     const [filterString, setFilterString] = useState('')
 
     useEffect(() => {
@@ -29,11 +32,14 @@ const ProjectTasks = ({history}) => {
         if (!stepsLoaded) {
             dispatch(getStepsForProjectAction(match.params.projectId))
         }
-    }, [match.params.projectId, projectLoaded, stepsLoaded, dispatch])
+        if (!tasksLoaded) {
+            dispatch(getTasksForProjectAction(match.params.projectId))
+        }
+    }, [match.params.projectId, projectLoaded, stepsLoaded, tasksLoaded, dispatch])
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !stepsLoaded  ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded || !tasksLoaded  ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

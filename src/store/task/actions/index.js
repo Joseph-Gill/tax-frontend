@@ -1,5 +1,32 @@
 import Axios from '../../../axios'
 import {catchError} from '../../errors/actions/errorAction'
+import {GET_ALL_PROJECT_TASKS} from '../types'
+
+
+export const getAllProjectTasks = data => {
+    return {
+        type: GET_ALL_PROJECT_TASKS,
+        payload: data
+    }
+}
+
+export const getTasksForProjectAction = projectId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`/tasks/project/${projectId}/`, config)
+        const tasksInfo = [...response.data]
+        dispatch(getAllProjectTasks(tasksInfo))
+        return tasksInfo
+    } catch (e) {
+        console.log('Error getting all Tasks of Project>', e)
+        return catchError(e, dispatch)
+    }
+}
 
 export const createTaskAction = taskInfo => async (dispatch, getState) => {
     let {userLoginReducer} = getState()

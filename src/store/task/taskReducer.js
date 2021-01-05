@@ -1,4 +1,4 @@
-import {GET_TASKS_FOR_PROJECT, RESET_TASKS_FOR_PROJECT} from './types'
+import {GET_ALL_PROJECT_TASKS, RESET_TASKS_FOR_PROJECT} from './types'
 
 
 const initialState = {
@@ -8,7 +8,7 @@ const initialState = {
 
 export const taskReducer = (state = initialState, action) => {
     switch(action.type) {
-        case GET_TASKS_FOR_PROJECT: {
+        case GET_ALL_PROJECT_TASKS: {
             return {
                 ...state,
                 tasks: action.payload,
