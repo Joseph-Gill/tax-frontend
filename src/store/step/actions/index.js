@@ -56,7 +56,6 @@ export const removeNewStep = data => {
 }
 
 export const getStepsForProjectAction = projectId => async (dispatch, getState) => {
-    console.log('test area 1')
     let {userLoginReducer} = getState()
     const config = {
         headers: {

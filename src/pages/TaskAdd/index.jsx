@@ -11,9 +11,10 @@ import {NewTaskCancelSaveButtonContainer, NewTaskDescriptionTextArea, NewTaskFil
 import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
 import {DropdownOption} from '../../style/options'
+import {convertDate} from '../../helpers'
 
 
-const TaskAdd = () => {
+const TaskAdd = ({history}) => {
     let title = useRef('')
     let description = useRef('')
     const project = useSelector(state => state.projectReducer.project)
@@ -29,9 +30,26 @@ const TaskAdd = () => {
         <DropdownOption key={user.id} value={user.id}>{`${user.user.first_name} ${user.user.last_name}`}</DropdownOption>
     ))
 
+    const stepOptions = steps.map(step => (
+        <DropdownOption key={step.id} value={step.id}>{`Step #${step.number}`}</DropdownOption>
+    ))
+
     const files = acceptedFiles.map(file => (
         <NewTaskFileListItem key={file.path}>{file.path}</NewTaskFileListItem>
     ))
+
+    const saveNewTaskHandler = () => {
+        const newTask = {
+            title: title.current.value,
+            description: description.current.value,
+            planned_completion_date: convertDate(completionDate),
+            due_date: convertDate(dueDate),
+            documents: acceptedFiles,
+            step_id: selectedStep,
+            user_profile_id: selectedMember
+        }
+        console.log('new Task Data>', newTask)
+    }
 
     return (
         <AuthenticatedPageContainer>
@@ -63,6 +81,7 @@ const TaskAdd = () => {
                     <StepDropdown
                         selectedStep={selectedStep}
                         setSelectedStep={setSelectedStep}
+                        stepOptions={stepOptions}
                     />
                 </NewTaskInputRow>
                 <NewTaskUpperLabelRow>
@@ -88,8 +107,8 @@ const TaskAdd = () => {
                 />
             </NewTaskInputsContainer>
             <NewTaskCancelSaveButtonContainer>
-                <CancelButton>Cancel</CancelButton>
-                <SaveButton>Save</SaveButton>
+                <CancelButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)}>Cancel</CancelButton>
+                <SaveButton onClick={saveNewTaskHandler}>Save</SaveButton>
             </NewTaskCancelSaveButtonContainer>
         </AuthenticatedPageContainer>
     )

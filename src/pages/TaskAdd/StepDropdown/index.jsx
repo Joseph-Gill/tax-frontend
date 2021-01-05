@@ -9,13 +9,14 @@ const NewTaskStepSelector = styled(StatusDropdown)`
 `
 
 
-const StepDropdown = ({selectedStep, setSelectedStep}) => {
+const StepDropdown = ({selectedStep, setSelectedStep, stepOptions}) => {
     return (
         <NewTaskStepSelector
             onChange={(e) => setSelectedStep(e.target.value)}
             value={selectedStep}
         >
             <DropdownOption disabled value=''>Select a step</DropdownOption>
+            {stepOptions}
         </NewTaskStepSelector>
     )
 }
