@@ -37,11 +37,11 @@ export const createTaskAction = taskInfo => async (dispatch, getState) => {
     form_data.append('description', taskInfo.description)
     form_data.append('planned_completion_date', taskInfo.planned_completion_date)
     form_data.append('due_date', taskInfo.due_date)
-
-    // Need to develop a way to handle multiple files
-    // if (taskInfo.documents.length) {
-    //     form_data.append('documents', taskInfo.documents)
-    // }
+    if (taskInfo.documents.length) {
+        for (let i = 0; i < taskInfo.documents.length; i++) {
+            form_data.append(taskInfo.documents[i].name, taskInfo.documents[i])
+        }
+    }
     const config = {
         headers: {
             'Authorization': `Bearer ${userLoginReducer.accessToken}`,

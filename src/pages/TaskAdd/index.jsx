@@ -12,7 +12,7 @@ import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
 import {DropdownOption} from '../../style/options'
 import {convertDate} from '../../helpers'
-import {createTaskAction} from '../../store/task/actions'
+import {createTaskAction, getTasksForProjectAction} from '../../store/task/actions'
 import SuccessMessage from '../../components/SuccessMessage'
 
 
@@ -54,7 +54,10 @@ const TaskAdd = ({history}) => {
         }
         const response = await dispatch(createTaskAction(newTask))
         if (response.status === 201) {
-            setShowSuccess(!showSuccess)
+            const response = await dispatch(getTasksForProjectAction(project.id))
+            if (response) {
+                setShowSuccess(!showSuccess)
+            }
         }
     }
 
