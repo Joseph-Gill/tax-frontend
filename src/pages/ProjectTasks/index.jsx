@@ -23,11 +23,13 @@ const ProjectTasks = ({history}) => {
     const [filterString, setFilterString] = useState('')
 
     useEffect(() => {
-        (async function getProjectGetSteps() {
-            const response = await dispatch(getProjectAction(match.params.projectId))
-            dispatch(getStepsForProjectAction(response.id))
-        })();
-    }, [match.params.projectId, projectLoaded, dispatch])
+        if (!projectLoaded) {
+            dispatch(getProjectAction(match.params.projectId))
+        }
+        if (!stepsLoaded) {
+            dispatch(getStepsForProjectAction(match.params.projectId))
+        }
+    }, [match.params.projectId, projectLoaded, stepsLoaded, dispatch])
 
     return (
         <AuthenticatedPageContainer>

@@ -3,7 +3,7 @@ import {useDropzone} from 'react-dropzone'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {ADD_TASK, GROUPS, PROJECTS, TASKS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import StepDropdown from './StepDropdown'
@@ -12,9 +12,12 @@ import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
 import {DropdownOption} from '../../style/options'
 import {convertDate} from '../../helpers'
+import {createTaskAction} from '../../store/task/actions'
+import SuccessMessage from '../../components/SuccessMessage'
 
 
 const TaskAdd = ({history}) => {
+    const dispatch = useDispatch()
     let title = useRef('')
     let description = useRef('')
     const project = useSelector(state => state.projectReducer.project)
@@ -25,6 +28,7 @@ const TaskAdd = ({history}) => {
     const [dueDate, setDueDate] = useState(new Date())
     const [completionDate, setCompletionDate] = useState(new Date())
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone()
+    const [showSuccess, setShowSuccess] = useState(false)
 
     const members = users.map(user => (
         <DropdownOption key={user.id} value={user.id}>{`${user.user.first_name} ${user.user.last_name}`}</DropdownOption>
@@ -38,7 +42,7 @@ const TaskAdd = ({history}) => {
         <NewTaskFileListItem key={file.path}>{file.path}</NewTaskFileListItem>
     ))
 
-    const saveNewTaskHandler = () => {
+    const saveNewTaskHandler = async () => {
         const newTask = {
             title: title.current.value,
             description: description.current.value,
@@ -48,11 +52,18 @@ const TaskAdd = ({history}) => {
             step_id: selectedStep,
             user_profile_id: selectedMember
         }
-        console.log('new Task Data>', newTask)
+        const response = await dispatch(createTaskAction(newTask))
+        if (response.status === 201) {
+            setShowSuccess(!showSuccess)
+        }
     }
 
     return (
         <AuthenticatedPageContainer>
+            {showSuccess && <SuccessMessage
+                message="Your new task has been successfully created!"
+                redirect={`${GROUPS}${PROJECTS}${TASKS}/${project.id}`}
+                            />}
             <BreadCrumb
                 breadCrumbArray={[
                     {display: 'GROUPS', to: GROUPS, active: false},
