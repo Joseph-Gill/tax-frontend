@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef} from 'react'
 import {useDropzone} from 'react-dropzone'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {ADD_TASK, GROUPS, PROJECTS, TASKS} from '../../routes/paths'

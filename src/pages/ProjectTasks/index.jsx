@@ -10,24 +10,28 @@ import {useRouteMatch} from 'react-router-dom'
 import Spinner from '../../components/Spinner'
 import TaskStatusLegendEntry from './TaskStatusLegendEntry'
 import {AddTaskButton, StatusLegendFilterDropdownContainer, TaskStatusLegendContainer} from './styles'
+import {getStepsForProjectAction} from '../../store/step/actions'
 
 
 const ProjectTasks = ({history}) => {
+    const match = useRouteMatch()
     const dispatch = useDispatch()
-    const match = useRouteMatch();
     const project = useSelector(state => state.projectReducer.project)
-    const loaded = useSelector(state => state.projectReducer.loaded)
+    const projectLoaded = useSelector(state => state.projectReducer.loaded)
+    const steps = useSelector(state => state.stepReducer.steps)
+    const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const [filterString, setFilterString] = useState('')
 
     useEffect(() => {
-        if (!loaded) {
-            dispatch(getProjectAction(match.params.projectId))
-        }
-    }, [match.params.projectId, loaded, dispatch])
+        (async function getProjectGetSteps() {
+            const response = await dispatch(getProjectAction(match.params.projectId))
+            dispatch(getStepsForProjectAction(response.id))
+        })();
+    }, [match.params.projectId, projectLoaded, dispatch])
 
     return (
         <AuthenticatedPageContainer>
-            {!loaded ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded  ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
