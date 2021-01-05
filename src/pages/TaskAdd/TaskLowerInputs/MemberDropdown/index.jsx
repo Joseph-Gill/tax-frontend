@@ -1,20 +1,16 @@
 import React from 'react'
-import styled from 'styled-components/macro'
-import {StatusDropdown} from '../../../../style/dropdowns'
 import {DropdownOption} from '../../../../style/options'
-
-const NewTaskMemberSelector = styled(StatusDropdown)`
-    margin-left: 124px;
-`
+import {NewTaskMemberSelector} from './styles'
 
 
-const MemberDropdown = ({selectedMember, setSelectedMember}) => {
+const MemberDropdown = ({members, selectedMember, setSelectedMember}) => {
     return (
         <NewTaskMemberSelector
             onChange={(e) => setSelectedMember(e.target.value)}
             value={selectedMember}
         >
             <DropdownOption disabled value=''>Select a member</DropdownOption>
+            {members}
         </NewTaskMemberSelector>
     )
 }

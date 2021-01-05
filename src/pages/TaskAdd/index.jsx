@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {useDropzone} from 'react-dropzone'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {ADD_TASK, GROUPS, PROJECTS, TASKS} from '../../routes/paths'
@@ -10,6 +10,7 @@ import StepDropdown from './StepDropdown'
 import {NewTaskCancelSaveButtonContainer, NewTaskDescriptionTextArea, NewTaskFileListItem, NewTaskInputLabel, NewTaskInputRow, NewTaskInputsContainer, NewTaskTitleInput, NewTaskUpperLabelRow} from './styles'
 import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
+import {DropdownOption} from '../../style/options'
 
 
 const TaskAdd = () => {
@@ -17,16 +18,19 @@ const TaskAdd = () => {
     let description = useRef('')
     const project = useSelector(state => state.projectReducer.project)
     const steps = useSelector(state => state.stepReducer.steps)
+    const users = useSelector(state => state.groupReducer.group.users)
     const [selectedStep, setSelectedStep] = useState('')
     const [selectedMember, setSelectedMember] = useState('')
     const [dueDate, setDueDate] = useState(new Date())
     const [completionDate, setCompletionDate] = useState(new Date())
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone()
 
+    const members = users.map(user => (
+        <DropdownOption key={user.id} value={user.id}>{`${user.user.first_name} ${user.user.last_name}`}</DropdownOption>
+    ))
+
     const files = acceptedFiles.map(file => (
-        <NewTaskFileListItem key={file.path}>
-            {file.path}
-        </NewTaskFileListItem>
+        <NewTaskFileListItem key={file.path}>{file.path}</NewTaskFileListItem>
     ))
 
     return (
@@ -78,6 +82,7 @@ const TaskAdd = () => {
                     files={files}
                     getInputProps={getInputProps}
                     getRootProps={getRootProps}
+                    members={members}
                     selectedMember={selectedMember}
                     setSelectedMember={setSelectedMember}
                 />
