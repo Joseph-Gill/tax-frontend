@@ -62,6 +62,7 @@ export const FileUploadContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: ${props => props.theme.spartanFontFamily};
     font-weight: 600;
     font-size: 12px;
     line-height: 13px;

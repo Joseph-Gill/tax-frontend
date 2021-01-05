@@ -31,6 +31,7 @@ const NewTaskCancelSaveButtonContainer = styled.div`
 
 const TaskAdd = () => {
     const project = useSelector(state => state.projectReducer.project)
+    const steps = useSelector(state => state.stepReducer.steps)
 
     return (
         <AuthenticatedPageContainer>
@@ -40,7 +41,7 @@ const TaskAdd = () => {
                     {display: `GROUP ${project.group.name.toUpperCase()}`, to: `${GROUPS}/${project.group.id}`, active: false},
                     {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`, active: false},
                     {display: `PROJECT ${project.name.toUpperCase()}`, to: `${GROUPS}${PROJECTS}/${project.id}`, active: false},
-                    {display: 'TASKS', to: `${GROUPS}${PROJECTS}${TASKS}`, active: false},
+                    {display: 'TASKS', to: `${GROUPS}${PROJECTS}${TASKS}/${project.id}`, active: false},
                     {display: 'NEW TASK', to: `${GROUPS}${PROJECTS}${ADD_TASK}`, active: true}
                 ]}
             />
