@@ -64,7 +64,7 @@ export const createGroupAction = groupInfo => async (dispatch, getState) => {
             await dispatch(getProfileAction())
             return true
         }
-    } catch(e) {
+    } catch (e) {
         return catchError(e, dispatch)
     }
 }
