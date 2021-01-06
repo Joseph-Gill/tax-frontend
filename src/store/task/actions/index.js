@@ -1,12 +1,18 @@
 import Axios from '../../../axios'
 import {catchError} from '../../errors/actions/errorAction'
-import {GET_ALL_PROJECT_TASKS} from '../types'
+import {GET_ALL_PROJECT_TASKS, RESET_TASKS_FOR_PROJECT} from '../types'
 
 
 export const getAllProjectTasks = data => {
     return {
         type: GET_ALL_PROJECT_TASKS,
         payload: data
+    }
+}
+
+export const resetTasks = () => {
+    return {
+        type: RESET_TASKS_FOR_PROJECT
     }
 }
 

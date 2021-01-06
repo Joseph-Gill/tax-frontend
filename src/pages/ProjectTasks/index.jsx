@@ -12,6 +12,7 @@ import TaskStatusLegendEntry from './TaskStatusLegendEntry'
 import {AddTaskButton, StatusLegendFilterDropdownContainer, TaskStatusLegendContainer} from './styles'
 import {getStepsForProjectAction} from '../../store/step/actions'
 import {getTasksForProjectAction} from '../../store/task/actions'
+import NoTasksFound from './NoTasksFound'
 
 
 const ProjectTasks = ({history}) => {
@@ -54,18 +55,20 @@ const ProjectTasks = ({history}) => {
                         <AuthenticatedPageTitle>Taskslist - {project.name}</AuthenticatedPageTitle>
                         <AddTaskButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_TASK}`)}>Add Task</AddTaskButton>
                     </DisplayTitleWithButtonContainer>
-                    <StatusLegendFilterDropdownContainer>
-                        <TaskStatusLegendContainer>
-                            <TaskStatusLegendEntry status='Ongoing / Planned' />
-                            <TaskStatusLegendEntry status='Completed' />
-                            <TaskStatusLegendEntry status='Not Started' />
-                        </TaskStatusLegendContainer>
-                        <TaskFilterDropdown
-                            filterString={filterString}
-                            setFilterString={setFilterString}
-                        />
-                    </StatusLegendFilterDropdownContainer>
-
+                    {!tasks.length ? <NoTasksFound /> : (
+                        <>
+                            <StatusLegendFilterDropdownContainer>
+                                <TaskStatusLegendContainer>
+                                    <TaskStatusLegendEntry status='Ongoing / Planned' />
+                                    <TaskStatusLegendEntry status='Completed' />
+                                    <TaskStatusLegendEntry status='Not Started' />
+                                </TaskStatusLegendContainer>
+                                <TaskFilterDropdown
+                                    filterString={filterString}
+                                    setFilterString={setFilterString}
+                                />
+                            </StatusLegendFilterDropdownContainer>
+                        </>)}
                 </>)}
         </AuthenticatedPageContainer>
     )
