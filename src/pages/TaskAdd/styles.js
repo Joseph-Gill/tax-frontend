@@ -9,7 +9,7 @@ export const NewTaskInputsContainer = styled.div`
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
     margin-top: 30px;
-    padding: 20px;
+    padding: 20px 20px 5px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -64,4 +64,9 @@ export const NewTaskFileListItem = styled.li`
     font-size: 12px;
     line-height: 16px;
     color: ${props => props.theme.primaryBlue};
+`
+
+export const NewTaskErrorContainer = styled.div`
+    height: 10px;
+    margin-left: 213px;
 `

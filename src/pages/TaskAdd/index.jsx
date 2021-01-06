@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import StepDropdown from './StepDropdown'
-import {NewTaskCancelSaveButtonContainer, NewTaskDescriptionTextArea, NewTaskFileListItem, NewTaskInputLabel, NewTaskInputRow, NewTaskInputsContainer, NewTaskTitleInput, NewTaskUpperLabelRow} from './styles'
+import {NewTaskCancelSaveButtonContainer, NewTaskDescriptionTextArea, NewTaskErrorContainer, NewTaskFileListItem, NewTaskInputLabel, NewTaskInputRow, NewTaskInputsContainer, NewTaskTitleInput, NewTaskUpperLabelRow} from './styles'
 import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
 import {DropdownOption} from '../../style/options'
@@ -16,6 +16,8 @@ import {createTaskAction, getTasksForProjectAction} from '../../store/task/actio
 import SuccessMessage from '../../components/SuccessMessage'
 import {getMemberOrganizationNameAction} from '../../store/organization/actions'
 import Spinner from '../../components/Spinner'
+import {ErrorMessage} from '../../style/messages'
+import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 
 
 const TaskAdd = ({history}) => {
@@ -26,6 +28,7 @@ const TaskAdd = ({history}) => {
     const project = useSelector(state => state.projectReducer.project)
     const steps = useSelector(state => state.stepReducer.steps)
     const members = useSelector(state => state.groupReducer.group.users)
+    const error = useSelector(state => state.errorReducer.error)
     const [selectedStep, setSelectedStep] = useState('')
     const [selectedMember, setSelectedMember] = useState('')
     const [dueDate, setDueDate] = useState(new Date())
@@ -83,22 +86,34 @@ const TaskAdd = ({history}) => {
     ))
 
     const saveNewTaskHandler = async () => {
-        const newTask = {
-            title: title.current.value,
-            description: description.current.value,
-            planned_completion_date: convertDate(completionDate),
-            due_date: convertDate(dueDate),
-            documents: acceptedFiles,
-            step_id: selectedStep,
-            user_profile_id: selectedMember
-        }
-        const response = await dispatch(createTaskAction(newTask))
-        if (response.status === 201) {
-            const response = await dispatch(getTasksForProjectAction(project.id))
-            if (response) {
-                setShowSuccess(!showSuccess)
+        dispatch(resetErrors())
+        if (!selectedStep) {
+            dispatch(setError({step: 'This field cannot be blank'}))
+        } else if (!selectedMember) {
+            dispatch(setError({member: 'This field cannot be blank'}))
+        } else {
+            const newTask = {
+                title: title.current.value,
+                description: description.current.value,
+                planned_completion_date: convertDate(completionDate),
+                due_date: convertDate(dueDate),
+                documents: acceptedFiles,
+                step_id: selectedStep,
+                user_profile_id: selectedMember
+            }
+            const response = await dispatch(createTaskAction(newTask))
+            if (response.status === 201) {
+                const response = await dispatch(getTasksForProjectAction(project.id))
+                if (response) {
+                    setShowSuccess(!showSuccess)
+                }
             }
         }
+    }
+
+    const cancelButtonHandlers = () => {
+        dispatch(resetErrors())
+        history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
     }
 
     return (
@@ -123,30 +138,45 @@ const TaskAdd = ({history}) => {
                         <AuthenticatedPageTitle>Add New Task</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
                     <NewTaskInputsContainer>
-                        <NewTaskInputRow>
-                            <NewTaskInputLabel>Task title</NewTaskInputLabel>
-                            <NewTaskTitleInput
-                                name='title'
-                                placeholder='Enter task title'
-                                ref={title}
-                                type='text'
-                            />
-                        </NewTaskInputRow>
-                        <NewTaskInputRow>
-                            <NewTaskInputLabel>Assign a step</NewTaskInputLabel>
-                            <StepDropdown
-                                selectedStep={selectedStep}
-                                setSelectedStep={setSelectedStep}
-                                stepOptions={stepOptions}
-                            />
-                        </NewTaskInputRow>
-                        <NewTaskUpperLabelRow>
-                            <NewTaskInputLabel>Task description</NewTaskInputLabel>
-                            <NewTaskDescriptionTextArea
-                                placeholder='Write your task description'
-                                ref={description}
-                            />
-                        </NewTaskUpperLabelRow>
+                        <div>
+                            <NewTaskInputRow>
+                                <NewTaskInputLabel>Task title</NewTaskInputLabel>
+                                <NewTaskTitleInput
+                                    name='title'
+                                    placeholder='Enter task title'
+                                    ref={title}
+                                    type='text'
+                                />
+                            </NewTaskInputRow>
+                            <NewTaskErrorContainer>
+                                {error && <ErrorMessage>{error.title}</ErrorMessage>}
+                            </NewTaskErrorContainer>
+                        </div>
+                        <div>
+                            <NewTaskInputRow>
+                                <NewTaskInputLabel>Assign a step</NewTaskInputLabel>
+                                <StepDropdown
+                                    selectedStep={selectedStep}
+                                    setSelectedStep={setSelectedStep}
+                                    stepOptions={stepOptions}
+                                />
+                            </NewTaskInputRow>
+                            <NewTaskErrorContainer>
+                                {error && <ErrorMessage>{error.step}</ErrorMessage>}
+                            </NewTaskErrorContainer>
+                        </div>
+                        <div>
+                            <NewTaskUpperLabelRow>
+                                <NewTaskInputLabel>Task description</NewTaskInputLabel>
+                                <NewTaskDescriptionTextArea
+                                    placeholder='Write your task description'
+                                    ref={description}
+                                />
+                            </NewTaskUpperLabelRow>
+                            <NewTaskErrorContainer>
+                                {error && <ErrorMessage>{error.description}</ErrorMessage>}
+                            </NewTaskErrorContainer>
+                        </div>
                         <TaskDates
                             completionDate={completionDate}
                             dueDate={dueDate}
@@ -154,6 +184,7 @@ const TaskAdd = ({history}) => {
                             setDueDate={setDueDate}
                         />
                         <TaskLowerInputs
+                            error={error}
                             files={files}
                             getInputProps={getInputProps}
                             getRootProps={getRootProps}
@@ -163,7 +194,7 @@ const TaskAdd = ({history}) => {
                         />
                     </NewTaskInputsContainer>
                     <NewTaskCancelSaveButtonContainer>
-                        <CancelButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)}>Cancel</CancelButton>
+                        <CancelButton onClick={cancelButtonHandlers}>Cancel</CancelButton>
                         <SaveButton onClick={saveNewTaskHandler}>Save</SaveButton>
                     </NewTaskCancelSaveButtonContainer>
                 </>)}

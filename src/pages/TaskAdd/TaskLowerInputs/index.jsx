@@ -1,11 +1,12 @@
 import React from 'react'
-import {NewTaskInputLabel, NewTaskInputRow} from '../styles'
+import {NewTaskErrorContainer, NewTaskInputLabel, NewTaskInputRow} from '../styles'
 import MemberDropdown from './MemberDropdown'
 import DocumentUpload from './DocumentUpload'
 import {DocumentUploadAreaText, TaskLowerInputsContainer, TaskLowerLeftContainer, TaskLowerRightContainer} from './styles'
+import {ErrorMessage} from '../../../style/messages'
 
 
-const TaskLowerInputs = ({files, getInputProps, getRootProps, membersOptions, selectedMember, setSelectedMember}) => {
+const TaskLowerInputs = ({error, files, getInputProps, getRootProps, membersOptions, selectedMember, setSelectedMember}) => {
     return (
         <TaskLowerInputsContainer>
             <TaskLowerLeftContainer>
@@ -16,14 +17,19 @@ const TaskLowerInputs = ({files, getInputProps, getRootProps, membersOptions, se
                         getRootProps={getRootProps}
                     />
                 </NewTaskInputRow>
-                <NewTaskInputRow>
-                    <NewTaskInputLabel>Responsibility</NewTaskInputLabel>
-                    <MemberDropdown
-                        membersOptions={membersOptions}
-                        selectedMember={selectedMember}
-                        setSelectedMember={setSelectedMember}
-                    />
-                </NewTaskInputRow>
+                <div>
+                    <NewTaskInputRow>
+                        <NewTaskInputLabel>Responsibility</NewTaskInputLabel>
+                        <MemberDropdown
+                            membersOptions={membersOptions}
+                            selectedMember={selectedMember}
+                            setSelectedMember={setSelectedMember}
+                        />
+                    </NewTaskInputRow>
+                    <NewTaskErrorContainer>
+                        {error && <ErrorMessage>{error.member}</ErrorMessage>}
+                    </NewTaskErrorContainer>
+                </div>
             </TaskLowerLeftContainer>
             <TaskLowerRightContainer>
                 <DocumentUploadAreaText>Documents to Upload</DocumentUploadAreaText>
