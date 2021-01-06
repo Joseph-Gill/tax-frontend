@@ -22,6 +22,7 @@ export const EDIT_PROJECT = '/edit-project'
 // Tasks
 export const TASKS = '/tasks'
 export const ADD_TASK = '/add-task'
+export const EDIT_TASK = '/edit-task'
 // Steps
 export const STEPS = '/steps'
 export const DISPLAY_STEP = '/display-step'
