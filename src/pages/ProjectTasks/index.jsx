@@ -9,10 +9,10 @@ import {getProjectAction} from '../../store/project/actions'
 import {useRouteMatch} from 'react-router-dom'
 import Spinner from '../../components/Spinner'
 import TaskStatusLegendEntry from './TaskStatusLegendEntry'
-import {AddTaskButton, StatusLegendFilterDropdownContainer, TaskStatusLegendContainer} from './styles'
-import {getStepsForProjectAction} from '../../store/step/actions'
+import {AddTaskButton, StatusLegendFilterDropdownContainer, TasksTableContainer, TaskStatusLegendContainer} from './styles'
 import {getTasksForProjectAction} from '../../store/task/actions'
 import NoTasksFound from './NoTasksFound'
+import TasksTable from './TasksTable'
 
 
 const ProjectTasks = ({history}) => {
@@ -20,27 +20,24 @@ const ProjectTasks = ({history}) => {
     const dispatch = useDispatch()
     const project = useSelector(state => state.projectReducer.project)
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
-    const steps = useSelector(state => state.stepReducer.steps)
-    const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const tasks = useSelector(state => state.taskReducer.tasks)
     const tasksLoaded = useSelector(state => state.taskReducer.loaded)
     const [filterString, setFilterString] = useState('')
 
     useEffect(() => {
         if (!projectLoaded) {
+            console.log('fetching Project')
             dispatch(getProjectAction(match.params.projectId))
         }
-        if (!stepsLoaded) {
-            dispatch(getStepsForProjectAction(match.params.projectId))
-        }
         if (!tasksLoaded) {
+            console.log('fetching Tasks')
             dispatch(getTasksForProjectAction(match.params.projectId))
         }
-    }, [match.params.projectId, projectLoaded, stepsLoaded, tasksLoaded, dispatch])
+    }, [match.params.projectId, projectLoaded, tasksLoaded, dispatch])
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !stepsLoaded || !tasksLoaded  ? <Spinner /> : (
+            {!projectLoaded || !tasksLoaded  ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
@@ -68,6 +65,11 @@ const ProjectTasks = ({history}) => {
                                     setFilterString={setFilterString}
                                 />
                             </StatusLegendFilterDropdownContainer>
+                            <TasksTableContainer>
+                                <TasksTable
+                                    tasks={tasks}
+                                />
+                            </TasksTableContainer>
                         </>)}
                 </>)}
         </AuthenticatedPageContainer>
