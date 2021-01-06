@@ -3,14 +3,14 @@ import {DropdownOption} from '../../../../style/options'
 import {NewTaskMemberSelector} from './styles'
 
 
-const MemberDropdown = ({members, selectedMember, setSelectedMember}) => {
+const MemberDropdown = ({membersOptions, selectedMember, setSelectedMember}) => {
     return (
         <NewTaskMemberSelector
             onChange={(e) => setSelectedMember(e.target.value)}
             value={selectedMember}
         >
             <DropdownOption disabled value=''>Select a member</DropdownOption>
-            {members}
+            {membersOptions()}
         </NewTaskMemberSelector>
     )
 }

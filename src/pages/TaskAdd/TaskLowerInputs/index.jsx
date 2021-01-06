@@ -5,7 +5,7 @@ import DocumentUpload from './DocumentUpload'
 import {DocumentUploadAreaText, TaskLowerInputsContainer, TaskLowerLeftContainer, TaskLowerRightContainer} from './styles'
 
 
-const TaskLowerInputs = ({files, getInputProps, getRootProps, members, selectedMember, setSelectedMember}) => {
+const TaskLowerInputs = ({files, getInputProps, getRootProps, membersOptions, selectedMember, setSelectedMember}) => {
     return (
         <TaskLowerInputsContainer>
             <TaskLowerLeftContainer>
@@ -19,7 +19,7 @@ const TaskLowerInputs = ({files, getInputProps, getRootProps, members, selectedM
                 <NewTaskInputRow>
                     <NewTaskInputLabel>Responsibility</NewTaskInputLabel>
                     <MemberDropdown
-                        members={members}
+                        membersOptions={membersOptions}
                         selectedMember={selectedMember}
                         setSelectedMember={setSelectedMember}
                     />
