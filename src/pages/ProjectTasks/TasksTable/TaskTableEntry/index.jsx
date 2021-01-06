@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
 import {TableData} from '../../../../style/tables'
-import {TaskStatusColorIndicator, TaskStatusDisplayContainer, TaskTableEntryContainer, TaskTableEntryExpandedContainer, TaskTableRow} from './styles'
-import taskExpand from '../../../../assets/icons/stark_task_expand_icon.svg'
-import taskCollapse from '../../../../assets/icons/stark_task_collapse_icon.svg'
+import {TaskStatusColorIndicator, TaskStatusDisplayContainer, TaskTableEntryExpandedContainer, TaskTableRow} from './styles'
 import EntryResponsible from './EntryResponsible'
+import EntryDocuments from './EntryDocuments'
 
 
 const TaskTableEntry = ({group, task, taskNum}) => {
@@ -37,10 +36,11 @@ const TaskTableEntry = ({group, task, taskNum}) => {
                     />
                 </TableData>
                 <TableData>
-                    PH for Documents
-                    {!expanded ?
-                        <img alt='expand' onClick={() => setExpanded(!expanded)} src={taskExpand} /> :
-                        <img alt='collapse' onClick={() => setExpanded(!expanded)} src={taskCollapse} />}
+                    <EntryDocuments
+                        documents={task.task_documents}
+                        expanded={expanded}
+                        setExpanded={setExpanded}
+                    />
                 </TableData>
             </TaskTableRow>
             {expanded ? (

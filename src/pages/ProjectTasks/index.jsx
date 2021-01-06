@@ -13,6 +13,7 @@ import {AddTaskButton, StatusLegendFilterDropdownContainer, TasksTableContainer,
 import {getTasksForProjectAction} from '../../store/task/actions'
 import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
+import {getStepsForProjectAction} from '../../store/step/actions'
 
 
 const ProjectTasks = ({history}) => {
@@ -21,6 +22,8 @@ const ProjectTasks = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const project = useSelector(state => state.projectReducer.project)
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
+    const steps = useSelector(state => state.stepReducer.steps)
+    const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const tasks = useSelector(state => state.taskReducer.tasks)
     const tasksLoaded = useSelector(state => state.taskReducer.loaded)
     const [filterString, setFilterString] = useState('')
@@ -34,8 +37,11 @@ const ProjectTasks = ({history}) => {
             console.log('fetching Tasks')
             dispatch(getTasksForProjectAction(match.params.projectId))
         }
-
-    }, [match.params.projectId, projectLoaded, tasksLoaded, dispatch])
+        if (!stepsLoaded) {
+            console.log('fetching Steps')
+            dispatch(getStepsForProjectAction(match.params.projectId))
+        }
+    }, [match.params.projectId, projectLoaded, tasksLoaded, stepsLoaded, dispatch])
 
     return (
         <AuthenticatedPageContainer>
