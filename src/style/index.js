@@ -59,6 +59,7 @@ export const defaultTheme = {
     boxShadowColor: '#EFEFEF',
     entityTableBorderColor: '#F3F4F6',
     taxConsequenceLabelBlue: '#CCF0FF',
+    taskResponsibleText: '#212121',
     // Box Shadows
     boxShadow: '0px 0px 20px #EFEFEF',
     buttonBoxShadow: '0 4px 10px rgba(0, 112, 159, 0.24)',

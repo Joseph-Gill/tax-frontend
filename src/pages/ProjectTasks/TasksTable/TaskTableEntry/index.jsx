@@ -3,9 +3,10 @@ import {TableData} from '../../../../style/tables'
 import {TaskStatusColorIndicator, TaskStatusDisplayContainer, TaskTableEntryContainer, TaskTableEntryExpandedContainer, TaskTableRow} from './styles'
 import taskExpand from '../../../../assets/icons/stark_task_expand_icon.svg'
 import taskCollapse from '../../../../assets/icons/stark_task_collapse_icon.svg'
+import EntryResponsible from './EntryResponsible'
 
 
-const TaskTableEntry = ({task, taskNum}) => {
+const TaskTableEntry = ({group, task, taskNum}) => {
     const [expanded, setExpanded] = useState(false)
 
     return (
@@ -30,7 +31,10 @@ const TaskTableEntry = ({task, taskNum}) => {
                     {task.planned_completion_date}
                 </TableData>
                 <TableData>
-                    PH for Responsible
+                    <EntryResponsible
+                        group={group}
+                        user={task.assigned_user}
+                    />
                 </TableData>
                 <TableData>
                     PH for Documents

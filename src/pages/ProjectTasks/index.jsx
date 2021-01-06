@@ -18,6 +18,7 @@ import TasksTable from './TasksTable'
 const ProjectTasks = ({history}) => {
     const match = useRouteMatch()
     const dispatch = useDispatch()
+    const group = useSelector(state => state.groupReducer.group)
     const project = useSelector(state => state.projectReducer.project)
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
     const tasks = useSelector(state => state.taskReducer.tasks)
@@ -33,6 +34,7 @@ const ProjectTasks = ({history}) => {
             console.log('fetching Tasks')
             dispatch(getTasksForProjectAction(match.params.projectId))
         }
+
     }, [match.params.projectId, projectLoaded, tasksLoaded, dispatch])
 
     return (
@@ -67,6 +69,7 @@ const ProjectTasks = ({history}) => {
                             </StatusLegendFilterDropdownContainer>
                             <TasksTableContainer>
                                 <TasksTable
+                                    group={group}
                                     tasks={tasks}
                                 />
                             </TasksTableContainer>
