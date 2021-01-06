@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
-import {ADD_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
+import {ADD_PROJECT, GROUPS, HOME, PROJECTS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import ProjectCard from './ProjectCard'
@@ -12,11 +12,13 @@ import {resetSteps} from '../../store/step/actions'
 import {resetStepTaxConsequences} from '../../store/taxConsequence/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {resetTasks} from '../../store/task/actions'
+import Spinner from '../../components/Spinner'
 
 
 const GroupProjects = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const projects = useSelector(state => state.groupReducer.group.projects)
+    const loaded = useSelector(state => state.groupReducer.loaded)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -25,7 +27,10 @@ const GroupProjects = ({history}) => {
         dispatch(resetSteps())
         dispatch(resetStepTaxConsequences())
         dispatch(resetTasks())
-    }, [dispatch])
+        if (!loaded) {
+            history.push(`${HOME}`)
+        }
+    }, [dispatch, loaded, history])
 
     const setProjectCardDisplayOrder = () => {
         let onGoingNotStarted = []
@@ -46,20 +51,23 @@ const GroupProjects = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[
-                {display: 'GROUPS', to: GROUPS, active: false},
-                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
-                {display: 'PROJECTS', to:`${GROUPS}${PROJECTS}`, active: true}]}
-            />
-            <DisplayTitleWithButtonContainer>
-                <AuthenticatedPageTitle>Projects</AuthenticatedPageTitle>
-                <AddProjectButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_PROJECT}`)}>Add New Project</AddProjectButton>
-            </DisplayTitleWithButtonContainer>
-            {!projects.length ?
-                <NoContent buttonText='Create Project' redirect={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} text='Your group does not have any projects yet.' /> : (
-                    <ProjectCardListContainer>
-                        {projects.length ? setProjectCardDisplayOrder(projects).map(project => <ProjectCard history={history} key={project.id} project={project} />) : null}
-                    </ProjectCardListContainer>)}
+            {!loaded ? <Spinner /> : (
+                <>
+                    <BreadCrumb breadCrumbArray={[
+                        {display: 'GROUPS', to: GROUPS, active: false},
+                        {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
+                        {display: 'PROJECTS', to:`${GROUPS}${PROJECTS}`, active: true}]}
+                    />
+                    <DisplayTitleWithButtonContainer>
+                        <AuthenticatedPageTitle>Projects</AuthenticatedPageTitle>
+                        <AddProjectButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_PROJECT}`)}>Add New Project</AddProjectButton>
+                    </DisplayTitleWithButtonContainer>
+                    {!projects.length ?
+                        <NoContent buttonText='Create Project' redirect={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} text='Your group does not have any projects yet.' /> : (
+                            <ProjectCardListContainer>
+                                {projects.length ? setProjectCardDisplayOrder(projects).map(project => <ProjectCard history={history} key={project.id} project={project} />) : null}
+                            </ProjectCardListContainer>)}
+                </>)}
         </AuthenticatedPageContainer>
     )
 }
