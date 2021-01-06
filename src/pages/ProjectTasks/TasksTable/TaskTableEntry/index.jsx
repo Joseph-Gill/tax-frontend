@@ -5,7 +5,7 @@ import taskExpand from '../../../../assets/icons/stark_task_expand_icon.svg'
 import taskCollapse from '../../../../assets/icons/stark_task_collapse_icon.svg'
 
 
-const TaskTableEnry = ({task}) => {
+const TaskTableEntry = ({task, taskNum}) => {
     const [expanded, setExpanded] = useState(false)
 
     return (
@@ -18,7 +18,7 @@ const TaskTableEnry = ({task}) => {
                     {task.step.number}
                 </TableData>
                 <TableData>
-                    PH Task No.
+                    {`${task.step.number}.${taskNum}`}
                 </TableData>
                 <TableData>
                     {task.title}
@@ -52,4 +52,4 @@ const TaskTableEnry = ({task}) => {
     )
 }
 
-export default TaskTableEnry
+export default TaskTableEntry

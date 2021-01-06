@@ -1,10 +1,30 @@
 import React from 'react'
 import {CommentTable, TableHeader, TableTitleRow} from '../../../style/tables'
 import {TaskStatusTableHeader} from './styles'
-import TaskTableEnry from './TaskTableEntry'
+import TaskTableEntry from './TaskTableEntry'
 
 
 const TasksTable = ({tasks}) => {
+
+    const renderTaskEntries = () => {
+        let taskNum = 1
+        let stepNum = 1
+        const tasksToDisplay = []
+        for (let i = 0; i < tasks.length; i++) {
+            if (parseInt(tasks[i].step.number) === stepNum ) {
+                const Task = <TaskTableEntry key={tasks[i].id} task={tasks[i]} taskNum={taskNum} />
+                taskNum += 1
+                tasksToDisplay.push(Task)
+            } else {
+                stepNum += 1
+                taskNum = 1
+                tasksToDisplay.push(<TaskTableEntry key={tasks[i].id} task={tasks[i]} taskNum={taskNum} />)
+                taskNum += 1
+            }
+        }
+        return tasksToDisplay
+    }
+
     return (
         <CommentTable>
             <thead>
@@ -20,11 +40,7 @@ const TasksTable = ({tasks}) => {
                 </TableTitleRow>
             </thead>
             <tbody>
-                {tasks.map(task => {
-                    return (
-                        <TaskTableEnry key={task.id} task={task} />
-                    )
-                })}
+                {renderTaskEntries()}
             </tbody>
         </CommentTable>
     )
