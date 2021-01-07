@@ -10,7 +10,7 @@ const MemberDropdown = ({membersOptions, selectedMember, setSelectedMember}) => 
             value={selectedMember}
         >
             <DropdownOption disabled value=''>Select a member</DropdownOption>
-            {membersOptions()}
+            {membersOptions}
         </NewTaskMemberSelector>
     )
 }

@@ -10,11 +10,9 @@ import StepDropdown from './StepDropdown'
 import {NewTaskCancelSaveButtonContainer, NewTaskDescriptionTextArea, NewTaskErrorContainer, NewTaskFileListItem, NewTaskInputLabel, NewTaskInputRow, NewTaskInputsContainer, NewTaskTitleInput, NewTaskUpperLabelRow} from './styles'
 import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
-import {DropdownOption} from '../../style/options'
-import {convertDate} from '../../helpers'
+import {convertDate, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import {createTaskAction, getTasksForProjectAction} from '../../store/task/actions'
 import SuccessMessage from '../../components/SuccessMessage'
-import {getMemberOrganizationNameAction} from '../../store/organization/actions'
 import Spinner from '../../components/Spinner'
 import {ErrorMessage} from '../../style/messages'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
@@ -42,53 +40,18 @@ const TaskAdd = ({history}) => {
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
-        const listMemberWithOrgAndRole = async () => {
-            const result = [];
-            for (const member of members) {
-                const response = await dispatch(getMemberOrganizationNameAction(group.id, member.user.id))
-                const project_roles = member.assigned_project_roles.filter(role => role.project.group === group.id)
-                if (response) {
-                    let data = {
-                        id: member.id,
-                        first_name: member.user.first_name,
-                        last_name: member.user.last_name,
-                        organization: response.name,
-                        project_role: project_roles.length ? project_roles[0].role : 'Unassigned Role',
-                    }
-                    result.push(data)
-                } else {
-                    let data = {
-                        id: member.id,
-                        first_name: member.user.first_name,
-                        last_name: member.user.last_name,
-                        organization: 'Unassigned Organization',
-                        project_role: project_roles.length ? project_roles[0].role : 'Unassigned Role',
-                    }
-                    result.push(data)
-                }
-            }
-            setMemberRenderData([...result])
-            setLoaded(true)
-        }
         if (!projectLoaded) {
             history.push(`${HOME}`)
         } else if (!stepsLoaded || !groupLoaded) {
             history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
         } else {
-            listMemberWithOrgAndRole()
+            listMemberWithOrgAndRole(members, group, dispatch)
+                .then(result => {
+                    setMemberRenderData([...result])
+                    setLoaded(true)
+                })
         }
-    }, [dispatch, group.id, groupLoaded, history, members, project.id, projectLoaded, stepsLoaded])
-
-
-
-    const membersOptions = () => (
-        memberRenderData.map(user => (
-            <DropdownOption key={user.id} value={user.id}>{`${user.first_name} ${user.last_name} (${user.project_role} : ${user.organization})`}</DropdownOption>
-    )))
-
-    const stepOptions = steps.map(step => (
-        <DropdownOption key={step.id} value={step.id}>{`Step #${step.number}`}</DropdownOption>
-    ))
+    }, [dispatch, group, groupLoaded, history, members, project.id, projectLoaded, stepsLoaded])
 
     const files = acceptedFiles.map(file => (
         <NewTaskFileListItem key={file.path}>{file.path}</NewTaskFileListItem>
@@ -167,7 +130,7 @@ const TaskAdd = ({history}) => {
                                 <StepDropdown
                                     selectedStep={selectedStep}
                                     setSelectedStep={setSelectedStep}
-                                    stepOptions={stepOptions}
+                                    stepOptions={createTaskStepSelectOptions(steps)}
                                 />
                             </NewTaskInputRow>
                             <NewTaskErrorContainer>
@@ -197,7 +160,7 @@ const TaskAdd = ({history}) => {
                             files={files}
                             getInputProps={getInputProps}
                             getRootProps={getRootProps}
-                            membersOptions={membersOptions}
+                            membersOptions={createTaskMemberSelectOptions(memberRenderData)}
                             selectedMember={selectedMember}
                             setSelectedMember={setSelectedMember}
                         />
