@@ -40,7 +40,7 @@ export const getGroupAction = groupId => async (dispatch, getState) => {
         return groupInfo
     } catch(e) {
         console.log('Error getting specific group>', e)
-        return e
+        return catchError(e, dispatch)
     }
 }
 
@@ -90,6 +90,26 @@ export const updateGroupAction = (updatedGroupInfo, groupId) => async (dispatch,
         }
     } catch(e) {
         console.log('error updating group>', e)
-        return e
+        return catchError(e, dispatch)
+    }
+}
+
+export const getGroupOfProjectAction = projectId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`groups/project/${projectId}/`, config)
+        const groupInfo = {
+            ...response.data
+        }
+        dispatch(getGroup(groupInfo))
+        return groupInfo
+    } catch (e) {
+        console.log('Error getting group for specified project', e)
+        return catchError(e, dispatch)
     }
 }

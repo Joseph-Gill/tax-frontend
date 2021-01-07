@@ -42,7 +42,7 @@ const GroupEdit = ({history}) => {
             })])
             setAvailableParentNames([...group.entities.map(entity => entity.name)])
         }
-    }, [group.entities, loaded])
+    }, [group.entities, history, loaded])
 
     const addNewEntityClickHandler = () => {
         const newEntity = {

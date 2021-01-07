@@ -26,7 +26,7 @@ const ProjectEdit = ({history}) => {
         if (!loaded) {
             history.push(`${HOME}`)
         }
-    }, [loaded])
+    }, [history, loaded])
 
     const saveProjectEditHandler = async () => {
         const newProjectInfo = {

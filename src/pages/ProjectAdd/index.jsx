@@ -29,7 +29,7 @@ const ProjectAdd = ({history}) => {
         if (!loaded) {
             history.push(`${HOME}`)
         }
-    }, [loaded])
+    }, [history, loaded])
 
     const clickSaveButtonHandler =  async () => {
         const projectData = {

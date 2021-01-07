@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {useDropzone} from 'react-dropzone'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
-import {ADD_TASK, GROUPS, PROJECTS, TASKS} from '../../routes/paths'
+import {ADD_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
@@ -25,8 +25,11 @@ const TaskAdd = ({history}) => {
     let title = useRef('')
     let description = useRef('')
     const group = useSelector(state => state.groupReducer.group)
+    const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
+    const projectLoaded = useSelector(state => state.projectReducer.loaded)
     const steps = useSelector(state => state.stepReducer.steps)
+    const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const members = useSelector(state => state.groupReducer.group.users)
     const error = useSelector(state => state.errorReducer.error)
     const [selectedStep, setSelectedStep] = useState('')
@@ -67,8 +70,14 @@ const TaskAdd = ({history}) => {
             setMemberRenderData([...result])
             setLoaded(true)
         }
-        listMemberWithOrgAndRole()
-    }, [members, dispatch, group.id])
+        if (!projectLoaded) {
+            history.push(`${HOME}`)
+        } else if (!stepsLoaded || !groupLoaded) {
+            history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
+        } else {
+            listMemberWithOrgAndRole()
+        }
+    }, [dispatch, group.id, groupLoaded, history, members, project.id, projectLoaded, stepsLoaded])
 
 
 

@@ -41,7 +41,7 @@ const GroupMembers = ({history}) => {
         if (!loaded) {
             history.push(`${HOME}`)
         }
-    }, [dispatch, loaded])
+    }, [dispatch, history, loaded])
 
     const resetAllCheckedChangeFilterMemberStatus = () => {
         const activeDataCopy = [...activeRenderData]

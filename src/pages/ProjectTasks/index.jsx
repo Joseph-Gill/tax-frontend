@@ -14,15 +14,16 @@ import {getTasksForProjectAction} from '../../store/task/actions'
 import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
 import {getStepsForProjectAction} from '../../store/step/actions'
+import {getGroupOfProjectAction} from '../../store/group/actions'
 
 
 const ProjectTasks = ({history}) => {
     const match = useRouteMatch()
     const dispatch = useDispatch()
     const group = useSelector(state => state.groupReducer.group)
+    const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
-    const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const tasks = useSelector(state => state.taskReducer.tasks)
     const tasksLoaded = useSelector(state => state.taskReducer.loaded)
@@ -30,18 +31,27 @@ const ProjectTasks = ({history}) => {
 
     useEffect(() => {
         if (!projectLoaded) {
-            console.log('fetching Project')
             dispatch(getProjectAction(match.params.projectId))
         }
+    }, [dispatch, match.params.projectId, projectLoaded])
+
+    useEffect(() => {
         if (!tasksLoaded) {
-            console.log('fetching Tasks')
             dispatch(getTasksForProjectAction(match.params.projectId))
         }
+    }, [dispatch, tasksLoaded, match.params.projectId])
+
+    useEffect(() => {
         if (!stepsLoaded) {
-            console.log('fetching Steps')
             dispatch(getStepsForProjectAction(match.params.projectId))
         }
-    }, [match.params.projectId, projectLoaded, tasksLoaded, stepsLoaded, dispatch])
+    }, [dispatch, stepsLoaded, match.params.projectId])
+
+    useEffect(() => {
+        if (!groupLoaded) {
+            dispatch(getGroupOfProjectAction(match.params.projectId))
+        }
+    }, [dispatch, groupLoaded, match.params.projectId])
 
     return (
         <AuthenticatedPageContainer>
