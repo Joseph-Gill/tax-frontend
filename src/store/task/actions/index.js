@@ -61,3 +61,18 @@ export const createTaskAction = taskInfo => async (dispatch, getState) => {
         return catchError(e, dispatch)
     }
 }
+
+export const deleteTaskAction = taskId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.delete(`/tasks/task/${taskId}/`, config)
+    } catch (e) {
+        console.log('Error deleting a specific Task>', e)
+        return catchError(e, dispatch)
+    }
+}

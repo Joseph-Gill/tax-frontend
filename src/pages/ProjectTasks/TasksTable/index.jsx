@@ -4,7 +4,7 @@ import {TaskStatusTableHeader} from './styles'
 import TaskTableEntry from './TaskTableEntry'
 
 
-const TasksTable = ({group, tasks}) => {
+const TasksTable = ({group, history, project, tasks}) => {
 
     const renderTaskEntries = () => {
         let taskNum = 1
@@ -15,7 +15,9 @@ const TasksTable = ({group, tasks}) => {
                 const Task = (
                     <TaskTableEntry
                         group={group}
+                        history={history}
                         key={tasks[i].id}
+                        project={project}
                         task={tasks[i]}
                         taskNum={taskNum}
                     />)
@@ -27,7 +29,9 @@ const TasksTable = ({group, tasks}) => {
                 tasksToDisplay.push(
                     <TaskTableEntry
                         group={group}
+                        history={history}
                         key={tasks[i].id}
+                        project={project}
                         task={tasks[i]}
                         taskNum={taskNum}
                     />)

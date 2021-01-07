@@ -14,7 +14,6 @@ export const StatusLegendFilterDropdownContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 30px;
-    margin-bottom: 21px;
 `
 
 export const TaskStatusLegendContainer = styled(StatusLegendContainer)`

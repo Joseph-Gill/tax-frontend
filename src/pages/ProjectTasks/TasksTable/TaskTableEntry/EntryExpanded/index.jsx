@@ -11,13 +11,23 @@ import {
     TaskTableEntryExpandedContainer
 } from './styles'
 import DeleteTaskModal from '../../../../../components/DeleteAccountModal/DeleteTaskModal'
+import {useDispatch} from 'react-redux'
+import {deleteTaskAction, getTasksForProjectAction} from '../../../../../store/task/actions'
+import {EDIT_TASK, GROUPS, PROJECTS, TASKS} from '../../../../../routes/paths'
 
 
-const EntryExpanded = ({task}) => {
+const EntryExpanded = ({history, project, task}) => {
+    const dispatch = useDispatch()
     const [showDeleteTaskConfirmation, setShowDeleteTaskConfirmation] = useState(false)
 
-    const deleteTaskHandler = () => {
-
+    const deleteTaskHandler = async () => {
+        const response = await dispatch(deleteTaskAction(task.id))
+        if (response.status === 204) {
+            const response = await dispatch(getTasksForProjectAction(project.id))
+            if (response) {
+                setShowDeleteTaskConfirmation(false)
+            }
+        }
     }
 
     return (
@@ -41,7 +51,7 @@ const EntryExpanded = ({task}) => {
                         <ExpandedTaskStatusDropdownOption value='Completed'>Completed</ExpandedTaskStatusDropdownOption>
                     </ExpandedTaskStatusDropdown>
                     <ExpandedTaskEditLogButton>Log</ExpandedTaskEditLogButton>
-                    <ExpandedTaskEditLogButton>Edit</ExpandedTaskEditLogButton>
+                    <ExpandedTaskEditLogButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}${EDIT_TASK}/${task.id}/`)}>Edit</ExpandedTaskEditLogButton>
                 </ExpandedTaskStatusButtonLeftContainer>
                 <WireFrameDeleteButton onClick={() => setShowDeleteTaskConfirmation(true)}>Delete</WireFrameDeleteButton>
             </ExpandedTaskStatusButtonContainer>

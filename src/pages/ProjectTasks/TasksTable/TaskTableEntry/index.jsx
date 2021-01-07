@@ -6,7 +6,7 @@ import EntryDocuments from './EntryDocuments'
 import EntryExpanded from './EntryExpanded'
 
 
-const TaskTableEntry = ({group, task, taskNum}) => {
+const TaskTableEntry = ({group, history, project, task, taskNum}) => {
     const [expanded, setExpanded] = useState(false)
 
     return (
@@ -48,6 +48,8 @@ const TaskTableEntry = ({group, task, taskNum}) => {
                 <tr>
                     <td colSpan={8}>
                         <EntryExpanded
+                            history={history}
+                            project={project}
                             task={task}
                         />
                     </td>
