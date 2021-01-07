@@ -1,21 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
-import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import DateInput from '../../components/DateInput'
 import {
-    ButtonsStatusContainer,
-    DateInputAddStepButtonContainer,
-    DisabledDateInput,
-    DisabledDateLabelContainer,
-    StepChartDetailsContainer, StepDetailsOption,
-    StepDetailsStatus,
-    StepDetailsTasklistButton,
-    StepDisplayAddStepButton, StepDisplayErrorContainer, StepTooltipAnchor,
-    ToggleButtonsStatusContainer
+    ButtonsStatusContainer, DateInputAddStepButtonContainer, DisabledDateInput, DisabledDateLabelContainer, StepChartDetailsContainer, StepDetailsOption,
+    StepDetailsStatus, StepDetailsTasklistButton, StepDisplayAddStepButton, StepDisplayErrorContainer, StepTooltipAnchor, ToggleButtonsStatusContainer
 } from './styles'
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
@@ -37,7 +30,9 @@ const StepDisplay = ({history}) => {
     const dispatch = useDispatch()
     const indexOfStepToDisplay = useSelector(state => state.stepReducer.indexOfCurrentStepToDisplay)
     const steps = useSelector(state => state.stepReducer.steps)
+    const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
+    const projectLoaded = useSelector(state => state.projectReducer.project)
     const error = useSelector(state => state.errorReducer.error)
     const [editStatus, setEditStatus] = useState(false)
     const [date, setDate] = useState(new Date());
@@ -49,21 +44,25 @@ const StepDisplay = ({history}) => {
     const [ableToComplete, setAbleToComplete] = useState(false)
 
     useEffect(() => {
-        if (!steps[indexOfStepToDisplay].id) {
-            setEditStatus(true)
-        }
-        const checkIfStepCanComplete = () => {
-            for (let i = 0; i < indexOfStepToDisplay; i++) {
-                if (steps[i].status !== 'Completed') {
-                    return false
-                }
+        if (!stepsLoaded || !projectLoaded) {
+            history.push(`${HOME}`)
+        } else {
+            if (!steps[indexOfStepToDisplay].id) {
+                setEditStatus(true)
             }
-            return true
+            const checkIfStepCanComplete = () => {
+                for (let i = 0; i < indexOfStepToDisplay; i++) {
+                    if (steps[i].status !== 'Completed') {
+                        return false
+                    }
+                }
+                return true
+            }
+            setDescription(steps[indexOfStepToDisplay].description)
+            setStepStatus(steps[indexOfStepToDisplay].status)
+            setAbleToComplete(checkIfStepCanComplete())
         }
-        setDescription(steps[indexOfStepToDisplay].description)
-        setStepStatus(steps[indexOfStepToDisplay].status)
-        setAbleToComplete(checkIfStepCanComplete())
-    }, [steps, indexOfStepToDisplay])
+    }, [history, indexOfStepToDisplay, projectLoaded, steps, stepsLoaded])
 
     const saveNewStepHandler = async () => {
         dispatch(resetErrors())
@@ -145,116 +144,119 @@ const StepDisplay = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {loading ? <Spinner /> : null}
-            {showConfirmation ?
-                <DeleteStepModal
-                    deleteStepHandler={deleteStepHandler}
-                    setShowConfirmation={setShowConfirmation}
-                /> : null}
-            <BreadCrumb
-                breadCrumbArray={[
-                    {display: 'GROUPS', to: GROUPS, active: false},
-                    {display: `GROUP ${project.group.name.toUpperCase()}`, to: `${GROUPS}/${project.group.id}`, active: false},
-                    {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`, active: false},
-                    {display: `PROJECT ${project.name.toUpperCase()}`, to: `${GROUPS}${PROJECTS}/${project.id}`, active: false},
-                    {display: 'STEPS', to: `${GROUPS}${PROJECTS}${STEPS}/${project.id}/`, active: false},
-                    {display: `STEP ${indexOfStepToDisplay + 1}`, to: `${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`, active: true},
-                ]}
-            />
-            <PreviousNextStepHeader
-                indexOfStepToDisplay={indexOfStepToDisplay}
-                next={1}
-                previous={1}
-            />
-            {indexOfStepToDisplay + 1 === steps.length ? (
-                <StepPageTitleWithButtonContainer>
-                    <AuthenticatedPageTitle>Step {steps[indexOfStepToDisplay].number}</AuthenticatedPageTitle>
-                    <DateInputAddStepButtonContainer>
-                        {editStatus ? (
-                            <DateInput date={date} label setDate={setDate} />) : (
-                                <>
-                                    <DateInputLabelText>Effective Date:</DateInputLabelText>
-                                    <DisabledDateInput
-                                        disabled
-                                        type='text'
-                                        value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
-                                    />
-                                </>)}
-                        {indexOfStepToDisplay + 1 === steps.length && steps[indexOfStepToDisplay].id ?
-                            <StepDisplayAddStepButton onClick={addNewStepHandler}>Add New Step</StepDisplayAddStepButton> : null}
-                    </DateInputAddStepButtonContainer>
-                </StepPageTitleWithButtonContainer>) : (
-                    <StepPageTitleWithButtonContainer>
-                        <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
-                        {editStatus ? (
-                            <DateInput
-                                date={date}
-                                label
-                                setDate={setDate}
-                            />) : (
-                                <DisabledDateLabelContainer>
-                                    <DateInputLabelText>Effective Date:</DateInputLabelText>
-                                    <DisabledDateInput
-                                        disabled
-                                        type='text'
-                                        value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
-                                    />
-                                </DisabledDateLabelContainer>)}
-                    </StepPageTitleWithButtonContainer>)}
+            {!stepsLoaded || !projectLoaded ? <Spinner /> : (
+                <>
+                    {loading ? <Spinner /> : null}
+                    {showConfirmation ?
+                        <DeleteStepModal
+                            deleteStepHandler={deleteStepHandler}
+                            setShowConfirmation={setShowConfirmation}
+                        /> : null}
+                    <BreadCrumb
+                        breadCrumbArray={[
+                            {display: 'GROUPS', to: GROUPS, active: false},
+                            {display: `GROUP ${project.group.name.toUpperCase()}`, to: `${GROUPS}/${project.group.id}`, active: false},
+                            {display: 'PROJECTS', to: `${GROUPS}${PROJECTS}`, active: false},
+                            {display: `PROJECT ${project.name.toUpperCase()}`, to: `${GROUPS}${PROJECTS}/${project.id}`, active: false},
+                            {display: 'STEPS', to: `${GROUPS}${PROJECTS}${STEPS}/${project.id}/`, active: false},
+                            {display: `STEP ${indexOfStepToDisplay + 1}`, to: `${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`, active: true},
+                        ]}
+                    />
+                    <PreviousNextStepHeader
+                        indexOfStepToDisplay={indexOfStepToDisplay}
+                        next={1}
+                        previous={1}
+                    />
+                    {indexOfStepToDisplay + 1 === steps.length ? (
+                        <StepPageTitleWithButtonContainer>
+                            <AuthenticatedPageTitle>Step {steps[indexOfStepToDisplay].number}</AuthenticatedPageTitle>
+                            <DateInputAddStepButtonContainer>
+                                {editStatus ? (
+                                    <DateInput date={date} label setDate={setDate} />) : (
+                                        <>
+                                            <DateInputLabelText>Effective Date:</DateInputLabelText>
+                                            <DisabledDateInput
+                                                disabled
+                                                type='text'
+                                                value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
+                                            />
+                                        </>)}
+                                {indexOfStepToDisplay + 1 === steps.length && steps[indexOfStepToDisplay].id ?
+                                    <StepDisplayAddStepButton onClick={addNewStepHandler}>Add New Step</StepDisplayAddStepButton> : null}
+                            </DateInputAddStepButtonContainer>
+                        </StepPageTitleWithButtonContainer>) : (
+                            <StepPageTitleWithButtonContainer>
+                                <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
+                                {editStatus ? (
+                                    <DateInput
+                                        date={date}
+                                        label
+                                        setDate={setDate}
+                                    />) : (
+                                        <DisabledDateLabelContainer>
+                                            <DateInputLabelText>Effective Date:</DateInputLabelText>
+                                            <DisabledDateInput
+                                                disabled
+                                                type='text'
+                                                value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
+                                            />
+                                        </DisabledDateLabelContainer>)}
+                            </StepPageTitleWithButtonContainer>)}
 
-            <ToggleButtonsStatusContainer>
-                <StepDisplayToggle
-                    setStepDetailStatus={setStepDetailStatus}
-                    stepDetailStatus={stepDetailStatus}
-                />
-                <ButtonsStatusContainer>
-                    {indexOfStepToDisplay + 1 === steps.length ? <WireFrameDeleteButton onClick={() => setShowConfirmation(true)}>Delete</WireFrameDeleteButton> : null}
-                    <StepDetailsTasklistButton>Tasklist</StepDetailsTasklistButton>
-                    {!editStatus ? (
-                        <StepDetailsStatus disabled onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
-                            <StepDetailsOption value={steps[indexOfStepToDisplay].status}>{steps[indexOfStepToDisplay].status}</StepDetailsOption>
-                        </StepDetailsStatus>
-                        ) : (
-                            <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
-                                <StepDetailsOption disabled value=''>Status</StepDetailsOption>
-                                <StepDetailsOption value='Not Started'>Not Started</StepDetailsOption>
-                                <StepDetailsOption value='Ongoing'>Ongoing</StepDetailsOption>
-                                {ableToComplete ?
-                                    <StepDetailsOption value='Completed'>Completed</StepDetailsOption> :
-                                    <StepDetailsOption disabled value='Completed'>Completed</StepDetailsOption>}
-                            </StepDetailsStatus>
-                    )}
-                    {!ableToComplete ? (
-                        <>
-                            <StepTooltipAnchor>
-                                <img alt='tooltip' data-for='complete' data-tip src={tooltipAnchor} />
-                            </StepTooltipAnchor>
-                            <StepToolTip anchorId='complete' />
-                        </>) : null}
-                </ButtonsStatusContainer>
-            </ToggleButtonsStatusContainer>
-            <StepDisplayErrorContainer>
-                {error && <ErrorMessage>{error.status}</ErrorMessage>}
-            </StepDisplayErrorContainer>
-            <StepChartDetailsContainer>
-                {!stepDetailStatus ?
-                    <StepChart /> :
-                    <StepDetails
-                        description={description}
-                        editStatus={editStatus}
-                        saveNewStepHandler={saveNewStepHandler}
-                        setDescription={setDescription}
-                        setEditStatus={setEditStatus}
-                        step={steps[indexOfStepToDisplay]}
-                        updateExistingStepHandler={updateExistingStepHandler}
-                    />}
-            </StepChartDetailsContainer>
-            <StepDisplayFooter
-                endingActive={0}
-                history={history}
-                indexOfStepToDisplay={indexOfStepToDisplay}
-                steps={steps}
-            />
+                    <ToggleButtonsStatusContainer>
+                        <StepDisplayToggle
+                            setStepDetailStatus={setStepDetailStatus}
+                            stepDetailStatus={stepDetailStatus}
+                        />
+                        <ButtonsStatusContainer>
+                            {indexOfStepToDisplay + 1 === steps.length ? <WireFrameDeleteButton onClick={() => setShowConfirmation(true)}>Delete</WireFrameDeleteButton> : null}
+                            <StepDetailsTasklistButton>Tasklist</StepDetailsTasklistButton>
+                            {!editStatus ? (
+                                <StepDetailsStatus disabled onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
+                                    <StepDetailsOption value={steps[indexOfStepToDisplay].status}>{steps[indexOfStepToDisplay].status}</StepDetailsOption>
+                                </StepDetailsStatus>
+                                ) : (
+                                    <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
+                                        <StepDetailsOption disabled value=''>Status</StepDetailsOption>
+                                        <StepDetailsOption value='Not Started'>Not Started</StepDetailsOption>
+                                        <StepDetailsOption value='Ongoing'>Ongoing</StepDetailsOption>
+                                        {ableToComplete ?
+                                            <StepDetailsOption value='Completed'>Completed</StepDetailsOption> :
+                                            <StepDetailsOption disabled value='Completed'>Completed</StepDetailsOption>}
+                                    </StepDetailsStatus>
+                            )}
+                            {!ableToComplete ? (
+                                <>
+                                    <StepTooltipAnchor>
+                                        <img alt='tooltip' data-for='complete' data-tip src={tooltipAnchor} />
+                                    </StepTooltipAnchor>
+                                    <StepToolTip anchorId='complete' />
+                                </>) : null}
+                        </ButtonsStatusContainer>
+                    </ToggleButtonsStatusContainer>
+                    <StepDisplayErrorContainer>
+                        {error && <ErrorMessage>{error.status}</ErrorMessage>}
+                    </StepDisplayErrorContainer>
+                    <StepChartDetailsContainer>
+                        {!stepDetailStatus ?
+                            <StepChart /> :
+                            <StepDetails
+                                description={description}
+                                editStatus={editStatus}
+                                saveNewStepHandler={saveNewStepHandler}
+                                setDescription={setDescription}
+                                setEditStatus={setEditStatus}
+                                step={steps[indexOfStepToDisplay]}
+                                updateExistingStepHandler={updateExistingStepHandler}
+                            />}
+                    </StepChartDetailsContainer>
+                    <StepDisplayFooter
+                        endingActive={0}
+                        history={history}
+                        indexOfStepToDisplay={indexOfStepToDisplay}
+                        steps={steps}
+                    />
+                </>)}
         </AuthenticatedPageContainer>
     )
 }
