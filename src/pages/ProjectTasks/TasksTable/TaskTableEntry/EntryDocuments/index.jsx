@@ -1,25 +1,15 @@
 import React from 'react'
 import taskExpand from '../../../../../assets/icons/stark_task_expand_icon.svg'
 import taskCollapse from '../../../../../assets/icons/stark_task_collapse_icon.svg'
-import deleteDocument from '../../../../../assets/icons/stark_task_delete_document_icon.svg'
-import {DocumentDeleteIconContainer, EntryDocumentsContainer, EntryDocumentsTextContainer, TaskDocumentDeleteImage, TaskDocumentLink, TaskExpandCollapseImage} from './styles'
+import {EntryDocumentsContainer, EntryDocumentsTextContainer, TaskExpandCollapseImage} from './styles'
+import TaskDocument from './TaskDocument'
 
 
 const EntryDocuments = ({documents, expanded, setExpanded}) => {
     return (
         <EntryDocumentsContainer>
             <EntryDocumentsTextContainer>
-                {documents.map(document => (
-                    <DocumentDeleteIconContainer key={document.id}>
-                        <TaskDocumentLink
-                            download
-                            target='_blank'
-                            to={document.document}
-                        >{document.name.length > 18 ? document.name.slice(0, 11).concat('....').concat(document.name.slice(-4)) : document.name}
-                        </TaskDocumentLink>
-                        <TaskDocumentDeleteImage alt='delete document' src={deleteDocument} />
-                    </DocumentDeleteIconContainer>
-                ))}
+                {documents.map(document => <TaskDocument document={document} key={document.id} /> )}
             </EntryDocumentsTextContainer>
             {expanded ?
                 <TaskExpandCollapseImage alt='collapse' onClick={() => setExpanded(!expanded)} src={taskCollapse} /> :
