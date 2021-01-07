@@ -12,13 +12,25 @@ const TasksTable = ({group, tasks}) => {
         const tasksToDisplay = []
         for (let i = 0; i < tasks.length; i++) {
             if (parseInt(tasks[i].step.number) === stepNum ) {
-                const Task = <TaskTableEntry group={group} key={tasks[i].id} task={tasks[i]} taskNum={taskNum} />
+                const Task = (
+                    <TaskTableEntry
+                        group={group}
+                        key={tasks[i].id}
+                        task={tasks[i]}
+                        taskNum={taskNum}
+                    />)
                 taskNum += 1
                 tasksToDisplay.push(Task)
             } else {
                 stepNum += 1
                 taskNum = 1
-                tasksToDisplay.push(<TaskTableEntry group={group} key={tasks[i].id} task={tasks[i]} taskNum={taskNum} />)
+                tasksToDisplay.push(
+                    <TaskTableEntry
+                        group={group}
+                        key={tasks[i].id}
+                        task={tasks[i]}
+                        taskNum={taskNum}
+                    />)
                 taskNum += 1
             }
         }

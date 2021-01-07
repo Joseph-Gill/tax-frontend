@@ -53,6 +53,10 @@ const ProjectTasks = ({history}) => {
         }
     }, [dispatch, groupLoaded, match.params.projectId])
 
+    const deleteTaskHandler = () => {
+
+    }
+
     return (
         <AuthenticatedPageContainer>
             {!projectLoaded || !tasksLoaded  ? <Spinner /> : (

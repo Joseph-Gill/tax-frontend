@@ -68,7 +68,7 @@ export const AddDeleteModalErrorContainer = styled.div`
     margin-bottom: 10px;
 `
 
-export const DeleteStepReviewModalInternalContainer = styled(AddDeleteModalInternalContainer)`
+export const DeleteStepReviewTaskModalInternalContainer = styled(AddDeleteModalInternalContainer)`
     width: 370px;
     height: 240px;
 `

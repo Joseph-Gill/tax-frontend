@@ -1,15 +1,15 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, BlueConfirmReviewedButton, DeleteStepReviewTaskModalInternalContainer} from '../styles'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
 import {CloseIcon, Ellipse} from '../../../style/images'
 import close from '../../../assets/icons/stark_close_icon.svg'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import ellipse from '../../../assets/icons/stark_modal_ellipse.png'
 import {ModalText} from '../../../style/text'
-import {AuthenticatedButtonCancel} from '../../../style/buttons'
+import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
 
 
-const SetReviewedModal = ({setReviewedHandler, setShowConfirmation}) => {
+const DeleteTaskModal = ({deleteTaskHandler, setShowDeleteTaskConfirmation}) => {
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},
@@ -20,7 +20,7 @@ const SetReviewedModal = ({setReviewedHandler, setShowConfirmation}) => {
         <AddDeleteModalExternalContainer style={props}>
             <DeleteStepReviewTaskModalInternalContainer>
                 <AddDeleteModalCloseContainer>
-                    <CloseIcon alt='close' onClick={() => setShowConfirmation(false)} src={close} />
+                    <CloseIcon alt='close' onClick={() => setShowDeleteTaskConfirmation(false)} src={close} />
                 </AddDeleteModalCloseContainer>
                 <AddDeleteModalTitleContainer>
                     <AuthenticatedPageTitle>Are you sure?</AuthenticatedPageTitle>
@@ -28,16 +28,16 @@ const SetReviewedModal = ({setReviewedHandler, setShowConfirmation}) => {
                 <div>
                     <AddDeleteModalTextContainer>
                         <Ellipse alt='ellipse' src={ellipse} />
-                        <ModalText>This tax consequence will be marked as reviewed by you</ModalText>
+                        <ModalText>All documentation tied to this Task will be deleted</ModalText>
                     </AddDeleteModalTextContainer>
                 </div>
                 <AddDeleteModalButtonContainer>
-                    <AuthenticatedButtonCancel onClick={() => setShowConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
-                    <BlueConfirmReviewedButton onClick={setReviewedHandler}>Confirm Reviewed</BlueConfirmReviewedButton>
+                    <AuthenticatedButtonCancel onClick={() => setShowDeleteTaskConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
+                    <RedLargerButton onClick={deleteTaskHandler}>Confirm Delete</RedLargerButton>
                 </AddDeleteModalButtonContainer>
             </DeleteStepReviewTaskModalInternalContainer>
         </AddDeleteModalExternalContainer>
     )
 }
 
-export default SetReviewedModal
+export default DeleteTaskModal

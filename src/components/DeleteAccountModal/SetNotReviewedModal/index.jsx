@@ -1,6 +1,6 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, DeleteStepReviewModalInternalContainer} from '../styles'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
 import {CloseIcon, Ellipse} from '../../../style/images'
 import close from '../../../assets/icons/stark_close_icon.svg'
 import {AuthenticatedPageTitle} from '../../../style/titles'
@@ -18,7 +18,7 @@ const SetNotReviewedModal = ({setNotReviewedHandler, setShowSecondConfirmation})
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <DeleteStepReviewModalInternalContainer>
+            <DeleteStepReviewTaskModalInternalContainer>
                 <AddDeleteModalCloseContainer>
                     <CloseIcon alt='close' onClick={() => setShowSecondConfirmation(false)} src={close} />
                 </AddDeleteModalCloseContainer>
@@ -35,7 +35,7 @@ const SetNotReviewedModal = ({setNotReviewedHandler, setShowSecondConfirmation})
                     <AuthenticatedButtonCancel onClick={() => setShowSecondConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
                     <RedLargerButton onClick={setNotReviewedHandler}>Set as Not Reviewed</RedLargerButton>
                 </AddDeleteModalButtonContainer>
-            </DeleteStepReviewModalInternalContainer>
+            </DeleteStepReviewTaskModalInternalContainer>
         </AddDeleteModalExternalContainer>
     )
 }

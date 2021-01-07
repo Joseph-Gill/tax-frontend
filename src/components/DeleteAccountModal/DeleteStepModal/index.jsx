@@ -6,7 +6,7 @@ import {
     AddDeleteModalExternalContainer,
     AddDeleteModalTextContainer,
     AddDeleteModalTitleContainer,
-    DeleteStepReviewModalInternalContainer
+    DeleteStepReviewTaskModalInternalContainer
 } from '../styles'
 import {CloseIcon, Ellipse} from '../../../style/images'
 import close from '../../../assets/icons/stark_close_icon.svg'
@@ -25,7 +25,7 @@ const DeleteStepModal = ({deleteStepHandler, setShowConfirmation}) => {
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <DeleteStepReviewModalInternalContainer>
+            <DeleteStepReviewTaskModalInternalContainer>
                 <AddDeleteModalCloseContainer>
                     <CloseIcon alt='close' onClick={() => setShowConfirmation(false)} src={close} />
                 </AddDeleteModalCloseContainer>
@@ -42,7 +42,7 @@ const DeleteStepModal = ({deleteStepHandler, setShowConfirmation}) => {
                     <AuthenticatedButtonCancel onClick={() => setShowConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
                     <RedLargerButton onClick={deleteStepHandler}>Confirm Delete</RedLargerButton>
                 </AddDeleteModalButtonContainer>
-            </DeleteStepReviewModalInternalContainer>
+            </DeleteStepReviewTaskModalInternalContainer>
         </AddDeleteModalExternalContainer>
     )
 }

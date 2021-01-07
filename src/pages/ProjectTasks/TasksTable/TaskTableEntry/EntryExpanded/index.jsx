@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {WireFrameDeleteButton} from '../../../../../style/buttons'
 import {
     ExpandedTaskDescriptionContainer,
@@ -10,11 +10,23 @@ import {
     ExpandedTaskTile,
     TaskTableEntryExpandedContainer
 } from './styles'
+import DeleteTaskModal from '../../../../../components/DeleteAccountModal/DeleteTaskModal'
 
 
 const EntryExpanded = ({task}) => {
+    const [showDeleteTaskConfirmation, setShowDeleteTaskConfirmation] = useState(false)
+
+    const deleteTaskHandler = () => {
+
+    }
+
     return (
         <TaskTableEntryExpandedContainer>
+            {showDeleteTaskConfirmation ?
+                <DeleteTaskModal
+                    deleteTaskHandler={deleteTaskHandler}
+                    setShowDeleteTaskConfirmation={setShowDeleteTaskConfirmation}
+                /> : null}
             <ExpandedTaskTile>Task Description</ExpandedTaskTile>
             <ExpandedTaskDescriptionContainer>
                 {task.description}
@@ -31,7 +43,7 @@ const EntryExpanded = ({task}) => {
                     <ExpandedTaskEditLogButton>Log</ExpandedTaskEditLogButton>
                     <ExpandedTaskEditLogButton>Edit</ExpandedTaskEditLogButton>
                 </ExpandedTaskStatusButtonLeftContainer>
-                <WireFrameDeleteButton>Delete</WireFrameDeleteButton>
+                <WireFrameDeleteButton onClick={() => setShowDeleteTaskConfirmation(true)}>Delete</WireFrameDeleteButton>
             </ExpandedTaskStatusButtonContainer>
         </TaskTableEntryExpandedContainer>
     )
