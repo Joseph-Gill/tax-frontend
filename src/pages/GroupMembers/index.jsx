@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {AuthenticatedPageContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
-import {GROUPS, MEMBERS} from '../../routes/paths'
+import {GROUPS, HOME, MEMBERS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {ActionFilterDropdownContainer, AddMemberButton, AddMemberButtonContainer, DisplayMembersTitleContainer} from './styles'
 import ActionDropdown from './ActionDropdown'
@@ -12,11 +12,13 @@ import AddMemberModal from '../../components/AddMemberModal'
 import {resetMember} from '../../store/member/actions'
 import RemoveMemberModal from '../../components/DeleteAccountModal/RemoveMemberModal'
 import StatusToggle from './StatusToggle'
+import Spinner from '../../components/Spinner'
 
 
 const GroupMembers = ({history}) => {
     const dispatch = useDispatch()
     const group = useSelector(state => state.groupReducer.group)
+    const loaded = useSelector(state => state.groupReducer.loaded)
     const members = useSelector(state => state.groupReducer.group.users)
     const invitedMembers = useSelector(state => state.groupReducer.group.invited_new_users)
     const [showConfirmation, setShowConfirmation] = useState(false)
@@ -36,7 +38,10 @@ const GroupMembers = ({history}) => {
 
     useEffect(() => {
         dispatch(resetMember())
-    }, [dispatch])
+        if (!loaded) {
+            history.push(`${HOME}`)
+        }
+    }, [dispatch, loaded])
 
     const resetAllCheckedChangeFilterMemberStatus = () => {
         const activeDataCopy = [...activeRenderData]
@@ -61,51 +66,54 @@ const GroupMembers = ({history}) => {
                     setShowConfirmation={setShowConfirmation}
                 />}
             {showAddMember && <AddMemberModal groupId={group.id} setShowAddMember={setShowAddMember} />}
-            <BreadCrumb breadCrumbArray={[
-                {display: 'GROUPS', to: GROUPS, active: false},
-                {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
-                {display: 'TEAM MEMBERS', to:`${GROUPS}${MEMBERS}`, active: true}]}
-            />
-            <DisplayMembersTitleContainer>
-                <AuthenticatedPageTitle>Team Members</AuthenticatedPageTitle>
-                <StatusToggle
-                    filterMemberStatus={filterMemberStatus}
-                    resetAllCheckedChangeFilterMemberStatus={resetAllCheckedChangeFilterMemberStatus}
-                />
-            </DisplayMembersTitleContainer>
-            <ActionFilterDropdownContainer>
-                {!filterMemberStatus && !invitedMembers.length ? null : (
-                    <>
-                        <ActionDropdown
-                            setShowConfirmation={setShowConfirmation}
+            {!loaded ? <Spinner /> : (
+                <>
+                    <BreadCrumb breadCrumbArray={[
+                        {display: 'GROUPS', to: GROUPS, active: false},
+                        {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: false},
+                        {display: 'TEAM MEMBERS', to:`${GROUPS}${MEMBERS}`, active: true}]}
+                    />
+                    <DisplayMembersTitleContainer>
+                        <AuthenticatedPageTitle>Team Members</AuthenticatedPageTitle>
+                        <StatusToggle
+                            filterMemberStatus={filterMemberStatus}
+                            resetAllCheckedChangeFilterMemberStatus={resetAllCheckedChangeFilterMemberStatus}
                         />
-                        <FilterDropdown
-                            filterMemberStraus={filterMemberStatus}
-                            filterOption={filterOption}
-                            filterString={filterString}
-                            setFilterOption={setFilterOption}
-                            setFilterString={setFilterString}
-                        />
-                    </>)}
-            </ActionFilterDropdownContainer>
-            <MembersTable
-                activeRenderData={activeRenderData}
-                filterMemberStatus={filterMemberStatus}
-                filterOption={filterOption}
-                filterString={filterString}
-                group={group}
-                history={history}
-                invitedMembers={invitedMembers}
-                invitedRenderData={invitedRenderData}
-                members={members}
-                setActiveRenderData={setActiveRenderData}
-                setInvitedRenderData={setInvitedRenderData}
-                setShowAddMember={setShowAddMember}
-            />
-            <AddMemberButtonContainer>
-                {!filterMemberStatus && !invitedMembers.length ? null : (
-                    <AddMemberButton onClick={() => setShowAddMember(!showAddMember)}>Add team member</AddMemberButton> )}
-            </AddMemberButtonContainer>
+                    </DisplayMembersTitleContainer>
+                    <ActionFilterDropdownContainer>
+                        {!filterMemberStatus && !invitedMembers.length ? null : (
+                            <>
+                                <ActionDropdown
+                                    setShowConfirmation={setShowConfirmation}
+                                />
+                                <FilterDropdown
+                                    filterMemberStraus={filterMemberStatus}
+                                    filterOption={filterOption}
+                                    filterString={filterString}
+                                    setFilterOption={setFilterOption}
+                                    setFilterString={setFilterString}
+                                />
+                            </>)}
+                    </ActionFilterDropdownContainer>
+                    <MembersTable
+                        activeRenderData={activeRenderData}
+                        filterMemberStatus={filterMemberStatus}
+                        filterOption={filterOption}
+                        filterString={filterString}
+                        group={group}
+                        history={history}
+                        invitedMembers={invitedMembers}
+                        invitedRenderData={invitedRenderData}
+                        members={members}
+                        setActiveRenderData={setActiveRenderData}
+                        setInvitedRenderData={setInvitedRenderData}
+                        setShowAddMember={setShowAddMember}
+                    />
+                    <AddMemberButtonContainer>
+                        {!filterMemberStatus && !invitedMembers.length ? null : (
+                            <AddMemberButton onClick={() => setShowAddMember(!showAddMember)}>Add team member</AddMemberButton> )}
+                    </AddMemberButtonContainer>
+                </>)}
         </AuthenticatedPageContainer>
     )
 }
