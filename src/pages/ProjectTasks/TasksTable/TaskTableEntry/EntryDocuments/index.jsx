@@ -5,11 +5,16 @@ import {EntryDocumentsContainer, EntryDocumentsTextContainer, TaskExpandCollapse
 import TaskDocument from './TaskDocument'
 
 
-const EntryDocuments = ({documents, expanded, setExpanded}) => {
+const EntryDocuments = ({documents, expanded, project, setExpanded}) => {
     return (
         <EntryDocumentsContainer>
             <EntryDocumentsTextContainer>
-                {documents.map(document => <TaskDocument document={document} key={document.id} /> )}
+                {documents.map(document => (
+                    <TaskDocument
+                        document={document}
+                        key={document.id}
+                        project={project}
+                    /> ))}
             </EntryDocumentsTextContainer>
             {expanded ?
                 <TaskExpandCollapseImage alt='collapse' onClick={() => setExpanded(!expanded)} src={taskCollapse} /> :

@@ -3,13 +3,22 @@ import deleteDocument from '../../../../../../assets/icons/stark_task_delete_doc
 import {DocumentDeleteIconContainer, TaskDocumentDeleteImage, TaskDocumentLink} from './styles'
 import DeleteDocumentModal from '../../../../../../components/DeleteAccountModal/DeleteDocumentModal'
 import {useDispatch} from 'react-redux'
+import {deleteTaskDocumentAction} from '../../../../../../store/taskDocument/actions'
+import {getTasksForProjectAction} from '../../../../../../store/task/actions'
 
 
-const TaskDocument = ({document}) => {
+const TaskDocument = ({document, project}) => {
     const dispatch = useDispatch()
     const [showDeleteDocumentConfirmation, setShowDeleteDocumentConfirmation] = useState(false)
 
     const deleteDocumentHandler = async () => {
+        const response = await dispatch(deleteTaskDocumentAction(document.id))
+        if (response.status === 204) {
+            const response = await dispatch(getTasksForProjectAction(project.id))
+            if (response) {
+                setShowDeleteDocumentConfirmation(false)
+            }
+        }
     }
 
     return (

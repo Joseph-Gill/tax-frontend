@@ -40,6 +40,7 @@ const TaskTableEntry = ({group, history, project, task, taskNum}) => {
                     <EntryDocuments
                         documents={task.task_documents}
                         expanded={expanded}
+                        project={project}
                         setExpanded={setExpanded}
                     />
                 </TableData>
