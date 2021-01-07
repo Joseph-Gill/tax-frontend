@@ -39,3 +39,9 @@ export const TaskExpandCollapseImage = styled.img`
         cursor: pointer;
     }
 `
+
+export const TaskDocumentDeleteImage = styled.img`
+    :hover {
+        cursor: pointer;
+    }
+`

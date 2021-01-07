@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import {TableData} from '../../../../style/tables'
-import {TaskStatusColorIndicator, TaskStatusDisplayContainer, TaskTableEntryExpandedContainer, TaskTableRow} from './styles'
+import {DateTableData, TaskStatusColorIndicator, TaskTableRow, TitleTableData} from './styles'
 import EntryResponsible from './EntryResponsible'
 import EntryDocuments from './EntryDocuments'
+import EntryExpanded from './EntryExpanded'
 
 
 const TaskTableEntry = ({group, task, taskNum}) => {
@@ -11,24 +12,24 @@ const TaskTableEntry = ({group, task, taskNum}) => {
     return (
         <>
             <TaskTableRow key={task.id}>
-                <TaskStatusDisplayContainer>
+                <TableData>
                     <TaskStatusColorIndicator status={task.status} />
-                </TaskStatusDisplayContainer>
+                </TableData>
                 <TableData>
                     {task.step.number}
                 </TableData>
                 <TableData>
                     {`${task.step.number}.${taskNum}`}
                 </TableData>
-                <TableData>
+                <TitleTableData>
                     {task.title}
-                </TableData>
-                <TableData>
+                </TitleTableData>
+                <DateTableData>
                     {task.due_date}
-                </TableData>
-                <TableData>
+                </DateTableData>
+                <DateTableData>
                     {task.planned_completion_date}
-                </TableData>
+                </DateTableData>
                 <TableData>
                     <EntryResponsible
                         group={group}
@@ -46,9 +47,9 @@ const TaskTableEntry = ({group, task, taskNum}) => {
             {expanded ? (
                 <tr>
                     <td colSpan={8}>
-                        <TaskTableEntryExpandedContainer>
-
-                        </TaskTableEntryExpandedContainer>
+                        <EntryExpanded
+                            task={task}
+                        />
                     </td>
                 </tr>
             ) : null}

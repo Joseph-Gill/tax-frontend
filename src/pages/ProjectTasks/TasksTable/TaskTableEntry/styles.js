@@ -1,17 +1,6 @@
 import styled from 'styled-components/macro'
-import {TableDataRow, TableHeader} from '../../../../style/tables'
+import {TableData, TableDataRow} from '../../../../style/tables'
 
-
-export const TaskTableEntryContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-`
-
-export const TaskTableEntryExpandedContainer = styled.div`
-    width: 860px;
-    height: 219px;
-    background: ${props => props.theme.graySix};
-`
 
 export const TaskStatusColorIndicator = styled.div`
     width: 11px;
@@ -46,14 +35,14 @@ export const TaskStatusColorIndicator = styled.div`
     };
 `
 
-export const TaskStatusDisplayContainer = styled(TableHeader)`
-    height: 67px;
-    padding-top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
 export const TaskTableRow = styled(TableDataRow)`
     height: 67px;
+`
+
+export const TitleTableData = styled(TableData)`
+    max-width: 198px;
+`
+
+export const DateTableData = styled(TableData)`
+    width: 101px;
 `
