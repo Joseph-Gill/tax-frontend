@@ -1,14 +1,6 @@
 import React from 'react'
-import styled from 'styled-components/macro'
-import {StatusDropdown} from '../../../../style/dropdowns'
 import {DropdownOption} from '../../../../style/options'
-
-
-const TaskStatus = styled(StatusDropdown)`
-    width: 130px;
-    background-position-x: 111px;
-    margin-left: 45px;
-`
+import {TaskStatus} from './styles'
 
 
 const TaskStatusDropdown = ({setTaskStatus, taskStatus}) => {

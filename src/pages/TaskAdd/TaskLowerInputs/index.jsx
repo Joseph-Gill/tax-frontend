@@ -1,10 +1,9 @@
 import React from 'react'
-import {NewTaskErrorContainer} from '../styles'
 import MemberDropdown from './MemberDropdown'
 import DocumentUpload from './DocumentUpload'
 import {DocumentUploadAreaText, TaskLowerInputsContainer, TaskLowerLeftContainer, TaskLowerRightContainer} from './styles'
 import {ErrorMessage} from '../../../style/messages'
-import {TaskInputRow} from '../../../style/containers'
+import {TaskErrorContainer, TaskInputRow} from '../../../style/containers'
 import {TaskInputLabel} from '../../../style/labels'
 
 
@@ -28,9 +27,9 @@ const TaskLowerInputs = ({error, files, getInputProps, getRootProps, membersOpti
                             setSelectedMember={setSelectedMember}
                         />
                     </TaskInputRow>
-                    <NewTaskErrorContainer>
+                    <TaskErrorContainer>
                         {error && <ErrorMessage>{error.member}</ErrorMessage>}
-                    </NewTaskErrorContainer>
+                    </TaskErrorContainer>
                 </div>
             </TaskLowerLeftContainer>
             <TaskLowerRightContainer>

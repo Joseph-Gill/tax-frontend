@@ -16,8 +16,3 @@ export const NewTaskDescriptionTextArea = styled.textarea`
     margin-left: 107px;
     padding: 16px;
 `
-
-export const NewTaskErrorContainer = styled.div`
-    height: 10px;
-    margin-left: 213px;
-`

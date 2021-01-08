@@ -279,6 +279,11 @@ export const TaskUpperLabelRow = styled(TaskInputRow)`
     align-items: flex-start;
 `
 
+export const TaskErrorContainer = styled.div`
+    height: 10px;
+    margin-left: 213px;
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

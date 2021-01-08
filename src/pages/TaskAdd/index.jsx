@@ -1,13 +1,12 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {useDropzone} from 'react-dropzone'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskInputRow, TaskInputsContainer, TaskUpperLabelRow} from '../../style/containers'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskErrorContainer, TaskInputRow, TaskInputsContainer, TaskUpperLabelRow} from '../../style/containers'
 import {ADD_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
-import StepDropdown from './StepDropdown'
-import {NewTaskDescriptionTextArea, NewTaskErrorContainer, NewTaskTitleInput} from './styles'
+import {NewTaskDescriptionTextArea, NewTaskTitleInput} from './styles'
 import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
 import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
@@ -17,6 +16,7 @@ import Spinner from '../../components/Spinner'
 import {ErrorMessage} from '../../style/messages'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {TaskInputLabel} from '../../style/labels'
+import StepDropdown from '../../components/StepDropdown'
 
 
 const TaskAdd = ({history}) => {
@@ -117,9 +117,9 @@ const cancelButtonHandlers = () => {
                                     type='text'
                                 />
                             </TaskInputRow>
-                            <NewTaskErrorContainer>
+                            <TaskErrorContainer>
                                 {error && <ErrorMessage>{error.title}</ErrorMessage>}
-                            </NewTaskErrorContainer>
+                            </TaskErrorContainer>
                         </div>
                         <div>
                             <TaskInputRow>
@@ -130,9 +130,9 @@ const cancelButtonHandlers = () => {
                                     stepOptions={createTaskStepSelectOptions(steps)}
                                 />
                             </TaskInputRow>
-                            <NewTaskErrorContainer>
+                            <TaskErrorContainer>
                                 {error && <ErrorMessage>{error.step}</ErrorMessage>}
-                            </NewTaskErrorContainer>
+                            </TaskErrorContainer>
                         </div>
                         <div>
                             <TaskUpperLabelRow>
@@ -142,9 +142,9 @@ const cancelButtonHandlers = () => {
                                     ref={description}
                                 />
                             </TaskUpperLabelRow>
-                            <NewTaskErrorContainer>
+                            <TaskErrorContainer>
                                 {error && <ErrorMessage>{error.description}</ErrorMessage>}
-                            </NewTaskErrorContainer>
+                            </TaskErrorContainer>
                         </div>
                         <TaskDates
                             completionDate={completionDate}
