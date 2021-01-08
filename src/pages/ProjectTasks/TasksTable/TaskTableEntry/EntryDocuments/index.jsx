@@ -2,7 +2,8 @@ import React from 'react'
 import taskExpand from '../../../../../assets/icons/stark_task_expand_icon.svg'
 import taskCollapse from '../../../../../assets/icons/stark_task_collapse_icon.svg'
 import {EntryDocumentsContainer, EntryDocumentsTextContainer, TaskExpandCollapseImage} from './styles'
-import TaskDocument from './TaskDocument'
+import TaskDocument from '../../../../../components/TaskDocument'
+
 
 
 const EntryDocuments = ({documents, expanded, project, setExpanded}) => {

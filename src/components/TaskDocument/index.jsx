@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-import deleteDocument from '../../../../../../assets/icons/stark_task_delete_document_icon.svg'
-import {DocumentDeleteIconContainer, TaskDocumentDeleteImage, TaskDocumentLink} from './styles'
-import DeleteDocumentModal from '../../../../../../components/DeleteAccountModal/DeleteDocumentModal'
 import {useDispatch} from 'react-redux'
-import {deleteTaskDocumentAction} from '../../../../../../store/taskDocument/actions'
-import {getTasksForProjectAction} from '../../../../../../store/task/actions'
+import {deleteTaskDocumentAction} from '../../store/taskDocument/actions'
+import {getTasksForProjectAction} from '../../store/task/actions'
+import DeleteDocumentModal from '../DeleteAccountModal/DeleteDocumentModal'
+import deleteDocument from '../../assets/icons/stark_task_delete_document_icon.svg'
+import {DocumentDeleteIconContainer, TaskDocumentDeleteImage, TaskDocumentLink} from './styles'
 
 
 const TaskDocument = ({document, project}) => {
