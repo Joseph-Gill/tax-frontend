@@ -1,5 +1,5 @@
 import React from 'react'
-import {TaskLowerRightContainer} from './styles'
+import {AddTaskDocumentContainer, TaskLowerRightContainer} from './styles'
 import {ErrorMessage} from '../../../style/messages'
 import {TaskErrorContainer, TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
 import {TaskInputLabel} from '../../../style/labels'
@@ -35,7 +35,9 @@ const TaskLowerInputs = ({error, files, getInputProps, getRootProps, membersOpti
             </TaskLowerLeftContainer>
             <TaskLowerRightContainer>
                 <DocumentUploadAreaText>Documents to Upload</DocumentUploadAreaText>
-                {files}
+                <AddTaskDocumentContainer>
+                    {files}
+                </AddTaskDocumentContainer>
             </TaskLowerRightContainer>
         </TaskLowerInputsContainer>
     )

@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import {DocumentContainer} from '../../../style/containers'
 
 
 export const TaskLowerRightContainer = styled.div`
@@ -9,4 +10,8 @@ export const TaskLowerRightContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+`
+
+export const AddTaskDocumentContainer = styled(DocumentContainer)`
+    width: 130px;
 `
