@@ -82,6 +82,6 @@ export const createTaskStepSelectOptions = array => {
 
 export const createAcceptedFilesList = array => {
     return array.map(file => (
-        <FileListItem key={file.path}>{file.path}</FileListItem>
+        <FileListItem key={file.path}>{file.path.length > 18 ? file.path.slice(0, 11).concat('....').concat(file.path.slice(-4)) : file.path}</FileListItem>
     ))
 }

@@ -17,10 +17,39 @@ const EditTaskLowerRightContainer = styled.div`
 `
 
 const EditTaskExistingDocumentContainer = styled.div`
-    width: 116px;
+    width: 125px;
     display: flex;
     flex-direction: column;
-    margin-right: 20px;
+    margin-right: 20px
+`
+
+const DocumentContainer = styled.div`
+    max-height: 110px;
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    /* Track */
+
+    ::-webkit-scrollbar-track {
+        background: ${props => props.theme.grayFive};
+    }
+
+    /* Handle */
+
+    ::-webkit-scrollbar-thumb {
+        background: ${props => props.theme.grayFour};
+    }
+
+    /* Handle on hover */
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: ${props => props.theme.grayTwo};
+    }
 `
 
 const EditTaskUploadDocumentContainer = styled.div`
@@ -56,16 +85,20 @@ const EditTaskLowerInputs = ({documents, error, files, getInputProps, getRootPro
             <EditTaskLowerRightContainer>
                 <EditTaskExistingDocumentContainer>
                     <DocumentUploadAreaText>Task Documents</DocumentUploadAreaText>
-                    {documents.map(document => (
-                        <TaskDocument
-                            document={document}
-                            key={document.id}
-                            project={project}
-                        /> ))}
+                    <DocumentContainer>
+                        {documents.map(document => (
+                            <TaskDocument
+                                document={document}
+                                key={document.id}
+                                project={project}
+                            /> ))}
+                    </DocumentContainer>
                 </EditTaskExistingDocumentContainer>
                 <EditTaskUploadDocumentContainer>
                     <DocumentUploadAreaText>Documents to Upload</DocumentUploadAreaText>
-                    {files}
+                    <DocumentContainer>
+                        {files}
+                    </DocumentContainer>
                 </EditTaskUploadDocumentContainer>
             </EditTaskLowerRightContainer>
         </TaskLowerInputsContainer>
