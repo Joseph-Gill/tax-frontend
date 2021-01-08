@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {NewTaskInputLabel} from '../styles'
+import {TaskInputLabel} from '../../../style/labels'
 
 
 export const TaskDatesContainer = styled.div`
@@ -18,10 +18,10 @@ export const CompletionDateContainer = styled.div`
     align-items: center;
 `
 
-export const DueDateLabel = styled(NewTaskInputLabel)`
+export const DueDateLabel = styled(TaskInputLabel)`
     margin-right: 151px;
 `
 
-export const CompletionDateLabel = styled(NewTaskInputLabel)`
+export const CompletionDateLabel = styled(TaskInputLabel)`
     margin-right: 45px;
 `

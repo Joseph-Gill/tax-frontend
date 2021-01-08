@@ -37,3 +37,11 @@ export const FilterLabel = styled.label`
     margin-top: 8px;
     margin-left: 44px;
 `
+
+export const TaskInputLabel = styled.label`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: ${props => props.theme.grayOne};
+`

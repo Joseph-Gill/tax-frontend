@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 // import styled from 'styled-components/macro'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskInputRow, TaskInputsContainer} from '../../style/containers'
 import {EDIT_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
@@ -9,6 +9,9 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {useDropzone} from 'react-dropzone'
 import {listMemberWithOrgAndRole} from '../../helpers'
 import Spinner from '../../components/Spinner'
+import {CancelButton, SaveButton} from '../../style/buttons'
+import {resetErrors} from '../../store/errors/actions/errorAction'
+import EditInputTitleStatus from './EditInputTitleStatus'
 
 
 const TaskEdit = ({history}) => {
@@ -59,6 +62,15 @@ const TaskEdit = ({history}) => {
         }
     }, [members, group, dispatch, tasks, groupLoaded, history, match.params.taskId, project.id, projectLoaded, stepsLoaded, tasksLoaded])
 
+    const saveEditTaskHandler = () => {
+
+    }
+
+    const cancelButtonHandlers = () => {
+        dispatch(resetErrors())
+        history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
+    }
+
     return (
         <AuthenticatedPageContainer>
             {!loaded ? <Spinner /> : (
@@ -76,6 +88,20 @@ const TaskEdit = ({history}) => {
                     <AuthenticatedPageTitleContainer>
                         <AuthenticatedPageTitle>Edit Task</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
+                    <TaskInputsContainer>
+                        <TaskInputRow>
+                            <EditInputTitleStatus
+                                setTaskStatus={setTaskStatus}
+                                setTitle={setTitle}
+                                taskStatus={taskStatus}
+                                title={title}
+                            />
+                        </TaskInputRow>
+                    </TaskInputsContainer>
+                    <TaskCancelSaveButtonContainer>
+                        <CancelButton onClick={cancelButtonHandlers}>Cancel</CancelButton>
+                        <SaveButton onClick={saveEditTaskHandler}>Save</SaveButton>
+                    </TaskCancelSaveButtonContainer>
                 </>)}
         </AuthenticatedPageContainer>
     )

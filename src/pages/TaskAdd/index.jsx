@@ -1,13 +1,13 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {useDropzone} from 'react-dropzone'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskInputRow, TaskInputsContainer, TaskUpperLabelRow} from '../../style/containers'
 import {ADD_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import StepDropdown from './StepDropdown'
-import {NewTaskCancelSaveButtonContainer, NewTaskDescriptionTextArea, NewTaskErrorContainer, NewTaskInputLabel, NewTaskInputRow, NewTaskInputsContainer, NewTaskTitleInput, NewTaskUpperLabelRow} from './styles'
+import {NewTaskDescriptionTextArea, NewTaskErrorContainer, NewTaskTitleInput} from './styles'
 import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
 import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
@@ -16,6 +16,7 @@ import SuccessMessage from '../../components/SuccessMessage'
 import Spinner from '../../components/Spinner'
 import {ErrorMessage} from '../../style/messages'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
+import {TaskInputLabel} from '../../style/labels'
 
 
 const TaskAdd = ({history}) => {
@@ -79,10 +80,10 @@ const TaskAdd = ({history}) => {
         }
     }
 
-    const cancelButtonHandlers = () => {
-        dispatch(resetErrors())
-        history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
-    }
+const cancelButtonHandlers = () => {
+    dispatch(resetErrors())
+    history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
+}
 
     return (
         <AuthenticatedPageContainer>
@@ -105,42 +106,42 @@ const TaskAdd = ({history}) => {
                     <AuthenticatedPageTitleContainer>
                         <AuthenticatedPageTitle>Add New Task</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
-                    <NewTaskInputsContainer>
+                    <TaskInputsContainer>
                         <div>
-                            <NewTaskInputRow>
-                                <NewTaskInputLabel>Task title</NewTaskInputLabel>
+                            <TaskInputRow>
+                                <TaskInputLabel>Task title</TaskInputLabel>
                                 <NewTaskTitleInput
                                     name='title'
                                     placeholder='Enter task title'
                                     ref={title}
                                     type='text'
                                 />
-                            </NewTaskInputRow>
+                            </TaskInputRow>
                             <NewTaskErrorContainer>
                                 {error && <ErrorMessage>{error.title}</ErrorMessage>}
                             </NewTaskErrorContainer>
                         </div>
                         <div>
-                            <NewTaskInputRow>
-                                <NewTaskInputLabel>Assign a step</NewTaskInputLabel>
+                            <TaskInputRow>
+                                <TaskInputLabel>Assign a step</TaskInputLabel>
                                 <StepDropdown
                                     selectedStep={selectedStep}
                                     setSelectedStep={setSelectedStep}
                                     stepOptions={createTaskStepSelectOptions(steps)}
                                 />
-                            </NewTaskInputRow>
+                            </TaskInputRow>
                             <NewTaskErrorContainer>
                                 {error && <ErrorMessage>{error.step}</ErrorMessage>}
                             </NewTaskErrorContainer>
                         </div>
                         <div>
-                            <NewTaskUpperLabelRow>
-                                <NewTaskInputLabel>Task description</NewTaskInputLabel>
+                            <TaskUpperLabelRow>
+                                <TaskInputLabel>Task description</TaskInputLabel>
                                 <NewTaskDescriptionTextArea
                                     placeholder='Write your task description'
                                     ref={description}
                                 />
-                            </NewTaskUpperLabelRow>
+                            </TaskUpperLabelRow>
                             <NewTaskErrorContainer>
                                 {error && <ErrorMessage>{error.description}</ErrorMessage>}
                             </NewTaskErrorContainer>
@@ -160,11 +161,11 @@ const TaskAdd = ({history}) => {
                             selectedMember={selectedMember}
                             setSelectedMember={setSelectedMember}
                         />
-                    </NewTaskInputsContainer>
-                    <NewTaskCancelSaveButtonContainer>
+                    </TaskInputsContainer>
+                    <TaskCancelSaveButtonContainer>
                         <CancelButton onClick={cancelButtonHandlers}>Cancel</CancelButton>
                         <SaveButton onClick={saveNewTaskHandler}>Save</SaveButton>
-                    </NewTaskCancelSaveButtonContainer>
+                    </TaskCancelSaveButtonContainer>
                 </>)}
         </AuthenticatedPageContainer>
     )

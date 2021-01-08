@@ -246,6 +246,39 @@ export const TooltipRowContainer = styled.div`
     align-items: center;
 `
 
+export const TaskInputsContainer = styled.div`
+    width: 860px;
+    height: 484px;
+    background: ${props => props.theme.white};
+    box-shadow: ${props => props.theme.boxShadow};
+    border-radius: ${props => props.theme.borderRadius};
+    margin-top: 30px;
+    padding: 20px 20px 5px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`
+
+export const TaskCancelSaveButtonContainer = styled.div`
+    width: 860px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    button {
+        margin-left: 20px;
+    }
+`
+
+export const TaskInputRow = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const TaskUpperLabelRow = styled(TaskInputRow)`
+    align-items: flex-start;
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`
