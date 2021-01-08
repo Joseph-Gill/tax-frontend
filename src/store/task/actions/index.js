@@ -76,3 +76,18 @@ export const deleteTaskAction = taskId => async (dispatch, getState) => {
         return catchError(e, dispatch)
     }
 }
+
+export const updateTaskAction = (taskData, taskId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.patch(`/tasks/task/${taskId}/`, taskData, config)
+    } catch (e) {
+        console.log('Error updating a Task>', e)
+        return catchError(e, dispatch)
+    }
+}
