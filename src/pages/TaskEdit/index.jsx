@@ -141,7 +141,10 @@ const TaskEdit = ({history}) => {
                             setCompletionDate={setCompletionDate}
                             setDueDate={setDueDate}
                         />
-                        <EditTaskLowerInputs />
+                        <EditTaskLowerInputs
+                            getInputProps={getInputProps}
+                            getRootProps={getRootProps}
+                        />
                     </TaskInputsContainer>
                     <TaskCancelSaveButtonContainer>
                         <CancelButton onClick={cancelButtonHandlers}>Cancel</CancelButton>
