@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import {DocumentContainer, TaskErrorContainer, TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
 import {TaskInputLabel} from '../../../style/labels'
 import DocumentUpload from '../../../components/DocumentUpload'
