@@ -1,17 +1,21 @@
 import React, {useEffect, useState} from 'react'
 // import styled from 'styled-components/macro'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskInputRow, TaskInputsContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskErrorContainer, TaskInputRow, TaskInputsContainer, TaskUpperLabelRow} from '../../style/containers'
 import {EDIT_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {useDropzone} from 'react-dropzone'
-import {listMemberWithOrgAndRole} from '../../helpers'
+import {createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import Spinner from '../../components/Spinner'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import EditInputTitleStatus from './EditInputTitleStatus'
+import {ErrorMessage} from '../../style/messages'
+import {TaskInputLabel} from '../../style/labels'
+import StepDropdown from '../../components/StepDropdown'
+import {NewTaskDescriptionTextArea} from '../TaskAdd/styles'
 
 
 const TaskEdit = ({history}) => {
@@ -26,6 +30,7 @@ const TaskEdit = ({history}) => {
     const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const tasks = useSelector(state => state.taskReducer.tasks)
     const tasksLoaded = useSelector(state => state.taskReducer.loaded)
+    const error = useSelector(state => state.errorReducer.error)
     const [targetTask, setTargetTask] = useState({})
     const [selectedStep, setSelectedStep] = useState('')
     const [selectedMember, setSelectedMember] = useState('')
@@ -89,14 +94,45 @@ const TaskEdit = ({history}) => {
                         <AuthenticatedPageTitle>Edit Task</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
                     <TaskInputsContainer>
-                        <TaskInputRow>
-                            <EditInputTitleStatus
-                                setTaskStatus={setTaskStatus}
-                                setTitle={setTitle}
-                                taskStatus={taskStatus}
-                                title={title}
-                            />
-                        </TaskInputRow>
+                        <div>
+                            <TaskInputRow>
+                                <EditInputTitleStatus
+                                    setTaskStatus={setTaskStatus}
+                                    setTitle={setTitle}
+                                    taskStatus={taskStatus}
+                                    title={title}
+                                />
+                            </TaskInputRow>
+                            <TaskErrorContainer>
+                                {error && <ErrorMessage>{error.title}</ErrorMessage>}
+                            </TaskErrorContainer>
+                        </div>
+                        <div>
+                            <TaskInputRow>
+                                <TaskInputLabel>Assign a step</TaskInputLabel>
+                                <StepDropdown
+                                    selectedStep={selectedStep}
+                                    setSelectedStep={setSelectedStep}
+                                    stepOptions={createTaskStepSelectOptions(steps)}
+                                />
+                            </TaskInputRow>
+                            <TaskErrorContainer>
+                                {error && <ErrorMessage>{error.step}</ErrorMessage>}
+                            </TaskErrorContainer>
+                        </div>
+                        <div>
+                            <TaskUpperLabelRow>
+                                <TaskInputLabel>Task description</TaskInputLabel>
+                                <NewTaskDescriptionTextArea
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    placeholder='Write your task description'
+                                    value={description}
+                                />
+                            </TaskUpperLabelRow>
+                            <TaskErrorContainer>
+                                {error && <ErrorMessage>{error.description}</ErrorMessage>}
+                            </TaskErrorContainer>
+                        </div>
                     </TaskInputsContainer>
                     <TaskCancelSaveButtonContainer>
                         <CancelButton onClick={cancelButtonHandlers}>Cancel</CancelButton>
