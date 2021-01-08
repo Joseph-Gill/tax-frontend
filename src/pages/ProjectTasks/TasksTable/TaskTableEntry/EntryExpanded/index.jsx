@@ -43,7 +43,7 @@ const EntryExpanded = ({history, project, task}) => {
             </ExpandedTaskDescriptionContainer>
             <ExpandedTaskStatusButtonContainer>
                 <ExpandedTaskStatusButtonLeftContainer>
-                    <ExpandedTaskStatusDropdown defaultVale={task.status} disabled>
+                    <ExpandedTaskStatusDropdown disabled value={task.status}>
                         <ExpandedTaskStatusDropdownOption disabled value=''>Status</ExpandedTaskStatusDropdownOption>
                         <ExpandedTaskStatusDropdownOption value='Not Started'>Not Started</ExpandedTaskStatusDropdownOption>
                         <ExpandedTaskStatusDropdownOption value='Ongoing'>Ongoing</ExpandedTaskStatusDropdownOption>
