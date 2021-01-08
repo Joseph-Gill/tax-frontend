@@ -1,5 +1,5 @@
 import React from 'react'
-import DateInput from '../../../components/DateInput'
+import DateInput from '../DateInput'
 import {CompletionDateContainer, CompletionDateLabel, DueDateContainer, DueDateLabel, TaskDatesContainer} from './styles'
 
 

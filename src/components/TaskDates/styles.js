@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {TaskInputLabel} from '../../../style/labels'
+import {TaskInputLabel} from '../../style/labels'
 
 
 export const TaskDatesContainer = styled.div`

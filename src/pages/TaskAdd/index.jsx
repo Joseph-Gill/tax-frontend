@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import {NewTaskDescriptionTextArea, NewTaskTitleInput} from './styles'
-import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
 import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import {createTaskAction, getTasksForProjectAction} from '../../store/task/actions'
@@ -17,6 +16,7 @@ import {ErrorMessage} from '../../style/messages'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {TaskInputLabel} from '../../style/labels'
 import StepDropdown from '../../components/StepDropdown'
+import TaskDates from '../../components/TaskDates'
 
 
 const TaskAdd = ({history}) => {
