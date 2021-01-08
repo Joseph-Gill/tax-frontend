@@ -1,11 +1,11 @@
 import React from 'react'
-import MemberDropdown from './MemberDropdown'
 import {TaskLowerRightContainer} from './styles'
 import {ErrorMessage} from '../../../style/messages'
 import {TaskErrorContainer, TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
 import {TaskInputLabel} from '../../../style/labels'
 import {DocumentUploadAreaText} from '../../../style/text'
 import DocumentUpload from '../../../components/DocumentUpload'
+import MemberDropdown from '../../../components/MemberDropdown'
 
 
 const TaskLowerInputs = ({error, files, getInputProps, getRootProps, membersOptions, selectedMember, setSelectedMember}) => {

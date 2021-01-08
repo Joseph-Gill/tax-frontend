@@ -1,5 +1,5 @@
 import React from 'react'
-import {DropdownOption} from '../../../../style/options'
+import {DropdownOption} from '../../style/options'
 import {NewTaskMemberSelector} from './styles'
 
 

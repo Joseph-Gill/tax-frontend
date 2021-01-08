@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {StatusDropdown} from '../../../../style/dropdowns'
+import {StatusDropdown} from '../../style/dropdowns'
 
 
 export const NewTaskMemberSelector = styled(StatusDropdown)`
