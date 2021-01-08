@@ -8,7 +8,7 @@ export const TaskStatusColorIndicator = styled.div`
     border-radius: 50%;
 
     ${props => {
-        if (props.status === 'Ongoing / Planned') {
+        if (props.status === 'Ongoing' || props.status === 'Planned') {
             return `
                     background: ${props.theme.yellow};
                     `
