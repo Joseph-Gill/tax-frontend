@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-// import styled from 'styled-components/macro'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskErrorContainer, TaskInputRow, TaskInputsContainer, TaskUpperLabelRow} from '../../style/containers'
 import {EDIT_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
@@ -18,7 +17,7 @@ import StepDropdown from '../../components/StepDropdown'
 import {NewTaskDescriptionTextArea} from '../TaskAdd/styles'
 import TaskDates from '../../components/TaskDates'
 import EditTaskLowerInputs from './EditTaskLowerInputs'
-import TaskLowerInputs from '../TaskAdd/TaskLowerInputs'
+import SuccessMessage from '../../components/SuccessMessage'
 
 
 const TaskEdit = ({history}) => {
@@ -53,10 +52,6 @@ const TaskEdit = ({history}) => {
         } else if (!stepsLoaded || !tasksLoaded || !groupLoaded) {
             history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
         } else {
-            listMemberWithOrgAndRole(members, group, dispatch)
-                .then(result => {
-                    setMemberRenderData([...result])
-                })
             const targetTask = tasks.filter(task => task.id === parseInt(match.params.taskId))[0]
             setTargetTask(targetTask)
             setTitle(targetTask.title)
@@ -66,7 +61,11 @@ const TaskEdit = ({history}) => {
             setDueDate(new Date(parseInt(targetTask.due_date.slice(0,5)), (parseInt(targetTask.due_date.slice(5,7)) - 1), parseInt(targetTask.due_date.slice(-2))))
             setCompletionDate(new Date(parseInt(targetTask.planned_completion_date.slice(0,5)), (parseInt(targetTask.planned_completion_date.slice(5,7)) - 1), parseInt(targetTask.planned_completion_date.slice(-2))))
             setSelectedMember(targetTask.assigned_user.id)
-            setLoaded(true)
+            listMemberWithOrgAndRole(members, group, dispatch)
+                .then(result => {
+                    setMemberRenderData([...result])
+                    setLoaded(true)
+                })
         }
     }, [members, group, dispatch, tasks, groupLoaded, history, match.params.taskId, project.id, projectLoaded, stepsLoaded, tasksLoaded])
 
@@ -81,6 +80,10 @@ const TaskEdit = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
+            {showSuccess && <SuccessMessage
+                message="Your task has been successfully updated!"
+                redirect={`${GROUPS}${PROJECTS}${TASKS}/${project.id}`}
+                            />}
             {!loaded ? <Spinner /> : (
                 <>
                     <BreadCrumb

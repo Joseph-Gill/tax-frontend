@@ -7,6 +7,12 @@ import MemberDropdown from '../../../components/MemberDropdown'
 import {ErrorMessage} from '../../../style/messages'
 
 
+const EditTaskLowerRightContainer = styled.div`
+    width: 100%;
+    display: flex;
+`
+
+
 const EditTaskLowerInputs = ({error, getInputProps, getRootProps, membersOptions, selectedMember, setSelectedMember}) => {
     return (
         <TaskLowerInputsContainer>
@@ -32,6 +38,9 @@ const EditTaskLowerInputs = ({error, getInputProps, getRootProps, membersOptions
                     </TaskErrorContainer>
                 </div>
             </TaskLowerLeftContainer>
+            <EditTaskLowerRightContainer>
+
+            </EditTaskLowerRightContainer>
         </TaskLowerInputsContainer>
     )
 }
