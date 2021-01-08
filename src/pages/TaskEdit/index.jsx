@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {useDropzone} from 'react-dropzone'
-import {createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
+import {createAcceptedFilesList, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import Spinner from '../../components/Spinner'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import {resetErrors} from '../../store/errors/actions/errorAction'
@@ -146,10 +146,13 @@ const TaskEdit = ({history}) => {
                             setDueDate={setDueDate}
                         />
                         <EditTaskLowerInputs
+                            documents={targetTask.task_documents}
                             error={error}
+                            files={createAcceptedFilesList(acceptedFiles)}
                             getInputProps={getInputProps}
                             getRootProps={getRootProps}
                             membersOptions={createTaskMemberSelectOptions(memberRenderData)}
+                            project={project}
                             selectedMember={selectedMember}
                             setSelectedMember={setSelectedMember}
                         />
