@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {useDropzone} from 'react-dropzone'
-import {createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
+import {createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import Spinner from '../../components/Spinner'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import {resetErrors} from '../../store/errors/actions/errorAction'
@@ -18,6 +18,7 @@ import StepDropdown from '../../components/StepDropdown'
 import {NewTaskDescriptionTextArea} from '../TaskAdd/styles'
 import TaskDates from '../../components/TaskDates'
 import EditTaskLowerInputs from './EditTaskLowerInputs'
+import TaskLowerInputs from '../TaskAdd/TaskLowerInputs'
 
 
 const TaskEdit = ({history}) => {
@@ -142,8 +143,12 @@ const TaskEdit = ({history}) => {
                             setDueDate={setDueDate}
                         />
                         <EditTaskLowerInputs
+                            error={error}
                             getInputProps={getInputProps}
                             getRootProps={getRootProps}
+                            membersOptions={createTaskMemberSelectOptions(memberRenderData)}
+                            selectedMember={selectedMember}
+                            setSelectedMember={setSelectedMember}
                         />
                     </TaskInputsContainer>
                     <TaskCancelSaveButtonContainer>

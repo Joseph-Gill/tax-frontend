@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import {TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
+import {TaskErrorContainer, TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
 import {TaskInputLabel} from '../../../style/labels'
 import DocumentUpload from '../../../components/DocumentUpload'
+import MemberDropdown from '../../../components/MemberDropdown'
+import {ErrorMessage} from '../../../style/messages'
 
 
-const EditTaskLowerInputs = ({getInputProps, getRootProps}) => {
+const EditTaskLowerInputs = ({error, getInputProps, getRootProps, membersOptions, selectedMember, setSelectedMember}) => {
     return (
         <TaskLowerInputsContainer>
             <TaskLowerLeftContainer>
@@ -16,6 +18,19 @@ const EditTaskLowerInputs = ({getInputProps, getRootProps}) => {
                         getRootProps={getRootProps}
                     />
                 </TaskInputRow>
+                <div>
+                    <TaskInputRow>
+                        <TaskInputLabel>Responsibility</TaskInputLabel>
+                        <MemberDropdown
+                            membersOptions={membersOptions}
+                            selectedMember={selectedMember}
+                            setSelectedMember={setSelectedMember}
+                        />
+                    </TaskInputRow>
+                    <TaskErrorContainer>
+                        {error && <ErrorMessage>{error.member}</ErrorMessage>}
+                    </TaskErrorContainer>
+                </div>
             </TaskLowerLeftContainer>
         </TaskLowerInputsContainer>
     )
