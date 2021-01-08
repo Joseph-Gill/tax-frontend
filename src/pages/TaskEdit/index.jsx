@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {useDropzone} from 'react-dropzone'
-import {createAcceptedFilesList, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
+import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import Spinner from '../../components/Spinner'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import {resetErrors} from '../../store/errors/actions/errorAction'
@@ -18,6 +18,7 @@ import {NewTaskDescriptionTextArea} from '../TaskAdd/styles'
 import TaskDates from '../../components/TaskDates'
 import EditTaskLowerInputs from './EditTaskLowerInputs'
 import SuccessMessage from '../../components/SuccessMessage'
+import {getTasksForProjectAction, updateTaskAction} from '../../store/task/actions'
 
 
 const TaskEdit = ({history}) => {
@@ -69,8 +70,25 @@ const TaskEdit = ({history}) => {
         }
     }, [members, group, dispatch, tasks, groupLoaded, history, match.params.taskId, project.id, projectLoaded, stepsLoaded, tasksLoaded])
 
-    const saveEditTaskHandler = () => {
-
+    const saveEditTaskHandler = async () => {
+        dispatch(resetErrors())
+        const updatedTask = {
+            title,
+            description,
+            planned_completion_date: convertDate(completionDate),
+            due_date: convertDate(dueDate),
+            documents: acceptedFiles,
+            step_id: selectedStep,
+            user_profile_id: selectedMember,
+            status: taskStatus
+        }
+        const response = await dispatch(updateTaskAction(updatedTask, targetTask.id))
+        if (response.status === 200) {
+            const response = await dispatch(getTasksForProjectAction(project.id))
+            if (response) {
+                setShowSuccess(!showSuccess)
+            }
+        }
     }
 
     const cancelButtonHandlers = () => {

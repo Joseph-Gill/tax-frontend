@@ -34,18 +34,18 @@ export const getTasksForProjectAction = projectId => async (dispatch, getState) 
     }
 }
 
-export const createTaskAction = taskInfo => async (dispatch, getState) => {
+export const createTaskAction = taskData => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
-    let stepId = taskInfo.step_id
-    let userprofileId = taskInfo.user_profile_id
+    let stepId = taskData.step_id
+    let userprofileId = taskData.user_profile_id
     let form_data = new FormData()
-    form_data.append('title', taskInfo.title)
-    form_data.append('description', taskInfo.description)
-    form_data.append('planned_completion_date', taskInfo.planned_completion_date)
-    form_data.append('due_date', taskInfo.due_date)
-    if (taskInfo.documents.length) {
-        for (let i = 0; i < taskInfo.documents.length; i++) {
-            form_data.append(taskInfo.documents[i].name, taskInfo.documents[i])
+    form_data.append('title', taskData.title)
+    form_data.append('description', taskData.description)
+    form_data.append('planned_completion_date', taskData.planned_completion_date)
+    form_data.append('due_date', taskData.due_date)
+    if (taskData.documents.length) {
+        for (let i = 0; i < taskData.documents.length; i++) {
+            form_data.append(taskData.documents[i].name, taskData.documents[i])
         }
     }
     const config = {
@@ -79,13 +79,27 @@ export const deleteTaskAction = taskId => async (dispatch, getState) => {
 
 export const updateTaskAction = (taskData, taskId) => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
-    const config = {
-        headers: {
-            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+    let form_data = new FormData()
+    form_data.append('title', taskData.title)
+    form_data.append('description', taskData.description)
+    form_data.append('planned_completion_date', taskData.planned_completion_date)
+    form_data.append('due_date', taskData.due_date)
+    form_data.append('task_step', taskData.step_id)
+    form_data.append('assigned_user_profile', taskData.user_profile_id)
+    form_data.append('status', taskData.status)
+    if (taskData.documents.length) {
+        for (let i = 0; i < taskData.documents.length; i++) {
+            form_data.append(taskData.documents[i].name, taskData.documents[i])
         }
     }
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`,
+            'Content-Type': 'multipart/form-data'
+        },
+    }
     try {
-        return await Axios.patch(`/tasks/task/${taskId}/`, taskData, config)
+        return await Axios.patch(`/tasks/task/${taskId}/`, form_data, config)
     } catch (e) {
         console.log('Error updating a Task>', e)
         return catchError(e, dispatch)
