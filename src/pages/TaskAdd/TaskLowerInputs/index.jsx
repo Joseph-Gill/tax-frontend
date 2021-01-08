@@ -1,9 +1,9 @@
 import React from 'react'
 import MemberDropdown from './MemberDropdown'
 import DocumentUpload from './DocumentUpload'
-import {DocumentUploadAreaText, TaskLowerInputsContainer, TaskLowerLeftContainer, TaskLowerRightContainer} from './styles'
+import {DocumentUploadAreaText, TaskLowerRightContainer} from './styles'
 import {ErrorMessage} from '../../../style/messages'
-import {TaskErrorContainer, TaskInputRow} from '../../../style/containers'
+import {TaskErrorContainer, TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
 import {TaskInputLabel} from '../../../style/labels'
 
 

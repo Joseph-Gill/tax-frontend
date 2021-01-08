@@ -17,6 +17,7 @@ import {TaskInputLabel} from '../../style/labels'
 import StepDropdown from '../../components/StepDropdown'
 import {NewTaskDescriptionTextArea} from '../TaskAdd/styles'
 import TaskDates from '../../components/TaskDates'
+import EditTaskLowerInputs from './EditTaskLowerInputs'
 
 
 const TaskEdit = ({history}) => {
@@ -140,6 +141,7 @@ const TaskEdit = ({history}) => {
                             setCompletionDate={setCompletionDate}
                             setDueDate={setDueDate}
                         />
+                        <EditTaskLowerInputs />
                     </TaskInputsContainer>
                     <TaskCancelSaveButtonContainer>
                         <CancelButton onClick={cancelButtonHandlers}>Cancel</CancelButton>

@@ -284,6 +284,20 @@ export const TaskErrorContainer = styled.div`
     margin-left: 213px;
 `
 
+export const TaskLowerInputsContainer = styled.div`
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`
+
+export const TaskLowerLeftContainer = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import {BaseInput} from '../../style/inputs'
+import {ProjectDescriptionTextArea} from '../../style/textarea'
 
 
 export const NewTaskTitleInput = styled(BaseInput)`
@@ -7,12 +8,8 @@ export const NewTaskTitleInput = styled(BaseInput)`
     margin-left: 153px;
 `
 
-export const NewTaskDescriptionTextArea = styled.textarea`
+export const NewTaskDescriptionTextArea = styled(ProjectDescriptionTextArea)`
     width: 607px;
     height: 101px;
-    resize: none;
-    background: ${props => props.theme.graySix};
-    border: 1px solid ${props => props.theme.grayFour};
     margin-left: 107px;
-    padding: 16px;
 `
