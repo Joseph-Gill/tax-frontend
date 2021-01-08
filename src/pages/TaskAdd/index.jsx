@@ -7,10 +7,10 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import StepDropdown from './StepDropdown'
-import {NewTaskCancelSaveButtonContainer, NewTaskDescriptionTextArea, NewTaskErrorContainer, NewTaskFileListItem, NewTaskInputLabel, NewTaskInputRow, NewTaskInputsContainer, NewTaskTitleInput, NewTaskUpperLabelRow} from './styles'
+import {NewTaskCancelSaveButtonContainer, NewTaskDescriptionTextArea, NewTaskErrorContainer, NewTaskInputLabel, NewTaskInputRow, NewTaskInputsContainer, NewTaskTitleInput, NewTaskUpperLabelRow} from './styles'
 import TaskDates from './TaskDates'
 import TaskLowerInputs from './TaskLowerInputs'
-import {convertDate, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
+import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import {createTaskAction, getTasksForProjectAction} from '../../store/task/actions'
 import SuccessMessage from '../../components/SuccessMessage'
 import Spinner from '../../components/Spinner'
@@ -52,10 +52,6 @@ const TaskAdd = ({history}) => {
                 })
         }
     }, [dispatch, group, groupLoaded, history, members, project.id, projectLoaded, stepsLoaded])
-
-    const files = acceptedFiles.map(file => (
-        <NewTaskFileListItem key={file.path}>{file.path}</NewTaskFileListItem>
-    ))
 
     const saveNewTaskHandler = async () => {
         dispatch(resetErrors())
@@ -157,7 +153,7 @@ const TaskAdd = ({history}) => {
                         />
                         <TaskLowerInputs
                             error={error}
-                            files={files}
+                            files={createAcceptedFilesList(acceptedFiles)}
                             getInputProps={getInputProps}
                             getRootProps={getRootProps}
                             membersOptions={createTaskMemberSelectOptions(memberRenderData)}

@@ -1,6 +1,7 @@
 import React from 'react'
 import {getMemberOrganizationNameAction} from '../store/organization/actions'
 import {DropdownOption} from '../style/options'
+import {FileListItem} from '../style/listitem'
 
 
 export const imageClickHandler = (input) => {
@@ -76,5 +77,11 @@ export const createTaskStepSelectOptions = array => {
             value={step.id}
         >{`Step #${step.number}`}
         </DropdownOption>
+    ))
+}
+
+export const createAcceptedFilesList = array => {
+    return array.map(file => (
+        <FileListItem key={file.path}>{file.path}</FileListItem>
     ))
 }

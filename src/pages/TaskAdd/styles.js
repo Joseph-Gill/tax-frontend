@@ -58,14 +58,6 @@ export const NewTaskDescriptionTextArea = styled.textarea`
     padding: 16px;
 `
 
-export const NewTaskFileListItem = styled.li`
-    font-family: ${props => props.theme.nunitoFontFamily};
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 16px;
-    color: ${props => props.theme.primaryBlue};
-`
-
 export const NewTaskErrorContainer = styled.div`
     height: 10px;
     margin-left: 213px;
