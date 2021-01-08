@@ -16,6 +16,7 @@ import {ErrorMessage} from '../../style/messages'
 import {TaskInputLabel} from '../../style/labels'
 import StepDropdown from '../../components/StepDropdown'
 import {NewTaskDescriptionTextArea} from '../TaskAdd/styles'
+import TaskDates from '../../components/TaskDates'
 
 
 const TaskEdit = ({history}) => {
@@ -133,6 +134,12 @@ const TaskEdit = ({history}) => {
                                 {error && <ErrorMessage>{error.description}</ErrorMessage>}
                             </TaskErrorContainer>
                         </div>
+                        <TaskDates
+                            completionDate={completionDate}
+                            dueDate={dueDate}
+                            setCompletionDate={setCompletionDate}
+                            setDueDate={setDueDate}
+                        />
                     </TaskInputsContainer>
                     <TaskCancelSaveButtonContainer>
                         <CancelButton onClick={cancelButtonHandlers}>Cancel</CancelButton>

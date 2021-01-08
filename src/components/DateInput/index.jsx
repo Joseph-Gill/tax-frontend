@@ -24,7 +24,6 @@ const DateInput = ({date, label, setDate}) => {
             <DatePicker
                 customInput={<CustomInput ref={ref} />}
                 dateFormat='yyyy-MM-dd'
-                minDate={new Date()}
                 onChange={date => setDate(date)}
                 selected={date}
             />
