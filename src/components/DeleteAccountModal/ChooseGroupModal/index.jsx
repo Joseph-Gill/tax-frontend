@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useState} from 'react'
 import {AddDeleteModalExternalContainer} from '../styles'
 import {useSpring} from 'react-spring'
 import {CloseIcon} from '../../../style/images'
@@ -12,13 +12,27 @@ import {ChooseGroupButtonContainer, ChooseGroupCardContainer, ChooseGroupInput, 
 
 
 const ChooseGroupModal = ({history, setShowChooseGroup}) => {
-    let groupName = useRef('')
     const groups = useSelector(state => state.profileReducer.profile.groups)
+    const [filterString, setFilterString] = useState('')
 
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},
     })
+
+    const searchedGroups = groups.filter(group =>
+        group.name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
+
+    const renderGroups = () => (
+        searchedGroups.map(group => (
+            <ModalGroupCard
+                group={group}
+                history={history}
+                key={group.id}
+                setShowChooseGroup={setShowChooseGroup}
+            />
+        ))
+    )
 
     return (
         // eslint-disable-next-line react/forbid-component-props
@@ -32,18 +46,13 @@ const ChooseGroupModal = ({history, setShowChooseGroup}) => {
                 </ChooseGroupModalTitleContainer>
                 <ChooseGroupTitleContainer>Group Name</ChooseGroupTitleContainer>
                 <ChooseGroupInput
+                    onChange={(e) => setFilterString(e.target.value)}
                     placeholder='Search for groups'
-                    ref={groupName}
                     type='text'
+                    value={filterString}
                 />
                 <ChooseGroupCardContainer>
-                    {groups.map(group => (
-                        <ModalGroupCard
-                            group={group}
-                            history={history}
-                            key={group.id}
-                            setShowChooseGroup={setShowChooseGroup}
-                        />))}
+                    {renderGroups()}
                 </ChooseGroupCardContainer>
                 <ChooseGroupButtonContainer>
                     <CancelButton onClick={() => setShowChooseGroup(false)}>Cancel</CancelButton>
