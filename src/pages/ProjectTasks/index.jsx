@@ -64,15 +64,14 @@ const ProjectTasks = ({history}) => {
                 const response = await dispatch(getTasksForStepOfProject(project.id, parseInt(filterStepNumber)))
                 if (response) {
                     setTasksToRender(response)
-                    setLoading(false)
                 }
             } else {
                 setTasksToRender([...tasks])
-                setLoading(false)
             }
         }
         setLoading(true)
         filterTasksForStepFilter()
+            .then(() => setLoading(false))
     }, [project.id, filterStepNumber, dispatch, tasks])
 
     const taskStepFilterChangeHandler = stepNumber => {

@@ -17,7 +17,7 @@ import HomeFilterDropdown from './HomeFilterDropdown'
 import {resetMember} from '../../store/member/actions'
 import NoFilterResults from '../../components/NoFilterResults'
 import {resetSteps} from '../../store/step/actions'
-import {resetTasks} from '../../store/task/actions'
+import {resetTaskFilterStepNumber, resetTasks} from '../../store/task/actions'
 
 
 const Home = ({history}) => {
@@ -35,6 +35,7 @@ const Home = ({history}) => {
             dispatch(resetMember())
             dispatch(resetSteps())
             dispatch(resetTasks())
+            dispatch(resetTaskFilterStepNumber())
             const response = await dispatch(getProfileAction())
             setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
         })();

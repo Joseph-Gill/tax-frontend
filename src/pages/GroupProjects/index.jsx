@@ -11,7 +11,7 @@ import {resetProject} from '../../store/project/actions'
 import {resetSteps} from '../../store/step/actions'
 import {resetStepTaxConsequences} from '../../store/taxConsequence/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
-import {resetTasks} from '../../store/task/actions'
+import {resetTaskFilterStepNumber, resetTasks} from '../../store/task/actions'
 import Spinner from '../../components/Spinner'
 
 
@@ -27,6 +27,7 @@ const GroupProjects = ({history}) => {
         dispatch(resetSteps())
         dispatch(resetStepTaxConsequences())
         dispatch(resetTasks())
+        dispatch(resetTaskFilterStepNumber())
         if (!loaded) {
             history.push(`${HOME}`)
         }
