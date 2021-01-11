@@ -9,12 +9,13 @@ import {getProjectAction} from '../../store/project/actions'
 import {useRouteMatch} from 'react-router-dom'
 import Spinner from '../../components/Spinner'
 import TaskStatusLegendEntry from './TaskStatusLegendEntry'
-import {AddTaskButton, StatusLegendFilterDropdownContainer, TasksTableContainer, TaskStatusLegendContainer} from './styles'
-import {getTasksForProjectAction} from '../../store/task/actions'
+import {AddTaskButton, StatusLegendFilterDropdownContainer, TasksTableContainer, TaskStatusLegendContainer, TaskStepFilter} from './styles'
+import {getTasksForProjectAction, getTasksForStepOfProject, resetTaskFilterStepNumber, setTaskFilterStepNumber} from '../../store/task/actions'
 import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
 import {getStepsForProjectAction} from '../../store/step/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
+import {DropdownOption} from '../../style/options'
 
 
 const ProjectTasks = ({history}) => {
@@ -24,10 +25,13 @@ const ProjectTasks = ({history}) => {
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
+    const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const tasks = useSelector(state => state.taskReducer.tasks)
     const tasksLoaded = useSelector(state => state.taskReducer.loaded)
+    const filterStepNumber = useSelector(state => state.taskReducer.filterStepNumber)
     const [filterString, setFilterString] = useState('')
+    const [tasksToRender, setTasksToRender] = useState([])
 
     useEffect(() => {
         if (!projectLoaded) {
@@ -53,9 +57,40 @@ const ProjectTasks = ({history}) => {
         }
     }, [dispatch, groupLoaded, match.params.projectId])
 
+    useEffect( () => {
+        const filterTasksForStepFilter = async () => {
+            if (filterStepNumber) {
+                const response = await dispatch(getTasksForStepOfProject(project.id, parseInt(filterStepNumber)))
+                if (response) {
+                    setTasksToRender(response)
+                }
+            } else {
+                setTasksToRender([...tasks])
+            }
+        }
+        filterTasksForStepFilter()
+    }, [project.id, filterStepNumber, dispatch, tasks])
+
+    const taskStepFilterChangeHandler = stepNumber => {
+        if (stepNumber) {
+            dispatch(setTaskFilterStepNumber(stepNumber))
+        } else {
+            dispatch(resetTaskFilterStepNumber())
+        }
+    }
+
+    const renderTaskStepFilterOptions = () => (
+        steps.map(step => (
+            <DropdownOption
+                key={step.id}
+                value={step.number}
+            >{`Step #${step.number}`}
+            </DropdownOption>))
+    )
+
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !tasksLoaded  ? <Spinner /> : (
+            {!projectLoaded || !tasksLoaded ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
@@ -78,17 +113,26 @@ const ProjectTasks = ({history}) => {
                                     <TaskStatusLegendEntry status='Completed' />
                                     <TaskStatusLegendEntry status='Not Started' />
                                 </TaskStatusLegendContainer>
-                                <TaskFilterDropdown
-                                    filterString={filterString}
-                                    setFilterString={setFilterString}
-                                />
+                                <div>
+                                    <TaskStepFilter
+                                        onChange={(e) => taskStepFilterChangeHandler(e.target.value)}
+                                        value={filterStepNumber}
+                                    >
+                                        <DropdownOption value=''>Steps - All</DropdownOption>
+                                        {renderTaskStepFilterOptions()}
+                                    </TaskStepFilter>
+                                    <TaskFilterDropdown
+                                        filterString={filterString}
+                                        setFilterString={setFilterString}
+                                    />
+                                </div>
                             </StatusLegendFilterDropdownContainer>
                             <TasksTableContainer>
                                 <TasksTable
                                     group={group}
                                     history={history}
                                     project={project}
-                                    tasks={tasks}
+                                    tasks={tasksToRender}
                                 />
                             </TasksTableContainer>
                         </>)}

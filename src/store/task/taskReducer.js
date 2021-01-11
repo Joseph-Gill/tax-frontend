@@ -1,9 +1,10 @@
-import {GET_ALL_PROJECT_TASKS, RESET_TASKS_FOR_PROJECT} from './types'
+import {GET_ALL_PROJECT_TASKS, RESET_TASK_FILTER_STEP_NUMBER, RESET_TASKS_FOR_PROJECT, SET_TASK_FILTER_STEP_NUMBER} from './types'
 
 
 const initialState = {
     tasks: [],
-    loaded: false
+    loaded: false,
+    filterStepNumber: '',
 }
 
 export const taskReducer = (state = initialState, action) => {
@@ -20,6 +21,18 @@ export const taskReducer = (state = initialState, action) => {
                 ...state,
                 tasks: [],
                 loaded: false
+            }
+        }
+        case SET_TASK_FILTER_STEP_NUMBER: {
+            return {
+                ...state,
+                filterStepNumber: action.payload
+            }
+        }
+        case RESET_TASK_FILTER_STEP_NUMBER: {
+            return {
+                ...state,
+                filterStepNumber: ''
             }
         }
         default:

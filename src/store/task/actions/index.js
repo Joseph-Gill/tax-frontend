@@ -1,6 +1,6 @@
 import Axios from '../../../axios'
 import {catchError} from '../../errors/actions/errorAction'
-import {GET_ALL_PROJECT_TASKS, RESET_TASKS_FOR_PROJECT} from '../types'
+import {GET_ALL_PROJECT_TASKS, RESET_TASK_FILTER_STEP_NUMBER, RESET_TASKS_FOR_PROJECT, SET_TASK_FILTER_STEP_NUMBER} from '../types'
 
 
 export const getAllProjectTasks = data => {
@@ -13,6 +13,19 @@ export const getAllProjectTasks = data => {
 export const resetTasks = () => {
     return {
         type: RESET_TASKS_FOR_PROJECT
+    }
+}
+
+export const setTaskFilterStepNumber = number => {
+    return {
+        type: SET_TASK_FILTER_STEP_NUMBER,
+        payload: number
+    }
+}
+
+export const resetTaskFilterStepNumber = () => {
+    return {
+        type: RESET_TASK_FILTER_STEP_NUMBER
     }
 }
 
@@ -102,6 +115,22 @@ export const updateTaskAction = (taskData, taskId) => async (dispatch, getState)
         return await Axios.patch(`/tasks/task/${taskId}/`, form_data, config)
     } catch (e) {
         console.log('Error updating a Task>', e)
+        return catchError(e, dispatch)
+    }
+}
+
+export const getTasksForStepOfProject = (projectId, stepNumber) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`/tasks/project/${projectId}/stepnumber/${stepNumber}/`, config)
+        return [...response.data]
+    } catch (e) {
+        console.log('Error getting all Tasks of Step of Project>', e)
         return catchError(e, dispatch)
     }
 }
