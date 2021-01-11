@@ -32,6 +32,7 @@ const ProjectTasks = ({history}) => {
     const filterStepNumber = useSelector(state => state.taskReducer.filterStepNumber)
     const [filterString, setFilterString] = useState('')
     const [tasksToRender, setTasksToRender] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (!projectLoaded) {
@@ -63,11 +64,14 @@ const ProjectTasks = ({history}) => {
                 const response = await dispatch(getTasksForStepOfProject(project.id, parseInt(filterStepNumber)))
                 if (response) {
                     setTasksToRender(response)
+                    setLoading(false)
                 }
             } else {
                 setTasksToRender([...tasks])
+                setLoading(false)
             }
         }
+        setLoading(true)
         filterTasksForStepFilter()
     }, [project.id, filterStepNumber, dispatch, tasks])
 
@@ -90,7 +94,7 @@ const ProjectTasks = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !tasksLoaded ? <Spinner /> : (
+            {!projectLoaded || !tasksLoaded || loading ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
