@@ -7,7 +7,7 @@ import {TableButton} from '../../../../style/buttons'
 import {GROUPS, PROJECTS, TASKS} from '../../../../routes/paths'
 
 
-const ExpandedGroup = ({history, project}) => {
+const ExpandedGroup = ({history, project, tasksToRender}) => {
 
     return (
         <ExpandedGroupContainer>
@@ -25,7 +25,7 @@ const ExpandedGroup = ({history, project}) => {
             </CommentsContainer>
             <TaskContainer>
                 <GroupSectionTitle>Upcoming Tasks</GroupSectionTitle>
-                <PendingTasks />
+                <PendingTasks tasksToRender={tasksToRender} />
                 <TaskButtonContainer>
                     <TaskTableButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Go to tasklist</TaskTableButton>
                 </TaskButtonContainer>

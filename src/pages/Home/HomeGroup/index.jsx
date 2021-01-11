@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import OpenComments from './OpenComments'
 import ReviewComments from './ReviewComments'
 import TasksOverdue from './OverdueTasks'
@@ -10,10 +10,30 @@ import {HomeExpandCollapseContainer} from '../../../style/containers'
 import {ExpandCollapseText} from '../../../style/text'
 import {useSpring} from 'react-spring'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
+import {useDispatch} from 'react-redux'
+import {getPastDueNumberAndUncompletedTasksAction} from '../../../store/task/actions'
+import Spinner from '../../../components/Spinner'
 
 
 const HomeGroup = ({groupName, history, project}) => {
+    const dispatch = useDispatch()
     const [expandStatus, setExpandStatus] = useState(false)
+    const [pastDueTasks, setPastDueTasks] = useState(0)
+    const [tasksToRender, setTasksToRender] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        const pastDueNumberUncompleteTasks = async () => {
+            const response = await dispatch(getPastDueNumberAndUncompletedTasksAction(project.id))
+            if (response) {
+                setPastDueTasks(response.past_due_tasks)
+                setTasksToRender(response.user_uncompleted_tasks)
+            }
+        }
+        pastDueNumberUncompleteTasks()
+            .then(() => setLoading(false))
+    }, [project.id, dispatch])
+
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},
@@ -22,14 +42,20 @@ const HomeGroup = ({groupName, history, project}) => {
     return (
         // eslint-disable-next-line react/forbid-component-props
         <HomeGroupContainer style={props}>
+            {loading ? <Spinner /> : null}
             <UpperRowContainer>
                 <GroupTitle>{`Group: ${groupName}`}</GroupTitle>
-                <TasksOverdue number={5} />
+                <TasksOverdue number={pastDueTasks} />
             </UpperRowContainer>
             <MiddleRowContainer>
                 <ProjectTitle>{`Project: ${project.name}`}</ProjectTitle>
             </MiddleRowContainer>
-            {expandStatus ? <ExpandedGroup history={history} project={project} /> : null}
+            {expandStatus ?
+                <ExpandedGroup
+                    history={history}
+                    project={project}
+                    tasksToRender={tasksToRender}
+                /> : null}
             <BottomRowContainer>
                 <HomeGroupButton onClick={() => history.push(`${GROUPS}${PROJECTS}/${project.id}/`)}>Go to Project</HomeGroupButton>
                 <OpenComments number={2} />

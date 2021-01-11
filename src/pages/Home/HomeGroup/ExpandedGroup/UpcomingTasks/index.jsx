@@ -1,51 +1,47 @@
 import React from 'react'
 import {TableContainer} from '../../../../../style/containers'
 import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../../../style/tables'
+import {NoTasksDisplay, NoTasksText} from './styles'
 
 
-const PendingTasks = ({tasks}) => {
+const PendingTasks = ({tasksToRender}) => {
+    const renderTasks = () => (
+        tasksToRender.map(task => {
+            return (
+                <TableDataRow key={task.id}>
+                    <TableData>{task.step.number}</TableData>
+                    <TableData>PH for Task Number</TableData>
+                    <TableData>{task.title}</TableData>
+                    <TableData>{task.due_date}</TableData>
+                    <TableData>{task.planned_completion_date}</TableData>
+                    <TableData>PH for User Info</TableData>
+                    <TableData>PH for documents</TableData>
+                </TableDataRow>
+            )
+        })
+    )
+
     return (
         <TableContainer>
-            <CommentTable>
-                <tbody>
-                    <TableTitleRow>
-                        <TableHeader>Step</TableHeader>
-                        <TableHeader>Task No.</TableHeader>
-                        <TableHeader>Task</TableHeader>
-                        <TableHeader>Due Date</TableHeader>
-                        <TableHeader>Planned Completion Date</TableHeader>
-                        <TableHeader>Responsible</TableHeader>
-                        <TableHeader>Documents</TableHeader>
-                    </TableTitleRow>
-                    <TableDataRow>
-                        <TableData>8</TableData>
-                        <TableData>8.2</TableData>
-                        <TableData>File Ruling</TableData>
-                        <TableData>27/11/2020</TableData>
-                        <TableData>27/11/2020</TableData>
-                        <TableData>Switzerland (Tax) A. Horat</TableData>
-                        <TableData>resolution.pdf</TableData>
-                    </TableDataRow >
-                    <TableDataRow>
-                        <TableData>2</TableData>
-                        <TableData>1.2</TableData>
-                        <TableData>File Swiss tax ruling</TableData>
-                        <TableData>09/12/2020</TableData>
-                        <TableData>09/12/2020</TableData>
-                        <TableData>Switzerland (Tax) A. Horat</TableData>
-                        <TableData>resolution.pdf</TableData>
-                    </TableDataRow >
-                    <TableDataRow>
-                        <TableData>8</TableData>
-                        <TableData>8.2</TableData>
-                        <TableData>File Ruling</TableData>
-                        <TableData>27/11/2020</TableData>
-                        <TableData>27/11/2020</TableData>
-                        <TableData>Switzerland (Tax) A. Horat</TableData>
-                        <TableData>resolution.pdf</TableData>
-                    </TableDataRow >
-                </tbody>
-            </CommentTable>
+            {tasksToRender.length ? (
+                <CommentTable>
+                    <tbody>
+                        <TableTitleRow>
+                            <TableHeader>Step</TableHeader>
+                            <TableHeader>Task No.</TableHeader>
+                            <TableHeader>Task</TableHeader>
+                            <TableHeader>Due Date</TableHeader>
+                            <TableHeader>Planned Completion Date</TableHeader>
+                            <TableHeader>Responsible</TableHeader>
+                            <TableHeader>Documents</TableHeader>
+                        </TableTitleRow>
+                        {renderTasks()}
+                    </tbody>
+                </CommentTable>
+            ) : (
+                <NoTasksDisplay>
+                    <NoTasksText>You have no outstanding Tasks for this project</NoTasksText>
+                </NoTasksDisplay>)}
         </TableContainer>
     )
 }
