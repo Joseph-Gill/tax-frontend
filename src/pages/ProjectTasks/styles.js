@@ -13,7 +13,7 @@ export const StatusLegendFilterDropdownContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 30px;
+    margin: 30px 0;
 `
 
 export const TaskStatusLegendContainer = styled(StatusLegendContainer)`
@@ -25,7 +25,6 @@ export const TasksTableContainer = styled.div`
     max-height: 469px;
     background-color: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
-    margin-top: 33px;
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
