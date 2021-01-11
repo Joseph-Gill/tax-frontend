@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
-import {BaseButton} from '../../style/buttons'
-import {AddDeleteModalButtonContainer, AddDeleteModalInternalContainer} from '../DeleteAccountModal/styles'
-import {ModalText} from '../../style/text'
+import {BaseButton} from '../../../style/buttons'
+import {AddDeleteModalButtonContainer, AddDeleteModalInternalContainer} from '../styles'
+import {ModalText} from '../../../style/text'
 
 
 export const BlueAddMemberButton = styled(BaseButton)`

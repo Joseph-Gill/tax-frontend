@@ -8,11 +8,11 @@ import {ActionFilterDropdownContainer, AddMemberButton, AddMemberButtonContainer
 import ActionDropdown from './ActionDropdown'
 import FilterDropdown from './FilterDropdown'
 import MembersTable from './MembersTable'
-import AddMemberModal from '../../components/AddMemberModal'
 import {resetMember} from '../../store/member/actions'
 import RemoveMemberModal from '../../components/DeleteAccountModal/RemoveMemberModal'
 import StatusToggle from './StatusToggle'
 import Spinner from '../../components/Spinner'
+import AddMemberModal from '../../components/DeleteAccountModal/AddMemberModal'
 
 
 const GroupMembers = ({history}) => {
