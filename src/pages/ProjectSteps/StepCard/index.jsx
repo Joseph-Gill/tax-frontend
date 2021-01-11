@@ -14,13 +14,21 @@ import {
     StepCardUpperRowContainer
 } from './styles'
 import StepCardTaxLocations from './StepCardTaxLocations'
+import {setTaskFilterStepNumber} from '../../../store/task/actions'
+import {useDispatch} from 'react-redux'
 
 
 const StepCard = ({history, number, project, step, stepCardClickHandler}) => {
+    const dispatch = useDispatch()
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},
     })
+
+    const stepCardTasksClickHandler = () => {
+        dispatch(setTaskFilterStepNumber(step.number))
+        history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)
+    }
 
     return (
         // eslint-disable-next-line react/forbid-component-props
@@ -38,7 +46,7 @@ const StepCard = ({history, number, project, step, stepCardClickHandler}) => {
                 </StepCardDescriptionContainer>
                 <StepCardButtonDateContainer>
                     <DateText>{step.effective_date}</DateText>
-                    <StepCardButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Tasks</StepCardButton>
+                    <StepCardButton onClick={stepCardTasksClickHandler}>Tasks</StepCardButton>
                 </StepCardButtonDateContainer>
             </StepCardRowContainer>
         </StepCardContainer>
