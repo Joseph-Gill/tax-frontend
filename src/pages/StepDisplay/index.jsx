@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
-import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
+import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS, TASKS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
@@ -24,6 +24,7 @@ import {ErrorMessage} from '../../style/messages'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import tooltipAnchor from '../../assets/icons/stark_tooltip_anchor.png'
 import StepToolTip from './StepToolTip'
+import {setTaskFilterStepNumber} from '../../store/task/actions'
 
 
 const StepDisplay = ({history}) => {
@@ -142,6 +143,11 @@ const StepDisplay = ({history}) => {
         }
     }
 
+    const tasklistButtonClickHandler = () => {
+        dispatch(setTaskFilterStepNumber(steps[indexOfStepToDisplay].number))
+        history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)
+    }
+
     return (
         <AuthenticatedPageContainer>
             {!stepsLoaded || !projectLoaded ? <Spinner /> : (
@@ -210,7 +216,7 @@ const StepDisplay = ({history}) => {
                         />
                         <ButtonsStatusContainer>
                             {indexOfStepToDisplay + 1 === steps.length ? <WireFrameDeleteButton onClick={() => setShowConfirmation(true)}>Delete</WireFrameDeleteButton> : null}
-                            <StepDetailsTasklistButton>Tasklist</StepDetailsTasklistButton>
+                            <StepDetailsTasklistButton onClick={tasklistButtonClickHandler}>Tasklist</StepDetailsTasklistButton>
                             {!editStatus ? (
                                 <StepDetailsStatus disabled onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
                                     <StepDetailsOption value={steps[indexOfStepToDisplay].status}>{steps[indexOfStepToDisplay].status}</StepDetailsOption>
