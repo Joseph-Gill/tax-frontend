@@ -69,3 +69,36 @@ export const updateProjectAction = (projectInfo, projectId) => async (dispatch, 
         return catchError(e, dispatch)
     }
 }
+
+export const getProjectStepsStatuses = projectId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`steps/project/${projectId}/statusnumbers/`, config)
+        return {...response.data}
+
+    } catch (e) {
+        console.log(`Error getting Steps Statuses of Project>`, e)
+        return catchError(e, dispatch)
+    }
+}
+
+export const getProjectTasksStatuses = projectId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`tasks/project/${projectId}/statusnumbers/`, config)
+        return {...response.data}
+    } catch (e) {
+        console.log(`Error getting Tasks Statuses of Project>`, e)
+        return catchError(e, dispatch)
+    }
+}

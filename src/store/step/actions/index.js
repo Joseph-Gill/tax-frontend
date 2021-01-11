@@ -117,4 +117,3 @@ export const deleteStepAction = stepId => async (dispatch, getState) => {
         return catchError(e, dispatch)
     }
 }
-

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useRouteMatch} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import Spinner from '../../components/Spinner'
@@ -7,8 +7,7 @@ import StatusCard from './StatusCard'
 import MembersCard from './MembersCard'
 import TasksCard from './TasksCard'
 import StepsCard from './StepsCard'
-import {getProjectAction} from '../../store/project/actions'
-import {getGroupAction} from '../../store/group/actions'
+import {getProjectAction, getProjectStepsStatuses, getProjectTasksStatuses} from '../../store/project/actions'
 import {EDIT_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
@@ -19,22 +18,30 @@ import {ProjectDisplayDescriptionText, ProjectDisplayInfoBoxesContainer, Project
 const ProjectDisplay = ({history}) => {
     const dispatch = useDispatch()
     const match = useRouteMatch();
-    const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
+    const [stepsStatuses, setStepsStatuses] = useState({})
+    const [tasksStatuses, setTasksStatuses] = useState({})
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        (async function getProfileGetGroupIfNeeded() {
-            const response = await dispatch(getProjectAction(match.params.projectId))
-            if (!groupLoaded) {
-                dispatch(getGroupAction(response.group.id))
+        const getProfileIfNeededGetStatuses = async () => {
+            await dispatch(getProjectAction(match.params.projectId))
+            const stepsStatusInfo = await dispatch(getProjectStepsStatuses(match.params.projectId))
+            if (stepsStatusInfo) {
+                setStepsStatuses({...stepsStatusInfo})
             }
-        })();
-    }, [dispatch, match.params.projectId, groupLoaded])
+            const tasksStatusInfo = await dispatch(getProjectTasksStatuses(match.params.projectId))
+                setTasksStatuses({...tasksStatusInfo})
+        };
+        setLoading(true)
+        getProfileIfNeededGetStatuses()
+            .then(() => setLoading(false))
+    }, [dispatch, match.params.projectId])
 
     return(
         <AuthenticatedPageContainer>
-            {!projectLoaded  ? <Spinner /> : (
+            {!projectLoaded || loading ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
@@ -55,8 +62,8 @@ const ProjectDisplay = ({history}) => {
                         </ProjectDisplayTextContainer>
                     </ProjectDisplayTitleDescriptionContainer>
                     <ProjectDisplayInfoBoxesContainer>
-                        <StepsCard history={history} project={project} steps={project.steps} />
-                        <TasksCard history={history} project={project} steps={project.steps} />
+                        <StepsCard history={history} project={project} stepsStatuses={stepsStatuses} />
+                        <TasksCard history={history} project={project} tasksStatuses={tasksStatuses} />
                         <MembersCard history={history} members={project.group.users} />
                         <StatusCard status={project.status} />
                     </ProjectDisplayInfoBoxesContainer>

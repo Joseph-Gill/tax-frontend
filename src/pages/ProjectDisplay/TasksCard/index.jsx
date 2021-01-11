@@ -5,21 +5,21 @@ import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
 import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
 
 
-const TasksCard = ({history, project, steps}) => {
+const TasksCard = ({history, project, tasksStatuses}) => {
     return (
         <ProjectDisplayInfoBox>
             <AddEditProjectSectionTitles>Tasks</AddEditProjectSectionTitles>
             <ProjectDisplayStatusesContainer>
                 <ProjectDisplayColorTextContainer>
-                    <ProjectDisplayColorTextBackground status='Ongoing / Planned'>5</ProjectDisplayColorTextBackground>
+                    <ProjectDisplayColorTextBackground status='Ongoing / Planned'>{tasksStatuses['Ongoing'] + tasksStatuses['Planned']}</ProjectDisplayColorTextBackground>
                     <ProjectDisplayColorText status='Ongoing / Planned'>Ongoing / Planned</ProjectDisplayColorText>
                 </ProjectDisplayColorTextContainer>
                 <ProjectDisplayColorTextContainer>
-                    <ProjectDisplayColorTextBackground status='Completed'>2</ProjectDisplayColorTextBackground>
+                    <ProjectDisplayColorTextBackground status='Completed'>{tasksStatuses['Completed']}</ProjectDisplayColorTextBackground>
                     <ProjectDisplayColorText status='Completed'>Completed</ProjectDisplayColorText>
                 </ProjectDisplayColorTextContainer>
                 <ProjectDisplayColorTextContainer>
-                    <ProjectDisplayColorTextBackground status='Not Started'>2</ProjectDisplayColorTextBackground>
+                    <ProjectDisplayColorTextBackground status='Not Started'>{tasksStatuses['Not Started']}</ProjectDisplayColorTextBackground>
                     <ProjectDisplayColorText status='Not Started'>Not Started</ProjectDisplayColorText>
                 </ProjectDisplayColorTextContainer>
             </ProjectDisplayStatusesContainer>
