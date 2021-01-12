@@ -13,6 +13,7 @@ import {GROUPS, PROJECTS} from '../../../routes/paths'
 import {useDispatch} from 'react-redux'
 import {getPastDueNumberAndUncompletedTasksAction} from '../../../store/task/actions'
 import Spinner from '../../../components/Spinner'
+import {getProjectTaxConsequencesUnreviewedSameLocationAsUserAction} from '../../../store/project/actions'
 
 
 const HomeGroup = ({firstUncompletedStep, groupName, history, project, setHomeLoading, user, userRole}) => {
@@ -20,18 +21,23 @@ const HomeGroup = ({firstUncompletedStep, groupName, history, project, setHomeLo
     const [expandStatus, setExpandStatus] = useState(false)
     const [pastDueTasks, setPastDueTasks] = useState(0)
     const [tasksToRender, setTasksToRender] = useState([])
+    const [taxConsequencesToRender, setTaxConsequencesToRender] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        const pastDueNumberUncompletedTasks = async () => {
-            const response = await dispatch(getPastDueNumberAndUncompletedTasksAction(project.id))
-            if (response) {
-                setPastDueTasks(response.past_due_tasks)
-                setTasksToRender(response.user_uncompleted_tasks)
+        const getPastDueNumberUncompletedTasksUserTaxConsequences = async () => {
+            const taskResponse = await dispatch(getPastDueNumberAndUncompletedTasksAction(project.id))
+            if (taskResponse) {
+                setPastDueTasks(taskResponse.past_due_tasks)
+                setTasksToRender(taskResponse.user_uncompleted_tasks)
             }
+            const taxResponse = await dispatch(getProjectTaxConsequencesUnreviewedSameLocationAsUserAction(project.id))
+                if (taxResponse){
+                    setTaxConsequencesToRender(taxResponse)
+                }
         }
         setLoading(true)
-        pastDueNumberUncompletedTasks()
+        getPastDueNumberUncompletedTasksUserTaxConsequences()
             .then(() => setLoading(false))
     }, [project, dispatch, setLoading])
 
@@ -58,6 +64,7 @@ const HomeGroup = ({firstUncompletedStep, groupName, history, project, setHomeLo
                     project={project}
                     setHomeLoading={setHomeLoading}
                     tasksToRender={tasksToRender}
+                    taxConsequencesToRender={taxConsequencesToRender}
                     user={user}
                     userRole={userRole}
                 /> : null}

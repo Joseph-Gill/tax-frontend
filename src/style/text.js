@@ -133,3 +133,10 @@ export const DateText = styled(ModalText)`
     color: ${props => props.theme.grayTwo};
     line-height: 19px;
 `
+
+export const NoTasksOrTaxConsequencesText = styled.p`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    line-height: 19px;
+    color: ${props => props.theme.grayTwo};
+`

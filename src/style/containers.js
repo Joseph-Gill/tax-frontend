@@ -378,6 +378,17 @@ export const EntryDocumentsTextContainer = styled.div`
     }
 `
 
+export const NoTasksOrTaxConsequencesDisplay = styled.div`
+    width: 100%;
+    height: 115px;
+    background: ${props => props.theme.white};
+    border-radius: ${props => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.grayFour};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

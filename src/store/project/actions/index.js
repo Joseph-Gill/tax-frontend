@@ -123,4 +123,18 @@ export const getProjectFirstUncompletedStepAction = projectId => async (dispatch
     }
 }
 
-// export const getProjectTaxConsequencesUnreviewedSameLocationAsUserAction
+export const getProjectTaxConsequencesUnreviewedSameLocationAsUserAction = projectId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`taxes/project/${projectId}/notreviewed/samecountry/`, config)
+        return [...response.data]
+    } catch (e) {
+        console.log(`Error getting all Tax Consequences that are not reviewed and same location as logged-in User>`, e)
+        return catchError(e, dispatch)
+    }
+}

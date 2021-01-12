@@ -1,16 +1,16 @@
 import React from 'react'
 import {AuthenticatedText} from '../../../../style/text'
 import {AccountInfoContainer, CommentsContainer, ExpandedGroupContainer, GroupExpandedDateText, GroupSectionTitle, NextStepContainer, StepDateTextContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
-import PendingComments from './PendingComments'
 import {TableButton} from '../../../../style/buttons'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS, TASKS} from '../../../../routes/paths'
 import PendingTasks from './PendingTasks'
 import {useDispatch} from 'react-redux'
 import {getStepsForProjectAction, skipToSpecifiedStep} from '../../../../store/step/actions'
 import {getProjectAction} from '../../../../store/project/actions'
+import PendingTaxConsequences from './PendingTaxConsequences'
 
 
-const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, setHomeLoading, user, userRole}) => {
+const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, taxConsequencesToRender, setHomeLoading, user, userRole}) => {
     const dispatch = useDispatch()
 
     const goToUncompletedStepHandler = async () => {
@@ -29,7 +29,7 @@ const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, s
     return (
         <ExpandedGroupContainer>
             <NextStepContainer>
-                <GroupSectionTitle>Account Information</GroupSectionTitle>
+                <GroupSectionTitle>Next Step</GroupSectionTitle>
                 <AccountInfoContainer>
                     {firstUncompletedStep ? (
                         <>
@@ -47,7 +47,9 @@ const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, s
             </NextStepContainer>
             <CommentsContainer>
                 <GroupSectionTitle>Pending Comments</GroupSectionTitle>
-                <PendingComments />
+                <PendingTaxConsequences
+                    taxConsequencesToRender={taxConsequencesToRender}
+                />
             </CommentsContainer>
             <TaskContainer>
                 <GroupSectionTitle>Upcoming Tasks</GroupSectionTitle>

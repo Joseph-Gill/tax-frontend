@@ -1,8 +1,8 @@
 import React from 'react'
-import {EntryDocumentsContainer, EntryDocumentsTextContainer, EntryResponsibleContainer, TableContainer} from '../../../../../style/containers'
+import {EntryDocumentsContainer, EntryDocumentsTextContainer, EntryResponsibleContainer, NoTasksOrTaxConsequencesDisplay, TableContainer} from '../../../../../style/containers'
 import {CommentTable, TableData, TableHeader, TableTitleRow} from '../../../../../style/tables'
-import {NoTasksDisplay, NoTasksText, PendingTaskCompleteDateTableHeader, PendingTaskTableRow, PendingTaskTitleTableData} from './styles'
-import {EntryResponsibleText} from '../../../../../style/text'
+import {PendingTaskCompleteDateTableHeader, PendingTaskTableRow, PendingTaskTitleTableData} from './styles'
+import {EntryResponsibleText, NoTasksOrTaxConsequencesText} from '../../../../../style/text'
 import {TaskDocumentLink} from '../../../../../style/links'
 
 
@@ -81,9 +81,11 @@ const PendingTasks = ({tasksToRender, user, userRole}) => {
                     </tbody>
                 </CommentTable>
             ) : (
-                <NoTasksDisplay>
-                    <NoTasksText>You have no outstanding Tasks for this project</NoTasksText>
-                </NoTasksDisplay>)}
+                <NoTasksOrTaxConsequencesDisplay>
+                    <NoTasksOrTaxConsequencesText>
+                        You have no outstanding Tasks for this project
+                    </NoTasksOrTaxConsequencesText>
+                </NoTasksOrTaxConsequencesDisplay>)}
         </TableContainer>
     )
 }
