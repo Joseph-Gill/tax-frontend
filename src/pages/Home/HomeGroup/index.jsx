@@ -23,14 +23,14 @@ const HomeGroup = ({groupName, history, project}) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        const pastDueNumberUncompleteTasks = async () => {
+        const pastDueNumberUncompletedTasks = async () => {
             const response = await dispatch(getPastDueNumberAndUncompletedTasksAction(project.id))
             if (response) {
                 setPastDueTasks(response.past_due_tasks)
                 setTasksToRender(response.user_uncompleted_tasks)
             }
         }
-        pastDueNumberUncompleteTasks()
+        pastDueNumberUncompletedTasks()
             .then(() => setLoading(false))
     }, [project.id, dispatch])
 

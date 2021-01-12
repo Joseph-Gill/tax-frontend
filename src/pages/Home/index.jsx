@@ -28,7 +28,7 @@ const Home = ({history}) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        (async function getProfileCreateParing() {
+        const getProfileCreateParing = async () => {
             setLoading(true)
             dispatch(resetProject())
             dispatch(resetGroup())
@@ -38,7 +38,10 @@ const Home = ({history}) => {
             dispatch(resetTaskFilterStepNumber())
             const response = await dispatch(getProfileAction())
             setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
-        })();
+        }
+        setLoading(true)
+        getProfileCreateParing()
+            .then(() => setLoading(false))
     }, [dispatch])
 
     const searchedPairings = projectGroupPairings.filter(pair =>
@@ -65,7 +68,6 @@ const Home = ({history}) => {
                 })
             }
         })
-        setLoading(false)
         return groupNameProjectPairing
     }
 

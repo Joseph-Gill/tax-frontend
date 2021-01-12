@@ -1,14 +1,24 @@
 import React from 'react'
 import {TableContainer} from '../../../../../style/containers'
-import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../../../style/tables'
-import {NoTasksDisplay, NoTasksText} from './styles'
+import {CommentTable, TableData, TableHeader, TableTitleRow} from '../../../../../style/tables'
+import {NoTasksDisplay, NoTasksText, PendingTaskTableRow} from './styles'
 
 
 const PendingTasks = ({tasksToRender}) => {
+    const checkIfDatePastDue = task => {
+        const today = new Date()
+        const dateToCheck = new Date(parseInt(task.due_date.slice(0,5)), (parseInt(task.due_date.slice(5,7)) - 1), parseInt(task.due_date.slice(-2)))
+        if (dateToCheck <= today) {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
     const renderTasks = () => (
         tasksToRender.map(task => {
             return (
-                <TableDataRow key={task.id}>
+                <PendingTaskTableRow key={task.id} pastDue={checkIfDatePastDue(task)}>
                     <TableData>{task.step.number}</TableData>
                     <TableData>PH for Task Number</TableData>
                     <TableData>{task.title}</TableData>
@@ -16,7 +26,7 @@ const PendingTasks = ({tasksToRender}) => {
                     <TableData>{task.planned_completion_date}</TableData>
                     <TableData>PH for User Info</TableData>
                     <TableData>PH for documents</TableData>
-                </TableDataRow>
+                </PendingTaskTableRow>
             )
         })
     )

@@ -2,9 +2,9 @@ import React from 'react'
 import {AuthenticatedText} from '../../../../style/text'
 import {AccountInfoContainer, CommentsContainer, DateText, ExpandedGroupContainer, GroupSectionTitle, NextStepContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
 import PendingComments from './PendingComments'
-import PendingTasks from './UpcomingTasks'
 import {TableButton} from '../../../../style/buttons'
 import {GROUPS, PROJECTS, TASKS} from '../../../../routes/paths'
+import PendingTasks from './PendingTasks'
 
 
 const ExpandedGroup = ({history, project, tasksToRender}) => {

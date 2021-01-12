@@ -9,27 +9,21 @@ export const TaskStatusEntryColor = styled.div`
 
     ${props => {
         if (props.status === 'Ongoing / Planned') {
-            return `
-                    background: ${props.theme.yellow};
-                    `
+            return `background: ${props.theme.yellow};`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Completed') {
-            return `
-                    background: ${props.theme.green};
-                    `
+            return `background: ${props.theme.green};`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Not Started') {
-            return `
-                    background: ${props.theme.red};
-                    `
+            return `background: ${props.theme.red};`
             }
         }
     };
