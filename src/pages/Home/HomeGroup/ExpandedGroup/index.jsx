@@ -1,22 +1,48 @@
 import React from 'react'
 import {AuthenticatedText} from '../../../../style/text'
-import {AccountInfoContainer, CommentsContainer, DateText, ExpandedGroupContainer, GroupSectionTitle, NextStepContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
+import {AccountInfoContainer, CommentsContainer, ExpandedGroupContainer, GroupExpandedDateText, GroupSectionTitle, NextStepContainer, StepDateTextContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
 import PendingComments from './PendingComments'
 import {TableButton} from '../../../../style/buttons'
-import {GROUPS, PROJECTS, TASKS} from '../../../../routes/paths'
+import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS, TASKS} from '../../../../routes/paths'
 import PendingTasks from './PendingTasks'
+import {useDispatch} from 'react-redux'
+import {getStepsForProjectAction, skipToSpecifiedStep} from '../../../../store/step/actions'
+import {getProjectAction} from '../../../../store/project/actions'
 
 
-const ExpandedGroup = ({history, project, tasksToRender, user, userRole}) => {
+const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, setHomeLoading, user, userRole}) => {
+    const dispatch = useDispatch()
+
+    const goToUncompletedStepHandler = async () => {
+        setHomeLoading(true)
+        const response = await dispatch(getProjectAction(project.id))
+        if (response) {
+            const response = await dispatch(getStepsForProjectAction(project.id))
+            if (response) {
+                dispatch(skipToSpecifiedStep(firstUncompletedStep.number - 1))
+                history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+                setHomeLoading(false)
+            }
+        }
+    }
 
     return (
         <ExpandedGroupContainer>
             <NextStepContainer>
                 <GroupSectionTitle>Account Information</GroupSectionTitle>
                 <AccountInfoContainer>
-                    <AuthenticatedText>Step 10: Contribution of x to c - </AuthenticatedText>
-                    <DateText>10 October 2020</DateText>
-                    <TableButton>Go to Step</TableButton>
+                    {firstUncompletedStep ? (
+                        <>
+                            <StepDateTextContainer>
+                                <AuthenticatedText>{`Step ${firstUncompletedStep.number} -`}</AuthenticatedText>
+                                <GroupExpandedDateText>{firstUncompletedStep.effective_date}</GroupExpandedDateText>
+                            </StepDateTextContainer>
+                            <TableButton onClick={goToUncompletedStepHandler}>Go to Step</TableButton>
+                        </>) : (
+                            <>
+                                <AuthenticatedText>This project has no uncompleted Steps</AuthenticatedText>
+                                <TableButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)}>Go to Steps</TableButton>
+                            </>)}
                 </AccountInfoContainer>
             </NextStepContainer>
             <CommentsContainer>

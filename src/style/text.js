@@ -128,3 +128,8 @@ export const EntryResponsibleText = styled.p`
     line-height: 20px;
     color: ${props => props.theme.taskResponsibleText};
 `
+
+export const DateText = styled(ModalText)`
+    color: ${props => props.theme.grayTwo};
+    line-height: 19px;
+`

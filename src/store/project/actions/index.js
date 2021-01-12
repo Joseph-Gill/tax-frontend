@@ -102,3 +102,23 @@ export const getProjectTasksStatuses = projectId => async (dispatch, getState) =
         return catchError(e, dispatch)
     }
 }
+
+export const getProjectFirstUncompletedStep = projectId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`steps/project/${projectId}/firstuncompleted/`, config)
+        if (response.status === 204) {
+            return false
+        } else {
+            return {...response.data}
+        }
+    } catch (e) {
+        console.log(`Error getting first uncompleted Step of Project>`, e)
+        return catchError(e, dispatch)
+    }
+}

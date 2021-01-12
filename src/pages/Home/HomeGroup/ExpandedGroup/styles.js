@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 import {AuthenticatedPageSectionTitle} from '../../../../style/titles'
-import {ModalText} from '../../../../style/text'
 import {TableButton} from '../../../../style/buttons'
+import {DateText} from '../../../../style/text'
 
 
 export const ExpandedGroupContainer = styled.div`
@@ -48,24 +48,25 @@ export const GroupSectionTitle = styled(AuthenticatedPageSectionTitle)`
   margin-top: 0;
 `
 
-export const DateText = styled(ModalText)`
-    color: ${props => props.theme.grayTwo};
-    line-height: 19px;
-`
-
 export const AccountInfoContainer = styled.div`
     display: flex;
     align-items: center;
     padding-right: 20px;
     justify-content: space-between;
-
-    ${DateText} {
-        margin-right: auto;
-    }
 `
 
 export const TaskTableButton = styled(TableButton)`
     width: 115px;
     height: 26px;
 
+`
+
+export const StepDateTextContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`
+
+export const GroupExpandedDateText = styled(DateText)`
+    margin-left: 4px;
 `

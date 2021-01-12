@@ -1,7 +1,6 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import {CardInfoText} from '../../../style/text'
-import {DateText} from '../../Home/HomeGroup/ExpandedGroup/styles'
+import {CardInfoText, DateText} from '../../../style/text'
 import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
 import {
     StepCardButton, StepCardButtonDateContainer,

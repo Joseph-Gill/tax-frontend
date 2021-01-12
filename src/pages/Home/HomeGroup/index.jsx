@@ -15,7 +15,7 @@ import {getPastDueNumberAndUncompletedTasksAction} from '../../../store/task/act
 import Spinner from '../../../components/Spinner'
 
 
-const HomeGroup = ({groupName, history, project, user, userRole}) => {
+const HomeGroup = ({firstUncompletedStep, groupName, history, project, setHomeLoading, user, userRole}) => {
     const dispatch = useDispatch()
     const [expandStatus, setExpandStatus] = useState(false)
     const [pastDueTasks, setPastDueTasks] = useState(0)
@@ -33,7 +33,7 @@ const HomeGroup = ({groupName, history, project, user, userRole}) => {
         setLoading(true)
         pastDueNumberUncompletedTasks()
             .then(() => setLoading(false))
-    }, [project.id, dispatch])
+    }, [project, dispatch, setLoading])
 
     const props = useSpring({
         opacity: 1,
@@ -53,8 +53,10 @@ const HomeGroup = ({groupName, history, project, user, userRole}) => {
             </MiddleRowContainer>
             {expandStatus ?
                 <ExpandedGroup
+                    firstUncompletedStep={firstUncompletedStep}
                     history={history}
                     project={project}
+                    setHomeLoading={setHomeLoading}
                     tasksToRender={tasksToRender}
                     user={user}
                     userRole={userRole}

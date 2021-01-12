@@ -12,7 +12,7 @@ import {HomePageText} from '../../style/text'
 import {ProjectAccessContainer} from './styles'
 import {GROUPS, HOME} from '../../routes/paths'
 import NoContent from '../../components/NoContent'
-import {resetProject} from '../../store/project/actions'
+import {getProjectFirstUncompletedStep, resetProject} from '../../store/project/actions'
 import HomeFilterDropdown from './HomeFilterDropdown'
 import {resetMember} from '../../store/member/actions'
 import NoFilterResults from '../../components/NoFilterResults'
@@ -26,18 +26,24 @@ const Home = ({history}) => {
     const user = useSelector(state => state.userLoginReducer.user)
     const [filterString, setFilterString] = useState('')
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [homeLoading, setHomeLoading] = useState(false)
 
     useEffect(() => {
         const createGroupProjectPairingWithRole = async (groups) => {
             const groupNameProjectPairing = []
             for (let i = 0; i < groups.length; i++) {
                 if (groups[i].projects.length) {
-                    const response = await dispatch(getRolesForProfileGroupAction(user.user_profile.id, groups[i].id))
-                    if (response) {
+                    const roleResponse = await dispatch(getRolesForProfileGroupAction(user.user_profile.id, groups[i].id))
+                    if (roleResponse) {
                         for (let x = 0; x < groups[i].projects.length; x++) {
-                            let result = {id: groups[i].id, groupName: groups[i].name, project:groups[i].projects[x], userRole: response[0].role}
-                            groupNameProjectPairing.push(result)
+                            let result = {id: groups[i].id, groupName: groups[i].name, project:groups[i].projects[x], userRole: roleResponse[0].role, firstUncompletedStep: null}
+                            const stepResponse = await dispatch(getProjectFirstUncompletedStep(groups[i].projects[x].id))
+                                if (stepResponse) {
+                                    result.firstUncompletedStep = stepResponse
+                                    groupNameProjectPairing.push(result)
+                                } else {
+                                    groupNameProjectPairing.push(result)
+                                }
                         }
                     }
                 }
@@ -50,7 +56,7 @@ const Home = ({history}) => {
             const result = await createGroupProjectPairingWithRole(response.groups)
             setProjectGroupPairings([...result])
         }
-        setLoading(true)
+        setHomeLoading(true)
         dispatch(resetProject())
         dispatch(resetGroup())
         dispatch(resetMember())
@@ -58,7 +64,7 @@ const Home = ({history}) => {
         dispatch(resetTasks())
         dispatch(resetTaskFilterStepNumber())
         getProfileCreateParing()
-            .then(() => setLoading(false))
+            .then(() => setHomeLoading(false))
     }, [dispatch, user])
 
     const searchedPairings = projectGroupPairings.filter(pair =>
@@ -70,10 +76,12 @@ const Home = ({history}) => {
         if (searchedPairings.length){
             return searchedPairings.map((pair) => (
                 <HomeGroup
+                    firstUncompletedStep={pair.firstUncompletedStep}
                     groupName={pair.groupName}
                     history={history}
                     key={uuidv4()}
                     project={pair.project}
+                    setHomeLoading={setHomeLoading}
                     user={user}
                     userRole={pair.userRole}
                 />
@@ -84,23 +92,26 @@ const Home = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            <BreadCrumb breadCrumbArray={[
-                {display: 'HOME', to: HOME, active: true}]}
-            />
-            <AuthenticatedPageTitleContainer>
-                <AuthenticatedPageTitle>Welcome {user.first_name}</AuthenticatedPageTitle>
-            </AuthenticatedPageTitleContainer>
-            {loading ? <Spinner /> :
-                !projectGroupPairings.length ?
-                    <NoContent buttonText='Go to groups overview' redirect={GROUPS} text='You have not created or been granted access to a group/project yet.' /> : (
-                        <>
-                            <ProjectAccessContainer>
-                                <HomePageText>Your current projects</HomePageText>
-                                <HomeFilterDropdown filterString={filterString} setFilterString={setFilterString} />
-                            </ProjectAccessContainer>
-                            {renderPairings()}
-                        </>
-                    )}
+            {homeLoading ? <Spinner /> : (
+                <>
+                    <BreadCrumb breadCrumbArray={[
+                        {display: 'HOME', to: HOME, active: true}]}
+                    />
+                    <AuthenticatedPageTitleContainer>
+                        <AuthenticatedPageTitle>Welcome {user.first_name}</AuthenticatedPageTitle>
+                    </AuthenticatedPageTitleContainer>
+
+                    {!projectGroupPairings.length ?
+                        <NoContent buttonText='Go to groups overview' redirect={GROUPS} text='You have not created or been granted access to a group/project yet.' /> : (
+                            <>
+                                <ProjectAccessContainer>
+                                    <HomePageText>Your current projects</HomePageText>
+                                    <HomeFilterDropdown filterString={filterString} setFilterString={setFilterString} />
+                                </ProjectAccessContainer>
+                                {renderPairings()}
+                            </>
+                        )}
+                </>)}
         </AuthenticatedPageContainer>
     )
 }
