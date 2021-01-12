@@ -18,31 +18,48 @@ import {resetMember} from '../../store/member/actions'
 import NoFilterResults from '../../components/NoFilterResults'
 import {resetSteps} from '../../store/step/actions'
 import {resetTaskFilterStepNumber, resetTasks} from '../../store/task/actions'
+import {getRolesForProfileGroupAction} from '../../store/projectRole/actions'
 
 
 const Home = ({history}) => {
     const dispatch = useDispatch()
-    const first_name = useSelector(state => state.userLoginReducer.user.first_name)
+    const user = useSelector(state => state.userLoginReducer.user)
     const [filterString, setFilterString] = useState('')
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        const createGroupProjectPairingWithRole = async (groups) => {
+            const groupNameProjectPairing = []
+            for (let i = 0; i < groups.length; i++) {
+                if (groups[i].projects.length) {
+                    const response = await dispatch(getRolesForProfileGroupAction(user.user_profile.id, groups[i].id))
+                    if (response) {
+                        for (let x = 0; x < groups[i].projects.length; x++) {
+                            let result = {id: groups[i].id, groupName: groups[i].name, project:groups[i].projects[x], userRole: response[0].role}
+                            groupNameProjectPairing.push(result)
+                        }
+                    }
+                }
+            }
+            return groupNameProjectPairing
+        }
+
         const getProfileCreateParing = async () => {
-            setLoading(true)
-            dispatch(resetProject())
-            dispatch(resetGroup())
-            dispatch(resetMember())
-            dispatch(resetSteps())
-            dispatch(resetTasks())
-            dispatch(resetTaskFilterStepNumber())
             const response = await dispatch(getProfileAction())
-            setProjectGroupPairings([...createGroupProjectPairing(response.groups)])
+            const result = await createGroupProjectPairingWithRole(response.groups)
+            setProjectGroupPairings([...result])
         }
         setLoading(true)
+        dispatch(resetProject())
+        dispatch(resetGroup())
+        dispatch(resetMember())
+        dispatch(resetSteps())
+        dispatch(resetTasks())
+        dispatch(resetTaskFilterStepNumber())
         getProfileCreateParing()
             .then(() => setLoading(false))
-    }, [dispatch])
+    }, [dispatch, user])
 
     const searchedPairings = projectGroupPairings.filter(pair =>
         pair.groupName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1 ||
@@ -52,23 +69,17 @@ const Home = ({history}) => {
     const renderPairings = () => {
         if (searchedPairings.length){
             return searchedPairings.map((pair) => (
-                <HomeGroup groupName={pair.groupName} history={history} key={uuidv4()} project={pair.project} />
+                <HomeGroup
+                    groupName={pair.groupName}
+                    history={history}
+                    key={uuidv4()}
+                    project={pair.project}
+                    user={user}
+                    userRole={pair.userRole}
+                />
             ))
         } else {
             return <NoFilterResults />}
-    }
-
-    const createGroupProjectPairing = (groups) => {
-        const groupNameProjectPairing = []
-        groups.forEach(groupEntry => {
-            if (groupEntry.projects.length) {
-                groupEntry.projects.forEach(projectEntry => {
-                    let result = {id: groupEntry.id, groupName: groupEntry.name, project:projectEntry}
-                    groupNameProjectPairing.push(result)
-                })
-            }
-        })
-        return groupNameProjectPairing
     }
 
     return (
@@ -77,7 +88,7 @@ const Home = ({history}) => {
                 {display: 'HOME', to: HOME, active: true}]}
             />
             <AuthenticatedPageTitleContainer>
-                <AuthenticatedPageTitle>Welcome {first_name}</AuthenticatedPageTitle>
+                <AuthenticatedPageTitle>Welcome {user.first_name}</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
             {loading ? <Spinner /> :
                 !projectGroupPairings.length ?

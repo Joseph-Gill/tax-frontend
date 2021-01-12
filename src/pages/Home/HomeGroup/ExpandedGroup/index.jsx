@@ -7,7 +7,7 @@ import {GROUPS, PROJECTS, TASKS} from '../../../../routes/paths'
 import PendingTasks from './PendingTasks'
 
 
-const ExpandedGroup = ({history, project, tasksToRender}) => {
+const ExpandedGroup = ({history, project, tasksToRender, user, userRole}) => {
 
     return (
         <ExpandedGroupContainer>
@@ -25,7 +25,11 @@ const ExpandedGroup = ({history, project, tasksToRender}) => {
             </CommentsContainer>
             <TaskContainer>
                 <GroupSectionTitle>Upcoming Tasks</GroupSectionTitle>
-                <PendingTasks tasksToRender={tasksToRender} />
+                <PendingTasks
+                    tasksToRender={tasksToRender}
+                    user={user}
+                    userRole={userRole}
+                />
                 <TaskButtonContainer>
                     <TaskTableButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Go to tasklist</TaskTableButton>
                 </TaskButtonContainer>

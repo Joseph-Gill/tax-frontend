@@ -1,5 +1,7 @@
 import React from 'react'
-import {EntryResponsibleContainer, EntryResponsibleText} from './styles'
+import {EntryResponsibleContainer} from '../../../../../style/containers'
+import {EntryResponsibleText} from '../../../../../style/text'
+
 
 
 const EntryResponsible = ({group, user}) => {

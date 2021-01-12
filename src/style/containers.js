@@ -327,6 +327,15 @@ export const DocumentContainer = styled.div`
     }
 `
 
+export const EntryResponsibleContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

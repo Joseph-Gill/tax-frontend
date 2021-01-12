@@ -15,7 +15,7 @@ import {getPastDueNumberAndUncompletedTasksAction} from '../../../store/task/act
 import Spinner from '../../../components/Spinner'
 
 
-const HomeGroup = ({groupName, history, project}) => {
+const HomeGroup = ({groupName, history, project, user, userRole}) => {
     const dispatch = useDispatch()
     const [expandStatus, setExpandStatus] = useState(false)
     const [pastDueTasks, setPastDueTasks] = useState(0)
@@ -30,6 +30,7 @@ const HomeGroup = ({groupName, history, project}) => {
                 setTasksToRender(response.user_uncompleted_tasks)
             }
         }
+        setLoading(true)
         pastDueNumberUncompletedTasks()
             .then(() => setLoading(false))
     }, [project.id, dispatch])
@@ -55,6 +56,8 @@ const HomeGroup = ({groupName, history, project}) => {
                     history={history}
                     project={project}
                     tasksToRender={tasksToRender}
+                    user={user}
+                    userRole={userRole}
                 /> : null}
             <BottomRowContainer>
                 <HomeGroupButton onClick={() => history.push(`${GROUPS}${PROJECTS}/${project.id}/`)}>Go to Project</HomeGroupButton>

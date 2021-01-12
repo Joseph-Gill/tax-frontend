@@ -122,3 +122,9 @@ export const DocumentUploadAreaText = styled.p`
     color: ${props => props.theme.grayTwo};
 `
 
+export const EntryResponsibleText = styled.p`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    line-height: 20px;
+    color: ${props => props.theme.taskResponsibleText};
+`
