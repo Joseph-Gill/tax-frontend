@@ -1,7 +1,7 @@
 import React from 'react'
 import {EntryDocumentsContainer, EntryDocumentsTextContainer, EntryResponsibleContainer, TableContainer} from '../../../../../style/containers'
 import {CommentTable, TableData, TableHeader, TableTitleRow} from '../../../../../style/tables'
-import {NoTasksDisplay, NoTasksText, PendingTaskTableRow} from './styles'
+import {NoTasksDisplay, NoTasksText, PendingTaskCompleteDateTableHeader, PendingTaskTableRow, PendingTaskTitleTableData} from './styles'
 import {EntryResponsibleText} from '../../../../../style/text'
 import {TaskDocumentLink} from '../../../../../style/links'
 
@@ -21,11 +21,21 @@ const PendingTasks = ({tasksToRender, user, userRole}) => {
         tasksToRender.map(task => {
             return (
                 <PendingTaskTableRow key={task.id} pastDue={checkIfDatePastDue(task)}>
-                    <TableData>{task.step.number}</TableData>
-                    <TableData>PH</TableData>
-                    <TableData>{task.title}</TableData>
-                    <TableData>{task.due_date}</TableData>
-                    <TableData>{task.planned_completion_date}</TableData>
+                    <TableData>
+                        {task.step.number}
+                    </TableData>
+                    <TableData>
+                        PH
+                    </TableData>
+                    <PendingTaskTitleTableData>
+                        {task.title}
+                    </PendingTaskTitleTableData>
+                    <TableData>
+                        {task.due_date}
+                    </TableData>
+                    <TableData>
+                        {task.planned_completion_date}
+                    </TableData>
                     <TableData>
                         <EntryResponsibleContainer>
                             <EntryResponsibleText>{user.user_profile.country ? user.user_profile.country : 'N/A'}</EntryResponsibleText>
@@ -63,7 +73,7 @@ const PendingTasks = ({tasksToRender, user, userRole}) => {
                             <TableHeader>Task No.</TableHeader>
                             <TableHeader>Task</TableHeader>
                             <TableHeader>Due Date</TableHeader>
-                            <TableHeader>Planned Completion Date</TableHeader>
+                            <PendingTaskCompleteDateTableHeader>Planned Completion Date</PendingTaskCompleteDateTableHeader>
                             <TableHeader>Responsible</TableHeader>
                             <TableHeader>Documents</TableHeader>
                         </TableTitleRow>

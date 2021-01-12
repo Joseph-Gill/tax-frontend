@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {TableDataRow} from '../../../../../style/tables'
+import {TableData, TableDataRow, TableHeader} from '../../../../../style/tables'
 
 
 export const NoTasksDisplay = styled.div`
@@ -27,4 +27,12 @@ export const PendingTaskTableRow = styled(TableDataRow)`
             }
         }
     }
+`
+
+export const PendingTaskTitleTableData = styled(TableData)`
+    max-width: 180px;
+`
+
+export const PendingTaskCompleteDateTableHeader = styled(TableHeader)`
+    max-width: 117px;
 `
