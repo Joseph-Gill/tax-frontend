@@ -70,3 +70,7 @@ export const StepDateTextContainer = styled.div`
 export const GroupExpandedDateText = styled(DateText)`
     margin-left: 4px;
 `
+
+export const ProjectStepsButton = styled(TableButton)`
+    width: 140px;
+`

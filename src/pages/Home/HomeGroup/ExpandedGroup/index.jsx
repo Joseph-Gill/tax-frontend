@@ -1,6 +1,6 @@
 import React from 'react'
 import {AuthenticatedText} from '../../../../style/text'
-import {AccountInfoContainer, CommentsContainer, ExpandedGroupContainer, GroupExpandedDateText, GroupSectionTitle, NextStepContainer, StepDateTextContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
+import {AccountInfoContainer, CommentsContainer, ExpandedGroupContainer, GroupExpandedDateText, GroupSectionTitle, NextStepContainer, ProjectStepsButton, StepDateTextContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
 import {TableButton} from '../../../../style/buttons'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS, TASKS} from '../../../../routes/paths'
 import PendingTasks from './PendingTasks'
@@ -41,7 +41,7 @@ const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, t
                         </>) : (
                             <>
                                 <AuthenticatedText>This project has no uncompleted Steps</AuthenticatedText>
-                                <TableButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)}>Go to Steps</TableButton>
+                                <ProjectStepsButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)}>Go to project steps</ProjectStepsButton>
                             </>)}
                 </AccountInfoContainer>
             </NextStepContainer>
