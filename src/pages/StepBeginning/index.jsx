@@ -11,6 +11,7 @@ import {AddNewStepButton} from '../../style/buttons'
 import {StepPageTitleContainer} from './styles'
 import {addNewStep} from '../../store/step/actions'
 import Spinner from '../../components/Spinner'
+import {getGroupOfProjectAction} from '../../store/group/actions'
 
 
 const StepBeginning = ({history}) => {
@@ -20,12 +21,16 @@ const StepBeginning = ({history}) => {
     const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.steps)
     const entities = useSelector(state => state.groupReducer.group.entities)
+    const groupLoaded = useSelector(state => state.groupReducer.loaded)
 
     useEffect (() => {
         if (!projectLoaded || !stepsLoaded) {
             history.push(`${HOME}`)
+        } else if (!groupLoaded) {
+            dispatch(getGroupOfProjectAction(project.id))
         }
-    }, [history, projectLoaded, stepsLoaded])
+    }, [history, projectLoaded, stepsLoaded, groupLoaded, project, dispatch])
+
 
     const addNewStepHandler = () => {
         dispatch(addNewStep(1))
@@ -34,7 +39,7 @@ const StepBeginning = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !stepsLoaded ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded || !groupLoaded ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
@@ -59,7 +64,10 @@ const StepBeginning = ({history}) => {
                                 <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
                                 <AddNewStepButton onClick={addNewStepHandler}>Add New Step</AddNewStepButton>
                             </StepPageTitleWithButtonContainer>)}
-                    <CurrentOrgChart componentCalling='StepBeginning' nodes={entities} />
+                    <CurrentOrgChart
+                        componentCalling='StepBeginning'
+                        nodes={entities}
+                    />
                     <StepDisplayFooter
                         beginningActive={1}
                         endingActive={0}
