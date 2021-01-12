@@ -1,8 +1,9 @@
 import React from 'react'
-import {EntryResponsibleContainer, TableContainer} from '../../../../../style/containers'
+import {EntryDocumentsContainer, EntryDocumentsTextContainer, EntryResponsibleContainer, TableContainer} from '../../../../../style/containers'
 import {CommentTable, TableData, TableHeader, TableTitleRow} from '../../../../../style/tables'
 import {NoTasksDisplay, NoTasksText, PendingTaskTableRow} from './styles'
 import {EntryResponsibleText} from '../../../../../style/text'
+import {TaskDocumentLink} from '../../../../../style/links'
 
 
 const PendingTasks = ({tasksToRender, user, userRole}) => {
@@ -21,7 +22,7 @@ const PendingTasks = ({tasksToRender, user, userRole}) => {
             return (
                 <PendingTaskTableRow key={task.id} pastDue={checkIfDatePastDue(task)}>
                     <TableData>{task.step.number}</TableData>
-                    <TableData>PH for Task Number</TableData>
+                    <TableData>PH</TableData>
                     <TableData>{task.title}</TableData>
                     <TableData>{task.due_date}</TableData>
                     <TableData>{task.planned_completion_date}</TableData>
@@ -32,7 +33,21 @@ const PendingTasks = ({tasksToRender, user, userRole}) => {
                             <EntryResponsibleText>{`${user.first_name.charAt(0)}. ${user.last_name}`}</EntryResponsibleText>
                         </EntryResponsibleContainer>
                     </TableData>
-                    <TableData>PH for documents</TableData>
+                    <TableData>
+                        <EntryDocumentsContainer>
+                            <EntryDocumentsTextContainer>
+                                {task.task_documents.map(document => (
+                                    <TaskDocumentLink
+                                        download
+                                        key={document.id}
+                                        target='_blank'
+                                        to={document.document}
+                                    >{document.name.length > 18 ? document.name.slice(0, 11).concat('....').concat(document.name.slice(-4)) : document.name}
+                                    </TaskDocumentLink>
+                                ))}
+                            </EntryDocumentsTextContainer>
+                        </EntryDocumentsContainer>
+                    </TableData>
                 </PendingTaskTableRow>
             )
         })

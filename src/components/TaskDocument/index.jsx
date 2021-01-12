@@ -4,7 +4,8 @@ import {deleteTaskDocumentAction} from '../../store/taskDocument/actions'
 import {getTasksForProjectAction} from '../../store/task/actions'
 import DeleteDocumentModal from '../DeleteAccountModal/DeleteDocumentModal'
 import deleteDocument from '../../assets/icons/stark_task_delete_document_icon.svg'
-import {DocumentDeleteIconContainer, TaskDocumentDeleteImage, TaskDocumentLink} from './styles'
+import {DocumentDeleteIconContainer, TaskDocumentDeleteImage} from './styles'
+import {TaskDocumentLink} from '../../style/links'
 
 
 const TaskDocument = ({document, project}) => {
