@@ -7,7 +7,7 @@ import StatusCard from './StatusCard'
 import MembersCard from './MembersCard'
 import TasksCard from './TasksCard'
 import StepsCard from './StepsCard'
-import {getProjectAction, getProjectStepsStatuses, getProjectTasksStatuses} from '../../store/project/actions'
+import {getProjectAction, getProjectStepsStatusesAction, getProjectTasksStatusesAction} from '../../store/project/actions'
 import {EDIT_PROJECT, GROUPS, PROJECTS} from '../../routes/paths'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
@@ -27,11 +27,11 @@ const ProjectDisplay = ({history}) => {
     useEffect(() => {
         const getProfileIfNeededGetStatuses = async () => {
             await dispatch(getProjectAction(match.params.projectId))
-            const stepsStatusInfo = await dispatch(getProjectStepsStatuses(match.params.projectId))
+            const stepsStatusInfo = await dispatch(getProjectStepsStatusesAction(match.params.projectId))
             if (stepsStatusInfo) {
                 setStepsStatuses({...stepsStatusInfo})
             }
-            const tasksStatusInfo = await dispatch(getProjectTasksStatuses(match.params.projectId))
+            const tasksStatusInfo = await dispatch(getProjectTasksStatusesAction(match.params.projectId))
                 setTasksStatuses({...tasksStatusInfo})
         };
         setLoading(true)

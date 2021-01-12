@@ -119,7 +119,7 @@ export const updateTaskAction = (taskData, taskId) => async (dispatch, getState)
     }
 }
 
-export const getTasksForStepOfProject = (projectId, stepNumber) => async (dispatch, getState) => {
+export const getTasksForStepOfProjectAction = (projectId, stepNumber) => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
     const config = {
         headers: {

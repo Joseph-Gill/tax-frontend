@@ -51,7 +51,7 @@ export const userUpdateAction = body => async (dispatch, getState) => {
     }
 }
 
-export const deleteUserProfile = (password) => async (dispatch, getState) => {
+export const deleteUserProfileAction = (password) => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
     const config = {
         data: password,

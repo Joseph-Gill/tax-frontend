@@ -4,7 +4,7 @@ import close from '../../assets/icons/stark_close_icon.svg'
 import ellipse from '../../assets/icons/stark_modal_ellipse.png'
 import {useDispatch, useSelector} from 'react-redux'
 import {userLogout} from '../../store/user/actions/authentication/userLoginAction'
-import {deleteUserProfile} from '../../store/user/actions/user/userAction'
+import {deleteUserProfileAction} from '../../store/user/actions/user/userAction'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer} from './styles'
 import {ModalText} from '../../style/text'
@@ -24,7 +24,7 @@ const DeleteAccountModal = ({history, setShowConfirmation}) => {
     const deleteUserHandler = async (password) => {
         dispatch(resetErrors())
         const currentPassword = {password}
-        const response = await dispatch(deleteUserProfile(currentPassword))
+        const response = await dispatch(deleteUserProfileAction(currentPassword))
         if (response.status === 200) {
             dispatch(userLogout())
             history.push('/registration')

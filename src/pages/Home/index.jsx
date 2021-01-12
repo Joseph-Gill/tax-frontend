@@ -12,7 +12,7 @@ import {HomePageText} from '../../style/text'
 import {ProjectAccessContainer} from './styles'
 import {GROUPS, HOME} from '../../routes/paths'
 import NoContent from '../../components/NoContent'
-import {getProjectFirstUncompletedStep, resetProject} from '../../store/project/actions'
+import {getProjectFirstUncompletedStepAction, resetProject} from '../../store/project/actions'
 import HomeFilterDropdown from './HomeFilterDropdown'
 import {resetMember} from '../../store/member/actions'
 import NoFilterResults from '../../components/NoFilterResults'
@@ -37,7 +37,7 @@ const Home = ({history}) => {
                     if (roleResponse) {
                         for (let x = 0; x < groups[i].projects.length; x++) {
                             let result = {id: groups[i].id, groupName: groups[i].name, project:groups[i].projects[x], userRole: roleResponse[0].role, firstUncompletedStep: null}
-                            const stepResponse = await dispatch(getProjectFirstUncompletedStep(groups[i].projects[x].id))
+                            const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(groups[i].projects[x].id))
                                 if (stepResponse) {
                                     result.firstUncompletedStep = stepResponse
                                     groupNameProjectPairing.push(result)

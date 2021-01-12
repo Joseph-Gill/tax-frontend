@@ -10,7 +10,7 @@ import {useRouteMatch} from 'react-router-dom'
 import Spinner from '../../components/Spinner'
 import TaskStatusLegendEntry from './TaskStatusLegendEntry'
 import {AddTaskButton, StatusLegendFilterDropdownContainer, TasksTableContainer, TaskStatusLegendContainer, TaskStepFilter} from './styles'
-import {getTasksForProjectAction, getTasksForStepOfProject, resetTaskFilterStepNumber, setTaskFilterStepNumber} from '../../store/task/actions'
+import {getTasksForProjectAction, getTasksForStepOfProjectAction, resetTaskFilterStepNumber, setTaskFilterStepNumber} from '../../store/task/actions'
 import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
 import {getStepsForProjectAction} from '../../store/step/actions'
@@ -61,7 +61,7 @@ const ProjectTasks = ({history}) => {
     useEffect( () => {
         const filterTasksForStepFilter = async () => {
             if (filterStepNumber) {
-                const response = await dispatch(getTasksForStepOfProject(project.id, parseInt(filterStepNumber)))
+                const response = await dispatch(getTasksForStepOfProjectAction(project.id, parseInt(filterStepNumber)))
                 if (response) {
                     setTasksToRender(response)
                 }

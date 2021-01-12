@@ -70,7 +70,7 @@ export const updateProjectAction = (projectInfo, projectId) => async (dispatch, 
     }
 }
 
-export const getProjectStepsStatuses = projectId => async (dispatch, getState) => {
+export const getProjectStepsStatusesAction = projectId => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
     const config = {
         headers: {
@@ -87,7 +87,7 @@ export const getProjectStepsStatuses = projectId => async (dispatch, getState) =
     }
 }
 
-export const getProjectTasksStatuses = projectId => async (dispatch, getState) => {
+export const getProjectTasksStatusesAction = projectId => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
     const config = {
         headers: {
@@ -103,7 +103,7 @@ export const getProjectTasksStatuses = projectId => async (dispatch, getState) =
     }
 }
 
-export const getProjectFirstUncompletedStep = projectId => async (dispatch, getState) => {
+export const getProjectFirstUncompletedStepAction = projectId => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
     const config = {
         headers: {
@@ -122,3 +122,5 @@ export const getProjectFirstUncompletedStep = projectId => async (dispatch, getS
         return catchError(e, dispatch)
     }
 }
+
+// export const getProjectTaxConsequencesUnreviewedSameLocationAsUserAction
