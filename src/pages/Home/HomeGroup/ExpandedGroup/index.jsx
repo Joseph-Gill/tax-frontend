@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {AuthenticatedText} from '../../../../style/text'
 import {AccountInfoContainer, CommentsContainer, ExpandedGroupContainer, GroupExpandedDateText, GroupSectionTitle, NextStepContainer, ProjectStepsButton, StepDateTextContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
 import {TableButton} from '../../../../style/buttons'
@@ -6,28 +6,44 @@ import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS, TASKS} from '../../../../routes/p
 import PendingTasks from './PendingTasks'
 import {useDispatch} from 'react-redux'
 import {getStepsForProjectAction, skipToSpecifiedStep} from '../../../../store/step/actions'
-import {getProjectAction} from '../../../../store/project/actions'
+import {getProjectAction, getProjectTaxConsequencesUnreviewedSameLocationAsUserAction} from '../../../../store/project/actions'
 import PendingTaxConsequences from './PendingTaxConsequences'
+import Spinner from '../../../../components/Spinner'
 
 
-const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, taxConsequencesToRender, setHomeLoading, user, userRole}) => {
+const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, setHomeLoading, user, userRole}) => {
     const dispatch = useDispatch()
+    const [taxConsequencesToRender, setTaxConsequencesToRender] = useState([])
+    const [loading, setLoading] = useState(false)
 
-    const goToUncompletedStepHandler = async () => {
+    useEffect(() => {
+        const getUserTaxConsequences = async () => {
+            const taxResponse = await dispatch(getProjectTaxConsequencesUnreviewedSameLocationAsUserAction(project.id))
+            if (taxResponse){
+                setTaxConsequencesToRender(taxResponse)
+            }
+        }
+        // setHomeLoading(true)
+        setLoading(true)
+        getUserTaxConsequences()
+            .then(() => setLoading(false))
+    }, [project, dispatch, setHomeLoading])
+
+    const goToSpecificStepHandler = async (stepNumber) => {
         setHomeLoading(true)
         const response = await dispatch(getProjectAction(project.id))
         if (response) {
             const response = await dispatch(getStepsForProjectAction(project.id))
             if (response) {
-                dispatch(skipToSpecifiedStep(firstUncompletedStep.number - 1))
+                dispatch(skipToSpecifiedStep(stepNumber - 1))
                 history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
-                setHomeLoading(false)
             }
         }
     }
 
     return (
         <ExpandedGroupContainer>
+            {loading ? <Spinner /> : null}
             <NextStepContainer>
                 <GroupSectionTitle>Next Step</GroupSectionTitle>
                 <AccountInfoContainer>
@@ -37,7 +53,7 @@ const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, t
                                 <AuthenticatedText>{`Step ${firstUncompletedStep.number} -`}</AuthenticatedText>
                                 <GroupExpandedDateText>{firstUncompletedStep.effective_date}</GroupExpandedDateText>
                             </StepDateTextContainer>
-                            <TableButton onClick={goToUncompletedStepHandler}>Go to Step</TableButton>
+                            <TableButton onClick={() => goToSpecificStepHandler(firstUncompletedStep.number)}>Go to Step</TableButton>
                         </>) : (
                             <>
                                 <AuthenticatedText>This project has no uncompleted Steps</AuthenticatedText>
@@ -48,6 +64,7 @@ const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, t
             <CommentsContainer>
                 <GroupSectionTitle>Pending Comments</GroupSectionTitle>
                 <PendingTaxConsequences
+                    goToSpecificStepHandler={goToSpecificStepHandler}
                     taxConsequencesToRender={taxConsequencesToRender}
                 />
             </CommentsContainer>

@@ -7,8 +7,8 @@ import {TaskDocumentLink} from '../../../../../style/links'
 
 
 const PendingTasks = ({tasksToRender, user, userRole}) => {
+    const today = new Date()
     const checkIfDatePastDue = task => {
-        const today = new Date()
         const dateToCheck = new Date(parseInt(task.due_date.slice(0,5)), (parseInt(task.due_date.slice(5,7)) - 1), parseInt(task.due_date.slice(-2)))
         if (dateToCheck <= today) {
             return 1

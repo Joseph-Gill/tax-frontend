@@ -5,16 +5,17 @@ import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from 
 import {NoTasksOrTaxConsequencesText} from '../../../../../style/text'
 
 
-const PendingTaxConsequences = ({taxConsequencesToRender}) => {
+const PendingTaxConsequences = ({goToSpecificStepHandler, taxConsequencesToRender}) => {
     const renderTaxConsequences = () => (
         taxConsequencesToRender.map(tax => {
+            console.log(tax)
             return (
                 <TableDataRow key={tax.id}>
-                    <TableData>12</TableData>
-                    <TableData>Open</TableData>
-                    <TableData />
+                    <TableData>{tax.step.number}</TableData>
+                    <TableData>{tax.description ? 'To Review' : 'Open'}</TableData>
+                    <TableData>PH for Assigned User Info</TableData>
                     <TableData>
-                        <TableButton>Go to step</TableButton>
+                        <TableButton onClick={() => goToSpecificStepHandler(tax.step.number)}>Go to step</TableButton>
                     </TableData>
                 </TableDataRow >
             )
