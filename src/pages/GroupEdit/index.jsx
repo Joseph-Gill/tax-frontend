@@ -29,11 +29,12 @@ const GroupEdit = ({history}) => {
     const [availableParentNames, setAvailableParentNames] = useState([])
 
     useEffect(() => {
+        console.log('UseEffect trigger')
         if (!loaded) {
             history.push(`${HOME}`)
         } else {
             if (group.avatar) {
-                setGroupImage({...groupImage, avatar: group.avatar})
+                setGroupImage({avatar: group.avatar, changed: false})
             }
             const sortedEntities = group.entities.sort((a,b) => (a.pid > b.pid) ? 1 : ((b.pid > a.pid) ? -1 : 0));
             setListOfEntities([...sortedEntities.map(entity => {
@@ -45,7 +46,7 @@ const GroupEdit = ({history}) => {
             })])
             setAvailableParentNames([...group.entities.map(entity => entity.name)])
         }
-    }, [group.entities, history, loaded, group, groupImage])
+    }, [group.entities, history, loaded, group])
 
     const addNewEntityClickHandler = () => {
         const newEntity = {
