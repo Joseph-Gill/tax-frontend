@@ -36,7 +36,7 @@ const Home = ({history}) => {
                     const roleResponse = await dispatch(getRolesForProfileGroupAction(user.user_profile.id, groups[i].id))
                     if (roleResponse) {
                         for (let x = 0; x < groups[i].projects.length; x++) {
-                            let result = {id: groups[i].id, groupName: groups[i].name, project:groups[i].projects[x], userRole: roleResponse[0].role, firstUncompletedStep: null}
+                            let result = {groupId: groups[i].id, groupName: groups[i].name, project:groups[i].projects[x], userRole: roleResponse[0].role, firstUncompletedStep: null}
                             const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(groups[i].projects[x].id))
                                 if (stepResponse) {
                                     result.firstUncompletedStep = stepResponse
@@ -77,6 +77,7 @@ const Home = ({history}) => {
             return searchedPairings.map((pair) => (
                 <HomeGroup
                     firstUncompletedStep={pair.firstUncompletedStep}
+                    groupId={pair.groupId}
                     groupName={pair.groupName}
                     history={history}
                     key={uuidv4()}

@@ -15,7 +15,7 @@ import {getPastDueNumberAndUncompletedTasksAction} from '../../../store/task/act
 import Spinner from '../../../components/Spinner'
 
 
-const HomeGroup = ({firstUncompletedStep, groupName, history, project, setHomeLoading, user, userRole}) => {
+const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, setHomeLoading, user, userRole}) => {
     const dispatch = useDispatch()
     const [expandStatus, setExpandStatus] = useState(false)
     const [pastDueTasks, setPastDueTasks] = useState(0)
@@ -54,6 +54,7 @@ const HomeGroup = ({firstUncompletedStep, groupName, history, project, setHomeLo
             {expandStatus ?
                 <ExpandedGroup
                     firstUncompletedStep={firstUncompletedStep}
+                    groupId={groupId}
                     history={history}
                     project={project}
                     setHomeLoading={setHomeLoading}

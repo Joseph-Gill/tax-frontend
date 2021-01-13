@@ -11,7 +11,7 @@ import PendingTaxConsequences from './PendingTaxConsequences'
 import Spinner from '../../../../components/Spinner'
 
 
-const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, setHomeLoading, user, userRole}) => {
+const ExpandedGroup = ({firstUncompletedStep, groupId, history, project, tasksToRender, setHomeLoading, user, userRole}) => {
     const dispatch = useDispatch()
     const [taxConsequencesToRender, setTaxConsequencesToRender] = useState([])
     const [loading, setLoading] = useState(false)
@@ -65,6 +65,7 @@ const ExpandedGroup = ({firstUncompletedStep, history, project, tasksToRender, s
                 <GroupSectionTitle>Pending Comments</GroupSectionTitle>
                 <PendingTaxConsequences
                     goToSpecificStepHandler={goToSpecificStepHandler}
+                    groupId={groupId}
                     taxConsequencesToRender={taxConsequencesToRender}
                 />
             </CommentsContainer>

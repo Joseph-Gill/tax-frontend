@@ -3,21 +3,25 @@ import {TableButton} from '../../../../../style/buttons'
 import {NoTasksOrTaxConsequencesDisplay, TableContainer} from '../../../../../style/containers'
 import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../../../style/tables'
 import {NoTasksOrTaxConsequencesText} from '../../../../../style/text'
+import TaxConsequenceEditedBy from './TaxConsequenceEditedBy'
 
 
-const PendingTaxConsequences = ({goToSpecificStepHandler, taxConsequencesToRender}) => {
+const PendingTaxConsequences = ({goToSpecificStepHandler, groupId, taxConsequencesToRender}) => {
     const renderTaxConsequences = () => (
         taxConsequencesToRender.map(tax => {
-            console.log(tax)
             return (
                 <TableDataRow key={tax.id}>
                     <TableData>{tax.step.number}</TableData>
                     <TableData>{tax.description ? 'To Review' : 'Open'}</TableData>
-                    <TableData>PH for Assigned User Info</TableData>
+                    <TableData>
+                        {tax.editing_user ?
+                            <TaxConsequenceEditedBy groupId={groupId} user={tax.editing_user.user} /> :
+                            <TaxConsequenceEditedBy groupId={groupId} user={tax.creating_user.user} />}
+                    </TableData>
                     <TableData>
                         <TableButton onClick={() => goToSpecificStepHandler(tax.step.number)}>Go to step</TableButton>
                     </TableData>
-                </TableDataRow >
+                </TableDataRow>
             )
         })
     )
