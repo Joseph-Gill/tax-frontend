@@ -33,6 +33,12 @@ const ProjectTasks = ({history}) => {
     const [filterString, setFilterString] = useState('')
     const [tasksToRender, setTasksToRender] = useState([])
     const [loading, setLoading] = useState(false)
+    const [filterOption, setFilterOption] = useState([
+        {isChecked: true, type: 'due_date'},
+        {isChecked: false, type: 'responsible_country'},
+        {isChecked: false, type: 'responsible_user'},
+        {isChecked: false, type: 'description'}
+    ])
 
     useEffect(() => {
         if (!projectLoaded) {
@@ -125,7 +131,9 @@ const ProjectTasks = ({history}) => {
                                         {renderTaskStepFilterOptions()}
                                     </TaskStepFilter>
                                     <TaskFilterDropdown
+                                        filterOption={filterOption}
                                         filterString={filterString}
+                                        setFilterOption={setFilterOption}
                                         setFilterString={setFilterString}
                                     />
                                 </div>
