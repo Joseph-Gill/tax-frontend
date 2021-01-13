@@ -21,3 +21,8 @@ export const GroupCardInfoContainer = styled.div`
     justify-content: space-between;
     margin-top: 10px;
 `
+
+export const GroupAvatarImage = styled.img`
+    width: 226px;
+    height: 144px;
+`

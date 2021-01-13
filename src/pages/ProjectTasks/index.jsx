@@ -97,6 +97,19 @@ const ProjectTasks = ({history}) => {
             </DropdownOption>))
     )
 
+    const filteredTasks = () => {
+        const selectedFilterOption = filterOption.filter(option => option.isChecked)[0]
+        switch (selectedFilterOption.type) {
+            case 'responsible_user':
+                return tasksToRender.filter(task => task.assigned_user.user.first_name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1 ||
+                    task.assigned_user.user.last_name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
+            case 'responsible_country':
+                return tasksToRender.filter(task => task.assigned_user.country.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
+            default:
+                return tasksToRender.filter(task => task[selectedFilterOption.type].toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
+        }
+    }
+
     return (
         <AuthenticatedPageContainer>
             {!projectLoaded || !tasksLoaded || loading ? <Spinner /> : (
@@ -143,7 +156,7 @@ const ProjectTasks = ({history}) => {
                                     group={group}
                                     history={history}
                                     project={project}
-                                    tasks={tasksToRender}
+                                    tasks={filteredTasks()}
                                 />
                             </TasksTableContainer>
                         </>)}

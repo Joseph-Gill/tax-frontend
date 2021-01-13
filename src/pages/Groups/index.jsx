@@ -25,6 +25,7 @@ const Groups = ({history}) => {
         if (!loaded) {
             dispatch(getProfileAction())
         }
+        console.log(groups)
     }, [dispatch, loaded])
 
     return (

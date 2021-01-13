@@ -197,10 +197,6 @@ export const DropdownChoiceContainer = styled.div`
     justify-content: flex-start;
     background: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
-
-    :hover {
-        cursor: pointer;
-    }
 `
 
 export const DropDownChoiceWithBorder = styled(DropdownChoiceContainer)`

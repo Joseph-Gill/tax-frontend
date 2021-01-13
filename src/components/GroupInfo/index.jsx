@@ -18,7 +18,7 @@ const GroupInfo = ({groupImage, groupName, hiddenFileInput, nameDisabled, setGro
                 <GroupImageLowerConatainer>
                     <GroupImage
                         alt='group'
-                        src={groupImage ? URL.createObjectURL(groupImage) : phImage}
+                        src={groupImage ? groupImage : phImage}
                     />
                     <FileUploadContainer onClick={() => imageClickHandler(hiddenFileInput)}>
                         <input

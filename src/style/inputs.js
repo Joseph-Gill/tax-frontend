@@ -55,4 +55,8 @@ export const FilterCheckBox = styled.input`
     height: 14px;
     width: 14px;
     margin-left: 3px;
+
+    :hover {
+    cursor: pointer;
+}
 `
