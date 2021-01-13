@@ -15,10 +15,10 @@ import {
 } from './styles'
 import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, resetStepTaxConsequences, setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
 import Spinner from '../../../../components/Spinner'
-import SetReviewedModal from '../../../../components/DeleteAccountModal/SetReviewedModal'
-import SetNotReviewedModal from '../../../../components/DeleteAccountModal/SetNotReviewedModal'
 import {ErrorMessage} from '../../../../style/messages'
 import {resetErrors} from '../../../../store/errors/actions/errorAction'
+import SetReviewedModal from '../../../../components/Modals/SetReviewedModal'
+import SetNotReviewedModal from '../../../../components/Modals/SetNotReviewedModal'
 
 
 const TaxConsequenceCard = ({step, taxConsequence}) => {

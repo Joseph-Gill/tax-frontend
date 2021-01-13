@@ -2,7 +2,6 @@ import React, {useRef, useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {AuthenticatedPageSectionTitle, AuthenticatedPageTitle} from '../../style/titles'
-import DeleteAccountModal from '../../components/DeleteAccountModal'
 import {ActiveInputLabel} from '../../style/labels'
 import {BaseInput} from '../../style/inputs'
 import {ErrorMessage} from '../../style/messages'
@@ -19,6 +18,7 @@ import {resetGroup} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
 import {CountryDropdown} from 'react-country-region-selector'
 import Spinner from '../../components/Spinner'
+import DeleteAccountModal from '../../components/Modals/DeleteAccountModal'
 
 
 const UserProfile = ({history}) => {

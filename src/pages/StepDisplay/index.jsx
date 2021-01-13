@@ -19,12 +19,12 @@ import StepChart from './StepChart'
 import {WireFrameDeleteButton} from '../../style/buttons'
 import StepDetails from './StepDetails'
 import Spinner from '../../components/Spinner'
-import DeleteStepModal from '../../components/DeleteAccountModal/DeleteStepModal'
 import {ErrorMessage} from '../../style/messages'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import tooltipAnchor from '../../assets/icons/stark_tooltip_anchor.png'
 import StepToolTip from './StepToolTip'
 import {setTaskFilterStepNumber} from '../../store/task/actions'
+import DeleteStepModal from '../../components/Modals/DeleteStepModal'
 
 
 const StepDisplay = ({history}) => {

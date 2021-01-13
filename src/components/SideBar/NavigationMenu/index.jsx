@@ -14,7 +14,7 @@ import {SelectedGroupIcon} from '../../../style/images'
 import {useHistory} from 'react-router-dom'
 import {useSpring, animated} from 'react-spring'
 import GroupMenu from './GroupMenu'
-import ChooseGroupModal from '../../DeleteAccountModal/ChooseGroupModal'
+import ChooseGroupModal from '../../Modals/ChooseGroupModal'
 
 
 const NavigationMenu = ({dispatch, group, location, loaded}) => {

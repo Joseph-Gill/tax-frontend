@@ -15,7 +15,7 @@ import {MemberEditCancelSaveDeleteButtonContainer} from './styles'
 import SuccessMessage from '../../components/SuccessMessage'
 import {getGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
-import RemoveMemberModal from '../../components/DeleteAccountModal/RemoveMemberModal'
+import RemoveMemberModal from '../../components/Modals/RemoveMemberModal'
 
 
 const MemberEdit = ({history}) => {

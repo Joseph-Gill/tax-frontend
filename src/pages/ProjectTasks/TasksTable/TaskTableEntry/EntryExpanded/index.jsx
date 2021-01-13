@@ -10,10 +10,10 @@ import {
     ExpandedTaskTile,
     TaskTableEntryExpandedContainer
 } from './styles'
-import DeleteTaskModal from '../../../../../components/DeleteAccountModal/DeleteTaskModal'
 import {useDispatch} from 'react-redux'
 import {deleteTaskAction, getTasksForProjectAction} from '../../../../../store/task/actions'
 import {EDIT_TASK, GROUPS, PROJECTS, TASKS} from '../../../../../routes/paths'
+import DeleteTaskModal from '../../../../../components/Modals/DeleteTaskModal'
 
 
 const EntryExpanded = ({history, project, task}) => {
