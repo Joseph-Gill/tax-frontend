@@ -44,7 +44,8 @@ const RegistrationValidation = () => {
             password_repeat: password_repeat.current.value,
             first_name: first_name.current.value,
             last_name: last_name.current.value,
-            phone_number: phoneNumber
+            phone_number: phoneNumber,
+            country: countryName
         }
         const data = await dispatch(registrationValidationAction(credentials))
         if(data) setShowSuccess(!showSuccess)
@@ -158,6 +159,9 @@ const RegistrationValidation = () => {
                         }}
                         value={countryName}
                     />
+                    <ErrorMessageContainer>
+                        {error && <ErrorMessage>{error.country}</ErrorMessage>}
+                    </ErrorMessageContainer>
                 </div>
                 <ErrorMessageContainer>
                     {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}

@@ -34,7 +34,7 @@ const Home = ({history}) => {
             for (let i = 0; i < groups.length; i++) {
                 if (groups[i].projects.length) {
                     const roleResponse = await dispatch(getRolesForProfileGroupAction(user.user_profile.id, groups[i].id))
-                    if (roleResponse) {
+                    if (roleResponse.length) {
                         for (let x = 0; x < groups[i].projects.length; x++) {
                             let result = {groupId: groups[i].id, groupName: groups[i].name, project:groups[i].projects[x], userRole: roleResponse[0].role, firstUncompletedStep: null}
                             const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(groups[i].projects[x].id))
