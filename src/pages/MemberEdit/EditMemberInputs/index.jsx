@@ -33,6 +33,9 @@ const EditMemberInputs = ({allGroupProjects,
                     value={memberEmail}
                 />
             </EmailAccessOrgCountryInputContainer>
+            <SelectOrgErrorMessageContainer>
+                {error && <ErrorMessage>{error.project}</ErrorMessage>}
+            </SelectOrgErrorMessageContainer>
             <EmailAccessOrgCountryInputContainer>
                 <AuthenticatedText>Access</AuthenticatedText>
                 <AccessProjectList
@@ -42,6 +45,9 @@ const EditMemberInputs = ({allGroupProjects,
                     setAllProjectsChecked={setAllProjectsChecked}
                 />
             </EmailAccessOrgCountryInputContainer>
+            <SelectOrgErrorMessageContainer>
+                {error && <ErrorMessage>{error.role}</ErrorMessage>}
+            </SelectOrgErrorMessageContainer>
             <RoleInputContainer>
                 <AuthenticatedText>Role</AuthenticatedText>
                 <RoleProjectList
@@ -49,6 +55,9 @@ const EditMemberInputs = ({allGroupProjects,
                     setRoleChecked={setRoleChecked}
                 />
             </RoleInputContainer>
+            <SelectOrgErrorMessageContainer>
+                {error && <ErrorMessage>{error.organization}</ErrorMessage>}
+            </SelectOrgErrorMessageContainer>
             <EmailAccessOrgCountryInputContainer>
                 <AuthenticatedText>Organization</AuthenticatedText>
                 <OrgDropdown
@@ -61,9 +70,6 @@ const EditMemberInputs = ({allGroupProjects,
                     setSelectOrgName={setSelectOrgName}
                 />
             </EmailAccessOrgCountryInputContainer>
-            <SelectOrgErrorMessageContainer>
-                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-            </SelectOrgErrorMessageContainer>
         </EditInputsContainer>
     )
 }

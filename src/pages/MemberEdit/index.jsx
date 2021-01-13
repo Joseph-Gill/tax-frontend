@@ -88,10 +88,24 @@ const MemberEdit = ({history}) => {
         await dispatch(createOrganizationForGroupAction(newOrgInfo, group.id))
     }
 
+    const checkIfAtLeastOneProjectChecked = () => {
+        let result = false
+        allGroupProjects.forEach(project => {
+            if (project.isChecked) {
+                result = true
+            }
+        })
+        return result
+    }
+
     const saveMemberChangesHandler = async () => {
         dispatch(resetErrors())
-        if (!selectOrgName) {
-            dispatch(setError({detail: `You must select an organization for this member.`}))
+        if (!selectOrgName){
+            dispatch(setError({organization: `You must select an organization for this member.`}))
+        } else if (!Object.values(roleChecked).includes(true)){
+            dispatch(setError({role: `You must select a Role for this member.`}))
+        } else if (!checkIfAtLeastOneProjectChecked()){
+            dispatch(setError({project: `You must select at least one Project for this member.`}))
         } else {
             const updatedProjectAccess = []
             allGroupProjects.forEach(project => {
@@ -114,6 +128,11 @@ const MemberEdit = ({history}) => {
                 setShowSuccess(!showSuccess)
             }
         }
+    }
+
+    const cancelButtonHandler = () => {
+        dispatch(resetErrors())
+        history.push(`${GROUPS}${MEMBERS}`)
     }
 
     return (
@@ -161,7 +180,7 @@ const MemberEdit = ({history}) => {
                         userAssignedProjects={userAssignedProjects}
                     />
                     <MemberEditCancelSaveDeleteButtonContainer>
-                        <CancelButton onClick={() => history.push(`${GROUPS}${MEMBERS}`)}>Cancel</CancelButton>
+                        <CancelButton onClick={cancelButtonHandler}>Cancel</CancelButton>
                         <DeleteButton onClick={() => setShowConfirmation(!showConfirmation)}>Remove</DeleteButton>
                         <SaveButton onClick={saveMemberChangesHandler}>Save</SaveButton>
                     </MemberEditCancelSaveDeleteButtonContainer>
