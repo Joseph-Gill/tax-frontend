@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
-import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../routes/paths'
+import {EDIT_MEMBER, GROUPS, HOME, MEMBERS} from '../../routes/paths'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {getMemberAction} from '../../store/member/actions'
@@ -23,8 +23,9 @@ const MemberEdit = ({history}) => {
     const dispatch = useDispatch()
     const match = useRouteMatch();
     const group = useSelector(state => state.groupReducer.group)
+    const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const member = useSelector(state => state.memberReducer.member)
-    const loaded = useSelector(state => state.memberReducer.loaded)
+    const memberLoaded = useSelector(state => state.memberReducer.loaded)
     const error = useSelector(state => state.errorReducer.error)
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
@@ -75,9 +76,13 @@ const MemberEdit = ({history}) => {
                 setSelectOrgName(result[0].name)
             }
         }
-        listAllGroupProjectsCheckIfAssigned()
-        getMemberOrgMatchingGroup()
-    }, [dispatch, match.params.memberId, group.id, group.projects])
+        if (!groupLoaded) {
+            history.push(HOME)
+        } else {
+            listAllGroupProjectsCheckIfAssigned()
+            getMemberOrgMatchingGroup()
+        }
+    }, [dispatch, match.params.memberId, group.id, group.projects, groupLoaded, history])
 
 
     const handleCreateNewOrganization = async () => {
@@ -137,7 +142,7 @@ const MemberEdit = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!loaded ? <Spinner /> : (
+            {!memberLoaded ? <Spinner /> : (
                 <>
                     {showSuccess &&
                         <SuccessMessage
