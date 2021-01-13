@@ -169,6 +169,7 @@ export const EntityTitleContainer = styled.div`
     border-top-left-radius: ${props => props.theme.borderRadius};
     border-top-right-radius: ${props => props.theme.borderRadius};
     border-bottom: 1px solid ${props => props.theme.grayFour};
+    display: flex;
 `
 
 export const AddEntityButtonContainer = styled.div`

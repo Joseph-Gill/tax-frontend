@@ -1,16 +1,17 @@
 import React, {useRef, useState} from 'react'
-import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
+import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer, ErrorMessageContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import GroupInfo from '../../components/GroupInfo'
 import EntityInfo from '../../components/EntityInfo'
-import {EntityTitle} from '../../components/EntityInfo/styles'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {createGroupAction} from '../../store/group/actions'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import SuccessMessage from '../../components/SuccessMessage'
-import {resetErrors} from '../../store/errors/actions/errorAction'
+import {resetErrors, setError} from '../../store/errors/actions/errorAction'
+import {ErrorMessage} from '../../style/messages'
+import {GroupAddEntityTitle} from './styles'
 
 
 const GroupAdd = ({history}) => {
@@ -20,8 +21,9 @@ const GroupAdd = ({history}) => {
     let taxRate = useRef('')
     let legalForm = useRef('')
     const dispatch = useDispatch()
+    const error = useSelector(state => state.errorReducer.error)
     const [groupName, setGroupName] = useState('')
-    const [groupImage, setGroupImage] = useState(null)
+    const [groupImage, setGroupImage] = useState({avatar: null, changed: false})
     const [countryName, setCountryName] = useState('')
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [listOfEntities, setListOfEntities] = useState([])
@@ -41,17 +43,25 @@ const GroupAdd = ({history}) => {
 
     const saveNewGroupClickHandler = async () => {
         dispatch(resetErrors())
-        const newGroup = {
-            name: groupName,
-            avatar: groupImage,
-            entities: listOfEntities
-        }
-        const response = await dispatch(createGroupAction(newGroup))
-        if (response) {
-            setShowSuccess(!showSuccess)
+        if (!listOfEntities.length) {
+            dispatch(setError({entities: `You must create at least one Entity for this group.`}))
+        } else {
+            const newGroup = {
+                name: groupName,
+                avatar: groupImage.avatar,
+                entities: listOfEntities
+            }
+            const response = await dispatch(createGroupAction(newGroup))
+            if (response) {
+                setShowSuccess(!showSuccess)
+            }
         }
     }
 
+    const cancelButtonHandler = () => {
+        dispatch(resetErrors())
+        history.push(GROUPS)
+    }
 
     return (
         <AuthenticatedPageContainer>
@@ -68,6 +78,7 @@ const GroupAdd = ({history}) => {
                 <AuthenticatedPageTitle>Create Group</AuthenticatedPageTitle>
             </AuthenticatedPageTitleContainer>
             <GroupInfo
+                fromGroupAdd
                 groupImage={groupImage}
                 groupName={groupName}
                 hiddenFileInput={hiddenFileInput}
@@ -76,7 +87,10 @@ const GroupAdd = ({history}) => {
                 setGroupName={setGroupName}
             />
             <EntityTitleContainer>
-                <EntityTitle>Entities</EntityTitle>
+                <GroupAddEntityTitle>Entities</GroupAddEntityTitle>
+                <ErrorMessageContainer>
+                    {error && <ErrorMessage>{error.entities}</ErrorMessage>}
+                </ErrorMessageContainer>
             </EntityTitleContainer>
             <EntityInfo
                 availableParentNames={availableParentNames}
@@ -92,7 +106,7 @@ const GroupAdd = ({history}) => {
                 <AddEntityButton onClick={addNewEntityClickHandler}>Add new entity</AddEntityButton>
             </AddEntityButtonContainer>
             <CreateGroupCancelSaveContainer>
-                <CancelButton onClick={() => history.push(GROUPS)}>Cancel</CancelButton>
+                <CancelButton onClick={cancelButtonHandler}>Cancel</CancelButton>
                 <SaveButton onClick={saveNewGroupClickHandler}>Save</SaveButton>
             </CreateGroupCancelSaveContainer>
         </AuthenticatedPageContainer>

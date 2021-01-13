@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux'
 import {ErrorMessage} from '../../style/messages'
 
 
-const GroupInfo = ({groupImage, groupName, hiddenFileInput, nameDisabled, setGroupImage, setGroupName}) => {
+const GroupInfo = ({fromGroupAdd, fromGroupEdit, groupImage, groupName, hiddenFileInput, nameDisabled, setGroupImage, setGroupName}) => {
     const error = useSelector(state => state.errorReducer.error)
 
     return (
@@ -16,10 +16,16 @@ const GroupInfo = ({groupImage, groupName, hiddenFileInput, nameDisabled, setGro
                     <InputTitle>Group Image</InputTitle>
                 </div>
                 <GroupImageLowerConatainer>
-                    <GroupImage
-                        alt='group'
-                        src={groupImage ? groupImage : phImage}
-                    />
+                    {fromGroupAdd ?
+                        <GroupImage
+                            alt='group'
+                            src={groupImage.avatar ? URL.createObjectURL(groupImage.avatar) : phImage}
+                        /> : null}
+                    {fromGroupEdit ?
+                        <GroupImage
+                            alt='group'
+                            src={!groupImage.avatar ? phImage : groupImage.changed ? URL.createObjectURL(groupImage.avatar) : groupImage.avatar}
+                        /> : null}
                     <FileUploadContainer onClick={() => imageClickHandler(hiddenFileInput)}>
                         <input
                             name='avatar'
@@ -30,7 +36,7 @@ const GroupInfo = ({groupImage, groupName, hiddenFileInput, nameDisabled, setGro
                         />
                         Upload
                     </FileUploadContainer>
-                    <GroupImageRemoveButton onClick={() => setGroupImage(null)}>Remove</GroupImageRemoveButton>
+                    <GroupImageRemoveButton onClick={() => setGroupImage({avatar: null, changed: true})}>Remove</GroupImageRemoveButton>
                 </GroupImageLowerConatainer>
             </InputLeftContainer>
             <InputRightContainer>

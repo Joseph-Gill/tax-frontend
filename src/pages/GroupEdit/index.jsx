@@ -23,7 +23,7 @@ const GroupEdit = ({history}) => {
     let taxRate = useRef('')
     let legalForm = useRef('')
     const [showSuccess, setShowSuccess] = useState(false)
-    const [groupImage, setGroupImage] = useState(null)
+    const [groupImage, setGroupImage] = useState({avatar: null, changed: false})
     const [countryName, setCountryName] = useState('')
     const [listOfEntities, setListOfEntities] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
@@ -32,6 +32,9 @@ const GroupEdit = ({history}) => {
         if (!loaded) {
             history.push(`${HOME}`)
         } else {
+            if (group.avatar) {
+                setGroupImage({...groupImage, avatar: group.avatar})
+            }
             const sortedEntities = group.entities.sort((a,b) => (a.pid > b.pid) ? 1 : ((b.pid > a.pid) ? -1 : 0));
             setListOfEntities([...sortedEntities.map(entity => {
                 if(!entity.pid) {
@@ -42,7 +45,7 @@ const GroupEdit = ({history}) => {
             })])
             setAvailableParentNames([...group.entities.map(entity => entity.name)])
         }
-    }, [group.entities, history, loaded])
+    }, [group.entities, history, loaded, group, groupImage])
 
     const addNewEntityClickHandler = () => {
         const newEntity = {
@@ -60,8 +63,10 @@ const GroupEdit = ({history}) => {
     const saveGroupChangesHandler = async () => {
         const newEntities = listOfEntities.filter(entity => entity.new)
         const updatedGroupInfo = {
-            avatar: groupImage,
             entities: newEntities
+        }
+        if (groupImage.changed) {
+            updatedGroupInfo.avatar = groupImage.avatar
         }
         const response = await dispatch(updateGroupAction(updatedGroupInfo, group.id))
         if (response) {
@@ -87,7 +92,8 @@ const GroupEdit = ({history}) => {
                         <AuthenticatedPageTitle>Edit Group</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
                     <GroupInfo
-                        groupImage={group.avatar ? group.avatar : groupImage}
+                        fromGroupEdit
+                        groupImage={groupImage}
                         groupName={group.name}
                         hiddenFileInput={hiddenFileInput}
                         nameDisabled

@@ -10,7 +10,7 @@ export const imageClickHandler = (input) => {
 
 export const imageChangeHandler = (e, set) => {
     if (e.target.files[0]) {
-        set(e.target.files[0])
+        set({avatar: e.target.files[0], changed: true})
     }
 }
 
