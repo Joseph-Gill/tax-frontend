@@ -138,3 +138,19 @@ export const getProjectTaxConsequencesUnreviewedSameLocationAsUserAction = proje
         return catchError(e, dispatch)
     }
 }
+
+export const getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction = projectId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`taxes/project/${projectId}/opencomments/toreviewcomments/`, config)
+        return {...response.data}
+    } catch (e) {
+        console.log('Error getting Open and To Review Comment numbers of the logged-in User location>', e)
+        return catchError(e, dispatch)
+    }
+}

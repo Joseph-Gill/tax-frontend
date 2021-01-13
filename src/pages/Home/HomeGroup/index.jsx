@@ -13,6 +13,7 @@ import {GROUPS, PROJECTS} from '../../../routes/paths'
 import {useDispatch} from 'react-redux'
 import {getPastDueNumberAndUncompletedTasksAction} from '../../../store/task/actions'
 import Spinner from '../../../components/Spinner'
+import {getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction} from '../../../store/project/actions'
 
 
 const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, setHomeLoading, user, userRole}) => {
@@ -21,17 +22,24 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
     const [pastDueTasks, setPastDueTasks] = useState(0)
     const [tasksToRender, setTasksToRender] = useState([])
     const [loading, setLoading] = useState(false)
+    const [openComments, setOpenComments] = useState(0)
+    const [reviewComments, setReviewComments] = useState(0)
 
     useEffect(() => {
-        const getPastDueNumberUncompletedTasksUserTaxConsequences = async () => {
+        const getPastDueNumberUncompletedTasksCommentsOpenAndReviewed = async () => {
             const taskResponse = await dispatch(getPastDueNumberAndUncompletedTasksAction(project.id))
             if (taskResponse) {
                 setPastDueTasks(taskResponse.past_due_tasks)
                 setTasksToRender(taskResponse.user_uncompleted_tasks)
             }
+            const commentResponse = await dispatch(getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction(project.id))
+            if (commentResponse) {
+                setOpenComments(commentResponse.comments_open)
+                setReviewComments(commentResponse.comments_to_review)
+            }
         }
         setLoading(true)
-        getPastDueNumberUncompletedTasksUserTaxConsequences()
+        getPastDueNumberUncompletedTasksCommentsOpenAndReviewed()
             .then(() => setLoading(false))
     }, [project, dispatch, setLoading])
 
@@ -64,8 +72,8 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
                 /> : null}
             <BottomRowContainer>
                 <HomeGroupButton onClick={() => history.push(`${GROUPS}${PROJECTS}/${project.id}/`)}>Go to Project</HomeGroupButton>
-                <OpenComments number={2} />
-                <ReviewComments number={3} />
+                <OpenComments number={openComments} />
+                <ReviewComments number={reviewComments} />
                 {expandStatus ? (
                     <HomeExpandCollapseContainer onClick={() => setExpandStatus(false)}>
                         <ExpandCollapseText>Collapse</ExpandCollapseText>
