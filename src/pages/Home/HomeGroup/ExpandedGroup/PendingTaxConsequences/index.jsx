@@ -12,9 +12,10 @@ const PendingTaxConsequences = ({goToSpecificStepHandler, groupId, taxConsequenc
             return (
                 <TableDataRow key={tax.id}>
                     <TableData>{tax.step.number}</TableData>
+                    <TableData>{tax.location}</TableData>
                     <TableData>{tax.description ? 'To Review' : 'Open'}</TableData>
                     <TableData>
-                        {tax.editing_user ?
+                        {!tax.description ? null : tax.editing_user ?
                             <TaxConsequenceEditedBy groupId={groupId} user={tax.editing_user.user} /> :
                             <TaxConsequenceEditedBy groupId={groupId} user={tax.creating_user.user} />}
                     </TableData>
@@ -33,6 +34,7 @@ const PendingTaxConsequences = ({goToSpecificStepHandler, groupId, taxConsequenc
                     <tbody>
                         <TableTitleRow>
                             <TableHeader>Step</TableHeader>
+                            <TableHeader>Location</TableHeader>
                             <TableHeader>Status</TableHeader>
                             <TableHeader>Last edited by</TableHeader>
                             <TableHeader>Action</TableHeader>
