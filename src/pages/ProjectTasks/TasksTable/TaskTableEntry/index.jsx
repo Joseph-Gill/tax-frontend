@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {TableData} from '../../../../style/tables'
-import {DateTableData, TaskStatusColorIndicator, TaskTableRow, TitleTableData} from './styles'
+import {DateTableData, ExpandedTableRow, TaskStatusColorIndicator, TaskTableRow, TitleTableData} from './styles'
 import EntryResponsible from './EntryResponsible'
 import EntryDocuments from './EntryDocuments'
 import EntryExpanded from './EntryExpanded'
@@ -46,7 +46,7 @@ const TaskTableEntry = ({group, history, project, task, taskNum}) => {
                 </TableData>
             </TaskTableRow>
             {expanded ? (
-                <tr>
+                <ExpandedTableRow>
                     <td colSpan={8}>
                         <EntryExpanded
                             history={history}
@@ -54,7 +54,7 @@ const TaskTableEntry = ({group, history, project, task, taskNum}) => {
                             task={task}
                         />
                     </td>
-                </tr>
+                </ExpandedTableRow>
             ) : null}
         </>
     )
