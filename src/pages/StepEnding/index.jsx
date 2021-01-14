@@ -7,8 +7,8 @@ import {useSelector} from 'react-redux'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AddNewStepButton} from '../../style/buttons'
-import StepDisplayFooter from '../../components/StepDisplayFooter'
 import Spinner from '../../components/Spinner'
+import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 
 const EndingStructurePlaceholder = styled.div`
     width: 860px;
@@ -56,9 +56,8 @@ const StepEnding = ({history}) => {
                         <AddNewStepButton>Add New Step</AddNewStepButton>
                     </StepPageTitleWithButtonContainer>
                     <EndingStructurePlaceholder />
-                    <StepDisplayFooter
-                        beginningActive={0}
-                        endingActive={1}
+                    <StepDisplayFooterV2
+                        endingNode={1}
                         history={history}
                         steps={steps}
                     />

@@ -12,7 +12,6 @@ import {
 } from './styles'
 import {DateInputLabelText} from '../../style/text'
 import {convertDate} from '../../helpers'
-import StepDisplayFooter from '../../components/StepDisplayFooter'
 import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, removeNewStep, skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
 import StepDisplayToggle from './StepDisplayToggle'
 import StepChart from './StepChart'
@@ -25,6 +24,7 @@ import tooltipAnchor from '../../assets/icons/stark_tooltip_anchor.png'
 import StepToolTip from './StepToolTip'
 import {setTaskFilterStepNumber} from '../../store/task/actions'
 import DeleteStepModal from '../../components/Modals/DeleteStepModal'
+import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 
 
 const StepDisplay = ({history}) => {
@@ -256,8 +256,8 @@ const StepDisplay = ({history}) => {
                                 updateExistingStepHandler={updateExistingStepHandler}
                             />}
                     </StepChartDetailsContainer>
-                    <StepDisplayFooter
-                        endingActive={0}
+                    <StepDisplayFooterV2
+                        endingNode={0}
                         history={history}
                         indexOfStepToDisplay={indexOfStepToDisplay}
                         steps={steps}

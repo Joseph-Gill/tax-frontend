@@ -6,12 +6,12 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import CurrentOrgChart from '../../components/CurrentOrgChart'
-import StepDisplayFooter from '../../components/StepDisplayFooter'
 import {AddNewStepButton} from '../../style/buttons'
 import {StepPageTitleContainer} from './styles'
 import {addNewStep} from '../../store/step/actions'
 import Spinner from '../../components/Spinner'
 import {getGroupOfProjectAction} from '../../store/group/actions'
+import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 
 
 const StepBeginning = ({history}) => {
@@ -68,9 +68,8 @@ const StepBeginning = ({history}) => {
                         componentCalling='StepBeginning'
                         nodes={entities}
                     />
-                    <StepDisplayFooter
-                        beginningActive={1}
-                        endingActive={0}
+                    <StepDisplayFooterV2
+                        endingNode={0}
                         history={history}
                         steps={steps}
                     />
