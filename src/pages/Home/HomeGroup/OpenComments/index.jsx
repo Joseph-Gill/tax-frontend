@@ -1,16 +1,7 @@
 import React from 'react'
-import styled from 'styled-components/macro'
-import {HomeGroupText} from '../../../../style/text'
-import {GroupCommentTaskContainer, GroupCommentTaskNumberContainer} from '../../../../style/containers'
+import {GroupCommentTaskContainer} from '../../../../style/containers'
+import {HomeGroupTextYellow, OpenCommentsNumber} from './styles'
 
-const HomeGroupTextYellow = styled(HomeGroupText)`
-  color: ${props => props.theme.yellowDark};
-`
-
-const OpenCommentsNumber = styled(GroupCommentTaskNumberContainer)`
-  color: ${props => props.theme.yellowDark};
-  background: ${props => props.theme.yellowLight};
-`
 
 const OpenComments = ({number}) => {
     return (

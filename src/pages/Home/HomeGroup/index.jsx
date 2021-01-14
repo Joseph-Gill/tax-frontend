@@ -14,6 +14,7 @@ import {useDispatch} from 'react-redux'
 import {getPastDueNumberAndUncompletedTasksAction} from '../../../store/task/actions'
 import Spinner from '../../../components/Spinner'
 import {getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction} from '../../../store/project/actions'
+import {getGroupOfProjectAction} from '../../../store/group/actions'
 
 
 const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, setHomeLoading, user, userRole}) => {
@@ -48,6 +49,15 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
         from: {opacity: 0},
     })
 
+    const goToProjectClickHandler = async () => {
+        setLoading(true)
+        const response = dispatch(getGroupOfProjectAction(project.id))
+        if (response) {
+            setLoading(false)
+            history.push(`${GROUPS}${PROJECTS}/${project.id}/`)
+        }
+    }
+
     return (
         // eslint-disable-next-line react/forbid-component-props
         <HomeGroupContainer style={props}>
@@ -71,7 +81,7 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
                     userRole={userRole}
                 /> : null}
             <BottomRowContainer>
-                <HomeGroupButton onClick={() => history.push(`${GROUPS}${PROJECTS}/${project.id}/`)}>Go to Project</HomeGroupButton>
+                <HomeGroupButton onClick={goToProjectClickHandler}>Go to Project</HomeGroupButton>
                 <OpenComments number={openComments} />
                 <ReviewComments number={reviewComments} />
                 {expandStatus ? (

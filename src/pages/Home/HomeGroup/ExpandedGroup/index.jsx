@@ -17,6 +17,7 @@ const ExpandedGroup = ({firstUncompletedStep, groupId, history, project, tasksTo
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        console.log('expanded useeffect trigger')
         const getUserTaxConsequences = async () => {
             const taxResponse = await dispatch(getProjectTaxConsequencesUnreviewedSameLocationAsUserAction(project.id))
             if (taxResponse){
