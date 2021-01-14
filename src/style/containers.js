@@ -204,6 +204,18 @@ export const DropDownChoiceWithBorder = styled(DropdownChoiceContainer)`
     border-bottom: 1px solid ${props => props.theme.grayFive};
 `
 
+export const ActionDropDownChoice = styled(DropdownChoiceContainer)`
+    :hover {
+        cursor: pointer;
+    }
+`
+
+export const ActionDropdownChoiceWithBorder = styled(DropDownChoiceWithBorder)`
+    :hover {
+        cursor: pointer;
+    }
+`
+
 export const NoFilterResultsContainer = styled.div`
     width: 860px;
     height: 462px;

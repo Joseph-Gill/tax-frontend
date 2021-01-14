@@ -55,6 +55,25 @@ const GroupMembers = ({history}) => {
         setFilterMemberStatus(!filterMemberStatus)
     }
 
+    const sendEmailClickHandler = () => {
+        const result = activeRenderData.filter(user => user.isChecked).concat(invitedRenderData.filter(user => user.isChecked))
+        let emailString = 'mailto:'
+        let counter = 0
+        if (result.length) {
+            result.forEach((user, index) => {
+                if (!index) {
+                    emailString = emailString.concat(`${user.email}?cc=`)
+                    counter++
+                } else {
+                    emailString = emailString.concat(`${user.email}%3B%20`)
+                    counter++
+                }
+            })
+            counter === 1 ? window.location = emailString.slice(0, -4) : window.location = emailString.slice(0, -6)
+        }
+    }
+
+
     return (
         <AuthenticatedPageContainer>
             {showConfirmation &&
@@ -84,6 +103,7 @@ const GroupMembers = ({history}) => {
                         {!filterMemberStatus && !invitedMembers.length ? null : (
                             <>
                                 <ActionDropdown
+                                    sendEmailClickHandler={sendEmailClickHandler}
                                     setShowConfirmation={setShowConfirmation}
                                 />
                                 <FilterDropdown
