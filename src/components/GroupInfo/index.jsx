@@ -1,9 +1,9 @@
 import React from 'react'
 import phImage from '../../assets/icons/stark_create_grp_ph_image.png'
-import {FileUploadContainer, GroupImage, GroupImageLowerConatainer, GroupImageRemoveButton, GroupInfoErrorMessageContainer, GroupNameInput, InputGroupInfoContainer, InputLeftContainer, InputRightContainer, InputTitle} from './styles'
-import {imageChangeHandler, imageClickHandler} from '../../helpers'
+import {GroupImage, GroupImageLowerContainer, GroupInfoErrorMessageContainer, GroupNameInput, InputGroupInfoContainer, InputLeftContainer, InputRightContainer, InputTitle} from './styles'
 import {useSelector} from 'react-redux'
 import {ErrorMessage} from '../../style/messages'
+import SizeTextAndButtons from './SizeTextAndButtons'
 
 
 const GroupInfo = ({fromGroupAdd, fromGroupEdit, groupImage, groupName, hiddenFileInput, nameDisabled, setGroupImage, setGroupName}) => {
@@ -15,7 +15,7 @@ const GroupInfo = ({fromGroupAdd, fromGroupEdit, groupImage, groupName, hiddenFi
                 <div>
                     <InputTitle>Group Image</InputTitle>
                 </div>
-                <GroupImageLowerConatainer>
+                <GroupImageLowerContainer>
                     {fromGroupAdd ?
                         <GroupImage
                             alt='group'
@@ -26,18 +26,11 @@ const GroupInfo = ({fromGroupAdd, fromGroupEdit, groupImage, groupName, hiddenFi
                             alt='group'
                             src={!groupImage.avatar ? phImage : groupImage.changed ? URL.createObjectURL(groupImage.avatar) : groupImage.avatar}
                         /> : null}
-                    <FileUploadContainer onClick={() => imageClickHandler(hiddenFileInput)}>
-                        <input
-                            name='avatar'
-                            onChange={(e) => imageChangeHandler(e, setGroupImage)}
-                            ref={hiddenFileInput}
-                            style={{ display: "none" }}
-                            type='file'
-                        />
-                        Upload
-                    </FileUploadContainer>
-                    <GroupImageRemoveButton onClick={() => setGroupImage({avatar: null, changed: true})}>Remove</GroupImageRemoveButton>
-                </GroupImageLowerConatainer>
+                <SizeTextAndButtons
+                    hiddenFileInput={hiddenFileInput}
+                    setGroupImage={setGroupImage}
+                />
+                </GroupImageLowerContainer>
             </InputLeftContainer>
             <InputRightContainer>
                 <InputTitle>Group Name</InputTitle>

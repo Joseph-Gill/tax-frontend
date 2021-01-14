@@ -29,7 +29,6 @@ const GroupEdit = ({history}) => {
     const [availableParentNames, setAvailableParentNames] = useState([])
 
     useEffect(() => {
-        console.log('UseEffect trigger')
         if (!loaded) {
             history.push(`${HOME}`)
         } else {
