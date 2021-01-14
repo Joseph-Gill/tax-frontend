@@ -17,7 +17,7 @@ const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, steps})
         steps.map((step, index) => (
             <StepNode
                 isactive={indexOfStepToDisplay === undefined ? 0 : index <= indexOfStepToDisplay ? 1 : 0}
-                iscomplete={indexOfStepToDisplay === undefined ? 0 : step.status === 'Completed' ? 1 : 0}
+                iscomplete={indexOfStepToDisplay === undefined ? 0 : index > indexOfStepToDisplay ? 0 : step.status === 'Completed' ? 1 : 0}
                 key={step.id}
                 onClick={() => stepNodeClickHandler(step.number - 1)}
             >{`Step ${step.number}`}
