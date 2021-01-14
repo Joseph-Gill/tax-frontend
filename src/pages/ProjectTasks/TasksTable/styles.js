@@ -16,4 +16,6 @@ export const NoFilteredTasksContainer = styled.div`
     font-size: 12px;
     line-height: 19px;
     color: ${props => props.theme.grayTwo};
+    background: ${props => props.theme.white};
+    border: 1px solid ${props => props.theme.grayFour};
 `

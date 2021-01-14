@@ -42,12 +42,12 @@ const TasksTable = ({group, history, project, tasks}) => {
     }
 
     return (
-        <CommentTable>
-            {!tasks.length ? (
+        <div>
+            {!tasks.length ?
                 <NoFilteredTasksContainer>
-                    No Tasks meet these Filters
-                </NoFilteredTasksContainer>) : (
-                    <>
+                    No tasks for this project match these filters
+                </NoFilteredTasksContainer> : (
+                    <CommentTable>
                         <thead>
                             <TableTitleRow>
                                 <TaskStatusTableHeader />
@@ -63,8 +63,9 @@ const TasksTable = ({group, history, project, tasks}) => {
                         <tbody>
                             {renderTaskEntries()}
                         </tbody>
-                    </>)}
-        </CommentTable>
+                    </CommentTable>
+                )}
+        </div>
     )
 }
 
