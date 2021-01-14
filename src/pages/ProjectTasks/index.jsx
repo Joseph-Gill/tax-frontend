@@ -9,7 +9,7 @@ import {getProjectAction} from '../../store/project/actions'
 import {useRouteMatch} from 'react-router-dom'
 import Spinner from '../../components/Spinner'
 import TaskStatusLegendEntry from './TaskStatusLegendEntry'
-import {AddTaskButton, StatusLegendFilterDropdownContainer, TasksTableContainer, TaskStatusLegendContainer, TaskStepFilter} from './styles'
+import {AddTaskButton, StatusLegendFilterDropdownContainer, StepFilterInputLabel, TasksTableContainer, TaskStatusLegendContainer, TaskStepFilter} from './styles'
 import {getTasksForProjectAction, getTasksForStepOfProjectAction, resetTaskFilterStepNumber, setTaskFilterStepNumber} from '../../store/task/actions'
 import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
@@ -137,11 +137,12 @@ const ProjectTasks = ({history}) => {
                                     <TaskStatusLegendEntry status='Not Started' />
                                 </TaskStatusLegendContainer>
                                 <div>
+                                    <StepFilterInputLabel>Steps Filter</StepFilterInputLabel>
                                     <TaskStepFilter
                                         onChange={(e) => taskStepFilterChangeHandler(e.target.value)}
                                         value={filterStepNumber}
                                     >
-                                        <DropdownOption value=''>Steps - All</DropdownOption>
+                                        <DropdownOption value=''>All</DropdownOption>
                                         {renderTaskStepFilterOptions()}
                                     </TaskStepFilter>
                                     <TaskFilterDropdown

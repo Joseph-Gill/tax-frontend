@@ -3,6 +3,7 @@ import {BaseButton} from '../../style/buttons'
 import {StatusLegendContainer} from '../../style/containers'
 import {StatusDropdown} from '../../style/dropdowns'
 import arrow from '../../assets/icons/stark_dropdown_arrow_blue.svg'
+import {InputLabel} from '../../style/labels'
 
 
 export const AddTaskButton = styled(BaseButton)`
@@ -63,4 +64,9 @@ export const TaskStepFilter = styled(StatusDropdown)`
     background-image: url(${arrow});
     background-position: 92%;
     background-repeat: no-repeat;
+`
+
+export const StepFilterInputLabel = styled(InputLabel)`
+    color: ${props => props.theme.primaryBlue};
+    background: linear-gradient(${props => props.theme.grayFive}, #FFFFFF);
 `

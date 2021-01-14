@@ -1,6 +1,6 @@
 import React from 'react'
 import {CommentTable, TableHeader, TableTitleRow} from '../../../style/tables'
-import {TaskStatusTableHeader} from './styles'
+import {NoFilteredTasksContainer, TaskStatusTableHeader} from './styles'
 import TaskTableEntry from './TaskTableEntry'
 
 
@@ -43,21 +43,27 @@ const TasksTable = ({group, history, project, tasks}) => {
 
     return (
         <CommentTable>
-            <thead>
-                <TableTitleRow>
-                    <TaskStatusTableHeader />
-                    <TableHeader>Step</TableHeader>
-                    <TableHeader>Task No.</TableHeader>
-                    <TableHeader>Task</TableHeader>
-                    <TableHeader>Due Date</TableHeader>
-                    <TableHeader>Planned Completion Date</TableHeader>
-                    <TableHeader>Responsible</TableHeader>
-                    <TableHeader>Documents</TableHeader>
-                </TableTitleRow>
-            </thead>
-            <tbody>
-                {renderTaskEntries()}
-            </tbody>
+            {!tasks.length ? (
+                <NoFilteredTasksContainer>
+                    No Tasks meet these Filters
+                </NoFilteredTasksContainer>) : (
+                    <>
+                        <thead>
+                            <TableTitleRow>
+                                <TaskStatusTableHeader />
+                                <TableHeader>Step</TableHeader>
+                                <TableHeader>Task No.</TableHeader>
+                                <TableHeader>Task</TableHeader>
+                                <TableHeader>Due Date</TableHeader>
+                                <TableHeader>Planned Completion Date</TableHeader>
+                                <TableHeader>Responsible</TableHeader>
+                                <TableHeader>Documents</TableHeader>
+                            </TableTitleRow>
+                        </thead>
+                        <tbody>
+                            {renderTaskEntries()}
+                        </tbody>
+                    </>)}
         </CommentTable>
     )
 }
