@@ -4,12 +4,13 @@ import {animated} from 'react-spring'
 
 export const HomeGroupContainer = styled(animated.div)`
     width: 860px;
-    //min-height: 148px;
+    height: ${props => props.expanded ? '815px' : '140px'};
     background: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
     padding: 20px 20px 0 20px;
     margin-bottom: 20px;
     box-shadow: 0 0 20px ${props => props.theme.boxShadowColor};
+    transition: height 0.5s;
 `
 
 export const UpperRowContainer = styled.div`

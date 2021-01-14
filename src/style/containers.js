@@ -377,7 +377,7 @@ export const EntryDocumentsTextContainer = styled.div`
 
 export const NoTasksOrTaxConsequencesDisplay = styled.div`
     width: 100%;
-    height: 115px;
+    height: 202px;
     background: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
     border: 1px solid ${props => props.theme.grayFour};

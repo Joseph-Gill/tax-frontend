@@ -60,7 +60,7 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
 
     return (
         // eslint-disable-next-line react/forbid-component-props
-        <HomeGroupContainer style={props}>
+        <HomeGroupContainer expanded={expandStatus} style={props}>
             {loading ? <Spinner /> : null}
             <UpperRowContainer>
                 <GroupTitle>{`Group: ${groupName}`}</GroupTitle>
