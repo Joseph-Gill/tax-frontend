@@ -12,9 +12,9 @@ import {useSpring} from 'react-spring'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
 import {useDispatch} from 'react-redux'
 import {getPastDueNumberAndUncompletedTasksAction} from '../../../store/task/actions'
-import Spinner from '../../../components/Spinner'
 import {getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction} from '../../../store/project/actions'
 import {getGroupOfProjectAction} from '../../../store/group/actions'
+import Loading from '../../../components/Loading'
 
 
 const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, setHomeLoading, user, userRole}) => {
@@ -60,40 +60,42 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
 
     return (
         // eslint-disable-next-line react/forbid-component-props
-        <HomeGroupContainer expanded={expandStatus} style={props}>
-            {loading ? <Spinner /> : null}
-            <UpperRowContainer>
-                <GroupTitle>{`Group: ${groupName}`}</GroupTitle>
-                <TasksOverdue number={pastDueTasks} />
-            </UpperRowContainer>
-            <MiddleRowContainer>
-                <ProjectTitle>{`Project: ${project.name}`}</ProjectTitle>
-            </MiddleRowContainer>
-            {expandStatus ?
-                <ExpandedGroup
-                    firstUncompletedStep={firstUncompletedStep}
-                    groupId={groupId}
-                    history={history}
-                    project={project}
-                    setHomeLoading={setHomeLoading}
-                    tasksToRender={tasksToRender}
-                    user={user}
-                    userRole={userRole}
-                /> : null}
-            <BottomRowContainer>
-                <HomeGroupButton onClick={goToProjectClickHandler}>Go to Project</HomeGroupButton>
-                <OpenComments number={openComments} />
-                <ReviewComments number={reviewComments} />
-                {expandStatus ? (
-                    <HomeExpandCollapseContainer onClick={() => setExpandStatus(false)}>
-                        <ExpandCollapseText>Collapse</ExpandCollapseText>
-                        <CollapseImage alt='expand' src={expandCollapse} />
-                    </HomeExpandCollapseContainer> ) : (
-                        <HomeExpandCollapseContainer onClick={() => setExpandStatus(true)}>
-                            <ExpandCollapseText>View More</ExpandCollapseText>
-                            <ExpandImage alt='expand' src={expandCollapse} />
-                        </HomeExpandCollapseContainer> )}
-            </BottomRowContainer>
+        <HomeGroupContainer expanded={expandStatus ? 1 : 0} style={props}>
+            {loading ? <Loading /> : (
+                <>
+                    <UpperRowContainer>
+                        <GroupTitle>{`Group: ${groupName}`}</GroupTitle>
+                        <TasksOverdue number={pastDueTasks} />
+                    </UpperRowContainer>
+                    <MiddleRowContainer>
+                        <ProjectTitle>{`Project: ${project.name}`}</ProjectTitle>
+                    </MiddleRowContainer>
+                    {expandStatus ?
+                        <ExpandedGroup
+                            firstUncompletedStep={firstUncompletedStep}
+                            groupId={groupId}
+                            history={history}
+                            project={project}
+                            setHomeLoading={setHomeLoading}
+                            tasksToRender={tasksToRender}
+                            user={user}
+                            userRole={userRole}
+                        /> : null}
+                    <BottomRowContainer>
+                        <HomeGroupButton onClick={goToProjectClickHandler}>Go to Project</HomeGroupButton>
+                        <OpenComments number={openComments} />
+                        <ReviewComments number={reviewComments} />
+                        {expandStatus ? (
+                            <HomeExpandCollapseContainer onClick={() => setExpandStatus(false)}>
+                                <ExpandCollapseText>Collapse</ExpandCollapseText>
+                                <CollapseImage alt='expand' src={expandCollapse} />
+                            </HomeExpandCollapseContainer> ) : (
+                                <HomeExpandCollapseContainer onClick={() => setExpandStatus(true)}>
+                                    <ExpandCollapseText>View More</ExpandCollapseText>
+                                    <ExpandImage alt='expand' src={expandCollapse} />
+                                </HomeExpandCollapseContainer> )}
+                    </BottomRowContainer>
+                </>)}
         </HomeGroupContainer>
     )
 }

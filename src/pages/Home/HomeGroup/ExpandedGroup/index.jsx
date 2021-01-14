@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux'
 import {getStepsForProjectAction, skipToSpecifiedStep} from '../../../../store/step/actions'
 import {getProjectAction, getProjectTaxConsequencesUnreviewedSameLocationAsUserAction} from '../../../../store/project/actions'
 import PendingTaxConsequences from './PendingTaxConsequences'
-import Spinner from '../../../../components/Spinner'
+import Loading from '../../../../components/Loading'
 
 
 const ExpandedGroup = ({firstUncompletedStep, groupId, history, project, tasksToRender, setHomeLoading, user, userRole}) => {
@@ -17,7 +17,6 @@ const ExpandedGroup = ({firstUncompletedStep, groupId, history, project, tasksTo
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        console.log('expanded useeffect trigger')
         const getUserTaxConsequences = async () => {
             const taxResponse = await dispatch(getProjectTaxConsequencesUnreviewedSameLocationAsUserAction(project.id))
             if (taxResponse){
@@ -44,43 +43,45 @@ const ExpandedGroup = ({firstUncompletedStep, groupId, history, project, tasksTo
 
     return (
         <ExpandedGroupContainer>
-            {loading ? <Spinner /> : null}
-            <NextStepContainer>
-                <GroupSectionTitle>Next Step</GroupSectionTitle>
-                <AccountInfoContainer>
-                    {firstUncompletedStep ? (
-                        <>
-                            <StepDateTextContainer>
-                                <AuthenticatedText>{`Step ${firstUncompletedStep.number} -`}</AuthenticatedText>
-                                <GroupExpandedDateText>{firstUncompletedStep.effective_date}</GroupExpandedDateText>
-                            </StepDateTextContainer>
-                            <TableButton onClick={() => goToSpecificStepHandler(firstUncompletedStep.number)}>Go to Step</TableButton>
-                        </>) : (
-                            <>
-                                <AuthenticatedText>This project has no uncompleted Steps</AuthenticatedText>
-                                <ProjectStepsButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)}>Go to project steps</ProjectStepsButton>
-                            </>)}
-                </AccountInfoContainer>
-            </NextStepContainer>
-            <CommentsContainer>
-                <GroupSectionTitle>Pending Comments</GroupSectionTitle>
-                <PendingTaxConsequences
-                    goToSpecificStepHandler={goToSpecificStepHandler}
-                    groupId={groupId}
-                    taxConsequencesToRender={taxConsequencesToRender}
-                />
-            </CommentsContainer>
-            <TaskContainer>
-                <GroupSectionTitle>Upcoming Tasks</GroupSectionTitle>
-                <PendingTasks
-                    tasksToRender={tasksToRender}
-                    user={user}
-                    userRole={userRole}
-                />
-                <TaskButtonContainer>
-                    <TaskTableButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Go to tasklist</TaskTableButton>
-                </TaskButtonContainer>
-            </TaskContainer>
+            {loading ? <Loading /> : (
+                <>
+                    <NextStepContainer>
+                        <GroupSectionTitle>Next Step</GroupSectionTitle>
+                        <AccountInfoContainer>
+                            {firstUncompletedStep ? (
+                                <>
+                                    <StepDateTextContainer>
+                                        <AuthenticatedText>{`Step ${firstUncompletedStep.number} -`}</AuthenticatedText>
+                                        <GroupExpandedDateText>{firstUncompletedStep.effective_date}</GroupExpandedDateText>
+                                    </StepDateTextContainer>
+                                    <TableButton onClick={() => goToSpecificStepHandler(firstUncompletedStep.number)}>Go to Step</TableButton>
+                                </>) : (
+                                    <>
+                                        <AuthenticatedText>This project has no uncompleted Steps</AuthenticatedText>
+                                        <ProjectStepsButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)}>Go to project steps</ProjectStepsButton>
+                                    </>)}
+                        </AccountInfoContainer>
+                    </NextStepContainer>
+                    <CommentsContainer>
+                        <GroupSectionTitle>Pending Comments</GroupSectionTitle>
+                        <PendingTaxConsequences
+                            goToSpecificStepHandler={goToSpecificStepHandler}
+                            groupId={groupId}
+                            taxConsequencesToRender={taxConsequencesToRender}
+                        />
+                    </CommentsContainer>
+                    <TaskContainer>
+                        <GroupSectionTitle>Upcoming Tasks</GroupSectionTitle>
+                        <PendingTasks
+                            tasksToRender={tasksToRender}
+                            user={user}
+                            userRole={userRole}
+                        />
+                        <TaskButtonContainer>
+                            <TaskTableButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>Go to tasklist</TaskTableButton>
+                        </TaskButtonContainer>
+                    </TaskContainer>
+                </>)}
         </ExpandedGroupContainer>
     )
 }

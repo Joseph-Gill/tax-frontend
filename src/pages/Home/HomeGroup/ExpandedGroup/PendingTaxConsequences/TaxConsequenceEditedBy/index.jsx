@@ -3,6 +3,7 @@ import {EntryResponsibleText} from '../../../../../../style/text'
 import {EntryResponsibleContainer} from '../../../../../../style/containers'
 import {getRolesForProfileGroupAction} from '../../../../../../store/projectRole/actions'
 import {useDispatch} from 'react-redux'
+import Loading from '../../../../../../components/Loading'
 
 
 const TaxConsequenceEditedBy = ({user, groupId}) => {
@@ -24,7 +25,7 @@ const TaxConsequenceEditedBy = ({user, groupId}) => {
 
     return (
         <EntryResponsibleContainer>
-            {loading ? 'Loading....' : (
+            {loading ? <Loading /> : (
                 <>
                     <EntryResponsibleText>{user.user_profile.country}</EntryResponsibleText>
                     <EntryResponsibleText>{userRole}</EntryResponsibleText>

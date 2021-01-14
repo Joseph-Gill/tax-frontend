@@ -16,6 +16,7 @@ import TasksTable from './TasksTable'
 import {getStepsForProjectAction} from '../../store/step/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {DropdownOption} from '../../style/options'
+import Loading from '../../components/Loading'
 
 
 const ProjectTasks = ({history}) => {
@@ -112,7 +113,7 @@ const ProjectTasks = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !tasksLoaded || loading ? <Spinner /> : (
+            {!projectLoaded || !tasksLoaded ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
@@ -151,14 +152,15 @@ const ProjectTasks = ({history}) => {
                                     />
                                 </div>
                             </StatusLegendFilterDropdownContainer>
-                            <TasksTableContainer>
-                                <TasksTable
-                                    group={group}
-                                    history={history}
-                                    project={project}
-                                    tasks={filteredTasks()}
-                                />
-                            </TasksTableContainer>
+                            {loading ? <Loading /> : (
+                                <TasksTableContainer>
+                                    <TasksTable
+                                        group={group}
+                                        history={history}
+                                        project={project}
+                                        tasks={filteredTasks()}
+                                    />
+                                </TasksTableContainer>)}
                         </>)}
                 </>)}
         </AuthenticatedPageContainer>
