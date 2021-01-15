@@ -1,8 +1,8 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
+import {useSpring} from 'react-spring'
 import {HomePageText} from '../../style/text'
 import {NoAccessContainer, NoContentButton} from './styles'
-import {useSpring} from 'react-spring'
 
 
 const NoContent = ({buttonText, redirect, text}) => {

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
-import NavigationMenu from './NavigationMenu'
-import Logo from './Logo'
 import {useLocation} from 'react-router-dom'
+import Logo from './Logo'
+import NavigationMenu from './NavigationMenu'
 import {SideBarContainer, SideBarLoginContainer} from './styles'
 
 

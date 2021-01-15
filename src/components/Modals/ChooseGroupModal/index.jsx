@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
-import {AddDeleteModalExternalContainer} from '../styles'
 import {useSpring} from 'react-spring'
-import {CloseIcon} from '../../../style/images'
+import ModalGroupCard from './ModalGroupCard'
 import close from '../../../assets/icons/stark_close_icon.svg'
+import {CloseIcon} from '../../../style/images'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import {useSelector} from 'react-redux'
-import ModalGroupCard from './ModalGroupCard'
 import {CancelButton} from '../../../style/buttons'
+import {AddDeleteModalExternalContainer} from '../styles'
 import {ChooseGroupButtonContainer, ChooseGroupCardContainer, ChooseGroupInput, ChooseGroupModalCloseContainer, ChooseGroupModalInternalContainer,
     ChooseGroupModalTitleContainer, ChooseGroupTitleContainer} from './styles'
 

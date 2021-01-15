@@ -1,20 +1,19 @@
 import React, {useRef} from 'react'
 import {useSpring} from 'react-spring'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer} from '../styles'
-import {CloseIcon, Ellipse} from '../../../style/images'
+import RemoveMemberModalText from './RemoveMemberModalText'
+import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
+import {removeMembersFromGroupAction} from '../../../store/member/actions'
+import {getGroupAction} from '../../../store/group/actions'
+import {GROUPS, MEMBERS} from '../../../routes/paths'
 import close from '../../../assets/icons/stark_close_icon.svg'
+import {CloseIcon} from '../../../style/images'
 import {AuthenticatedPageTitle} from '../../../style/titles'
-import ellipse from '../../../assets/icons/stark_modal_ellipse.png'
-import {ModalText} from '../../../style/text'
 import {ActiveInputLabel} from '../../../style/labels'
 import {BaseInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
-import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {removeMembersFromGroupAction} from '../../../store/member/actions'
-import {GROUPS, MEMBERS} from '../../../routes/paths'
-import {getGroupAction} from '../../../store/group/actions'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer} from '../styles'
 
 
 const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setShowConfirmation}) => {
@@ -61,16 +60,7 @@ const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setSh
                 <AddDeleteModalTitleContainer>
                     <AuthenticatedPageTitle>Remove Member(s)?</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
-                <div>
-                    <AddDeleteModalTextContainer>
-                        <Ellipse alt='ellipse' src={ellipse} />
-                        <ModalText>User will lose access to your group.</ModalText>
-                    </AddDeleteModalTextContainer>
-                    <AddDeleteModalTextContainer>
-                        <Ellipse alt='ellipse' src={ellipse} />
-                        <ModalText>User will lose access to all group projects.</ModalText>
-                    </AddDeleteModalTextContainer>
-                </div>
+                <RemoveMemberModalText />
                 <div>
                     <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput

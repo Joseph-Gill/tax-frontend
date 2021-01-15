@@ -3,6 +3,8 @@ import styled from 'styled-components/macro'
 import propulsion_logo from '../../assets/logos/propulsion_logo_horizontal_white.png'
 
 
+// Currently not used in the Project, leftover from the Template
+
 const PropulsionFooterLogoContainer = styled.a`
   height: ${props => props.credentials ? '56px' : '90px'};
   width: 100%;
@@ -18,8 +20,8 @@ const PropulsionFooterLogoContainer = styled.a`
   position: ${props => props.credentials ? 'absolute' : ''};
   right: ${props => props.credentials ? '1%' : ''};
   bottom: ${props => props.credentials ? '0' : ''};
-  
-  
+
+
   img {
     width: ${props => props.credentials ? '100px' : '110px'};
     margin-right: ${props => props.credentials ? '10px' : ''};
@@ -34,7 +36,7 @@ const PropulsionFooterLogoContainer = styled.a`
     cursor: pointer;
     background: ${props => props.credentials ? 'none' : 'rgba(216,15,25,0.13)'};
   }
-  
+
 `
 
 

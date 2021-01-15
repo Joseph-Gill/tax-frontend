@@ -1,7 +1,7 @@
 import React from 'react'
-import './styles.css'
-import {LoadingContainer} from './styles'
 import {useSpring} from 'react-spring'
+import {LoadingContainer} from './styles'
+import './styles.css'
 
 
 const Loading = () => {

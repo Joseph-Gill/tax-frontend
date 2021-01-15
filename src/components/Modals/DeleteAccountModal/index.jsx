@@ -1,19 +1,18 @@
 import React, {useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {useSpring} from 'react-spring'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {deleteUserProfileAction} from '../../../store/user/actions/user/userAction'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
-import {useSpring} from 'react-spring'
 import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer} from '../styles'
-import {CloseIcon, Ellipse} from '../../../style/images'
 import close from '../../../assets/icons/stark_close_icon.svg'
+import {CloseIcon} from '../../../style/images'
 import {AuthenticatedPageTitle} from '../../../style/titles'
-import ellipse from '../../../assets/icons/stark_modal_ellipse.png'
-import {ModalText} from '../../../style/text'
 import {ActiveInputLabel} from '../../../style/labels'
 import {BaseInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
 import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
+import DeleteAccountModalText from './DeleteAccountModalText'
 
 
 const DeleteAccountModal = ({history, setShowConfirmation}) => {
@@ -53,16 +52,7 @@ const DeleteAccountModal = ({history, setShowConfirmation}) => {
                 <AddDeleteModalTitleContainer>
                     <AuthenticatedPageTitle>Are you sure?</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
-                <div>
-                    <AddDeleteModalTextContainer>
-                        <Ellipse alt='ellipse' src={ellipse} />
-                        <ModalText>Your access to all groups will be deleted</ModalText>
-                    </AddDeleteModalTextContainer>
-                    <AddDeleteModalTextContainer>
-                        <Ellipse alt='ellipse' src={ellipse} />
-                        <ModalText>Your access to all projects will be deleted</ModalText>
-                    </AddDeleteModalTextContainer>
-                </div>
+                <DeleteAccountModalText />
                 <div>
                     <ActiveInputLabel>Password</ActiveInputLabel>
                     <BaseInput

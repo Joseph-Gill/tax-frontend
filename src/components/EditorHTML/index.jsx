@@ -4,6 +4,8 @@ import htmlToDraft from "html-to-draftjs";
 import {ContentState, EditorState} from "draft-js";
 
 
+// Currently not used in the Project, leftover from the Template
+
 const EditorHTML = ({data}) => {
     const blocksFromHtml = htmlToDraft(data);
     const {contentBlocks, entityMap} = blocksFromHtml;

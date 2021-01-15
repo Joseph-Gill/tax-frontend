@@ -1,7 +1,7 @@
 import React from 'react'
+import {GROUPS} from '../../../../routes/paths'
 import placeholderImage from '../../../../assets/icons/stark_modal_group_card_placeholder_image.svg'
 import {ModalGroupCardContainer, ModalGroupCardImage, ModalGroupCardText} from './styles'
-import {GROUPS} from '../../../../routes/paths'
 
 
 const ModalGroupCard = ({group, history, setShowChooseGroup}) => {

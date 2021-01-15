@@ -1,19 +1,6 @@
 import React, {useEffect} from 'react'
 import OrgChart from '@balkangraph/orgchart.js'
-import styled from 'styled-components/macro'
-
-const OrgChartContainer = styled.div`
-    width: 860px;
-    background: ${props => props.theme.white};
-    margin-top: 30px;
-    height: 516px;
-    border-radius: ${props => props.theme.borderRadius};
-    box-shadow: ${props => props.theme.boxShadow};
-`
-
-const BeginningOrgChartContainer = styled(OrgChartContainer)`
-    height: 437px;
-`
+import {BeginningOrgChartContainer, OrgChartContainer} from './styles'
 
 
 const CurrentOrgChart = ({componentCalling, nodes}) => {
@@ -52,6 +39,7 @@ const CurrentOrgChart = ({componentCalling, nodes}) => {
     })
 
     return (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
             {componentCalling === 'StepBeginning' ?
                 <BeginningOrgChartContainer id="tree" ref={divRef} /> : <OrgChartContainer id="tree" ref={divRef} />}

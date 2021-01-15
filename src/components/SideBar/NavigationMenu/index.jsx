@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
+import {useHistory} from 'react-router-dom'
+import {useSpring, animated} from 'react-spring'
+import ChooseGroupModal from '../../Modals/ChooseGroupModal'
+import GroupMenu from './GroupMenu'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
 import {HOME, USERPROFILE, LOGIN} from '../../../routes/paths'
 import account from '../../../assets/icons/account_circle_24px.png'
@@ -11,10 +14,7 @@ import logout from '../../../assets/icons/stark_logout_icon.png'
 import {MenuItemTitle, NavbarTitle} from '../../../style/titles'
 import {LogOutLink} from '../../../style/links'
 import {SelectedGroupIcon} from '../../../style/images'
-import {useHistory} from 'react-router-dom'
-import {useSpring, animated} from 'react-spring'
-import GroupMenu from './GroupMenu'
-import ChooseGroupModal from '../../Modals/ChooseGroupModal'
+import {LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
 
 
 const NavigationMenu = ({dispatch, group, location, loaded}) => {

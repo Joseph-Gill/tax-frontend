@@ -25,12 +25,10 @@ const DeleteTaskModal = ({deleteTaskHandler, setShowDeleteTaskConfirmation}) => 
                 <AddDeleteModalTitleContainer>
                     <AuthenticatedPageTitle>Are you sure?</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
-                <div>
-                    <AddDeleteModalTextContainer>
-                        <Ellipse alt='ellipse' src={ellipse} />
-                        <ModalText>All documentation tied to this Task will be deleted</ModalText>
-                    </AddDeleteModalTextContainer>
-                </div>
+                <AddDeleteModalTextContainer>
+                    <Ellipse alt='ellipse' src={ellipse} />
+                    <ModalText>All documentation tied to this Task will be deleted</ModalText>
+                </AddDeleteModalTextContainer>
                 <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={() => setShowDeleteTaskConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
                     <RedLargerButton onClick={deleteTaskHandler}>Confirm Delete</RedLargerButton>

@@ -1,12 +1,12 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
-import {CloseIcon, Ellipse} from '../../../style/images'
 import close from '../../../assets/icons/stark_close_icon.svg'
-import {AuthenticatedPageTitle} from '../../../style/titles'
 import ellipse from '../../../assets/icons/stark_modal_ellipse.png'
-import {ModalText} from '../../../style/text'
+import {CloseIcon, Ellipse} from '../../../style/images'
+import {AuthenticatedPageTitle} from '../../../style/titles'
 import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
+import {ModalText} from '../../../style/text'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
 
 const DeleteDocumentModal = ({deleteDocumentHandler, documentName, setShowDeleteDocumentConfirmation}) => {
@@ -25,12 +25,10 @@ const DeleteDocumentModal = ({deleteDocumentHandler, documentName, setShowDelete
                 <AddDeleteModalTitleContainer>
                     <AuthenticatedPageTitle>Are you sure?</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
-                <div>
-                    <AddDeleteModalTextContainer>
-                        <Ellipse alt='ellipse' src={ellipse} />
-                        <ModalText>{documentName} will be deleted</ModalText>
-                    </AddDeleteModalTextContainer>
-                </div>
+                <AddDeleteModalTextContainer>
+                    <Ellipse alt='ellipse' src={ellipse} />
+                    <ModalText>{documentName} will be deleted</ModalText>
+                </AddDeleteModalTextContainer>
                 <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={() => setShowDeleteDocumentConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
                     <RedLargerButton onClick={deleteDocumentHandler}>Confirm Delete</RedLargerButton>

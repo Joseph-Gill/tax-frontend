@@ -1,9 +1,9 @@
 import React from 'react'
-import phImage from '../../assets/icons/stark_create_grp_ph_image.png'
-import {GroupImage, GroupImageLowerContainer, GroupInfoErrorMessageContainer, GroupNameInput, InputGroupInfoContainer, InputLeftContainer, InputRightContainer, InputTitle} from './styles'
 import {useSelector} from 'react-redux'
-import {ErrorMessage} from '../../style/messages'
 import SizeTextAndButtons from './SizeTextAndButtons'
+import phImage from '../../assets/icons/stark_create_grp_ph_image.png'
+import {ErrorMessage} from '../../style/messages'
+import {GroupImage, GroupImageLowerContainer, GroupInfoErrorMessageContainer, GroupNameInput, InputGroupInfoContainer, InputLeftContainer, InputRightContainer, InputTitle} from './styles'
 
 
 const GroupInfo = ({fromGroupAdd, fromGroupEdit, groupImage, groupName, hiddenFileInput, nameDisabled, setGroupImage, setGroupName}) => {
@@ -26,10 +26,10 @@ const GroupInfo = ({fromGroupAdd, fromGroupEdit, groupImage, groupName, hiddenFi
                             alt='group'
                             src={!groupImage.avatar ? phImage : groupImage.changed ? URL.createObjectURL(groupImage.avatar) : groupImage.avatar}
                         /> : null}
-                <SizeTextAndButtons
-                    hiddenFileInput={hiddenFileInput}
-                    setGroupImage={setGroupImage}
-                />
+                    <SizeTextAndButtons
+                        hiddenFileInput={hiddenFileInput}
+                        setGroupImage={setGroupImage}
+                    />
                 </GroupImageLowerContainer>
             </InputLeftContainer>
             <InputRightContainer>

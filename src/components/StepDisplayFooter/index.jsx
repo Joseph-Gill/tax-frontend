@@ -1,10 +1,12 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
-import {BeginningEndingBar, BarNodeContainer, BeginningNode, EndingLeftBar, EndingNode, NodeContainer, StepDisplayFooterContainer, StepDisplayText, StepNode, StepLeftBar} from './styles'
 import {useDispatch} from 'react-redux'
 import {skipToSpecifiedStep} from '../../store/step/actions'
+import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {BeginningEndingBar, BarNodeContainer, BeginningNode, EndingLeftBar, EndingNode, NodeContainer, StepDisplayFooterContainer, StepDisplayText, StepNode, StepLeftBar} from './styles'
 
+
+// Replaced with scrollable V2
 
 const StepDisplayFooter = ({beginningActive, endingActive, history, indexOfStepToDisplay, steps}) => {
     const dispatch = useDispatch()

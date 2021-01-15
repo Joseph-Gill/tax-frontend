@@ -1,7 +1,7 @@
 import React from 'react'
 import documentUpload from '../../assets/icons/stark_upload_document_icon.svg'
-import {DocumentUploadArea} from './styles'
 import {DocumentUploadAreaText} from '../../style/text'
+import {DocumentUploadArea} from './styles'
 
 
 const DocumentUpload = ({getInputProps, getRootProps}) => {

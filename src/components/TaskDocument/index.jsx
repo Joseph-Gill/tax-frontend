@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
+import DeleteDocumentModal from '../Modals/DeleteDocumentModal'
 import {deleteTaskDocumentAction} from '../../store/taskDocument/actions'
 import {getTasksForProjectAction} from '../../store/task/actions'
 import deleteDocument from '../../assets/icons/stark_task_delete_document_icon.svg'
-import {DocumentDeleteIconContainer, TaskDocumentDeleteImage} from './styles'
 import {TaskDocumentLink} from '../../style/links'
-import DeleteDocumentModal from '../Modals/DeleteDocumentModal'
+import {DocumentDeleteIconContainer, TaskDocumentDeleteImage} from './styles'
 
 
 const TaskDocument = ({document, project}) => {

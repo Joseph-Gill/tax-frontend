@@ -1,10 +1,10 @@
 import React, {forwardRef} from 'react'
 import DatePicker from 'react-datepicker'
+import calendar from '../../assets/icons/stark_calendar_icon.svg'
+import {CardInfoText, DateInputLabelText} from '../../style/text'
+import {DateInputAndLabelContainer, DateInputContainer} from './styles'
 import "react-datepicker/dist/react-datepicker.css";
 import "./styles.css"
-import {CardInfoText, DateInputLabelText} from '../../style/text'
-import calendar from '../../assets/icons/stark_calendar_icon.svg'
-import {DateInputAndLabelContainer, DateInputContainer} from './styles'
 
 
 const DateInput = ({date, label, setDate}) => {

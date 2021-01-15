@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTransition} from 'react-spring'
-import {GroupMenuContainer, MenuItem, NavigationIcons} from '../styles'
 import {ADD_GROUP, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../../../routes/paths'
 import layers from '../../../../assets/icons/layers_24px.png'
-import {NavbarTitle} from '../../../../style/titles'
 import organization from '../../../../assets/icons/stark_organization.png'
 import projects from '../../../../assets/icons/stark_projects.png'
 import teamMembers from '../../../../assets/icons/stark_team_members.png'
+import {NavbarTitle} from '../../../../style/titles'
+import {GroupMenuContainer, MenuItem, NavigationIcons} from '../styles'
 
 
 const GroupMenu = ({loaded, location}) => {

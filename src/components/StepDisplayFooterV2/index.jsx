@@ -1,8 +1,8 @@
 import React from 'react'
-import {StepDisplayContainer, StepDisplayProgressBar, StepNode} from './styles'
+import {useDispatch} from 'react-redux'
 import {skipToSpecifiedStep} from '../../store/step/actions'
 import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
-import {useDispatch} from 'react-redux'
+import {StepDisplayContainer, StepDisplayProgressBar, StepNode} from './styles'
 
 
 const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, steps}) => {

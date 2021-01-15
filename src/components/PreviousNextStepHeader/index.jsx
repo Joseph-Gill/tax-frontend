@@ -1,14 +1,14 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {decrementStepToView, incrementStepToView, skipToSpecifiedStep} from '../../store/step/actions'
+import {resetErrors} from '../../store/errors/actions/errorAction'
+import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import previousActive from '../../assets/icons/stark_step_header_left_active.png'
 import nextActive from '../../assets/icons/stark_step_header_right_active.png'
 import previousInactive from '../../assets/icons/stark_step_header_left_inactive.png'
 import nextInactive from '../../assets/icons/stark_step_header_right_inactive.png'
 import {ImageTextStepHeaderContainer, PreviousNextActiveText, PreviousNextArrowLeft, PreviousNextArrowRight, PreviousNextStepHeaderContainer} from './styles'
-import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
-import {useDispatch, useSelector} from 'react-redux'
-import {decrementStepToView, incrementStepToView, skipToSpecifiedStep} from '../../store/step/actions'
-import {resetErrors} from '../../store/errors/actions/errorAction'
 
 
 const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBeginning, stepEnding}) => {

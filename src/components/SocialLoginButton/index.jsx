@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-
 import {BaseButton} from '../../style/buttons'
+
+
+// Currently not used in the Project, leftover from the Template
 
 export const SocialLoginContainer = styled(BaseButton)`
     width: 150px;
