@@ -128,7 +128,7 @@ const ProjectTasks = ({history}) => {
                         <AuthenticatedPageTitle>Taskslist - {project.name}</AuthenticatedPageTitle>
                         <AddTaskButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_TASK}`)}>Add Task</AddTaskButton>
                     </DisplayTitleWithButtonContainer>
-                    {!tasks.length ? <NoTasksFound /> : (
+                    {!tasks.length ? <NoTasksFound history={history} /> : (
                         <>
                             <StatusLegendFilterDropdownContainer>
                                 <TaskStatusLegendContainer>
