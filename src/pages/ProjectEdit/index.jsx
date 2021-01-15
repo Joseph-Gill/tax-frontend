@@ -1,21 +1,21 @@
 import React, {useState, useRef, useEffect} from 'react'
-import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
-import {EDIT_PROJECT, GROUPS, HOME, PROJECTS} from '../../routes/paths'
-import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
-import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
+import BreadCrumb from '../../components/BreadCrumb'
+import Spinner from '../../components/Spinner'
+import {updateProjectAction} from '../../store/project/actions'
+import {EDIT_PROJECT, GROUPS, HOME, PROJECTS} from '../../routes/paths'
 import {ProjectNameInput} from '../../style/inputs'
-import {StatusDropdown} from '../../style/dropdowns'
-import {DropdownOption} from '../../style/options'
 import {ProjectDescriptionTextArea} from '../../style/textarea'
 import {CancelButton, SaveButton} from '../../style/buttons'
-import {updateProjectAction} from '../../store/project/actions'
-import Spinner from '../../components/Spinner'
+import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
+import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer,
+    ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
+import ProjectStatusDropdown from './ProjectStatusDropdown'
 
 
 const ProjectEdit = ({history}) => {
-    let status = useRef('')
     const dispatch = useDispatch()
+    let status = useRef('')
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
@@ -65,13 +65,10 @@ const ProjectEdit = ({history}) => {
                         </ProjectInputContainer>
                         <ProjectInputContainer>
                             <AddEditProjectSectionTitles>Project Status</AddEditProjectSectionTitles>
-                            <StatusDropdown defaultValue={project.status} ref={status}>
-                                <DropdownOption disabled value=''>Select a status</DropdownOption>
-                                <DropdownOption value='Not Started'>Not Started</DropdownOption>
-                                <DropdownOption value='Ongoing'>Ongoing</DropdownOption>
-                                <DropdownOption value='Not Implemented'>Not Implemented</DropdownOption>
-                                <DropdownOption value='Completed'>Completed</DropdownOption>
-                            </StatusDropdown>
+                            <ProjectStatusDropdown
+                                project={project}
+                                status={status}
+                            />
                         </ProjectInputContainer>
                     </AddEditProjectNameStatusContainer>
                     <AddEditProjectDescriptionContainer>

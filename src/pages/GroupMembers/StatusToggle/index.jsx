@@ -1,4 +1,5 @@
 import React from 'react'
+import StatusToggleChoices from './StatusToggleChoices'
 import {StatusToggleContainer, StatusToggleLabel, ToggleContainer} from './styles'
 
 
@@ -13,10 +14,7 @@ const StatusToggle = ({filterMemberStatus, resetAllCheckedChangeFilterMemberStat
                     type='checkbox'
                 />
                 <span>
-                    <div>
-                        <p>Active</p>
-                        <p>Invited</p>
-                    </div>
+                    <StatusToggleChoices />
                 </span>
                 <i />
             </ToggleContainer>

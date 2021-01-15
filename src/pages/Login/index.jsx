@@ -19,11 +19,11 @@ import {ActiveInputLabel} from '../../style/labels'
 
 
 const Login = () => {
+    const history = useHistory()
+    const dispatch = useDispatch()
     let email = useRef('')
     let password = useRef('')
     const error = useSelector(state => state.errorReducer.error)
-    const history = useHistory()
-    const dispatch = useDispatch()
     useResetErrors()
 
     const login = async e => {
@@ -71,9 +71,7 @@ const Login = () => {
                 <LoginFooter />
             </LoginForm>
         </BasePageContainer>
-)
+    )
 }
 
 export default Login
-
-

@@ -1,4 +1,5 @@
 import React from 'react'
+import StepDisplayToggleChoices from './StepDisplayToggleChoices'
 import {DisplayToggleContainer, ToggleContainer} from './styles'
 
 
@@ -12,10 +13,7 @@ const StepDisplayToggle = ({stepDetailStatus, setStepDetailStatus}) => {
                     type='checkbox'
                 />
                 <span>
-                    <div>
-                        <p>Chart</p>
-                        <p>Details</p>
-                    </div>
+                    <StepDisplayToggleChoices />
                 </span>
                 <i />
             </ToggleContainer>

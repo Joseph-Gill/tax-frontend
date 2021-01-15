@@ -1,6 +1,6 @@
 import React from 'react'
-import {AddEditProjectSectionTitles} from '../../../style/titles'
 import {StatusText} from '../../../style/text'
+import {AddEditProjectSectionTitles} from '../../../style/titles'
 import {StatusBox} from './styles'
 import {ProjectDisplayInfoBoxSmaller} from '../styles'
 

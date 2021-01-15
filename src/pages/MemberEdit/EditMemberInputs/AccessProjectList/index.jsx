@@ -1,8 +1,8 @@
 import React from 'react'
+import {checkBoxChangeHandler} from '../../../../helpers'
 import {CheckBox} from '../../../../style/inputs'
 import {AuthenticatedText} from '../../../../style/text'
 import {AccessProjectListContainer, AccessProjectListLowerContainer, AccessProjectListUpperContainer, ProjectNameCheckboxContainer} from './styles'
-import {checkBoxChangeHandler} from '../../../../helpers'
 
 
 const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupProjects, setAllProjectsChecked}) => {

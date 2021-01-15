@@ -1,9 +1,9 @@
 import React from 'react'
+import {allowOnlyOneCheckedBox} from '../../../helpers'
 import {Dropdown, DropdownOptions, FilterDropdownButton} from '../../../style/dropdowns'
 import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/containers'
 import {DefaultDropdownText} from '../../../style/text'
 import {FilterCheckBox, FilterInput} from '../../../style/inputs'
-import {allowOnlyOneCheckedBox} from '../../../helpers'
 
 
 const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilterOption, setFilterString}) => {

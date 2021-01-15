@@ -51,3 +51,9 @@ export const ProjectDescriptionTextArea = styled.textarea`
       background: ${props => props.theme.grayTwo};
     }
 `
+
+export const TaskDescriptionTextArea = styled(ProjectDescriptionTextArea)`
+    width: 607px;
+    height: 101px;
+    margin-left: 107px;
+`

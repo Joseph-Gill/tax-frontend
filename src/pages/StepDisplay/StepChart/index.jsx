@@ -1,14 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
+import {StepChartContainer} from './styles'
 
-const StepChartContainer = styled.div`
-    width: 840px;
-    height: 380px;
-    background: #FAFAFA;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
 
 const StepChart = () => {
     return (

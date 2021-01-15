@@ -1,24 +1,23 @@
 import React, {useEffect, useState} from 'react'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskErrorContainer, TaskInputRow, TaskInputsContainer, TaskUpperLabelRow} from '../../style/containers'
-import {EDIT_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
-import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
-import {AuthenticatedPageTitle} from '../../style/titles'
 import {useDropzone} from 'react-dropzone'
-import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, createTaskStepSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import Spinner from '../../components/Spinner'
-import {CancelButton, SaveButton} from '../../style/buttons'
-import {resetErrors} from '../../store/errors/actions/errorAction'
+import BreadCrumb from '../../components/BreadCrumb'
 import EditInputTitleStatus from './EditInputTitleStatus'
-import {ErrorMessage} from '../../style/messages'
-import {TaskInputLabel} from '../../style/labels'
-import StepDropdown from '../../components/StepDropdown'
-import {NewTaskDescriptionTextArea} from '../TaskAdd/styles'
 import TaskDates from '../../components/TaskDates'
-import EditTaskLowerInputs from './EditTaskLowerInputs'
 import SuccessMessage from '../../components/SuccessMessage'
+import TaskEditDescription from './TaskEditDescription'
+import TaskEditLowerInputs from './TaskEditLowerInputs'
+import TaskEditStep from './TaskEditStep'
+import {resetErrors} from '../../store/errors/actions/errorAction'
 import {getTasksForProjectAction, updateTaskAction} from '../../store/task/actions'
+import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
+import {EDIT_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
+import {ErrorMessage} from '../../style/messages'
+import {AuthenticatedPageTitle} from '../../style/titles'
+import {CancelButton, SaveButton} from '../../style/buttons'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskErrorContainer, TaskInputsContainer} from '../../style/containers'
 
 
 const TaskEdit = ({history}) => {
@@ -119,51 +118,34 @@ const TaskEdit = ({history}) => {
                     </AuthenticatedPageTitleContainer>
                     <TaskInputsContainer>
                         <div>
-                            <TaskInputRow>
-                                <EditInputTitleStatus
-                                    setTaskStatus={setTaskStatus}
-                                    setTitle={setTitle}
-                                    taskStatus={taskStatus}
-                                    title={title}
-                                />
-                            </TaskInputRow>
+                            <EditInputTitleStatus
+                                setTaskStatus={setTaskStatus}
+                                setTitle={setTitle}
+                                taskStatus={taskStatus}
+                                title={title}
+                            />
                             <TaskErrorContainer>
                                 {error && <ErrorMessage>{error.title}</ErrorMessage>}
                             </TaskErrorContainer>
                         </div>
-                        <div>
-                            <TaskInputRow>
-                                <TaskInputLabel>Assign a step</TaskInputLabel>
-                                <StepDropdown
-                                    selectedStep={selectedStep}
-                                    setSelectedStep={setSelectedStep}
-                                    stepOptions={createTaskStepSelectOptions(steps)}
-                                />
-                            </TaskInputRow>
-                            <TaskErrorContainer>
-                                {error && <ErrorMessage>{error.step}</ErrorMessage>}
-                            </TaskErrorContainer>
-                        </div>
-                        <div>
-                            <TaskUpperLabelRow>
-                                <TaskInputLabel>Task description</TaskInputLabel>
-                                <NewTaskDescriptionTextArea
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    placeholder='Write your task description'
-                                    value={description}
-                                />
-                            </TaskUpperLabelRow>
-                            <TaskErrorContainer>
-                                {error && <ErrorMessage>{error.description}</ErrorMessage>}
-                            </TaskErrorContainer>
-                        </div>
+                        <TaskEditStep
+                            error={error}
+                            selectedStep={selectedStep}
+                            setSelectedStep={setSelectedStep}
+                            steps={steps}
+                        />
+                        <TaskEditDescription
+                            description={description}
+                            error={error}
+                            setDescription={setDescription}
+                        />
                         <TaskDates
                             completionDate={completionDate}
                             dueDate={dueDate}
                             setCompletionDate={setCompletionDate}
                             setDueDate={setDueDate}
                         />
-                        <EditTaskLowerInputs
+                        <TaskEditLowerInputs
                             documents={targetTask.task_documents}
                             error={error}
                             files={createAcceptedFilesList(acceptedFiles)}

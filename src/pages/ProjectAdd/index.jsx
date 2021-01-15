@@ -17,13 +17,13 @@ import Spinner from '../../components/Spinner'
 
 
 const ProjectAdd = ({history}) => {
-    const [showSuccess, setShowSuccess] = useState(false)
+    const dispatch = useDispatch()
+    let status = useRef('')
+    let name = useRef('')
+    let description = useRef('')
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
-    const status = useRef('')
-    const name = useRef('')
-    const description = useRef('')
-    const dispatch = useDispatch()
+    const [showSuccess, setShowSuccess] = useState(false)
 
     useEffect (() => {
         if (!loaded) {

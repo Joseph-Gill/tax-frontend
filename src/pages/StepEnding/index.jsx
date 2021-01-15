@@ -1,23 +1,14 @@
 import React, {useEffect} from 'react'
-import styled from 'styled-components/macro'
-import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
-import BreadCrumb from '../../components/BreadCrumb'
-import {ENDING, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import {useSelector} from 'react-redux'
-import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
-import {AuthenticatedPageTitle} from '../../style/titles'
-import {AddNewStepButton} from '../../style/buttons'
 import Spinner from '../../components/Spinner'
+import BreadCrumb from '../../components/BreadCrumb'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
-
-const EndingStructurePlaceholder = styled.div`
-    width: 860px;
-    height: 437px;
-    box-shadow: ${props => props.theme.boxShadow};
-    background: ${props => props.theme.white};
-    border-radius: ${props => props.theme.borderRadius};
-    margin-top: 30px;
-`
+import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
+import {ENDING, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
+import {AddNewStepButton} from '../../style/buttons'
+import {AuthenticatedPageTitle} from '../../style/titles'
+import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
+import {EndingStructurePlaceholder} from './styles'
 
 
 const StepEnding = ({history}) => {

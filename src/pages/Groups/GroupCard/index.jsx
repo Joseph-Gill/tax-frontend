@@ -1,8 +1,8 @@
 import React from 'react'
-import groupImagePH from '../../../assets/icons/stark_group_card_image_ph.png'
-import {GroupAvatarImage, GroupCardContainer, GroupCardInfoContainer} from './styles'
-import {CardInfoText, CardTitleText} from '../../../style/text'
 import {useSpring} from 'react-spring'
+import groupImagePH from '../../../assets/icons/stark_group_card_image_ph.png'
+import {CardInfoText, CardTitleText} from '../../../style/text'
+import {GroupAvatarImage, GroupCardContainer, GroupCardInfoContainer} from './styles'
 
 
 const GroupCard = ({group, history}) => {

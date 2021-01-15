@@ -1,8 +1,8 @@
 import React from 'react'
 import emailIcon from '../../../assets/icons/stark_send_email.svg'
+import deleteIcon from '../../../assets/icons/stark_delete_icon.svg'
 import {BlueDropdownText, RedDropdownText} from '../../../style/text'
 import {ActionDropDownChoice, ActionDropdownChoiceWithBorder} from '../../../style/containers'
-import deleteIcon from '../../../assets/icons/stark_delete_icon.svg'
 import {Dropdown, DropdownButton, DropdownOptions} from '../../../style/dropdowns'
 import {DropdownImage} from '../../../style/images'
 

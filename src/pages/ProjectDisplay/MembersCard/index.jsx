@@ -1,10 +1,10 @@
 import React from 'react'
-import {AddEditProjectSectionTitles} from '../../../style/titles'
+import {GROUPS, MEMBERS} from '../../../routes/paths'
 import groupIcon from '../../../assets/icons/stark_display_project_member_icon.svg'
 import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
-import {ProjectDisplayInfoBoxSmaller, ViewItemLink, ViewItemLinkContainer} from '../styles'
+import {AddEditProjectSectionTitles} from '../../../style/titles'
 import {MemberBox, MemberImage, MemberText} from './styles'
-import {GROUPS, MEMBERS} from '../../../routes/paths'
+import {ProjectDisplayInfoBoxSmaller, ViewItemLink, ViewItemLinkContainer} from '../styles'
 
 
 const MembersCard = ({history, members}) => {

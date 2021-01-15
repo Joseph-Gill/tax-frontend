@@ -1,23 +1,23 @@
 import React, {useEffect} from 'react'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
-import BreadCrumb from '../../components/BreadCrumb'
-import {AuthenticatedPageTitle} from '../../style/titles'
 import {useDispatch, useSelector} from 'react-redux'
+import BreadCrumb from '../../components/BreadCrumb'
+import Spinner from '../../components/Spinner'
 import CreateGroupCard from './CreateGroupCard'
 import GroupCard from './GroupCard'
-import {GroupDisplayContainer, GroupGridContainer, GroupsSectionTile} from './styles'
-import {resetGroup} from '../../store/group/actions'
-import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import NoContent from '../../components/NoContent'
+import {resetGroup} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
 import {getProfileAction} from '../../store/profile/actions'
-import Spinner from '../../components/Spinner'
+import {ADD_GROUP, GROUPS} from '../../routes/paths'
+import {AuthenticatedPageTitle} from '../../style/titles'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {GroupDisplayContainer, GroupGridContainer, GroupsSectionTile} from './styles'
 
 
 const Groups = ({history}) => {
+    const dispatch = useDispatch()
     const groups = useSelector(state => state.profileReducer.profile.groups)
     const loaded = useSelector(state => state.profileReducer.loaded)
-    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(resetGroup())

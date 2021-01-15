@@ -1,7 +1,7 @@
 import React from 'react'
+import {ADD_GROUP, GROUPS} from '../../../routes/paths'
 import addGroup from '../../../assets/icons/stark_add_group.svg'
 import {CreateGroupCardContainer, CreateGroupImage, CreateGroupText, CreateGroupTextContainer} from './styles'
-import {ADD_GROUP, GROUPS} from '../../../routes/paths'
 
 
 const CreateGroupCard = ({history}) => {

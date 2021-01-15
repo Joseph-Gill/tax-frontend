@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, {useState} from 'react'
+import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom'
-
-import {userSocialLoginAction} from '../../../store/user/actions/authentication/userLoginAction'
-import {HOME} from '../../../routes/paths'
 import SocialLoginButton from '../../../components/SocialLoginButton'
 import Spinner from '../../../components/Spinner'
+import {userSocialLoginAction} from '../../../store/user/actions/authentication/userLoginAction'
+import {HOME} from '../../../routes/paths'
 import GoogleIcon from '../../../assets/icons/google-icon.svg'
+
+// Currently not used in the Project, leftover from the Template
 
 // Following single line comment is not really a comment - but a rule to tell eslint that we know what we do when using global gapi (Google API)
 // gapi is needed for google login and is imported via script in index.html

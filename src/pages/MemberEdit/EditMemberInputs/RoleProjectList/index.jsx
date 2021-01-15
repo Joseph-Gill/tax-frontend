@@ -1,8 +1,8 @@
 import React from 'react'
+import RoleTooltip from './RoleTooltip'
+import tooltipAnchor from '../../../../assets/icons/stark_tooltip_anchor.png'
 import {CheckBox} from '../../../../style/inputs'
 import {AuthenticatedText} from '../../../../style/text'
-import tooltipAnchor from '../../../../assets/icons/stark_tooltip_anchor.png'
-import RoleTooltip from './RoleTooltip'
 import {CheckBoxRoleContainer, ProjectRolesContainer, TooltipAnchor} from './styles'
 
 

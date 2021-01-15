@@ -1,7 +1,7 @@
 import React from 'react'
-import {TaskStatusEntryColor} from './styles'
 import {StatusEntryContainer} from '../../../style/containers'
 import {StatusEntryText} from '../../../style/text'
+import {TaskStatusEntryColor} from './styles'
 
 
 const TaskStatusLegendEntry = ({status}) => {

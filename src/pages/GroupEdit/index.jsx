@@ -1,27 +1,27 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
 import BreadCrumb from '../../components/BreadCrumb'
-import {EDIT_GROUP, GROUPS, HOME} from '../../routes/paths'
-import {AuthenticatedPageTitle} from '../../style/titles'
 import GroupInfo from '../../components/GroupInfo'
-import {EntityTitle} from '../../components/EntityInfo/styles'
-import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import EntityInfo from '../../components/EntityInfo'
-import {updateGroupAction} from '../../store/group/actions'
 import SuccessMessage from '../../components/SuccessMessage'
 import Spinner from '../../components/Spinner'
+import {updateGroupAction} from '../../store/group/actions'
+import {EDIT_GROUP, GROUPS, HOME} from '../../routes/paths'
+import {EntityTitle} from '../../components/EntityInfo/styles'
+import {AuthenticatedPageTitle} from '../../style/titles'
+import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
+import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
 
 
 const GroupEdit = ({history}) => {
     const dispatch = useDispatch()
-    const group = useSelector(state => state.groupReducer.group)
-    const loaded = useSelector(state => state.groupReducer.loaded)
     let hiddenFileInput = useRef(null)
     let entityName = useRef('')
     let parentName = useRef('')
     let taxRate = useRef('')
     let legalForm = useRef('')
+    const group = useSelector(state => state.groupReducer.group)
+    const loaded = useSelector(state => state.groupReducer.loaded)
     const [showSuccess, setShowSuccess] = useState(false)
     const [groupImage, setGroupImage] = useState({avatar: null, changed: false})
     const [countryName, setCountryName] = useState('')

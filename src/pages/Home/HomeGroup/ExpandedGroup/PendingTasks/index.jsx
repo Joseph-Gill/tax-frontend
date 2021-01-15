@@ -1,9 +1,9 @@
 import React from 'react'
-import {EntryDocumentsContainer, EntryDocumentsTextContainer, EntryResponsibleContainer, NoTasksOrTaxConsequencesDisplay, TableContainer} from '../../../../../style/containers'
-import {CommentTable, TableData, TableHeader, TableTitleRow} from '../../../../../style/tables'
-import {PendingTaskCompleteDateTableHeader, PendingTaskTableRow, PendingTaskTitleTableData} from './styles'
-import {EntryResponsibleText, NoTasksOrTaxConsequencesText} from '../../../../../style/text'
 import {TaskDocumentLink} from '../../../../../style/links'
+import {CommentTable, TableData, TableHeader, TableTitleRow} from '../../../../../style/tables'
+import {EntryResponsibleText, NoTasksOrTaxConsequencesText} from '../../../../../style/text'
+import {EntryDocumentsContainer, EntryDocumentsTextContainer, EntryResponsibleContainer, NoTasksOrTaxConsequencesDisplay, TableContainer} from '../../../../../style/containers'
+import {PendingTaskCompleteDateTableHeader, PendingTaskTableRow, PendingTaskTitleTableData} from './styles'
 
 
 const PendingTasks = ({tasksToRender, user, userRole}) => {

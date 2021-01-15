@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-
-import {userSocialLoginAction } from '../../../store/user/actions/authentication/userLoginAction'
-import { HOME } from '../../../routes/paths'
+import React, {useState, useEffect, useCallback} from 'react'
+import {useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
+import Cookie from 'js-cookie'
 import Spinner from '../../../components/Spinner'
 import SocialLoginButton from '../../../components/SocialLoginButton'
+import {userSocialLoginAction} from '../../../store/user/actions/authentication/userLoginAction'
+import {HOME} from '../../../routes/paths'
 import LinkedInLogo from '../../../assets/icons/linkedin.svg'
-import Cookie from 'js-cookie'
+
+
+// Currently not used in the Project, leftover from the Template
 
 const LinkedinLogin = () => {
     const [isLoading, setIsLoading] = useState(false)

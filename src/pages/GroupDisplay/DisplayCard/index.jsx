@@ -1,7 +1,7 @@
 import React from 'react'
+import {useSpring} from 'react-spring'
 import {CardInfoText, CardTitleText} from '../../../style/text'
 import {DisplayCardContainer, DisplayCardImageContainer} from './styling'
-import {useSpring} from 'react-spring'
 
 
 const DisplayCard = ({type, image, content, redirectOnClickHandler}) => {

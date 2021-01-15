@@ -1,28 +1,29 @@
 import React, {useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {BaseButton} from '../../style/buttons'
-import {Title} from '../../style/titles'
-import {ErrorMessage} from '../../style/messages'
-import {useResetErrors} from '../../hooks'
-import {resetPassword} from '../../store/user/actions/authentication/resetPasswordAction'
-import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
-import {ResetPasswordForm} from '../../style/forms'
 import SignUpLink from '../../components/SignUpLink'
 import SuccessMessage from '../../components/SuccessMessage'
-import {BaseInput} from '../../style/inputs'
-import {LOGIN} from '../../routes/paths'
 import LoginFooter from '../../components/LoginFooter'
-import {LoginLogo} from '../../style/logos'
-import {LogoPlaceholder} from '../../style'
 import PasswordLink from '../../components/PasswordLink'
+import {useResetErrors} from '../../hooks'
+import {resetPassword} from '../../store/user/actions/authentication/resetPasswordAction'
+import {LOGIN} from '../../routes/paths'
+import {Title} from '../../style/titles'
+import {LogoPlaceholder} from '../../style'
+import {LoginLogo} from '../../style/logos'
+import {BaseInput} from '../../style/inputs'
+import {BaseButton} from '../../style/buttons'
+import {ErrorMessage} from '../../style/messages'
+import {ResetPasswordForm} from '../../style/forms'
 import {ActiveInputLabel} from '../../style/labels'
+import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
 
 
 const PasswordReset = () => {
-    let email = useRef('')
-    const [showSuccess, setShowSuccess] = useState(false)
-    const error = useSelector(state => state.errorReducer.error)
     const dispatch = useDispatch()
+    let email = useRef('')
+    const error = useSelector(state => state.errorReducer.error)
+    const [showSuccess, setShowSuccess] = useState(false)
+
     useResetErrors()
 
     const resetPasswordHandler = async e => {

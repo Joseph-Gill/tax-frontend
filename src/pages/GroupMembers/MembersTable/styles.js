@@ -1,8 +1,6 @@
 import styled from 'styled-components/macro'
 import {TableData} from '../../../style/tables'
 import {CardInfoText} from '../../../style/text'
-import {BaseButton} from '../../../style/buttons'
-import {NoFilterResultsContainer} from '../../../style/containers'
 
 
 export const TableDataCheckbox = styled(TableData)`
@@ -65,12 +63,6 @@ export const NewMemberYellowText = styled(CardInfoText)`
     color: ${props => props.theme.yellowDark};
 `
 
-export const NoInvitedMembersButton = styled(BaseButton)`
-    width: 183px;
-    height: 32px;
-    margin-top: 20px;
-`
-
 export const RoleFieldText = styled.p`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-size: 12px;
@@ -91,8 +83,4 @@ export const RoleFieldChevron = styled.img`
     :hover {
         cursor: pointer;
     }
-`
-
-export const NoInvitedMembersContainer = styled(NoFilterResultsContainer)`
-    height: 370px;
 `

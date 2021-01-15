@@ -1,8 +1,8 @@
 import React from 'react'
-import {ProjectDisplayColorText, ProjectDisplayColorTextBackground, ProjectDisplayColorTextContainer, ProjectDisplayInfoBox, ProjectDisplayStatusesContainer, ViewItemLink, ViewItemLinkContainer} from '../styles'
-import {AddEditProjectSectionTitles} from '../../../style/titles'
-import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
 import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
+import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
+import {AddEditProjectSectionTitles} from '../../../style/titles'
+import {ProjectDisplayColorText, ProjectDisplayColorTextBackground, ProjectDisplayColorTextContainer, ProjectDisplayInfoBox, ProjectDisplayStatusesContainer, ViewItemLink, ViewItemLinkContainer} from '../styles'
 
 
 const TasksCard = ({history, project, tasksStatuses}) => {

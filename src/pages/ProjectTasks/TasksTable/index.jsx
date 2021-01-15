@@ -1,7 +1,7 @@
 import React from 'react'
+import TaskTableEntry from './TaskTableEntry'
 import {CommentTable, TableHeader, TableTitleRow} from '../../../style/tables'
 import {NoFilteredTasksContainer, TaskStatusTableHeader} from './styles'
-import TaskTableEntry from './TaskTableEntry'
 
 
 const TasksTable = ({group, history, project, tasks}) => {

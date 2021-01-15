@@ -1,26 +1,26 @@
 import React, {useRef, useState} from 'react'
-import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer, ErrorMessageContainer} from '../../style/containers'
+import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
-import {AuthenticatedPageTitle} from '../../style/titles'
 import GroupInfo from '../../components/GroupInfo'
 import EntityInfo from '../../components/EntityInfo'
-import {useDispatch, useSelector} from 'react-redux'
-import {createGroupAction} from '../../store/group/actions'
-import {ADD_GROUP, GROUPS} from '../../routes/paths'
-import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import SuccessMessage from '../../components/SuccessMessage'
+import {createGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
+import {ADD_GROUP, GROUPS} from '../../routes/paths'
+import {AuthenticatedPageTitle} from '../../style/titles'
+import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import {ErrorMessage} from '../../style/messages'
+import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer, ErrorMessageContainer} from '../../style/containers'
 import {GroupAddEntityTitle} from './styles'
 
 
 const GroupAdd = ({history}) => {
+    const dispatch = useDispatch()
     let hiddenFileInput = useRef(null)
     let entityName = useRef('')
     let parentName = useRef('')
     let taxRate = useRef('')
     let legalForm = useRef('')
-    const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [groupName, setGroupName] = useState('')
     const [groupImage, setGroupImage] = useState({avatar: null, changed: false})

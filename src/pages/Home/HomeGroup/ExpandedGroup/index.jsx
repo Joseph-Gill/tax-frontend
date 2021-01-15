@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react'
-import {AuthenticatedText} from '../../../../style/text'
-import {AccountInfoContainer, CommentsContainer, ExpandedGroupContainer, GroupExpandedDateText, GroupSectionTitle, NextStepContainer, ProjectStepsButton, StepDateTextContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
-import {TableButton} from '../../../../style/buttons'
-import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS, TASKS} from '../../../../routes/paths'
-import PendingTasks from './PendingTasks'
 import {useDispatch} from 'react-redux'
-import {getStepsForProjectAction, skipToSpecifiedStep} from '../../../../store/step/actions'
-import {getProjectAction, getProjectTaxConsequencesUnreviewedSameLocationAsUserAction} from '../../../../store/project/actions'
+import PendingTasks from './PendingTasks'
 import PendingTaxConsequences from './PendingTaxConsequences'
 import Loading from '../../../../components/Loading'
+import {getStepsForProjectAction, skipToSpecifiedStep} from '../../../../store/step/actions'
+import {getProjectAction, getProjectTaxConsequencesUnreviewedSameLocationAsUserAction} from '../../../../store/project/actions'
+import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS, TASKS} from '../../../../routes/paths'
+import {AuthenticatedText} from '../../../../style/text'
+import {TableButton} from '../../../../style/buttons'
+import {AccountInfoContainer, CommentsContainer, ExpandedGroupContainer, GroupExpandedDateText, GroupSectionTitle, NextStepContainer, ProjectStepsButton,
+    StepDateTextContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
 
 
 const ExpandedGroup = ({firstUncompletedStep, groupId, history, project, tasksToRender, setHomeLoading, user, userRole}) => {

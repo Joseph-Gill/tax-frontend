@@ -60,3 +60,8 @@ export const FilterCheckBox = styled.input`
     cursor: pointer;
 }
 `
+
+export const TaskTitleInput = styled(BaseInput)`
+    background: ${props => props.theme.white};
+    margin-left: 153px;
+`

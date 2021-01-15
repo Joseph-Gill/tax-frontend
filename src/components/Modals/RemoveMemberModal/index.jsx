@@ -13,7 +13,7 @@ import {BaseInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
 import {useDispatch, useSelector} from 'react-redux'
 import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer} from '../styles'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTitleContainer} from '../styles'
 
 
 const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setShowConfirmation}) => {

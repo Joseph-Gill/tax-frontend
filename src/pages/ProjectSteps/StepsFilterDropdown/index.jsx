@@ -1,9 +1,9 @@
 import React from 'react'
-import {Dropdown, DropdownOptions, FilterDropdownButton} from '../../../style/dropdowns'
-import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/containers'
-import {FilterCheckBox, FilterInput} from '../../../style/inputs'
 import {allowOnlyOneCheckedBox} from '../../../helpers'
 import {DefaultDropdownText} from '../../../style/text'
+import {FilterCheckBox, FilterInput} from '../../../style/inputs'
+import {Dropdown, DropdownOptions, FilterDropdownButton} from '../../../style/dropdowns'
+import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/containers'
 
 
 const StepFilterDropdown = ({filterOption, filterString, setFilterOption, setFilterString}) => {

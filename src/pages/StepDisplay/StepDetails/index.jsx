@@ -1,28 +1,19 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
-import {addNewTaxConsequence, getAllTaxConsequencesForStepAction} from '../../../store/taxConsequence/actions'
 import Spinner from '../../../components/Spinner'
 import TaxConsequenceCard from './TaxConsequnceCard'
+import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {addNewTaxConsequence, getAllTaxConsequencesForStepAction} from '../../../store/taxConsequence/actions'
 import pencil from '../../../assets/icons/stark_edit_pencil_icon.svg'
 import addConsequence from '../../../assets/icons/stark_add_country_consequence_icon.svg'
 import save from '../../../assets/icons/stark_step_save_icon.svg'
 import {NavbarTitle} from '../../../style/titles'
 import {CardInfoText} from '../../../style/text'
-import {
-    DisplayStepButtonText,
-    DisplayStepImage,
-    DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer,
-    StepDescriptionTitleContainer, StepDetailErrorContainer,
-    StepDetailsContainer,
-    StepInfoCancelButton,
-    StepInfoDescriptionContainer,
-    StepInfoSaveButton,
-    StepInfoSaveImage,
-    StepInfoTextArea, TaxConsequencesContainer
-} from './styles'
 import {ErrorMessage} from '../../../style/messages'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer, StepDescriptionTitleContainer,
+    StepDetailErrorContainer, StepDetailsContainer, StepInfoCancelButton, StepInfoDescriptionContainer, StepInfoSaveButton, StepInfoSaveImage, StepInfoTextArea,
+    TaxConsequencesContainer} from './styles'
 
 
 

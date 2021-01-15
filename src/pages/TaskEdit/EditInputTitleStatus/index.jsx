@@ -1,8 +1,8 @@
 import React from 'react'
 import {TaskInputLabel} from '../../../style/labels'
-import {NewTaskTitleInput} from '../../TaskAdd/styles'
 import TaskStatusDropdown from './TaskStatusDropdown'
 import {InputContainer, InputStatusContainer, StatusContainer} from './styles'
+import {TaskTitleInput} from '../../../style/inputs'
 
 
 const EditInputTitleStatus = ({setTaskStatus, setTitle, taskStatus, title}) => {
@@ -10,7 +10,7 @@ const EditInputTitleStatus = ({setTaskStatus, setTitle, taskStatus, title}) => {
         <InputStatusContainer>
             <InputContainer>
                 <TaskInputLabel>Task title</TaskInputLabel>
-                <NewTaskTitleInput
+                <TaskTitleInput
                     name='title'
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder='Enter task title'

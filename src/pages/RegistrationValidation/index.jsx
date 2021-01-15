@@ -1,38 +1,39 @@
 import React, {useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {BaseButton} from '../../style/buttons'
-import {ErrorMessage} from '../../style/messages'
-import {useUrlQueryParams, useResetErrors} from '../../hooks'
-import {registrationValidationAction} from '../../store/user/actions/authentication/userRegistrationAction'
-import {Title} from '../../style/titles'
-import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
-import {RegistrationValidationForm} from '../../style/forms'
+import PhoneInput from 'react-phone-input-2'
+import {CountryDropdown} from 'react-country-region-selector'
 import SignUpLink from '../../components/SignUpLink'
 import SuccessMessage from '../../components/SuccessMessage'
-import {BaseInput, NameInput} from '../../style/inputs'
-import {LOGIN} from '../../routes/paths'
 import LoginFooter from '../../components/LoginFooter'
+import RegistrationValidationNameInput from './RegistrationValidationNameInput'
+import {useUrlQueryParams, useResetErrors} from '../../hooks'
+import {registrationValidationAction} from '../../store/user/actions/authentication/userRegistrationAction'
+import {LOGIN} from '../../routes/paths'
+import {Title} from '../../style/titles'
 import {LoginLogo} from '../../style/logos'
-import {LogoPlaceholder} from '../../style'
+import {BaseInput} from '../../style/inputs'
+import {BaseButton} from '../../style/buttons'
+import {ErrorMessage} from '../../style/messages'
+import {RegistrationValidationForm} from '../../style/forms'
 import {EmailInputLabel, ActiveInputLabel} from '../../style/labels'
-import PhoneInput from 'react-phone-input-2'
+import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
+import {LogoPlaceholder} from '../../style'
 import 'react-phone-input-2/lib/style.css'
-import {CountryDropdown} from 'react-country-region-selector'
-import {NameErrorMessageContainer, NameInputContainer} from './styles'
 
 
 const RegistrationValidation = () => {
+    const dispatch = useDispatch()
     const email = useUrlQueryParams('email')
     const code = useUrlQueryParams('code')
     let password = useRef('')
     let password_repeat = useRef('')
     let first_name = useRef('')
     let last_name = useRef('')
+    const error = useSelector(state => state.errorReducer.error)
     const [showSuccess, setShowSuccess] = useState(false)
     const [phoneNumber, setPhoneNumber] = useState('')
     const [countryName, setCountryName] = useState('')
-    const error = useSelector(state => state.errorReducer.error)
-    const dispatch = useDispatch()
+
     useResetErrors()
 
     const ValidationHandler = async e => {
@@ -62,32 +63,11 @@ const RegistrationValidation = () => {
                     <LoginLogo alt="logo" src={LogoPlaceholder} />
                 </LoginLogoContainer>
                 <Title>Register</Title>
-                <NameInputContainer>
-                    <div>
-                        <ActiveInputLabel htmlFor='first_name'>Firstname</ActiveInputLabel>
-                        <NameInput
-                            name='first_name'
-                            placeholder='Enter firstname'
-                            ref={first_name}
-                            type='text'
-                        />
-                    </div>
-                    <div>
-                        <ActiveInputLabel htmlFor='last_name'>Lastname</ActiveInputLabel>
-                        <NameInput
-                            name='last_name'
-                            placeholder='Enter lastname'
-                            ref={last_name}
-                            type='text'
-                        />
-                    </div>
-                    <NameErrorMessageContainer>
-                        {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
-                    </NameErrorMessageContainer>
-                    <NameErrorMessageContainer>
-                        {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
-                    </NameErrorMessageContainer>
-                </NameInputContainer>
+                <RegistrationValidationNameInput
+                    error={error}
+                    first_name={first_name}
+                    last_name={last_name}
+                />
                 <div>
                     <EmailInputLabel>Email</EmailInputLabel>
                     <BaseInput

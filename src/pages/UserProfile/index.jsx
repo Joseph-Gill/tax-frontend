@@ -1,24 +1,23 @@
-import React, {useRef, useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
-import {AuthenticatedPageSectionTitle, AuthenticatedPageTitle} from '../../style/titles'
-import {ActiveInputLabel} from '../../style/labels'
-import {BaseInput} from '../../style/inputs'
-import {ErrorMessage} from '../../style/messages'
-import PhoneInput from "react-phone-input-2"
-import {AuthenticatedText} from '../../style/text'
-import {GreenLargeButton} from '../../style/buttons'
-import {DeleteAccountText, SaveChangesButtonContainer, UserDetailsContainer, UserProfileFooterContainer, UserProfileInputContainer, UserProfileInputContainerLower, UserProfileInputErrorContainer} from './styles'
 import BreadCrumb from '../../components/BreadCrumb'
-import {getProfileAction, updateProfileAction} from '../../store/profile/actions'
-import {resetErrors} from '../../store/errors/actions/errorAction'
 import SuccessMessage from '../../components/SuccessMessage'
-import {HOME, USERPROFILE} from '../../routes/paths'
-import {resetGroup} from '../../store/group/actions'
-import {resetProject} from '../../store/project/actions'
-import {CountryDropdown} from 'react-country-region-selector'
 import Spinner from '../../components/Spinner'
 import DeleteAccountModal from '../../components/Modals/DeleteAccountModal'
+import UserProfileTextInput from './UserProfileTextInput'
+import UserProfilePhone from './UserProfilePhone'
+import UserProfileCountry from './UserProfileCountry'
+import {resetGroup} from '../../store/group/actions'
+import {resetProject} from '../../store/project/actions'
+import {resetErrors} from '../../store/errors/actions/errorAction'
+import {getProfileAction, updateProfileAction} from '../../store/profile/actions'
+import {HOME, USERPROFILE} from '../../routes/paths'
+import {ErrorMessage} from '../../style/messages'
+import {AuthenticatedText} from '../../style/text'
+import {GreenLargeButton} from '../../style/buttons'
+import {AuthenticatedPageSectionTitle, AuthenticatedPageTitle} from '../../style/titles'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
+import {DeleteAccountText, SaveChangesButtonContainer, UserDetailsContainer, UserProfileFooterContainer, UserProfileInputContainer, UserProfileInputContainerLower} from './styles'
 
 
 const UserProfile = ({history}) => {
@@ -29,8 +28,6 @@ const UserProfile = ({history}) => {
     const profile = useSelector(state => state.profileReducer.profile)
     const loaded = useSelector(state => state.profileReducer.loaded)
     const [profileInfo, setProfileInfo] = useState({})
-    let password = useRef('')
-    let password_repeat = useRef('')
 
     useEffect(() => {
         const getProfileUpdateInfo = async () => {
@@ -41,7 +38,9 @@ const UserProfile = ({history}) => {
                     email: response.user.email,
                     first_name: response.user.first_name,
                     last_name: response.user.last_name,
-                    country: response.country
+                    country: response.country,
+                    password: '',
+                    password_repeat: ''
                 })
             }
         }
@@ -55,7 +54,9 @@ const UserProfile = ({history}) => {
                 email: profile.user.email,
                 first_name: profile.user.first_name,
                 last_name: profile.user.last_name,
-                country: profile.country
+                country: profile.country,
+                password: '',
+                password_repeat: ''
             })
         }
     }, [dispatch, loaded, profile])
@@ -67,8 +68,8 @@ const UserProfile = ({history}) => {
             first_name: profileInfo.first_name,
             last_name: profileInfo.last_name,
             country: profileInfo.country,
-            password: password.current.value,
-            password_repeat: password_repeat.current.value
+            password: profileInfo.password,
+            password_repeat: profileInfo.password_repeat
         }
         if (profileInfo.email !== profile.user.email) {
             updatedInfo.email = profileInfo.email
@@ -96,96 +97,61 @@ const UserProfile = ({history}) => {
                     <UserDetailsContainer>
                         <AuthenticatedPageSectionTitle>Account Information</AuthenticatedPageSectionTitle>
                         <UserProfileInputContainer>
-                            <ActiveInputLabel>Firstname</ActiveInputLabel>
-                            <UserProfileInputErrorContainer>
-                                <BaseInput
-                                    name='first_name'
-                                    onChange={e => setProfileInfo({...profileInfo, first_name: e.target.value})}
-                                    placeholder='Enter your firstname'
-                                    type='text'
-                                    value={profileInfo.first_name}
-                                />
-                                {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
-                            </UserProfileInputErrorContainer>
-                            <UserProfileInputErrorContainer>
-                                <ActiveInputLabel>Lastname</ActiveInputLabel>
-                                <BaseInput
-                                    name='last_name'
-                                    onChange={e => setProfileInfo({...profileInfo, last_name: e.target.value})}
-                                    placeholder='Enter your lastname'
-                                    type='text'
-                                    value={profileInfo.last_name}
-                                />
-                                {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
-                            </UserProfileInputErrorContainer>
-                            <UserProfileInputErrorContainer>
-                                <ActiveInputLabel>Email</ActiveInputLabel>
-                                <BaseInput
-                                    name='email'
-                                    onChange={e => setProfileInfo({...profileInfo, email: e.target.value})}
-                                    placeholder='Enter your email'
-                                    type='text'
-                                    value={profileInfo.email}
-                                />
-                                {error && <ErrorMessage>{error.email}</ErrorMessage>}
-                            </UserProfileInputErrorContainer>
-                            <UserProfileInputErrorContainer>
-                                <ActiveInputLabel>Phone</ActiveInputLabel>
-                                <PhoneInput
-                                    country='ch'
-                                    inputClass='phoneInput'
-                                    inputStyle={{
-                                        background: '#FAFAFA',
-                                        height: '42px',
-                                        fontFamily: 'Nunito Sans, sans-serif',
-                                        fontSize: '14px'
-                                    }}
-                                    onChange={phone => setProfileInfo({...profileInfo, phone: phone})}
-                                    value={profileInfo.phone}
-                                />
-                                {error && <ErrorMessage>{error.phone_number}</ErrorMessage>}
-                            </UserProfileInputErrorContainer>
-                            <UserProfileInputErrorContainer>
-                                <ActiveInputLabel>Country</ActiveInputLabel>
-                                <CountryDropdown
-                                    onChange={(val) => setProfileInfo({...profileInfo, country: val})}
-                                    // eslint-disable-next-line react/forbid-component-props
-                                    style={{
-                                        width: '302px',
-                                        height: '42px',
-                                        fontSize: '14px',
-                                        fontWeight: '600',
-                                        lineHeight: '19px',
-                                        background: '#FAFAFA',
-                                        border: '1px solid #D3D8DD',
-                                        borderRadius: '4px',
-                                        fontFamily: 'Nunito Sans, sans-serif',
-                                        paddingLeft: '7px',
-                                    }}
-                                    value={profileInfo.country}
-                                />
-                            </UserProfileInputErrorContainer>
+                            <UserProfileTextInput
+                                error={error}
+                                label='Firstname'
+                                name='first_name'
+                                placeholder='Enter your firstname'
+                                profileInfo={profileInfo}
+                                setProfileInfo={setProfileInfo}
+                                type='text'
+                            />
+                            <UserProfileTextInput
+                                error={error}
+                                label='Lastname'
+                                name='last_name'
+                                placeholder='Enter your lastname'
+                                profileInfo={profileInfo}
+                                setProfileInfo={setProfileInfo}
+                                type='text'
+                            />
+                            <UserProfileTextInput
+                                error={error}
+                                label='Email'
+                                name='email'
+                                placeholder='Enter your email'
+                                profileInfo={profileInfo}
+                                setProfileInfo={setProfileInfo}
+                                type='email'
+                            />
+                            <UserProfilePhone
+                                error={error}
+                                profileInfo={profileInfo}
+                                setProfileInfo={setProfileInfo}
+                            />
+                            <UserProfileCountry
+                                profileInfo={profileInfo}
+                                setProfileInfo={setProfileInfo}
+                            />
                         </UserProfileInputContainer>
                         <AuthenticatedPageSectionTitle>Change Password</AuthenticatedPageSectionTitle>
                         <UserProfileInputContainerLower>
-                            <div>
-                                <ActiveInputLabel>Password</ActiveInputLabel>
-                                <BaseInput
-                                    name='password'
-                                    placeholder='Enter your password'
-                                    ref={password}
-                                    type='password'
-                                />
-                            </div>
-                            <div>
-                                <ActiveInputLabel>Confirm Password</ActiveInputLabel>
-                                <BaseInput
-                                    name='password_repeat'
-                                    placeholder='Retype your new password'
-                                    ref={password_repeat}
-                                    type='password'
-                                />
-                            </div>
+                            <UserProfileTextInput
+                                label='Password'
+                                name='password'
+                                placeholder='Enter your password'
+                                profileInfo={profileInfo}
+                                setProfileInfo={setProfileInfo}
+                                type='password'
+                            />
+                            <UserProfileTextInput
+                                label='Confirm Password'
+                                name='password_repeat'
+                                placeholder='Retype your new password'
+                                profileInfo={profileInfo}
+                                setProfileInfo={setProfileInfo}
+                                type='password'
+                            />
                             <div>
                                 {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
                                 {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}

@@ -1,25 +1,25 @@
 import React, {useEffect} from 'react'
-import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {useDispatch, useSelector} from 'react-redux'
-import {ADD_PROJECT, GROUPS, HOME, PROJECTS} from '../../routes/paths'
+import Spinner from '../../components/Spinner'
 import BreadCrumb from '../../components/BreadCrumb'
-import {AuthenticatedPageTitle} from '../../style/titles'
 import ProjectCard from './ProjectCard'
-import {AddProjectButton, ProjectCardListContainer} from './styles'
 import NoContent from '../../components/NoContent'
 import {resetProject} from '../../store/project/actions'
 import {resetSteps} from '../../store/step/actions'
 import {resetStepTaxConsequences} from '../../store/taxConsequence/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {resetTaskFilterStepNumber, resetTasks} from '../../store/task/actions'
-import Spinner from '../../components/Spinner'
+import {ADD_PROJECT, GROUPS, HOME, PROJECTS} from '../../routes/paths'
+import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
+import {AuthenticatedPageTitle} from '../../style/titles'
+import {AddProjectButton, ProjectCardListContainer} from './styles'
 
 
 const GroupProjects = ({history}) => {
+    const dispatch = useDispatch()
     const group = useSelector(state => state.groupReducer.group)
     const projects = useSelector(state => state.groupReducer.group.projects)
     const loaded = useSelector(state => state.groupReducer.loaded)
-    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(resetErrors())

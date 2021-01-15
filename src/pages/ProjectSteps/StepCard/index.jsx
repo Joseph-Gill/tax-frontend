@@ -1,20 +1,12 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import {CardInfoText, DateText} from '../../../style/text'
-import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
-import {
-    StepCardButton, StepCardButtonDateContainer,
-    StepCardContainer,
-    StepCardDescriptionContainer,
-    StepCardRowContainer,
-    StepCardStatusColorContainer,
-    StepCardStatusColorStepNumberContainer,
-    StepCardTitleText,
-    StepCardUpperRowContainer
-} from './styles'
+import {useDispatch} from 'react-redux'
 import StepCardTaxLocations from './StepCardTaxLocations'
 import {setTaskFilterStepNumber} from '../../../store/task/actions'
-import {useDispatch} from 'react-redux'
+import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
+import {CardInfoText, DateText} from '../../../style/text'
+import {StepCardButton, StepCardButtonDateContainer, StepCardContainer, StepCardDescriptionContainer, StepCardRowContainer, StepCardStatusColorContainer,
+    StepCardStatusColorStepNumberContainer, StepCardTitleText, StepCardUpperRowContainer} from './styles'
 
 
 const StepCard = ({history, number, project, step, stepCardClickHandler}) => {

@@ -9,7 +9,7 @@ import {DocumentUploadAreaText} from '../../../style/text'
 import {EditTaskExistingDocumentContainer, EditTaskLowerRightContainer} from './styles'
 
 
-const EditTaskLowerInputs = ({documents, error, files, getInputProps, getRootProps, membersOptions, project, selectedMember, setSelectedMember}) => {
+const TaskEditLowerInputs = ({documents, error, files, getInputProps, getRootProps, membersOptions, project, selectedMember, setSelectedMember}) => {
     return (
         <TaskLowerInputsContainer>
             <TaskLowerLeftContainer>
@@ -57,4 +57,4 @@ const EditTaskLowerInputs = ({documents, error, files, getInputProps, getRootPro
     )
 }
 
-export default EditTaskLowerInputs
+export default TaskEditLowerInputs

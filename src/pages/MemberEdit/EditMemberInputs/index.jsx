@@ -1,10 +1,10 @@
 import React from 'react'
-import {AuthenticatedText} from '../../../style/text'
 import AccessProjectList from './AccessProjectList'
-import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputContainer, RoleInputContainer, SelectOrgErrorMessageContainer} from './style'
 import RoleProjectList from './RoleProjectList'
 import OrgDropdown from './OrgDropdown'
 import {ErrorMessage} from '../../../style/messages'
+import {AuthenticatedText} from '../../../style/text'
+import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputContainer, RoleInputContainer, SelectOrgErrorMessageContainer} from './style'
 
 
 const EditMemberInputs = ({allGroupProjects,

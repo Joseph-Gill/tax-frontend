@@ -1,8 +1,8 @@
 import React from 'react'
-import {CardInfoText, StatusText} from '../../../style/text'
-import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText} from './styles'
 import {useSpring} from 'react-spring'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
+import {CardInfoText, StatusText} from '../../../style/text'
+import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText} from './styles'
 
 
 const ProjectCard = ({project, history}) => {

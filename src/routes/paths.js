@@ -30,4 +30,3 @@ export const BEGINNING = '/beginning'
 export const ENDING = '/ending'
 // Charts
 export const ORG_CHART = '/orgchart'
-export const CHART = '/chart'

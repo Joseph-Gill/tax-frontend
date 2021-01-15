@@ -1,36 +1,24 @@
 import React, {useEffect, useState} from 'react'
-import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../style/tables'
-import {getMemberOrganizationNameAction} from '../../../store/organization/actions'
 import {useDispatch} from 'react-redux'
-import Spinner from '../../../components/Spinner'
-import headerCheckbox from '../../../assets/icons/stark_checkbox_header.svg'
-import {
-    ActiveMemberUserContainer,
-    ActiveMemberUserText,
-    GroupMembersTableContainer,
-    NewMemberGreenText,
-    NewMemberYellowText,
-    NoInvitedMembersButton, NoInvitedMembersContainer,
-    RoleFieldChevron,
-    RoleFieldText,
-    RoleTextImageContainer,
-    TableDataCheckbox
-} from './styles'
-import noMembers from '../../../assets/icons/stark_no_invited_members.jpg'
-import rightChevron from '../../../assets/icons/stark_right_chevron.png'
-import {CardTitleText, NoFilterResultText} from '../../../style/text'
-import {NoFilterTextContainer} from '../../../style/containers'
-import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
 import {v4 as uuidv4} from 'uuid'
-import {CheckBox} from '../../../style/inputs'
+import Spinner from '../../../components/Spinner'
+import NoPendingInvited from './NoPendingInvited'
+import {getMemberOrganizationNameAction} from '../../../store/organization/actions'
 import {checkBoxChangeHandler} from '../../../helpers'
+import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
+import headerCheckbox from '../../../assets/icons/stark_checkbox_header.svg'
+import rightChevron from '../../../assets/icons/stark_right_chevron.png'
+import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../style/tables'
+import {CheckBox} from '../../../style/inputs'
+import {ActiveMemberUserContainer, ActiveMemberUserText, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText, RoleFieldChevron,
+    RoleFieldText, RoleTextImageContainer, TableDataCheckbox} from './styles'
 
 
 const MembersTable = ({activeRenderData, filterMemberStatus, group, history, filterOption, filterString, invitedMembers, invitedRenderData, members, setActiveRenderData, setInvitedRenderData, setShowAddMember}) => {
+    const dispatch = useDispatch()
     const [loaded, setLoaded] = useState(false)
     const [allActiveStatus, setAllActiveStatus] = useState(true)
     const [allInvitedStatus, setAllInvitedStatus] = useState(true)
-    const dispatch = useDispatch()
 
     useEffect(() => {
         const listActiveWithOrgAndInvited = async () => {
@@ -207,16 +195,9 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                                 </TableTitleRow>) : (
                                     <tr>
                                         <td>
-                                            <NoInvitedMembersContainer>
-                                                <img alt='no members' src={noMembers} />
-                                                <CardTitleText>No pending Invites</CardTitleText>
-                                                <NoFilterTextContainer>
-                                                    <NoFilterResultText>You don&apos;t have any pending invites to</NoFilterResultText>
-                                                    <NoFilterResultText>your team members.</NoFilterResultText>
-                                                </NoFilterTextContainer>
-                                                <NoInvitedMembersButton onClick={() => setShowAddMember(true)}>Add team member</NoInvitedMembersButton>
-                                            </NoInvitedMembersContainer>
-
+                                            <NoPendingInvited
+                                                setShowAddMember={setShowAddMember}
+                                            />
                                         </td>
                                     </tr>)}
                     </thead>

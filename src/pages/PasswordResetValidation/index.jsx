@@ -1,31 +1,32 @@
 import React, { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { ErrorMessage } from "../../style/messages"
-import { BaseButton } from "../../style/buttons"
-import { Title } from "../../style/titles"
-import { useUrlQueryParams, useResetErrors } from "../../hooks"
-import { restPasswordValidate } from "../../store/user/actions/authentication/resetPasswordAction"
-import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
-import {PasswordResetValidationForm} from '../../style/forms'
 import SignUpLink from "../../components/SignUpLink"
 import SuccessMessage from "../../components/SuccessMessage"
-import { BaseInput } from "../../style/inputs"
-import {LOGIN} from '../../routes/paths'
-import {ActiveInputLabel} from '../../style/labels'
 import PasswordLink from '../../components/PasswordLink'
 import LoginFooter from '../../components/LoginFooter'
+import { useUrlQueryParams, useResetErrors } from "../../hooks"
+import { restPasswordValidate } from "../../store/user/actions/authentication/resetPasswordAction"
+import {LOGIN} from '../../routes/paths'
+import { Title } from "../../style/titles"
 import {LoginLogo} from '../../style/logos'
+import { BaseInput } from "../../style/inputs"
+import { BaseButton } from "../../style/buttons"
+import {ActiveInputLabel} from '../../style/labels'
+import { ErrorMessage } from "../../style/messages"
+import {PasswordResetValidationForm} from '../../style/forms'
 import {LogoPlaceholder} from '../../style'
+import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
 
 
 const PasswordResetValidation = () => {
+    const dispatch = useDispatch()
     const email = useUrlQueryParams("email")
     const code = useUrlQueryParams("code")
     let password = useRef("")
     let password_repeat = useRef("")
-    const [showSuccess, setShowSuccess] = useState(false)
     const error = useSelector(state => state.errorReducer.error)
-    const dispatch = useDispatch()
+    const [showSuccess, setShowSuccess] = useState(false)
+
     useResetErrors()
 
     const register = async e => {

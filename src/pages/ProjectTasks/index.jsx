@@ -1,27 +1,28 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
-import BreadCrumb from '../../components/BreadCrumb'
-import {ADD_TASK, GROUPS, PROJECTS, TASKS} from '../../routes/paths'
-import {AuthenticatedPageTitle} from '../../style/titles'
-import TaskFilterDropdown from './TasksFilterDropdown'
-import {getProjectAction} from '../../store/project/actions'
 import {useRouteMatch} from 'react-router-dom'
+import BreadCrumb from '../../components/BreadCrumb'
+import TaskFilterDropdown from './TasksFilterDropdown'
 import Spinner from '../../components/Spinner'
 import TaskStatusLegendEntry from './TaskStatusLegendEntry'
-import {AddTaskButton, StatusLegendFilterDropdownContainer, StepFilterInputLabel, TasksTableContainer, TaskStatusLegendContainer, TaskStepFilter} from './styles'
-import {getTasksForProjectAction, getTasksForStepOfProjectAction, resetTaskFilterStepNumber, setTaskFilterStepNumber} from '../../store/task/actions'
 import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
+import Loading from '../../components/Loading'
+import {getProjectAction} from '../../store/project/actions'
 import {getStepsForProjectAction} from '../../store/step/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
+import {getTasksForProjectAction, getTasksForStepOfProjectAction, resetTaskFilterStepNumber, setTaskFilterStepNumber} from '../../store/task/actions'
+import {ADD_TASK, GROUPS, PROJECTS, TASKS} from '../../routes/paths'
 import {DropdownOption} from '../../style/options'
-import Loading from '../../components/Loading'
+import {AuthenticatedPageTitle} from '../../style/titles'
+import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
+import {AddTaskButton, StatusLegendFilterDropdownContainer, StepFilterInputLabel, TasksTableContainer, TaskStatusLegendContainer} from './styles'
+import TaskStepFilter from './TaskStepFilter'
 
 
 const ProjectTasks = ({history}) => {
-    const match = useRouteMatch()
     const dispatch = useDispatch()
+    const match = useRouteMatch()
     const group = useSelector(state => state.groupReducer.group)
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
@@ -139,12 +140,10 @@ const ProjectTasks = ({history}) => {
                                 <div>
                                     <StepFilterInputLabel>Steps Filter</StepFilterInputLabel>
                                     <TaskStepFilter
-                                        onChange={(e) => taskStepFilterChangeHandler(e.target.value)}
-                                        value={filterStepNumber}
-                                    >
-                                        <DropdownOption value=''>All</DropdownOption>
-                                        {renderTaskStepFilterOptions()}
-                                    </TaskStepFilter>
+                                        filterStepNumber={filterStepNumber}
+                                        renderTaskStepFilterOptions={renderTaskStepFilterOptions}
+                                        taskStepFilterChangeHandler={taskStepFilterChangeHandler}
+                                    />
                                     <TaskFilterDropdown
                                         filterOption={filterOption}
                                         filterString={filterString}
