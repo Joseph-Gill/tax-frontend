@@ -3,17 +3,19 @@ import {getMemberOrganizationNameAction} from '../store/organization/actions'
 import {DropdownOption} from '../style/options'
 import {FileListItem} from '../style/listitem'
 
-
+// User by components that are uploading images for avatars
 export const imageClickHandler = (input) => {
     input.current.click();
 }
 
+// User by components that are uploading images for avatars
 export const imageChangeHandler = (e, set) => {
     if (e.target.files[0]) {
         set({avatar: e.target.files[0], changed: true})
     }
 }
 
+// Used by components that have checkboxes where only one checkbox can be checked at a time
 export const allowOnlyOneCheckedBox = (e, initialArray, arraySet) => {
     const dataCopy = [...initialArray]
     for (let i = 0; i < dataCopy.length; i++) {
@@ -22,16 +24,19 @@ export const allowOnlyOneCheckedBox = (e, initialArray, arraySet) => {
     arraySet([...dataCopy])
 }
 
+// Used by components that have checkboxes to toggle the checkbox
 export const checkBoxChangeHandler = (e, initialArray, arraySet) => {
     const dataCopy = [...initialArray]
     dataCopy[e.target.value].isChecked = !dataCopy[e.target.value].isChecked
     arraySet([...dataCopy])
 }
 
+// Used by components that need to convert a Date Object into a string for Django DateField
 export const convertDate = date => {
     return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 }
 
+// Used by components that need to create an array of member information that also contains their respective Group Role
 export const listMemberWithOrgAndRole = async (array, group, dispatch) => {
     const result = [];
     for(const member of array){
@@ -60,6 +65,7 @@ export const listMemberWithOrgAndRole = async (array, group, dispatch) => {
     return result
 }
 
+// Used by components creating a select that needs to populate with Options containing a users Name, Role, and Organization
 export const createTaskMemberSelectOptions = array => {
     return  array.map(user => (
         <DropdownOption
@@ -70,6 +76,7 @@ export const createTaskMemberSelectOptions = array => {
     ))
 }
 
+// Used by components created a select that needs to populate with Options containing a project's Steps
 export const createTaskStepSelectOptions = array => {
     return array.map(step => (
         <DropdownOption
@@ -80,6 +87,7 @@ export const createTaskStepSelectOptions = array => {
     ))
 }
 
+// Used by components needing to render a list of files uploaded by the user, trims name length to be 18 characters or less, while keeping the file extension
 export const createAcceptedFilesList = array => {
     return array.map(file => (
         <FileListItem key={file.path}>{file.path.length > 18 ? file.path.slice(0, 11).concat('....').concat(file.path.slice(-4)) : file.path}</FileListItem>
