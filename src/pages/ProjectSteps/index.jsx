@@ -6,7 +6,8 @@ import StepStatusLegendEntry from './StepStatusLegendEntry'
 import StepFilterDropdown from './StepsFilterDropdown'
 import StepCard from './StepCard'
 import Spinner from '../../components/Spinner'
-import {getProjectAction, resetProject} from '../../store/project/actions'
+import {getProjectAction} from '../../store/project/actions'
+import {getGroupOfProjectAction} from '../../store/group/actions'
 import {addNewStep, getStepsForProjectAction, skipToSpecifiedStep} from '../../store/step/actions'
 import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import noSteps from '../../assets/icons/stark_no_steps.svg'
@@ -24,6 +25,7 @@ const ProjectSteps = ({history}) => {
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
     const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.loaded)
+    const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const [filterString, setFilterString] = useState('')
     const [filterOption, setFilterOption] = useState([
         {isChecked: true, type: 'status'},
@@ -33,9 +35,11 @@ const ProjectSteps = ({history}) => {
 
     useEffect(() => {
         (async function getProjectGetSteps() {
-            dispatch(resetProject())
             const response = await dispatch(getProjectAction(match.params.projectId))
             dispatch(getStepsForProjectAction(response.id))
+            if (!groupLoaded) {
+                dispatch(getGroupOfProjectAction(response.id))
+            }
         })();
     }, [dispatch, match.params.projectId])
 
@@ -78,7 +82,7 @@ const ProjectSteps = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !stepsLoaded ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded || !groupLoaded ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

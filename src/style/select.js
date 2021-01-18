@@ -5,6 +5,7 @@ export const EntityLegalFormSelect = styled.select`
     width: ${props => props.callingComponent === 'AddEntityModal' ? '302px' : '157px'};
     height: ${props => props.callingComponent === 'AddEntityModal' ? '42px' : '34px'};
     margin: ${props => props.callingComponent === 'AddEntityModal' ? '0' : '17px 10px'};
+    padding-left: ${props => props.callingComponent === 'AddEntityModal' ? '7px' : '0'};
     background: ${props => props.theme.graySix};
     border: 1px solid ${props => props.theme.grayFour};
     border-radius: ${props => props.theme.borderRadius};
