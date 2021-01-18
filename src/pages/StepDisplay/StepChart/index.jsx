@@ -3,13 +3,13 @@ import {v4 as uuidv4} from 'uuid'
 import CurrentOrgChart from '../../../components/CurrentOrgChart'
 import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import {EntityOption} from '../../../style/options'
-import {AddEntityLinkButton, ButtonsContainer, RemoveEntityLinkButton, StepChartAndButtonsContainer} from './styles'
+import {StepChartAndButtonsContainer} from './styles'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {useDispatch} from 'react-redux'
 import {SaveButton} from '../../../style/buttons'
 
 
-const StepChart = ({entities}) => {
+const StepChart = ({entities, setShowAddEntity, showAddEntity}) => {
     const dispatch = useDispatch()
     let legalForm = useRef('')
     let name = useRef('')
@@ -19,7 +19,6 @@ const StepChart = ({entities}) => {
     const [entitiesToRender, setEntitiesToRender] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [countryName, setCountryName] = useState('')
-    const [showAddEntity, setShowAddEntity] = useState(false)
 
     useEffect(() => {
         setEntitiesToRender([...entities])
@@ -82,13 +81,13 @@ const StepChart = ({entities}) => {
                     setShowAddEntity={setShowAddEntity}
                     taxRate={taxRate}
                 /> : null}
-            <ButtonsContainer>
-                <AddEntityLinkButton onClick={() => setShowAddEntity(true)}>Add Entity</AddEntityLinkButton>
-                <AddEntityLinkButton>Add Link</AddEntityLinkButton>
-                <RemoveEntityLinkButton>Remove Link</RemoveEntityLinkButton>
-                <RemoveEntityLinkButton>Remove Entity</RemoveEntityLinkButton>
-                <SaveButton>Save</SaveButton>
-            </ButtonsContainer>
+            {/*<ButtonsContainer>*/}
+            {/*    <AddEntityLinkButton onClick={() => setShowAddEntity(true)}>Add Entity</AddEntityLinkButton>*/}
+            {/*    <AddEntityLinkButton>Add Link</AddEntityLinkButton>*/}
+            {/*    <RemoveEntityLinkButton>Remove Link</RemoveEntityLinkButton>*/}
+            {/*    <RemoveEntityLinkButton>Remove Entity</RemoveEntityLinkButton>*/}
+            {/*    <SaveButton>Save</SaveButton>*/}
+            {/*</ButtonsContainer>*/}
             {renderStepChart}
         </StepChartAndButtonsContainer>
     )
