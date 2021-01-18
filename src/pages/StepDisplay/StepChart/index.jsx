@@ -71,16 +71,17 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
         setShowAddEntity(false)
     }
 
-    const cancelNewEntityHandler = () => {
+    const cancelNewEntityLinkHandler = () => {
         dispatch(resetErrors())
         setShowAddEntity(false)
+        setShowAddLink(false)
     }
 
     return (
         <StepChartAndButtonsContainer>
             {showAddEntity ?
                 <AddEntityModal
-                    cancelNewEntityHandler={cancelNewEntityHandler}
+                    cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
                     countryName={countryName}
                     legalForm={legalForm}
                     name={name}
@@ -93,6 +94,7 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
                 /> : null}
             {showAddLink ?
                 <AddLinkModal
+                    cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
                     setShowAddLink={setShowAddLink}
                 /> : null}
             {renderStepChart}

@@ -13,7 +13,7 @@ import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDelete
     AddEntityLinkModalInternalContainer, AddEntitySaveButton} from '../styles'
 
 
-const AddEntityModal = ({cancelNewEntityHandler, countryName, legalForm, name, parentName, renderParentNameOptions,
+const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, legalForm, name, parentName, renderParentNameOptions,
                             saveNewEntityHandler, setCountryName, setShowAddEntity, taxRate}) => {
 
     const props = useSpring({
@@ -84,7 +84,7 @@ const AddEntityModal = ({cancelNewEntityHandler, countryName, legalForm, name, p
                     />
                 </div>
                 <AddDeleteModalCloseContainer>
-                    <AuthenticatedButtonCancel onClick={cancelNewEntityHandler}>Cancel</AuthenticatedButtonCancel>
+                    <AuthenticatedButtonCancel onClick={cancelNewEntityLinkHandler}>Cancel</AuthenticatedButtonCancel>
                     <AddEntitySaveButton onClick={saveNewEntityHandler}>Save</AddEntitySaveButton>
                 </AddDeleteModalCloseContainer>
             </AddEntityLinkModalInternalContainer>
