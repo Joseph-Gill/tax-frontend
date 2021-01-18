@@ -88,3 +88,8 @@ export const AddEntitySaveButton = styled(BaseButton)`
     height: 32px;
     margin-left: 13px;
 `
+
+export const RemoveLinkEntityInternalContainer = styled(AddDeleteModalInternalContainer)`
+    width: 500px;
+    height: 230px;
+`

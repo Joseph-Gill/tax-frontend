@@ -4,14 +4,14 @@ import {CloseIcon} from '../../../style/images'
 import {DropdownOption} from '../../../style/options'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {RemoveLinkButton, RemoveLinkButtonContainer, RemoveLinkDropdown, RemoveLinkInternalContainer} from './styles'
-import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer} from '../styles'
+import {RemoveLinkButton, RemoveLinkButtonContainer, RemoveLinkDropdown} from './styles'
+import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer, RemoveLinkEntityInternalContainer} from '../styles'
 
 
 const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkToRemove, setShowRemoveLink}) => {
     return (
         <AddDeleteModalExternalContainer>
-            <RemoveLinkInternalContainer>
+            <RemoveLinkEntityInternalContainer>
                 <AddDeleteModalCloseContainer>
                     <CloseIcon alt='close' onClick={() => setShowRemoveLink(false)} src={close} />
                 </AddDeleteModalCloseContainer>
@@ -29,7 +29,7 @@ const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkT
                     <AuthenticatedButtonCancel onClick={() => setShowRemoveLink(false)}>Cancel</AuthenticatedButtonCancel>
                     <RemoveLinkButton onClick={removeLinkHandler}>Remove</RemoveLinkButton>
                 </RemoveLinkButtonContainer>
-            </RemoveLinkInternalContainer>
+            </RemoveLinkEntityInternalContainer>
         </AddDeleteModalExternalContainer>
     )
 }
