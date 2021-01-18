@@ -77,3 +77,13 @@ export const BlueConfirmReviewedButton = styled(BaseButton)`
     width: 186px;
     height: 32px;
 `
+
+export const AddEntityLinkModalInternalContainer = styled(AddDeleteModalInternalContainer)`
+    height: 430px;
+`
+
+export const AddEntitySaveButton = styled(BaseButton)`
+    width: 92px;
+    height: 32px;
+    margin-left: 13px;
+`

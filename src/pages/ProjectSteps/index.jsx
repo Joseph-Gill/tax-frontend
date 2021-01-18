@@ -34,14 +34,15 @@ const ProjectSteps = ({history}) => {
     ])
 
     useEffect(() => {
-        (async function getProjectGetSteps() {
-            const response = await dispatch(getProjectAction(match.params.projectId))
-            dispatch(getStepsForProjectAction(response.id))
-            if (!groupLoaded) {
-                dispatch(getGroupOfProjectAction(response.id))
-            }
-        })();
+        dispatch(getProjectAction(match.params.projectId))
+        dispatch(getStepsForProjectAction(match.params.projectId))
     }, [dispatch, match.params.projectId])
+
+    useEffect(() => {
+        if (!groupLoaded) {
+            dispatch(getGroupOfProjectAction(match.params.projectId))
+        }
+    }, [dispatch, groupLoaded, match.params.projectId])
 
     const addNewStepHandler = () => {
         dispatch(addNewStep(1))

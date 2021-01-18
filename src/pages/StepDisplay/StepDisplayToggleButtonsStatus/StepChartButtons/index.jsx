@@ -2,11 +2,11 @@ import React from 'react'
 import {AddEntityLinkButton, RemoveEntityLinkButton, StepChartButtonsContainer, StepChartSaveButton} from './styles'
 
 
-const StepChartButtons = ({setShowAddEntity}) => {
+const StepChartButtons = ({setShowAddEntity, setShowAddLink}) => {
     return (
         <StepChartButtonsContainer>
             <AddEntityLinkButton onClick={() => setShowAddEntity(true)}>Add Entity</AddEntityLinkButton>
-            <AddEntityLinkButton>Add Link</AddEntityLinkButton>
+            <AddEntityLinkButton onClick={() => setShowAddLink(true)}>Add Link</AddEntityLinkButton>
             <RemoveEntityLinkButton>Remove Link</RemoveEntityLinkButton>
             <RemoveEntityLinkButton>Remove Entity</RemoveEntityLinkButton>
             <StepChartSaveButton>Save</StepChartSaveButton>

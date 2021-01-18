@@ -6,16 +6,25 @@ import {EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {useDispatch} from 'react-redux'
-import {SaveButton} from '../../../style/buttons'
+import AddLinkModal from '../../../components/Modals/AddLinkModal'
 
 
-const StepChart = ({entities, setShowAddEntity, showAddEntity}) => {
+const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, showAddLink}) => {
     const dispatch = useDispatch()
     let legalForm = useRef('')
     let name = useRef('')
     let taxRate = useRef('')
     let parentName = useRef('')
-    const [clinks, setClinks] = useState([{from: 1, to: 2, label: "test"}])
+    const [clinks, setClinks] = useState([
+        {from: 1, to: 2, label: 'blue template', template: 'blue'},
+        {from: 2, to: 3, label: 'yellow template', template: 'yellow'},
+        {from: 3, to: 4, label: 'no template'}
+        ])
+    const [slinks, setSlinks] = useState([
+        {from: 1, to: 2, label: 'blue template', template: 'blue'},
+        {from: 2, to: 3, label: 'yellow template', template: 'yellow'},
+        {from: 3, to: 4, label: 'no template'}
+    ])
     const [entitiesToRender, setEntitiesToRender] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [countryName, setCountryName] = useState('')
@@ -31,9 +40,10 @@ const StepChart = ({entities, setShowAddEntity, showAddEntity}) => {
                 clinks={clinks}
                 componentCalling='StepDisplay'
                 nodes={entitiesToRender}
+                slinks={slinks}
             />
         )
-    }, [clinks, entitiesToRender])
+    }, [clinks, entitiesToRender, slinks])
 
     const renderParentNameOptions = useMemo(() => (
         <>
@@ -81,13 +91,10 @@ const StepChart = ({entities, setShowAddEntity, showAddEntity}) => {
                     setShowAddEntity={setShowAddEntity}
                     taxRate={taxRate}
                 /> : null}
-            {/*<ButtonsContainer>*/}
-            {/*    <AddEntityLinkButton onClick={() => setShowAddEntity(true)}>Add Entity</AddEntityLinkButton>*/}
-            {/*    <AddEntityLinkButton>Add Link</AddEntityLinkButton>*/}
-            {/*    <RemoveEntityLinkButton>Remove Link</RemoveEntityLinkButton>*/}
-            {/*    <RemoveEntityLinkButton>Remove Entity</RemoveEntityLinkButton>*/}
-            {/*    <SaveButton>Save</SaveButton>*/}
-            {/*</ButtonsContainer>*/}
+            {showAddLink ?
+                <AddLinkModal
+                    setShowAddLink={setShowAddLink}
+                /> : null}
             {renderStepChart}
         </StepChartAndButtonsContainer>
     )

@@ -3,7 +3,7 @@ import OrgChart from '@balkangraph/orgchart.js'
 import {OrgChartContainer} from './styles'
 
 
-const CurrentOrgChart = ({componentCalling, clinks, nodes}) => {
+const CurrentOrgChart = ({componentCalling, clinks, nodes, slinks}) => {
     const divRef = React.createRef()
 
     useEffect(() => {
@@ -37,6 +37,7 @@ const CurrentOrgChart = ({componentCalling, clinks, nodes}) => {
 
             nodes,
             clinks,
+            slinks,
         })
     })
 

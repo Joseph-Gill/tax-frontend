@@ -1,30 +1,20 @@
 import React from 'react'
-import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTitleContainer} from '../styles'
 import {useSpring} from 'react-spring'
-import {CloseIcon} from '../../../style/images'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import styled from 'styled-components/macro'
-import {ActiveInputLabel} from '../../../style/labels'
-import {BaseInput} from '../../../style/inputs'
-import {CountryDropdown} from 'react-country-region-selector'
 import EntityLegalSelect from '../../EntityLegalSelect'
+import {CountryDropdown} from 'react-country-region-selector'
+import close from '../../../assets/icons/stark_close_icon.svg'
+import {CloseIcon} from '../../../style/images'
+import {BaseInput} from '../../../style/inputs'
 import {EntityParentSelect} from '../../../style/select'
-import {AuthenticatedButtonCancel, BaseButton} from '../../../style/buttons'
+import {ActiveInputLabel} from '../../../style/labels'
+import {AuthenticatedPageTitle} from '../../../style/titles'
+import {AuthenticatedButtonCancel} from '../../../style/buttons'
+import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer,
+    AddEntityLinkModalInternalContainer, AddEntitySaveButton} from '../styles'
 
 
-const AddEntityModalInternalContainer = styled(AddDeleteModalInternalContainer)`
-    height: 430px;
-`
-
-const AddEntitySaveButton = styled(BaseButton)`
-    width: 92px;
-    height: 32px;
-    margin-left: 13px;
-`
-
-
-const AddEntityModal = ({cancelNewEntityHandler, countryName, legalForm, name, parentName, renderParentNameOptions, saveNewEntityHandler, setCountryName, setShowAddEntity, taxRate}) => {
+const AddEntityModal = ({cancelNewEntityHandler, countryName, legalForm, name, parentName, renderParentNameOptions,
+                            saveNewEntityHandler, setCountryName, setShowAddEntity, taxRate}) => {
 
     const props = useSpring({
         opacity: 1,
@@ -34,7 +24,7 @@ const AddEntityModal = ({cancelNewEntityHandler, countryName, legalForm, name, p
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <AddEntityModalInternalContainer>
+            <AddEntityLinkModalInternalContainer>
                 <AddDeleteModalCloseContainer>
                     <CloseIcon alt='close' onClick={() => setShowAddEntity(false)} src={close} />
                 </AddDeleteModalCloseContainer>
@@ -97,7 +87,7 @@ const AddEntityModal = ({cancelNewEntityHandler, countryName, legalForm, name, p
                     <AuthenticatedButtonCancel onClick={cancelNewEntityHandler}>Cancel</AuthenticatedButtonCancel>
                     <AddEntitySaveButton onClick={saveNewEntityHandler}>Save</AddEntitySaveButton>
                 </AddDeleteModalCloseContainer>
-            </AddEntityModalInternalContainer>
+            </AddEntityLinkModalInternalContainer>
         </AddDeleteModalExternalContainer>
     )
 }

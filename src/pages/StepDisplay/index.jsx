@@ -38,6 +38,7 @@ const StepDisplay = ({history}) => {
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [ableToComplete, setAbleToComplete] = useState(false)
     const [showAddEntity, setShowAddEntity] = useState(false)
+    const [showAddLink, setShowAddLink] = useState(false)
 
 
     useEffect(() => {
@@ -182,6 +183,7 @@ const StepDisplay = ({history}) => {
                         editStatus={editStatus}
                         indexOfStepToDisplay={indexOfStepToDisplay}
                         setShowAddEntity={setShowAddEntity}
+                        setShowAddLink={setShowAddLink}
                         setShowConfirmation={setShowConfirmation}
                         setStepDetailStatus={setStepDetailStatus}
                         setStepStatus={setStepStatus}
@@ -198,7 +200,9 @@ const StepDisplay = ({history}) => {
                             <StepChart
                                 entities={entities}
                                 setShowAddEntity={setShowAddEntity}
+                                setShowAddLink={setShowAddLink}
                                 showAddEntity={showAddEntity}
+                                showAddLink={showAddLink}
                             /> :
                             <StepDetails
                                 description={description}
