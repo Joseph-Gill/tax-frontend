@@ -1,37 +1,14 @@
 import React from 'react'
-import styled from 'styled-components/macro'
-import {StatusDropdown} from '../../../style/dropdowns'
 import close from '../../../assets/icons/stark_close_icon.svg'
 import {CloseIcon} from '../../../style/images'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer,
-    AddDeleteModalInternalContainer, AddDeleteModalTitleContainer} from '../styles'
 import {DropdownOption} from '../../../style/options'
-import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
+import {AuthenticatedPageTitle} from '../../../style/titles'
+import {AuthenticatedButtonCancel} from '../../../style/buttons'
+import {RemoveLinkButton, RemoveLinkButtonContainer, RemoveLinkDropdown, RemoveLinkInternalContainer} from './styles'
+import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer} from '../styles'
 
 
-const RemoveLinkInternalContainer = styled(AddDeleteModalInternalContainer)`
-    width: 500px;
-    height: 230px;
-`
-
-const RemoveLinkDropdown = styled(StatusDropdown)`
-    width: 430px;
-`
-
-const RemoveLinkButton = styled(RedLargerButton)`
-    width: 100px;
-    margin-left: 23px;
-`
-
-const RemoveLinkButtonContainer = styled.div`
-    width: 430px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-`
-
-const RemoveLinkModal = ({linkOptions, linkToRemove, setLinkToRemove, setShowRemoveLink}) => {
+const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkToRemove, setShowRemoveLink}) => {
     return (
         <AddDeleteModalExternalContainer>
             <RemoveLinkInternalContainer>
@@ -50,7 +27,7 @@ const RemoveLinkModal = ({linkOptions, linkToRemove, setLinkToRemove, setShowRem
                 </RemoveLinkDropdown>
                 <RemoveLinkButtonContainer>
                     <AuthenticatedButtonCancel onClick={() => setShowRemoveLink(false)}>Cancel</AuthenticatedButtonCancel>
-                    <RemoveLinkButton>Remove</RemoveLinkButton>
+                    <RemoveLinkButton onClick={removeLinkHandler}>Remove</RemoveLinkButton>
                 </RemoveLinkButtonContainer>
             </RemoveLinkInternalContainer>
         </AddDeleteModalExternalContainer>

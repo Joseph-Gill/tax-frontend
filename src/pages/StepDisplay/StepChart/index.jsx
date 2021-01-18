@@ -3,7 +3,7 @@ import {v4 as uuidv4} from 'uuid'
 import CurrentOrgChart from '../../../components/CurrentOrgChart'
 import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import {DropdownOption, EntityOption} from '../../../style/options'
-import {RemoveLinkOption, StepChartAndButtonsContainer} from './styles'
+import {StepChartAndButtonsContainer} from './styles'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {useDispatch} from 'react-redux'
 import AddLinkModal from '../../../components/Modals/AddLinkModal'
@@ -16,9 +16,7 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveLin
     let name = useRef('')
     let taxRate = useRef('')
     let parentName = useRef('')
-    const [clinks, setClinks] = useState([
-        {from: 1, to: 2, label:"test"}
-    ])
+    const [clinks, setClinks] = useState([])
     const [slinks, setSlinks] = useState([])
     const [entitiesToRender, setEntitiesToRender] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
@@ -37,17 +35,6 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveLin
         setAvailableParentNames([...entities.map(entity => entity.name)])
     }, [entities])
 
-    const renderStepChart = useMemo(() => {
-        return (
-            <CurrentOrgChart
-                clinks={clinks}
-                componentCalling='StepDisplay'
-                nodes={entitiesToRender}
-                slinks={slinks}
-            />
-        )
-    }, [clinks, entitiesToRender, slinks])
-
     const renderParentNameOptions = useMemo(() => (
         <>
             <EntityOption value=''>Select a parent</EntityOption>
@@ -59,6 +46,45 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveLin
                 </EntityOption>
             ))}
         </>), [availableParentNames])
+
+    const renderStepChart = useMemo(() => {
+        return (
+            <CurrentOrgChart
+                clinks={clinks}
+                componentCalling='StepDisplay'
+                nodes={entitiesToRender}
+                slinks={slinks}
+            />
+        )
+    }, [clinks, entitiesToRender, slinks])
+
+    const renderFromToOptions = () => (
+        entitiesToRender.map(entity => (
+            <DropdownOption key={uuidv4()} value={entity.id}>{entity.name}</DropdownOption>
+            )
+        )
+    )
+
+    const renderRemoveLinkOptions = () => {
+        const getEntityName = id => {
+            for (let i = 0; i < entitiesToRender.length; i++) {
+                if (entitiesToRender[i].id === id)
+                    return entitiesToRender[i].name
+            }
+        }
+        const links = []
+        slinks.forEach(link => {
+            links.push(
+                <DropdownOption key={uuidv4()} value={link.id}>
+                    {`From: ${getEntityName(link.from)} To: ${getEntityName(link.to)}`}
+                </DropdownOption>)})
+        clinks.forEach(link => {
+            links.push(
+                <DropdownOption key={uuidv4()} value={link.id}>
+                    {`From: ${getEntityName(link.from)} To: ${getEntityName(link.to)}`}
+                </DropdownOption>)})
+        return links
+    }
 
     const saveNewEntityHandler = () => {
         const newEntityInfo = {
@@ -81,45 +107,12 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveLin
         setShowAddLink(false)
     }
 
-    const renderFromToOptions = () => (
-        entitiesToRender.map(entity => (
-            <DropdownOption key={uuidv4()} value={entity.id}>{entity.name}</DropdownOption>
-            )
-        )
-    )
-
-    const getEntityName = id => {
-        for (let i = 0; i < entitiesToRender.length; i++) {
-            if (entitiesToRender[i].id === id)
-                return entitiesToRender[i].name
-        }
-    }
-
-    const renderRemoveLinkOptions = () => {
-        const links = []
-        slinks.forEach(link => {
-            links.push(
-                <RemoveLinkOption key={uuidv4()} value={link.id}>
-                    {`From: ${getEntityName(link.from)} To: ${getEntityName(link.to)}`}
-                </RemoveLinkOption>
-            )
-        })
-        clinks.forEach(link => {
-            links.push(
-                <RemoveLinkOption key={uuidv4()} value={link.id}>
-                    {`From: ${getEntityName(link.from)} To: ${getEntityName(link.to)}`}
-                </RemoveLinkOption>
-            )
-        })
-        return links
-    }
-
     const saveNewLinkHandler = () => {
         const newLink = {
             from: parseInt(addLinkInfo.from),
             to: parseInt(addLinkInfo.to),
             label: addLinkInfo.label,
-            id: uuidv4()
+            id: Date.now()
         }
         if (addLinkInfo.color === 'blue') {
             newLink.template = 'blue'
@@ -136,7 +129,10 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveLin
     }
 
     const removeLinkHandler = () => {
-
+        setSlinks(slinks.filter(link => link.id !== parseInt(linkToRemove)))
+        setClinks(clinks.filter(link => link.id !== parseInt(linkToRemove)))
+        setLinkToRemove('')
+        setShowRemoveLink(false)
     }
 
 
@@ -168,6 +164,7 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveLin
                 <RemoveLinkModal
                     linkOptions={renderRemoveLinkOptions()}
                     linkToRemove={linkToRemove}
+                    removeLinkHandler={removeLinkHandler}
                     setLinkToRemove={setLinkToRemove}
                     setShowRemoveLink={setShowRemoveLink}
                 /> : null}

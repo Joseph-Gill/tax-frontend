@@ -7,7 +7,6 @@ const CurrentOrgChart = ({componentCalling, clinks, nodes, slinks}) => {
     const divRef = React.createRef()
 
     useEffect(() => {
-        console.log('Chart rendering')
         OrgChart.templates.olivia.field_0 =
             '<text class="field_0" width="230" text-overflow="multiline" style="font-size: 18px;" fill="#000000" x="125" y="30" text-anchor="middle" font-family="Nunito Sans, sans-serif">{val}</text>'
         OrgChart.templates.olivia.field_1 =
