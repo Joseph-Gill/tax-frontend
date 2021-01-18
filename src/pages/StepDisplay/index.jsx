@@ -33,6 +33,7 @@ const StepDisplay = ({history}) => {
     const project = useSelector(state => state.projectReducer.project)
     const projectLoaded = useSelector(state => state.projectReducer.project)
     const error = useSelector(state => state.errorReducer.error)
+    const entities = useSelector(state => state.groupReducer.group.entities)
     const [editStatus, setEditStatus] = useState(false)
     const [date, setDate] = useState(new Date());
     const [description, setDescription] = useState('')
@@ -41,6 +42,9 @@ const StepDisplay = ({history}) => {
     const [stepStatus, setStepStatus] = useState('')
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [ableToComplete, setAbleToComplete] = useState(false)
+
+
+
 
     useEffect(() => {
         if (!stepsLoaded || !projectLoaded) {
@@ -243,7 +247,9 @@ const StepDisplay = ({history}) => {
                     </StepDisplayErrorContainer>
                     <StepChartDetailsContainer>
                         {!stepDetailStatus ?
-                            <StepChart /> :
+                            <StepChart
+                                entities={entities}
+                            /> :
                             <StepDetails
                                 description={description}
                                 editStatus={editStatus}

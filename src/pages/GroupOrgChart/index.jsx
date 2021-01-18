@@ -31,7 +31,10 @@ const GroupOrgChart = ({history}) => {
                     <AuthenticatedPageTitleContainer>
                         <AuthenticatedPageTitle>Organization Chart</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
-                    <CurrentOrgChart nodes={entities} />
+                    <CurrentOrgChart
+                        componentCalling='GroupOrgChart'
+                        nodes={entities}
+                    />
                 </>)}
         </AuthenticatedPageContainer>
     )

@@ -36,12 +36,12 @@ const ChartEdit = ({nodes, slinks, clinks}) => {
 
         const chart = new OrgChart(divRef.current, {
             // Menu sets up the option to be able to download the chart you are view, atm it does not seem to reflect CSS changes made to the chart
-            menu: {
-                pdf: {text: 'Export PDF'},
-                png: {text: 'Export PNG'},
-                svg: {text: 'Export SVG'},
-                csv: {text: 'Export CSV'}
-            },
+            // menu: {
+            //     pdf: {text: 'Export PDF'},
+            //     png: {text: 'Export PNG'},
+            //     svg: {text: 'Export SVG'},
+            //     csv: {text: 'Export CSV'}
+            // },
 
             // Sets the predefined template of the org chart, see docs for names ( https://balkangraph.com/OrgChartJS/Docs/PredefinedTemplates )
             template: 'olivia',
@@ -90,6 +90,7 @@ const ChartEdit = ({nodes, slinks, clinks}) => {
                     e.preventDefault()
                     e.stopPropagation()
                     // alert('My logic goes here for node with id: ' + this.parentNode.getAttribute('node-id'))
+                    // eslint-disable-next-line react/no-this-in-sfc
                     const nodeId = this.parentNode.getAttribute('node-id')
                     const targetNode = nodes.filter(node => node.id === nodeId)
                     targetNode[0].tags = ["myTemplate"]

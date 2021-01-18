@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react'
 import OrgChart from '@balkangraph/orgchart.js'
-import {BeginningOrgChartContainer, OrgChartContainer} from './styles'
+import {OrgChartContainer} from './styles'
 
 
-const CurrentOrgChart = ({componentCalling, nodes}) => {
+const CurrentOrgChart = ({componentCalling, clinks, nodes}) => {
     const divRef = React.createRef()
 
     useEffect(() => {
+        console.log('Chart rendering')
         OrgChart.templates.olivia.field_0 =
             '<text class="field_0" width="230" text-overflow="multiline" style="font-size: 18px;" fill="#000000" x="125" y="30" text-anchor="middle" font-family="Nunito Sans, sans-serif">{val}</text>'
         OrgChart.templates.olivia.field_1 =
@@ -35,15 +36,12 @@ const CurrentOrgChart = ({componentCalling, nodes}) => {
             enableSearch: true,
 
             nodes,
+            clinks,
         })
     })
 
     return (
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        <>
-            {componentCalling === 'StepBeginning' ?
-                <BeginningOrgChartContainer id="tree" ref={divRef} /> : <OrgChartContainer id="tree" ref={divRef} />}
-        </>
+        <OrgChartContainer componentCalling={componentCalling} id="tree" ref={divRef} />
     )
 }
 

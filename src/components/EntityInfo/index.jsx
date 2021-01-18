@@ -3,7 +3,8 @@ import {v4 as uuidv4} from 'uuid'
 import EntityInfoTitleRow from './EntityInfoTitleRow'
 import EntityInfoFooterRow from './EntityInfoFooterRow'
 import {TableData, TableDataRow} from '../../style/tables'
-import {EntitiesTable, EntitiesTableHeader, EntityOption, EntityTableContainer} from './styles'
+import {EntityOption} from '../../style/options'
+import {EntitiesTable, EntitiesTableHeader, EntityTableContainer} from './styles'
 
 
 const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, listOfEntities, parentName, setCountryName, taxRate}) => {

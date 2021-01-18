@@ -26,11 +26,3 @@ export const EntitiesTable = styled.table`
 export const EntitiesTableHeader = styled.thead`
     border-left: 1px solid ${props => props.theme.grayFour};
 `
-
-export const EntityOption = styled.option`
-    font-family: ${props => props.theme.nunitoFontFamily};
-    font-weight: 600;
-    font-size: 10px;
-    line-height: 16px;
-    color: ${props => props.theme.grayOne};
-`
