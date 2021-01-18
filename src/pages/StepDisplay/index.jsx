@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import DateInput from '../../components/DateInput'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import StepChart from './StepChart'
@@ -14,13 +13,11 @@ import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAct
     skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
 import {convertDate} from '../../helpers'
 import {ErrorMessage} from '../../style/messages'
-import {DateInputLabelText} from '../../style/text'
-import {AuthenticatedPageTitle} from '../../style/titles'
 import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS, TASKS} from '../../routes/paths'
-import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
-import {DateInputAddStepButtonContainer, DisabledDateInput, DisabledDateLabelContainer, StepChartDetailsContainer,
-    StepDisplayAddStepButton, StepDisplayErrorContainer} from './styles'
+import {AuthenticatedPageContainer} from '../../style/containers'
+import {StepChartDetailsContainer, StepDisplayErrorContainer} from './styles'
 import StepDisplayToggleButtonsStatus from './StepDisplayToggleButtonsStatus'
+import StepDisplayTitle from './StepDisplayTitle'
 
 
 const StepDisplay = ({history}) => {
@@ -171,41 +168,14 @@ const StepDisplay = ({history}) => {
                         next={1}
                         previous={1}
                     />
-                    {indexOfStepToDisplay + 1 === steps.length ? (
-                        <StepPageTitleWithButtonContainer>
-                            <AuthenticatedPageTitle>Step {steps[indexOfStepToDisplay].number}</AuthenticatedPageTitle>
-                            <DateInputAddStepButtonContainer>
-                                {editStatus ? (
-                                    <DateInput date={date} label setDate={setDate} />) : (
-                                        <>
-                                            <DateInputLabelText>Effective Date:</DateInputLabelText>
-                                            <DisabledDateInput
-                                                disabled
-                                                type='text'
-                                                value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
-                                            />
-                                        </>)}
-                                {indexOfStepToDisplay + 1 === steps.length && steps[indexOfStepToDisplay].id ?
-                                    <StepDisplayAddStepButton onClick={addNewStepHandler}>Add New Step</StepDisplayAddStepButton> : null}
-                            </DateInputAddStepButtonContainer>
-                        </StepPageTitleWithButtonContainer>) : (
-                            <StepPageTitleWithButtonContainer>
-                                <AuthenticatedPageTitle>Step {indexOfStepToDisplay + 1}</AuthenticatedPageTitle>
-                                {editStatus ? (
-                                    <DateInput
-                                        date={date}
-                                        label
-                                        setDate={setDate}
-                                    />) : (
-                                        <DisabledDateLabelContainer>
-                                            <DateInputLabelText>Effective Date:</DateInputLabelText>
-                                            <DisabledDateInput
-                                                disabled
-                                                type='text'
-                                                value={steps[indexOfStepToDisplay].effective_date ? steps[indexOfStepToDisplay].effective_date : 'None'}
-                                            />
-                                        </DisabledDateLabelContainer>)}
-                            </StepPageTitleWithButtonContainer>)}
+                    <StepDisplayTitle
+                        addNewStepHandler={addNewStepHandler}
+                        date={date}
+                        editStatus={editStatus}
+                        indexOfStepToDisplay={indexOfStepToDisplay}
+                        setDate={setDate}
+                        steps={steps}
+                    />
                     <StepDisplayToggleButtonsStatus
                         ableToComplete={ableToComplete}
                         editStatus={editStatus}
