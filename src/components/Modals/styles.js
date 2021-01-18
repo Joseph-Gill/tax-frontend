@@ -46,12 +46,13 @@ export const AddDeleteModalInternalContainer = styled.div`
 export const AddDeleteModalCloseContainer = styled.div`
     display: flex;
     justify-content: flex-end;
-    width: 339px;
+    width: 100%;
 `
 
 export const AddDeleteModalTitleContainer = styled(AddDeleteModalCloseContainer)`
     justify-content: flex-start;
     padding-left: 19px;
+    width: 100%;
 `
 export const AddDeleteModalTextContainer = styled(AddDeleteModalTitleContainer)`
     align-items: center;

@@ -9,8 +9,10 @@ import {EntityParentSelect} from '../../../style/select'
 import {ActiveInputLabel} from '../../../style/labels'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer,
-    AddEntityLinkModalInternalContainer, AddEntitySaveButton} from '../styles'
+import {
+    AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer,
+    AddEntityLinkModalInternalContainer, AddEntitySaveButton
+} from '../styles'
 
 
 const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, legalForm, name, parentName, renderParentNameOptions,
@@ -29,7 +31,7 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, legalForm, nam
                     <CloseIcon alt='close' onClick={() => setShowAddEntity(false)} src={close} />
                 </AddDeleteModalCloseContainer>
                 <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Enter new Entity Info</AuthenticatedPageTitle>
+                    <AuthenticatedPageTitle>Enter entity info</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
                 <div>
                     <ActiveInputLabel>Name</ActiveInputLabel>
@@ -83,10 +85,10 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, legalForm, nam
                         type='text'
                     />
                 </div>
-                <AddDeleteModalCloseContainer>
+                <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={cancelNewEntityLinkHandler}>Cancel</AuthenticatedButtonCancel>
                     <AddEntitySaveButton onClick={saveNewEntityHandler}>Save</AddEntitySaveButton>
-                </AddDeleteModalCloseContainer>
+                </AddDeleteModalButtonContainer>
             </AddEntityLinkModalInternalContainer>
         </AddDeleteModalExternalContainer>
     )

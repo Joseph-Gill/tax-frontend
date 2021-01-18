@@ -3,23 +3,27 @@ import {v4 as uuidv4} from 'uuid'
 import CurrentOrgChart from '../../../components/CurrentOrgChart'
 import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import {DropdownOption, EntityOption} from '../../../style/options'
-import {StepChartAndButtonsContainer} from './styles'
+import {RemoveLinkOption, StepChartAndButtonsContainer} from './styles'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {useDispatch} from 'react-redux'
 import AddLinkModal from '../../../components/Modals/AddLinkModal'
+import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 
 
-const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, showAddLink}) => {
+const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveLink, showAddEntity, showAddLink, showRemoveLink}) => {
     const dispatch = useDispatch()
     let legalForm = useRef('')
     let name = useRef('')
     let taxRate = useRef('')
     let parentName = useRef('')
-    const [clinks, setClinks] = useState([])
+    const [clinks, setClinks] = useState([
+        {from: 1, to: 2, label:"test"}
+    ])
     const [slinks, setSlinks] = useState([])
     const [entitiesToRender, setEntitiesToRender] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [countryName, setCountryName] = useState('')
+    const [linkToRemove, setLinkToRemove] = useState('')
     const [addLinkInfo, setAddLinkInfo] = useState({
         from: '',
         to: '',
@@ -84,11 +88,38 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
         )
     )
 
+    const getEntityName = id => {
+        for (let i = 0; i < entitiesToRender.length; i++) {
+            if (entitiesToRender[i].id === id)
+                return entitiesToRender[i].name
+        }
+    }
+
+    const renderRemoveLinkOptions = () => {
+        const links = []
+        slinks.forEach(link => {
+            links.push(
+                <RemoveLinkOption key={uuidv4()} value={link.id}>
+                    {`From: ${getEntityName(link.from)} To: ${getEntityName(link.to)}`}
+                </RemoveLinkOption>
+            )
+        })
+        clinks.forEach(link => {
+            links.push(
+                <RemoveLinkOption key={uuidv4()} value={link.id}>
+                    {`From: ${getEntityName(link.from)} To: ${getEntityName(link.to)}`}
+                </RemoveLinkOption>
+            )
+        })
+        return links
+    }
+
     const saveNewLinkHandler = () => {
         const newLink = {
             from: parseInt(addLinkInfo.from),
             to: parseInt(addLinkInfo.to),
             label: addLinkInfo.label,
+            id: uuidv4()
         }
         if (addLinkInfo.color === 'blue') {
             newLink.template = 'blue'
@@ -102,6 +133,10 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
         }
         setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
         setShowAddLink(false)
+    }
+
+    const removeLinkHandler = () => {
+
     }
 
 
@@ -128,6 +163,13 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
                     saveNewLinkHandler={saveNewLinkHandler}
                     setAddLinkInfo={setAddLinkInfo}
                     setShowAddLink={setShowAddLink}
+                /> : null}
+            {showRemoveLink ?
+                <RemoveLinkModal
+                    linkOptions={renderRemoveLinkOptions()}
+                    linkToRemove={linkToRemove}
+                    setLinkToRemove={setLinkToRemove}
+                    setShowRemoveLink={setShowRemoveLink}
                 /> : null}
             {renderStepChart}
         </StepChartAndButtonsContainer>

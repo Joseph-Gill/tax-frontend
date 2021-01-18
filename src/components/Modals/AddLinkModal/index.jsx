@@ -1,43 +1,12 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import {useSpring} from 'react-spring'
-import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer, AddEntityLinkModalInternalContainer, AddEntitySaveButton} from '../styles'
-import {CloseIcon} from '../../../style/images'
 import close from '../../../assets/icons/stark_close_icon.svg'
+import {CloseIcon} from '../../../style/images'
+import {DropdownOption} from '../../../style/options'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {StatusDropdown} from '../../../style/dropdowns'
-import {DropdownOption} from '../../../style/options'
-import {BaseInput} from '../../../style/inputs'
-
-
-const AddEntityTitle = styled.label`
-    width: 70px;
-    font-family: ${props => props.theme.nunitoFontFamily};
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 19px;
-    color: ${props => props.theme.grayOne};
-`
-
-const AddEntityTitleInputContainer = styled.div`
-    width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-`
-
-const AddEntityTypeColorLabelDropdown = styled(StatusDropdown)`
-    width: 125px;
-`
-
-const AddEntityFromToDropdown = styled(StatusDropdown)`
-    width: 225px;
-`
-
-const AddEntityLabelInput = styled(BaseInput)`
-  width: 200px;
-`
+import {AddEntityFromToDropdown, AddEntityLabelInput, AddEntityTitle, AddEntityTitleInputContainer, AddEntityTypeColorLabelDropdown} from './styles'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer, AddEntityLinkModalInternalContainer, AddEntitySaveButton} from '../styles'
 
 
 const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, fromToOptions, saveNewLinkHandler, setAddLinkInfo, setShowAddLink}) => {
@@ -55,7 +24,7 @@ const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, fromToOptions, s
                     <CloseIcon alt='close' onClick={() => setShowAddLink(false)} src={close} />
                 </AddDeleteModalCloseContainer>
                 <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Select Link options</AuthenticatedPageTitle>
+                    <AuthenticatedPageTitle>Select link options</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
                 <AddEntityTitleInputContainer>
                     <AddEntityTitle>From</AddEntityTitle>
@@ -114,10 +83,10 @@ const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, fromToOptions, s
                         <DropdownOption value=''>Orange</DropdownOption>
                     </AddEntityTypeColorLabelDropdown>
                 </AddEntityTitleInputContainer>
-                <AddDeleteModalCloseContainer>
+                <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={cancelNewEntityLinkHandler}>Cancel</AuthenticatedButtonCancel>
                     <AddEntitySaveButton onClick={saveNewLinkHandler}>Save</AddEntitySaveButton>
-                </AddDeleteModalCloseContainer>
+                </AddDeleteModalButtonContainer>
             </AddEntityLinkModalInternalContainer>
         </AddDeleteModalExternalContainer>
     )

@@ -6,8 +6,8 @@ import StepChartButtons from './StepChartButtons'
 
 
 const StepDisplayToggleButtonsStatus = ({ableToComplete, editStatus, indexOfStepToDisplay, setShowConfirmation, setStepDetailStatus,
-                                            stepDetailStatus, setShowAddEntity, setShowAddLink, setStepStatus, steps, stepStatus,
-                                            tasklistButtonClickHandler}) => {
+                                            stepDetailStatus, setShowAddEntity, setShowAddLink, setShowRemoveLink, setStepStatus,
+                                            steps, stepStatus, tasklistButtonClickHandler}) => {
     return (
         <ToggleButtonsStatusContainer>
             <StepDisplayToggle
@@ -18,6 +18,7 @@ const StepDisplayToggleButtonsStatus = ({ableToComplete, editStatus, indexOfStep
                 <StepChartButtons
                     setShowAddEntity={setShowAddEntity}
                     setShowAddLink={setShowAddLink}
+                    setShowRemoveLink={setShowRemoveLink}
                 /> : (
                     <StepDetailsButtonsStatus
                         ableToComplete={ableToComplete}

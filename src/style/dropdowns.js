@@ -18,7 +18,7 @@ export const StatusDropdown = styled.select`
     background: url(${dropdownArrow}) no-repeat right;
     padding-left: 13px;
     -webkit-appearance: none;
-    background-position-x: 278px;
+    background-position-x: 92%;
 
     :hover {
         filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
