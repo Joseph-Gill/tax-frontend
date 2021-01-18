@@ -40,6 +40,7 @@ const StepDisplay = ({history}) => {
     const [showAddEntity, setShowAddEntity] = useState(false)
     const [showAddLink, setShowAddLink] = useState(false)
     const [showRemoveLink, setShowRemoveLink] = useState(false)
+    const [showRemoveEntity, setShowRemoveEntity] = useState(false)
 
 
     useEffect(() => {
@@ -186,6 +187,7 @@ const StepDisplay = ({history}) => {
                         setShowAddEntity={setShowAddEntity}
                         setShowAddLink={setShowAddLink}
                         setShowConfirmation={setShowConfirmation}
+                        setShowRemoveEntity={setShowRemoveEntity}
                         setShowRemoveLink={setShowRemoveLink}
                         setStepDetailStatus={setStepDetailStatus}
                         setStepStatus={setStepStatus}
@@ -203,9 +205,11 @@ const StepDisplay = ({history}) => {
                                 entities={entities}
                                 setShowAddEntity={setShowAddEntity}
                                 setShowAddLink={setShowAddLink}
+                                setShowRemoveEntity={setShowRemoveEntity}
                                 setShowRemoveLink={setShowRemoveLink}
                                 showAddEntity={showAddEntity}
                                 showAddLink={showAddLink}
+                                showRemoveEntity={showRemoveEntity}
                                 showRemoveLink={showRemoveLink}
                             /> :
                             <StepDetails

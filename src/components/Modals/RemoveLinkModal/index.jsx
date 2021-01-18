@@ -4,8 +4,9 @@ import {CloseIcon} from '../../../style/images'
 import {DropdownOption} from '../../../style/options'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {RemoveLinkButton, RemoveLinkButtonContainer, RemoveLinkDropdown} from './styles'
-import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer, RemoveLinkEntityInternalContainer} from '../styles'
+import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer,
+    RemoveLinkEntityButton, RemoveLinkEntityButtonContainer, RemoveLinkEntityDropdown,
+    RemoveLinkEntityInternalContainer} from '../styles'
 
 
 const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkToRemove, setShowRemoveLink}) => {
@@ -18,17 +19,17 @@ const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkT
                 <AddDeleteModalTitleContainer>
                     <AuthenticatedPageTitle>Select the link to remove</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
-                <RemoveLinkDropdown
+                <RemoveLinkEntityDropdown
                     onChange={(e) => setLinkToRemove(e.target.value)}
                     value={linkToRemove}
                 >
                     <DropdownOption disabled value=''>Select a Link</DropdownOption>
                     {linkOptions}
-                </RemoveLinkDropdown>
-                <RemoveLinkButtonContainer>
+                </RemoveLinkEntityDropdown>
+                <RemoveLinkEntityButtonContainer>
                     <AuthenticatedButtonCancel onClick={() => setShowRemoveLink(false)}>Cancel</AuthenticatedButtonCancel>
-                    <RemoveLinkButton onClick={removeLinkHandler}>Remove</RemoveLinkButton>
-                </RemoveLinkButtonContainer>
+                    <RemoveLinkEntityButton onClick={removeLinkHandler}>Remove</RemoveLinkEntityButton>
+                </RemoveLinkEntityButtonContainer>
             </RemoveLinkEntityInternalContainer>
         </AddDeleteModalExternalContainer>
     )

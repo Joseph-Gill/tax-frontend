@@ -1,7 +1,8 @@
 import styled from 'styled-components/macro'
 import {device as devices} from '../../style/devices'
 import {animated} from 'react-spring'
-import {BaseButton} from '../../style/buttons'
+import {BaseButton, RedLargerButton} from '../../style/buttons'
+import {StatusDropdown} from '../../style/dropdowns'
 
 
 export const AddDeleteModalExternalContainer = styled(animated.div)`
@@ -92,4 +93,20 @@ export const AddEntitySaveButton = styled(BaseButton)`
 export const RemoveLinkEntityInternalContainer = styled(AddDeleteModalInternalContainer)`
     width: 500px;
     height: 230px;
+`
+
+export const RemoveLinkEntityDropdown = styled(StatusDropdown)`
+    width: 430px;
+`
+
+export const RemoveLinkEntityButton = styled(RedLargerButton)`
+    width: 100px;
+    margin-left: 23px;
+`
+
+export const RemoveLinkEntityButtonContainer = styled.div`
+    width: 430px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 `
