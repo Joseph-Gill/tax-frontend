@@ -1,9 +1,9 @@
 import React from 'react'
+import {TooltipRowContainer} from '../../../../style/containers'
+import {TooltipRowImage} from '../../../../style/images'
+import ellipse from '../../../../assets/icons/stark_tooltip_ellipse.png'
+import {TooltipRowText} from '../../../../style/text'
 import ReactTooltip from 'react-tooltip'
-import ellipse from '../../../assets/icons/stark_tooltip_ellipse.png'
-import {TooltipRowContainer} from '../../../style/containers'
-import {TooltipRowImage} from '../../../style/images'
-import {TooltipRowText} from '../../../style/text'
 
 
 const StepToolTip = ({anchorId}) => {

@@ -3,26 +3,24 @@ import {useDispatch, useSelector} from 'react-redux'
 import DateInput from '../../components/DateInput'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
-import StepDisplayToggle from './StepDisplayToggle'
 import StepChart from './StepChart'
 import StepDetails from './StepDetails'
 import Spinner from '../../components/Spinner'
-import StepToolTip from './StepToolTip'
 import DeleteStepModal from '../../components/Modals/DeleteStepModal'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 import {setTaskFilterStepNumber} from '../../store/task/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
-import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, removeNewStep, skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
+import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, removeNewStep,
+    skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
 import {convertDate} from '../../helpers'
-import tooltipAnchor from '../../assets/icons/stark_tooltip_anchor.png'
 import {ErrorMessage} from '../../style/messages'
 import {DateInputLabelText} from '../../style/text'
-import {WireFrameDeleteButton} from '../../style/buttons'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS, TASKS} from '../../routes/paths'
 import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
-import {ButtonsStatusContainer, DateInputAddStepButtonContainer, DisabledDateInput, DisabledDateLabelContainer, StepChartDetailsContainer, StepDetailsOption,
-    StepDetailsStatus, StepDetailsTasklistButton, StepDisplayAddStepButton, StepDisplayErrorContainer, StepTooltipAnchor, ToggleButtonsStatusContainer} from './styles'
+import {DateInputAddStepButtonContainer, DisabledDateInput, DisabledDateLabelContainer, StepChartDetailsContainer,
+    StepDisplayAddStepButton, StepDisplayErrorContainer} from './styles'
+import StepDisplayToggleButtonsStatus from './StepDisplayToggleButtonsStatus'
 
 
 const StepDisplay = ({history}) => {
@@ -42,8 +40,6 @@ const StepDisplay = ({history}) => {
     const [stepStatus, setStepStatus] = useState('')
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [ableToComplete, setAbleToComplete] = useState(false)
-
-
 
 
     useEffect(() => {
@@ -210,38 +206,18 @@ const StepDisplay = ({history}) => {
                                             />
                                         </DisabledDateLabelContainer>)}
                             </StepPageTitleWithButtonContainer>)}
-
-                    <ToggleButtonsStatusContainer>
-                        <StepDisplayToggle
-                            setStepDetailStatus={setStepDetailStatus}
-                            stepDetailStatus={stepDetailStatus}
-                        />
-                        <ButtonsStatusContainer>
-                            {indexOfStepToDisplay + 1 === steps.length ? <WireFrameDeleteButton onClick={() => setShowConfirmation(true)}>Delete</WireFrameDeleteButton> : null}
-                            <StepDetailsTasklistButton onClick={tasklistButtonClickHandler}>Tasklist</StepDetailsTasklistButton>
-                            {!editStatus ? (
-                                <StepDetailsStatus disabled onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
-                                    <StepDetailsOption value={steps[indexOfStepToDisplay].status}>{steps[indexOfStepToDisplay].status}</StepDetailsOption>
-                                </StepDetailsStatus>
-                                ) : (
-                                    <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
-                                        <StepDetailsOption disabled value=''>Status</StepDetailsOption>
-                                        <StepDetailsOption value='Not Started'>Not Started</StepDetailsOption>
-                                        <StepDetailsOption value='Ongoing'>Ongoing</StepDetailsOption>
-                                        {ableToComplete ?
-                                            <StepDetailsOption value='Completed'>Completed</StepDetailsOption> :
-                                            <StepDetailsOption disabled value='Completed'>Completed</StepDetailsOption>}
-                                    </StepDetailsStatus>
-                            )}
-                            {!ableToComplete ? (
-                                <>
-                                    <StepTooltipAnchor>
-                                        <img alt='tooltip' data-for='complete' data-tip src={tooltipAnchor} />
-                                    </StepTooltipAnchor>
-                                    <StepToolTip anchorId='complete' />
-                                </>) : null}
-                        </ButtonsStatusContainer>
-                    </ToggleButtonsStatusContainer>
+                    <StepDisplayToggleButtonsStatus
+                        ableToComplete={ableToComplete}
+                        editStatus={editStatus}
+                        indexOfStepToDisplay={indexOfStepToDisplay}
+                        setShowConfirmation={setShowConfirmation}
+                        setStepDetailStatus={setStepDetailStatus}
+                        setStepStatus={setStepStatus}
+                        stepDetailStatus={stepDetailStatus}
+                        stepStatus={stepStatus}
+                        steps={steps}
+                        tasklistButtonClickHandler={tasklistButtonClickHandler}
+                    />
                     <StepDisplayErrorContainer>
                         {error && <ErrorMessage>{error.status}</ErrorMessage>}
                     </StepDisplayErrorContainer>

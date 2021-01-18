@@ -43,19 +43,6 @@ export const DisabledDateLabelContainer = styled.div`
     align-items: center;
 `
 
-export const ToggleButtonsStatusContainer = styled.div`
-    width: 860px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-`
-
-export const ButtonsStatusContainer = styled.div`
-    display: flex;
-    align-items: center;
-`
-
 export const StepChartDetailsContainer = styled.div`
     width: 860px;
     height: 400px;
@@ -68,34 +55,9 @@ export const StepChartDetailsContainer = styled.div`
     justify-content: center;
 `
 
-export const StepDetailsTasklistButton = styled(TableButton)`
-    width: 78px;
-    height: 26px;
-    margin-left: 20px;
-`
-
-export const StepDetailsStatus = styled(StatusDropdown)`
-    width: 102px;
-    height: 26px;
-    background-color: ${props => props.theme.white};
-    background-position-x: 84px;
-    font-size: 12px;
-    line-height: 16px;
-    margin-left: 20px;
-`
-
-export const StepDetailsOption = styled(DropdownOption)`
-    font-size: 10px;
-    line-height: 14px;
-`
-
 export const StepDisplayErrorContainer = styled.div`
     width: 860px;
     height: 10px;
     display: flex;
     justify-content: flex-end;
-`
-
-export const StepTooltipAnchor = styled.a`
-    margin-left: 10px;
 `
