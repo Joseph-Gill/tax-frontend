@@ -12,7 +12,7 @@ import {BaseInput} from '../../../style/inputs'
 
 
 const AddEntityTitle = styled.label`
-    width: 100px;
+    width: 70px;
     font-family: ${props => props.theme.nunitoFontFamily};
     font-weight: 600;
     font-size: 14px;
@@ -32,7 +32,7 @@ const AddEntityTypeColorLabelDropdown = styled(StatusDropdown)`
 `
 
 const AddEntityFromToDropdown = styled(StatusDropdown)`
-    width: 200px;
+    width: 225px;
 `
 
 const AddEntityLabelInput = styled(BaseInput)`
@@ -40,7 +40,7 @@ const AddEntityLabelInput = styled(BaseInput)`
 `
 
 
-const AddLinkModal = ({cancelNewEntityLinkHandler, setShowAddLink}) => {
+const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, fromToOptions, saveNewLinkHandler, setAddLinkInfo, setShowAddLink}) => {
 
     const props = useSpring({
         opacity: 1,
@@ -60,50 +60,63 @@ const AddLinkModal = ({cancelNewEntityLinkHandler, setShowAddLink}) => {
                 <AddEntityTitleInputContainer>
                     <AddEntityTitle>From</AddEntityTitle>
                     <AddEntityFromToDropdown
-                        value=''
+                        name='from'
+                        onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
+                        value={addLinkInfo.from}
                     >
                         <DropdownOption disabled value=''>Select an entity</DropdownOption>
+                        {fromToOptions}
                     </AddEntityFromToDropdown>
                 </AddEntityTitleInputContainer>
                 <AddEntityTitleInputContainer>
                     <AddEntityTitle>To</AddEntityTitle>
                     <AddEntityFromToDropdown
-                        value=''
+                        name='to'
+                        onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
+                        value={addLinkInfo.to}
                     >
                         <DropdownOption disabled value=''>Select an entity</DropdownOption>
+                        {fromToOptions}
                     </AddEntityFromToDropdown>
                 </AddEntityTitleInputContainer>
                 <AddEntityTitleInputContainer>
                     <AddEntityTitle>Label</AddEntityTitle>
                     <AddEntityLabelInput
+                        name='label'
+                        onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
                         placeholder='Enter your label'
                         type='text'
+                        value={addLinkInfo.label}
                     />
                 </AddEntityTitleInputContainer>
                 <AddEntityTitleInputContainer>
                     <AddEntityTitle>Type</AddEntityTitle>
                     <AddEntityTypeColorLabelDropdown
-                        value=''
+                        name='type'
+                        onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
+                        value={addLinkInfo.type}
                     >
                         <DropdownOption disabled value=''>Select a type</DropdownOption>
-                        <DropdownOption>C Link</DropdownOption>
-                        <DropdownOption>S Link</DropdownOption>
+                        <DropdownOption value='clink'>C Link</DropdownOption>
+                        <DropdownOption value='slink'>S Link</DropdownOption>
                     </AddEntityTypeColorLabelDropdown>
                 </AddEntityTitleInputContainer>
                 <AddEntityTitleInputContainer>
                     <AddEntityTitle>Color</AddEntityTitle>
                     <AddEntityTypeColorLabelDropdown
-                        value=''
+                        name='color'
+                        onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
+                        value={addLinkInfo.color}
                     >
                         <DropdownOption disabled value=''>Select a color</DropdownOption>
-                        <DropdownOption>Blue</DropdownOption>
-                        <DropdownOption>Yellow</DropdownOption>
-                        <DropdownOption>Orange</DropdownOption>
+                        <DropdownOption value='blue'>Blue</DropdownOption>
+                        <DropdownOption value='yellow'>Yellow</DropdownOption>
+                        <DropdownOption value=''>Orange</DropdownOption>
                     </AddEntityTypeColorLabelDropdown>
                 </AddEntityTitleInputContainer>
                 <AddDeleteModalCloseContainer>
                     <AuthenticatedButtonCancel onClick={cancelNewEntityLinkHandler}>Cancel</AuthenticatedButtonCancel>
-                    <AddEntitySaveButton>Save</AddEntitySaveButton>
+                    <AddEntitySaveButton onClick={saveNewLinkHandler}>Save</AddEntitySaveButton>
                 </AddDeleteModalCloseContainer>
             </AddEntityLinkModalInternalContainer>
         </AddDeleteModalExternalContainer>

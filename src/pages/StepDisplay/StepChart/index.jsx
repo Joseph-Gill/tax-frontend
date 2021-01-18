@@ -2,7 +2,7 @@ import React, {useState, useEffect, useMemo, useRef} from 'react'
 import {v4 as uuidv4} from 'uuid'
 import CurrentOrgChart from '../../../components/CurrentOrgChart'
 import AddEntityModal from '../../../components/Modals/AddEntityModal'
-import {EntityOption} from '../../../style/options'
+import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {useDispatch} from 'react-redux'
@@ -15,19 +15,18 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
     let name = useRef('')
     let taxRate = useRef('')
     let parentName = useRef('')
-    const [clinks, setClinks] = useState([
-        {from: 1, to: 2, label: 'blue template', template: 'blue'},
-        {from: 2, to: 3, label: 'yellow template', template: 'yellow'},
-        {from: 3, to: 4, label: 'no template'}
-        ])
-    const [slinks, setSlinks] = useState([
-        {from: 1, to: 2, label: 'blue template', template: 'blue'},
-        {from: 2, to: 3, label: 'yellow template', template: 'yellow'},
-        {from: 3, to: 4, label: 'no template'}
-    ])
+    const [clinks, setClinks] = useState([])
+    const [slinks, setSlinks] = useState([])
     const [entitiesToRender, setEntitiesToRender] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [countryName, setCountryName] = useState('')
+    const [addLinkInfo, setAddLinkInfo] = useState({
+        from: '',
+        to: '',
+        type: '',
+        label: '',
+        color: ''
+    })
 
     useEffect(() => {
         setEntitiesToRender([...entities])
@@ -59,7 +58,7 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
 
     const saveNewEntityHandler = () => {
         const newEntityInfo = {
-            id: uuidv4(),
+            id: Date.now(),
             legal_form: legalForm.current.value,
             location: countryName,
             name: name.current.value,
@@ -68,6 +67,7 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
         }
         setEntitiesToRender([...entitiesToRender, newEntityInfo])
         setAvailableParentNames([...availableParentNames, newEntityInfo.name])
+        setCountryName('')
         setShowAddEntity(false)
     }
 
@@ -76,6 +76,34 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
         setShowAddEntity(false)
         setShowAddLink(false)
     }
+
+    const renderFromToOptions = () => (
+        entitiesToRender.map(entity => (
+            <DropdownOption key={uuidv4()} value={entity.id}>{entity.name}</DropdownOption>
+            )
+        )
+    )
+
+    const saveNewLinkHandler = () => {
+        const newLink = {
+            from: parseInt(addLinkInfo.from),
+            to: parseInt(addLinkInfo.to),
+            label: addLinkInfo.label,
+        }
+        if (addLinkInfo.color === 'blue') {
+            newLink.template = 'blue'
+        } else if (addLinkInfo.color === 'yellow') {
+            newLink.template = 'yellow'
+        }
+        if (addLinkInfo.type === 'clink') {
+            setClinks([...clinks, newLink])
+        } else {
+            setSlinks([...slinks, newLink])
+        }
+        setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
+        setShowAddLink(false)
+    }
+
 
     return (
         <StepChartAndButtonsContainer>
@@ -94,7 +122,11 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, showAddEntity, s
                 /> : null}
             {showAddLink ?
                 <AddLinkModal
+                    addLinkInfo={addLinkInfo}
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
+                    fromToOptions={renderFromToOptions()}
+                    saveNewLinkHandler={saveNewLinkHandler}
+                    setAddLinkInfo={setAddLinkInfo}
                     setShowAddLink={setShowAddLink}
                 /> : null}
             {renderStepChart}
