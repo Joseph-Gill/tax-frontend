@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo, useRef} from 'react'
+import React, {useEffect, useMemo, useRef, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import CurrentOrgChart from '../../../components/CurrentOrgChart'
@@ -7,8 +7,10 @@ import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {getEntitiesWithTags} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
+import './styles.css'
 
 
 const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEntity, setShowRemoveLink,
@@ -34,7 +36,7 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEnt
     })
 
     useEffect(() => {
-        setEntitiesToRender([...entities])
+        setEntitiesToRender([...getEntitiesWithTags(entities)])
         setAvailableParentNames([...entities.map(entity => entity.name)])
     }, [entities])
 
@@ -118,7 +120,8 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEnt
             location: countryName,
             name: name.current.value,
             tax_rate: taxRate.current.value,
-            pid: entitiesToRender.filter(entity => entity.name === parentName.current.value)[0].id.toString()
+            pid: entitiesToRender.filter(entity => entity.name === parentName.current.value)[0].id.toString(),
+            tags: ['test']
         }
         setEntitiesToRender([...entitiesToRender, newEntityInfo])
         setAvailableParentNames([...availableParentNames, newEntityInfo.name])
@@ -161,7 +164,10 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEnt
     }
 
     const removeEntityHandler = () => {
-        setEntitiesToRender(entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove)))
+        const newEntitiesToRender = entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove))
+        setEntitiesToRender(newEntitiesToRender)
+        setAvailableParentNames([...newEntitiesToRender.map(entity => entity.name)])
+        // setEntitiesToRender(entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove)))
         setEntityToRemove('')
         setShowRemoveEntity(false)
     }
