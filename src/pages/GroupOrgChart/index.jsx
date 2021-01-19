@@ -21,7 +21,7 @@ const GroupOrgChart = ({history}) => {
             history.push(`${HOME}`)
         }
         setEntitiesToRender([...getEntitiesWithTags(entities)])
-    }, [loaded, history])
+    }, [loaded, history, entities])
 
     return (
         <AuthenticatedPageContainer>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
@@ -7,6 +7,7 @@ import Spinner from '../../components/Spinner'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 import {addNewStep} from '../../store/step/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
+import {getEntitiesWithTags} from '../../helpers'
 import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import {AddNewStepButton} from '../../style/buttons'
 import {AuthenticatedPageTitle} from '../../style/titles'
@@ -22,14 +23,21 @@ const StepBeginning = ({history}) => {
     const stepsLoaded = useSelector(state => state.stepReducer.steps)
     const entities = useSelector(state => state.groupReducer.group.entities)
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
+    const [entitiesToRender, setEntitiesToRender] = useState([])
 
     useEffect (() => {
+        const getGroupForProject = async () => {
+            dispatch(getGroupOfProjectAction(project.id))
+        }
         if (!projectLoaded || !stepsLoaded) {
             history.push(`${HOME}`)
         } else if (!groupLoaded) {
-            dispatch(getGroupOfProjectAction(project.id))
+            getGroupForProject()
+                .then(() => setEntitiesToRender([...getEntitiesWithTags(entities)]))
+        } else {
+            setEntitiesToRender([...getEntitiesWithTags(entities)])
         }
-    }, [history, projectLoaded, stepsLoaded, groupLoaded, project, dispatch])
+    }, [history, projectLoaded, stepsLoaded, groupLoaded, project, dispatch, entities])
 
 
     const addNewStepHandler = () => {
@@ -66,7 +74,7 @@ const StepBeginning = ({history}) => {
                             </StepPageTitleWithButtonContainer>)}
                     <CurrentOrgChart
                         componentCalling='StepBeginning'
-                        nodes={entities}
+                        nodes={entitiesToRender}
                     />
                     <StepDisplayFooterV2
                         endingNode={0}
