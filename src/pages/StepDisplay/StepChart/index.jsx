@@ -9,7 +9,7 @@ import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {addLegalFormTag, getEntitiesWithTags} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
-import {StepChartAndButtonsContainer} from './styles'
+import {NoChartToDisplay, StepChartAndButtonsContainer} from './styles'
 import {createChartForStepAction, updateChartForStepAction} from '../../../store/chart/actions'
 
 
@@ -54,9 +54,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     const renderStepChart = useMemo(() => {
         if (!entitiesToRender.length) {
             return (
-                <div>
-                    No Chart for this Step
-                </div>
+                <NoChartToDisplay>
+                    <p>There are no changes in the organization chart of the previous step.</p>
+                    <p>Please update it to be able to make changes to this organization chart.</p>
+                </NoChartToDisplay>
             )
         } else {
             return (

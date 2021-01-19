@@ -2,13 +2,29 @@ import React from 'react'
 import {AddEntityLinkButton, RemoveEntityLinkButton, StepChartButtonsContainer} from './styles'
 
 
-const StepChartButtons = ({setShowAddEntity, setShowAddLink, setShowRemoveEntity, setShowRemoveLink}) => {
+const StepChartButtons = ({currentStepEntities, setShowAddEntity, setShowAddLink, setShowRemoveEntity, setShowRemoveLink}) => {
     return (
         <StepChartButtonsContainer>
-            <AddEntityLinkButton onClick={() => setShowAddEntity(true)}>Add Entity</AddEntityLinkButton>
-            <AddEntityLinkButton onClick={() => setShowAddLink(true)}>Add Link</AddEntityLinkButton>
-            <RemoveEntityLinkButton onClick={() => setShowRemoveLink(true)}>Remove Link</RemoveEntityLinkButton>
-            <RemoveEntityLinkButton onClick={() => setShowRemoveEntity(true)}>Remove Entity</RemoveEntityLinkButton>
+            <AddEntityLinkButton
+                disabled={!currentStepEntities.length}
+                onClick={() => setShowAddEntity(true)}
+            >Add Entity
+            </AddEntityLinkButton>
+            <AddEntityLinkButton
+                disabled={!currentStepEntities.length}
+                onClick={() => setShowAddLink(true)}
+            >Add Link
+            </AddEntityLinkButton>
+            <RemoveEntityLinkButton
+                disabled={!currentStepEntities.length}
+                onClick={() => setShowRemoveLink(true)}
+            >Remove Link
+            </RemoveEntityLinkButton>
+            <RemoveEntityLinkButton
+                disabled={!currentStepEntities.length}
+                onClick={() => setShowRemoveEntity(true)}
+            >Remove Entity
+            </RemoveEntityLinkButton>
         </StepChartButtonsContainer>
     )
 }

@@ -228,6 +228,7 @@ const StepDisplay = ({history}) => {
                     />
                     <StepDisplayToggleButtonsStatus
                         ableToComplete={ableToComplete}
+                        currentStepEntities={currentStepEntities}
                         editStatus={editStatus}
                         indexOfStepToDisplay={indexOfStepToDisplay}
                         setShowAddEntity={setShowAddEntity}
