@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {BaseButton, DeleteButton, SaveButton} from '../../../../style/buttons'
+import {BaseButton, DeleteButton} from '../../../../style/buttons'
 
 
 export const AddEntityLinkButton = styled(BaseButton)`
@@ -12,14 +12,9 @@ export const RemoveEntityLinkButton = styled(DeleteButton)`
     height: 26px;
 `
 
-export const StepChartSaveButton = styled(SaveButton)`
-    height: 26px;
-`
-
 export const StepChartButtonsContainer = styled.div`
-    width: 100%;
+    width: 500px;
     display: flex;
     justify-content: space-between;
-    margin-left: 20px;
     align-items: center;
 `

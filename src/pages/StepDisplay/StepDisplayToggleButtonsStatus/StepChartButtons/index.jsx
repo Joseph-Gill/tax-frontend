@@ -1,5 +1,5 @@
 import React from 'react'
-import {AddEntityLinkButton, RemoveEntityLinkButton, StepChartButtonsContainer, StepChartSaveButton} from './styles'
+import {AddEntityLinkButton, RemoveEntityLinkButton, StepChartButtonsContainer} from './styles'
 
 
 const StepChartButtons = ({setShowAddEntity, setShowAddLink, setShowRemoveEntity, setShowRemoveLink}) => {
@@ -9,7 +9,6 @@ const StepChartButtons = ({setShowAddEntity, setShowAddLink, setShowRemoveEntity
             <AddEntityLinkButton onClick={() => setShowAddLink(true)}>Add Link</AddEntityLinkButton>
             <RemoveEntityLinkButton onClick={() => setShowRemoveLink(true)}>Remove Link</RemoveEntityLinkButton>
             <RemoveEntityLinkButton onClick={() => setShowRemoveEntity(true)}>Remove Entity</RemoveEntityLinkButton>
-            <StepChartSaveButton>Save</StepChartSaveButton>
         </StepChartButtonsContainer>
     )
 }
