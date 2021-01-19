@@ -80,7 +80,7 @@ const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, fromToOptions, s
                         <DropdownOption disabled value=''>Select a color</DropdownOption>
                         <DropdownOption value='blue'>Blue</DropdownOption>
                         <DropdownOption value='yellow'>Yellow</DropdownOption>
-                        <DropdownOption value=''>Orange</DropdownOption>
+                        <DropdownOption value='orange'>Orange</DropdownOption>
                     </AddEntityTypeColorLabelDropdown>
                 </AddEntityTitleInputContainer>
                 <AddDeleteModalButtonContainer>

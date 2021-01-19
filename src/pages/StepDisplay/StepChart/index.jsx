@@ -10,17 +10,17 @@ import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {addLegalFormTag, getEntitiesWithTags} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
+import {createChartForStepAction, updateChartForStepAction} from '../../../store/chart/actions'
 
 
-const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEntity, setShowRemoveLink,
-                       showAddEntity, showAddLink, showRemoveEntity, showRemoveLink}) => {
+const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowAddLink,
+                       setShowRemoveEntity, setShowRemoveLink, setSlinks, showAddEntity, showAddLink,
+                       showRemoveEntity, showRemoveLink, slinks, stepChartExists}) => {
     const dispatch = useDispatch()
     let legalForm = useRef('')
     let name = useRef('')
     let taxRate = useRef('')
     let parentName = useRef('')
-    const [clinks, setClinks] = useState([])
-    const [slinks, setSlinks] = useState([])
     const [entitiesToRender, setEntitiesToRender] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [countryName, setCountryName] = useState('')
@@ -52,15 +52,23 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEnt
         </>), [availableParentNames])
 
     const renderStepChart = useMemo(() => {
-        return (
-            <CurrentOrgChart
-                clinks={clinks}
-                componentCalling='StepDisplay'
-                nodes={entitiesToRender}
-                slinks={slinks}
-            />
-        )
-    }, [clinks, entitiesToRender, slinks])
+        if (!entitiesToRender.length) {
+            return (
+                <div>
+                    No Chart for this Step
+                </div>
+            )
+        } else {
+            return (
+                <CurrentOrgChart
+                    clinks={clinks}
+                    componentCalling='StepDisplay'
+                    nodes={entitiesToRender}
+                    slinks={slinks}
+                />
+            )
+        }
+    }, [entitiesToRender, clinks, slinks])
 
     const renderFromToOptions = () => (
         entitiesToRender.map(entity => (
@@ -125,6 +133,16 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEnt
         if (entityTag) {
             newEntityInfo.tags = [entityTag]
         }
+        const chartData = {
+            nodes: JSON.stringify([...entitiesToRender, newEntityInfo]),
+            slinks: JSON.stringify(slinks),
+            clinks: JSON.stringify(clinks)
+        }
+        if (!stepChartExists) {
+            dispatch(createChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
+        } else {
+            dispatch(updateChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
+        }
         setEntitiesToRender([...entitiesToRender, newEntityInfo])
         setAvailableParentNames([...availableParentNames, newEntityInfo.name])
         setCountryName('')
@@ -137,12 +155,15 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEnt
         setShowAddLink(false)
     }
 
-    const saveNewLinkHandler = () => {
+    const saveNewLinkHandler = async () => {
         const newLink = {
             from: parseInt(addLinkInfo.from),
             to: parseInt(addLinkInfo.to),
             label: addLinkInfo.label,
             id: Date.now()
+        }
+        const chartData = {
+            nodes: JSON.stringify(entitiesToRender)
         }
         if (addLinkInfo.color === 'blue') {
             newLink.template = 'blue'
@@ -150,9 +171,18 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEnt
             newLink.template = 'yellow'
         }
         if (addLinkInfo.type === 'clink') {
+            chartData.slinks = JSON.stringify(slinks)
+            chartData.clinks = JSON.stringify([...clinks, newLink])
             setClinks([...clinks, newLink])
         } else {
+            chartData.clinks = JSON.stringify(clinks)
+            chartData.slinks = JSON.stringify([...slinks, newLink])
             setSlinks([...slinks, newLink])
+        }
+        if (!stepChartExists) {
+            dispatch(createChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
+        } else {
+            dispatch(updateChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
         }
         setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
         setShowAddLink(false)
@@ -169,7 +199,6 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEnt
         const newEntitiesToRender = entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove))
         setEntitiesToRender(newEntitiesToRender)
         setAvailableParentNames([...newEntitiesToRender.map(entity => entity.name)])
-        // setEntitiesToRender(entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove)))
         setEntityToRemove('')
         setShowRemoveEntity(false)
     }

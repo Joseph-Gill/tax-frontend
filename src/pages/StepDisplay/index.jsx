@@ -18,6 +18,8 @@ import {AuthenticatedPageContainer} from '../../style/containers'
 import {StepChartDetailsContainer, StepDisplayErrorContainer} from './styles'
 import StepDisplayToggleButtonsStatus from './StepDisplayToggleButtonsStatus'
 import StepDisplayTitle from './StepDisplayTitle'
+import Loading from '../../components/Loading'
+import {getChartForStepAction} from '../../store/chart/actions'
 
 
 const StepDisplay = ({history}) => {
@@ -41,28 +43,72 @@ const StepDisplay = ({history}) => {
     const [showAddLink, setShowAddLink] = useState(false)
     const [showRemoveLink, setShowRemoveLink] = useState(false)
     const [showRemoveEntity, setShowRemoveEntity] = useState(false)
-
+    const [currentStepEntities, setCurrentStepEntities] = useState([])
+    const [clinks, setClinks] = useState([])
+    const [slinks, setSlinks] = useState([])
+    const [chartLoading, setChartLoading] = useState(false)
+    const [stepChartExists, setStepChartExists] = useState(false)
 
     useEffect(() => {
+        const checkIfStepCanComplete = () => {
+            for (let i = 0; i < indexOfStepToDisplay; i++) {
+                if (steps[i].status !== 'Completed') {
+                    return false
+                }
+            }
+            return true
+        }
+
+        const checkForCurrentStepChart = async () => {
+            if (indexOfStepToDisplay === 0) {
+                const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay + 1))
+                if (response.status === 200) {
+                    setCurrentStepEntities([...JSON.parse(response.data.nodes)])
+                    setSlinks([...JSON.parse(response.data.slinks)])
+                    setClinks([...JSON.parse(response.data.clinks)])
+                    setStepChartExists(true)
+                } else {
+                    setCurrentStepEntities([...entities])
+                }
+            } else {
+                const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay + 1))
+                if (response.status === 200) {
+                    setCurrentStepEntities([...JSON.parse(response.data.nodes)])
+                    setSlinks([...JSON.parse(response.data.slinks)])
+                    setClinks([...JSON.parse(response.data.clinks)])
+                    setStepChartExists(true)
+                } else {
+                    const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay))
+                        if (response.status === 200) {
+                            setCurrentStepEntities([...JSON.parse(response.data.nodes)])
+                            setSlinks([...JSON.parse(response.data.slinks)])
+                            setClinks([...JSON.parse(response.data.clinks)])
+                        } else {
+                            setCurrentStepEntities([])
+                        }
+
+                }
+            }
+        }
+
+        setChartLoading(true)
         if (!stepsLoaded || !projectLoaded) {
             history.push(`${HOME}`)
         } else {
             if (!steps[indexOfStepToDisplay].id) {
                 setEditStatus(true)
             }
-            const checkIfStepCanComplete = () => {
-                for (let i = 0; i < indexOfStepToDisplay; i++) {
-                    if (steps[i].status !== 'Completed') {
-                        return false
-                    }
-                }
-                return true
-            }
-            setDescription(steps[indexOfStepToDisplay].description)
-            setStepStatus(steps[indexOfStepToDisplay].status)
-            setAbleToComplete(checkIfStepCanComplete())
+            setStepChartExists(false)
+            checkForCurrentStepChart()
+                .then(() => {
+                    setDescription(steps[indexOfStepToDisplay].description)
+                    setStepStatus(steps[indexOfStepToDisplay].status)
+                    setAbleToComplete(checkIfStepCanComplete())
+                    setChartLoading(false)
+                })
+
         }
-    }, [history, indexOfStepToDisplay, projectLoaded, steps, stepsLoaded])
+    }, [history, indexOfStepToDisplay, projectLoaded, steps, stepsLoaded, entities, dispatch, project.id])
 
     const saveNewStepHandler = async () => {
         dispatch(resetErrors())
@@ -200,17 +246,25 @@ const StepDisplay = ({history}) => {
                         {error && <ErrorMessage>{error.status}</ErrorMessage>}
                     </StepDisplayErrorContainer>
                     <StepChartDetailsContainer>
-                        {!stepDetailStatus ?
+                        {!stepDetailStatus ? chartLoading ?
+                            <Loading /> :
                             <StepChart
-                                entities={entities}
+                                clinks={clinks}
+                                entities={currentStepEntities}
+                                indexOfStepToDisplay={indexOfStepToDisplay}
+                                project={project}
+                                setClinks={setClinks}
                                 setShowAddEntity={setShowAddEntity}
                                 setShowAddLink={setShowAddLink}
                                 setShowRemoveEntity={setShowRemoveEntity}
                                 setShowRemoveLink={setShowRemoveLink}
+                                setSlinks={setSlinks}
                                 showAddEntity={showAddEntity}
                                 showAddLink={showAddLink}
                                 showRemoveEntity={showRemoveEntity}
                                 showRemoveLink={showRemoveLink}
+                                slinks={slinks}
+                                stepChartExists={stepChartExists}
                             /> :
                             <StepDetails
                                 description={description}
