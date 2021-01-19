@@ -95,25 +95,26 @@ export const createAcceptedFilesList = array => {
 }
 
 // Used by components displaying Charts to attach tags to nodes to give each Entity its proper shape
-export const getEntitiesWithTags = entities => {
-    const addLegalFormTag = legalForm => {
-        switch (legalForm) {
-            case 'Partnership':
-                return 'partnership'
-            case 'Branch':
-                return 'branch'
-            case 'Disregarded Entity':
-                return 'disregardedEntity'
-            case 'Representative Office':
-                return 'representativeOffice'
-            case 'Hybrid Entity':
-                return 'hybridEntity'
-            case 'Reverse Entity':
-                return 'reverseHybridEntity'
-            default:
-                return null
-        }
+export const addLegalFormTag = legalForm => {
+    switch (legalForm) {
+        case 'Partnership':
+            return 'partnership'
+        case 'Branch':
+            return 'branch'
+        case 'Disregarded Entity':
+            return 'disregardedEntity'
+        case 'Representative Office':
+            return 'representativeOffice'
+        case 'Hybrid Entity':
+            return 'hybridEntity'
+        case 'Reverse Entity':
+            return 'reverseHybridEntity'
+        default:
+            return null
     }
+}
+
+export const getEntitiesWithTags = entities => {
     return entities.map(entity => {
         let entityTag = addLegalFormTag(entity.legal_form)
         if(entityTag){

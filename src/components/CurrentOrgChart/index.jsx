@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import OrgChart from '@balkangraph/orgchart.js'
 import {OrgChartContainer} from './styles'
+import './styles.css'
 
 
 const CurrentOrgChart = ({componentCalling, clinks, nodes, slinks}) => {

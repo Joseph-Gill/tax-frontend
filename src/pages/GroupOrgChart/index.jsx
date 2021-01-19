@@ -7,7 +7,6 @@ import {getEntitiesWithTags} from '../../helpers'
 import {GROUPS, HOME, ORG_CHART} from '../../routes/paths'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import './styles.css'
 
 
 const GroupOrgChart = ({history}) => {

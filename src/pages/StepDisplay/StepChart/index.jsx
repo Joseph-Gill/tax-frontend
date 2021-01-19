@@ -7,10 +7,9 @@ import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getEntitiesWithTags} from '../../../helpers'
+import {addLegalFormTag, getEntitiesWithTags} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
-import './styles.css'
 
 
 const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEntity, setShowRemoveLink,
@@ -121,7 +120,10 @@ const StepChart = ({entities, setShowAddEntity, setShowAddLink, setShowRemoveEnt
             name: name.current.value,
             tax_rate: taxRate.current.value,
             pid: entitiesToRender.filter(entity => entity.name === parentName.current.value)[0].id.toString(),
-            tags: ['test']
+        }
+        const entityTag = addLegalFormTag(legalForm.current.value)
+        if (entityTag) {
+            newEntityInfo.tags = [entityTag]
         }
         setEntitiesToRender([...entitiesToRender, newEntityInfo])
         setAvailableParentNames([...availableParentNames, newEntityInfo.name])
