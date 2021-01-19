@@ -2,6 +2,7 @@ import React from 'react'
 import {getMemberOrganizationNameAction} from '../store/organization/actions'
 import {DropdownOption} from '../style/options'
 import {FileListItem} from '../style/listitem'
+import {createChartForStepAction, updateChartForStepAction} from '../store/chart/actions'
 
 // User by components that are uploading images for avatars
 export const imageClickHandler = (input) => {
@@ -114,6 +115,7 @@ export const addLegalFormTag = legalForm => {
     }
 }
 
+// Used by components displaying Charts to attach tags to nodes to give each Entity its proper shape
 export const getEntitiesWithTags = entities => {
     return entities.map(entity => {
         let entityTag = addLegalFormTag(entity.legal_form)
@@ -123,4 +125,13 @@ export const getEntitiesWithTags = entities => {
             return entity
         }
     })
+}
+
+// Used by components to either create a new StepChart or update an existing StepChart
+export const createUpdateStepChart = (chartData, dispatch, indexOfStepToDisplay, project, stepChartExists) => {
+    if (!stepChartExists) {
+        dispatch(createChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
+    } else {
+        dispatch(updateChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
+    }
 }
