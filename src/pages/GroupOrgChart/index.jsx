@@ -1,22 +1,26 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import CurrentOrgChart from '../../components/CurrentOrgChart'
 import Spinner from '../../components/Spinner'
+import {getEntitiesWithTags} from '../../helpers'
 import {GROUPS, HOME, ORG_CHART} from '../../routes/paths'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {AuthenticatedPageTitle} from '../../style/titles'
+import './styles.css'
 
 
 const GroupOrgChart = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
     const entities = useSelector(state => state.groupReducer.group.entities)
+    const [entitiesToRender, setEntitiesToRender] = useState([])
 
     useEffect(() => {
         if (!loaded) {
             history.push(`${HOME}`)
         }
+        setEntitiesToRender([...getEntitiesWithTags(entities)])
     }, [loaded, history])
 
     return (
@@ -33,7 +37,7 @@ const GroupOrgChart = ({history}) => {
                     </AuthenticatedPageTitleContainer>
                     <CurrentOrgChart
                         componentCalling='GroupOrgChart'
-                        nodes={entities}
+                        nodes={entitiesToRender}
                     />
                 </>)}
         </AuthenticatedPageContainer>

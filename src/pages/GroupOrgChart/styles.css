@@ -1,0 +1,29 @@
+/*triangle*/
+.partnership>rect {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/*ellipse*/
+.branch>rect {
+    clip-path: ellipse(50% 50% at 50% 50%);
+}
+
+/*triangle inside rectangle*/
+.hybridEntity>rect {
+    clip-path: polygon(0% 0%, 0% 100%, 0 100%, 50% 0, 100% 98%, 0 98%, 0 100%, 100% 100%, 100% 0);
+}
+
+/*upside down triangle inside rectangle*/
+.reverseHybridEntity>rect {
+    clip-path: polygon(0% 0%, 0% 100%, 50% 100%, 0 2%, 100% 2%, 50% 100%, 100% 100%, 100% 0%);
+}
+
+/*ellipse inside a rectangle*/
+.disregardedEntity>rect {
+    clip-path: polygon(0 0, 0 100%, 50% 100%, 20% 85%, 0 50%, 20% 15%, 50% 0, 85% 20%, 100% 50%, 85% 80%, 50% 100%, 100% 100%, 100% 0);
+}
+
+/*circle*/
+.representativeOffice>rect {
+    clip-path: circle(31% at 50% 50%);
+}
