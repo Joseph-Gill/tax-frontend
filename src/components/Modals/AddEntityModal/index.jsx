@@ -9,10 +9,8 @@ import {EntityParentSelect} from '../../../style/select'
 import {ActiveInputLabel} from '../../../style/labels'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {
-    AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer,
-    AddEntityLinkModalInternalContainer, AddEntitySaveButton
-} from '../styles'
+import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer,
+    AddEntityLinkModalInternalContainer, AddEntitySaveButton} from '../styles'
 
 
 const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, legalForm, name, parentName, renderParentNameOptions,
