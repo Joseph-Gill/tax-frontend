@@ -1,4 +1,4 @@
-import {GET_MEMBER, RESET_MEMBER} from './types'
+import {GET_MEMBER, RESET_MEMBER, RESET_MEMBER_FILTER_PROJECT_ID, SET_MEMBER_FILTER_PROJECT_ID} from './types'
 
 
 const initialState = {
@@ -10,7 +10,8 @@ const initialState = {
         assigned_project_roles: null,
         assigned_tasks: null,
     },
-    loaded: false
+    loaded: false,
+    filterProjectId: ''
 }
 
 export const memberReducer = (state = initialState, action) => {
@@ -35,6 +36,18 @@ export const memberReducer = (state = initialState, action) => {
                     assigned_tasks: null,
                 },
                 loaded: false
+            }
+        }
+        case SET_MEMBER_FILTER_PROJECT_ID: {
+            return {
+                ...state,
+                filterProjectId: action.payload
+            }
+        }
+        case RESET_MEMBER_FILTER_PROJECT_ID: {
+            return {
+                ...state,
+                filterProjectId: ''
             }
         }
         default:
