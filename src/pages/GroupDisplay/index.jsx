@@ -6,6 +6,7 @@ import Spinner from '../../components/Spinner'
 import DisplayCard from './DisplayCard'
 import {getGroupAction} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
+import {resetMemberFilterProjectId} from '../../store/member/actions'
 import {EDIT_GROUP, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../routes/paths'
 import organizationChartImage from '../../assets/icons/stark_group_display_org_card_image.png'
 import projectImage from '../../assets/icons/stark_group_display_project_card_image.png'
@@ -22,8 +23,9 @@ const GroupDisplay = ({history}) => {
     const loaded = useSelector(state => state.groupReducer.loaded)
 
     useEffect(() => {
-        dispatch(getGroupAction(match.params.groupId))
         dispatch(resetProject())
+        dispatch(resetMemberFilterProjectId())
+        dispatch(getGroupAction(match.params.groupId))
     }, [dispatch, match.params.groupId])
 
     const redirectOnClickHandler = (type) => {

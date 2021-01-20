@@ -10,7 +10,7 @@ import NoFilterResults from '../../components/NoFilterResults'
 import {getProfileAction} from '../../store/profile/actions'
 import {resetGroup} from '../../store/group/actions'
 import {getProjectFirstUncompletedStepAction, resetProject} from '../../store/project/actions'
-import {resetMember} from '../../store/member/actions'
+import {resetMember, resetMemberFilterProjectId} from '../../store/member/actions'
 import {resetSteps} from '../../store/step/actions'
 import {resetTaskFilterStepNumber, resetTasks} from '../../store/task/actions'
 import {getRolesForProfileGroupAction} from '../../store/projectRole/actions'
@@ -63,6 +63,7 @@ const Home = ({history}) => {
         dispatch(resetSteps())
         dispatch(resetTasks())
         dispatch(resetTaskFilterStepNumber())
+        dispatch(resetMemberFilterProjectId())
         getProfileCreateParing()
             .then(() => setHomeLoading(false))
     }, [dispatch, user])

@@ -43,7 +43,6 @@ const GroupMembers = ({history}) => {
     ])
 
     useEffect(() => {
-        console.log('useEffect Trigger')
         if (!loaded) {
             history.push(`${HOME}`)
         } else {
@@ -138,7 +137,7 @@ const GroupMembers = ({history}) => {
                         />
                     </DisplayMembersTitleContainer>
                     <ActionFilterDropdownContainer>
-                        {!filterMemberStatus && !invitedMembers.length ? null : (
+                        {filterMemberStatus && !invitedMembers.length ? null : (
                             <>
                                 {!filterMemberStatus ?
                                     <ProjectFilterDropdown
