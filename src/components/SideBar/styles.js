@@ -38,10 +38,10 @@ export const SideBarLoginContainer = styled.div`
         font-family: ${props => props.theme.spartanFontFamily};
         margin-top: 385px;
         margin-bottom: 15px;
-        font-size: 24px;
+        font-size: 40px;
         font-style: normal;
         font-weight: 600;
-        line-height: 27px;
+        line-height: 42px;
         letter-spacing: 0.01em;
         text-align: left;
         color: #FFFFFF;

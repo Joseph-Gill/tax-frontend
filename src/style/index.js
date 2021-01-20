@@ -8,6 +8,26 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 14px;
         box-sizing: border-box;
         color: rgba(0,0,0,0.92);
+
+        /* width */
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: ${props => props.theme.grayFive};
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: ${props => props.theme.grayTwo};
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: ${props => props.theme.grayOne};
+        }
     }
     // Used to Style the Options of the react-country-region-selector options
     option {
