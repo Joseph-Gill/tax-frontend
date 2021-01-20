@@ -6,10 +6,12 @@ import ActionDropdown from './ActionDropdown'
 import MembersTable from './MembersTable'
 import StatusToggle from './StatusToggle'
 import Spinner from '../../components/Spinner'
+import ProjectFilterDropdown from './ProjectFilterDropdown'
 import RemoveMemberModal from '../../components/Modals/RemoveMemberModal'
 import AddMemberModal from '../../components/Modals/AddMemberModal'
 import {resetMember} from '../../store/member/actions'
 import {GROUPS, HOME, MEMBERS} from '../../routes/paths'
+import {DropdownOption} from '../../style/options'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer} from '../../style/containers'
 import {ActionFilterDropdownContainer, AddMemberButton, AddMemberButtonContainer, DisplayMembersTitleContainer} from './styles'
@@ -73,6 +75,16 @@ const GroupMembers = ({history}) => {
         }
     }
 
+    const renderProjectFilterOptions = () => (
+        group.projects.map(project => (
+            <DropdownOption
+                key={project.id}
+                value={project.id}
+            >{project.name}
+            </DropdownOption>
+        ))
+    )
+
 
     return (
         <AuthenticatedPageContainer>
@@ -102,6 +114,10 @@ const GroupMembers = ({history}) => {
                     <ActionFilterDropdownContainer>
                         {!filterMemberStatus && !invitedMembers.length ? null : (
                             <>
+                                {!filterMemberStatus ?
+                                    <ProjectFilterDropdown
+                                        renderProjectFilterOptions={renderProjectFilterOptions}
+                                    /> : null}
                                 <ActionDropdown
                                     sendEmailClickHandler={sendEmailClickHandler}
                                     setShowConfirmation={setShowConfirmation}

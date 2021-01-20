@@ -1,6 +1,7 @@
 import React from 'react'
 import {DropdownOption} from '../../../style/options'
-import {TaskStepFilterSelect} from './styles'
+import {TaskStepFilterSelect} from '../../../style/dropdowns'
+
 
 
 const TaskStepFilter = ({filterStepNumber, renderTaskStepFilterOptions, taskStepFilterChangeHandler}) => {

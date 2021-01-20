@@ -49,8 +49,3 @@ export const TasksTableContainer = styled.div`
       background: ${props => props.theme.grayTwo};
     }
 `
-
-export const StepFilterInputLabel = styled(InputLabel)`
-    color: ${props => props.theme.primaryBlue};
-    background: linear-gradient(${props => props.theme.grayFive}, #FFFFFF);
-`
