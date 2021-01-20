@@ -177,7 +177,7 @@ const GroupMembers = ({history}) => {
                             />}
                     </MemberTableContainer>
                     <AddMemberButtonContainer>
-                        {!filterMemberStatus && !invitedMembers.length ? null : (
+                        {filterMemberStatus && !invitedMembers.length ? null : (
                             <AddMemberButton onClick={() => setShowAddMember(!showAddMember)}>Add team member</AddMemberButton> )}
                     </AddMemberButtonContainer>
                 </>)}
