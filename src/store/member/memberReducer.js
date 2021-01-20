@@ -18,6 +18,7 @@ export const memberReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_MEMBER: {
             return {
+                ...state,
                 member: {
                     ...action.payload
                 },

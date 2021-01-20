@@ -67,3 +67,11 @@ export const AddMemberButton = styled(BaseButton)`
     width: 183px;
     margin-top: 84px;
 `
+
+export const MemberTableContainer = styled.div`
+    width: 860px;
+    height: 375px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+`

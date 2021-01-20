@@ -1,20 +1,21 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
-import Spinner from '../../../components/Spinner'
 import NoPendingInvited from './NoPendingInvited'
+import Loading from '../../../components/Loading'
 import {getMemberOrganizationNameAction} from '../../../store/organization/actions'
 import {checkBoxChangeHandler} from '../../../helpers'
 import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
 import headerCheckbox from '../../../assets/icons/stark_checkbox_header.svg'
 import rightChevron from '../../../assets/icons/stark_right_chevron.png'
-import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../style/tables'
 import {CheckBox} from '../../../style/inputs'
-import {ActiveMemberUserContainer, ActiveMemberUserText, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText, RoleFieldChevron,
-    RoleFieldText, RoleTextImageContainer, TableDataCheckbox} from './styles'
+import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../style/tables'
+import {ActiveMemberUserContainer, ActiveMemberUserText, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText,
+    RoleFieldChevron, RoleFieldText, RoleTextImageContainer, TableDataCheckbox} from './styles'
 
 
-const MembersTable = ({activeRenderData, filterMemberStatus, group, history, filterOption, filterString, invitedMembers, invitedRenderData, members, setActiveRenderData, setInvitedRenderData, setShowAddMember}) => {
+const MembersTable = ({activeRenderData, filterMemberStatus, group, history, filterOption, filterString, invitedMembers,
+                          invitedRenderData, members, setActiveRenderData, setInvitedRenderData, setShowAddMember}) => {
     const dispatch = useDispatch()
     const [loaded, setLoaded] = useState(false)
     const [allActiveStatus, setAllActiveStatus] = useState(true)
@@ -160,30 +161,18 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
 
 
     return (
-        <GroupMembersTableContainer>
-            {!loaded ? <Spinner /> : (
-                <CommentTable>
-                    <thead>
-                        {!filterMemberStatus ? (
-                            <TableTitleRow>
-                                <TableDataCheckbox>
-                                    <img
-                                        alt='checkbox'
-                                        onClick={() => checkAllMembersHandler(activeRenderData, setActiveRenderData, allActiveStatus, setAllActiveStatus)}
-                                        src={headerCheckbox}
-                                    />
-                                </TableDataCheckbox>
-                                <TableHeader>User</TableHeader>
-                                <TableHeader>Organization</TableHeader>
-                                <TableHeader>Projects Access</TableHeader>
-                                <TableHeader>Country</TableHeader>
-                                <TableHeader>Role</TableHeader>
-                            </TableTitleRow>) : invitedMembers.length ? (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>
+            {!loaded ? <Loading /> : (
+                <GroupMembersTableContainer>
+                    <CommentTable>
+                        <thead>
+                            {!filterMemberStatus ? (
                                 <TableTitleRow>
                                     <TableDataCheckbox>
                                         <img
                                             alt='checkbox'
-                                            onClick={() => checkAllMembersHandler(invitedRenderData, setInvitedRenderData, allInvitedStatus, setAllInvitedStatus)}
+                                            onClick={() => checkAllMembersHandler(activeRenderData, setActiveRenderData, allActiveStatus, setAllActiveStatus)}
                                             src={headerCheckbox}
                                         />
                                     </TableDataCheckbox>
@@ -191,23 +180,38 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                                     <TableHeader>Organization</TableHeader>
                                     <TableHeader>Projects Access</TableHeader>
                                     <TableHeader>Country</TableHeader>
-                                    <TableHeader>Status</TableHeader>
-                                </TableTitleRow>) : (
-                                    <tr>
-                                        <td>
-                                            <NoPendingInvited
-                                                setShowAddMember={setShowAddMember}
+                                    <TableHeader>Role</TableHeader>
+                                </TableTitleRow>) : invitedMembers.length ? (
+                                    <TableTitleRow>
+                                        <TableDataCheckbox>
+                                            <img
+                                                alt='checkbox'
+                                                onClick={() => checkAllMembersHandler(invitedRenderData, setInvitedRenderData, allInvitedStatus, setAllInvitedStatus)}
+                                                src={headerCheckbox}
                                             />
-                                        </td>
-                                    </tr>)}
-                    </thead>
-                    <tbody>
-                        {!filterMemberStatus ?
-                            renderActiveMembers(filteredMembers()) :
-                            renderInvitedMembers(filteredInviteMembers())}
-                    </tbody>
-                </CommentTable>)}
-        </GroupMembersTableContainer>
+                                        </TableDataCheckbox>
+                                        <TableHeader>User</TableHeader>
+                                        <TableHeader>Organization</TableHeader>
+                                        <TableHeader>Projects Access</TableHeader>
+                                        <TableHeader>Country</TableHeader>
+                                        <TableHeader>Status</TableHeader>
+                                    </TableTitleRow>) : (
+                                        <tr>
+                                            <td>
+                                                <NoPendingInvited
+                                                    setShowAddMember={setShowAddMember}
+                                                />
+                                            </td>
+                                        </tr>)}
+                        </thead>
+                        <tbody>
+                            {!filterMemberStatus ?
+                                renderActiveMembers(filteredMembers()) :
+                                renderInvitedMembers(filteredInviteMembers())}
+                        </tbody>
+                    </CommentTable>
+                </GroupMembersTableContainer>)}
+        </>
     )
 }
 

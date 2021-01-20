@@ -1,7 +1,6 @@
 import styled from 'styled-components/macro'
 import {BaseButton} from '../../style/buttons'
 import {StatusLegendContainer} from '../../style/containers'
-import {InputLabel} from '../../style/labels'
 
 
 export const AddTaskButton = styled(BaseButton)`

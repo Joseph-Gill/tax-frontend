@@ -8,7 +8,7 @@ const initialState = {
         entities: null,
         projects: null,
         organizations: null,
-        users: null
+        users: []
     },
     loaded: false
 }

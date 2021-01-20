@@ -1,7 +1,7 @@
 import Axios from '../../../axios'
-import {GET_MEMBER, RESET_MEMBER} from '../types'
 import {getGroupAction} from '../../group/actions'
 import {catchError, setError} from '../../errors/actions/errorAction'
+import {GET_MEMBER, RESET_MEMBER, RESET_MEMBER_FILTER_PROJECT_ID, SET_MEMBER_FILTER_PROJECT_ID} from '../types'
 
 
 export const getMember = data => {
@@ -14,6 +14,19 @@ export const getMember = data => {
 export const resetMember = () => {
     return {
         type: RESET_MEMBER
+    }
+}
+
+export const setMemberFilterProjectId = projectId => {
+    return {
+        type: SET_MEMBER_FILTER_PROJECT_ID,
+        payload: projectId
+    }
+}
+
+export const resetMemberFilterProjectId = () => {
+    return {
+        type: RESET_MEMBER_FILTER_PROJECT_ID
     }
 }
 
@@ -33,7 +46,7 @@ export const getMemberAction = memberId => async (dispatch, getState) => {
         return memberInfo
     } catch (e) {
         console.log('Error getting specific member>', e)
-        return e
+        return catchError(e, dispatch)
     }
 }
 
@@ -71,6 +84,22 @@ export const removeMembersFromGroupAction = (removeData, groupId) => async (disp
         return await Axios.delete(`groups/group/${groupId}/removeusers/`, config)
     } catch (e) {
         console.log('Error removing members from a group>', e)
-        return e
+        return catchError(e, dispatch)
+    }
+}
+
+export const getAccessUsersForProjectAction = projectId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`projects/project/${projectId}/accessusers/`, config)
+        return [...response.data]
+    } catch (e) {
+        console.log('Error getting Users with access to Specified Project>', e)
+        return catchError(e, dispatch)
     }
 }
