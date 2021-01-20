@@ -5,19 +5,18 @@ import {CountryDropdown} from 'react-country-region-selector'
 import SignUpLink from '../../components/SignUpLink'
 import SuccessMessage from '../../components/SuccessMessage'
 import LoginFooter from '../../components/LoginFooter'
+import LoginLogo from '../../components/LoginLogo'
 import RegistrationValidationNameInput from './RegistrationValidationNameInput'
 import {useUrlQueryParams, useResetErrors} from '../../hooks'
 import {registrationValidationAction} from '../../store/user/actions/authentication/userRegistrationAction'
 import {LOGIN} from '../../routes/paths'
 import {Title} from '../../style/titles'
-import {LoginLogo} from '../../style/logos'
 import {BaseInput} from '../../style/inputs'
 import {BaseButton} from '../../style/buttons'
 import {ErrorMessage} from '../../style/messages'
 import {RegistrationValidationForm} from '../../style/forms'
 import {EmailInputLabel, ActiveInputLabel} from '../../style/labels'
-import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
-import {LogoPlaceholder} from '../../style'
+import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
 import 'react-phone-input-2/lib/style.css'
 
 
@@ -59,9 +58,7 @@ const RegistrationValidation = () => {
                 redirect={LOGIN}
                             />}
             <RegistrationValidationForm>
-                <LoginLogoContainer>
-                    <LoginLogo alt="logo" src={LogoPlaceholder} />
-                </LoginLogoContainer>
+                <LoginLogo />
                 <Title>Register</Title>
                 <RegistrationValidationNameInput
                     error={error}

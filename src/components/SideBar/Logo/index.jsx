@@ -1,17 +1,17 @@
 import React from 'react'
+import taxCheetahLogo from '../../../assets/logos/tax_cheetah_logo.jpg'
 import {useSelector} from 'react-redux'
 import {HOME, LOGIN} from '../../../routes/paths'
-import {BiggerLogoPlaceholder} from '../../../style'
-import {LogoContainer} from './styles'
+import {LogoContainer, LogoImg} from './styles'
 
 
 const Logo = () => {
     const authenticated = useSelector(state => state.userLoginReducer.authenticated)
     return (
         <LogoContainer to={authenticated ? HOME : LOGIN}>
-            <img
-                alt="propulsion-logo"
-                src={BiggerLogoPlaceholder}
+            <LogoImg
+                alt="tax cheetah logo"
+                src={taxCheetahLogo}
             />
         </LogoContainer>
     )

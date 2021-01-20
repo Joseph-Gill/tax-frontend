@@ -4,18 +4,17 @@ import SignUpLink from "../../components/SignUpLink"
 import SuccessMessage from "../../components/SuccessMessage"
 import PasswordLink from '../../components/PasswordLink'
 import LoginFooter from '../../components/LoginFooter'
+import LoginLogo from '../../components/LoginLogo'
 import { useUrlQueryParams, useResetErrors } from "../../hooks"
 import { restPasswordValidate } from "../../store/user/actions/authentication/resetPasswordAction"
 import {LOGIN} from '../../routes/paths'
 import { Title } from "../../style/titles"
-import {LoginLogo} from '../../style/logos'
 import { BaseInput } from "../../style/inputs"
 import { BaseButton } from "../../style/buttons"
 import {ActiveInputLabel} from '../../style/labels'
 import { ErrorMessage } from "../../style/messages"
 import {PasswordResetValidationForm} from '../../style/forms'
-import {LogoPlaceholder} from '../../style'
-import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
+import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
 
 
 const PasswordResetValidation = () => {
@@ -44,9 +43,7 @@ const PasswordResetValidation = () => {
     return (
         <BasePageContainer>
             <PasswordResetValidationForm>
-                <LoginLogoContainer>
-                    <LoginLogo alt="logo" src={LogoPlaceholder} />
-                </LoginLogoContainer>
+                <LoginLogo />
                 {showSuccess && (
                     <SuccessMessage
                         message="Your Password has been updated successfully!"

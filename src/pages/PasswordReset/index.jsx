@@ -8,14 +8,13 @@ import {useResetErrors} from '../../hooks'
 import {resetPassword} from '../../store/user/actions/authentication/resetPasswordAction'
 import {LOGIN} from '../../routes/paths'
 import {Title} from '../../style/titles'
-import {LogoPlaceholder} from '../../style'
-import {LoginLogo} from '../../style/logos'
 import {BaseInput} from '../../style/inputs'
 import {BaseButton} from '../../style/buttons'
 import {ErrorMessage} from '../../style/messages'
 import {ResetPasswordForm} from '../../style/forms'
 import {ActiveInputLabel} from '../../style/labels'
-import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
+import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
+import LoginLogo from '../../components/LoginLogo'
 
 
 const PasswordReset = () => {
@@ -35,17 +34,12 @@ const PasswordReset = () => {
     return (
         <BasePageContainer>
             <ResetPasswordForm>
-                <LoginLogoContainer>
-                    <LoginLogo alt="logo" src={LogoPlaceholder} />
-                </LoginLogoContainer>
-                {
-                    showSuccess
-                    &&
+                <LoginLogo />
+                {showSuccess &&
                     <SuccessMessage
                         message="A code has been sent to your email!"
                         redirect={LOGIN}
-                    />
-                }
+                    />}
                 <Title>Forgot Your Password?</Title>
                 <div>
                     <ActiveInputLabel>Email</ActiveInputLabel>

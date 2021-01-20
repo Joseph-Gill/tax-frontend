@@ -4,17 +4,16 @@ import {useDispatch, useSelector} from 'react-redux'
 import SignUpLink from '../../components/SignUpLink'
 import PasswordLink from '../../components/PasswordLink'
 import LoginFooter from '../../components/LoginFooter'
+import LoginLogo from '../../components/LoginLogo'
 import {useResetErrors} from '../../hooks'
 import {userLoginAction} from '../../store/user/actions/authentication/userLoginAction'
 import {HOME} from '../../routes/paths'
 import {BaseButton} from '../../style/buttons'
 import {Title} from '../../style/titles'
 import {ErrorMessage} from '../../style/messages'
-import {BasePageContainer, ErrorMessageContainer, LoginLogoContainer} from '../../style/containers'
+import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
 import {LoginForm} from '../../style/forms'
 import {BaseInput} from '../../style/inputs'
-import {LoginLogo} from '../../style/logos'
-import {LogoPlaceholder} from '../../style'
 import {ActiveInputLabel} from '../../style/labels'
 
 
@@ -40,9 +39,10 @@ const Login = () => {
     return (
         <BasePageContainer>
             <LoginForm>
-                <LoginLogoContainer>
-                    <LoginLogo alt="logo" src={LogoPlaceholder} />
-                </LoginLogoContainer>
+                {/*<LoginLogoContainer>*/}
+                {/*    <LoginLogo alt="logo" src={LogoPlaceholder} />*/}
+                {/*</LoginLogoContainer>*/}
+                <LoginLogo />
                 <Title>Login</Title>
                 <div>
                     <ActiveInputLabel>Email</ActiveInputLabel>
