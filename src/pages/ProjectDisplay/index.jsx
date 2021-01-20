@@ -22,9 +22,9 @@ const ProjectDisplay = ({history}) => {
     const match = useRouteMatch();
     const project = useSelector(state => state.projectReducer.project)
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
-    const projectLoaded = useSelector(state => state.projectReducer.loaded)
     const [stepsStatuses, setStepsStatuses] = useState({})
     const [tasksStatuses, setTasksStatuses] = useState({})
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const getProfileIfNeededGetStatuses = async () => {
@@ -42,6 +42,7 @@ const ProjectDisplay = ({history}) => {
             dispatch(getGroupOfProjectAction(match.params.projectId))
         }
         getProfileIfNeededGetStatuses()
+            .then(() => setLoading(false))
     }, [dispatch, match.params.projectId, groupLoaded])
 
     const setProjectFilterGoToMembersHandler = () => {
@@ -51,7 +52,7 @@ const ProjectDisplay = ({history}) => {
 
     return(
         <AuthenticatedPageContainer>
-            {!projectLoaded ? <Spinner /> : (
+            {loading ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

@@ -11,20 +11,23 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 
 const GroupOrgChart = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
-    const loaded = useSelector(state => state.groupReducer.loaded)
+    const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const entities = useSelector(state => state.groupReducer.group.entities)
     const [entitiesToRender, setEntitiesToRender] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        if (!loaded) {
+        if (!groupLoaded) {
             history.push(`${HOME}`)
+        } else {
+            setEntitiesToRender([...getEntitiesWithTags(entities)])
+            setLoading(false)
         }
-        setEntitiesToRender([...getEntitiesWithTags(entities)])
-    }, [loaded, history, entities])
+    }, [groupLoaded, history, entities])
 
     return (
         <AuthenticatedPageContainer>
-            {!loaded ? <Spinner /> : (
+            {loading? <Spinner /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: false},

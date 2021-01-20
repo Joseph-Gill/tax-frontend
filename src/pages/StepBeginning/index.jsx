@@ -24,18 +24,23 @@ const StepBeginning = ({history}) => {
     const entities = useSelector(state => state.groupReducer.group.entities)
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const [entitiesToRender, setEntitiesToRender] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect (() => {
         const getGroupForProject = async () => {
-            dispatch(getGroupOfProjectAction(project.id))
+            await dispatch(getGroupOfProjectAction(project.id))
         }
         if (!projectLoaded || !stepsLoaded) {
             history.push(`${HOME}`)
         } else if (!groupLoaded) {
             getGroupForProject()
-                .then(() => setEntitiesToRender([...getEntitiesWithTags(entities)]))
+                .then(() => {
+                    setEntitiesToRender([...getEntitiesWithTags(entities)])
+                    setLoading(false)
+                })
         } else {
             setEntitiesToRender([...getEntitiesWithTags(entities)])
+            setLoading(false)
         }
     }, [history, projectLoaded, stepsLoaded, groupLoaded, project, dispatch, entities])
 
@@ -47,7 +52,7 @@ const StepBeginning = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !stepsLoaded || !groupLoaded ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded || !groupLoaded || loading ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

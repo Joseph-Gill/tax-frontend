@@ -25,7 +25,6 @@ const CurrentOrgChart = ({componentCalling, clinks, nodes, slinks}) => {
                 field_2: 'location',
             },
 
-            align: OrgChart.ORIENTATION,
             toolbar: {
                 layout: false,
                 zoom: true,
@@ -39,6 +38,7 @@ const CurrentOrgChart = ({componentCalling, clinks, nodes, slinks}) => {
             clinks,
             slinks,
         })
+        chart.fit()
     })
 
     return (
