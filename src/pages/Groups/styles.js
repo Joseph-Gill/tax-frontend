@@ -8,6 +8,8 @@ export const GroupDisplayContainer = styled.div`
     padding: 10px 20px 16px 20px;
     margin: 20px 0;
     box-shadow: ${props => props.theme.boxShadow};
+    border-radius: ${props => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.grayFour};
 `
 
 export const GroupGridContainer = styled.div`

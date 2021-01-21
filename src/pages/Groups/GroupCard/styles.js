@@ -13,6 +13,7 @@ export const GroupCardContainer = styled(animated.div)`
     :hover {
         cursor: pointer;
         box-shadow: ${props => props.theme.boxShadow};
+        transition: 167ms;
     }
 `
 

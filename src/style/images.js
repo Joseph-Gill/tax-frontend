@@ -25,7 +25,9 @@ export const Ellipse = styled.img`
 
 export const CloseIcon = styled.img`
     :hover {
-      cursor: pointer;
+        cursor: pointer;
+        transition: 167ms;
+        box-shadow: ${props => props.theme.boxShadow};
     }
 `
 

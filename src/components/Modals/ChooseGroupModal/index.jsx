@@ -42,7 +42,7 @@ const ChooseGroupModal = ({history, setShowChooseGroup}) => {
                     <CloseIcon alt='close' onClick={() => setShowChooseGroup(false)} src={close} />
                 </ChooseGroupModalCloseContainer>
                 <ChooseGroupModalTitleContainer>
-                    <AuthenticatedPageTitle>Choose a group</AuthenticatedPageTitle>
+                    <AuthenticatedPageTitle>Choose a Group</AuthenticatedPageTitle>
                 </ChooseGroupModalTitleContainer>
                 <ChooseGroupTitleContainer>Group Name</ChooseGroupTitleContainer>
                 <ChooseGroupInput

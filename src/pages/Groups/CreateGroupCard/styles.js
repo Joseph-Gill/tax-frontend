@@ -25,6 +25,8 @@ export const CreateGroupImage = styled.img`
 
     :hover {
         cursor: pointer;
+        box-shadow: ${props => props.theme.projectCardBoxShadow};
+        transition: 167ms;
     }
 `
 

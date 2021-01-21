@@ -23,11 +23,12 @@ export const AddDeleteModalInternalContainer = styled.div`
     width: 370px;
     height: 313px;
     background: ${props => props.theme.white};
+    border: 1px solid ${props => props.theme.grayFour};
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    border-radius: 4px;
+    border-radius: ${props => props.theme.borderRadius};
     margin-left: 200px;
     padding: 15.41px 15.41px 36px 15.41px;
 

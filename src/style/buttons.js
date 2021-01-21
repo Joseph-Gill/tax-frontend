@@ -19,6 +19,7 @@ export const BaseButton = styled.button`
     }
 
     :active {
+        outline: none;
         transform: translateY(1px);
     }
 `
@@ -39,6 +40,7 @@ export const AuthenticatedButtonCancel = styled.button`
     }
 
     :active {
+        outline: none;
         transform: translateY(1px);
     }
 `
@@ -63,6 +65,7 @@ export const TableButton = styled.button`
     }
 
     :active {
+        outline: none;
         transform: translateY(1px);
     }
 `
@@ -96,9 +99,6 @@ export const AuthenticatedButtonLargest = styled(BaseButton)`
     height: 32px;
 `
 
-
-
-
 export const CloseButton = styled.button`
     width: 30px;
     height: 30px;
@@ -122,6 +122,10 @@ export const CancelButton = styled(TableButton)`
     width: 92px;
     color: ${props => props.theme.grayTwo};
     border: 1px solid ${props => props.theme.grayTwo};
+
+    :hover {
+        border: 2px solid ${props => props.theme.grayTwo};
+    }
 `
 
 export const WireFrameDeleteButton = styled(TableButton)`

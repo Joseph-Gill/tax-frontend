@@ -13,6 +13,8 @@ export const ModalGroupCardContainer = styled.div`
 
     :hover {
         cursor: pointer;
+        transition: 167ms;
+        box-shadow: ${props => props.theme.boxShadow};
     }
 `
 
