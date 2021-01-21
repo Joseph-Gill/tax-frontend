@@ -164,7 +164,7 @@ const MemberEdit = ({history}) => {
                         {display: `MEMBER : ${member.user.first_name.toUpperCase()} ${member.user.last_name.toUpperCase()}`, to: `${GROUPS}${MEMBERS}${EDIT_MEMBER}/${member.id}`, active: true}]}
                     />
                     <AuthenticatedPageTitleContainer>
-                        <AuthenticatedPageTitle>Edit Team Member</AuthenticatedPageTitle>
+                        <AuthenticatedPageTitle>{`Edit Team Member - ${member.user.first_name} ${member.user.last_name}`}</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
                     <EditMemberInputs
                         allGroupProjects={allGroupProjects}

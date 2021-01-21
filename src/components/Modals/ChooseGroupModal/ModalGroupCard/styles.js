@@ -15,6 +15,7 @@ export const ModalGroupCardContainer = styled.div`
         cursor: pointer;
         transition: 167ms;
         box-shadow: ${props => props.theme.boxShadow};
+        border: 1px solid ${props => props.theme.primaryBlue};
     }
 `
 

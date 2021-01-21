@@ -8,6 +8,7 @@ export const EditInputsContainer = styled.div`
     background-color: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.grayFour};
     display: flex;
     flex-direction: column;
     justify-content: space-between;

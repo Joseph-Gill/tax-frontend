@@ -12,6 +12,7 @@ import {CheckBox} from '../../../style/inputs'
 import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../style/tables'
 import {ActiveMemberUserContainer, ActiveMemberUserText, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText,
     RoleFieldChevron, RoleFieldText, RoleTextImageContainer, TableDataCheckbox} from './styles'
+import {MemberTableHeaderImg} from '../styles'
 
 
 const MembersTable = ({activeRenderData, filterMemberStatus, group, history, filterOption, filterString, invitedMembers,
@@ -170,7 +171,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                             {!filterMemberStatus ? (
                                 <TableTitleRow>
                                     <TableDataCheckbox>
-                                        <img
+                                        <MemberTableHeaderImg
                                             alt='checkbox'
                                             onClick={() => checkAllMembersHandler(activeRenderData, setActiveRenderData, allActiveStatus, setAllActiveStatus)}
                                             src={headerCheckbox}

@@ -49,6 +49,10 @@ export const FilterInput = styled(BaseInput)`
 export const CheckBox = styled.input`
     width: 20px;
     height: 20px;
+
+    :hover {
+        cursor: pointer;
+    }
 `
 
 export const FilterCheckBox = styled.input`

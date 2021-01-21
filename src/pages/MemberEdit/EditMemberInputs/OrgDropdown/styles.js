@@ -32,7 +32,7 @@ export const OrgDropdownButton = styled.button`
         cursor: pointer;
         border: 1px solid ${props => props.theme.primaryBlue};
         outline: none;
-        transition: 1s;
+        transition: 167ms;
         color: ${props => props.theme.primaryBlue};
     }
 

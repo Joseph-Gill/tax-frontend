@@ -75,3 +75,9 @@ export const MemberTableContainer = styled.div`
     align-items: flex-start;
     justify-content: center;
 `
+
+export const MemberTableHeaderImg = styled.img`
+    :hover {
+        cursor: pointer;
+    }
+`

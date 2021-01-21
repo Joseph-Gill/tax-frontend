@@ -82,5 +82,8 @@ export const RoleTextImageContainer = styled.td`
 export const RoleFieldChevron = styled.img`
     :hover {
         cursor: pointer;
+        box-shadow: ${props => props.theme.boxShadow};
+        background: ${props => props.theme.graySix};
+        transition: 167ms;
     }
 `

@@ -200,7 +200,7 @@ export const DropdownChoiceContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     background: ${props => props.theme.white};
-    border-radius: ${props => props.theme.borderRadius};
+    //border-radius: ${props => props.theme.borderRadius};
 `
 
 export const DropDownChoiceWithBorder = styled(DropdownChoiceContainer)`
@@ -208,14 +208,22 @@ export const DropDownChoiceWithBorder = styled(DropdownChoiceContainer)`
 `
 
 export const ActionDropDownChoice = styled(DropdownChoiceContainer)`
+    color: ${props => props.theme.red};
+
     :hover {
         cursor: pointer;
+        text-decoration: underline;
+        transition: 167ms;
     }
 `
 
 export const ActionDropdownChoiceWithBorder = styled(DropDownChoiceWithBorder)`
+    color: ${props => props.theme.primaryBlue};
+
     :hover {
         cursor: pointer;
+        text-decoration: underline;
+        transition: 167ms;
     }
 `
 
