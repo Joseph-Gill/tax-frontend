@@ -5,20 +5,26 @@ import {EntityParentSelect} from '../../../style/select'
 import {NameTableInput, TableFooterInputContainer, TaxRateTableInput} from './styles'
 
 
-const EntityInfoFooterRow = ({countryName, entityName, legalForm, parentName, renderParentNameOptions,
-                                 setCountryName, setLegalForm, taxRate}) => {
+const EntityInfoFooterRow = ({availableParentNames, countryName, legalForm, newEntityInfo, renderParentNameOptions,
+                                 setCountryName, setLegalForm, setNewEntityInfo}) => {
     return (
         <tr>
             <TableFooterInputContainer>
                 <NameTableInput
                     name='entityName'
+                    onChange={(e) => setNewEntityInfo({...newEntityInfo, entityName: e.target.value})}
                     placeholder='Enter name'
-                    ref={entityName}
                     type='text'
+                    value={newEntityInfo.entityName}
                 />
             </TableFooterInputContainer>
             <TableFooterInputContainer>
-                <EntityParentSelect id='parentName' name='parentName' ref={parentName}>
+                <EntityParentSelect
+                    id='parentName'
+                    name='parentName'
+                    onChange={(e) => setNewEntityInfo({...newEntityInfo, parentName: e.target.value})}
+                    value={newEntityInfo.parentName}
+                >
                     {renderParentNameOptions}
                 </EntityParentSelect>
             </TableFooterInputContainer>
@@ -49,9 +55,10 @@ const EntityInfoFooterRow = ({countryName, entityName, legalForm, parentName, re
             <TableFooterInputContainer>
                 <TaxRateTableInput
                     name='taxRate'
+                    onChange={(e) => setNewEntityInfo({...newEntityInfo, taxRate: e.target.value})}
                     placeholder='Enter current income tax rate'
-                    ref={taxRate}
                     type='text'
+                    value={newEntityInfo.taxRate}
                 />
             </TableFooterInputContainer>
         </tr>

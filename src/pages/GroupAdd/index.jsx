@@ -18,9 +18,6 @@ import {entityInputErrorHandler} from '../../helpers'
 const GroupAdd = ({history}) => {
     const dispatch = useDispatch()
     let hiddenFileInput = useRef(null)
-    let entityName = useRef('')
-    let parentName = useRef('')
-    let taxRate = useRef('')
     const error = useSelector(state => state.errorReducer.error)
     const [groupName, setGroupName] = useState('')
     const [groupImage, setGroupImage] = useState({avatar: null, changed: false})
@@ -29,22 +26,32 @@ const GroupAdd = ({history}) => {
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [listOfEntities, setListOfEntities] = useState([])
     const [showSuccess, setShowSuccess] = useState(false)
+    const [newEntityInfo, setNewEntityInfo] = useState({
+        entityName: '',
+        parentName: '',
+        taxRate: ''
+    })
 
     const addNewEntityClickHandler = () => {
         dispatch(resetErrors())
-        const error = entityInputErrorHandler(dispatch, setError, entityName, parentName, countryName, legalForm)
+        const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm)
         if (!error) {
             const newEntity = {
-                name: entityName.current.value,
-                pid: parentName.current.value,
+                name: newEntityInfo.entityName,
+                pid: !availableParentNames.length ? 'Ultimate' : newEntityInfo.parentName,
                 location: countryName,
                 legal_form: legalForm,
-            }
-            if (taxRate.current.value) {
-                newEntity.tax_rate = taxRate.current.value
+                tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : ''
             }
             setListOfEntities([...listOfEntities, newEntity])
-            setAvailableParentNames([...availableParentNames, entityName.current.value])
+            setAvailableParentNames([...availableParentNames, newEntityInfo.entityName])
+            setCountryName('')
+            setLegalForm('')
+            setNewEntityInfo({
+                entityName: '',
+                parentName: '',
+                taxRate: ''
+            })
         }
     }
 
@@ -103,13 +110,12 @@ const GroupAdd = ({history}) => {
                 <EntityInfo
                     availableParentNames={availableParentNames}
                     countryName={countryName}
-                    entityName={entityName}
                     legalForm={legalForm}
                     listOfEntities={listOfEntities}
-                    parentName={parentName}
+                    newEntityInfo={newEntityInfo}
                     setCountryName={setCountryName}
                     setLegalForm={setLegalForm}
-                    taxRate={taxRate}
+                    setNewEntityInfo={setNewEntityInfo}
                 />
                 <GroupAddErrorContainer>
                     {error && <ErrorMessage>{error.entityInput}</ErrorMessage>}

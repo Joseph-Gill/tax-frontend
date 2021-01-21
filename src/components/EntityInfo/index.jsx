@@ -7,8 +7,8 @@ import {EntityOption} from '../../style/options'
 import {EntitiesTable, EntitiesTableHeader, EntityTableContainer} from './styles'
 
 
-const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, listOfEntities,
-                        parentName, setCountryName, setLegalForm, taxRate}) => {
+const EntityInfo = ({availableParentNames, countryName, legalForm, listOfEntities,
+                        newEntityInfo, setCountryName, setLegalForm, setNewEntityInfo}) => {
 
     const renderParentNameOptions = React.useMemo(() =>
     !availableParentNames.length ?
@@ -43,14 +43,14 @@ const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, l
                 </tbody>
                 <tfoot>
                     <EntityInfoFooterRow
+                        availableParentNames={availableParentNames}
                         countryName={countryName}
-                        entityName={entityName}
                         legalForm={legalForm}
-                        parentName={parentName}
+                        newEntityInfo={newEntityInfo}
                         renderParentNameOptions={renderParentNameOptions}
                         setCountryName={setCountryName}
                         setLegalForm={setLegalForm}
-                        taxRate={taxRate}
+                        setNewEntityInfo={setNewEntityInfo}
                     />
                 </tfoot>
             </EntitiesTable>
