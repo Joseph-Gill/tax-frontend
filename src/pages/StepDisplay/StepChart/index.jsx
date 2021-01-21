@@ -12,7 +12,7 @@ import {DropdownOption, EntityOption} from '../../../style/options'
 import {NoChartToDisplay, StepChartAndButtonsContainer} from './styles'
 
 
-const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setChartLoading, setClinks, setShowAddEntity,
+const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity,
                        setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks, showAddEntity, showAddLink,
                        showRemoveEntity, showRemoveLink, slinks, stepChartExists}) => {
     const dispatch = useDispatch()

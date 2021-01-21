@@ -34,6 +34,8 @@ const CurrentOrgChart = ({componentCalling, clinks, nodes, slinks}) => {
 
             enableSearch: true,
 
+            scaleInitial: 0.5,
+
             nodes,
             clinks,
             slinks,
