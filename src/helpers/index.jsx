@@ -158,3 +158,22 @@ export const entityInputErrorHandler = (dispatch, setError, availableParentNames
         return false
     }
 }
+
+// Used by components that add links to handle input validation
+export const linkInputErrorHandler = (dispatch, setError, addLinkInfo) => {
+    if (!addLinkInfo.to || !addLinkInfo.from) {
+        dispatch(setError({linkFromTo: `You must choose a From and To.`}))
+        return true
+    }  else if (addLinkInfo.from === addLinkInfo.to) {
+        dispatch(setError({linkFromTo: `You must choose different entities for From and To.`}))
+        return true
+    } else if (!addLinkInfo.type) {
+        dispatch(setError({linkType: `You must choose a type for this link.`}))
+        return true
+    } else if (!addLinkInfo.color) {
+        dispatch(setError({color: `You must choose a color for this link.`}))
+        return true
+    } else {
+        return false
+    }
+}

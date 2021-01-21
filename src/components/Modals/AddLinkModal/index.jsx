@@ -1,18 +1,22 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
+import AddLinkLabel from './AddLinkLabel'
 import AddLinkTypeDropdown from './AddLinkTypeDropdown'
 import AddLinkColorDropdown from './AddLinkColorDropdown'
 import AddLinkFromToDropdown from './AddLinkFromToDropdown'
 import close from '../../../assets/icons/stark_close_icon.svg'
 import {CloseIcon} from '../../../style/images'
+import {ErrorMessage} from '../../../style/messages'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {AddEntityLabelInput, AddEntityTitle, AddEntityTitleInputContainer} from './styles'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer,
-    AddEntityLinkModalInternalContainer, AddEntitySaveButton} from '../styles'
+import {
+    AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer,
+    AddDeleteModalTitleContainer, AddEntityLinkModalInternalContainer, AddEntitySaveButton, EntityErrorContainer
+} from '../styles'
 
 
-const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, fromToOptions, saveNewLinkHandler, setAddLinkInfo, setShowAddLink}) => {
+const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, error, fromToOptions, saveNewLinkHandler,
+                          setAddLinkInfo, setShowAddLink}) => {
 
     const props = useSpring({
         opacity: 1,
@@ -29,38 +33,53 @@ const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, fromToOptions, s
                 <AddDeleteModalTitleContainer>
                     <AuthenticatedPageTitle>Select link options</AuthenticatedPageTitle>
                 </AddDeleteModalTitleContainer>
-                <AddLinkFromToDropdown
-                    addLinkInfo={addLinkInfo}
-                    fromToOptions={fromToOptions}
-                    name='from'
-                    setAddLinkInfo={setAddLinkInfo}
-                    title='From'
-                />
-                <AddLinkFromToDropdown
-                    addLinkInfo={addLinkInfo}
-                    fromToOptions={fromToOptions}
-                    name='to'
-                    setAddLinkInfo={setAddLinkInfo}
-                    title='To'
-                />
-                <AddEntityTitleInputContainer>
-                    <AddEntityTitle>Label</AddEntityTitle>
-                    <AddEntityLabelInput
-                        name='label'
-                        onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
-                        placeholder='Enter your label'
-                        type='text'
-                        value={addLinkInfo.label}
+                <div>
+                    <AddLinkFromToDropdown
+                        addLinkInfo={addLinkInfo}
+                        fromToOptions={fromToOptions}
+                        name='from'
+                        setAddLinkInfo={setAddLinkInfo}
+                        title='From'
                     />
-                </AddEntityTitleInputContainer>
-                <AddLinkTypeDropdown
-                    addLinkInfo={addLinkInfo}
-                    setAddLinkInfo={setAddLinkInfo}
-                />
-                <AddLinkColorDropdown
-                    addLinkInfo={addLinkInfo}
-                    setAddLinkInfo={setAddLinkInfo}
-                />
+                    <EntityErrorContainer>
+                        {error && <ErrorMessage>{error.linkFromTo}</ErrorMessage>}
+                    </EntityErrorContainer>
+                </div>
+                <div>
+                    <AddLinkFromToDropdown
+                        addLinkInfo={addLinkInfo}
+                        fromToOptions={fromToOptions}
+                        name='to'
+                        setAddLinkInfo={setAddLinkInfo}
+                        title='To'
+                    />
+                    <EntityErrorContainer />
+                </div>
+                <div>
+                    <AddLinkLabel
+                        addLinkInfo={addLinkInfo}
+                        setAddLinkInfo={setAddLinkInfo}
+                    />
+                    <EntityErrorContainer />
+                </div>
+                <div>
+                    <AddLinkTypeDropdown
+                        addLinkInfo={addLinkInfo}
+                        setAddLinkInfo={setAddLinkInfo}
+                    />
+                    <EntityErrorContainer>
+                        {error && <ErrorMessage>{error.linkType}</ErrorMessage>}
+                    </EntityErrorContainer>
+                </div>
+                <div>
+                    <AddLinkColorDropdown
+                        addLinkInfo={addLinkInfo}
+                        setAddLinkInfo={setAddLinkInfo}
+                    />
+                    <EntityErrorContainer>
+                        {error && <ErrorMessage>{error.color}</ErrorMessage>}
+                    </EntityErrorContainer>
+                </div>
                 <AddDeleteModalButtonContainer>
                     <AuthenticatedButtonCancel onClick={cancelNewEntityLinkHandler}>Cancel</AuthenticatedButtonCancel>
                     <AddEntitySaveButton onClick={saveNewLinkHandler}>Save</AddEntitySaveButton>

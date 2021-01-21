@@ -1,6 +1,5 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import {useSelector} from 'react-redux'
 import EntityLegalSelect from '../../EntityLegalSelect'
 import {CountryDropdown} from 'react-country-region-selector'
 import close from '../../../assets/icons/stark_close_icon.svg'
@@ -15,9 +14,8 @@ import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteMo
     AddEntityLinkModalInternalContainer, AddEntitySaveButton, EntityErrorContainer} from '../styles'
 
 
-const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, legalForm, newEntityInfo, renderParentNameOptions,
+const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, error, legalForm, newEntityInfo, renderParentNameOptions,
                             saveNewEntityHandler, setCountryName, setLegalForm, setNewEntityInfo, setShowAddEntity}) => {
-    const error = useSelector(state => state.errorReducer.error)
 
     const props = useSpring({
         opacity: 1,

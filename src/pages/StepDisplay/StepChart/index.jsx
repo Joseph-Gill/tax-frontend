@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import CurrentOrgChart from '../../../components/CurrentOrgChart'
 import AddLinkModal from '../../../components/Modals/AddLinkModal'
@@ -7,7 +7,7 @@ import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {addLegalFormTag, createUpdateStepChart, entityInputErrorHandler, getEntitiesWithTags} from '../../../helpers'
+import {addLegalFormTag, createUpdateStepChart, entityInputErrorHandler, getEntitiesWithTags, linkInputErrorHandler} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {NoChartToDisplay, StepChartAndButtonsContainer} from './styles'
 
@@ -16,6 +16,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                        setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks, showAddEntity, showAddLink,
                        showRemoveEntity, showRemoveLink, slinks, stepChartExists}) => {
     const dispatch = useDispatch()
+    const error = useSelector(state => state.errorReducer.error)
     const [entitiesToRender, setEntitiesToRender] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [countryName, setCountryName] = useState('')
@@ -158,37 +159,47 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
 
     const cancelNewEntityLinkHandler = () => {
         dispatch(resetErrors())
+        setCountryName('')
+        setLegalForm('')
+        setNewEntityInfo({
+            entityName: '',
+            parentName: '',
+            taxRate: ''
+        })
         setShowAddEntity(false)
         setShowAddLink(false)
     }
 
     const saveNewLinkHandler = async () => {
-        const newLink = {
-            from: parseInt(addLinkInfo.from),
-            to: parseInt(addLinkInfo.to),
-            label: addLinkInfo.label,
-            id: Date.now()
+        const error = linkInputErrorHandler(dispatch, setError, addLinkInfo)
+        if (!error) {
+            const newLink = {
+                from: parseInt(addLinkInfo.from),
+                to: parseInt(addLinkInfo.to),
+                label: addLinkInfo.label,
+                id: Date.now()
+            }
+            const chartData = {
+                nodes: JSON.stringify(entitiesToRender)
+            }
+            if (addLinkInfo.color === 'blue') {
+                newLink.template = 'blue'
+            } else if (addLinkInfo.color === 'yellow') {
+                newLink.template = 'yellow'
+            }
+            if (addLinkInfo.type === 'clink') {
+                chartData.slinks = JSON.stringify(slinks)
+                chartData.clinks = JSON.stringify([...clinks, newLink])
+                setClinks([...clinks, newLink])
+            } else {
+                chartData.clinks = JSON.stringify(clinks)
+                chartData.slinks = JSON.stringify([...slinks, newLink])
+                setSlinks([...slinks, newLink])
+            }
+            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+            setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
+            setShowAddLink(false)
         }
-        const chartData = {
-            nodes: JSON.stringify(entitiesToRender)
-        }
-        if (addLinkInfo.color === 'blue') {
-            newLink.template = 'blue'
-        } else if (addLinkInfo.color === 'yellow') {
-            newLink.template = 'yellow'
-        }
-        if (addLinkInfo.type === 'clink') {
-            chartData.slinks = JSON.stringify(slinks)
-            chartData.clinks = JSON.stringify([...clinks, newLink])
-            setClinks([...clinks, newLink])
-        } else {
-            chartData.clinks = JSON.stringify(clinks)
-            chartData.slinks = JSON.stringify([...slinks, newLink])
-            setSlinks([...slinks, newLink])
-        }
-        createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
-        setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
-        setShowAddLink(false)
     }
 
     const removeLinkHandler = () => {
@@ -226,6 +237,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 <AddEntityModal
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
                     countryName={countryName}
+                    error={error}
                     legalForm={legalForm}
                     newEntityInfo={newEntityInfo}
                     renderParentNameOptions={renderParentNameOptions}
@@ -239,6 +251,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 <AddLinkModal
                     addLinkInfo={addLinkInfo}
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
+                    error={error}
                     fromToOptions={renderFromToOptions()}
                     saveNewLinkHandler={saveNewLinkHandler}
                     setAddLinkInfo={setAddLinkInfo}
