@@ -16,6 +16,7 @@ export const ProjectDisplayInfoBox = styled.div`
     background-color: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.grayFour};
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -33,9 +34,12 @@ export const ViewItemLinkContainer = styled.div`
     justify-content: flex-end;
     width: 100%;
     margin-top: 7px;
+    color: ${props => props.theme.primaryBlue};
 
     :hover {
         cursor: pointer;
+        text-decoration: underline;
+        transition: 167ms;
     }
 `
 

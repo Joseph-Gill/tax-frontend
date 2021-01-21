@@ -28,6 +28,9 @@ const ProjectDisplay = ({history}) => {
 
     useEffect(() => {
         const getProfileIfNeededGetStatuses = async () => {
+            if (!groupLoaded) {
+                await dispatch(getGroupOfProjectAction(match.params.projectId))
+            }
             await dispatch(getProjectAction(match.params.projectId))
             const stepsStatusInfo = await dispatch(getProjectStepsStatusesAction(match.params.projectId))
             if (stepsStatusInfo) {
@@ -38,9 +41,6 @@ const ProjectDisplay = ({history}) => {
                 setTasksStatuses({...tasksStatusInfo})
             }
         };
-        if (!groupLoaded) {
-            dispatch(getGroupOfProjectAction(match.params.projectId))
-        }
         getProfileIfNeededGetStatuses()
             .then(() => setLoading(false))
     }, [dispatch, match.params.projectId, groupLoaded])

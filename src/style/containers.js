@@ -138,6 +138,7 @@ export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatu
     height: 342px;
     flex-direction: column;
     justify-content: space-between;
+    border: 1px solid ${props => props.theme.grayFour};
 `
 
 export const ProjectInputContainer = styled.div`
