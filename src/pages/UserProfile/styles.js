@@ -4,6 +4,7 @@ import {AuthenticatedText} from '../../style/text'
 export const UserDetailsContainer = styled.div`
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.grayFour};
     width: 860px;
     height: 494px;
     display: flex;
@@ -43,7 +44,9 @@ export const DeleteAccountText = styled(AuthenticatedText)`
     color: ${props => props.theme.colorDelete};
 
     :hover {
-      cursor: pointer;
+        cursor: pointer;
+        transition: 167ms;
+        text-decoration: underline;
     }
 `
 

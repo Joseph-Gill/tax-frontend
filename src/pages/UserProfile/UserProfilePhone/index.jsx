@@ -16,7 +16,8 @@ const UserProfilePhone = ({error ,profileInfo, setProfileInfo}) => {
                     background: '#FAFAFA',
                     height: '42px',
                     fontFamily: 'Nunito Sans, sans-serif',
-                    fontSize: '14px'
+                    fontSize: '14px',
+                    borderRadius: '1.5rem'
                 }}
                 onChange={phone => setProfileInfo({...profileInfo, phone: phone})}
                 value={profileInfo.phone}

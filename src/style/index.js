@@ -1,4 +1,7 @@
 import {createGlobalStyle} from 'styled-components'
+import dropdownArrowDown from '../assets/icons/stark_dropdown_arrow_gray_downward.svg'
+import dropdownArrowUpward from '../assets/icons/stark_dropdown_arrow_gray_upwards.svg'
+
 
 export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -36,6 +39,56 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 10px;
         line-height: 16px;
         color: ${props => props.theme.grayOne};
+    }
+
+    .profileCountryDropdown {
+        width: 302px;
+        height: 42px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 19px;
+        border: 1px solid ${props => props.theme.grayFour};
+        border-radius: 1.5rem;
+        font-family: ${props => props.theme.nunitoFontFamily};
+        padding: 12px 11px 10px 11px !important;
+        background: url(${dropdownArrowDown}) no-repeat right, ${props => props.theme.graySix};
+        background-position-x: 92%;
+        /* for Firefox */
+        -moz-appearance: none;
+        /* for Safari, Chrome, Opera */
+        -webkit-appearance: none;
+
+        :hover {
+            filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
+            cursor: pointer;
+            transition: 167ms;
+            background: url(${dropdownArrowUpward}) no-repeat right, ${props => props.theme.graySix};
+            background-position-x: 92%;
+        }
+
+        :focus {
+            border: 1px solid ${props => props.theme.primaryBlue};
+            outline: none;
+            transition: 167ms;
+        }
+
+        ::placeholder {
+            color: ${props => props.theme.grayTwo};
+            font-size: 14px;
+        }
+
+        :disabled {
+            background-color: ${props => props.theme.grayFour};
+            border: 1px solid ${props => props.theme.grayThree};
+        }
+    }
+
+    .flag-dropdown {
+        border-radius: 1.5rem !important;
+    }
+
+    .selected-flag {
+        border-radius: 1.5rem !important;
     }
 `
 
@@ -85,8 +138,9 @@ export const defaultTheme = {
     buttonBoxShadow: '0 4px 10px rgba(0, 112, 159, 0.24)',
     projectCardBoxShadow: '0px 0px 20px #D9D9D9;',
     // Border Radius
-    borderRadius: '4px',
+    borderRadius: '.75rem',
     buttonBorderRadius: '1rem',
+    inputBorderRadius: '1.5rem',
     // Fonts that are not default Spartan
     nunitoFontFamily: 'Nunito Sans, sans-serif',
     spartanFontFamily: 'Spartan, serif',

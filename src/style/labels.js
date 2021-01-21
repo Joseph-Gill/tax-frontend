@@ -7,7 +7,7 @@ export const InputLabel = styled.label`
     font-weight: 600;
     font-size: 12px;
     line-height: 16.37px;
-    margin-left: 17px;
+    margin-left: 20px;
     margin-top: -8px;
     z-index: 1;
     padding-left: 4px;

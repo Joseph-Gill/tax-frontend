@@ -124,12 +124,12 @@ const UserProfile = ({history}) => {
                                 setProfileInfo={setProfileInfo}
                                 type='email'
                             />
-                            <UserProfilePhone
-                                error={error}
+                            <UserProfileCountry
                                 profileInfo={profileInfo}
                                 setProfileInfo={setProfileInfo}
                             />
-                            <UserProfileCountry
+                            <UserProfilePhone
+                                error={error}
                                 profileInfo={profileInfo}
                                 setProfileInfo={setProfileInfo}
                             />
