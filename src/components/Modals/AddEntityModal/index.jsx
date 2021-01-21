@@ -14,7 +14,7 @@ import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteMo
 
 
 const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, legalForm, name, parentName, renderParentNameOptions,
-                            saveNewEntityHandler, setCountryName, setShowAddEntity, taxRate}) => {
+                            saveNewEntityHandler, setCountryName, setLegalForm, setShowAddEntity, taxRate}) => {
 
     const props = useSpring({
         opacity: 1,
@@ -72,10 +72,11 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, legalForm, nam
                     <EntityLegalSelect
                         callingComponent='AddEntityModal'
                         legalForm={legalForm}
+                        setLegalForm={setLegalForm}
                     />
                 </div>
                 <div>
-                    <ActiveInputLabel>Tax Rate</ActiveInputLabel>
+                    <ActiveInputLabel>Tax Rate (optional)</ActiveInputLabel>
                     <BaseInput
                         name='tax_rate'
                         placeholder='Enter current income tax rate'

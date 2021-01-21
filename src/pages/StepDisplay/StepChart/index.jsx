@@ -16,13 +16,13 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                        setShowRemoveEntity, setShowRemoveLink, setSlinks, showAddEntity, showAddLink,
                        showRemoveEntity, showRemoveLink, slinks, stepChartExists}) => {
     const dispatch = useDispatch()
-    let legalForm = useRef('')
     let name = useRef('')
     let taxRate = useRef('')
     let parentName = useRef('')
     const [entitiesToRender, setEntitiesToRender] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [countryName, setCountryName] = useState('')
+    const [legalForm, setLegalForm] = useState('')
     const [linkToRemove, setLinkToRemove] = useState('')
     const [entityToRemove, setEntityToRemove] = useState('')
     const [addLinkInfo, setAddLinkInfo] = useState({
@@ -221,6 +221,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     renderParentNameOptions={renderParentNameOptions}
                     saveNewEntityHandler={saveNewEntityHandler}
                     setCountryName={setCountryName}
+                    setLegalForm={setLegalForm}
                     setShowAddEntity={setShowAddEntity}
                     taxRate={taxRate}
                 /> : null}

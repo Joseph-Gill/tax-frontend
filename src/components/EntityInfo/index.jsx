@@ -43,7 +43,6 @@ const EntityInfo = ({availableParentNames, countryName, legalForm, listOfEntitie
                 </tbody>
                 <tfoot>
                     <EntityInfoFooterRow
-                        availableParentNames={availableParentNames}
                         countryName={countryName}
                         legalForm={legalForm}
                         newEntityInfo={newEntityInfo}

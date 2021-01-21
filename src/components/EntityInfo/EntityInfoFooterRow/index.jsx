@@ -5,7 +5,7 @@ import {EntityParentSelect} from '../../../style/select'
 import {NameTableInput, TableFooterInputContainer, TaxRateTableInput} from './styles'
 
 
-const EntityInfoFooterRow = ({availableParentNames, countryName, legalForm, newEntityInfo, renderParentNameOptions,
+const EntityInfoFooterRow = ({countryName, legalForm, newEntityInfo, renderParentNameOptions,
                                  setCountryName, setLegalForm, setNewEntityInfo}) => {
     return (
         <tr>
