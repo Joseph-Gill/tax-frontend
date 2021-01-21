@@ -10,7 +10,7 @@ const EntityInfoTitleRow = () => {
             <TableHeader>Parent</TableHeader>
             <TableHeader>Country</TableHeader>
             <TableHeader>Legal Form</TableHeader>
-            <TableHeader>Tax Rate</TableHeader>
+            <TableHeader>Tax Rate (optional)</TableHeader>
         </EntityTitleRow>
     )
 }

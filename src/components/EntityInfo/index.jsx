@@ -7,12 +7,14 @@ import {EntityOption} from '../../style/options'
 import {EntitiesTable, EntitiesTableHeader, EntityTableContainer} from './styles'
 
 
-const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, listOfEntities, parentName, setCountryName, taxRate}) => {
+const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, listOfEntities,
+                        parentName, setCountryName, setLegalForm, taxRate}) => {
+
     const renderParentNameOptions = React.useMemo(() =>
     !availableParentNames.length ?
         <EntityOption value='Ultimate'>Ultimate</EntityOption> : (
             <>
-                <EntityOption value=''>Select a parent</EntityOption>
+                <EntityOption disabled value=''>Select a parent</EntityOption>
                 {availableParentNames.map(parent => <EntityOption key={uuidv4()} value={parent}>{parent}</EntityOption>)}
             </>), [availableParentNames]
     )
@@ -25,7 +27,7 @@ const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, l
                 <TableData>{entity.pid}</TableData>
                 <TableData>{entity.location}</TableData>
                 <TableData>{entity.legal_form}</TableData>
-                <TableData>{entity.tax_rate}</TableData>
+                <TableData>{entity.tax_rate ? entity.tax_rate : 'N/A'}</TableData>
             </TableDataRow>
         )) : null, [listOfEntities]
     )
@@ -47,6 +49,7 @@ const EntityInfo = ({availableParentNames, countryName, entityName, legalForm, l
                         parentName={parentName}
                         renderParentNameOptions={renderParentNameOptions}
                         setCountryName={setCountryName}
+                        setLegalForm={setLegalForm}
                         taxRate={taxRate}
                     />
                 </tfoot>

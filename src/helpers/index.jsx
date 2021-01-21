@@ -135,3 +135,22 @@ export const createUpdateStepChart = (chartData, dispatch, indexOfStepToDisplay,
         dispatch(updateChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
     }
 }
+
+// Used by components that add entities to handle input validation
+export const entityInputErrorHandler = (dispatch, setError, entityName, parentName, countryName, legalForm) => {
+    if (!entityName.current.value) {
+        dispatch(setError({entityInput: `You must choose a name for this entity.`}))
+        return true
+    } else if (!parentName.current.value) {
+        dispatch(setError({entityInput: `You must choose a parent for this entity.`}))
+        return true
+    } else if (!countryName) {
+        dispatch(setError({entityInput: `You must choose a location for this entity.`}))
+        return true
+    } else if (!legalForm) {
+        dispatch(setError({entityInput: `You must choose a legal form for this entity.`}))
+        return true
+    } else {
+        return false
+    }
+}

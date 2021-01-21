@@ -3,15 +3,16 @@ import {EntityLegalFormSelect} from '../../style/select'
 import {EntityOption} from '../../style/options'
 
 
-const EntityLegalSelect = ({callingComponent, legalForm}) => {
+const EntityLegalSelect = ({callingComponent, legalForm, setLegalForm}) => {
     return (
         <EntityLegalFormSelect
             callingComponent={callingComponent}
             id='legalForm'
             name='legalForm'
-            ref={legalForm}
+            onChange={(e) => setLegalForm(e.target.value)}
+            value={legalForm}
         >
-            <EntityOption value=''>Select a legal form </EntityOption>
+            <EntityOption disabled value=''>Select a legal form </EntityOption>
             <EntityOption value='Corporation'>Corporation</EntityOption>
             <EntityOption value='Partnership'>Partnership</EntityOption>
             <EntityOption value='Branch'>Branch</EntityOption>

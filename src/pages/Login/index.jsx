@@ -39,9 +39,6 @@ const Login = () => {
     return (
         <BasePageContainer>
             <LoginForm>
-                {/*<LoginLogoContainer>*/}
-                {/*    <LoginLogo alt="logo" src={LogoPlaceholder} />*/}
-                {/*</LoginLogoContainer>*/}
                 <LoginLogo />
                 <Title>Login</Title>
                 <div>
