@@ -182,7 +182,7 @@ export const CreateGroupCancelSaveContainer = styled.div`
     width: 860px;
     display: flex;
     justify-content: flex-end;
-    margin-top: 64px;
+    margin-top: 30px;
 
     button:nth-child(1) {
         margin-right: 13px;
@@ -395,6 +395,18 @@ export const NoTasksOrTaxConsequencesDisplay = styled.div`
     border: 1px solid ${props => props.theme.grayFour};
     display: flex;
     align-items: center;
+    justify-content: center;
+`
+
+export const EntityInfoSpaceContainer = styled.div`
+    height: 315px;
+`
+
+export const EntityInfoErrorContainer = styled.div`
+    margin-top: 5px;
+    width: 860px;
+    height: 10px;
+    display: flex;
     justify-content: center;
 `
 

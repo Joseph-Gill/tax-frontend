@@ -10,23 +10,29 @@ import {EDIT_GROUP, GROUPS, HOME} from '../../routes/paths'
 import {EntityTitle} from '../../components/EntityInfo/styles'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
-import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
+import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityInfoErrorContainer, EntityInfoSpaceContainer, EntityTitleContainer} from '../../style/containers'
+import {resetErrors, setError} from '../../store/errors/actions/errorAction'
+import {entityInputErrorHandler} from '../../helpers'
+import {ErrorMessage} from '../../style/messages'
 
 
 const GroupEdit = ({history}) => {
     const dispatch = useDispatch()
     let hiddenFileInput = useRef(null)
-    let entityName = useRef('')
-    let parentName = useRef('')
-    let taxRate = useRef('')
-    let legalForm = useRef('')
+    const error = useSelector(state => state.errorReducer.error)
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
-    const [showSuccess, setShowSuccess] = useState(false)
     const [groupImage, setGroupImage] = useState({avatar: null, changed: false})
     const [countryName, setCountryName] = useState('')
+    const [legalForm, setLegalForm] = useState('')
     const [listOfEntities, setListOfEntities] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
+    const [showSuccess, setShowSuccess] = useState(false)
+    const [newEntityInfo, setNewEntityInfo] = useState({
+        entityName: '',
+        parentName: '',
+        taxRate: ''
+    })
 
     useEffect(() => {
         if (!loaded) {
@@ -48,16 +54,27 @@ const GroupEdit = ({history}) => {
     }, [group.entities, history, loaded, group])
 
     const addNewEntityClickHandler = () => {
-        const newEntity = {
-            name: entityName.current.value,
-            pid: parentName.current.value,
-            location: countryName,
-            legal_form: legalForm.current.value,
-            tax_rate: taxRate.current.value,
-            new: true
+        dispatch(resetErrors())
+        const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm)
+        if (!error) {
+            const newEntity = {
+                name: newEntityInfo.entityName,
+                pid: newEntityInfo.parentName,
+                location: countryName,
+                legal_form: legalForm,
+                tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : '',
+                new: true
+            }
+            setListOfEntities([...listOfEntities, newEntity])
+            setAvailableParentNames([...availableParentNames, newEntityInfo.entityName])
+            setCountryName('')
+            setLegalForm('')
+            setNewEntityInfo({
+                entityName: '',
+                parentName: '',
+                taxRate: ''
+            })
         }
-        setListOfEntities([...listOfEntities, newEntity])
-        setAvailableParentNames([...availableParentNames, entityName.current.value])
     }
 
     const saveGroupChangesHandler = async () => {
@@ -102,19 +119,24 @@ const GroupEdit = ({history}) => {
                     <EntityTitleContainer>
                         <EntityTitle>Entities</EntityTitle>
                     </EntityTitleContainer>
-                    <EntityInfo
-                        availableParentNames={availableParentNames}
-                        countryName={countryName}
-                        entityName={entityName}
-                        legalForm={legalForm}
-                        listOfEntities={listOfEntities}
-                        parentName={parentName}
-                        setCountryName={setCountryName}
-                        taxRate={taxRate}
-                    />
-                    <AddEntityButtonContainer>
-                        <AddEntityButton onClick={addNewEntityClickHandler}>Add new entity</AddEntityButton>
-                    </AddEntityButtonContainer>
+                    <EntityInfoSpaceContainer>
+                        <EntityInfo
+                            availableParentNames={availableParentNames}
+                            countryName={countryName}
+                            legalForm={legalForm}
+                            listOfEntities={listOfEntities}
+                            newEntityInfo={newEntityInfo}
+                            setCountryName={setCountryName}
+                            setLegalForm={setLegalForm}
+                            setNewEntityInfo={setNewEntityInfo}
+                        />
+                        <EntityInfoErrorContainer>
+                            {error && <ErrorMessage>{error.entityInput}</ErrorMessage>}
+                        </EntityInfoErrorContainer>
+                        <AddEntityButtonContainer>
+                            <AddEntityButton onClick={addNewEntityClickHandler}>Add new entity</AddEntityButton>
+                        </AddEntityButtonContainer>
+                    </EntityInfoSpaceContainer>
                     <CreateGroupCancelSaveContainer>
                         <CancelButton onClick={() => history.push(GROUPS)}>Cancel</CancelButton>
                         <SaveButton onClick={saveGroupChangesHandler}>Save</SaveButton>

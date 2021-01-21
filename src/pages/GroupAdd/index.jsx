@@ -6,13 +6,15 @@ import EntityInfo from '../../components/EntityInfo'
 import SuccessMessage from '../../components/SuccessMessage'
 import {createGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
+import {entityInputErrorHandler} from '../../helpers'
+import {ErrorMessage} from '../../style/messages'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
-import {ErrorMessage} from '../../style/messages'
-import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer, ErrorMessageContainer} from '../../style/containers'
-import {EntityInfoSpaceContainer, GroupAddEntityTitle, GroupAddErrorContainer} from './styles'
-import {entityInputErrorHandler} from '../../helpers'
+import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer,
+    EntityInfoErrorContainer, EntityInfoSpaceContainer, EntityTitleContainer, ErrorMessageContainer
+} from '../../style/containers'
+import {GroupAddEntityTitle} from './styles'
 
 
 const GroupAdd = ({history}) => {
@@ -117,13 +119,13 @@ const GroupAdd = ({history}) => {
                     setLegalForm={setLegalForm}
                     setNewEntityInfo={setNewEntityInfo}
                 />
-                <GroupAddErrorContainer>
+                <EntityInfoErrorContainer>
                     {error && <ErrorMessage>{error.entityInput}</ErrorMessage>}
-                </GroupAddErrorContainer>
+                </EntityInfoErrorContainer>
+                <AddEntityButtonContainer>
+                    <AddEntityButton onClick={addNewEntityClickHandler}>Add new entity</AddEntityButton>
+                </AddEntityButtonContainer>
             </EntityInfoSpaceContainer>
-            <AddEntityButtonContainer>
-                <AddEntityButton onClick={addNewEntityClickHandler}>Add new entity</AddEntityButton>
-            </AddEntityButtonContainer>
             <CreateGroupCancelSaveContainer>
                 <CancelButton onClick={cancelButtonHandler}>Cancel</CancelButton>
                 <SaveButton onClick={saveNewGroupClickHandler}>Save</SaveButton>
