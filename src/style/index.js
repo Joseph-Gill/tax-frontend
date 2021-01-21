@@ -62,14 +62,14 @@ export const GlobalStyle = createGlobalStyle`
             filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
             cursor: pointer;
             transition: 167ms;
-            background: url(${dropdownArrowUpward}) no-repeat right, ${props => props.theme.graySix};
-            background-position-x: 92%;
         }
 
         :focus {
             border: 1px solid ${props => props.theme.primaryBlue};
             outline: none;
             transition: 167ms;
+            background: url(${dropdownArrowUpward}) no-repeat right, ${props => props.theme.graySix};
+            background-position-x: 92%;
         }
 
         ::placeholder {
@@ -89,6 +89,20 @@ export const GlobalStyle = createGlobalStyle`
 
     .selected-flag {
         border-radius: 1.5rem !important;
+    }
+
+    .profilePhoneInput {
+        :hover {
+            filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25)) !important;
+            cursor: pointer;
+            transition: 167ms !important;
+        }
+
+        :focus {
+            border: 1px solid ${props => props.theme.primaryBlue} !important;
+            outline: none !important;
+            transition: 167ms !important;
+        }
     }
 `
 

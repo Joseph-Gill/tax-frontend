@@ -11,7 +11,7 @@ const UserProfilePhone = ({error ,profileInfo, setProfileInfo}) => {
             <ActiveInputLabel>Phone</ActiveInputLabel>
             <PhoneInput
                 country='ch'
-                inputClass='phoneInput'
+                inputClass='profilePhoneInput'
                 inputStyle={{
                     background: '#FAFAFA',
                     height: '42px',
