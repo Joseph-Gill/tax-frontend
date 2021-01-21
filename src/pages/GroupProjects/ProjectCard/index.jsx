@@ -15,7 +15,7 @@ const ProjectCard = ({project, history}) => {
         // eslint-disable-next-line react/forbid-component-props
         <ProjectCardContainer onClick={() => history.push(`${GROUPS}${PROJECTS}/${project.id}/`)} status={project.status} style={props}>
             <ProjectCardNameStatusContainer>
-                <ProjectCardNameText>{project.name}</ProjectCardNameText>
+                <ProjectCardNameText status={project.status}>{project.name}</ProjectCardNameText>
                 <StatusText status={project.status}>{project.status}</StatusText>
             </ProjectCardNameStatusContainer>
             <CardInfoText>{project.description.length > 380 ? project.description.slice(0, 380).concat('... ') : project.description}</CardInfoText>

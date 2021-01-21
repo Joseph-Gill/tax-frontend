@@ -6,34 +6,38 @@ import {animated} from 'react-spring'
 export const ProjectCardContainer = styled(animated.div)`
     width: 860px;
     height: 163px;
-    box-shadow: ${props => props.theme.projectCardBoxShadow};
+    box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
     margin-top: 30px;
     padding: 16px 16px 13px 16px;
+    border: 1px solid ${props => props.theme.grayFour};
 
     ${props => {
         if (props.status === 'Ongoing' || props.status === 'Not Started' ){
-            return `background: ${props.theme.yellowLight};`
+            return `background: linear-gradient(0.10turn, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.yellowLight});`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Completed'){
-            return `background: ${props.theme.greenLight};`
+            return `background: linear-gradient(0.10turn, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.greenLight});`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Not Implemented') {
-            return `background: ${props.theme.redLight};`
+            return `background: linear-gradient(0.10turn, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.redLight});`
             }
         }
     };
 
     :hover {
         cursor: pointer;
+        box-shadow: ${props => props.theme.projectCardBoxShadow};
+        transition: 167ms;
+        border: 1px solid ${props => props.theme.primaryBlue};
     }
 `
 
@@ -52,4 +56,25 @@ export const ProjectCardMembersContainer = styled.div `
 
 export const ProjectCardNameText = styled(CardTitleText)`
     margin-top: 0;
+
+    ${props => {
+        if (props.status === 'Ongoing' || props.status === 'Not Started' ){
+            return `color: ${props.theme.yellowDark};`
+            }
+        }
+    };
+
+    ${props => {
+        if (props.status === 'Completed'){
+            return `color: ${props.theme.greenDark};`
+            }
+        }
+    };
+
+    ${props => {
+        if (props.status === 'Not Implemented') {
+            return `color: ${props.theme.redDark};`
+            }
+        }
+    };
 `
