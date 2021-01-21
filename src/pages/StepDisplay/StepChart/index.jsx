@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import CurrentOrgChart from '../../../components/CurrentOrgChart'
@@ -6,19 +6,16 @@ import AddLinkModal from '../../../components/Modals/AddLinkModal'
 import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {addLegalFormTag, createUpdateStepChart, getEntitiesWithTags} from '../../../helpers'
+import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
+import {addLegalFormTag, createUpdateStepChart, entityInputErrorHandler, getEntitiesWithTags} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {NoChartToDisplay, StepChartAndButtonsContainer} from './styles'
 
 
-const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowAddLink,
-                       setShowRemoveEntity, setShowRemoveLink, setSlinks, showAddEntity, showAddLink,
+const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setChartLoading, setClinks, setShowAddEntity,
+                       setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks, showAddEntity, showAddLink,
                        showRemoveEntity, showRemoveLink, slinks, stepChartExists}) => {
     const dispatch = useDispatch()
-    let name = useRef('')
-    let taxRate = useRef('')
-    let parentName = useRef('')
     const [entitiesToRender, setEntitiesToRender] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [countryName, setCountryName] = useState('')
@@ -31,6 +28,11 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         type: '',
         label: '',
         color: ''
+    })
+    const [newEntityInfo, setNewEntityInfo] = useState({
+        entityName: '',
+        parentName: '',
+        taxRate: ''
     })
 
     useEffect(() => {
@@ -121,28 +123,37 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     }
 
     const saveNewEntityHandler = () => {
-        const newEntityInfo = {
-            id: Date.now(),
-            legal_form: legalForm.current.value,
-            location: countryName,
-            name: name.current.value,
-            tax_rate: taxRate.current.value,
-            pid: entitiesToRender.filter(entity => entity.name === parentName.current.value)[0].id.toString(),
+        const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
+        if (!error) {
+            const addEntityInfo = {
+                id: Date.now(),
+                legal_form: legalForm,
+                location: countryName,
+                name: newEntityInfo.entityName,
+                tax_rate: newEntityInfo.taxRate,
+                pid: entitiesToRender.filter(entity => entity.name === newEntityInfo.parentName)[0].id.toString(),
+            }
+            const entityTag = addLegalFormTag(legalForm)
+            if (entityTag) {
+                addEntityInfo.tags = [entityTag]
+            }
+            const chartData = {
+                nodes: JSON.stringify([...entitiesToRender, addEntityInfo]),
+                slinks: JSON.stringify(slinks),
+                clinks: JSON.stringify(clinks)
+            }
+            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+            setEntitiesToRender([...entitiesToRender, addEntityInfo])
+            setAvailableParentNames([...availableParentNames, addEntityInfo.name])
+            setCountryName('')
+            setLegalForm('')
+            setNewEntityInfo({
+                entityName: '',
+                parentName: '',
+                taxRate: ''
+            })
+            setShowAddEntity(false)
         }
-        const entityTag = addLegalFormTag(legalForm.current.value)
-        if (entityTag) {
-            newEntityInfo.tags = [entityTag]
-        }
-        const chartData = {
-            nodes: JSON.stringify([...entitiesToRender, newEntityInfo]),
-            slinks: JSON.stringify(slinks),
-            clinks: JSON.stringify(clinks)
-        }
-        createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
-        setEntitiesToRender([...entitiesToRender, newEntityInfo])
-        setAvailableParentNames([...availableParentNames, newEntityInfo.name])
-        setCountryName('')
-        setShowAddEntity(false)
     }
 
     const cancelNewEntityLinkHandler = () => {
@@ -216,14 +227,13 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
                     countryName={countryName}
                     legalForm={legalForm}
-                    name={name}
-                    parentName={parentName}
+                    newEntityInfo={newEntityInfo}
                     renderParentNameOptions={renderParentNameOptions}
                     saveNewEntityHandler={saveNewEntityHandler}
                     setCountryName={setCountryName}
                     setLegalForm={setLegalForm}
+                    setNewEntityInfo={setNewEntityInfo}
                     setShowAddEntity={setShowAddEntity}
-                    taxRate={taxRate}
                 /> : null}
             {showAddLink ?
                 <AddLinkModal

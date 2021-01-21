@@ -137,18 +137,22 @@ export const createUpdateStepChart = (chartData, dispatch, indexOfStepToDisplay,
 }
 
 // Used by components that add entities to handle input validation
-export const entityInputErrorHandler = (dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm) => {
+export const entityInputErrorHandler = (dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, isStepChart = false) => {
     if (!newEntityInfo.entityName) {
-        dispatch(setError({entityInput: `You must choose a name for this entity.`}))
+        isStepChart ? dispatch(setError({entityName: `You must choose a name for this entity.`}))
+            : dispatch(setError({entityInput: `You must choose a name for this entity.`}))
         return true
     } else if (availableParentNames.length && !newEntityInfo.parentName) {
-        dispatch(setError({entityInput: `You must choose a parent for this entity.`}))
+        isStepChart ? dispatch(setError({entityParentName: `You must choose a parent for this entity.`}))
+            : dispatch(setError({entityInput: `You must choose a parent for this entity.`}))
         return true
     } else if (!countryName) {
-        dispatch(setError({entityInput: `You must choose a location for this entity.`}))
+        isStepChart ? dispatch(setError({entityCountryName: `You must choose a location for this entity.`}))
+            : dispatch(setError({entityInput: `You must choose a location for this entity.`}))
         return true
     } else if (!legalForm) {
-        dispatch(setError({entityInput: `You must choose a legal form for this entity.`}))
+        isStepChart ? dispatch(setError({entityLegalForm: `You must choose a legal form for this entity.`}))
+            : dispatch(setError({entityInput: `You must choose a legal form for this entity.`}))
         return true
     } else {
         return false

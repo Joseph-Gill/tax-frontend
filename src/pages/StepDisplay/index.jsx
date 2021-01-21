@@ -254,6 +254,7 @@ const StepDisplay = ({history}) => {
                                 entities={currentStepEntities}
                                 indexOfStepToDisplay={indexOfStepToDisplay}
                                 project={project}
+                                setChartLoading={setChartLoading}
                                 setClinks={setClinks}
                                 setShowAddEntity={setShowAddEntity}
                                 setShowAddLink={setShowAddLink}

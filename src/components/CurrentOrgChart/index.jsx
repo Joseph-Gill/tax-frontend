@@ -38,7 +38,8 @@ const CurrentOrgChart = ({componentCalling, clinks, nodes, slinks}) => {
             clinks,
             slinks,
         })
-        chart.fit()
+        // Sets chart to be fit to screen, is crashing during add entity on StepChart
+        // chart.fit()
     })
 
     return (

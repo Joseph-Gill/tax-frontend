@@ -81,7 +81,7 @@ export const BlueConfirmReviewedButton = styled(BaseButton)`
 `
 
 export const AddEntityLinkModalInternalContainer = styled(AddDeleteModalInternalContainer)`
-    height: 430px;
+    height: 480px;
 `
 
 export const AddEntitySaveButton = styled(BaseButton)`
@@ -109,4 +109,11 @@ export const RemoveLinkEntityButtonContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+`
+
+export const EntityErrorContainer = styled.div`
+    width: 302px;
+    height: 10px;
+    display: flex;
+    justify-content: center;
 `
