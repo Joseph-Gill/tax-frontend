@@ -9,12 +9,13 @@ export const BaseButton = styled.button`
     box-shadow: ${props => props.theme.buttonBoxShadow};
     color: white;
     border: none;
-    border-radius: ${props => props.theme.borderRadius};
+    border-radius: ${props => props.theme.buttonBorderRadius};
     cursor: ${props => props.disabled ? '' : 'pointer'};
+    text-align: center;
 
     :hover {
         background: ${props => props.disabled ? '' : props.theme.blueHover};
-        transition: 0.5s;
+        transition: 500ms;
     }
 
     :active {
@@ -22,6 +23,49 @@ export const BaseButton = styled.button`
     }
 `
 
+export const AuthenticatedButtonCancel = styled.button`
+    width: 92px;
+    height: 32px;
+    text-align: center;
+    background: ${props => props.theme.white};
+    color: ${props => props.theme.grayTwo};
+    border: 1px solid ${props => props.theme.grayTwo};
+    border-radius: ${props => props.theme.buttonBorderRadius};
+    cursor: ${props => props.disabled ? '' : 'pointer'};
+
+    :hover {
+        background: ${props => props.disabled ? '' : props.theme.grayFive};
+        transition: 167ms;
+    }
+
+    :active {
+        transform: translateY(1px);
+    }
+`
+export const TableButton = styled.button`
+    width: 97px;
+    height: 26px;
+    text-align: center;
+    background: ${props => props.theme.white};
+    color: ${props => props.theme.primaryBlue};
+    border: 1px solid ${props => props.theme.primaryBlue};
+    border-radius: ${props => props.theme.buttonBorderRadius};
+    font-family: ${props => props.theme.spartanFontFamily};
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 13px;
+
+    :hover {
+        border: 2px solid ${props => props.theme.primaryBlue};
+        background: ${props => props.theme.grayFive};
+        cursor: pointer;
+        transition: 167ms;
+    }
+
+    :active {
+        transform: translateY(1px);
+    }
+`
 export const AuthenticatedButtonLarge = styled(BaseButton)`
     width: 148px;
     height: 32px;
@@ -53,39 +97,7 @@ export const AuthenticatedButtonLargest = styled(BaseButton)`
 `
 
 
-export const AuthenticatedButtonCancel = styled.button`
-    width: 92px;
-    height: 32px;
-    background: ${props => props.theme.white};
-    color: ${props => props.theme.grayTwo};
-    border: 1px solid ${props => props.theme.grayTwo};
-    border-radius: ${props => props.theme.borderRadius};
-    cursor: ${props => props.disabled ? '' : 'pointer'};
-    :hover {
-       background: ${props => props.disabled ? '' : props.theme.grayFive};
-    }
-    :active {
-      transform: translateY(1px);
-    }
-`
 
-export const TableButton = styled.button`
-    width: 97px;
-    height: 26px;
-    background: ${props => props.theme.white};
-    color: ${props => props.theme.primaryBlue};
-    border: 1px solid ${props => props.theme.primaryBlue};
-    border-radius: 2px;
-    font-family: ${props => props.theme.spartanFontFamily};
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 13px;
-
-  :hover {
-      background: ${props => props.theme.grayFive};
-      cursor: pointer;
-  }
-`
 
 export const CloseButton = styled.button`
     width: 30px;

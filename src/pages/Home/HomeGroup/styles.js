@@ -4,7 +4,8 @@ import {animated} from 'react-spring'
 
 export const HomeGroupContainer = styled(animated.div)`
     width: 860px;
-    height: ${props => props.expanded ? '815px' : '140px'};
+    border: 1px solid ${props => props.theme.grayFour};
+    height: ${props => props.expanded ? '825px' : '140px'};
     background: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
     padding: 20px 20px 0 20px;

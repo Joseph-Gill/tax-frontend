@@ -101,9 +101,12 @@ export const HomeExpandCollapseContainer = styled(animated.div)`
     align-items: center;
     justify-content: space-between;
     height: 26px;
+    color: ${props => props.theme.primaryBlue};
 
     :hover {
-      cursor: pointer;
+        cursor: pointer;
+        text-decoration: underline;
+        transition: 167ms;
     }
 `
 

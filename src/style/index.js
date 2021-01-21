@@ -86,6 +86,7 @@ export const defaultTheme = {
     projectCardBoxShadow: '0px 0px 20px #D9D9D9;',
     // Border Radius
     borderRadius: '4px',
+    buttonBorderRadius: '1rem',
     // Fonts that are not default Spartan
     nunitoFontFamily: 'Nunito Sans, sans-serif',
     spartanFontFamily: 'Spartan, serif',
