@@ -6,7 +6,7 @@ export const FileUploadContainer = styled.div`
     height: 26px;
     width: 79px;
     border: 1px solid ${props => props.theme.primaryBlue};
-    border-radius: ${props => props.theme.borderRadius};
+    border-radius: ${props => props.theme.buttonBorderRadius};
     color: ${props => props.theme.primaryBlue};
     display: flex;
     align-items: center;
@@ -16,10 +16,13 @@ export const FileUploadContainer = styled.div`
     font-size: 12px;
     line-height: 13px;
     margin-right: 20px;
+    text-align: center;
 
     :hover {
         background: ${props => props.disabled ? '' : props.theme.grayFive};
+        border: 2px solid ${props => props.theme.primaryBlue};
         cursor: pointer;
+        transition: 167ms;
     }
 `
 
@@ -28,6 +31,10 @@ export const GroupImageRemoveButton = styled(TableButton)`
     width: 83px;
     color: ${props => props.theme.grayTwo};
     border: 1px solid ${props => props.theme.grayTwo};
+
+    :hover {
+        border: 2px solid ${props => props.theme.grayTwo};
+    }
 `
 
 export const SizeTextAndButtonsContainer = styled.div`

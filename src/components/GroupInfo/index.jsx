@@ -3,7 +3,8 @@ import {useSelector} from 'react-redux'
 import SizeTextAndButtons from './SizeTextAndButtons'
 import phImage from '../../assets/icons/stark_create_grp_ph_image.png'
 import {ErrorMessage} from '../../style/messages'
-import {GroupImage, GroupImageLowerContainer, GroupInfoErrorMessageContainer, GroupNameInput, InputGroupInfoContainer, InputLeftContainer, InputRightContainer, InputTitle} from './styles'
+import {GroupImage, GroupImageLowerContainer, GroupInfoErrorMessageContainer, GroupIntoNameErrorContainer,
+    GroupNameInput, InputGroupInfoContainer, InputLeftContainer, InputRightContainer, InputTitle} from './styles'
 
 
 const GroupInfo = ({fromGroupAdd, fromGroupEdit, groupImage, groupName, hiddenFileInput, nameDisabled, setGroupImage, setGroupName}) => {
@@ -33,7 +34,12 @@ const GroupInfo = ({fromGroupAdd, fromGroupEdit, groupImage, groupName, hiddenFi
                 </GroupImageLowerContainer>
             </InputLeftContainer>
             <InputRightContainer>
-                <InputTitle>Group Name</InputTitle>
+                <GroupIntoNameErrorContainer>
+                    <InputTitle>Group Name</InputTitle>
+                    <GroupInfoErrorMessageContainer>
+                        {error && <ErrorMessage>{error.name}</ErrorMessage>}
+                    </GroupInfoErrorMessageContainer>
+                </GroupIntoNameErrorContainer>
                 <GroupNameInput
                     disabled={nameDisabled}
                     name='group_name'
@@ -42,9 +48,6 @@ const GroupInfo = ({fromGroupAdd, fromGroupEdit, groupImage, groupName, hiddenFi
                     type='text'
                     value={groupName}
                 />
-                <GroupInfoErrorMessageContainer>
-                    {error && <ErrorMessage>{error.name}</ErrorMessage>}
-                </GroupInfoErrorMessageContainer>
             </InputRightContainer>
         </InputGroupInfoContainer>
     )

@@ -83,6 +83,48 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 
+    .entityInfoCountryDropdown {
+        width: 157px;
+        height: 34px;
+        font-size: 10px;
+        line-height: 16px;
+        margin: 17px 10px;
+        border: 1px solid ${props => props.theme.grayFour};
+        border-radius: 1.5rem;
+        font-family: ${props => props.theme.nunitoFontFamily};
+        padding-left: 12px !important;
+        background: url(${dropdownArrowDown}) no-repeat right, ${props => props.theme.graySix};
+        background-position-x: 92%;
+        /* for Firefox */
+        -moz-appearance: none;
+        /* for Safari, Chrome, Opera */
+        -webkit-appearance: none;
+
+        :hover {
+            filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
+            cursor: pointer;
+            transition: 167ms;
+        }
+
+        :focus {
+            border: 1px solid ${props => props.theme.primaryBlue};
+            outline: none;
+            transition: 167ms;
+            background: url(${dropdownArrowUpward}) no-repeat right, ${props => props.theme.graySix};
+            background-position-x: 92%;
+        }
+
+        ::placeholder {
+            color: ${props => props.theme.grayTwo};
+            font-size: 14px;
+        }
+
+        :disabled {
+            background-color: ${props => props.theme.grayFour};
+            border: 1px solid ${props => props.theme.grayThree};
+        }
+    }
+
     .flag-dropdown {
         border-radius: 1.5rem !important;
     }

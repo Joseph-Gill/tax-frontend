@@ -55,7 +55,7 @@ export const TableButton = styled.button`
     font-family: ${props => props.theme.spartanFontFamily};
     font-size: 12px;
     font-weight: 600;
-    line-height: 13px;
+    line-height: 12px;
 
     :hover {
         border: 2px solid ${props => props.theme.primaryBlue};

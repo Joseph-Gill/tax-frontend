@@ -24,7 +24,7 @@ export const InputLeftContainer = styled.div`
 `
 
 export const InputRightContainer = styled.div`
-    height: 100%;
+    height: 60px;
     padding-left: 32px;
     display: flex;
     flex-direction: column;
@@ -38,11 +38,14 @@ export const InputTitle = styled(AuthenticatedPageSectionTitle)`
 
 export const GroupNameInput = styled(BaseInput)`
     width: 503px;
+    height: 38px;
 `
 
 export const GroupImage = styled.img`
     height: 40px;
     width: 40px;
+
+
 `
 
 export const GroupImageLowerContainer = styled.div`
@@ -54,5 +57,9 @@ export const GroupImageLowerContainer = styled.div`
 `
 
 export const GroupInfoErrorMessageContainer = styled.div`
-    height: 20px;
+    height: 10px;
+`
+
+export const GroupIntoNameErrorContainer = styled.div`
+    display: flex;
 `

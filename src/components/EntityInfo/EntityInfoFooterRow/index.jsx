@@ -30,19 +30,8 @@ const EntityInfoFooterRow = ({countryName, legalForm, newEntityInfo, renderParen
             </TableFooterInputContainer>
             <TableFooterInputContainer>
                 <CountryDropdown
+                    classes='entityInfoCountryDropdown'
                     onChange={(val) => setCountryName(val)}
-                     // eslint-disable-next-line react/forbid-component-props
-                    style={{
-                        width: '157px',
-                        height: '34px',
-                        fontSize: '10px',
-                        lineHeight: '16px',
-                        margin: '17px 10px',
-                        background: '#FAFAFA',
-                        border: '1px solid #D3D8DD',
-                        borderRadius: '4px',
-                        fontFamily: 'Nunito Sans, sans-serif',
-                    }}
                     value={countryName}
                 />
             </TableFooterInputContainer>
