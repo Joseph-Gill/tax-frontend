@@ -47,26 +47,8 @@ export const CardInfoText = styled(HomeGroupText)`
 `
 
 export const StatusText = styled(CardInfoText)`
-    ${props => {
-        if (props.status === 'Ongoing' || props.status === 'Not Started' ){
-            return `color: ${props.theme.yellowDark};`
-            }
-        }
-    };
-
-    ${props => {
-        if (props.status === 'Completed'){
-            return `color: ${props.theme.greenDark};`
-            }
-        }
-    };
-
-    ${props => {
-        if (props.status === 'Not Implemented') {
-            return `color: ${props.theme.redDark};`
-            }
-        }
-    };
+    color: ${props => props.theme.white};
+    font-weight: 800;
 `
 
 export const DefaultDropdownText = styled.p`

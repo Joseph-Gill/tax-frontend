@@ -14,21 +14,24 @@ export const ProjectCardContainer = styled(animated.div)`
 
     ${props => {
         if (props.status === 'Ongoing' || props.status === 'Not Started' ){
-            return `background: linear-gradient(0.10turn, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.yellowLight});`
+            return `background: linear-gradient(0.10turn, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white},
+                ${props.theme.white}, ${props.theme.white}, ${props.theme.yellowLight}, ${props.theme.yellow});`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Completed'){
-            return `background: linear-gradient(0.10turn, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.greenLight});`
+            return `background: linear-gradient(0.10turn, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white},
+                ${props.theme.white}, ${props.theme.white}, ${props.theme.greenBright}, ${props.theme.green});`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Not Implemented') {
-            return `background: linear-gradient(0.10turn, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.redLight});`
+            return `background: linear-gradient(0.10turn, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white}, ${props.theme.white},
+                ${props.theme.white}, ${props.theme.white}, ${props.theme.redLight}, ${props.theme.red});`
             }
         }
     };
@@ -61,21 +64,21 @@ export const ProjectCardNameText = styled(CardTitleText)`
 export const ProjectNameTextContainer = styled.div`
     ${props => {
         if (props.status === 'Ongoing' || props.status === 'Not Started' ){
-            return `border-bottom: 4px solid ${props.theme.yellowLight};`
+            return `border-bottom: 4px solid ${props.theme.yellow};`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Completed'){
-            return `border-bottom: 4px solid ${props.theme.greenLight};`
+            return `border-bottom: 4px solid ${props.theme.greenBright};`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Not Implemented') {
-            return `border-bottom: 4px solid ${props.theme.redLight};`
+            return `border-bottom: 4px solid ${props.theme.red};`
             }
         }
     };
