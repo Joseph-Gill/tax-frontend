@@ -1,14 +1,13 @@
 import styled from 'styled-components/macro'
-import {animated} from 'react-spring'
 
 
-export const DisplayCardContainer = styled(animated.div)`
+export const DisplayCardContainer = styled.div`
     width: 272px;
     height: 250px;
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
-    border: ${props => props.theme.grayFour};
+    border: 1px solid ${props => props.theme.grayFour};
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -19,6 +18,7 @@ export const DisplayCardContainer = styled(animated.div)`
         cursor: pointer;
         transition: 167ms;
         box-shadow: ${props => props.theme.projectCardBoxShadow};
+        border: 1px solid ${props => props.theme.primaryBlue};
     }
 `
 

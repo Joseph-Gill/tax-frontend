@@ -12,6 +12,12 @@ export const HomeGroupContainer = styled(animated.div)`
     margin-bottom: 20px;
     box-shadow: 0 0 20px ${props => props.theme.boxShadowColor};
     transition: height 0.5s;
+
+    :hover {
+        transition: 167ms;
+        box-shadow: ${props => props.theme.projectCardBoxShadow};
+        border: 1px solid ${props => props.theme.primaryBlue};
+    }
 `
 
 export const UpperRowContainer = styled.div`
