@@ -2,7 +2,8 @@ import React from 'react'
 import {useSpring} from 'react-spring'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
 import {CardInfoText, StatusText} from '../../../style/text'
-import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText} from './styles'
+import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText,
+    ProjectNameTextContainer} from './styles'
 
 
 const ProjectCard = ({project, history}) => {
@@ -15,7 +16,9 @@ const ProjectCard = ({project, history}) => {
         // eslint-disable-next-line react/forbid-component-props
         <ProjectCardContainer onClick={() => history.push(`${GROUPS}${PROJECTS}/${project.id}/`)} status={project.status} style={props}>
             <ProjectCardNameStatusContainer>
-                <ProjectCardNameText status={project.status}>{project.name}</ProjectCardNameText>
+                <ProjectNameTextContainer status={project.status}>
+                    <ProjectCardNameText>{project.name}</ProjectCardNameText>
+                </ProjectNameTextContainer>
                 <StatusText status={project.status}>{project.status}</StatusText>
             </ProjectCardNameStatusContainer>
             <CardInfoText>{project.description.length > 380 ? project.description.slice(0, 380).concat('... ') : project.description}</CardInfoText>

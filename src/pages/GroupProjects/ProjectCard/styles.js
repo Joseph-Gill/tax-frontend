@@ -56,24 +56,26 @@ export const ProjectCardMembersContainer = styled.div `
 
 export const ProjectCardNameText = styled(CardTitleText)`
     margin-top: 0;
+`
 
+export const ProjectNameTextContainer = styled.div`
     ${props => {
         if (props.status === 'Ongoing' || props.status === 'Not Started' ){
-            return `color: ${props.theme.yellowDark};`
+            return `border-bottom: 4px solid ${props.theme.yellowLight};`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Completed'){
-            return `color: ${props.theme.greenDark};`
+            return `border-bottom: 4px solid ${props.theme.greenLight};`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Not Implemented') {
-            return `color: ${props.theme.redDark};`
+            return `border-bottom: 4px solid ${props.theme.redLight};`
             }
         }
     };
