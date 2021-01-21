@@ -7,8 +7,8 @@ import {CreateGroupCardContainer, CreateGroupImage, CreateGroupText, CreateGroup
 const CreateGroupCard = ({history}) => {
 
     return (
-        <CreateGroupCardContainer>
-            <CreateGroupImage alt='add' onClick={() => history.push(`${GROUPS}${ADD_GROUP}`)} src={addGroup} />
+        <CreateGroupCardContainer onClick={() => history.push(`${GROUPS}${ADD_GROUP}`)}>
+            <CreateGroupImage alt='add' src={addGroup} />
             <CreateGroupTextContainer>
                 <CreateGroupText>Create</CreateGroupText>
                 <CreateGroupText>New Group</CreateGroupText>

@@ -10,6 +10,13 @@ export const CreateGroupCardContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    :hover {
+        cursor: pointer;
+        box-shadow: ${props => props.theme.projectCardBoxShadow};
+        border: 1px solid ${props => props.theme.primaryBlue};
+        transition: 167ms;
+    }
 `
 
 export const CreateGroupTextContainer = styled.div`
@@ -22,12 +29,6 @@ export const CreateGroupTextContainer = styled.div`
 
 export const CreateGroupImage = styled.img`
     margin-top: 39px;
-
-    :hover {
-        cursor: pointer;
-        box-shadow: ${props => props.theme.projectCardBoxShadow};
-        transition: 167ms;
-    }
 `
 
 export const CreateGroupText = styled.p`

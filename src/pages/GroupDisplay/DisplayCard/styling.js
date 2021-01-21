@@ -8,6 +8,7 @@ export const DisplayCardContainer = styled(animated.div)`
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
+    border: ${props => props.theme.grayFour};
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -16,6 +17,8 @@ export const DisplayCardContainer = styled(animated.div)`
 
     :hover {
         cursor: pointer;
+        transition: 167ms;
+        box-shadow: ${props => props.theme.projectCardBoxShadow};
     }
 `
 
