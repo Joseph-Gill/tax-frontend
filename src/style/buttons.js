@@ -16,6 +16,7 @@ export const BaseButton = styled.button`
     :hover {
         background: ${props => props.disabled ? '' : props.theme.blueHover};
         transition: 500ms;
+        font-weight: 500;
     }
 
     :active {
@@ -37,11 +38,14 @@ export const AuthenticatedButtonCancel = styled.button`
     :hover {
         background: ${props => props.disabled ? '' : props.theme.grayFive};
         transition: 167ms;
+        border: 2px solid ${props => props.theme.grayTwo};
+        font-weight: 500;
     }
 
     :active {
         outline: none;
         transform: translateY(1px);
+        transition: 167ms;
     }
 `
 export const TableButton = styled.button`
@@ -62,6 +66,7 @@ export const TableButton = styled.button`
         background: ${props => props.theme.grayFive};
         cursor: pointer;
         transition: 167ms;
+        font-weight: 700;
     }
 
     :active {

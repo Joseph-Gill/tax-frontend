@@ -23,6 +23,7 @@ export const FileUploadContainer = styled.div`
         border: 2px solid ${props => props.theme.primaryBlue};
         cursor: pointer;
         transition: 167ms;
+        font-weight: 700;
     }
 `
 
