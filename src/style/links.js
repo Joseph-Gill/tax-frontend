@@ -50,5 +50,10 @@ export const TaskDocumentLink = styled(Link)`
     line-height: 16px;
     color: ${props => props.theme.primaryBlue};
     text-decoration: none;
+
+    :hover {
+        transition: 167ms;
+        text-decoration: underline;
+    }
 `
 

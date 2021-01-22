@@ -5,7 +5,7 @@ import {deleteTaskDocumentAction} from '../../store/taskDocument/actions'
 import {getTasksForProjectAction} from '../../store/task/actions'
 import deleteDocument from '../../assets/icons/stark_task_delete_document_icon.svg'
 import {TaskDocumentLink} from '../../style/links'
-import {DocumentDeleteIconContainer, TaskDocumentDeleteImage} from './styles'
+import {DocumentDeleteIconContainer, TaskDocumentDeleteImage, TaskDocumentDeleteImageContainer} from './styles'
 
 
 const TaskDocument = ({document, project}) => {
@@ -36,11 +36,13 @@ const TaskDocument = ({document, project}) => {
                 to={document.document}
             >{document.name.length > 18 ? document.name.slice(0, 11).concat('....').concat(document.name.slice(-4)) : document.name}
             </TaskDocumentLink>
-            <TaskDocumentDeleteImage
-                alt='delete document'
-                onClick={() => setShowDeleteDocumentConfirmation(true)}
-                src={deleteDocument}
-            />
+            <TaskDocumentDeleteImageContainer>
+                <TaskDocumentDeleteImage
+                    alt='delete document'
+                    onClick={() => setShowDeleteDocumentConfirmation(true)}
+                    src={deleteDocument}
+                />
+            </TaskDocumentDeleteImageContainer>
         </DocumentDeleteIconContainer>
     )
 }

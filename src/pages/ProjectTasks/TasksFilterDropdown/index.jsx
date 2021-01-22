@@ -22,38 +22,42 @@ const TaskFilterDropdown = ({filterOption, filterString, setFilterOption, setFil
                 <DropDownChoiceWithBorder>
                     <FilterCheckBox
                         checked={filterOption[0].isChecked}
+                        id='dueDate'
                         onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                         type='checkbox'
                         value={0}
                     />
-                    <DefaultDropdownText>Due Date</DefaultDropdownText>
+                    <DefaultDropdownText htmlFor='dueDate'>Due Date</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
                     <FilterCheckBox
                         checked={filterOption[1].isChecked}
+                        id='country'
                         onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                         type='checkbox'
                         value={1}
                     />
-                    <DefaultDropdownText>Responsible Country</DefaultDropdownText>
+                    <DefaultDropdownText htmlFor='country'>Responsible Country</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
                     <FilterCheckBox
                         checked={filterOption[2].isChecked}
+                        id='responsibleName'
                         onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                         type='checkbox'
                         value={2}
                     />
-                    <DefaultDropdownText>Responsible Name</DefaultDropdownText>
+                    <DefaultDropdownText htmlFor='responsibleName'>Responsible Name</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropdownChoiceContainer>
                     <FilterCheckBox
                         checked={filterOption[3].isChecked}
+                        id='description'
                         onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                         type='checkbox'
                         value={3}
                     />
-                    <DefaultDropdownText>Description</DefaultDropdownText>
+                    <DefaultDropdownText htmlFor='description'>Description</DefaultDropdownText>
                 </DropdownChoiceContainer>
             </DropdownOptions>
         </Dropdown>

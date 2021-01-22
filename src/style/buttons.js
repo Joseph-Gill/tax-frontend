@@ -138,6 +138,14 @@ export const WireFrameDeleteButton = styled(TableButton)`
     height: 26px;
     border: 1px solid ${props => props.theme.red};
     color: ${props => props.theme.red};
+
+    :hover {
+        border: 2px solid ${props => props.theme.red};
+        background: ${props => props.theme.grayFive};
+        cursor: pointer;
+        transition: 167ms;
+        font-weight: 700;
+    }
 `
 
 export const SaveButton = styled(BaseButton)`

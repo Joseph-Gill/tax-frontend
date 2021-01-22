@@ -12,3 +12,8 @@ export const TaskDocumentDeleteImage = styled.img`
         cursor: pointer;
     }
 `
+
+export const TaskDocumentDeleteImageContainer = styled.div`
+    width: 13px;
+    height: 16px;
+`

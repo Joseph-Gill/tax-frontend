@@ -1,7 +1,7 @@
 import React from 'react'
 import taskExpand from '../../../../../assets/icons/stark_task_expand_icon.svg'
 import taskCollapse from '../../../../../assets/icons/stark_task_collapse_icon.svg'
-import {TaskExpandCollapseImage} from './styles'
+import {TaskExpandCollapseImage, TaskExpandCollapseImgContainer} from './styles'
 import TaskDocument from '../../../../../components/TaskDocument'
 import {EntryDocumentsContainer, EntryDocumentsTextContainer} from '../../../../../style/containers'
 
@@ -19,8 +19,12 @@ const EntryDocuments = ({documents, expanded, project, setExpanded}) => {
                     /> ))}
             </EntryDocumentsTextContainer>
             {expanded ?
-                <TaskExpandCollapseImage alt='collapse' onClick={() => setExpanded(!expanded)} src={taskCollapse} /> :
-                <TaskExpandCollapseImage alt='expand' onClick={() => setExpanded(!expanded)} src={taskExpand} />}
+                <TaskExpandCollapseImgContainer>
+                    <TaskExpandCollapseImage alt='collapse' onClick={() => setExpanded(!expanded)} src={taskCollapse} />
+                </TaskExpandCollapseImgContainer> :
+                <TaskExpandCollapseImgContainer>
+                    <TaskExpandCollapseImage alt='expand' onClick={() => setExpanded(!expanded)} src={taskExpand} />
+                </TaskExpandCollapseImgContainer>}
         </EntryDocumentsContainer>
     )
 }

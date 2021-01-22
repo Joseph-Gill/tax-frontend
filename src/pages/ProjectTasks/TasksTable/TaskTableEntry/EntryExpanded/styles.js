@@ -6,7 +6,7 @@ import {DropdownOption} from '../../../../../style/options'
 
 
 export const TaskTableEntryExpandedContainer = styled.div`
-    width: 860px;
+    width: 853px;
     height: 219px;
     background: ${props => props.theme.graySix};
     padding: 20px 44px 29px 44px;
