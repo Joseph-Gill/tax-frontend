@@ -1,4 +1,5 @@
 import React from 'react'
+import {useSpring} from 'react-spring'
 import close from '../../../assets/icons/stark_close_icon.svg'
 import {CloseIcon} from '../../../style/images'
 import {DropdownOption} from '../../../style/options'
@@ -10,8 +11,15 @@ import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDelete
 
 const RemoveEntityModal = ({entityOptions, entityToRemove, removeEntityHandler, setEntityToRemove,
                                setShowRemoveEntity}) => {
+
+    const props = useSpring({
+        opacity: 1,
+        from: {opacity: 0},
+    })
+
     return (
-        <AddDeleteModalExternalContainer>
+        // eslint-disable-next-line react/forbid-component-props
+        <AddDeleteModalExternalContainer style={props}>
             <RemoveLinkEntityInternalContainer>
                 <AddDeleteModalCloseContainer>
                     <CloseIcon alt='close' onClick={() => setShowRemoveEntity(false)} src={close} />
@@ -23,7 +31,7 @@ const RemoveEntityModal = ({entityOptions, entityToRemove, removeEntityHandler, 
                     onChange={(e) => setEntityToRemove(e.target.value)}
                     value={entityToRemove}
                 >
-                    <DropdownOption disabled value=''>Select a Link</DropdownOption>
+                    <DropdownOption disabled value=''>Select an Entity</DropdownOption>
                     {entityOptions}
                 </RemoveLinkEntityDropdown>
                 <RemoveLinkEntityButtonContainer>

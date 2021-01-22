@@ -14,7 +14,6 @@ export const ChooseGroupModalInternalContainer = styled(AddDeleteModalInternalCo
 
 export const ChooseGroupModalCloseContainer = styled(AddDeleteModalCloseContainer)`
     width: 100%;
-    height: 13.5px;
 `
 
 export const ChooseGroupModalTitleContainer = styled.div`
