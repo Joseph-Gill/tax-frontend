@@ -6,6 +6,7 @@ import {TableButton} from '../../../style/buttons'
 export const StepCardContainer = styled.div`
     width: 860px;
     height: 105px;
+    border: 1px solid ${props => props.theme.grayFour};
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
@@ -14,6 +15,12 @@ export const StepCardContainer = styled.div`
     justify-content: space-between;
     padding: 20px 19px 19px 20px;
     margin-bottom: 20px;
+
+    :hover {
+        transition: 167ms;
+        box-shadow: ${props => props.theme.projectCardBoxShadow};
+        border: 1px solid ${props => props.theme.primaryBlue};
+    }
 `
 
 export const StepCardStatusColorStepNumberContainer = styled.div`

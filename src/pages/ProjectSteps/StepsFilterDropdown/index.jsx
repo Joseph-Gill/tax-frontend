@@ -22,29 +22,32 @@ const StepFilterDropdown = ({filterOption, filterString, setFilterOption, setFil
                 <DropDownChoiceWithBorder>
                     <FilterCheckBox
                         checked={filterOption[0].isChecked}
+                        id='status'
                         onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                         type='checkbox'
                         value={0}
                     />
-                    <DefaultDropdownText>Status</DefaultDropdownText>
+                    <DefaultDropdownText htmlFor='status'>Status</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
                     <FilterCheckBox
                         checked={filterOption[1].isChecked}
+                        id='consequenceLocation'
                         onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                         type='checkbox'
                         value={1}
                     />
-                    <DefaultDropdownText>Tax Consequence Location</DefaultDropdownText>
+                    <DefaultDropdownText htmlFor='consequenceLocation'>Tax Consequence Location</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropdownChoiceContainer>
                     <FilterCheckBox
                         checked={filterOption[2].isChecked}
+                        id='description'
                         onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                         type='checkbox'
                         value={2}
                     />
-                    <DefaultDropdownText>Description</DefaultDropdownText>
+                    <DefaultDropdownText htmlFor='description'>Description</DefaultDropdownText>
                 </DropdownChoiceContainer>
             </DropdownOptions>
         </Dropdown>
