@@ -14,7 +14,7 @@ export const OrgDropdownButton = styled.button`
     width: 302px;
     height: 42px;
     background-color: ${props => props.theme.white};
-    border-radius: ${props => props.theme.borderRadius};
+    border-radius: ${props => props.theme.buttonBorderRadius};
     font-family: ${props => props.theme.nunitoFontFamily};
     font-size: 14px;
     line-height: 19px;

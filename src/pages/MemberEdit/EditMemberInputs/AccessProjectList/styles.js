@@ -13,9 +13,13 @@ export const AccessProjectListUpperContainer = styled.div`
     height: 40px;
     border-bottom: 1px solid ${props => props.theme.grayFour};
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 10px 59px 10px 13px;
+
+    input {
+        margin-right: 14px;
+    }
 `
 
 export const AccessProjectListLowerContainer = styled.div`
@@ -27,22 +31,22 @@ export const AccessProjectListLowerContainer = styled.div`
     padding-top: 20px;
 
     ::-webkit-scrollbar {
-      width: 6px;
+        width: 6px;
     }
 
     /* Track */
     ::-webkit-scrollbar-track {
-      background: ${props => props.theme.grayFive};
+        background: ${props => props.theme.grayFive};
     }
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
-      background: ${props => props.theme.grayFour};
+        background: ${props => props.theme.grayFour};
     }
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-      background: ${props => props.theme.grayTwo};
+        background: ${props => props.theme.grayTwo};
     }
 `
 
@@ -54,5 +58,21 @@ export const ProjectNameCheckboxContainer = styled.div`
 
     input {
         margin-right: 14px;
+    }
+`
+
+export const AccessProjectLabel = styled.label`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+    font-style: normal;
+    font-weight: normal;
+    color: ${props => props.theme.grayOne};
+
+    :hover {
+        cursor: pointer;
+        transition: 167ms;
+        text-decoration: underline;
     }
 `

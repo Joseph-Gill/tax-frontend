@@ -28,6 +28,7 @@ export const CloseIcon = styled.img`
         cursor: pointer;
         transition: 167ms;
         box-shadow: ${props => props.theme.boxShadow};
+        background: ${props => props.theme.graySix};
     }
 `
 

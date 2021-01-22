@@ -273,6 +273,7 @@ export const TaskInputsContainer = styled.div`
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.grayFour};
     margin-top: 30px;
     padding: 20px 20px 5px 20px;
     display: flex;

@@ -1,8 +1,7 @@
 import React from 'react'
 import {checkBoxChangeHandler} from '../../../../helpers'
 import {CheckBox} from '../../../../style/inputs'
-import {AuthenticatedText} from '../../../../style/text'
-import {AccessProjectListContainer, AccessProjectListLowerContainer, AccessProjectListUpperContainer, ProjectNameCheckboxContainer} from './styles'
+import {AccessProjectLabel, AccessProjectListContainer, AccessProjectListLowerContainer, AccessProjectListUpperContainer, ProjectNameCheckboxContainer} from './styles'
 
 
 const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupProjects, setAllProjectsChecked}) => {
@@ -20,11 +19,12 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
             <ProjectNameCheckboxContainer key={project.id}>
                 <CheckBox
                     checked={allGroupProjects[index].isChecked}
+                    id={project.name}
                     onChange={(e) => checkBoxChangeHandler(e, allGroupProjects, setAllGroupProjects)}
                     type='checkbox'
                     value={index}
                 />
-                <AuthenticatedText>{project.name}</AuthenticatedText>
+                <AccessProjectLabel for={project.name}>{project.name}</AccessProjectLabel>
             </ProjectNameCheckboxContainer>)))
 
     return (
@@ -32,11 +32,12 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
             <AccessProjectListUpperContainer>
                 <CheckBox
                     checked={allProjectsChecked}
+                    id='all'
                     onChange={checkAllProjectsChangeHandler}
                     type='checkbox'
                     value='all projects'
                 />
-                <AuthenticatedText>Select all projects in the group</AuthenticatedText>
+                <AccessProjectLabel for='all'>Select / Unselect All</AccessProjectLabel>
             </AccessProjectListUpperContainer>
             <AccessProjectListLowerContainer>
                 {renderProjectNameWithCheckBox()}

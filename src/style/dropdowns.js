@@ -10,7 +10,7 @@ export const StatusDropdown = styled.select`
     height: 42px;
     background: ${props => props.theme.white};
     border: 1px solid ${props => props.theme.grayFour};
-    border-radius: ${props => props.theme.borderRadius};
+    border-radius: ${props => props.theme.inputBorderRadius};
     font-size: 14px;
     font-family: ${props => props.theme.nunitoFontFamily};
     font-weight: 600;
