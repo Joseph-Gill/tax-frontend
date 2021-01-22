@@ -94,6 +94,8 @@ export const StepNode = styled.li`
 
     :hover {
         cursor: pointer;
+        transition: 167ms;
+        text-decoration: underline;
     }
 `
 

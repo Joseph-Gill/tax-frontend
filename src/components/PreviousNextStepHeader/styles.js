@@ -46,4 +46,9 @@ export const PreviousNextActiveText = styled.p`
             }
         }
     };
+
+    :hover {
+        transition: 167ms;
+        text-decoration: ${props => props.active ? 'underline' : 'none'};
+    }
 `

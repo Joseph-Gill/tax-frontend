@@ -1,9 +1,9 @@
 import styled from 'styled-components/macro'
-import {BaseButton, DeleteButton} from '../../../../style/buttons'
+import {TableButton, WireFrameDeleteButton} from '../../../../style/buttons'
 
 
-export const AddEntityLinkButton = styled(BaseButton)`
-    width: 100px;
+export const AddEntityLinkButton = styled(TableButton)`
+    width: 110px;
     height: 26px;
 
     :disabled {
@@ -11,18 +11,17 @@ export const AddEntityLinkButton = styled(BaseButton)`
     }
 `
 
-export const RemoveEntityLinkButton = styled(DeleteButton)`
-    width: 120px;
+export const RemoveEntityLinkButton = styled(WireFrameDeleteButton)`
+    width: 130px;
     height: 26px;
 
     :disabled {
-        background: #D3D3D3;
         box-shadow: none;
     }
 `
 
 export const StepChartButtonsContainer = styled.div`
-    width: 500px;
+    width: 540px;
     display: flex;
     justify-content: space-between;
     align-items: center;

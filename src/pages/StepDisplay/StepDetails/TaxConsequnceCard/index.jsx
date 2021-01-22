@@ -176,10 +176,13 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
                         <TaxConsequenceTextContainer>
                             <CardInfoText>{taxConsequence.description}</CardInfoText>
                         </TaxConsequenceTextContainer>
-                        {taxConsequence.creating_user ?
+                        {taxConsequence.editing_user ?
+                            <TaxConsequenceUserDateText>
+                                edited by {taxConsequence.editing_user.user.first_name} {taxConsequence.editing_user.user.last_name} on {taxConsequence.updated.slice(0, 10)}
+                            </TaxConsequenceUserDateText> :
                             <TaxConsequenceUserDateText>
                                 created by {taxConsequence.creating_user.user.first_name} {taxConsequence.creating_user.user.last_name} on {taxConsequence.created.slice(0, 10)}
-                            </TaxConsequenceUserDateText> : null}
+                            </TaxConsequenceUserDateText>}
                     </TaxConsequenceTextUsernameContainer>)}
         </TaxConsequenceContainer>
     )
