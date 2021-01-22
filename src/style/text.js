@@ -51,13 +51,19 @@ export const StatusText = styled(CardInfoText)`
     font-weight: 800;
 `
 
-export const DefaultDropdownText = styled.p`
+export const DefaultDropdownText = styled.label`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-weight: 600;
     font-size: 10px;
     line-height: 14px;
     color: ${props => props.theme.grayOne};
     margin-left: 10px;
+
+    :hover {
+        transition: 167ms;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 `
 
 export const RedDropdownText = styled(DefaultDropdownText)`

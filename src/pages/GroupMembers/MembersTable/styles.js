@@ -16,6 +16,7 @@ export const ActiveMemberUserContainer = styled.div`
 
     :hover {
         cursor: pointer;
+        text-decoration: underline;
     }
 `
 

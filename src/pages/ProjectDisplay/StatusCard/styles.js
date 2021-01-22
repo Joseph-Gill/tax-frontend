@@ -11,21 +11,21 @@ export const StatusBox = styled.div`
 
     ${props => {
         if (props.status === 'Ongoing' || props.status === 'Not Started' ){
-            return `background: ${props.theme.yellowLight};`
+            return `background: linear-gradient(0.90turn, ${props.theme.yellowLight}, ${props.theme.yellow}, ${props.theme.yellowDark});`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Completed'){
-            return `background: ${props.theme.greenLight};`
+            return `background: linear-gradient(0.90turn, ${props.theme.greenBright}, ${props.theme.green}, ${props.theme.greenDark});`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Not Implemented') {
-            return `background: ${props.theme.redLight};`
+            return `background: linear-gradient(0.90turn, ${props.theme.redLight}, ${props.theme.red}, ${props.theme.redDark});`
             }
         }
     };

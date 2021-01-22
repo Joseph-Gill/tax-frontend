@@ -97,7 +97,7 @@ export const DropdownButton = styled.button`
     width: 170px;
     height: 34px;
     background-color: ${props => props.theme.white};
-    border-radius: ${props => props.theme.borderRadius};
+    border-radius: ${props => props.theme.buttonBorderRadius};
     box-shadow: ${props => props.theme.boxShadow};
     color: ${props => props.theme.primaryBlue};
     padding: 0 14px 0 12px;
@@ -128,7 +128,7 @@ export const TaskStepFilterSelect = styled(StatusDropdown)`
     width: 110px;
     height: 34px;
     background-color: ${props => props.theme.white};
-    border-radius: ${props => props.theme.borderRadius};
+    border-radius: ${props => props.theme.buttonBorderRadius};
     box-shadow: ${props => props.theme.boxShadow};
     color: ${props => props.theme.primaryBlue};
     font-size: 14px;

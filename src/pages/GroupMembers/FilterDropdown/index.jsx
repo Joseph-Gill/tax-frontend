@@ -22,58 +22,64 @@ const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilt
                 <DropDownChoiceWithBorder>
                     <FilterCheckBox
                         checked={filterOption[0].isChecked}
+                        id='email'
                         onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                         type='checkbox'
                         value={0}
                     />
-                    <DefaultDropdownText>Email</DefaultDropdownText>
+                    <DefaultDropdownText for='email'>Email</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 {!filterMemberStraus && (
                     <>
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
                                 checked={filterOption[1].isChecked}
+                                id='name'
                                 onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={1}
                             />
-                            <DefaultDropdownText>Name</DefaultDropdownText>
+                            <DefaultDropdownText for='name'>Name</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
                                 checked={filterOption[2].isChecked}
+                                id='organization'
                                 onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={2}
                             />
-                            <DefaultDropdownText>Organization</DefaultDropdownText>
+                            <DefaultDropdownText for='organization'>Organization</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
                                 checked={filterOption[3].isChecked}
+                                id='projectAccess'
                                 onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={3}
                             />
-                            <DefaultDropdownText>Project Access</DefaultDropdownText>
+                            <DefaultDropdownText for='projectAccess'>Project Access</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
                                 checked={filterOption[4].isChecked}
+                                id='country'
                                 onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={4}
                             />
-                            <DefaultDropdownText>Country</DefaultDropdownText>
+                            <DefaultDropdownText for='country'>Country</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropdownChoiceContainer>
                             <FilterCheckBox
                                 checked={filterOption[5].isChecked}
+                                id='role'
                                 onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
                                 type='checkbox'
                                 value={5}
                             />
-                            <DefaultDropdownText>Role</DefaultDropdownText>
+                            <DefaultDropdownText for='role'>Role</DefaultDropdownText>
                         </DropdownChoiceContainer>
                     </>)}
             </DropdownOptions>
