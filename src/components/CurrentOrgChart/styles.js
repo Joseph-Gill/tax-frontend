@@ -8,4 +8,5 @@ export const OrgChartContainer = styled.div`
     height: ${props => props.componentCalling === 'GroupOrgChart' ? '516px' : props.componentCalling === 'StepDisplay' ? '398px' : '437px'};
     border-radius: ${props => props.theme.borderRadius};
     box-shadow: ${props => props.componentCalling === 'StepDisplay' ? '0' : props.theme.boxShadow};
+    border: 1px solid ${props => props.theme.grayFour};
 `

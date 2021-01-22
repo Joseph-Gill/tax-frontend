@@ -4,9 +4,9 @@ import BreadCrumb from '../../components/BreadCrumb'
 import CurrentOrgChart from '../../components/CurrentOrgChart'
 import Spinner from '../../components/Spinner'
 import {getEntitiesWithTags} from '../../helpers'
+import {AuthenticatedPageTitle} from '../../style/titles'
 import {GROUPS, HOME, ORG_CHART} from '../../routes/paths'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
-import {AuthenticatedPageTitle} from '../../style/titles'
 
 
 const GroupOrgChart = ({history}) => {
