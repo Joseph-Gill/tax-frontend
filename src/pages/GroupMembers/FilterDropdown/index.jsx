@@ -27,7 +27,7 @@ const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilt
                         type='checkbox'
                         value={0}
                     />
-                    <DefaultDropdownText for='email'>Email</DefaultDropdownText>
+                    <DefaultDropdownText htmlFor='email'>Email</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 {!filterMemberStraus && (
                     <>
@@ -39,7 +39,7 @@ const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilt
                                 type='checkbox'
                                 value={1}
                             />
-                            <DefaultDropdownText for='name'>Name</DefaultDropdownText>
+                            <DefaultDropdownText htmlFor='name'>Name</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
@@ -49,7 +49,7 @@ const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilt
                                 type='checkbox'
                                 value={2}
                             />
-                            <DefaultDropdownText for='organization'>Organization</DefaultDropdownText>
+                            <DefaultDropdownText htmlFor='organization'>Organization</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
@@ -59,7 +59,7 @@ const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilt
                                 type='checkbox'
                                 value={3}
                             />
-                            <DefaultDropdownText for='projectAccess'>Project Access</DefaultDropdownText>
+                            <DefaultDropdownText htmlFor='projectAccess'>Project Access</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropDownChoiceWithBorder>
                             <FilterCheckBox
@@ -69,7 +69,7 @@ const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilt
                                 type='checkbox'
                                 value={4}
                             />
-                            <DefaultDropdownText for='country'>Country</DefaultDropdownText>
+                            <DefaultDropdownText htmlFor='country'>Country</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropdownChoiceContainer>
                             <FilterCheckBox
@@ -79,7 +79,7 @@ const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilt
                                 type='checkbox'
                                 value={5}
                             />
-                            <DefaultDropdownText for='role'>Role</DefaultDropdownText>
+                            <DefaultDropdownText htmlFor='role'>Role</DefaultDropdownText>
                         </DropdownChoiceContainer>
                     </>)}
             </DropdownOptions>
