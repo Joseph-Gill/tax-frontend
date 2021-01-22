@@ -1,17 +1,17 @@
 import React from 'react'
 import {DropdownOption} from '../../../style/options'
-import {StatusDropdown} from '../../../style/dropdowns'
+import {EditStatusDropdown} from './styles'
 
 
 const ProjectStatusDropdown = ({project, status}) => {
     return (
-        <StatusDropdown defaultValue={project.status} ref={status}>
+        <EditStatusDropdown defaultValue={project.status} ref={status}>
             <DropdownOption disabled value=''>Select a status</DropdownOption>
             <DropdownOption value='Not Started'>Not Started</DropdownOption>
             <DropdownOption value='Ongoing'>Ongoing</DropdownOption>
             <DropdownOption value='Not Implemented'>Not Implemented</DropdownOption>
             <DropdownOption value='Completed'>Completed</DropdownOption>
-        </StatusDropdown>
+        </EditStatusDropdown>
     )
 }
 

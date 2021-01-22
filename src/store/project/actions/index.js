@@ -45,7 +45,7 @@ export const createProjectAction = (projectInfo, groupId) => async (dispatch, ge
         }
     }
     try {
-        return await Axios.post(`/projects/${groupId}/`, projectInfo, config)
+        return await Axios.post(`/projects/group/${groupId}/`, projectInfo, config)
     } catch (e) {
         console.log('error creating project>', e)
         return catchError(e, dispatch)

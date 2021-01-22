@@ -1,19 +1,21 @@
 import React, {useRef, useState, useEffect} from 'react'
-import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
-import BreadCrumb from '../../components/BreadCrumb'
 import {useDispatch, useSelector} from 'react-redux'
-import {GROUPS, ADD_PROJECT, PROJECTS, HOME} from '../../routes/paths'
-import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
-import {ProjectNameInput} from '../../style/inputs'
-import {CancelButton, SaveButton} from '../../style/buttons'
-import {StatusDropdown} from '../../style/dropdowns'
-import {DropdownOption} from '../../style/options'
-import {ProjectDescriptionTextArea} from '../../style/textarea'
-import {createProjectAction} from '../../store/project/actions'
-import SuccessMessage from '../../components/SuccessMessage'
-import {getProfileAction} from '../../store/profile/actions'
-import {getGroupAction} from '../../store/group/actions'
 import Spinner from '../../components/Spinner'
+import BreadCrumb from '../../components/BreadCrumb'
+import SuccessMessage from '../../components/SuccessMessage'
+import ProjectAddStatusDropdown from './ProjectAddStatusDropdown'
+import {getGroupAction} from '../../store/group/actions'
+import {getProfileAction} from '../../store/profile/actions'
+import {createProjectAction} from '../../store/project/actions'
+import {resetErrors} from '../../store/errors/actions/errorAction'
+import {GROUPS, ADD_PROJECT, PROJECTS, HOME} from '../../routes/paths'
+import {ErrorMessage} from '../../style/messages'
+import {ProjectNameInput} from '../../style/inputs'
+import {ProjectDescriptionTextArea} from '../../style/textarea'
+import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
+import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
+import {CancelButton, SaveButton} from '../../style/buttons'
+import {ProjectAddErrorContainer} from './styles'
 
 
 const ProjectAdd = ({history}) => {
@@ -21,6 +23,7 @@ const ProjectAdd = ({history}) => {
     let status = useRef('')
     let name = useRef('')
     let description = useRef('')
+    const error = useSelector(state => state.errorReducer.error)
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
     const [showSuccess, setShowSuccess] = useState(false)
@@ -32,6 +35,7 @@ const ProjectAdd = ({history}) => {
     }, [history, loaded])
 
     const clickSaveButtonHandler =  async () => {
+        dispatch(resetErrors())
         const projectData = {
             name: name.current.value,
             description: description.current.value,
@@ -43,6 +47,11 @@ const ProjectAdd = ({history}) => {
             dispatch(getGroupAction(group.id))
             setShowSuccess(!showSuccess)
         }
+    }
+
+    const cancelButtonHandler = () => {
+        dispatch(resetErrors())
+        history.push(`${GROUPS}/${group.id}`)
     }
 
     return (
@@ -72,14 +81,13 @@ const ProjectAdd = ({history}) => {
                                 ref={name}
                                 type='text'
                             />
+                            <ProjectAddErrorContainer>
+                                {error && <ErrorMessage>{error.name}</ErrorMessage>}
+                            </ProjectAddErrorContainer>
                         </ProjectInputContainer>
                         <ProjectInputContainer>
                             <AddEditProjectSectionTitles>Project Status</AddEditProjectSectionTitles>
-                            <StatusDropdown
-                                ref={status}
-                            >
-                                <DropdownOption value='Not Started'>Not Started</DropdownOption>
-                            </StatusDropdown>
+                            <ProjectAddStatusDropdown status={status} />
                         </ProjectInputContainer>
                     </AddEditProjectNameStatusContainer>
                     <AddEditProjectDescriptionContainer>
@@ -90,7 +98,7 @@ const ProjectAdd = ({history}) => {
                         />
                     </AddEditProjectDescriptionContainer>
                     <ProjectSaveCancelButtonContainer>
-                        <CancelButton onClick={() => history.push(`${GROUPS}/${group.id}`)} >Cancel</CancelButton>
+                        <CancelButton onClick={cancelButtonHandler} >Cancel</CancelButton>
                         <SaveButton onClick={clickSaveButtonHandler}>Save</SaveButton>
                     </ProjectSaveCancelButtonContainer>
                 </>)}

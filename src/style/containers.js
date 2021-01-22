@@ -130,7 +130,7 @@ export const AddEditProjectNameStatusContainer = styled.div`
     border-radius: ${props => props.theme.borderRadius};
     box-shadow: ${props => props.theme.boxShadow};
     display: flex;
-    padding: 16px;
+    padding: 16px 16px 6px 16px;
 `
 
 export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatusContainer)`
@@ -139,6 +139,7 @@ export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatu
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid ${props => props.theme.grayFour};
+    padding: 16px;
 `
 
 export const ProjectInputContainer = styled.div`
