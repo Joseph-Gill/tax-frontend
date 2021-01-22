@@ -17,10 +17,12 @@ const StepDisplayToggleButtonsStatus = ({ableToComplete, currentStepEntities, ed
             {!stepDetailStatus ?
                 <StepChartButtons
                     currentStepEntities={currentStepEntities}
+                    indexOfStepToDisplay={indexOfStepToDisplay}
                     setShowAddEntity={setShowAddEntity}
                     setShowAddLink={setShowAddLink}
                     setShowRemoveEntity={setShowRemoveEntity}
                     setShowRemoveLink={setShowRemoveLink}
+                    steps={steps}
                 /> : (
                     <StepDetailsButtonsStatus
                         ableToComplete={ableToComplete}

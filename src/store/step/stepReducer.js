@@ -49,7 +49,7 @@ export const stepReducer = (state = initialState, action) => {
                         effective_date: null,
                         id: null,
                         number: action.payload,
-                        status: '',
+                        status: 'Not Started',
                         tax_consequences: [],
                         tasks: []
                     }]

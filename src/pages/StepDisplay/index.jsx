@@ -97,6 +97,7 @@ const StepDisplay = ({history}) => {
         } else {
             if (!steps[indexOfStepToDisplay].id) {
                 setEditStatus(true)
+                setStepDetailStatus(true)
             }
             setStepChartExists(false)
             checkForCurrentStepChart()

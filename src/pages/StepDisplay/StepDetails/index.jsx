@@ -95,8 +95,8 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                     </TaxConsequencesContainer>
                 </>) : (
                     <NewStepNoTaxConsequencesContainer>
-                        <p>You must save your step before you</p>
-                        <p>can add Tax Consequences.</p>
+                        <p>You must save your step before you can</p>
+                        <p>add Tax Consequences or create a Chart.</p>
                     </NewStepNoTaxConsequencesContainer>)}
         </StepDetailsContainer>
     )

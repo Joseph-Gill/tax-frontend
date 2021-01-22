@@ -17,7 +17,7 @@ const StepDetailsButtonsStatus = ({ableToComplete, editStatus, indexOfStepToDisp
                 </StepDetailsStatus>
                 ) : (
                     <StepDetailsStatus defaultValue={steps[indexOfStepToDisplay].status} onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
-                        <StepDetailsOption disabled value=''>Status</StepDetailsOption>
+                        <StepDetailsOption disabled value=''>Select status</StepDetailsOption>
                         <StepDetailsOption value='Not Started'>Not Started</StepDetailsOption>
                         <StepDetailsOption value='Ongoing'>Ongoing</StepDetailsOption>
                         {ableToComplete ?

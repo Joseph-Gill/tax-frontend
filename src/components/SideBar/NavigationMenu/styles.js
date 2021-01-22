@@ -50,6 +50,8 @@ export const SelectedGroupContainer = styled.div`
 
             :hover {
                 cursor: pointer;
+                transition: 167ms;
+                text-decoration: underline;
             }
         }
     }
