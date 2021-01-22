@@ -32,6 +32,7 @@ export const ProjectDisplayInfoBoxSmaller = styled(ProjectDisplayInfoBox)`
 export const ViewItemLinkContainer = styled.div`
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     width: 100%;
     margin-top: 7px;
     color: ${props => props.theme.primaryBlue};
@@ -184,4 +185,9 @@ export const ProjectDisplayTextContainer = styled.div`
     ::-webkit-scrollbar-thumb:hover {
       background: ${props => props.theme.grayTwo};
     }
+`
+
+export const ArrowImageContainer = styled.div`
+    width: 14px;
+    height: 14px;
 `

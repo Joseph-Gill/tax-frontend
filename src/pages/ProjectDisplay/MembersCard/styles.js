@@ -5,7 +5,6 @@ export const MemberBox = styled.div`
     width: 123px;
     height: 62px;
     display: flex;
-    //align-items: center;
     padding-left: 43px;
     padding-right: 42px;
     padding-top: 24.5px;
@@ -14,6 +13,7 @@ export const MemberBox = styled.div`
 `
 
 export const MemberText = styled.p`
+    font-family: ${props => props.theme.spartanFontFamily};
     font-weight: 600;
     font-size: 16px;
     line-height: 18px;

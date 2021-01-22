@@ -2,7 +2,7 @@ import React from 'react'
 import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
 import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
 import {AddEditProjectSectionTitles} from '../../../style/titles'
-import {ProjectDisplayColorText, ProjectDisplayColorTextBackground, ProjectDisplayColorTextContainer, ProjectDisplayInfoBox, ProjectDisplayStatusesContainer, ViewItemLink, ViewItemLinkContainer} from '../styles'
+import {ArrowImageContainer, ProjectDisplayColorText, ProjectDisplayColorTextBackground, ProjectDisplayColorTextContainer, ProjectDisplayInfoBox, ProjectDisplayStatusesContainer, ViewItemLink, ViewItemLinkContainer} from '../styles'
 
 
 const TasksCard = ({history, project, tasksStatuses}) => {
@@ -25,7 +25,9 @@ const TasksCard = ({history, project, tasksStatuses}) => {
             </ProjectDisplayStatusesContainer>
             <ViewItemLinkContainer onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)}>
                 <ViewItemLink>View Tasks</ViewItemLink>
-                <img alt="tasks" src={rightArrow} />
+                <ArrowImageContainer>
+                    <img alt="tasks" src={rightArrow} />
+                </ArrowImageContainer>
             </ViewItemLinkContainer>
         </ProjectDisplayInfoBox>
     )

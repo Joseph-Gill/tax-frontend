@@ -2,7 +2,7 @@ import React from 'react'
 import {GROUPS, PROJECTS, STEPS} from '../../../routes/paths'
 import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
 import {AddEditProjectSectionTitles} from '../../../style/titles'
-import {ProjectDisplayColorText, ProjectDisplayColorTextBackground, ProjectDisplayColorTextContainer, ProjectDisplayInfoBox, ProjectDisplayStatusesContainer, ViewItemLink, ViewItemLinkContainer} from '../styles'
+import {ArrowImageContainer, ProjectDisplayColorText, ProjectDisplayColorTextBackground, ProjectDisplayColorTextContainer, ProjectDisplayInfoBox, ProjectDisplayStatusesContainer, ViewItemLink, ViewItemLinkContainer} from '../styles'
 
 
 const StepsCard = ({history, project, stepsStatuses}) => {
@@ -23,9 +23,11 @@ const StepsCard = ({history, project, stepsStatuses}) => {
                     <ProjectDisplayColorText status='Not Started'>Not Started</ProjectDisplayColorText>
                 </ProjectDisplayColorTextContainer>
             </ProjectDisplayStatusesContainer>
-            <ViewItemLinkContainer>
-                <ViewItemLink onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)}>View Steps</ViewItemLink>
-                <img alt="tasks" src={rightArrow} />
+            <ViewItemLinkContainer onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)}>
+                <ViewItemLink>View Steps</ViewItemLink>
+                <ArrowImageContainer>
+                    <img alt="tasks" src={rightArrow} />
+                </ArrowImageContainer>
             </ViewItemLinkContainer>
         </ProjectDisplayInfoBox>
     )

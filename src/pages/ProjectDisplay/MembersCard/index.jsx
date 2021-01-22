@@ -3,7 +3,7 @@ import groupIcon from '../../../assets/icons/stark_display_project_member_icon.s
 import rightArrow from '../../../assets/icons/stark_right_facing_arrow.svg'
 import {AddEditProjectSectionTitles} from '../../../style/titles'
 import {MemberBox, MemberImage, MemberText} from './styles'
-import {ProjectDisplayInfoBoxSmaller, ViewItemLink, ViewItemLinkContainer} from '../styles'
+import {ArrowImageContainer, ProjectDisplayInfoBoxSmaller, ViewItemLink, ViewItemLinkContainer} from '../styles'
 
 
 const MembersCard = ({members, setProjectFilterGoToMembersHandler}) => {
@@ -16,7 +16,9 @@ const MembersCard = ({members, setProjectFilterGoToMembersHandler}) => {
             </MemberBox>
             <ViewItemLinkContainer onClick={setProjectFilterGoToMembersHandler}>
                 <ViewItemLink>View Members</ViewItemLink>
-                <img alt="members" src={rightArrow} />
+                <ArrowImageContainer>
+                    <img alt="members" src={rightArrow} />
+                </ArrowImageContainer>
             </ViewItemLinkContainer>
         </ProjectDisplayInfoBoxSmaller>
     )
