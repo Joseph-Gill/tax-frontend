@@ -13,12 +13,12 @@ import {getProjectAction} from '../../store/project/actions'
 import {getStepsForProjectAction} from '../../store/step/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {getTasksForProjectAction, getTasksForStepOfProjectAction, resetTaskFilterStepNumber, setTaskFilterStepNumber} from '../../store/task/actions'
-import {ADD_TASK, GROUPS, PROJECTS, TASKS} from '../../routes/paths'
+import {ADD_TASK, GROUPS, PROJECTS, STEPS, TASKS} from '../../routes/paths'
 import {DropdownOption} from '../../style/options'
 import {StepFilterInputLabel} from '../../style/labels'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
-import {AddTaskButton, StatusLegendFilterDropdownContainer, TasksTableContainer, TaskStatusLegendContainer} from './styles'
+import {AddTaskButton, GoToStepsButton, StatusLegendFilterDropdownContainer, TaskListTitleButtonsContainer, TasksTableContainer, TaskStatusLegendContainer} from './styles'
 
 
 const ProjectTasks = ({history}) => {
@@ -128,7 +128,10 @@ const ProjectTasks = ({history}) => {
                     />
                     <DisplayTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Taskslist - {project.name}</AuthenticatedPageTitle>
-                        <AddTaskButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_TASK}`)}>Add Task</AddTaskButton>
+                        <TaskListTitleButtonsContainer>
+                            <AddTaskButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_TASK}`)}>Add Task</AddTaskButton>
+                            <GoToStepsButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)}>Go to Steps</GoToStepsButton>
+                        </TaskListTitleButtonsContainer>
                     </DisplayTitleWithButtonContainer>
                     {!tasks.length ? <NoTasksFound history={history} /> : (
                         <>

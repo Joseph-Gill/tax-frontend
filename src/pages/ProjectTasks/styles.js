@@ -8,6 +8,18 @@ export const AddTaskButton = styled(BaseButton)`
     height: 32px;
 `
 
+export const GoToStepsButton = styled(BaseButton)`
+    width: 120px;
+    height: 32px;
+`
+
+export const TaskListTitleButtonsContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 249px;
+`
+
 export const StatusLegendFilterDropdownContainer = styled.div`
     width: 860px;
     display: flex;

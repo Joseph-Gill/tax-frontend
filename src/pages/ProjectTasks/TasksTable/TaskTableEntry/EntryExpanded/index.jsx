@@ -1,19 +1,15 @@
 import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
+import DeleteTaskModal from '../../../../../components/Modals/DeleteTaskModal'
+import TaskStatusDropdown from './TaskStatusDropdown'
+import {skipToSpecifiedStep} from '../../../../../store/step/actions'
+import {deleteTaskAction, getTasksForProjectAction} from '../../../../../store/task/actions'
+import {DISPLAY_STEP, EDIT_TASK, GROUPS, PROJECTS, STEPS, TASKS} from '../../../../../routes/paths'
 import {WireFrameDeleteButton} from '../../../../../style/buttons'
 import {
-    ExpandedTaskDescriptionContainer,
-    ExpandedTaskEditLogButton,
-    ExpandedTaskStatusButtonContainer,
-    ExpandedTaskStatusButtonLeftContainer,
-    ExpandedTaskStatusDropdown,
-    ExpandedTaskStatusDropdownOption,
-    ExpandedTaskTile,
-    TaskTableEntryExpandedContainer
+    ExpandedTaskDescriptionContainer, ExpandedTaskEditLogButton, ExpandedTaskStatusButtonContainer,
+    ExpandedTaskStatusButtonLeftContainer, ExpandedTaskStepButton, ExpandedTaskTile, TaskTableEntryExpandedContainer
 } from './styles'
-import {useDispatch} from 'react-redux'
-import {deleteTaskAction, getTasksForProjectAction} from '../../../../../store/task/actions'
-import {EDIT_TASK, GROUPS, PROJECTS, TASKS} from '../../../../../routes/paths'
-import DeleteTaskModal from '../../../../../components/Modals/DeleteTaskModal'
 
 
 const EntryExpanded = ({history, project, task}) => {
@@ -30,6 +26,11 @@ const EntryExpanded = ({history, project, task}) => {
         }
     }
 
+    const goToStepHandler = () => {
+        dispatch(skipToSpecifiedStep(task.step.number - 1))
+        history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+    }
+
     return (
         <TaskTableEntryExpandedContainer>
             {showDeleteTaskConfirmation ?
@@ -43,15 +44,16 @@ const EntryExpanded = ({history, project, task}) => {
             </ExpandedTaskDescriptionContainer>
             <ExpandedTaskStatusButtonContainer>
                 <ExpandedTaskStatusButtonLeftContainer>
-                    <ExpandedTaskStatusDropdown disabled value={task.status}>
-                        <ExpandedTaskStatusDropdownOption disabled value=''>Status</ExpandedTaskStatusDropdownOption>
-                        <ExpandedTaskStatusDropdownOption value='Not Started'>Not Started</ExpandedTaskStatusDropdownOption>
-                        <ExpandedTaskStatusDropdownOption value='Ongoing'>Ongoing</ExpandedTaskStatusDropdownOption>
-                        <ExpandedTaskStatusDropdownOption value='Planned'>Planned</ExpandedTaskStatusDropdownOption>
-                        <ExpandedTaskStatusDropdownOption value='Completed'>Completed</ExpandedTaskStatusDropdownOption>
-                    </ExpandedTaskStatusDropdown>
+                    <TaskStatusDropdown task={task} />
                     <ExpandedTaskEditLogButton>Log</ExpandedTaskEditLogButton>
-                    <ExpandedTaskEditLogButton onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}${EDIT_TASK}/${task.id}/`)}>Edit</ExpandedTaskEditLogButton>
+                    <ExpandedTaskEditLogButton
+                        onClick={() => history.push(`${GROUPS}${PROJECTS}${TASKS}${EDIT_TASK}/${task.id}/`)}
+                    >Edit
+                    </ExpandedTaskEditLogButton>
+                    <ExpandedTaskStepButton
+                        onClick={goToStepHandler}
+                    >Go to step
+                    </ExpandedTaskStepButton>
                 </ExpandedTaskStatusButtonLeftContainer>
                 <WireFrameDeleteButton onClick={() => setShowDeleteTaskConfirmation(true)}>Delete</WireFrameDeleteButton>
             </ExpandedTaskStatusButtonContainer>

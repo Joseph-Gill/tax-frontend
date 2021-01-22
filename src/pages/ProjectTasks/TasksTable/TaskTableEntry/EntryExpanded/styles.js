@@ -1,8 +1,6 @@
 import styled from 'styled-components/macro'
 import {NavbarTitle} from '../../../../../style/titles'
 import {TableButton} from '../../../../../style/buttons'
-import {StatusDropdown} from '../../../../../style/dropdowns'
-import {DropdownOption} from '../../../../../style/options'
 
 
 export const TaskTableEntryExpandedContainer = styled.div`
@@ -61,7 +59,7 @@ export const ExpandedTaskStatusButtonContainer = styled.div`
 `
 
 export const ExpandedTaskStatusButtonLeftContainer = styled.div`
-    width: 234px;
+    width: 350px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -72,15 +70,7 @@ export const ExpandedTaskEditLogButton = styled(TableButton)`
     height: 26px;
 `
 
-export const ExpandedTaskStatusDropdown = styled(StatusDropdown)`
-    width: 102px;
+export const ExpandedTaskStepButton = styled(TableButton)`
+    width: 100px;
     height: 26px;
-    background-position-x: 84px;
-    font-size: 12px;
-    line-height: 16px;
-`
-
-export const ExpandedTaskStatusDropdownOption = styled(DropdownOption)`
-    font-size: 12px;
-    line-height: 16px;
 `
