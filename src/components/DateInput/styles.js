@@ -10,7 +10,7 @@ export const DateInputContainer = styled.div`
     height: 32px;
     background: ${props => props.theme.white};
     border: 1px solid ${props => props.theme.grayFour};
-    border-radius: ${props => props.theme.borderRadius};
+    border-radius: ${props => props.theme.inputBorderRadius};
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -19,6 +19,6 @@ export const DateInputContainer = styled.div`
     :hover {
         filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
         cursor: pointer;
-        transition: 0.5s;
+        transition: 167ms;
     }
 `

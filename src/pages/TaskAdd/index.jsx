@@ -79,10 +79,10 @@ const TaskAdd = ({history}) => {
         }
     }
 
-const cancelButtonHandlers = () => {
-    dispatch(resetErrors())
-    history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
-}
+    const cancelButtonHandlers = () => {
+        dispatch(resetErrors())
+        history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
+    }
 
     return (
         <AuthenticatedPageContainer>

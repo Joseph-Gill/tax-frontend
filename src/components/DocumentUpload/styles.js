@@ -11,4 +11,14 @@ export const DocumentUploadArea = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+
+    :hover {
+        cursor: pointer;
+        transition: 167ms;
+        filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
+    }
+
+    :focus {
+        outline: none;
+    }
 `
