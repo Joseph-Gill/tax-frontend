@@ -135,7 +135,7 @@ export const getTasksForStepOfProjectAction = (projectId, stepNumber) => async (
     }
 }
 
-export const getPastDueNumberAndUncompletedTasksAction = projectId => async(dispatch, getState) => {
+export const getPastDueNumberAndUncompletedTasksAction = projectId => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
     const config = {
         headers: {
@@ -147,6 +147,21 @@ export const getPastDueNumberAndUncompletedTasksAction = projectId => async(disp
         return {...response.data}
     } catch (e) {
         console.log('Error getting Past Due Number and Uncompleted Tasks for logged in User>', e)
+        return catchError(e, dispatch)
+    }
+}
+
+export const getTaskNumberForTaskOfStepAction = (taskId, stepId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.get(`tasks/task/${taskId}/step/${stepId}/tasknumber/`, config)
+    } catch (e) {
+        console.log('Error getting Task Number for specific Task of specific Step>', e)
         return catchError(e, dispatch)
     }
 }

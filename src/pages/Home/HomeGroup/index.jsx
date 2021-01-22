@@ -6,7 +6,7 @@ import ReviewComments from './ReviewComments'
 import TasksOverdue from './OverdueTasks'
 import ExpandedGroup from './ExpandedGroup'
 import Loading from '../../../components/Loading'
-import {getPastDueNumberAndUncompletedTasksAction} from '../../../store/task/actions'
+import {getPastDueNumberAndUncompletedTasksAction, getTaskNumberForTaskOfStepAction} from '../../../store/task/actions'
 import {getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction} from '../../../store/project/actions'
 import {getGroupOfProjectAction} from '../../../store/group/actions'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
@@ -30,8 +30,18 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
         const getPastDueNumberUncompletedTasksCommentsOpenAndReviewed = async () => {
             const taskResponse = await dispatch(getPastDueNumberAndUncompletedTasksAction(project.id))
             if (taskResponse) {
+                const userTasks = []
                 setPastDueTasks(taskResponse.past_due_tasks)
-                setTasksToRender(taskResponse.user_uncompleted_tasks)
+                for (let i = 0; i < taskResponse.user_uncompleted_tasks.length; i++) {
+                    const response = await dispatch(getTaskNumberForTaskOfStepAction(taskResponse.user_uncompleted_tasks[i].id, taskResponse.user_uncompleted_tasks[i].step.id))
+                    if (response.status === 200) {
+                        userTasks.push({
+                            ...taskResponse.user_uncompleted_tasks[i],
+                            taskNumber: response.data
+                        })
+                    }
+                setTasksToRender(userTasks)
+                }
             }
             const commentResponse = await dispatch(getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction(project.id))
             if (commentResponse) {

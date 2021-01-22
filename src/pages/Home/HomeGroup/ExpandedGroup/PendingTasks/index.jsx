@@ -25,7 +25,7 @@ const PendingTasks = ({tasksToRender, user, userRole}) => {
                         {task.step.number}
                     </TableData>
                     <TableData>
-                        PH
+                        {`${task.step.number}.${task.taskNumber}`}
                     </TableData>
                     <PendingTaskTitleTableData>
                         {task.title}
