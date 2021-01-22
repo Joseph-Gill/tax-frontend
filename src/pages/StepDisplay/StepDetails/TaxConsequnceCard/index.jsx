@@ -1,24 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {CountryDropdown} from 'react-country-region-selector'
-import {CardInfoText} from '../../../../style/text'
-import {
-    GrayTaxConsequenceButton, GreenReviewedText,
-    NewTaxConsequenceText,
-    TaxConsequenceButton,
-    TaxConsequenceButtonContainer,
-    TaxConsequenceContainer,
-    TaxConsequenceCountryLabel, TaxConsequenceDescriptionErrorContainer, TaxConsequenceLocationErrorContainer,
-    TaxConsequenceTextContainer,
-    TaxConsequenceTextUsernameContainer,
-    TaxConsequenceTitleContainer, TaxConsequenceUserDateText
-} from './styles'
-import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, resetStepTaxConsequences, setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
 import Spinner from '../../../../components/Spinner'
-import {ErrorMessage} from '../../../../style/messages'
-import {resetErrors} from '../../../../store/errors/actions/errorAction'
 import SetReviewedModal from '../../../../components/Modals/SetReviewedModal'
 import SetNotReviewedModal from '../../../../components/Modals/SetNotReviewedModal'
+import {resetErrors} from '../../../../store/errors/actions/errorAction'
+import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, resetStepTaxConsequences,
+    setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction
+} from '../../../../store/taxConsequence/actions'
+import {CardInfoText} from '../../../../style/text'
+import {GrayTaxConsequenceButton, GreenReviewedText, NewTaxConsequenceText, TaxConsequenceButton,
+    TaxConsequenceButtonContainer, TaxConsequenceContainer, TaxConsequenceCountryLabel,
+    TaxConsequenceDescriptionErrorContainer, TaxConsequenceLocationErrorContainer, TaxConsequenceTextContainer,
+    TaxConsequenceTextUsernameContainer, TaxConsequenceTitleContainer, TaxConsequenceUserDateText} from './styles'
+import {ErrorMessage} from '../../../../style/messages'
 
 
 const TaxConsequenceCard = ({step, taxConsequence}) => {

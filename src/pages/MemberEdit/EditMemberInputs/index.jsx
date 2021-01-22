@@ -4,24 +4,14 @@ import RoleProjectList from './RoleProjectList'
 import OrgDropdown from './OrgDropdown'
 import {ErrorMessage} from '../../../style/messages'
 import {AuthenticatedText} from '../../../style/text'
-import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputContainer, RoleInputContainer, SelectOrgErrorMessageContainer} from './style'
+import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputContainer,
+    RoleInputContainer, SelectOrgErrorMessageContainer} from './style'
 
 
-const EditMemberInputs = ({allGroupProjects,
-                          allProjectsChecked,
-                          error,
-                          groupOrganizations,
-                          handleCreateNewOrganization,
-                          memberEmail,
-                          newOrg,
-                          roleChecked,
-                          selectNewOrgStatus,
-                          selectOrgName,
-                          setAllGroupProjects,
-                          setAllProjectsChecked,
-                          setRoleChecked,
-                          setSelectNewOrgStatus,
-                          setSelectOrgName}) => {
+const EditMemberInputs = ({allGroupProjects, allProjectsChecked, error, groupOrganizations,
+    handleCreateNewOrganization, memberEmail, newOrg, roleChecked, selectNewOrgStatus,
+    selectOrgName, setAllGroupProjects, setAllProjectsChecked, setRoleChecked, setSelectNewOrgStatus,
+    setSelectOrgName}) => {
     return (
         <EditInputsContainer>
             <EmailAccessOrgCountryInputContainer>

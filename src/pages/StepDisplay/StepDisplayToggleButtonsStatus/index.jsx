@@ -1,8 +1,8 @@
 import React from 'react'
-import StepDisplayToggle from './StepDisplayToggle'
-import {ToggleButtonsStatusContainer} from './styles'
-import StepDetailsButtonsStatus from './StepDetailsButtonsStatus'
 import StepChartButtons from './StepChartButtons'
+import StepDisplayToggle from './StepDisplayToggle'
+import StepDetailsButtonsStatus from './StepDetailsButtonsStatus'
+import {ToggleButtonsStatusContainer} from './styles'
 
 
 const StepDisplayToggleButtonsStatus = ({ableToComplete, currentStepEntities, editStatus, indexOfStepToDisplay, setShowConfirmation,

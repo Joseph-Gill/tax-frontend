@@ -1,7 +1,7 @@
 import React from 'react'
+import StepDisplayTitleEffectiveDate from './StepDisplayTitleEffectiveDate'
 import {StepPageTitleWithButtonContainer} from '../../../style/containers'
 import {AuthenticatedPageTitle} from '../../../style/titles'
-import StepDisplayTitleEffectiveDate from './StepDisplayTitleEffectiveDate'
 
 
 const StepDisplayTitle = ({addNewStepHandler, date, editStatus, indexOfStepToDisplay, setDate, steps}) => {

@@ -1,8 +1,8 @@
 import React from 'react'
+import TaskDocument from '../../../../../components/TaskDocument'
 import taskExpand from '../../../../../assets/icons/stark_task_expand_icon.svg'
 import taskCollapse from '../../../../../assets/icons/stark_task_collapse_icon.svg'
 import {TaskExpandCollapseImage, TaskExpandCollapseImgContainer} from './styles'
-import TaskDocument from '../../../../../components/TaskDocument'
 import {EntryDocumentsContainer, EntryDocumentsTextContainer} from '../../../../../style/containers'
 
 

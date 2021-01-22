@@ -5,15 +5,15 @@ import GroupInfo from '../../components/GroupInfo'
 import EntityInfo from '../../components/EntityInfo'
 import SuccessMessage from '../../components/SuccessMessage'
 import Spinner from '../../components/Spinner'
+import {entityInputErrorHandler} from '../../helpers'
 import {updateGroupAction} from '../../store/group/actions'
+import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {EDIT_GROUP, GROUPS, HOME} from '../../routes/paths'
+import {ErrorMessage} from '../../style/messages'
 import {EntityTitle} from '../../components/EntityInfo/styles'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
 import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityInfoErrorContainer, EntityInfoSpaceContainer, EntityTitleContainer} from '../../style/containers'
-import {resetErrors, setError} from '../../store/errors/actions/errorAction'
-import {entityInputErrorHandler} from '../../helpers'
-import {ErrorMessage} from '../../style/messages'
 
 
 const GroupEdit = ({history}) => {

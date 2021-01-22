@@ -1,6 +1,6 @@
 import React from 'react'
-import {ADD_TASK, GROUPS, PROJECTS} from '../../../routes/paths'
 import noTasks from '../../../assets/icons/stark_no_task_found.svg'
+import {ADD_TASK, GROUPS, PROJECTS} from '../../../routes/paths'
 import {AddNewTaskButton, NoTaskFoundContainer, NoTaskFoundImage, NoTaskFoundText} from './styles'
 
 

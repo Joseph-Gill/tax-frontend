@@ -1,12 +1,13 @@
 import React from 'react'
-import {DocumentContainer, TaskErrorContainer, TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
-import {TaskInputLabel} from '../../../style/labels'
 import DocumentUpload from '../../../components/DocumentUpload'
 import MemberDropdown from '../../../components/MemberDropdown'
-import {ErrorMessage} from '../../../style/messages'
 import TaskDocument from '../../../components/TaskDocument'
+import {TaskInputLabel} from '../../../style/labels'
+import {ErrorMessage} from '../../../style/messages'
 import {DocumentUploadAreaText} from '../../../style/text'
+import {DocumentContainer, TaskErrorContainer, TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
 import {EditTaskExistingDocumentContainer, EditTaskLowerRightContainer} from './styles'
+import MemberResponsibilityDropdown from './MemberResponsibilityDropdown'
 
 
 const TaskEditLowerInputs = ({documents, error, files, getInputProps, getRootProps, membersOptions, project, selectedMember, setSelectedMember}) => {
@@ -21,14 +22,11 @@ const TaskEditLowerInputs = ({documents, error, files, getInputProps, getRootPro
                     />
                 </TaskInputRow>
                 <div>
-                    <TaskInputRow>
-                        <TaskInputLabel>Responsibility</TaskInputLabel>
-                        <MemberDropdown
-                            membersOptions={membersOptions}
-                            selectedMember={selectedMember}
-                            setSelectedMember={setSelectedMember}
-                        />
-                    </TaskInputRow>
+                    <MemberResponsibilityDropdown
+                        membersOptions={membersOptions}
+                        selectedMember={selectedMember}
+                        setSelectedMember={setSelectedMember}
+                    />
                     <TaskErrorContainer>
                         {error && <ErrorMessage>{error.member}</ErrorMessage>}
                     </TaskErrorContainer>
