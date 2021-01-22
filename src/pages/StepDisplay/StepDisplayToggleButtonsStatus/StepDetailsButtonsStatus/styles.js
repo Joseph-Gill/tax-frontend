@@ -19,7 +19,6 @@ export const StepDetailsStatus = styled(StatusDropdown)`
     width: 107px;
     height: 26px;
     background-color: ${props => props.theme.white};
-    background-position-x: 84px;
     font-size: 12px;
     line-height: 16px;
     margin-left: 20px;

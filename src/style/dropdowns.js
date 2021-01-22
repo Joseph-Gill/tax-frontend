@@ -1,8 +1,9 @@
 import styled from 'styled-components/macro'
 import arrow from '../assets/icons/stark_dropdown_arrow_blue.svg'
-import dropdownArrow from '../assets/icons/stark_dropdown_arrow_grey.png'
 import dropdownArrowDownward from '../assets/icons/stark_dropdown_arrow_blue_downward.svg'
 import dropdownArrowUpward from '../assets/icons/stark_dropdown_arrow_blue_upwards.svg'
+import dropdownArrowDownwardGray from '../assets/icons/stark_dropdown_arrow_gray_downward.svg'
+import dropdownArrowUpwardGray from '../assets/icons/stark_dropdown_arrow_gray_upwards.svg'
 import filterImage from '../assets/icons/stark_filter.svg'
 import actionImage from '../assets/icons/stark_action.svg'
 
@@ -17,7 +18,7 @@ export const StatusDropdown = styled.select`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-weight: 600;
     color: ${props => props.theme.grayOne};
-    background: url(${dropdownArrow}) no-repeat right;
+    background: url(${dropdownArrowDownwardGray}) no-repeat right;
     padding-left: 13px;
     -webkit-appearance: none;
     background-position-x: 92%;
@@ -25,13 +26,15 @@ export const StatusDropdown = styled.select`
     :hover {
         filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
         cursor: pointer;
-        transition: 0.5s;
+        transition: 167ms;
     }
 
     :focus {
+        background: url(${dropdownArrowUpwardGray}) no-repeat right;
+        background-position-x: 92%;
         border: 1px solid ${props => props.theme.primaryBlue};
         outline: none;
-        transition: 1s;
+        transition: 167ms;
     }
 `
 
