@@ -1,13 +1,8 @@
 import React from 'react'
-import styled from 'styled-components/macro'
-import {TaskStepFilterSelect} from '../../../style/dropdowns'
 import {DropdownOption} from '../../../style/options'
 import {StepFilterInputLabel} from '../../../style/labels'
+import {MemberProjectFilterSelect} from './styles'
 
-
-const MemberProjectFilterSelect = styled(TaskStepFilterSelect)`
-    width: 170px;
-`
 
 
 const ProjectFilterDropdown = ({filterProjectId, projectFilterChangeHandler, renderProjectFilterOptions}) => {

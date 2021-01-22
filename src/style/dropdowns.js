@@ -1,6 +1,8 @@
 import styled from 'styled-components/macro'
 import arrow from '../assets/icons/stark_dropdown_arrow_blue.svg'
 import dropdownArrow from '../assets/icons/stark_dropdown_arrow_grey.png'
+import dropdownArrowDownward from '../assets/icons/stark_dropdown_arrow_blue_downward.svg'
+import dropdownArrowUpward from '../assets/icons/stark_dropdown_arrow_blue_upwards.svg'
 import filterImage from '../assets/icons/stark_filter.svg'
 import actionImage from '../assets/icons/stark_action.svg'
 
@@ -133,7 +135,20 @@ export const TaskStepFilterSelect = styled(StatusDropdown)`
     color: ${props => props.theme.primaryBlue};
     font-size: 14px;
     border: 1px solid ${props => props.theme.primaryBlue};
-    background-image: url(${arrow});
+    background-image: url(${dropdownArrowDownward});
     background-position: 92%;
     background-repeat: no-repeat;
+
+    :hover {
+        filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
+        cursor: pointer;
+        transition: 167ms;
+    }
+
+    :focus {
+        transition: 167ms;
+        outline: none;
+        background: url(${dropdownArrowUpward}) no-repeat right, ${props => props.theme.graySix};
+        background-position-x: 92%;
+    }
 `
