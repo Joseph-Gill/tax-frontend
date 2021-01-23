@@ -49,6 +49,7 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
             </NavigationContainer>
             <SelectedGroupContainer>
                 <NavbarTitle>Selected Group</NavbarTitle>
+                {/* eslint-disable-next-line react/forbid-component-props */}
                 <animated.div style={props}>
                     <SelectedGroupIcon src={layersv2} />
                     <MenuItemTitle>{loaded ? group.name : 'None selected'}</MenuItemTitle>
