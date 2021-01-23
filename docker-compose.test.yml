@@ -1,7 +1,7 @@
 version: '3'
 services:
   frontend:
-    image: registry.gitlab.propulsion-home.ch/propulsion/projects/templates/react-redux-template:latest
+    image: registry.gitlab.propulsion-home.ch/propulsion/projects/clients/stark/stark-frontend:latest
     command: "bash -c 'rm -rf /frontend/build/* && cp -r /frontend_tmp/build/* /frontend/build'"
     volumes:
       - frontend:/frontend/build
