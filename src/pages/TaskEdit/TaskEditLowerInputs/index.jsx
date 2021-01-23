@@ -1,6 +1,5 @@
 import React from 'react'
 import DocumentUpload from '../../../components/DocumentUpload'
-import MemberDropdown from '../../../components/MemberDropdown'
 import TaskDocument from '../../../components/TaskDocument'
 import {TaskInputLabel} from '../../../style/labels'
 import {ErrorMessage} from '../../../style/messages'
