@@ -9,6 +9,7 @@ const initialState = {
         assigned_project_roles: null,
         assigned_task: null,
         country: null,
+        user: null,
     },
     loaded: false
 }

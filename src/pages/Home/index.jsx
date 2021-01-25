@@ -24,9 +24,18 @@ import {ProjectAccessContainer} from './styles'
 const Home = ({history}) => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.userLoginReducer.user)
+    const profile = useSelector(state => state.profileReducer.profile)
+    const profileLoaded = useSelector(state => state.profileReducer.loaded)
     const [filterString, setFilterString] = useState('')
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
     const [homeLoading, setHomeLoading] = useState(false)
+
+    useEffect(() => {
+        if (!profileLoaded) {
+            dispatch(getProfileAction())
+        }
+    }, [dispatch, profileLoaded])
+
 
     useEffect(() => {
         const createGroupProjectPairingWithRole = async (groups) => {
@@ -94,13 +103,13 @@ const Home = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {homeLoading ? <Spinner /> : (
+            {homeLoading || !profileLoaded ? <Spinner /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'HOME', to: HOME, active: true}]}
                     />
                     <AuthenticatedPageTitleContainer>
-                        <AuthenticatedPageTitle>Welcome {user.first_name}</AuthenticatedPageTitle>
+                        <AuthenticatedPageTitle>Welcome {profile.user.first_name}</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
 
                     {!projectGroupPairings.length ?
