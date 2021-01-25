@@ -79,12 +79,13 @@ const RegistrationValidation = () => {
                     <ActiveInputLabel>Phone</ActiveInputLabel>
                     <PhoneInput
                         country='ch'
-                        inputClass='phoneInput'
+                        inputClass='profilePhoneInput'
                         inputStyle={{
                             background: '#FAFAFA',
                             height: '42px',
                             fontFamily: 'Nunito Sans, sans-serif',
-                            fontSize: '14px'
+                            fontSize: '14px',
+                            borderRadius: '1.5rem'
                         }}
                         onChange={phone => setPhoneNumber(phone)}
                         value={phoneNumber}
@@ -120,20 +121,8 @@ const RegistrationValidation = () => {
                 <div>
                     <ActiveInputLabel>Country</ActiveInputLabel>
                     <CountryDropdown
+                        classes='profileCountryDropdown'
                         onChange={(val) => setCountryName(val)}
-                        // eslint-disable-next-line react/forbid-component-props
-                        style={{
-                            width: '302px',
-                            height: '42px',
-                            fontSize: '14px',
-                            fontWeight: '600',
-                            lineHeight: '19px',
-                            background: '#FAFAFA',
-                            border: '1px solid #D3D8DD',
-                            borderRadius: '4px',
-                            fontFamily: 'Nunito Sans, sans-serif',
-                            paddingLeft: '7px',
-                        }}
                         value={countryName}
                     />
                     <ErrorMessageContainer>
