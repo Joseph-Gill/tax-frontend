@@ -12,7 +12,7 @@ if(process.env.NODE_ENV === 'development'){
     baseUrl = 'http://localhost:8000/backend/api/'
 } else {
     // Works only for client side SPA apps
-    if(window.location.host.includes('propulsion-home.ch')){
+    if(window.location.host.includes('tax-cheetah.com')){
         baseUrl = `${window.location.origin}/backend/api/`
     }
 }
