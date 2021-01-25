@@ -7,22 +7,22 @@ const StepChartButtons = ({currentStepEntities, indexOfStepToDisplay, setShowAdd
     return (
         <StepChartButtonsContainer>
             <AddEntityLinkButton
-                disabled={!currentStepEntities.length || !steps[indexOfStepToDisplay].id}
+                disabled={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
                 onClick={() => setShowAddEntity(true)}
             >Add Entity
             </AddEntityLinkButton>
             <AddEntityLinkButton
-                disabled={!currentStepEntities.length || !steps[indexOfStepToDisplay].id}
+                disabled={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
                 onClick={() => setShowAddLink(true)}
             >Add Link
             </AddEntityLinkButton>
             <RemoveEntityLinkButton
-                disabled={!currentStepEntities.length || !steps[indexOfStepToDisplay].id}
+                disabled={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
                 onClick={() => setShowRemoveLink(true)}
             >Remove Link
             </RemoveEntityLinkButton>
             <RemoveEntityLinkButton
-                disabled={!currentStepEntities.length || !steps[indexOfStepToDisplay].id}
+                disabled={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
                 onClick={() => setShowRemoveEntity(true)}
             >Remove Entity
             </RemoveEntityLinkButton>

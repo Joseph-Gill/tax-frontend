@@ -14,7 +14,7 @@ import {NoChartToDisplay, StepChartAndButtonsContainer} from './styles'
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity,
                        setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks, showAddEntity, showAddLink,
-                       showRemoveEntity, showRemoveLink, slinks, stepChartExists}) => {
+                       showRemoveEntity, showRemoveLink, slinks, stepChartExists, steps}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [entitiesToRender, setEntitiesToRender] = useState([])
@@ -54,7 +54,14 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         </>), [availableParentNames])
 
     const renderStepChart = useMemo(() => {
-        if (!entitiesToRender.length) {
+        if(!steps[indexOfStepToDisplay].id) {
+            return (
+                <NoChartToDisplay>
+                    <p>You must save the description and effect date of this Step before</p>
+                    <p>you will be able to make changes to the organization chart.</p>
+                </NoChartToDisplay>
+            )
+        } else if (!entitiesToRender.length) {
             return (
                 <NoChartToDisplay>
                     <p>There are no changes in the organization chart of the previous step.</p>
@@ -71,7 +78,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 />
             )
         }
-    }, [entitiesToRender, clinks, slinks])
+    }, [entitiesToRender, clinks, slinks, indexOfStepToDisplay, steps])
 
     const renderFromToOptions = () => (
         entitiesToRender.map(entity => (

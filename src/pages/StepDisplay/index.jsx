@@ -268,6 +268,7 @@ const StepDisplay = ({history}) => {
                                 showRemoveLink={showRemoveLink}
                                 slinks={slinks}
                                 stepChartExists={stepChartExists}
+                                steps={steps}
                             /> :
                             <StepDetails
                                 description={description}

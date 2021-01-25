@@ -8,6 +8,8 @@ export const AddEntityLinkButton = styled(TableButton)`
 
     :disabled {
         box-shadow: none;
+        border: 1px solid ${props => props.theme.grayTwo};
+        color: ${props => props.theme.grayTwo};
     }
 `
 
@@ -17,6 +19,8 @@ export const RemoveEntityLinkButton = styled(WireFrameDeleteButton)`
 
     :disabled {
         box-shadow: none;
+        border: 1px solid ${props => props.theme.grayTwo};
+        color: ${props => props.theme.grayTwo};
     }
 `
 
