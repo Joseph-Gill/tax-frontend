@@ -113,6 +113,7 @@ const StepDisplay = ({history}) => {
 
     const saveNewStepHandler = async () => {
         dispatch(resetErrors())
+        setLoading(true)
         const newStepData = {
             description: description,
             effective_date: convertDate(date),
