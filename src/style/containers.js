@@ -65,9 +65,8 @@ export const GroupCommentTaskContainer = styled.div`
 `
 
 export const TableContainer = styled.div`
-    background: ${props => props.theme.white};
-    border-radius: ${props => props.theme.borderRadius};
-    max-height: 202px;
+    min-height: 203.2px;
+    max-height: 203.2px;
     overflow: scroll;
     overflow-x: hidden;
     width: 779px;
@@ -405,7 +404,6 @@ export const NoTasksOrTaxConsequencesDisplay = styled.div`
     width: 100%;
     height: 202px;
     background: ${props => props.theme.white};
-    border-radius: ${props => props.theme.borderRadius};
     border: 1px solid ${props => props.theme.grayFour};
     display: flex;
     align-items: center;

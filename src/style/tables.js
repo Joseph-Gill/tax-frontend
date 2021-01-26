@@ -5,7 +5,7 @@ export const CommentTable = styled.table`
     width: 100%;
     border: 1px solid ${props => props.theme.grayFour};
     border-collapse: collapse;
-    border-radius: ${props => props.theme.borderRadius};
+    background: ${props => props.theme.white};
     animation: fadein 0.5s;
     -moz-animation: fadein 0.5s; /* Firefox */
     -webkit-animation: fadein 0.5s; /* Safari and Chrome */
