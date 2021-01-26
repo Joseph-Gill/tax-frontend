@@ -277,6 +277,7 @@ const StepDisplay = ({history}) => {
                                 setDescription={setDescription}
                                 setEditStatus={setEditStatus}
                                 step={steps[indexOfStepToDisplay]}
+                                steps={steps}
                                 updateExistingStepHandler={updateExistingStepHandler}
                             />}
                     </StepChartDetailsContainer>

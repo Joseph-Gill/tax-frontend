@@ -11,13 +11,14 @@ import save from '../../../assets/icons/stark_step_save_icon.svg'
 import {NavbarTitle} from '../../../style/titles'
 import {CardInfoText} from '../../../style/text'
 import {ErrorMessage} from '../../../style/messages'
-import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer, StepDescriptionTitleContainer,
-    StepDetailErrorContainer, StepDetailsContainer, StepInfoCancelButton, StepInfoDescriptionContainer, StepInfoSaveButton, StepInfoSaveImage, StepInfoTextArea,
-    TaxConsequencesContainer} from './styles'
+import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer,
+    StepDescriptionTitleContainer, StepDetailErrorContainer, StepDetailsContainer, StepInfoCancelButton, StepInfoDescriptionContainer, StepInfoSaveButton,
+    StepInfoSaveImage, StepInfoTextArea, TaxConsequencesContainer} from './styles'
+import {decrementStepToView, removeNewStep} from '../../../store/step/actions'
 
 
 
-const StepDetails = ({description, editStatus, saveNewStepHandler, setDescription, setEditStatus, step, updateExistingStepHandler}) => {
+const StepDetails = ({description, editStatus, saveNewStepHandler, setDescription, setEditStatus, step, steps, updateExistingStepHandler}) => {
     const dispatch = useDispatch()
     const taxConsequences = useSelector(state => state.taxConsequenceReducer.taxConsequences)
     const loaded = useSelector(state => state.taxConsequenceReducer.loaded)
@@ -36,8 +37,15 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
 
     const cancelEditStepHandler = () => {
         dispatch(resetErrors())
-        setEditStatus(false)
-        setDescription(step.description)
+        if (!step.id) {
+            dispatch(decrementStepToView())
+            dispatch(removeNewStep(steps.slice(0, -1)))
+            setEditStatus(false)
+            setDescription(step.description)
+        } else {
+            setEditStatus(false)
+            setDescription(step.description)
+        }
     }
 
     const renderTaxConsequences = React.useMemo(() => (
