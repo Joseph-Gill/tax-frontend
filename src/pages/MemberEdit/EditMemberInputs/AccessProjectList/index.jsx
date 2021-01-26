@@ -1,10 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {checkBoxChangeHandler} from '../../../../helpers'
 import {CheckBox} from '../../../../style/inputs'
 import {AccessProjectLabel, AccessProjectListContainer, AccessProjectListLowerContainer, AccessProjectListUpperContainer, ProjectNameCheckboxContainer} from './styles'
 
 
 const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupProjects, setAllProjectsChecked}) => {
+    useEffect(() => {
+        setAllProjectsChecked(!allGroupProjects.filter(project => !project.isChecked).length)
+    }, [allGroupProjects, setAllProjectsChecked])
+
     const checkAllProjectsChangeHandler = () => {
         const dataCopy = [...allGroupProjects]
         dataCopy.forEach(project => {
@@ -24,7 +28,7 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
                     type='checkbox'
                     value={index}
                 />
-                <AccessProjectLabel for={project.name}>{project.name}</AccessProjectLabel>
+                <AccessProjectLabel htmlFor={project.name}>{project.name}</AccessProjectLabel>
             </ProjectNameCheckboxContainer>)))
 
     return (
@@ -37,7 +41,7 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
                     type='checkbox'
                     value='all projects'
                 />
-                <AccessProjectLabel for='all'>Select / Unselect All</AccessProjectLabel>
+                <AccessProjectLabel htmlFor='all'>{allProjectsChecked ? 'Unselect All' : 'Select All'}</AccessProjectLabel>
             </AccessProjectListUpperContainer>
             <AccessProjectListLowerContainer>
                 {renderProjectNameWithCheckBox()}
