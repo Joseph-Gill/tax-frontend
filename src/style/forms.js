@@ -12,6 +12,7 @@ export const FormBase = styled.form`
     align-items: center;
 `
 export const LoginForm = styled(FormBase)`
+    height: 300px;
 `
 
 export const RegistrationForm = styled(FormBase)`

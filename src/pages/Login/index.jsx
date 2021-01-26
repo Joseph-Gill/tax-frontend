@@ -1,11 +1,13 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import {useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
+import {Formik} from 'formik'
 import SignUpLink from '../../components/SignUpLink'
 import PasswordLink from '../../components/PasswordLink'
 import LoginFooter from '../../components/LoginFooter'
 import LoginLogo from '../../components/LoginLogo'
-import {useResetErrors} from '../../hooks'
+import Spinner from '../../components/Spinner'
+import {resetErrors} from '../../store/errors/actions/errorAction'
 import {userLoginAction} from '../../store/user/actions/authentication/userLoginAction'
 import {HOME} from '../../routes/paths'
 import {BaseButton} from '../../style/buttons'
@@ -20,53 +22,82 @@ import {ActiveInputLabel} from '../../style/labels'
 const Login = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    let email = useRef('')
-    let password = useRef('')
     const error = useSelector(state => state.errorReducer.error)
-    useResetErrors()
-
-    const login = async e => {
-        e.preventDefault()
-        const credentials = {
-            email: email.current.value,
-            password: password.current.value
-        }
-        const data = await dispatch(userLoginAction(credentials))
-        if(data) history.push(HOME)
-    }
-
 
     return (
         <BasePageContainer>
-            <LoginForm>
-                <LoginLogo />
-                <Title>Login</Title>
-                <div>
-                    <ActiveInputLabel>Email</ActiveInputLabel>
-                    <BaseInput
-                        name='email'
-                        placeholder='Enter your email'
-                        ref={email}
-                        type='text'
-                    />
-                </div>
-                <div>
-                    <ActiveInputLabel>Password</ActiveInputLabel>
-                    <BaseInput
-                        name='password'
-                        placeholder='Enter your password'
-                        ref={password}
-                        type='password'
-                    />
-                </div>
-                <ErrorMessageContainer>
-                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                </ErrorMessageContainer>
-                <BaseButton onClick={login}>Log In</BaseButton>
-                <PasswordLink />
-                <SignUpLink />
-                <LoginFooter />
-            </LoginForm>
+            <Formik
+                initialValues={{email: '', password: ''}}
+                onSubmit={async (values) => {
+                    dispatch(resetErrors())
+                    const response = await dispatch(userLoginAction(values))
+                    if (response) {
+                        history.push(HOME)
+                    }
+                }}
+                validate={values => {
+                    const errors = {};
+                    if (!values.email) {
+                        errors.email = 'Required';
+                    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                        errors.email = 'Invalid email address';
+                    }
+                    if (!values.password) {
+                        errors.password = 'Required';
+                    }
+                    return errors;
+                    }}
+            >
+                {({values, errors, touched, handleChange,
+                handleBlur, handleSubmit, isSubmitting, dirty, // allows you to know if the values have changed
+                }) => (
+                    // eslint-disable-next-line react/jsx-no-useless-fragment
+                    <>
+                        {isSubmitting ? <Spinner /> :
+                        <LoginForm onSubmit={handleSubmit}>
+                            <LoginLogo />
+                            <Title>Login</Title>
+                            <div>
+                                <ActiveInputLabel>Email</ActiveInputLabel>
+                                <BaseInput
+                                    name="email"
+                                    onBlur={handleBlur}  // matches the key name in initialValues
+                                    onChange={handleChange}
+                                    placeholder='Enter your email'
+                                    type="email"
+                                    value={values.email}
+                                />
+                            </div>
+                            <ErrorMessageContainer>
+                                {errors.email && touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                            </ErrorMessageContainer>
+                            <div>
+                                <ActiveInputLabel>Password</ActiveInputLabel>
+                                <BaseInput
+                                    name="password"
+                                    onBlur={handleBlur} // matches the key name in initialValues
+                                    onChange={handleChange}
+                                    placeholder='Enter your password'
+                                    type="password"
+                                    value={values.password}
+                                />
+                            </div>
+                            <ErrorMessageContainer>
+                                {errors.password && touched.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+                            </ErrorMessageContainer>
+                            <BaseButton disabled={isSubmitting} type="submit">
+                                Log In
+                            </BaseButton>
+                            <ErrorMessageContainer>
+                                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                            </ErrorMessageContainer>
+                            <PasswordLink />
+                            <SignUpLink />
+                            <LoginFooter />
+                        </LoginForm>}
+                    </>
+              )}
+            </Formik>
         </BasePageContainer>
     )
 }

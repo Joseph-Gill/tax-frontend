@@ -6,7 +6,7 @@ export const BaseInput = styled.input`
     border: 1px solid ${props => props.theme.grayFour};
     color: ${props => props.theme.grayOne};
     border-radius: ${props => props.theme.inputBorderRadius};
-    padding: 12px 11px 10px 11px;
+    padding: 12px 11px 10px 20px;
     height: 42px;
     width: 302px;
     font-size: 14px;

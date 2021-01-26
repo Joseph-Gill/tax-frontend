@@ -17,7 +17,7 @@ export const login = data => {
 export const userLoginAction = ({email, password}) => async (dispatch) => {
     try {
         const {data} = await Axios.post(`auth/token/`, {email, password})
-        if(data){
+        if (data) {
             dispatch(login(data))
             Cookie.set('refresh', data.refresh, { expires: 30, sameSite: 'strict' })
             return data
