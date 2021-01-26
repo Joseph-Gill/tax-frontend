@@ -49,4 +49,5 @@ export const TaskInputLabel = styled.label`
 export const StepFilterInputLabel = styled(InputLabel)`
     color: ${props => props.theme.primaryBlue};
     background: linear-gradient(${props => props.theme.grayFive}, ${props => props.theme.white});
+    margin-top: -10px;
 `
