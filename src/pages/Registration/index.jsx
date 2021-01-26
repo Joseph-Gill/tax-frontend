@@ -33,7 +33,7 @@ const Registration = () => {
     return (
         <BasePageContainer>
             {showSuccess && <SuccessMessage
-                message="A verification code has been sent to you email!"
+                message="A verification code has been sent to your email!"
                 redirect={LOGIN}
                             />}
             <RegistrationForm>
