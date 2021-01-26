@@ -1,7 +1,8 @@
 import React from 'react'
 import {Dropdown, DropdownOptions, FilterDropdownButton} from '../../../style/dropdowns'
-import {DropdownChoiceContainer} from '../../../style/containers'
 import {FilterInput} from '../../../style/inputs'
+import {DropdownChoiceContainer} from '../../../style/containers'
+
 
 
 const HomeFilterDropdown = ({filterChangeHandler, filterString}) => {

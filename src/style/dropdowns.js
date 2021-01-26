@@ -41,7 +41,6 @@ export const StatusDropdown = styled.select`
 export const DropdownOptions = styled.div`
     display: none;
     position: absolute;
-    background: ${props => props.theme.white};
     min-width: 170px;
     box-shadow: ${props => props.theme.boxShadow};
     z-index: 1;
