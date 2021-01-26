@@ -4,17 +4,18 @@ import {DropdownChoiceContainer} from '../../../style/containers'
 import {FilterInput} from '../../../style/inputs'
 
 
-const HomeFilterDropdown = ({filterString, setFilterString}) => {
+const HomeFilterDropdown = ({filterChangeHandler, filterString}) => {
     return (
         <Dropdown>
-            <FilterDropdownButton>Filter</FilterDropdownButton>
+            <FilterDropdownButton>{!filterString.current.value ? 'Search for...' : filterString.current.value}</FilterDropdownButton>
             <DropdownOptions>
                 <DropdownChoiceContainer>
                     <FilterInput
-                        onChange={(e) => setFilterString(e.target.value)}
+                        onKeyPress={(e) => filterChangeHandler(e)}
                         placeholder='Search and select'
+                        ref={filterString}
                         type='text'
-                        value={filterString}
+
                     />
                 </DropdownChoiceContainer>
             </DropdownOptions>

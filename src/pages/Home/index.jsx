@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import BreadCrumb from '../../components/BreadCrumb'
@@ -18,16 +18,17 @@ import {GROUPS, HOME} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
-import {ProjectAccessContainer} from './styles'
+import {ProjectAccessContainer, ProjectFilterInputLabel} from './styles'
 
 
 const Home = ({history}) => {
     const dispatch = useDispatch()
+    let filterString = useRef('')
     const user = useSelector(state => state.userLoginReducer.user)
     const profile = useSelector(state => state.profileReducer.profile)
     const profileLoaded = useSelector(state => state.profileReducer.loaded)
-    const [filterString, setFilterString] = useState('')
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
+    const [pairingsToDisplay, setPairingsToDisplay] = useState([])
     const [homeLoading, setHomeLoading] = useState(false)
 
     useEffect(() => {
@@ -64,6 +65,7 @@ const Home = ({history}) => {
             const response = await dispatch(getProfileAction())
             const result = await createGroupProjectPairingWithRole(response.groups)
             setProjectGroupPairings([...result])
+            setPairingsToDisplay([...result])
         }
         setHomeLoading(true)
         dispatch(resetProject())
@@ -77,14 +79,21 @@ const Home = ({history}) => {
             .then(() => setHomeLoading(false))
     }, [dispatch, user])
 
-    const searchedPairings = projectGroupPairings.filter(pair =>
-        pair.groupName.toLowerCase().indexOf(filterString.toLowerCase()) !== -1 ||
-        pair.project.name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1
-    );
+    const filterChangeHandler = (e) => {
+        if (e.key === 'Enter') {
+            console.log('filterTrigger')
+            const searchedPairings = projectGroupPairings.filter(pair =>
+                pair.groupName.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1 ||
+                pair.project.name.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1
+            );
+            setPairingsToDisplay(searchedPairings)
+        }
+    }
+
 
     const renderPairings = () => {
-        if (searchedPairings.length){
-            return searchedPairings.map((pair) => (
+        if (pairingsToDisplay.length){
+            return pairingsToDisplay.map((pair) => (
                 <HomeGroup
                     firstUncompletedStep={pair.firstUncompletedStep}
                     groupId={pair.groupId}
@@ -117,7 +126,13 @@ const Home = ({history}) => {
                             <>
                                 <ProjectAccessContainer>
                                     <HomePageText>Your current projects</HomePageText>
-                                    <HomeFilterDropdown filterString={filterString} setFilterString={setFilterString} />
+                                    <div>
+                                        <ProjectFilterInputLabel>Project / Group Filter</ProjectFilterInputLabel>
+                                        <HomeFilterDropdown
+                                            filterChangeHandler={filterChangeHandler}
+                                            filterString={filterString}
+                                        />
+                                    </div>
                                 </ProjectAccessContainer>
                                 {renderPairings()}
                             </>
