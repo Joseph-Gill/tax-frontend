@@ -11,6 +11,7 @@ import {memberReducer} from './member/memberReducer'
 import {stepReducer} from './step/stepReducer'
 import {taxConsequenceReducer} from './taxConsequence/taxConsequenceReducer'
 import {taskReducer} from './task/taskReducer'
+import {sideBarReducer} from './sideBar/sideBarReducer'
 
 // Reducers
 export const reducers = combineReducers({
@@ -23,7 +24,8 @@ export const reducers = combineReducers({
     memberReducer,
     stepReducer,
     taxConsequenceReducer,
-    taskReducer
+    taskReducer,
+    sideBarReducer
 })
 
 // Thunk

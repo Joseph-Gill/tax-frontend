@@ -10,6 +10,7 @@ const SideBar = ({children}) => {
     const authenticated = useSelector(state => state.userLoginReducer.authenticated)
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
+    const page404Active = useSelector(state => state.sideBarReducer.page404Active)
     const [currentPath, setCurrentPath] = useState('')
     let location = useLocation()
 
@@ -19,7 +20,7 @@ const SideBar = ({children}) => {
 
     return (
         <>
-            {authenticated ?
+            {page404Active ? null : authenticated ?
                 <SideBarContainer hidden={currentPath === '/'}>
                     <Logo />
                     <NavigationMenu group={group} loaded={loaded} />

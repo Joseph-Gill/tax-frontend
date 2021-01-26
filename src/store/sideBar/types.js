@@ -1,0 +1,2 @@
+export const SET_404_ACTIVE = 'SET_404_ACTIVE'
+export const SET_404_INACTIVE = 'SET_404_INACTIVE'
