@@ -14,7 +14,7 @@ const SuccessMessage = ({message, redirect}) => {
 
     setTimeout(() => {
         history.push(`${redirect}`)
-    }, 3000)
+    }, 1500)
 
     return (
         // eslint-disable-next-line react/forbid-component-props
