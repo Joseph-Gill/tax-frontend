@@ -50,7 +50,7 @@ const Login = () => {
                 validateOnChange={false}
             >
                 {({values, errors, touched, handleChange,
-                handleBlur, handleSubmit, isSubmitting, dirty, // allows you to know if the values have changed
+                handleBlur, handleSubmit, isSubmitting,
                 }) => (
                     <LoginForm onSubmit={handleSubmit}>
                         <LoginLogo />
