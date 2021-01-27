@@ -5,7 +5,7 @@ import BreadCrumb from '../../components/BreadCrumb'
 import HomeGroup from './HomeGroup'
 import Spinner from '../../components/Spinner'
 import NoContent from '../../components/NoContent'
-import HomeFilterDropdown from './HomeFilterDropdown'
+import HomeFilterSearchBar from './HomeFilterSearchBar'
 import NoFilterResults from '../../components/NoFilterResults'
 import {getProfileAction} from '../../store/profile/actions'
 import {resetGroup} from '../../store/group/actions'
@@ -18,7 +18,7 @@ import {GROUPS, HOME} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
-import {ProjectAccessContainer, ProjectFilterInputLabel} from './styles'
+import {ProjectAccessContainer} from './styles'
 
 
 const Home = ({history}) => {
@@ -90,15 +90,27 @@ const Home = ({history}) => {
     }, [dispatch, user])
 
     //Used by Group/Project filter to filter by Group or Project name
-    const filterChangeHandler = (e) => {
+    const searchedPairings = () => (
+        projectGroupPairings.filter(pair => pair.groupName.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1 ||
+        pair.project.name.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1
+        )
+    );
+
+    //Used by search bar to filter by enter keypress in search bar
+    const filterByKeypressChangeHandler = (e) => {
         if (e.key === 'Enter') {
-            console.log('filterTrigger')
-            const searchedPairings = projectGroupPairings.filter(pair =>
-                pair.groupName.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1 ||
-                pair.project.name.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1
-            );
-            setPairingsToDisplay(searchedPairings)
+            setPairingsToDisplay(searchedPairings())
         }
+    }
+
+    //Used by search bar to filter by clicking search image
+    const filterByClickChangeHandler = () => {
+        setPairingsToDisplay(searchedPairings())
+    }
+
+    const resetFilterChangeHandler = () => {
+        filterString.current.value = ''
+        setPairingsToDisplay([...projectGroupPairings])
     }
 
     //Used to render a Group Card for each entry in pairingsToDisplay
@@ -137,13 +149,12 @@ const Home = ({history}) => {
                             <>
                                 <ProjectAccessContainer>
                                     <HomePageText>Your current projects</HomePageText>
-                                    <div>
-                                        <ProjectFilterInputLabel>Project / Group Filter</ProjectFilterInputLabel>
-                                        <HomeFilterDropdown
-                                            filterChangeHandler={filterChangeHandler}
-                                            filterString={filterString}
-                                        />
-                                    </div>
+                                    <HomeFilterSearchBar
+                                        filterByClickChangeHandler={filterByClickChangeHandler}
+                                        filterByKeypressChangeHandler={filterByKeypressChangeHandler}
+                                        filterString={filterString}
+                                        resetFilterChangeHandler={resetFilterChangeHandler}
+                                    />
                                 </ProjectAccessContainer>
                                 {renderPairings()}
                             </>
