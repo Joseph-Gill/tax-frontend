@@ -7,6 +7,7 @@ import {PendingTaskCompleteDateTableHeader, PendingTaskTableRow, PendingTaskTitl
 
 
 const PendingTasks = ({tasksToRender, user, userRole}) => {
+    //Used to track if tasks are past due
     const today = new Date()
     const checkIfDatePastDue = task => {
         const dateToCheck = new Date(parseInt(task.due_date.slice(0,5)), (parseInt(task.due_date.slice(5,7)) - 1), parseInt(task.due_date.slice(-2)))
@@ -17,6 +18,7 @@ const PendingTasks = ({tasksToRender, user, userRole}) => {
         }
     }
 
+    //Renders each task component to display
     const renderTasks = () => (
         tasksToRender.map(task => {
             return (

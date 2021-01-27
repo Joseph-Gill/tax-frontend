@@ -18,18 +18,19 @@ const ExpandedGroup = ({firstUncompletedStep, groupId, history, project, tasksTo
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        //Fetches tax consequences for project that are same location as user's counry
         const getUserTaxConsequences = async () => {
             const taxResponse = await dispatch(getProjectTaxConsequencesUnreviewedSameLocationAsUserAction(project.id))
             if (taxResponse){
                 setTaxConsequencesToRender(taxResponse)
             }
         }
-        // setHomeLoading(true)
         setLoading(true)
         getUserTaxConsequences()
             .then(() => setLoading(false))
     }, [project, dispatch, setHomeLoading])
 
+    //Used to push to DisplayStep, fetching specified project, project's steps first, and setting indexOfStepToDisplay
     const goToSpecificStepHandler = async (stepNumber) => {
         setHomeLoading(true)
         const response = await dispatch(getProjectAction(project.id))

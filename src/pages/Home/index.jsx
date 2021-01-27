@@ -32,21 +32,20 @@ const Home = ({history}) => {
     const [homeLoading, setHomeLoading] = useState(false)
 
     useEffect(() => {
-        if (!profileLoaded) {
-            dispatch(getProfileAction())
-        }
-    }, [dispatch, profileLoaded])
-
-
-    useEffect(() => {
+        //Is given all groups the user is a member of
         const createGroupProjectPairingWithRole = async (groups) => {
             const groupNameProjectPairing = []
+            //Loops over all groups the user is a member of
             for (let i = 0; i < groups.length; i++) {
                 if (groups[i].projects.length) {
+                    //Gets the role a member has for projects in the group
                     const roleResponse = await dispatch(getRolesForProfileGroupAction(user.user_profile.id, groups[i].id))
                     if (roleResponse.length) {
+                        //For each project of the user's group
                         for (let x = 0; x < groups[i].projects.length; x++) {
+                            //Creates an object with groupId, group name, project, user's role, firstUncompletedStep (initially null)
                             let result = {groupId: groups[i].id, groupName: groups[i].name, project:groups[i].projects[x], userRole: roleResponse[0].role, firstUncompletedStep: null}
+                            //Looks at project of the group and finds it's first step that has a status not "Completed"
                             const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(groups[i].projects[x].id))
                                 if (stepResponse) {
                                     result.firstUncompletedStep = stepResponse
@@ -62,23 +61,35 @@ const Home = ({history}) => {
         }
 
         const getProfileCreateParing = async () => {
+            //Gets the user's profile
             const response = await dispatch(getProfileAction())
+            //Creates an array of Group/Project pairings used to render Group/Project cards
             const result = await createGroupProjectPairingWithRole(response.groups)
+            //Stores list of results to be used to filter
             setProjectGroupPairings([...result])
+            //Stores list of result to render Group Cards
             setPairingsToDisplay([...result])
         }
         setHomeLoading(true)
+        //Resets project in redux state
         dispatch(resetProject())
+        //Resets group in redux state
         dispatch(resetGroup())
+        //Resets selected member in redux state
         dispatch(resetMember())
+        //Resets project steps in redux state
         dispatch(resetSteps())
+        //Resets step tasks in redux state
         dispatch(resetTasks())
+        //Resets task step number filter in redux state
         dispatch(resetTaskFilterStepNumber())
+        //Resets member project filter in redux state
         dispatch(resetMemberFilterProjectId())
         getProfileCreateParing()
             .then(() => setHomeLoading(false))
     }, [dispatch, user])
 
+    //Used by Group/Project filter to filter by Group or Project name
     const filterChangeHandler = (e) => {
         if (e.key === 'Enter') {
             console.log('filterTrigger')
@@ -90,7 +101,7 @@ const Home = ({history}) => {
         }
     }
 
-
+    //Used to render a Group Card for each entry in pairingsToDisplay
     const renderPairings = () => {
         if (pairingsToDisplay.length){
             return pairingsToDisplay.map((pair) => (

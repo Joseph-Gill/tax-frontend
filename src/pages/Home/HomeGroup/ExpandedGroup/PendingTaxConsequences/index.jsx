@@ -7,6 +7,7 @@ import {NoTasksOrTaxConsequencesText} from '../../../../../style/text'
 
 
 const PendingTaxConsequences = ({goToSpecificStepHandler, groupId, taxConsequencesToRender}) => {
+    //Renders each tax consequence component to display
     const renderTaxConsequences = () => (
         taxConsequencesToRender.map(tax => {
             return (

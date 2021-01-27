@@ -28,11 +28,13 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
 
     useEffect(() => {
         const getPastDueNumberUncompletedTasksCommentsOpenAndReviewed = async () => {
+            //Fetches past due and uncompleted Tasks of project assigned to the user
             const taskResponse = await dispatch(getPastDueNumberAndUncompletedTasksAction(project.id))
             if (taskResponse) {
                 const userTasks = []
                 setPastDueTasks(taskResponse.past_due_tasks)
                 for (let i = 0; i < taskResponse.user_uncompleted_tasks.length; i++) {
+                    //Assigns task number to task, matches task number that would display on ProjectTasks
                     const response = await dispatch(getTaskNumberForTaskOfStepAction(taskResponse.user_uncompleted_tasks[i].id, taskResponse.user_uncompleted_tasks[i].step.id))
                     if (response.status === 200) {
                         userTasks.push({
@@ -43,6 +45,7 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
                 setTasksToRender(userTasks)
                 }
             }
+            //Fetches tax consequences for Project from same location as user's country, giving "open" and "not reviewed" numbers
             const commentResponse = await dispatch(getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction(project.id))
             if (commentResponse) {
                 setOpenComments(commentResponse.comments_open)
@@ -54,11 +57,13 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
             .then(() => setLoading(false))
     }, [project, dispatch, setLoading])
 
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},
     })
 
+    //Defines which project onClick pushes
     const goToProjectClickHandler = async () => {
         setLoading(true)
         const response = dispatch(getGroupOfProjectAction(project.id))

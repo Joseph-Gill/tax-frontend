@@ -12,6 +12,7 @@ const TaxConsequenceEditedBy = ({user, groupId}) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        //Gets the project role for user specific to project
         const getRoleForUser = async () => {
             const response = await dispatch(getRolesForProfileGroupAction(user.user_profile.id, groupId))
             if (response) {
