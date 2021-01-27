@@ -1,9 +1,13 @@
 import styled from 'styled-components/macro'
+import errorIcon from '../assets/icons/stark_input_error_icon.svg'
 
 
 export const BaseInput = styled.input`
-    background: ${props => props.theme.graySix};
-    border: 1px solid ${props => props.theme.grayFour};
+    background-color: ${props => props.theme.graySix};
+    background-image: ${props => props.error ? `url(${errorIcon})` : 'none'};
+    background-repeat: no-repeat;
+    background-position: 92%;
+    border: 1px solid ${props => props.error ? props.theme.inputErrorRed : props.theme.grayFour};
     color: ${props => props.theme.grayOne};
     border-radius: ${props => props.theme.inputBorderRadius};
     padding: 12px 11px 10px 20px;
