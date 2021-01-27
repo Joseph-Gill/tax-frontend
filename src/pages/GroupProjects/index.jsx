@@ -22,17 +22,25 @@ const GroupProjects = ({history}) => {
     const loaded = useSelector(state => state.groupReducer.loaded)
 
     useEffect(() => {
+        //Resets error in redux state
         dispatch(resetErrors())
+        //Resets project in redux state
         dispatch(resetProject())
+        //Resets project steps in redux state
         dispatch(resetSteps())
+        //Resets step tax consequence in redux state
         dispatch(resetStepTaxConsequences())
+        //Resets step tasks in redux state
         dispatch(resetTasks())
+        //Resets step number for task filter in redux state
         dispatch(resetTaskFilterStepNumber())
+        //If chosen group is not in redux state due to reload, push Home to prevent crash
         if (!loaded) {
             history.push(`${HOME}`)
         }
     }, [dispatch, loaded, history])
 
+    //Used to set the display order of projects, Ongoing/NotStarted first, Completed second, NotImplemented last
     const setProjectCardDisplayOrder = () => {
         let onGoingNotStarted = []
         let completed = []

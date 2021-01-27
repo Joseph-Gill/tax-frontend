@@ -17,8 +17,11 @@ const GroupOrgChart = ({history}) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        //If chosen group is not in redux state due to reload, push Home to prevent crash
         if (!groupLoaded) {
             history.push(`${HOME}`)
+        //Takes entities from backend and attaches tags needed to change which clip-path
+        //is used to display the node
         } else {
             setEntitiesToRender([...getEntitiesWithTags(entities)])
             setLoading(false)

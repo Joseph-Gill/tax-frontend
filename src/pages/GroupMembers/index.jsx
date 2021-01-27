@@ -43,26 +43,33 @@ const GroupMembers = ({history}) => {
     ])
 
     useEffect(() => {
+        //If chosen group is not in redux state due to reload, push Home to prevent crash
         if (!loaded) {
             history.push(`${HOME}`)
         } else {
             const filterMembersForProjectFilter = async () => {
+                //If a project is selected in project filter, gets all members who have
+                //access to that project
                 if (filterProjectId) {
                     const response = await dispatch(getAccessUsersForProjectAction(filterProjectId))
+                    //Sets members to display as all members with access to the project
                     if (response) {
                         setMembersToDisplay([...response])
                     }
+                //Sets members to display as all members of the group
                 } else {
                     setMembersToDisplay([...members])
                 }
             }
             setLoading(true)
+            //Resets the selected member of MemberEdit in redux state
             dispatch(resetMember())
             filterMembersForProjectFilter()
                 .then(() => setLoading(false))
         }
     }, [dispatch, filterProjectId, members, loaded, history])
 
+    //Used to check or uncheck all check boxes of the page
     const resetAllCheckedChangeFilterMemberStatus = () => {
         const activeDataCopy = [...activeRenderData]
         const inviteDataCopy = [...invitedRenderData]
@@ -75,6 +82,8 @@ const GroupMembers = ({history}) => {
         setFilterMemberStatus(!filterMemberStatus)
     }
 
+    //Used by send email from ActionDropdown, creates string of emails to feed to "mailto:"
+    //Currently does not work with Windows 10 mail if more then one email is selected, need to find better solution
     const sendEmailClickHandler = () => {
         const result = activeRenderData.filter(user => user.isChecked).concat(invitedRenderData.filter(user => user.isChecked))
         let emailString = 'mailto:'
@@ -93,6 +102,7 @@ const GroupMembers = ({history}) => {
         }
     }
 
+    //Populates the project filter dropdown with all projects of a group
     const renderProjectFilterOptions = () => (
         group.projects.map(project => (
             <DropdownOption
@@ -103,6 +113,8 @@ const GroupMembers = ({history}) => {
         ))
     )
 
+    //Selected project to filter is stored in redux state, needed so that
+    //ProjectDisplay can push to ProjectMembers with project preselected
     const projectFilterChangeHandler = projectId => {
         if (projectId) {
             dispatch(setMemberFilterProjectId(parseInt(projectId)))

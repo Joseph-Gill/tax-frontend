@@ -23,13 +23,19 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
     const [allInvitedStatus, setAllInvitedStatus] = useState(true)
 
     useEffect(() => {
+        //Creates lists of members that are active and members that are invited
         const listActiveWithOrgAndInvited = async () => {
             const activeResult = [];
             const invitedResult = [];
+            //For active members of the group
             for (const member of members) {
+                //Gets the organization name of a member specific to the chosen group
                 const response = await dispatch(getMemberOrganizationNameAction(group.id, member.user.id))
+                //Finds the project_role of member specific to the chosen group
                 const project_roles = member.assigned_project_roles.filter(role => role.project.group === group.id)
+                //Stores the number of projects of the chosen group
                 const group_projects = group.projects.length
+                //If the user has been assigned an organization specific to the chosen group...
                 if (response) {
                     let data = {
                         id: member.id,
@@ -38,13 +44,19 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                         email: member.user.email,
                         phone_number: member.phone_number,
                         organization: response.name,
+                        //Member has the same role for all projects of a group, finds the role of the first project
+                        //a member has access to and assigns it
                         project_role: project_roles.length ? project_roles[0].role : 'Unassigned',
+                        //Sets if the member has access to "all" or "limited" number of projects
+                        //Shows "Group has no Projects" if the group has none
                         project_access: !group_projects ? 'Group has no Projects' : project_roles.length === group_projects ? 'All' : 'Limited',
                         country: member.country ? member.country : 'N/A',
+                        //Used to control the check box of a member
                         isChecked: false,
                         updated: member.updated
                     }
                     activeResult.push(data)
+                //If the user has not been assigned an organization specific to the chosen group...
                 } else {
                     let data = {
                         id: member.id,
@@ -62,6 +74,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                     activeResult.push(data)
                 }
             }
+            //For invited members of a group that have not finalized their registration
             for (const member of invitedMembers) {
                 let data = {
                     id: member.id,
@@ -71,14 +84,18 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                 }
                 invitedResult.push(data)
             }
+            //Sorts list of members so the most recently updated are displayed first
             activeResult.sort((a, b) => (a.updated > b.updated) ? -1 : ((b.updated > a.updated) ? 1 : 0));
+            //Stores list of active members to display
             setActiveRenderData([...activeResult])
+            //Stores list of invited members to display
             setInvitedRenderData([...invitedResult])
             setLoaded(true)
         }
         listActiveWithOrgAndInvited()
     }, [dispatch, group.id, group.projects.length, members, invitedMembers, setActiveRenderData, setInvitedRenderData])
 
+    //Used to check or uncheck all members of the current displayed table
     const checkAllMembersHandler = (array, setArray, status, setStatus) => {
         const dataCopy = [...array]
         for (const member of dataCopy) {
@@ -88,6 +105,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
         setStatus(!status)
     }
 
+    //Used by FilterDropdown to filter which active members to display
     const filteredMembers = () => {
         const selectedFilterOption = filterOption.filter(option => option.isChecked)[0]
         switch (selectedFilterOption.type) {
@@ -100,10 +118,12 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
         }
     }
 
+    //Used by FilterDropdown to filter which invited members to display
     const filteredInviteMembers = () => (
         invitedRenderData.filter(member => member.email.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
     )
 
+    //Used to render each member line of table for active members
     const renderActiveMembers = (array) => {
         return array.map((member, index) => (
             <TableDataRow key={member.id}>
@@ -137,6 +157,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
         )
     }
 
+    //Used to render each member line of table for invited members
     const renderInvitedMembers = (array) => {
         return array.map((member, index) => (
             <TableDataRow key={uuidv4()}>

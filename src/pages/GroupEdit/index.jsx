@@ -35,26 +35,32 @@ const GroupEdit = ({history}) => {
     })
 
     useEffect(() => {
+        //If chosen group is not in redux state due to reload, push Home to prevent crash
         if (!loaded) {
             history.push(`${HOME}`)
         } else {
+            //If group has a defined avatar, load it, changed used to track if new avatar uploaded
             if (group.avatar) {
                 setGroupImage({avatar: group.avatar, changed: false})
             }
+            //Sorts the entities to display by parent id
             const sortedEntities = group.entities.sort((a,b) => (a.pid > b.pid) ? 1 : ((b.pid > a.pid) ? -1 : 0));
             setListOfEntities([...sortedEntities.map(entity => {
+                //The top most entity has pid of "" in backend, gives it the name "ultimate" in frontend
                 if(!entity.pid) {
                     return {...entity, pid: 'Ultimate'}
                 }
                 const pidName = group.entities.filter(index => index.id === parseInt(entity.pid))
                 return {...entity, pid: pidName[0].name}
             })])
+            //Populates the available list of parent names for new entities added to the group
             setAvailableParentNames([...group.entities.map(entity => entity.name)])
         }
     }, [group.entities, history, loaded, group])
 
     const addNewEntityClickHandler = () => {
         dispatch(resetErrors())
+        //Handles input validation for the entity inputs
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm)
         if (!error) {
             const newEntity = {
@@ -63,10 +69,15 @@ const GroupEdit = ({history}) => {
                 location: countryName,
                 legal_form: legalForm,
                 tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : '',
+                //"new" status is so frontend knows which entities are new and need to be sent to
+                //the backend during save action
                 new: true
             }
+            //Adds the new entity to the list of existing entities
             setListOfEntities([...listOfEntities, newEntity])
+            //Adds the new entity to the list of available parent names
             setAvailableParentNames([...availableParentNames, newEntityInfo.entityName])
+            //Resets the inputs to blank
             setCountryName('')
             setLegalForm('')
             setNewEntityInfo({
@@ -78,10 +89,14 @@ const GroupEdit = ({history}) => {
     }
 
     const saveGroupChangesHandler = async () => {
+        //Filters the list of current entities for any that have the status "new" as true
         const newEntities = listOfEntities.filter(entity => entity.new)
+        //Adds list of "new" entities to data to be sent to backend
         const updatedGroupInfo = {
             entities: newEntities
         }
+        //If the user changed the group avatar, add the new avatar to the data to be sent
+        //to the backend
         if (groupImage.changed) {
             updatedGroupInfo.avatar = groupImage.avatar
         }

@@ -7,6 +7,8 @@ import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatus
 
 
 const ProjectCard = ({project, history}) => {
+
+    //From react-spring, causes component to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

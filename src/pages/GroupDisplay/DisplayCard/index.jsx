@@ -5,6 +5,8 @@ import {DisplayCardContainer, DisplayCardImageContainer} from './styling'
 
 
 const DisplayCard = ({type, image, content, redirectOnClickHandler}) => {
+
+    //From react-spring, causes component to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

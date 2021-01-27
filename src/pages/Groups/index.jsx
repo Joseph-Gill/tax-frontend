@@ -20,8 +20,11 @@ const Groups = ({history}) => {
     const loaded = useSelector(state => state.profileReducer.loaded)
 
     useEffect(() => {
+        //Resets group in redux state
         dispatch(resetGroup())
+        //Resets project in redux state
         dispatch(resetProject())
+        //If user's profile isn't in redux state, fetch it to prevent crash
         if (!loaded) {
             dispatch(getProfileAction())
         }

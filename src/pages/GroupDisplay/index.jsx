@@ -23,11 +23,15 @@ const GroupDisplay = ({history}) => {
     const loaded = useSelector(state => state.groupReducer.loaded)
 
     useEffect(() => {
+        //Resets project in redux state
         dispatch(resetProject())
+        //Resets the project filter of GroupMembers
         dispatch(resetMemberFilterProjectId())
+        //Fetches Group from the url groupId
         dispatch(getGroupAction(match.params.groupId))
     }, [dispatch, match.params.groupId])
 
+    //Used by cards of GroupDisplay to define where onClick should push
     const redirectOnClickHandler = (type) => {
         switch (type) {
             case 'Organization Chart': {
@@ -43,6 +47,7 @@ const GroupDisplay = ({history}) => {
         }
     }
 
+    //prop "type" is used in styling the cards
     return (
         <AuthenticatedPageContainer>
             {!loaded ? <Spinner /> :

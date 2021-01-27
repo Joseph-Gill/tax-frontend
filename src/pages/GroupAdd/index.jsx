@@ -36,17 +36,23 @@ const GroupAdd = ({history}) => {
 
     const addNewEntityClickHandler = () => {
         dispatch(resetErrors())
+        //Handles input validation for the entity inputs
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm)
         if (!error) {
             const newEntity = {
                 name: newEntityInfo.entityName,
+                //If an entity is the prime entity of a group, its consider the "ultimate" entity
                 pid: !availableParentNames.length ? 'Ultimate' : newEntityInfo.parentName,
                 location: countryName,
                 legal_form: legalForm,
+                //Tax rate is optional
                 tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : ''
             }
+            //New group entities are stored in local state until the new group is saved
             setListOfEntities([...listOfEntities, newEntity])
+            //Stores the available options for parent name for new entities after the initial entity is created
             setAvailableParentNames([...availableParentNames, newEntityInfo.entityName])
+            //Resets the inputs to blank
             setCountryName('')
             setLegalForm('')
             setNewEntityInfo({
@@ -59,6 +65,7 @@ const GroupAdd = ({history}) => {
 
     const saveNewGroupClickHandler = async () => {
         dispatch(resetErrors())
+        //Prevents user from saving a group that has no entities, must have at least one
         if (!listOfEntities.length) {
             dispatch(setError({entities: `You must create at least one Entity for this group.`}))
         } else {
