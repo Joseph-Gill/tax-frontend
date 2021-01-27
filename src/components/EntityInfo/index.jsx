@@ -10,8 +10,11 @@ import {EntitiesTable, EntitiesTableHeader, EntityTableContainer} from './styles
 const EntityInfo = ({availableParentNames, countryName, legalForm, listOfEntities,
                         newEntityInfo, setCountryName, setLegalForm, setNewEntityInfo}) => {
 
+    //Creates the available parent choices for a new Entity, useMemo is used to prevent it from reloading when
+    //a choice is made in the count dropdown
     const renderParentNameOptions = React.useMemo(() =>
     !availableParentNames.length ?
+        //If an entity is the first/prime entity of a group, it is considered the "ultimate" entity
         <EntityOption value='Ultimate'>Ultimate</EntityOption> : (
             <>
                 <EntityOption disabled value=''>Select a parent</EntityOption>
@@ -19,6 +22,7 @@ const EntityInfo = ({availableParentNames, countryName, legalForm, listOfEntitie
             </>), [availableParentNames]
     )
 
+    //Creates the list of entity components to display in the entity table
     const renderListOfEntities = React.useMemo(() =>
     listOfEntities.length ?
         listOfEntities.map(entity => (

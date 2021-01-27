@@ -13,23 +13,27 @@ import {ChooseGroupButtonContainer, ChooseGroupCardContainer, ChooseGroupInput, 
 import Spinner from '../../Spinner'
 
 
+//Used by NavBar for choosing which specific group the user is currently accessing
 const ChooseGroupModal = ({history, setShowChooseGroup}) => {
     const dispatch = useDispatch()
     const groups = useSelector(state => state.profileReducer.profile.groups)
     const loaded = useSelector(state => state.profileReducer.loaded)
     const [filterString, setFilterString] = useState('')
 
+    //If the user's profile is not loaded, gets the user's profile
     useEffect(() => {
         if (!loaded) {
             dispatch(getProfileAction())
         }
     }, [loaded, dispatch])
 
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},
     })
 
+    //Used to filter the groups displayed by the modal by name of the group
     const searchedGroups = () => (
         groups.filter(group => group.name.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
     )

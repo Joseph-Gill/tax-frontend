@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import OrgChart from '@balkangraph/orgchart.js'
 
 
+// This is not currently used by the App, left in place to demo some of the ways to adjust how the Nodes can be displayed
 const ChartEdit = ({nodes, slinks, clinks}) => {
     const divRef = React.createRef()
 

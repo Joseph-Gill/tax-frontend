@@ -10,6 +10,7 @@ const Page404 = () => {
     const history = useHistory()
     const dispatch = useDispatch()
 
+    // Used to prevent the NavBar from displaying when on the 404 page of an "authenticated" account
     useEffect(() => {
         dispatch(set404Active())
     })

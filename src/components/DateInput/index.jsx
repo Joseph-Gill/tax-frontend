@@ -10,6 +10,7 @@ import "./styles.css"
 const DateInput = ({date, label, setDate}) => {
     const ref = React.createRef()
 
+    // This enables the ability to style the react-datepicker input component, by styling this component
     // eslint-disable-next-line react/display-name,react/no-multi-comp
     const CustomInput = forwardRef(({ value, onClick }, ref) => (
         <DateInputContainer onClick={onClick} ref={ref}>
@@ -22,6 +23,7 @@ const DateInput = ({date, label, setDate}) => {
         <DateInputAndLabelContainer>
             {label ? <DateInputLabelText>Effective Date:</DateInputLabelText> : null}
             <DatePicker
+                // You attach your custom styled input component here to apply it to the datepicker module
                 customInput={<CustomInput ref={ref} />}
                 dateFormat='yyyy-MM-dd'
                 onChange={date => setDate(date)}

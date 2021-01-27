@@ -9,7 +9,10 @@ import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons
 import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
 
+//Used by StepChart for setting tax consequences of a step as not reviewed
 const SetNotReviewedModal = ({setNotReviewedHandler, setShowSecondConfirmation}) => {
+
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

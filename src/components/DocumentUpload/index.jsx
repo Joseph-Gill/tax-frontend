@@ -6,6 +6,7 @@ import {DocumentUploadArea} from './styles'
 
 const DocumentUpload = ({getInputProps, getRootProps}) => {
     return (
+        //This module is used to create the drag and drop / click to upload file inputs for the app
         <section className='container'>
             <DocumentUploadArea {...getRootProps({className: 'dropzone'})}>
                 <input {...getInputProps()} />

@@ -21,6 +21,7 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
     const history = useHistory()
     const [showChooseGroup, setShowChooseGroup] = useState(false)
 
+    //From react-spring, causes component to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

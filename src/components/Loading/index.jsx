@@ -3,7 +3,7 @@ import {useSpring} from 'react-spring'
 import {LoadingContainer} from './styles'
 import './styles.css'
 
-
+//Used by components that do not want a fullscreen loading image
 const Loading = () => {
     const props = useSpring({
         opacity: 1,

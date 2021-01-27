@@ -7,6 +7,8 @@ import {NoAccessContainer, NoContentButton} from './styles'
 
 const NoContent = ({buttonText, redirect, text}) => {
     const history = useHistory()
+
+    //From react-spring, causes component to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

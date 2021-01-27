@@ -14,9 +14,11 @@ import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteMo
     AddEntityLinkModalInternalContainer, AddEntitySaveButton, EntityErrorContainer} from '../styles'
 
 
+//Used by StepChart for adding new Entities to a StepChart
 const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, error, legalForm, newEntityInfo, renderParentNameOptions,
                             saveNewEntityHandler, setCountryName, setLegalForm, setNewEntityInfo, setShowAddEntity}) => {
 
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

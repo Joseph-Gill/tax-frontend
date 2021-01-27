@@ -13,6 +13,8 @@ const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, steps})
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
     }
 
+    //Used to create the step node entities for StepDisplay footer, varies depending if the component calling it
+    //is StepDisplay/StepBeginning or StepEnding
     const renderSteps = () => (
         steps.map((step, index) => (
             <StepNode

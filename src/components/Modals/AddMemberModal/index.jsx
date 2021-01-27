@@ -14,7 +14,7 @@ import {AuthenticatedButtonCancel} from '../../../style/buttons'
 import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer} from '../styles'
 import {AddMemberCenterTextContainer, AddMemberErrorMessageContainer, AddMemberModalButtonContainer, AddTeamMemberContentContainer, AddTeamMemberModalContainer, AddTeamMemberRedText, BlueAddMemberButton} from './styles'
 
-
+//Used by GroupMembers and MemberEdit for adding new members to a group
 const AddMemberModal = ({groupId, setShowAddMember}) => {
     let email = useRef('')
     const dispatch = useDispatch()
@@ -30,6 +30,7 @@ const AddMemberModal = ({groupId, setShowAddMember}) => {
         }
     }
 
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

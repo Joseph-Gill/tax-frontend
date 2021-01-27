@@ -15,9 +15,11 @@ import {
 } from '../styles'
 
 
+//Used by StepChart for adding new Links to a StepChart
 const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, error, fromToOptions, saveNewLinkHandler,
                           setAddLinkInfo, setShowAddLink}) => {
 
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

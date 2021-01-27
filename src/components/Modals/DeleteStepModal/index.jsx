@@ -10,8 +10,10 @@ import {
     AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer,
     AddDeleteModalTitleContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
-
+//Used by StepDisplay for deleting steps from a project
 const DeleteStepModal = ({deleteStepHandler, setShowConfirmation}) => {
+
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

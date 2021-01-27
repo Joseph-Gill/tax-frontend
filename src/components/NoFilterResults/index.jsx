@@ -4,6 +4,7 @@ import {CardTitleText, NoFilterResultText} from '../../style/text'
 import {NoFilterResultsContainer, NoFilterTextContainer} from '../../style/containers'
 
 
+//Used by components with filters, to display if no results match the filter
 const NoFilterResults = () => {
     return (
         <NoFilterResultsContainer>

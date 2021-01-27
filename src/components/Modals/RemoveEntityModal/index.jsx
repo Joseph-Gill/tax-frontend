@@ -9,9 +9,11 @@ import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDelete
     RemoveLinkEntityDropdown, RemoveLinkEntityInternalContainer} from '../styles'
 
 
+//Used by StepChart for deleting Entities of a StepChart
 const RemoveEntityModal = ({entityOptions, entityToRemove, removeEntityHandler, setEntityToRemove,
                                setShowRemoveEntity}) => {
 
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

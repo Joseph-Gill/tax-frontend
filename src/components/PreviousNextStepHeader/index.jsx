@@ -11,6 +11,7 @@ import nextInactive from '../../assets/icons/stark_step_header_right_inactive.pn
 import {ImageTextStepHeaderContainer, PreviousNextActiveText, PreviousNextArrowLeft, PreviousNextArrowRight, PreviousNextStepHeaderContainer} from './styles'
 
 
+//Used by StepDisplay to provide the header where users click to next / previous step of the current step
 const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBeginning, stepEnding}) => {
     const history = useHistory()
     const dispatch = useDispatch()
@@ -18,15 +19,20 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
 
     const previousClickHandler = () => {
         dispatch(resetErrors())
+        //If the component calling this is StepEnding...
         if (stepEnding) {
+            //If the are no steps, previous pushes to StepBeginning
             if (!steps.length) {
                 history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
+            //Previous changes the indexOfStepToDisplay to the last Step and pushes to StepDisplay
             } else {
                 dispatch(skipToSpecifiedStep(steps.length - 1))
                 history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
             }
+        //If the component calling isn't StepEnding and indexOfStepToDisplay is 0, previous pushes to StepDisplay
         } else if (!indexOfStepToDisplay) {
             history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
+        //Reduce indexOfStepToDisplay by 1, showing the previous step
         } else {
             dispatch(decrementStepToView())
         }
@@ -34,20 +40,26 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
 
     const nextClickHandler = () => {
         dispatch(resetErrors())
+        //If the component calling this is StepBeginning...
         if (stepBeginning){
+            //If the are no steps, next pushes to StepEnding
             if (!steps.length) {
                 history.push(`${GROUPS}${PROJECTS}${STEPS}${ENDING}`)
+            //Next pushes to StepDisplay
             } else {
                 history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
             }
+        //If indexOfStepToDisplay is the last step, next pushes to StepEnding
         } else if (steps.length === indexOfStepToDisplay + 1) {
             history.push(`${GROUPS}${PROJECTS}${STEPS}${ENDING}`)
+        //Increase indexOfStepToDisplay by 1, showing the next step
         } else {
             dispatch(incrementStepToView())
         }
     }
 
     return (
+        //The active prop controls styling of the link in styles.js
         <PreviousNextStepHeaderContainer>
             {previous ? (
                 <ImageTextStepHeaderContainer active={previous} onClick={previousClickHandler}>

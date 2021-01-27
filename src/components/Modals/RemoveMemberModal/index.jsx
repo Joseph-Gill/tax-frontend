@@ -16,11 +16,13 @@ import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons
 import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTitleContainer} from '../styles'
 
 
+//Used by GroupMembers to remove members from a group
 const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setShowConfirmation}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     let password = useRef('')
 
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

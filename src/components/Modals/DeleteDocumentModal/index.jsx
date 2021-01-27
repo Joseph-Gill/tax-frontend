@@ -9,7 +9,10 @@ import {ModalText} from '../../../style/text'
 import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
 
+//Used by ProjectTasks and TaskEdit to delete a specific document from a task
 const DeleteDocumentModal = ({deleteDocumentHandler, documentName, setShowDeleteDocumentConfirmation}) => {
+
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

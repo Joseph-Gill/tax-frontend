@@ -6,6 +6,7 @@ import {BreadCrumbBarContainer, BreadCrumbImage, BreadCrumbItem, BreadCrumbItemA
 
 const BreadCrumb = ({breadCrumbArray}) => {
     const breadCrumbPath = (array) => {
+        // Creates each component for the breadcrumb, active determines the styling of the text
         return array.map(item =>
             item.active ? (
                 <BreakCrumbContainer key={uuidv4()}>

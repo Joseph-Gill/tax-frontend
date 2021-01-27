@@ -9,7 +9,10 @@ import {ModalText} from '../../../style/text'
 import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
 
 
+//Used by ProjectTasks for deleting a task from a Step
 const DeleteTaskModal = ({deleteTaskHandler, setShowDeleteTaskConfirmation}) => {
+
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

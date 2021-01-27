@@ -10,8 +10,10 @@ import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDelete
     RemoveLinkEntityInternalContainer} from '../styles'
 
 
+//Used by StepChart for deleting Links of a StepChart
 const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkToRemove, setShowRemoveLink}) => {
 
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

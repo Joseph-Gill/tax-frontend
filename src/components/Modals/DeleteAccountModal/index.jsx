@@ -15,6 +15,7 @@ import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons
 import DeleteAccountModalText from './DeleteAccountModalText'
 
 
+//Used by UserProfile for deleting a user's account
 const DeleteAccountModal = ({history, setShowConfirmation}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
@@ -37,6 +38,7 @@ const DeleteAccountModal = ({history, setShowConfirmation}) => {
         setShowConfirmation(false)
     }
 
+    //From react-spring, causes Modal to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},

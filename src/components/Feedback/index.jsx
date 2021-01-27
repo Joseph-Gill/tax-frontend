@@ -8,6 +8,7 @@ import {SubTitle, Title} from '../../style/titles'
 import {BaseInput} from '../../style/inputs'
 
 
+//Not used in the current version of the app, leftover from the template
 const FeedbackContainer = styled.div`
     background: ${props => props.showForm ? 'rgba(255,255,255,0.97)' : 'none'};
     height: ${props => props.showForm ? '400px' : '65px'};
@@ -88,11 +89,11 @@ const FeedbackContainer = styled.div`
         position: absolute;
         bottom: 8px;
     }
-  
+
   :hover {
     animation: none;
     img {
-      
+
       opacity: 1;
     }
     span {

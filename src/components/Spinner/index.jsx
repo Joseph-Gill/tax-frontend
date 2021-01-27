@@ -4,8 +4,11 @@ import {useSpring} from 'react-spring'
 import {SpinnerContainer} from './styles'
 
 
+//Used by components that want a fullscreen loading image
 const Spinner = () => {
     const [loading] = useState(true)
+
+    //From react-spring, causes component to fade in
     const props = useSpring({
         opacity: 1,
         from: {opacity: 0},
