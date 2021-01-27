@@ -50,7 +50,7 @@ export const GlobalStyle = createGlobalStyle`
         border: 1px solid ${props => props.theme.grayFour};
         border-radius: 1.5rem;
         font-family: ${props => props.theme.nunitoFontFamily};
-        padding: 12px 11px 10px 11px !important;
+        padding: 12px 11px 10px 20px !important;
         background: url(${dropdownArrowDown}) no-repeat right, ${props => props.theme.graySix};
         background-position-x: 92%;
         /* for Firefox */
@@ -196,7 +196,7 @@ export const defaultTheme = {
     projectCardBoxShadow: '0px 0px 20px #D9D9D9;',
     // Border Radius
     borderRadius: '.75rem',
-    buttonBorderRadius: '1rem',
+    buttonBorderRadius: '1.5rem',
     inputBorderRadius: '1.5rem',
     // Fonts that are not default Spartan
     nunitoFontFamily: 'Nunito Sans, sans-serif',
