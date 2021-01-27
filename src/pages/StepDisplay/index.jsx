@@ -58,7 +58,20 @@ const StepDisplay = ({history}) => {
             }
             return true
         }
+        if (!stepsLoaded || !projectLoaded) {
+            history.push(`${HOME}`)
+        } else {
+            if (!steps[indexOfStepToDisplay].id) {
+                setEditStatus(true)
+                setStepDetailStatus(true)
+            }
+            setDescription(steps[indexOfStepToDisplay].description)
+            setStepStatus(steps[indexOfStepToDisplay].status)
+            setAbleToComplete(checkIfStepCanComplete())
+        }
+    }, [stepsLoaded, projectLoaded, indexOfStepToDisplay, steps, history])
 
+    useEffect(() => {
         const checkForCurrentStepChart = async () => {
             if (indexOfStepToDisplay === 0) {
                 const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay + 1))
@@ -90,26 +103,13 @@ const StepDisplay = ({history}) => {
                 }
             }
         }
-
         setChartLoading(true)
-        if (!stepsLoaded || !projectLoaded) {
-            history.push(`${HOME}`)
-        } else {
-            if (!steps[indexOfStepToDisplay].id) {
-                setEditStatus(true)
-                setStepDetailStatus(true)
-            }
-            setStepChartExists(false)
-            checkForCurrentStepChart()
-                .then(() => {
-                    setDescription(steps[indexOfStepToDisplay].description)
-                    setStepStatus(steps[indexOfStepToDisplay].status)
-                    setAbleToComplete(checkIfStepCanComplete())
-                    setChartLoading(false)
-                })
-
-        }
-    }, [history, indexOfStepToDisplay, projectLoaded, steps, stepsLoaded, entities, dispatch, project.id])
+        setStepChartExists(false)
+        checkForCurrentStepChart()
+            .then(() => {
+                setChartLoading(false)
+            })
+    }, [dispatch, entities, indexOfStepToDisplay, project.id, stepDetailStatus])
 
     const saveNewStepHandler = async () => {
         dispatch(resetErrors())

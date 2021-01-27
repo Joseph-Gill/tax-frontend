@@ -5,7 +5,7 @@ const initialState = {
     group: {
         name: null,
         avatar: null,
-        entities: null,
+        entities: [],
         projects: null,
         organizations: null,
         users: []
