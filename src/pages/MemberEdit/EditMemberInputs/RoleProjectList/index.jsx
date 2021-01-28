@@ -1,8 +1,8 @@
 import React from 'react'
 import RoleTooltip from './RoleTooltip'
 import tooltipAnchor from '../../../../assets/icons/stark_tooltip_anchor.png'
-import {CheckBox} from '../../../../style/inputs'
-import {AuthenticatedText} from '../../../../style/text'
+import {CustomCheckbox} from '../../../../style/checkbox'
+import {AccessProjectRoleLabel} from '../../../../style/labels'
 import {CheckBoxRoleContainer, ProjectRolesContainer, TooltipAnchor} from './styles'
 
 
@@ -19,13 +19,17 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
     return (
         <ProjectRolesContainer>
             <CheckBoxRoleContainer>
-                <CheckBox
-                    checked={roleChecked.Core}
-                    onChange={(e) => roleCheckBoxChangeHandler(e)}
-                    type='checkbox'
-                    value='Core'
-                />
-                <AuthenticatedText>Core</AuthenticatedText>
+                <CustomCheckbox>
+                    <input
+                        checked={roleChecked.Core}
+                        id='Core'
+                        onChange={(e) => roleCheckBoxChangeHandler(e)}
+                        type='checkbox'
+                        value='Core'
+                    />
+                    <span className='checkmark' />
+                    <AccessProjectRoleLabel htmlFor='Core'>Core</AccessProjectRoleLabel>
+                </CustomCheckbox>
                 <TooltipAnchor data-for='core' data-tip>
                     <img alt='tooltip' src={tooltipAnchor} />
                 </TooltipAnchor>
@@ -36,13 +40,17 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
                 />
             </CheckBoxRoleContainer>
             <CheckBoxRoleContainer>
-                <CheckBox
-                    checked={roleChecked.Legal}
-                    onChange={(e) => roleCheckBoxChangeHandler(e)}
-                    type='checkbox'
-                    value='Legal'
-                />
-                <AuthenticatedText>Legal</AuthenticatedText>
+                <CustomCheckbox>
+                    <input
+                        checked={roleChecked.Legal}
+                        id='Legal'
+                        onChange={(e) => roleCheckBoxChangeHandler(e)}
+                        type='checkbox'
+                        value='Legal'
+                    />
+                    <span className='checkmark' />
+                    <AccessProjectRoleLabel htmlFor='Legal'>Legal</AccessProjectRoleLabel>
+                </CustomCheckbox>
                 <TooltipAnchor data-for='legal' data-tip>
                     <img alt='tooltip' src={tooltipAnchor} />
                 </TooltipAnchor>
@@ -53,13 +61,17 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
                 />
             </CheckBoxRoleContainer>
             <CheckBoxRoleContainer>
-                <CheckBox
-                    checked={roleChecked.Tax}
-                    onChange={(e) => roleCheckBoxChangeHandler(e)}
-                    type='checkbox'
-                    value='Tax'
-                />
-                <AuthenticatedText>Tax</AuthenticatedText>
+                <CustomCheckbox>
+                    <input
+                        checked={roleChecked.Tax}
+                        id='Tax'
+                        onChange={(e) => roleCheckBoxChangeHandler(e)}
+                        type='checkbox'
+                        value='Tax'
+                    />
+                    <span className='checkmark' />
+                    <AccessProjectRoleLabel htmlFor='Tax'>Tax</AccessProjectRoleLabel>
+                </CustomCheckbox>
                 <TooltipAnchor data-for='legal' data-tip>
                     <img alt='tooltip' src={tooltipAnchor} />
                 </TooltipAnchor>
@@ -70,13 +82,17 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
                 />
             </CheckBoxRoleContainer>
             <CheckBoxRoleContainer>
-                <CheckBox
-                    checked={roleChecked.Other}
-                    onChange={(e) => roleCheckBoxChangeHandler(e)}
-                    type='checkbox'
-                    value='Other'
-                />
-                <AuthenticatedText>Other (View Only)</AuthenticatedText>
+                <CustomCheckbox>
+                    <input
+                        checked={roleChecked.Other}
+                        id='Other'
+                        onChange={(e) => roleCheckBoxChangeHandler(e)}
+                        type='checkbox'
+                        value='Other'
+                    />
+                    <span className='checkmark' />
+                    <AccessProjectRoleLabel htmlFor='Other'>Other (View Only)</AccessProjectRoleLabel>
+                </CustomCheckbox>
                 <TooltipAnchor data-for='other' data-tip>
                     <img alt='tooltip' src={tooltipAnchor} />
                 </TooltipAnchor>

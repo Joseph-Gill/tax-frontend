@@ -51,3 +51,20 @@ export const StepFilterInputLabel = styled(InputLabel)`
     background: linear-gradient(${props => props.theme.grayFive}, ${props => props.theme.white});
     margin-top: -10px;
 `
+
+export const AccessProjectRoleLabel = styled.label`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+    font-style: normal;
+    font-weight: normal;
+    color: ${props => props.theme.grayOne};
+    margin-left: 14px;
+
+    :hover {
+        cursor: pointer;
+        transition: 167ms;
+        text-decoration: underline;
+    }
+`

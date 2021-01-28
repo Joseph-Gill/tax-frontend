@@ -21,5 +21,6 @@ export const CheckBoxRoleContainer = styled.div`
 `
 
 export const TooltipAnchor = styled.a`
+    margin-left: 8px;
     margin-top: 5px;
 `

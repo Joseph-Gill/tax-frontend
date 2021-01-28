@@ -28,7 +28,6 @@ export const AccessProjectListLowerContainer = styled.div`
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-top: 20px;
 
     ::-webkit-scrollbar {
         width: 6px;
@@ -54,25 +53,4 @@ export const ProjectNameCheckboxContainer = styled.div`
     padding-left: 13px;
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-
-    input {
-        margin-right: 14px;
-    }
-`
-
-export const AccessProjectLabel = styled.label`
-    font-family: ${props => props.theme.nunitoFontFamily};
-    font-size: 14px;
-    line-height: 19px;
-    letter-spacing: 0.01em;
-    font-style: normal;
-    font-weight: normal;
-    color: ${props => props.theme.grayOne};
-
-    :hover {
-        cursor: pointer;
-        transition: 167ms;
-        text-decoration: underline;
-    }
 `

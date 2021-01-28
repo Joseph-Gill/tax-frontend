@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react'
 import {checkBoxChangeHandler} from '../../../../helpers'
-import {CheckBox} from '../../../../style/inputs'
-import {AccessProjectLabel, AccessProjectListContainer, AccessProjectListLowerContainer, AccessProjectListUpperContainer, ProjectNameCheckboxContainer} from './styles'
+import {CustomCheckbox} from '../../../../style/checkbox'
+import {AccessProjectRoleLabel} from '../../../../style/labels'
+import {AccessProjectListContainer, AccessProjectListLowerContainer, AccessProjectListUpperContainer,
+    ProjectNameCheckboxContainer} from './styles'
 
 
 const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupProjects, setAllProjectsChecked}) => {
@@ -21,27 +23,33 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
     const renderProjectNameWithCheckBox = () => (
         allGroupProjects.map((project, index) => (
             <ProjectNameCheckboxContainer key={project.id}>
-                <CheckBox
-                    checked={allGroupProjects[index].isChecked}
-                    id={project.name}
-                    onChange={(e) => checkBoxChangeHandler(e, allGroupProjects, setAllGroupProjects)}
-                    type='checkbox'
-                    value={index}
-                />
-                <AccessProjectLabel htmlFor={project.name}>{project.name}</AccessProjectLabel>
+                <CustomCheckbox>
+                    <input
+                        checked={allGroupProjects[index].isChecked}
+                        id={project.name}
+                        onChange={(e) => checkBoxChangeHandler(e, allGroupProjects, setAllGroupProjects)}
+                        type='checkbox'
+                        value={index}
+                    />
+                    <span className='checkmark' />
+                    <AccessProjectRoleLabel htmlFor={project.name}>{project.name}</AccessProjectRoleLabel>
+                </CustomCheckbox>
             </ProjectNameCheckboxContainer>)))
 
     return (
         <AccessProjectListContainer>
             <AccessProjectListUpperContainer>
-                <CheckBox
-                    checked={allProjectsChecked}
-                    id='all'
-                    onChange={checkAllProjectsChangeHandler}
-                    type='checkbox'
-                    value='all projects'
-                />
-                <AccessProjectLabel htmlFor='all'>{allProjectsChecked ? 'Unselect All' : 'Select All'}</AccessProjectLabel>
+                <CustomCheckbox>
+                    <input
+                        checked={allProjectsChecked}
+                        id='all'
+                        onChange={checkAllProjectsChangeHandler}
+                        type='checkbox'
+                        value='all projects'
+                    />
+                    <span className='checkmark' />
+                    <AccessProjectRoleLabel htmlFor='all'>{allProjectsChecked ? 'Unselect All' : 'Select All'}</AccessProjectRoleLabel>
+                </CustomCheckbox>
             </AccessProjectListUpperContainer>
             <AccessProjectListLowerContainer>
                 {renderProjectNameWithCheckBox()}
