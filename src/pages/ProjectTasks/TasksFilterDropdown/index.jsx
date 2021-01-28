@@ -1,7 +1,6 @@
 import React from 'react'
-import {allowOnlyOneCheckedBox} from '../../../helpers'
-import {DefaultDropdownText} from '../../../style/text'
-import {FilterCheckBox, FilterInput} from '../../../style/inputs'
+import CustomFilterCheckBox from '../../../components/CustomFilterCheckBox'
+import {FilterInput} from '../../../style/inputs'
 import {Dropdown, DropdownOptions, FilterDropdownButton} from '../../../style/dropdowns'
 import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/containers'
 
@@ -20,44 +19,40 @@ const TaskFilterDropdown = ({filterOption, filterString, setFilterOption, setFil
                     />
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
-                    <FilterCheckBox
-                        checked={filterOption[0].isChecked}
+                    <CustomFilterCheckBox
+                        filterOption={filterOption}
                         id='dueDate'
-                        onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                        type='checkbox'
+                        label='Due Date'
+                        setFilterOption={setFilterOption}
                         value={0}
                     />
-                    <DefaultDropdownText htmlFor='dueDate'>Due Date</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
-                    <FilterCheckBox
-                        checked={filterOption[1].isChecked}
+                    <CustomFilterCheckBox
+                        filterOption={filterOption}
                         id='country'
-                        onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                        type='checkbox'
+                        label='Responsible Country'
+                        setFilterOption={setFilterOption}
                         value={1}
                     />
-                    <DefaultDropdownText htmlFor='country'>Responsible Country</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
-                    <FilterCheckBox
-                        checked={filterOption[2].isChecked}
+                    <CustomFilterCheckBox
+                        filterOption={filterOption}
                         id='responsibleName'
-                        onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                        type='checkbox'
+                        label='Responsible Name'
+                        setFilterOption={setFilterOption}
                         value={2}
                     />
-                    <DefaultDropdownText htmlFor='responsibleName'>Responsible Name</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropdownChoiceContainer>
-                    <FilterCheckBox
-                        checked={filterOption[3].isChecked}
+                    <CustomFilterCheckBox
+                        filterOption={filterOption}
                         id='description'
-                        onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                        type='checkbox'
+                        label='Description'
+                        setFilterOption={setFilterOption}
                         value={3}
                     />
-                    <DefaultDropdownText htmlFor='description'>Description</DefaultDropdownText>
                 </DropdownChoiceContainer>
             </DropdownOptions>
         </Dropdown>
