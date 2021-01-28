@@ -8,7 +8,7 @@ import {EditInputsContainer, EditMemberEmailInput, EmailAccessOrgCountryInputCon
     RoleInputContainer, SelectOrgErrorMessageContainer} from './style'
 
 
-const EditMemberInputs = ({allGroupProjects, allProjectsChecked, error, groupOrganizations,
+const EditMemberInputs = ({allGroupProjects, allProjectsChecked, error, group, groupOrganizations,
     handleCreateNewOrganization, memberEmail, newOrg, roleChecked, selectNewOrgStatus,
     selectOrgName, setAllGroupProjects, setAllProjectsChecked, setRoleChecked, setSelectNewOrgStatus,
     setSelectOrgName}) => {
@@ -41,6 +41,7 @@ const EditMemberInputs = ({allGroupProjects, allProjectsChecked, error, groupOrg
             <RoleInputContainer>
                 <AuthenticatedText>Role</AuthenticatedText>
                 <RoleProjectList
+                    group={group}
                     roleChecked={roleChecked}
                     setRoleChecked={setRoleChecked}
                 />

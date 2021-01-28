@@ -105,12 +105,12 @@ const MemberEdit = ({history}) => {
 
     const saveMemberChangesHandler = async () => {
         dispatch(resetErrors())
-        if (!selectOrgName){
-            dispatch(setError({organization: `You must select an organization for this member.`}))
-        } else if (!Object.values(roleChecked).includes(true)){
-            dispatch(setError({role: `You must select a Role for this member.`}))
-        } else if (!checkIfAtLeastOneProjectChecked()){
-            dispatch(setError({project: `You must select at least one Project for this member.`}))
+        if (!selectOrgName) {
+            dispatch(setError({organization: `You must select an Organization for this member.`}))
+        } else if (checkIfAtLeastOneProjectChecked() && !Object.values(roleChecked).includes(true)) {
+            dispatch(setError({role: `You must select a Role to be able to assign a member to Projects.`}))
+        } else if (!checkIfAtLeastOneProjectChecked() && Object.values(roleChecked).includes(true)) {
+            dispatch(setError({project: `You must select at least one Project to assign a member a Role.`}))
         } else {
             const updatedProjectAccess = []
             allGroupProjects.forEach(project => {
@@ -124,7 +124,7 @@ const MemberEdit = ({history}) => {
             const selectedOrg = group.organizations.filter(org => org.name === selectOrgName)[0]
             const updatedMemberInfo = {
                 member_project_access: updatedProjectAccess,
-                role: selectedRole,
+                role: selectedRole ? selectedRole : '',
                 organization: selectedOrg
             }
             const response = await dispatch(updateRolesForProfileGroupAction(updatedMemberInfo, group.id, member.id))
@@ -170,6 +170,7 @@ const MemberEdit = ({history}) => {
                         allGroupProjects={allGroupProjects}
                         allProjectsChecked={allProjectsChecked}
                         error={error}
+                        group={group}
                         groupOrganizations={group.organizations}
                         handleCreateNewOrganization={handleCreateNewOrganization}
                         memberEmail={member.user.email}

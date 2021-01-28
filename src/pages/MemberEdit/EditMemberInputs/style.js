@@ -34,6 +34,6 @@ export const EditMemberEmailInput = styled(BaseInput)`
 `
 
 export const SelectOrgErrorMessageContainer = styled.div`
-    height: 10px;
+    height: 15px;
     margin-left: 179px;
 `

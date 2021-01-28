@@ -6,7 +6,7 @@ import {AccessProjectRoleLabel} from '../../../../style/labels'
 import {CheckBoxRoleContainer, ProjectRolesContainer, TooltipAnchor} from './styles'
 
 
-const RoleProjectList = ({roleChecked, setRoleChecked}) => {
+const RoleProjectList = ({group, roleChecked, setRoleChecked}) => {
     const roleCheckBoxChangeHandler = e => {
         setRoleChecked({
             Core: false,
@@ -22,6 +22,7 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
                 <CustomCheckbox>
                     <input
                         checked={roleChecked.Core}
+                        disabled={!group.projects.length}
                         id='Core'
                         onChange={(e) => roleCheckBoxChangeHandler(e)}
                         type='checkbox'
@@ -43,6 +44,7 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
                 <CustomCheckbox>
                     <input
                         checked={roleChecked.Legal}
+                        disabled={!group.projects.length}
                         id='Legal'
                         onChange={(e) => roleCheckBoxChangeHandler(e)}
                         type='checkbox'
@@ -64,6 +66,7 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
                 <CustomCheckbox>
                     <input
                         checked={roleChecked.Tax}
+                        disabled={!group.projects.length}
                         id='Tax'
                         onChange={(e) => roleCheckBoxChangeHandler(e)}
                         type='checkbox'
@@ -85,6 +88,7 @@ const RoleProjectList = ({roleChecked, setRoleChecked}) => {
                 <CustomCheckbox>
                     <input
                         checked={roleChecked.Other}
+                        disabled={!group.projects.length}
                         id='Other'
                         onChange={(e) => roleCheckBoxChangeHandler(e)}
                         type='checkbox'
