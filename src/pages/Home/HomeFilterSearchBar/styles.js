@@ -5,6 +5,7 @@ import {BaseInput} from '../../../style/inputs'
 export const HomeFilterSearchContainer = styled.div`
     display: flex;
     align-items: flex-start;
+    justify-content: center;
     width: 600px;
     height: 36px;
     border: 1px solid ${props => props.theme.grayFour};
@@ -17,10 +18,11 @@ export const HomeFilterSearchContainer = styled.div`
 `
 
 export const HomeFilterSearchInput = styled(BaseInput)`
-    width: 505px;
+    width: 500px;
     height: 34px;
     border: none;
     background: ${props => props.theme.white};
+    padding: 10px 0 10px 5px;
 
     :hover {
         filter: none;
@@ -38,13 +40,13 @@ export const HomeFilterResetImgContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    :hover {
+        cursor: pointer;
+    }
 `
 
 export const HomeFilterResetImg = styled.img`
-    :hover {
-        background: ${props => props.theme.graySix};
-        box-shadow: ${props => props.theme.boxShadow};
-    }
 `
 
 export const HomeFilterSpacer = styled.span`
@@ -62,9 +64,9 @@ export const HomeFilterImgContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
 
     :hover {
-        background: ${props => props.theme.graySix};
-        box-shadow: ${props => props.theme.boxShadow};
+        cursor: pointer;
     }
 `

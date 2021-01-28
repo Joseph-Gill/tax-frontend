@@ -1,6 +1,6 @@
 import React from 'react'
 import reset from '../../../assets/icons/stark_close_icon.svg'
-import filterImage from '../../../assets/icons/stark_filter.svg'
+import searchImage from '../../../assets/icons/stark_search_bar_icon.svg'
 import {HomeFilterImgContainer, HomeFilterResetImg, HomeFilterResetImgContainer, HomeFilterSearchContainer,
     HomeFilterSearchInput, HomeFilterSpacer} from './styles'
 
@@ -19,7 +19,7 @@ const HomeFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChange
             </HomeFilterResetImgContainer>
             <HomeFilterSpacer />
             <HomeFilterImgContainer onClick={filterByClickChangeHandler}>
-                <img alt='search filter' src={filterImage} />
+                <img alt='search filter' src={searchImage} />
             </HomeFilterImgContainer>
         </HomeFilterSearchContainer>
     )

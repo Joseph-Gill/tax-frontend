@@ -190,6 +190,7 @@ export const defaultTheme = {
     taxConsequenceLabelBlue: '#CCF0FF',
     taskResponsibleText: '#212121',
     inputErrorRed: '#FF605C',
+    iconHoverBackground: 'rgba(211, 216, 221, .5)',
     // Box Shadows
     boxShadow: '0px 0px 20px #EFEFEF',
     buttonBoxShadow: '0 4px 10px rgba(0, 112, 159, 0.24)',
