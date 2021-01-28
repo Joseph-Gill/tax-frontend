@@ -13,7 +13,7 @@ import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/pat
 import noSteps from '../../assets/icons/stark_no_steps.svg'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CardTitleText, NoFilterResultText} from '../../style/text'
-import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilterTextContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilteredTasksStepsContainer, NoFilterTextContainer} from '../../style/containers'
 import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
 import {BeginningStructureButton, NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styles'
 
@@ -69,16 +69,24 @@ const ProjectSteps = ({history}) => {
     }
 
     const renderSteps = array => {
-        return array.map(step => (
-            <StepCard
-                history={history}
-                key={step.id}
-                number={step.number}
-                project={project}
-                step={step}
-                stepCardClickHandler={stepCardClickHandler}
-            />
-        ))
+        if (!array.length) {
+            return (
+                <NoFilteredTasksStepsContainer>
+                    No steps for this project match these filters
+                </NoFilteredTasksStepsContainer>
+            )
+        } else {
+            return array.map(step => (
+                <StepCard
+                    history={history}
+                    key={step.id}
+                    number={step.number}
+                    project={project}
+                    step={step}
+                    stepCardClickHandler={stepCardClickHandler}
+                />
+            ))
+        }
     }
 
     return (

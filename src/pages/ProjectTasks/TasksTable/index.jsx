@@ -1,7 +1,8 @@
 import React from 'react'
 import TaskTableEntry from './TaskTableEntry'
+import {NoFilteredTasksStepsContainer} from '../../../style/containers'
 import {CommentTable, TableHeader, TableTitleRow} from '../../../style/tables'
-import {NoFilteredTasksContainer, TaskStatusTableHeader} from './styles'
+import {TaskStatusTableHeader} from './styles'
 
 
 const TasksTable = ({group, history, project, tasks}) => {
@@ -44,9 +45,9 @@ const TasksTable = ({group, history, project, tasks}) => {
     return (
         <div>
             {!tasks.length ?
-                <NoFilteredTasksContainer>
+                <NoFilteredTasksStepsContainer>
                     No tasks for this project match these filters
-                </NoFilteredTasksContainer> : (
+                </NoFilteredTasksStepsContainer> : (
                     <CommentTable>
                         <thead>
                             <TableTitleRow>
