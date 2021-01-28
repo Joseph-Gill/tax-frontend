@@ -9,9 +9,12 @@ import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
 import headerCheckbox from '../../../assets/icons/stark_checkbox_header.svg'
 import rightChevron from '../../../assets/icons/stark_right_chevron.png'
 import {CheckBox} from '../../../style/inputs'
+import {CustomCheckbox} from '../../../style/checkbox'
 import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../style/tables'
-import {ActiveMemberUserContainer, ActiveMemberUserText, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText,
-    RoleFieldChevron, RoleFieldText, RoleTextImageContainer, TableDataCheckbox} from './styles'
+import {
+    ActiveMemberUserContainer, ActiveMemberUserText, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText,
+    RoleFieldChevronContainer, RoleFieldText, RoleTextImageContainer, TableDataCheckbox
+} from './styles'
 import {MemberTableHeaderImg} from '../styles'
 
 
@@ -128,12 +131,15 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
         return array.map((member, index) => (
             <TableDataRow key={member.id}>
                 <TableDataCheckbox>
-                    <CheckBox
-                        checked={activeRenderData[index].isChecked}
-                        onChange={(e) => checkBoxChangeHandler(e, activeRenderData, setActiveRenderData)}
-                        type='checkbox'
-                        value={index}
-                    />
+                    <CustomCheckbox>
+                        <input
+                            checked={activeRenderData[index].isChecked}
+                            onChange={(e) => checkBoxChangeHandler(e, activeRenderData, setActiveRenderData)}
+                            type='checkbox'
+                            value={index}
+                        />
+                        <span className='checkmark' />
+                    </CustomCheckbox>
                 </TableDataCheckbox>
                 <TableData>
                     <ActiveMemberUserContainer onClick={() => history.push(`${GROUPS}${MEMBERS}${EDIT_MEMBER}/${member.id}/`)}>
@@ -147,11 +153,13 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                 <TableData>{member.country}</TableData>
                 <RoleTextImageContainer>
                     <RoleFieldText>{member.project_role}</RoleFieldText>
-                    <RoleFieldChevron
-                        alt='edit member'
-                        onClick={() => history.push(`${GROUPS}${MEMBERS}${EDIT_MEMBER}/${member.id}/`)}
-                        src={rightChevron}
-                    />
+                    <RoleFieldChevronContainer>
+                        <img
+                            alt='edit member'
+                            onClick={() => history.push(`${GROUPS}${MEMBERS}${EDIT_MEMBER}/${member.id}/`)}
+                            src={rightChevron}
+                        />
+                    </RoleFieldChevronContainer>
                 </RoleTextImageContainer>
             </TableDataRow>)
         )

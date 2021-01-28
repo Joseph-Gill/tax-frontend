@@ -80,11 +80,16 @@ export const RoleTextImageContainer = styled.td`
     height: 77px;
 `
 
-export const RoleFieldChevron = styled.img`
+export const RoleFieldChevronContainer = styled.div`
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
     :hover {
         cursor: pointer;
-        box-shadow: ${props => props.theme.boxShadow};
-        background: ${props => props.theme.graySix};
-        transition: 167ms;
+        background: ${props => props.theme.iconHoverBackground};
     }
 `
