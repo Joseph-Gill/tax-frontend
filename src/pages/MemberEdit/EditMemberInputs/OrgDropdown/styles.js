@@ -85,9 +85,38 @@ export const AddNewOrgText = styled(AuthenticatedText)`
     font-weight: bold;
     color: ${props => props.theme.primaryBlue};
     padding-left: 14px;
+
+    :hover {
+            cursor: pointer;
+            text-decoration: underline;
+    }
 `
 
 export const NewOrgInput = styled(BaseInput)`
     height: 41px;
     width: 100%;
+`
+
+export const OrgDowndownText = styled(AuthenticatedText)`
+    :hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+`
+
+export const AddOrgImageContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+
+    :hover {
+        cursor: pointer;
+        background-color: ${props => props.theme.iconHoverBackground};
+    }
+`
+
+export const AddOrgImage = styled.img`
 `

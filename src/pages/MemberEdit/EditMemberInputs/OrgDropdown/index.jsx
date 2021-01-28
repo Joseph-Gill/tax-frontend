@@ -1,10 +1,14 @@
 import React from 'react'
 import bluePlusSign from '../../../../assets/icons/stark_add_org_icon.svg'
-import {AuthenticatedText} from '../../../../style/text'
-import {AddNewOrgText, NewOrgInput, OrganizationDropdown, OrgDropdownButton, OrgDropdownChoiceContainer, OrgDropdownOptions, OrgInputDropdownChoiceContainer} from './styles'
+import {
+    AddNewOrgText, AddOrgImage, AddOrgImageContainer, NewOrgInput, OrganizationDropdown, OrgDowndownText, OrgDropdownButton, OrgDropdownChoiceContainer,
+    OrgDropdownOptions, OrgInputDropdownChoiceContainer
+} from './styles'
 
 
-const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, selectNewOrgStatus, selectOrgName, setSelectNewOrgStatus, setSelectOrgName}) => {
+const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, selectNewOrgStatus,
+                         selectOrgName, setSelectNewOrgStatus, setSelectOrgName}) => {
+
     const handleNewOrgInputPressEnter = (e) => {
         if (e.key === 'Enter') {
             handleCreateNewOrganization()
@@ -17,7 +21,9 @@ const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, s
             <OrgDropdownOptions>
                 {!selectNewOrgStatus ? (
                     <OrgDropdownChoiceContainer onClick={() => setSelectNewOrgStatus(!selectNewOrgStatus)}>
-                        <img alt='add organization' src={bluePlusSign} />
+                        <AddOrgImageContainer>
+                            <AddOrgImage alt='add organization' src={bluePlusSign} />
+                        </AddOrgImageContainer>
                         <AddNewOrgText>Add new organization</AddNewOrgText>
                     </OrgDropdownChoiceContainer>) : (
                         <OrgInputDropdownChoiceContainer>
@@ -34,7 +40,7 @@ const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, s
                         key={org.id}
                         onClick={() => setSelectOrgName(org.name)}
                     >
-                        <AuthenticatedText>{org.name}</AuthenticatedText>
+                        <OrgDowndownText>{org.name}</OrgDowndownText>
                     </OrgDropdownChoiceContainer>
                 ))}
             </OrgDropdownOptions>
