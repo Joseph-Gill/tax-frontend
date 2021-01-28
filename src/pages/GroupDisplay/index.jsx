@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useRouteMatch} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
@@ -21,14 +21,22 @@ const GroupDisplay = ({history}) => {
     const match = useRouteMatch();
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        //Resets project in redux state
-        dispatch(resetProject())
-        //Resets the project filter of GroupMembers
-        dispatch(resetMemberFilterProjectId())
         //Fetches Group from the url groupId
-        dispatch(getGroupAction(match.params.groupId))
+        const getGroupForPage = async () => {
+            await dispatch(getGroupAction(match.params.groupId))
+        }
+        setLoading(true)
+        getGroupForPage()
+            .then(() => {
+                //Resets project in redux state
+                dispatch(resetProject())
+                //Resets the project filter of GroupMembers
+                dispatch(resetMemberFilterProjectId())
+                setLoading(false)
+            })
     }, [dispatch, match.params.groupId])
 
     //Used by cards of GroupDisplay to define where onClick should push
@@ -50,7 +58,7 @@ const GroupDisplay = ({history}) => {
     //prop "type" is used in styling the cards
     return (
         <AuthenticatedPageContainer>
-            {!loaded ? <Spinner /> :
+            {!loaded || loading ? <Spinner /> :
             <>
                 <BreadCrumb
                     breadCrumbArray={[
