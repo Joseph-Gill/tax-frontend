@@ -1,9 +1,8 @@
 import React from 'react'
-import {allowOnlyOneCheckedBox} from '../../../helpers'
+import CustomFilterCheckBox from '../../../components/CustomFilterCheckBox'
 import {Dropdown, DropdownOptions, FilterDropdownButton} from '../../../style/dropdowns'
 import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/containers'
-import {DefaultDropdownText} from '../../../style/text'
-import {FilterCheckBox, FilterInput} from '../../../style/inputs'
+import {FilterInput} from '../../../style/inputs'
 
 
 const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilterOption, setFilterString}) => {
@@ -20,66 +19,60 @@ const FilterDropdown = ({filterOption, filterMemberStraus, filterString, setFilt
                     />
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
-                    <FilterCheckBox
-                        checked={filterOption[0].isChecked}
+                    <CustomFilterCheckBox
+                        filterOption={filterOption}
                         id='email'
-                        onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                        type='checkbox'
+                        label='Email'
+                        setFilterOption={setFilterOption}
                         value={0}
                     />
-                    <DefaultDropdownText htmlFor='email'>Email</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 {!filterMemberStraus && (
                     <>
                         <DropDownChoiceWithBorder>
-                            <FilterCheckBox
-                                checked={filterOption[1].isChecked}
+                            <CustomFilterCheckBox
+                                filterOption={filterOption}
                                 id='name'
-                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                                type='checkbox'
+                                label='Name'
+                                setFilterOption={setFilterOption}
                                 value={1}
                             />
-                            <DefaultDropdownText htmlFor='name'>Name</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropDownChoiceWithBorder>
-                            <FilterCheckBox
-                                checked={filterOption[2].isChecked}
+                            <CustomFilterCheckBox
+                                filterOption={filterOption}
                                 id='organization'
-                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                                type='checkbox'
+                                label='Organization'
+                                setFilterOption={setFilterOption}
                                 value={2}
                             />
-                            <DefaultDropdownText htmlFor='organization'>Organization</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropDownChoiceWithBorder>
-                            <FilterCheckBox
-                                checked={filterOption[3].isChecked}
+                            <CustomFilterCheckBox
+                                filterOption={filterOption}
                                 id='projectAccess'
-                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                                type='checkbox'
+                                label='Project Access'
+                                setFilterOption={setFilterOption}
                                 value={3}
                             />
-                            <DefaultDropdownText htmlFor='projectAccess'>Project Access</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropDownChoiceWithBorder>
-                            <FilterCheckBox
-                                checked={filterOption[4].isChecked}
+                            <CustomFilterCheckBox
+                                filterOption={filterOption}
                                 id='country'
-                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                                type='checkbox'
+                                label='Country'
+                                setFilterOption={setFilterOption}
                                 value={4}
                             />
-                            <DefaultDropdownText htmlFor='country'>Country</DefaultDropdownText>
                         </DropDownChoiceWithBorder>
                         <DropdownChoiceContainer>
-                            <FilterCheckBox
-                                checked={filterOption[5].isChecked}
+                            <CustomFilterCheckBox
+                                filterOption={filterOption}
                                 id='role'
-                                onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                                type='checkbox'
+                                label='Role'
+                                setFilterOption={setFilterOption}
                                 value={5}
                             />
-                            <DefaultDropdownText htmlFor='role'>Role</DefaultDropdownText>
                         </DropdownChoiceContainer>
                     </>)}
             </DropdownOptions>
