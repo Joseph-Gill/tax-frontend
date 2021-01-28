@@ -8,9 +8,9 @@ import {getGroupAction} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
 import {resetMemberFilterProjectId} from '../../store/member/actions'
 import {EDIT_GROUP, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../routes/paths'
-import organizationChartImage from '../../assets/icons/stark_group_display_org_card_image.png'
-import projectImage from '../../assets/icons/stark_group_display_project_card_image.png'
-import membersImage from '../../assets/icons/stark_group_display_members_card_image.png'
+import blueOrgChart from '../../assets/icons/stark_group_display_org_card_image_blue.svg'
+import blueProjectImage from '../../assets/icons/stark_group_display_project_card_blue.svg'
+import blueMembersImage from '../../assets/icons/stark_group_display_members_card_blue.svg'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {DisplayCardsContaner, EditGroupButton} from './styling'
@@ -70,9 +70,9 @@ const GroupDisplay = ({history}) => {
                     <EditGroupButton onClick={() => history.push(`${GROUPS}${EDIT_GROUP}`)}>Edit Group</EditGroupButton>
                 </DisplayTitleWithButtonContainer>
                 <DisplayCardsContaner>
-                    <DisplayCard content={group.entities} image={organizationChartImage} redirectOnClickHandler={redirectOnClickHandler} type='Organization Chart' />
-                    <DisplayCard content={group.projects} image={projectImage} redirectOnClickHandler={redirectOnClickHandler} type='Projects' />
-                    <DisplayCard content={group.users} image={membersImage} redirectOnClickHandler={redirectOnClickHandler} type='Members' />
+                    <DisplayCard content={group.entities} image={blueOrgChart} redirectOnClickHandler={redirectOnClickHandler} type='Organization Chart' />
+                    <DisplayCard content={group.projects} image={blueProjectImage} redirectOnClickHandler={redirectOnClickHandler} type='Projects' />
+                    <DisplayCard content={group.users} image={blueMembersImage} redirectOnClickHandler={redirectOnClickHandler} type='Members' />
                 </DisplayCardsContaner>
             </>}
         </AuthenticatedPageContainer>

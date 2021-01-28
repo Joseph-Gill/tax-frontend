@@ -7,7 +7,7 @@ export const DisplayCardContainer = styled.div`
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
-    border: 1px solid ${props => props.theme.grayFour};
+    border: 1px solid ${props => props.theme.grayThree};
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@ export const DisplayCardContainer = styled.div`
 export const DisplayCardImageContainer = styled.div`
     width: 240px;
     height: 155px;
-    background: ${props => props.theme.graySix};
+    background: linear-gradient(0.90turn, ${props => props.theme.grayThree}, ${props => props.theme.grayFour}, ${props => props.theme.grayFive});
     border-radius: ${props => props.theme.borderRadius};
     display: flex;
     align-items: center;
