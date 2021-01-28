@@ -64,21 +64,21 @@ export const ProjectCardNameText = styled(CardTitleText)`
 export const ProjectNameTextContainer = styled.div`
     ${props => {
         if (props.status === 'Ongoing' || props.status === 'Not Started' ){
-            return `border-bottom: 4px solid ${props.theme.yellow};`
+            return `border-bottom: 2px solid ${props.theme.yellow};`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Completed'){
-            return `border-bottom: 4px solid ${props.theme.greenBright};`
+            return `border-bottom: 2px solid ${props.theme.greenBright};`
             }
         }
     };
 
     ${props => {
         if (props.status === 'Not Implemented') {
-            return `border-bottom: 4px solid ${props.theme.red};`
+            return `border-bottom: 2px solid ${props.theme.red};`
             }
         }
     };
