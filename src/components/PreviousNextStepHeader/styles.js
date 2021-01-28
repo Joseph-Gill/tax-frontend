@@ -9,7 +9,10 @@ export const PreviousNextStepHeaderContainer = styled.div`
 `
 
 export const ImageTextStepHeaderContainer = styled.div`
+    width: 170px;
     display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
     ${props => {
         if (props.active) {
@@ -21,6 +24,10 @@ export const ImageTextStepHeaderContainer = styled.div`
             }
         }
     };
+`
+
+export const ImageTextStepHeaderContainerLeft = styled(ImageTextStepHeaderContainer)`
+    justify-content: flex-start;
 `
 
 export const PreviousNextArrowLeft = styled.img`

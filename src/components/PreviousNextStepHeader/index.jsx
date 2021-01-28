@@ -8,7 +8,8 @@ import previousActive from '../../assets/icons/stark_step_header_left_active.png
 import nextActive from '../../assets/icons/stark_step_header_right_active.png'
 import previousInactive from '../../assets/icons/stark_step_header_left_inactive.png'
 import nextInactive from '../../assets/icons/stark_step_header_right_inactive.png'
-import {ImageTextStepHeaderContainer, PreviousNextActiveText, PreviousNextArrowLeft, PreviousNextArrowRight, PreviousNextStepHeaderContainer} from './styles'
+import {ImageTextStepHeaderContainer, ImageTextStepHeaderContainerLeft, PreviousNextActiveText, PreviousNextArrowLeft,
+    PreviousNextArrowRight, PreviousNextStepHeaderContainer} from './styles'
 
 
 //Used by StepDisplay to provide the header where users click to next / previous step of the current step
@@ -62,14 +63,14 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
         //The active prop controls styling of the link in styles.js
         <PreviousNextStepHeaderContainer>
             {previous ? (
-                <ImageTextStepHeaderContainer active={previous} onClick={previousClickHandler}>
+                <ImageTextStepHeaderContainerLeft active={previous} onClick={previousClickHandler}>
                     <PreviousNextArrowLeft alt='previous step' src={previousActive} />
                     <PreviousNextActiveText active={previous}>Previous Step</PreviousNextActiveText>
-                </ImageTextStepHeaderContainer> ) : (
-                    <ImageTextStepHeaderContainer active={previous}>
+                </ImageTextStepHeaderContainerLeft> ) : (
+                    <ImageTextStepHeaderContainerLeft active={previous}>
                         <PreviousNextArrowLeft alt='previous step' src={previousInactive} />
                         <PreviousNextActiveText active={previous}>Previous Step</PreviousNextActiveText>
-                    </ImageTextStepHeaderContainer>)}
+                    </ImageTextStepHeaderContainerLeft>)}
             {next ? (
                 <ImageTextStepHeaderContainer active={next} onClick={nextClickHandler}>
                     <PreviousNextActiveText active={next}>Next Step</PreviousNextActiveText>
