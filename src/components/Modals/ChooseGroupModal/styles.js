@@ -7,7 +7,7 @@ import {BaseInput} from '../../../style/inputs'
 export const ChooseGroupModalInternalContainer = styled(AddDeleteModalInternalContainer)`
     width: 600px;
     height: 456px;
-    padding: 15.41px 15.41px 34px 24px;
+    padding: 15.41px 15.41px 5px 24px;
     align-items: flex-start;
     justify-content: flex-start;
 `
@@ -18,7 +18,7 @@ export const ChooseGroupModalCloseContainer = styled(AddDeleteModalCloseContaine
 
 export const ChooseGroupModalTitleContainer = styled.div`
     margin-left: 10px;
-    margin-top: 32px;
+    margin-top: 18px;
     width: 532px;
     display: flex;
     justify-content: center;
@@ -37,10 +37,11 @@ export const ChooseGroupInput = styled(BaseInput)`
 `
 
 export const ChooseGroupCardContainer = styled.div`
-    height: 209px;
-    max-height: 209px;
+    height: 200px;
+    max-height: 200px;
     width: 552px;
-    padding: 20px 10px 10px 10px;
+    margin-top: 20px;
+    padding: 0 10px 10px 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: auto;
