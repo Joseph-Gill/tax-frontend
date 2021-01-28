@@ -1,7 +1,6 @@
 import React from 'react'
-import {allowOnlyOneCheckedBox} from '../../../helpers'
-import {DefaultDropdownText} from '../../../style/text'
-import {FilterCheckBox, FilterInput} from '../../../style/inputs'
+import CustomFilterCheckBox from '../../../components/CustomFilterCheckBox'
+import {FilterInput} from '../../../style/inputs'
 import {Dropdown, DropdownOptions, FilterDropdownButton} from '../../../style/dropdowns'
 import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/containers'
 
@@ -20,34 +19,31 @@ const StepFilterDropdown = ({filterOption, filterString, setFilterOption, setFil
                     />
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
-                    <FilterCheckBox
-                        checked={filterOption[0].isChecked}
+                    <CustomFilterCheckBox
+                        filterOption={filterOption}
                         id='status'
-                        onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                        type='checkbox'
+                        label='Status'
+                        setFilterOption={setFilterOption}
                         value={0}
                     />
-                    <DefaultDropdownText htmlFor='status'>Status</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropDownChoiceWithBorder>
-                    <FilterCheckBox
-                        checked={filterOption[1].isChecked}
+                    <CustomFilterCheckBox
+                        filterOption={filterOption}
                         id='consequenceLocation'
-                        onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                        type='checkbox'
+                        label='Tax Consequence Location'
+                        setFilterOption={setFilterOption}
                         value={1}
                     />
-                    <DefaultDropdownText htmlFor='consequenceLocation'>Tax Consequence Location</DefaultDropdownText>
                 </DropDownChoiceWithBorder>
                 <DropdownChoiceContainer>
-                    <FilterCheckBox
-                        checked={filterOption[2].isChecked}
+                    <CustomFilterCheckBox
+                        filterOption={filterOption}
                         id='description'
-                        onChange={(e) => allowOnlyOneCheckedBox(e, filterOption, setFilterOption)}
-                        type='checkbox'
+                        label='Description'
+                        setFilterOption={setFilterOption}
                         value={2}
                     />
-                    <DefaultDropdownText htmlFor='description'>Description</DefaultDropdownText>
                 </DropdownChoiceContainer>
             </DropdownOptions>
         </Dropdown>
