@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
-import CurrentOrgChart from '../../components/CurrentOrgChart'
 import Spinner from '../../components/Spinner'
+import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 import {addNewStep} from '../../store/step/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
@@ -77,7 +77,7 @@ const StepBeginning = ({history}) => {
                                 <AuthenticatedPageTitle>Beginning Structure</AuthenticatedPageTitle>
                                 <AddNewStepButton onClick={addNewStepHandler}>Add New Step</AddNewStepButton>
                             </StepPageTitleWithButtonContainer>)}
-                    <CurrentOrgChart
+                    <CurrentOrgChartV2
                         componentCalling='StepBeginning'
                         nodes={entitiesToRender}
                     />

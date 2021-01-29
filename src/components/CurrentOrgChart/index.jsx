@@ -10,11 +10,11 @@ const CurrentOrgChart = ({componentCalling, clinks, nodes, slinks}) => {
     useEffect(() => {
         // This controls where the text fields appear on the org chart nodes
         OrgChart.templates.olivia.field_0 =
-            '<text class="field_0" width="230" text-overflow="multiline" style="font-size: 18px;" fill="#000000" x="125" y="30" text-anchor="middle" font-family="Nunito Sans, sans-serif">{val}</text>'
+            '<text class="field_0" style="font-size: 18px;" fill="#000000" x="125" y="30" text-anchor="middle" font-family="Nunito Sans, sans-serif">{val}</text>'
         OrgChart.templates.olivia.field_1 =
-            '<text class="field_1" style="font-size: 14px;" fill="#000000" x="125" y="60" text-anchor="middle" font-family="Nunito Sans, sans-serif">{val}</text>'
+            '<text class="field_1" style="font-size: 16px;" fill="#000000" x="125" y="60" text-anchor="middle" font-family="Nunito Sans, sans-serif">{val}</text>'
         OrgChart.templates.olivia.field_2 =
-            '<text class="field_2" style="font-size: 14px;" fill="#000000" x="125" y="80" text-anchor="middle" font-family="Nunito Sans, sans-serif">{val}</text>'
+            '<text class="field_2" style="font-size: 16px;" fill="#000000" x="125" y="80" text-anchor="middle" font-family="Nunito Sans, sans-serif">{val}</text>'
 
         // eslint-disable-next-line no-unused-vars
         const chart = new OrgChart(divRef.current, {

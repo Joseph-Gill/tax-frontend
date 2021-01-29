@@ -1,8 +1,8 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
-import CurrentOrgChart from '../../../components/CurrentOrgChart'
 import AddLinkModal from '../../../components/Modals/AddLinkModal'
+import CurrentOrgChartV2 from '../../../components/CurrentOrgChartV2'
 import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
@@ -70,7 +70,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             )
         } else {
             return (
-                <CurrentOrgChart
+                <CurrentOrgChartV2
                     clinks={clinks}
                     componentCalling='StepDisplay'
                     nodes={entitiesToRender}

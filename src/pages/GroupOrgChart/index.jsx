@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
-import BreadCrumb from '../../components/BreadCrumb'
-import CurrentOrgChart from '../../components/CurrentOrgChart'
 import Spinner from '../../components/Spinner'
+import BreadCrumb from '../../components/BreadCrumb'
+import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import {getEntitiesWithTags} from '../../helpers'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {GROUPS, HOME, ORG_CHART} from '../../routes/paths'
@@ -24,6 +24,7 @@ const GroupOrgChart = ({history}) => {
         //is used to display the node
         } else {
             setEntitiesToRender([...getEntitiesWithTags(entities)])
+            // setEntitiesToRender([...entities])
             setLoading(false)
         }
     }, [groupLoaded, history, entities])
@@ -40,7 +41,7 @@ const GroupOrgChart = ({history}) => {
                     <AuthenticatedPageTitleContainer>
                         <AuthenticatedPageTitle>Organization Chart</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
-                    <CurrentOrgChart
+                    <CurrentOrgChartV2
                         componentCalling='GroupOrgChart'
                         nodes={entitiesToRender}
                     />
