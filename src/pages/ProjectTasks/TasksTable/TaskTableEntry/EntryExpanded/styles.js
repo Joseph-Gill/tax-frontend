@@ -29,25 +29,6 @@ export const ExpandedTaskDescriptionContainer = styled.div`
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
-
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${props => props.theme.grayTwo};
-    }
 `
 
 export const ExpandedTaskStatusButtonContainer = styled.div`

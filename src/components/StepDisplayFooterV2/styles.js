@@ -7,25 +7,6 @@ export const StepDisplayContainer = styled.div`
     display: flex;
     margin-top: 21px;
     padding-bottom: 10px;
-
-    ::-webkit-scrollbar {
-      height: 6px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${props => props.theme.grayTwo};
-    }
 `
 
 export const StepNode = styled.li`

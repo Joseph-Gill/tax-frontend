@@ -100,7 +100,6 @@ export const MenuItem = styled(animated(Link))`
     :hover {
         background: ${props => props.theme.primaryShadeTwo};
         transition: 0.25s;
-        //border-right: solid 3px rgba(255,69,23,0.82);
     }
     :focus {
         border-right: solid 3px ${props => props.theme.primaryBlue};

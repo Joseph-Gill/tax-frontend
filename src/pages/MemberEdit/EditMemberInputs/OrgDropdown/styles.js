@@ -50,27 +50,6 @@ export const OrgDropdownOptions = styled(DropdownOptions)`
     max-height: 144px;
     overflow: scroll;
     overflow-x: hidden;
-
-      /* width */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${props => props.theme.grayTwo};
-    }
-
 `
 
 export const OrgDropdownChoiceContainer = styled(DropDownChoiceWithBorder)`

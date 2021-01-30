@@ -6,25 +6,6 @@ const TermsAndConditions = styled.div`
     overflow-y: scroll;
     height: 70vh;
 
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${props => props.theme.grayTwo};
-    }
-
     div {
       margin-top: 10px;
     };

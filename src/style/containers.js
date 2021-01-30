@@ -72,26 +72,6 @@ export const TableContainer = styled.div`
     width: 779px;
     margin-top: 11px;
     margin-bottom: 20px;
-
-      /* width */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${props => props.theme.grayTwo};
-    }
 `
 
 export const HomeExpandCollapseContainer = styled(animated.div)`
@@ -325,28 +305,6 @@ export const DocumentContainer = styled.div`
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
-
-    ::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    /* Track */
-
-    ::-webkit-scrollbar-track {
-        background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-
-    ::-webkit-scrollbar-thumb {
-        background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: ${props => props.theme.grayTwo};
-    }
 `
 
 export const EntryResponsibleContainer = styled.div`
@@ -376,28 +334,6 @@ export const EntryDocumentsTextContainer = styled.div`
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
-
-    ::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    /* Track */
-
-    ::-webkit-scrollbar-track {
-        background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-
-    ::-webkit-scrollbar-thumb {
-        background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: ${props => props.theme.grayTwo};
-    }
 `
 
 export const NoTasksOrTaxConsequencesDisplay = styled.div`

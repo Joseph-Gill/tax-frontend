@@ -64,25 +64,6 @@ export const StepInfoDescriptionContainer = styled.div`
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
-
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${props => props.theme.grayTwo};
-    }
 `
 
 export const StepInfoTextArea = styled(ProjectDescriptionTextArea)`
@@ -102,25 +83,6 @@ export const TaxConsequencesContainer = styled.div`
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
-
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: ${props => props.theme.grayFive};
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: ${props => props.theme.grayFour};
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: ${props => props.theme.grayTwo};
-    }
 `
 
 export const NewStepNoTaxConsequencesContainer = styled.div`
