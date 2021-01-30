@@ -1,16 +1,14 @@
 import styled from 'styled-components/macro'
 
 
-export const TaskExpandCollapseImage = styled.img`
+export const TaskExpandCollapseImgContainer = styled.div`
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+
     :hover {
         cursor: pointer;
         transition: 167ms;
-        box-shadow: ${props => props.theme.boxShadow};
-        background: ${props => props.theme.graySix};
+        background: ${props => props.theme.iconHoverBackground};
     }
-`
-
-export const TaskExpandCollapseImgContainer = styled.div`
-    width: 20px;
-    height: 20px;
 `

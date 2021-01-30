@@ -4,7 +4,7 @@ import {TableButton} from '../../../../../style/buttons'
 
 
 export const TaskTableEntryExpandedContainer = styled.div`
-    width: 853px;
+    width: 100%;
     height: 219px;
     background: ${props => props.theme.graySix};
     padding: 20px 44px 29px 44px;
