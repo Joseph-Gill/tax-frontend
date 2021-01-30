@@ -42,6 +42,10 @@ export const DisplayStepImage = styled.img`
 export const DisplayStepButtonText = styled(StepInfoText)`
     font-weight: bold;
     color: ${props => props.theme.primaryBlue};
+
+    :hover {
+        text-decoration: underline;
+    }
 `
 
 export const StepInfoCancelButton = styled(DisplayStepButtonText)`

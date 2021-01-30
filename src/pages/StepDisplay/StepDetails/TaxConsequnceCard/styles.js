@@ -43,6 +43,7 @@ export const TaxConsequenceButton = styled.p`
 
     :hover {
         cursor: pointer;
+        text-decoration: underline;
     }
 `
 
@@ -104,5 +105,6 @@ export const GreenReviewedText = styled.p`
 
     :hover {
         cursor: pointer;
+        text-decoration: underline;
     }
 `
