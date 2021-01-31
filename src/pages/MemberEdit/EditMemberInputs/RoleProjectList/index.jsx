@@ -7,6 +7,8 @@ import {CheckBoxRoleContainer, ProjectRolesContainer, TooltipAnchor} from './sty
 
 
 const RoleProjectList = ({group, roleChecked, setRoleChecked}) => {
+
+    //Used to only allow one Role checkbox to be checked at a time
     const roleCheckBoxChangeHandler = e => {
         setRoleChecked({
             Core: false,

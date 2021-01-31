@@ -43,32 +43,39 @@ const MemberEdit = ({history}) => {
 
     useEffect(() => {
         const listAllGroupProjectsCheckIfAssigned = async () => {
+            //Gets all project of a group a member has a role assigned
             const assignedProjects = await dispatch(getRolesForProfileGroupAction(match.params.memberId, group.id))
             setUserAssignedProjects([...assignedProjects])
             if (group.projects) {
                 let result = [];
+                //Iterates over all projects of the group
                 group.projects.forEach(project => {
+                    //Checks to see if the current project being iterated is in the list of member assigned project roles
                     const isChecked = assignedProjects.filter(role => role.project.id === project.id)
                     let data = {
                         id: project.id,
                         name: project.name,
+                        //Sets the check box to active if the user has a role matching the project
                         isChecked: !!isChecked.length
                     }
                     result.push(data)
                 })
                 setAllGroupProjects([...result])
             }
+            //Sets the values for role checkbox if the member has roles already defined
             if (assignedProjects.length) {
                 const checkedRole = {
                     Core: false,
                     Legal: false,
                     Tax: false,
                     Other: false,
+                    //Members have the same role for all projects of a group, sets the checkbox to true for the first role in the list of roles
                     [assignedProjects[0].role]: true,
                 }
                 setRoleChecked(checkedRole)
             }
         }
+        //Sets the Organization, specific to the chosen group, that the member is part of
         const getMemberOrgMatchingGroup = async () => {
             const response = await dispatch(getMemberAction(match.params.memberId))
             const result = response.organizations.filter(org => org.group === group.id)
@@ -76,6 +83,7 @@ const MemberEdit = ({history}) => {
                 setSelectOrgName(result[0].name)
             }
         }
+        //Pushes home if no group is loaded due to page reload
         if (!groupLoaded) {
             history.push(HOME)
         } else {
@@ -93,6 +101,7 @@ const MemberEdit = ({history}) => {
         await dispatch(createOrganizationForGroupAction(newOrgInfo, group.id))
     }
 
+    //Used for error handling during member update to make sure at least one project is checked, if a role is selected
     const checkIfAtLeastOneProjectChecked = () => {
         let result = false
         allGroupProjects.forEach(project => {
@@ -105,10 +114,13 @@ const MemberEdit = ({history}) => {
 
     const saveMemberChangesHandler = async () => {
         dispatch(resetErrors())
+        //Error handling if a member is to be saved with no organization assigned to them first
         if (!selectOrgName) {
             dispatch(setError({organization: `You must select an Organization for this member.`}))
+        //Error handling if a project is selected, but no role is selected as well for the member
         } else if (checkIfAtLeastOneProjectChecked() && !Object.values(roleChecked).includes(true)) {
             dispatch(setError({role: `You must select a Role to be able to assign a member to Projects.`}))
+        //Error handling if a role is selected, but no project is selected as well for the member
         } else if (!checkIfAtLeastOneProjectChecked() && Object.values(roleChecked).includes(true)) {
             dispatch(setError({project: `You must select at least one Project to assign a member a Role.`}))
         } else {

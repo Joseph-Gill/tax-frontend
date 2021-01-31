@@ -11,6 +11,7 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
         setAllProjectsChecked(!allGroupProjects.filter(project => !project.isChecked).length)
     }, [allGroupProjects, setAllProjectsChecked])
 
+    //Used by Select/Unselect all checkbox to toggle all check boxes at once
     const checkAllProjectsChangeHandler = () => {
         const dataCopy = [...allGroupProjects]
         dataCopy.forEach(project => {
@@ -20,6 +21,7 @@ const AccessProjectList = ({allGroupProjects, allProjectsChecked, setAllGroupPro
         setAllProjectsChecked(!allProjectsChecked)
     }
 
+    //Creates all Project choices for the Group with checkbox to select, initial check status set by MemberEdit useEffect
     const renderProjectNameWithCheckBox = () => (
         allGroupProjects.map((project, index) => (
             <ProjectNameCheckboxContainer key={project.id}>

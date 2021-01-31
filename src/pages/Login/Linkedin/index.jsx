@@ -10,7 +10,6 @@ import LinkedInLogo from '../../../assets/icons/linkedin.svg'
 
 
 // Currently not used in the Project, leftover from the Template
-
 const LinkedinLogin = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [linkedInCSRFState, setLinkedInCSRFState] = useState('')

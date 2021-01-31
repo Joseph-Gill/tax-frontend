@@ -26,7 +26,9 @@ const Login = () => {
     return (
         <BasePageContainer>
             <Formik
+                // Sets initial values for Formik inputs
                 initialValues={{email: '', password: ''}}
+                // Function called each time submit button is clicked
                 onSubmit={async (values) => {
                     dispatch(resetErrors())
                     const response = await dispatch(userLoginAction(values))
@@ -34,6 +36,7 @@ const Login = () => {
                         history.push(HOME)
                     }
                 }}
+                // Validation called on input values
                 validate={values => {
                     const errors = {};
                     if (!values.email) {
@@ -46,6 +49,7 @@ const Login = () => {
                     }
                     return errors;
                     }}
+                // Validation only checked when user clicks submit
                 validateOnBlur={false}
                 validateOnChange={false}
             >

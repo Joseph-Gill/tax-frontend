@@ -9,6 +9,7 @@ import {
 const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, selectNewOrgStatus,
                          selectOrgName, setSelectNewOrgStatus, setSelectOrgName}) => {
 
+    //Saves new Organization user wishes to create by pressing enter
     const handleNewOrgInputPressEnter = (e) => {
         if (e.key === 'Enter') {
             handleCreateNewOrganization()
