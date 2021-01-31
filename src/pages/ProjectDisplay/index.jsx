@@ -28,14 +28,18 @@ const ProjectDisplay = ({history}) => {
 
     useEffect(() => {
         const getProfileIfNeededGetStatuses = async () => {
+            //Gets the group for the project in match.params if not loaded due to page refresh
             if (!groupLoaded) {
                 await dispatch(getGroupOfProjectAction(match.params.projectId))
             }
+            //Gets project matching match.params.projectId
             await dispatch(getProjectAction(match.params.projectId))
+            //Gets step status numbers for project matching match.params.projectId for StepsCard
             const stepsStatusInfo = await dispatch(getProjectStepsStatusesAction(match.params.projectId))
             if (stepsStatusInfo) {
                 setStepsStatuses({...stepsStatusInfo})
             }
+            //Gets task status numbers for project matching match.params.projectId for TasksCard
             const tasksStatusInfo = await dispatch(getProjectTasksStatusesAction(match.params.projectId))
             if (tasksStatusInfo) {
                 setTasksStatuses({...tasksStatusInfo})
@@ -45,6 +49,7 @@ const ProjectDisplay = ({history}) => {
             .then(() => setLoading(false))
     }, [dispatch, match.params.projectId, groupLoaded])
 
+    //Used by link to GroupMembers page, sets the MembersProject filter to project in match.params
     const setProjectFilterGoToMembersHandler = () => {
         dispatch(setMemberFilterProjectId(match.params.projectId))
         history.push(`${GROUPS}${MEMBERS}`)

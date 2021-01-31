@@ -44,32 +44,38 @@ const ProjectTasks = ({history}) => {
     ])
 
     useEffect(() => {
+        //If project is not loaded due to page refresh, get project matching match.params.projectId
         if (!projectLoaded) {
             dispatch(getProjectAction(match.params.projectId))
         }
     }, [dispatch, match.params.projectId, projectLoaded])
 
     useEffect(() => {
+        //If project is not loaded due to page refresh, get tasks for project matching match.params.projectId
         if (!tasksLoaded) {
             dispatch(getTasksForProjectAction(match.params.projectId))
         }
     }, [dispatch, tasksLoaded, match.params.projectId])
 
     useEffect(() => {
+        //If steps is not loaded due to page refresh, get steps for project matching match.params.projectId
         if (!stepsLoaded) {
             dispatch(getStepsForProjectAction(match.params.projectId))
         }
     }, [dispatch, stepsLoaded, match.params.projectId])
 
     useEffect(() => {
+        //If group is not loaded due to page refresh, get group for project matching match.params.projectId
         if (!groupLoaded) {
             dispatch(getGroupOfProjectAction(match.params.projectId))
         }
     }, [dispatch, groupLoaded, match.params.projectId])
 
     useEffect( () => {
+        //Used by TaskStepFilter to filter Tasks to be displayed by Step Number
         const filterTasksForStepFilter = async () => {
             if (filterStepNumber) {
+                //Gets all tasks for specified project matching specified Step Number
                 const response = await dispatch(getTasksForStepOfProjectAction(project.id, parseInt(filterStepNumber)))
                 if (response) {
                     setTasksToRender(response)
@@ -83,6 +89,7 @@ const ProjectTasks = ({history}) => {
             .then(() => setLoading(false))
     }, [project.id, filterStepNumber, dispatch, tasks])
 
+    //Used by TaskStepFilter to adjust which step is being filter for, or to reset if all step tasks to be displayed
     const taskStepFilterChangeHandler = stepNumber => {
         if (stepNumber) {
             dispatch(setTaskFilterStepNumber(stepNumber))
@@ -91,6 +98,7 @@ const ProjectTasks = ({history}) => {
         }
     }
 
+    //Renders all tasks matching filtered task
     const renderTaskStepFilterOptions = () => (
         steps.map(step => (
             <DropdownOption
@@ -100,6 +108,7 @@ const ProjectTasks = ({history}) => {
             </DropdownOption>))
     )
 
+    //Used by StepFilterDropdown to filter which tasks should be displayed by filter input
     const filteredTasks = () => {
         const selectedFilterOption = filterOption.filter(option => option.isChecked)[0]
         switch (selectedFilterOption.type) {

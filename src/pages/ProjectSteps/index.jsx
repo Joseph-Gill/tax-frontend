@@ -34,26 +34,32 @@ const ProjectSteps = ({history}) => {
     ])
 
     useEffect(() => {
+        //Gets project matching match.params.projectId
         dispatch(getProjectAction(match.params.projectId))
+        //Gets steps for project matching match.params.projectId
         dispatch(getStepsForProjectAction(match.params.projectId))
     }, [dispatch, match.params.projectId])
 
     useEffect(() => {
+        //If group is not loaded due to page refresh, get group for project matching match.params.projectId
         if (!groupLoaded) {
             dispatch(getGroupOfProjectAction(match.params.projectId))
         }
     }, [dispatch, groupLoaded, match.params.projectId])
 
+    //Used by Add New Step button if no steps exist for project
     const addNewStepHandler = () => {
         dispatch(addNewStep(1))
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
     }
 
+    //Used by StepCard Go To Step button to push to StepDisplay with index of step set
     const stepCardClickHandler = indexOfStep => {
         dispatch(skipToSpecifiedStep(indexOfStep))
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
     }
 
+    //Used by StepsFilterDropdown to filter steps per filter input
     const filteredSteps = () => {
         const selectedFilterOption = filterOption.filter(option => option.isChecked)[0]
         switch (selectedFilterOption.type) {
@@ -68,6 +74,7 @@ const ProjectSteps = ({history}) => {
         }
     }
 
+    //Renders each step of the project matching filter, or No Steps match this filter if no matches found
     const renderSteps = array => {
         if (!array.length) {
             return (

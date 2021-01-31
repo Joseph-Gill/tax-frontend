@@ -26,6 +26,7 @@ const EntryExpanded = ({history, project, task}) => {
         }
     }
 
+    //Used by Go To Step button of a task, pushes to StepDisplay after setting index of step to be displayed
     const goToStepHandler = () => {
         dispatch(skipToSpecifiedStep(task.step.number - 1))
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)

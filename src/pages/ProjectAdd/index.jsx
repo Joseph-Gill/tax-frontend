@@ -29,6 +29,7 @@ const ProjectAdd = ({history}) => {
     const [showSuccess, setShowSuccess] = useState(false)
 
     useEffect (() => {
+        //Pushes to Home is group is not loaded due to page refresh
         if (!loaded) {
             history.push(`${HOME}`)
         }

@@ -7,6 +7,9 @@ import {TaskStatusTableHeader} from './styles'
 
 const TasksTable = ({group, history, project, tasks}) => {
 
+    //Used to provide the " Task Number " of a task. Task numbers arent stored in
+    //the backend, they are assigned to tasks of a step ordered by their created
+    //date.
     const renderTaskEntries = () => {
         let taskNum = 1
         let stepNum = 1

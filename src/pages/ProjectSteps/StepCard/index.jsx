@@ -16,6 +16,7 @@ const StepCard = ({history, number, project, step, stepCardClickHandler}) => {
         from: {opacity: 0},
     })
 
+    //Used by Go To Task button of each step card to push to ProjectTasks with Step Filter set to step's step number
     const stepCardTasksClickHandler = () => {
         dispatch(setTaskFilterStepNumber(step.number))
         history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)
