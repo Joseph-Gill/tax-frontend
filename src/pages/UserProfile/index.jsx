@@ -31,6 +31,7 @@ const UserProfile = ({history}) => {
 
     useEffect(() => {
         const getProfileUpdateInfo = async () => {
+            //Gets profile for logged in user and sets input values
             const response = await dispatch(getProfileAction())
             if (response) {
                 setProfileInfo({
@@ -44,8 +45,11 @@ const UserProfile = ({history}) => {
                 })
             }
         }
+        //Resets group stored in redux state
         dispatch(resetGroup())
+        //Resets project stored in redux state
         dispatch(resetProject())
+        //Gets profile if not loaded due to page refresh
         if (!loaded) {
             getProfileUpdateInfo()
         } else {

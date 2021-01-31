@@ -27,24 +27,29 @@ const StepBeginning = ({history}) => {
     const [loading, setLoading] = useState(true)
 
     useEffect (() => {
+        //Gets Group if not loaded due to page refresh
         const getGroupForProject = async () => {
             await dispatch(getGroupOfProjectAction(project.id))
         }
+        //Pushes to home if project or steps are not loaded due to page refresh
         if (!projectLoaded || !stepsLoaded) {
             history.push(`${HOME}`)
         } else if (!groupLoaded) {
             getGroupForProject()
                 .then(() => {
+                    //Sets Group entities to render for the OrgChart, attaching tags needed for specific entity shapes
                     setEntitiesToRender([...getEntitiesWithTags(entities)])
                     setLoading(false)
                 })
         } else {
+            //Sets Group entities to render for the OrgChart, attaching tags needed for specific entity shapes
             setEntitiesToRender([...getEntitiesWithTags(entities)])
             setLoading(false)
         }
     }, [history, projectLoaded, stepsLoaded, groupLoaded, project, dispatch, entities])
 
 
+    //Used by Add New Step button if no steps exist for the Project, pushes to StepDisplay and sets index of step to display
     const addNewStepHandler = () => {
         dispatch(addNewStep(1))
         history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)

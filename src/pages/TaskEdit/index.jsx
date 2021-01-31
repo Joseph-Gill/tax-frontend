@@ -47,20 +47,26 @@ const TaskEdit = ({history}) => {
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
+        //Pushes to home if project is not loaded due to page refresh
         if (!projectLoaded) {
             history.push(`${HOME}`)
+        //Pushes to ProjectDisplay if steps, group, or tasks is not loaded due to page refresh
         } else if (!stepsLoaded || !tasksLoaded || !groupLoaded) {
             history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
         } else {
+            //Gets task matching match.params.taskId and sets it's values into the input fields
             const targetTask = tasks.filter(task => task.id === parseInt(match.params.taskId))[0]
             setTargetTask(targetTask)
             setTitle(targetTask.title)
             setTaskStatus(targetTask.status)
             setSelectedStep(targetTask.step.id)
             setDescription(targetTask.description)
+            //format necessary to input a date object into react-datepicker since django stores the date as a string
             setDueDate(new Date(parseInt(targetTask.due_date.slice(0,5)), (parseInt(targetTask.due_date.slice(5,7)) - 1), parseInt(targetTask.due_date.slice(-2))))
+            //format necessary to input a date object into react-datepicker since django stores the date as a string
             setCompletionDate(new Date(parseInt(targetTask.planned_completion_date.slice(0,5)), (parseInt(targetTask.planned_completion_date.slice(5,7)) - 1), parseInt(targetTask.planned_completion_date.slice(-2))))
             setSelectedMember(targetTask.assigned_user.id)
+            //Used by Member dropdown to format choices with Name, Role, and Organization
             listMemberWithOrgAndRole(members, group, dispatch)
                 .then(result => {
                     setMemberRenderData([...result])

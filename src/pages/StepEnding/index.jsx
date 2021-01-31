@@ -18,6 +18,7 @@ const StepEnding = ({history}) => {
     const stepsLoaded = useSelector(state => state.stepReducer.steps)
 
    useEffect (() => {
+       //Pushes to home if project or steps are not loaded due to page refresh
         if (!projectLoaded || !stepsLoaded) {
             history.push(`${HOME}`)
         }

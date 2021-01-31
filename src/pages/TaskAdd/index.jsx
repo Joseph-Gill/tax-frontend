@@ -40,11 +40,14 @@ const TaskAdd = ({history}) => {
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
+        //Pushes to home if project is not loaded due to page refresh
         if (!projectLoaded) {
             history.push(`${HOME}`)
+        //Pushes to ProjectDisplay if steps or group is not loaded due to page refresh
         } else if (!stepsLoaded || !groupLoaded) {
             history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}`)
         } else {
+            //Used by Member dropdown to format choices with Name, Role, and Organization
             listMemberWithOrgAndRole(members, group, dispatch)
                 .then(result => {
                     setMemberRenderData([...result])
@@ -55,8 +58,10 @@ const TaskAdd = ({history}) => {
 
     const saveNewTaskHandler = async () => {
         dispatch(resetErrors())
+        //Error handling if user attempts to create a task without selecting a step to assign it to
         if (!selectedStep) {
             dispatch(setError({step: 'This field cannot be blank'}))
+        //Error handling if user attempts to create a task without selecting a member to assign it to
         } else if (!selectedMember) {
             dispatch(setError({member: 'This field cannot be blank'}))
         } else {
