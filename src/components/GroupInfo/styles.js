@@ -9,6 +9,7 @@ export const InputGroupInfoContainer = styled.div`
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.grayFour};
     padding: 20px 20px 20px 20px;
     display: flex;
     margin-top: 20px;

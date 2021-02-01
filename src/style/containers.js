@@ -148,12 +148,13 @@ export const EntityTitleContainer = styled.div`
     height: 44px;
     background: ${props => props.theme.white};
     margin-top: 20px;
-    padding-top: 20px;
     z-index: 1;
     border-top-left-radius: ${props => props.theme.borderRadius};
     border-top-right-radius: ${props => props.theme.borderRadius};
-    border-bottom: 1px solid ${props => props.theme.grayFour};
+    border: 1px solid ${props => props.theme.grayFour};
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 `
 
 export const AddEntityButtonContainer = styled.div`
@@ -371,6 +372,22 @@ export const NoFilteredTasksStepsContainer = styled.div`
     color: ${props => props.theme.grayTwo};
     background: ${props => props.theme.white};
     border: 1px solid ${props => props.theme.grayFour};
+`
+
+export const NoChartToDisplay = styled.div`
+    width: 860px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    p {
+        font-family: ${props => props.theme.nunitoFontFamily};
+        font-size: 14px;
+        line-height: 19px;
+        color: ${props => props.theme.grayTwo};
+    }
 `
 
 // Template Containers

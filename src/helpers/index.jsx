@@ -3,6 +3,7 @@ import {getMemberOrganizationNameAction} from '../store/organization/actions'
 import {DropdownOption} from '../style/options'
 import {FileListItem} from '../style/listitem'
 import {createChartForStepAction, updateChartForStepAction} from '../store/chart/actions'
+import {v4 as uuidv4} from 'uuid'
 
 // User by components that are uploading images for avatars
 export const imageClickHandler = (input) => {
@@ -138,21 +139,25 @@ export const createUpdateStepChart = (chartData, dispatch, indexOfStepToDisplay,
 
 // Used by components that add entities to handle input validation
 export const entityInputErrorHandler = (dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, isStepChart = false) => {
+    console.log('entityInputErrorHandler', newEntityInfo)
     if (!newEntityInfo.entityName) {
         isStepChart ? dispatch(setError({entityName: `You must choose a name for this entity.`}))
             : dispatch(setError({entityInput: `You must choose a name for this entity.`}))
         return true
-    } else if (availableParentNames.length && !newEntityInfo.parentName) {
-        isStepChart ? dispatch(setError({entityParentName: `You must choose a parent for this entity.`}))
+    } else if (availableParentNames.length && !newEntityInfo.parentId) {
+        isStepChart ? dispatch(setError({entityParent: `You must choose a parent for this entity.`}))
             : dispatch(setError({entityInput: `You must choose a parent for this entity.`}))
         return true
     } else if (!countryName) {
         isStepChart ? dispatch(setError({entityCountryName: `You must choose a location for this entity.`}))
             : dispatch(setError({entityInput: `You must choose a location for this entity.`}))
         return true
-    } else if (!legalForm) {
+    } else if (!legalForm){
         isStepChart ? dispatch(setError({entityLegalForm: `You must choose a legal form for this entity.`}))
             : dispatch(setError({entityInput: `You must choose a legal form for this entity.`}))
+        return true
+    } else if (availableParentNames.filter(entity => entity.name === newEntityInfo.entityName && entity.location === countryName).length) {
+        dispatch(setError({entityName: 'You cannot have the same name and location as another entity.'}))
         return true
     } else {
         return false
@@ -176,4 +181,27 @@ export const linkInputErrorHandler = (dispatch, setError, addLinkInfo) => {
     } else {
         return false
     }
+}
+
+//Used by StepChart, GroupAdd, and GroupEdit for modal
+export const renderRemoveEntitiesOptions = (entitiesToRender) => {
+    const canEntityBeRemoved = testEntity => {
+        let result = true
+        for (let i = 0; i < entitiesToRender.length; i++) {
+            if (parseInt(entitiesToRender[i].pid) === testEntity.id){
+                result = false
+                break
+            }
+        }
+        return result
+    }
+    const removableEntities = []
+    entitiesToRender.forEach(entity => {
+        if (canEntityBeRemoved(entity)) {
+            removableEntities.push(
+                <DropdownOption key={uuidv4()} value={entity.id}>{entity.name}</DropdownOption>
+            )
+        }
+    })
+    return removableEntities
 }

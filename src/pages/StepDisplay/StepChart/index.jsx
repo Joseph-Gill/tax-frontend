@@ -7,9 +7,10 @@ import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {addLegalFormTag, createUpdateStepChart, entityInputErrorHandler, getEntitiesWithTags, linkInputErrorHandler} from '../../../helpers'
+import {addLegalFormTag, createUpdateStepChart, entityInputErrorHandler, getEntitiesWithTags, linkInputErrorHandler, renderRemoveEntitiesOptions} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
-import {NoChartToDisplay, StepChartAndButtonsContainer} from './styles'
+import {StepChartAndButtonsContainer} from './styles'
+import {NoChartToDisplay} from '../../../style/containers'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity,
@@ -108,28 +109,6 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         return links
     }
 
-    const renderRemoveEntitiesOptions = () => {
-        const canEntityBeRemoved = testEntity => {
-            let result = true
-            for (let i = 0; i < entitiesToRender.length; i++) {
-                if (parseInt(entitiesToRender[i].pid) === testEntity.id){
-                    result = false
-                    break
-                }
-            }
-            return result
-        }
-        const removableEntities = []
-        entitiesToRender.forEach(entity => {
-            if (canEntityBeRemoved(entity)) {
-                removableEntities.push(
-                    <DropdownOption key={uuidv4()} value={entity.id}>{entity.name}</DropdownOption>
-                )
-            }
-        })
-        return removableEntities
-    }
-
     const saveNewEntityHandler = () => {
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
         if (!error) {
@@ -225,7 +204,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     }
 
     const removeEntityHandler = () => {
-        const newEntitiesToRender = entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove))
+       const newEntitiesToRender = entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove))
         const chartData = {
             nodes: JSON.stringify(newEntitiesToRender),
             slinks: JSON.stringify(slinks),
@@ -274,7 +253,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 /> : null}
             {showRemoveEntity ?
                 <RemoveEntityModal
-                    entityOptions={renderRemoveEntitiesOptions()}
+                    entityOptions={renderRemoveEntitiesOptions(entitiesToRender)}
                     entityToRemove={entityToRemove}
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}

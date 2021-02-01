@@ -1,20 +1,22 @@
-import React, {useRef, useState} from 'react'
+import React, {useMemo, useRef, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {v4 as uuidv4} from 'uuid'
 import BreadCrumb from '../../components/BreadCrumb'
 import GroupInfo from '../../components/GroupInfo'
-import EntityInfo from '../../components/EntityInfo'
 import SuccessMessage from '../../components/SuccessMessage'
+import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import {createGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
-import {entityInputErrorHandler} from '../../helpers'
+import {addLegalFormTag, entityInputErrorHandler, renderRemoveEntitiesOptions} from '../../helpers'
 import {ErrorMessage} from '../../style/messages'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
-import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer,
-    EntityInfoErrorContainer, EntityInfoSpaceContainer, EntityTitleContainer, ErrorMessageContainer
-} from '../../style/containers'
-import {GroupAddEntityTitle} from './styles'
+import {AddEntityLinkButton, CancelButton, RemoveEntityLinkButton, SaveButton} from '../../style/buttons'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
+import {GroupAddEditButtonContainer, GroupAddEditErrorContainer, GroupAddEditNoChartToDisplay, GroupAddEntityTitle} from './styles'
+import {EntityOption} from '../../style/options'
+import AddEntityModal from '../../components/Modals/AddEntityModal'
+import RemoveEntityModal from '../../components/Modals/RemoveEntityModal'
 
 
 const GroupAdd = ({history}) => {
@@ -28,39 +30,112 @@ const GroupAdd = ({history}) => {
     const [availableParentNames, setAvailableParentNames] = useState([])
     const [listOfEntities, setListOfEntities] = useState([])
     const [showSuccess, setShowSuccess] = useState(false)
+    const [showAddEntity, setShowAddEntity] = useState(false)
+    const [showRemoveEntity, setShowRemoveEntity] = useState(false)
+    const [entityToRemove, setEntityToRemove] = useState('')
     const [newEntityInfo, setNewEntityInfo] = useState({
         entityName: '',
-        parentName: '',
+        parentId: '',
         taxRate: ''
     })
 
-    const addNewEntityClickHandler = () => {
+    const saveNewEntityHandler = () => {
+        console.log('listOfEntities>', listOfEntities)
         dispatch(resetErrors())
         //Handles input validation for the entity inputs
-        const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm)
+        const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
         if (!error) {
             const newEntity = {
+                //Used to get unique id number
+                id: Date.now(),
                 name: newEntityInfo.entityName,
                 //If an entity is the prime entity of a group, its consider the "ultimate" entity
-                pid: !availableParentNames.length ? 'Ultimate' : newEntityInfo.parentName,
+                pid: !newEntityInfo.parentId ? 'Ultimate' : listOfEntities.filter(entity => entity.id === newEntityInfo.parentId)[0].id.toString(),
+                //Used in the backend to find the parent entity
+                parent: !newEntityInfo.parentId ? '' : listOfEntities.filter(entity => entity.id === newEntityInfo.parentId)[0],
                 location: countryName,
                 legal_form: legalForm,
                 //Tax rate is optional
-                tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : ''
+                tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : '',
+                //Adds tag necessary for custom template appearance of org chart nodes
+                tags: [addLegalFormTag(legalForm)]
             }
             //New group entities are stored in local state until the new group is saved
             setListOfEntities([...listOfEntities, newEntity])
             //Stores the available options for parent name for new entities after the initial entity is created
-            setAvailableParentNames([...availableParentNames, newEntityInfo.entityName])
+            setAvailableParentNames([...availableParentNames, {name: newEntity.name, location: newEntity.location, id: newEntity.id}])
             //Resets the inputs to blank
             setCountryName('')
             setLegalForm('')
             setNewEntityInfo({
                 entityName: '',
-                parentName: '',
+                parentId: '',
                 taxRate: ''
             })
+            setShowAddEntity(false)
         }
+    }
+
+    const removeEntityHandler = () => {
+        const newEntitiesToRender = listOfEntities.filter(entity => entity.id !== parseInt(entityToRemove))
+        setListOfEntities(newEntitiesToRender)
+        setAvailableParentNames([...newEntitiesToRender.map(entity => {
+            return {
+                name: entity.name,
+                location: entity.location,
+                id: entity.id
+            }
+        })])
+        setEntityToRemove('')
+        setShowRemoveEntity(false)
+    }
+
+    const renderParentNameOptions = useMemo(() => {
+        if (availableParentNames.length) {
+            return (
+                <>
+                    <EntityOption disabled value=''>Select a parent</EntityOption>
+                    {availableParentNames.map(parent => (
+                        <EntityOption
+                            key={uuidv4()}
+                            value={parent.id}
+                        >{`${parent.name} (${parent.location})`}
+                        </EntityOption>
+                    ))}
+                </>)
+        } else {
+            return (
+                <EntityOption value={0}>Ultimate</EntityOption>
+            )
+        }}, [availableParentNames])
+
+    const renderStepChart = useMemo(() => {
+        if (!listOfEntities.length) {
+            return (
+                <GroupAddEditNoChartToDisplay>
+                    <p>There are no entities to display for this Group.</p>
+                </GroupAddEditNoChartToDisplay>
+            )
+        } else {
+            return (
+                <CurrentOrgChartV2
+                    componentCalling='GroupAddEdit'
+                    nodes={listOfEntities}
+                />
+            )
+        }
+    }, [listOfEntities])
+
+    const cancelNewEntityLinkHandler = () => {
+        dispatch(resetErrors())
+        setCountryName('')
+        setLegalForm('')
+        setNewEntityInfo({
+            entityName: '',
+            parentName: '',
+            taxRate: ''
+        })
+        setShowAddEntity(false)
     }
 
     const saveNewGroupClickHandler = async () => {
@@ -88,6 +163,28 @@ const GroupAdd = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
+            {showAddEntity ?
+                <AddEntityModal
+                    cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
+                    countryName={countryName}
+                    error={error}
+                    legalForm={legalForm}
+                    newEntityInfo={newEntityInfo}
+                    renderParentNameOptions={renderParentNameOptions}
+                    saveNewEntityHandler={saveNewEntityHandler}
+                    setCountryName={setCountryName}
+                    setLegalForm={setLegalForm}
+                    setNewEntityInfo={setNewEntityInfo}
+                    setShowAddEntity={setShowAddEntity}
+                /> : null}
+            {showRemoveEntity ?
+                <RemoveEntityModal
+                    entityOptions={renderRemoveEntitiesOptions(listOfEntities)}
+                    entityToRemove={entityToRemove}
+                    removeEntityHandler={removeEntityHandler}
+                    setEntityToRemove={setEntityToRemove}
+                    setShowRemoveEntity={setShowRemoveEntity}
+                /> : null}
             {showSuccess &&
             <SuccessMessage
                 message="Your group has been successfully created!"
@@ -111,28 +208,15 @@ const GroupAdd = ({history}) => {
             />
             <EntityTitleContainer>
                 <GroupAddEntityTitle>Entities</GroupAddEntityTitle>
-                <ErrorMessageContainer>
+                <GroupAddEditErrorContainer>
                     {error && <ErrorMessage>{error.entities}</ErrorMessage>}
-                </ErrorMessageContainer>
+                </GroupAddEditErrorContainer>
+                <GroupAddEditButtonContainer>
+                    <AddEntityLinkButton onClick={() => setShowAddEntity(true)}>Add Entity</AddEntityLinkButton>
+                    <RemoveEntityLinkButton onClick={() => setShowRemoveEntity(true)}>Remove Entity</RemoveEntityLinkButton>
+                </GroupAddEditButtonContainer>
             </EntityTitleContainer>
-            <EntityInfoSpaceContainer>
-                <EntityInfo
-                    availableParentNames={availableParentNames}
-                    countryName={countryName}
-                    legalForm={legalForm}
-                    listOfEntities={listOfEntities}
-                    newEntityInfo={newEntityInfo}
-                    setCountryName={setCountryName}
-                    setLegalForm={setLegalForm}
-                    setNewEntityInfo={setNewEntityInfo}
-                />
-                <EntityInfoErrorContainer>
-                    {error && <ErrorMessage>{error.entityInput}</ErrorMessage>}
-                </EntityInfoErrorContainer>
-                <AddEntityButtonContainer>
-                    <AddEntityButton onClick={addNewEntityClickHandler}>Add new entity</AddEntityButton>
-                </AddEntityButtonContainer>
-            </EntityInfoSpaceContainer>
+            {renderStepChart}
             <CreateGroupCancelSaveContainer>
                 <CancelButton onClick={cancelButtonHandler}>Cancel</CancelButton>
                 <SaveButton onClick={saveNewGroupClickHandler}>Save</SaveButton>

@@ -51,13 +51,13 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, error, legalFo
                     <ActiveInputLabel>Parent</ActiveInputLabel>
                     <EntityParentSelect
                         callingComponent='AddEntityModal'
-                        onChange={(e) => setNewEntityInfo({...newEntityInfo, parentName: e.target.value})}
-                        value={newEntityInfo.parentName}
+                        onChange={(e) => setNewEntityInfo({...newEntityInfo, parentId: parseInt(e.target.value)})}
+                        value={newEntityInfo.parentId}
                     >
                         {renderParentNameOptions}
                     </EntityParentSelect>
                     <EntityErrorContainer>
-                        {error && <ErrorMessage>{error.entityParentName}</ErrorMessage>}
+                        {error && <ErrorMessage>{error.entityParent}</ErrorMessage>}
                     </EntityErrorContainer>
                 </div>
                 <div>

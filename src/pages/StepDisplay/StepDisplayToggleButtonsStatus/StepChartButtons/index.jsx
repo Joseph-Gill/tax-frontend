@@ -1,5 +1,6 @@
 import React from 'react'
-import {AddEntityLinkButton, RemoveEntityLinkButton, StepChartButtonsContainer} from './styles'
+import {AddEntityLinkButton, RemoveEntityLinkButton} from '../../../../style/buttons'
+import {StepChartButtonsContainer} from './styles'
 
 
 const StepChartButtons = ({currentStepEntities, indexOfStepToDisplay, setShowAddEntity, setShowAddLink,
