@@ -25,6 +25,8 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
     const error = useSelector(state => state.errorReducer.error)
 
     useEffect(() => {
+        //If the step being displayed isn't from "Add New Step" it has an id
+        //gets the tax consequences for the displayed step
         if (step.id) {
             dispatch(getAllTaxConsequencesForStepAction(step.id))
         }
