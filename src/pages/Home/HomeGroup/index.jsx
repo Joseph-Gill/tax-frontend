@@ -79,11 +79,11 @@ const HomeGroup = ({firstUncompletedStep, groupId, groupName, history, project, 
             {loading ? <Loading /> : (
                 <>
                     <UpperRowContainer>
-                        <GroupTitle>{`Group: ${groupName}`}</GroupTitle>
+                        <GroupTitle>{groupName}</GroupTitle>
                         <TasksOverdue number={pastDueTasks} />
                     </UpperRowContainer>
                     <MiddleRowContainer>
-                        <ProjectTitle>{`Project: ${project.name}`}</ProjectTitle>
+                        <ProjectTitle>{project.name}</ProjectTitle>
                     </MiddleRowContainer>
                     {expandStatus ?
                         <ExpandedGroup
