@@ -33,23 +33,29 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     })
     const [newEntityInfo, setNewEntityInfo] = useState({
         entityName: '',
-        parentName: '',
+        parentId: '',
         taxRate: ''
     })
 
     useEffect(() => {
         setEntitiesToRender([...getEntitiesWithTags(entities)])
-        setAvailableParentNames([...entities.map(entity => entity.name)])
+        setAvailableParentNames([...entities.map(entity => {
+            return {
+                name: entity.name,
+                location: entity.location,
+                id: entity.id
+            }
+        })])
     }, [entities])
 
     const renderParentNameOptions = useMemo(() => (
         <>
-            <EntityOption value=''>Select a parent</EntityOption>
+            <EntityOption disabled value=''>Select a parent</EntityOption>
             {availableParentNames.map(parent => (
                 <EntityOption
                     key={uuidv4()}
-                    value={parent}
-                >{parent}
+                    value={parent.id}
+                >{`${parent.name} (${parent.location})`}
                 </EntityOption>
             ))}
         </>), [availableParentNames])
@@ -118,7 +124,9 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 location: countryName,
                 name: newEntityInfo.entityName,
                 tax_rate: newEntityInfo.taxRate,
-                pid: entitiesToRender.filter(entity => entity.name === newEntityInfo.parentName)[0].id.toString(),
+                pid: entitiesToRender.filter(entity => entity.id === newEntityInfo.parentId)[0].id.toString(),
+                parent: entitiesToRender.filter(entity => entity.id === newEntityInfo.parentId)[0],
+                new: true
             }
             const entityTag = addLegalFormTag(legalForm)
             if (entityTag) {
@@ -131,7 +139,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             }
             createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
             setEntitiesToRender([...entitiesToRender, addEntityInfo])
-            setAvailableParentNames([...availableParentNames, addEntityInfo.name])
+            setAvailableParentNames([...availableParentNames, {name: addEntityInfo.name, location: addEntityInfo.location, id: addEntityInfo.id}])
             setCountryName('')
             setLegalForm('')
             setNewEntityInfo({
