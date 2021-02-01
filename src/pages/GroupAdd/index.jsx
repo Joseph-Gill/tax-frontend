@@ -40,7 +40,6 @@ const GroupAdd = ({history}) => {
     })
 
     const saveNewEntityHandler = () => {
-        console.log('listOfEntities>', listOfEntities)
         dispatch(resetErrors())
         //Handles input validation for the entity inputs
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
