@@ -1,13 +1,6 @@
 import styled from 'styled-components/macro'
-import {EntityTitle} from '../../components/EntityInfo/styles'
 import {NoChartToDisplay} from '../../style/containers'
 
-
-export const GroupAddEntityTitle = styled(EntityTitle)`
-    width: 70px;
-    margin-right: 200px;
-    margin-top: 20px;
-`
 
 export const EntityTitleButtonContainer = styled.div`
     width: 860px;
@@ -18,14 +11,6 @@ export const EntityTitleButtonContainer = styled.div`
     align-items: center;
 `
 
-export const GroupAddEditButtonContainer = styled.div`
-    width: 260px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 16px;
-`
-
 export const GroupAddEditEntityTitle = styled.h2`
     font-family: ${props => props.theme.spartanFontFamily};
     font-weight: 600;
@@ -33,12 +18,6 @@ export const GroupAddEditEntityTitle = styled.h2`
     line-height: 18px;
     color: ${props => props.theme.black};
     margin-left: 30px;
-`
-
-export const GroupAddEditErrorContainer = styled.div`
-    height: 26px;
-    display: flex;
-    align-items: center;
 `
 
 export const GroupAddEditNoChartToDisplay = styled(NoChartToDisplay)`

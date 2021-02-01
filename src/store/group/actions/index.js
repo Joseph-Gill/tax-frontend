@@ -75,7 +75,8 @@ export const updateGroupAction = (updatedGroupInfo, groupId) => async (dispatch,
     if (updatedGroupInfo.avatar) {
         form_data.append('avatar', updatedGroupInfo.avatar)
     }
-    form_data.append('entities', JSON.stringify(updatedGroupInfo.entities))
+    form_data.append('new_entities', JSON.stringify(updatedGroupInfo.new_entities))
+    form_data.append('current_entities', JSON.stringify(updatedGroupInfo.current_entities))
     const config = {
         headers: {
             'Authorization': `Bearer ${userLoginReducer.accessToken}`,

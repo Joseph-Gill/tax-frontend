@@ -46,3 +46,15 @@ export const AddEditProjectSectionTitles = styled(AuthenticatedPageSectionTitle)
     width: 302px;
     margin-top: 0;
 `
+
+export const EntityTitle = styled(AuthenticatedPageSectionTitle)`
+    margin-top: 0;
+    padding-left: 16px;
+    padding-bottom: 10px;
+`
+
+export const GroupAddEntityTitle = styled(EntityTitle)`
+    width: 70px;
+    margin-right: 200px;
+    margin-top: 20px;
+`

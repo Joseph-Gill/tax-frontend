@@ -5,18 +5,18 @@ import BreadCrumb from '../../components/BreadCrumb'
 import GroupInfo from '../../components/GroupInfo'
 import SuccessMessage from '../../components/SuccessMessage'
 import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
+import AddEntityModal from '../../components/Modals/AddEntityModal'
+import RemoveEntityModal from '../../components/Modals/RemoveEntityModal'
 import {createGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {addLegalFormTag, entityInputErrorHandler, renderRemoveEntitiesOptions} from '../../helpers'
+import {EntityOption} from '../../style/options'
 import {ErrorMessage} from '../../style/messages'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
-import {AuthenticatedPageTitle} from '../../style/titles'
+import {AuthenticatedPageTitle, GroupAddEntityTitle} from '../../style/titles'
 import {AddEntityLinkButton, CancelButton, RemoveEntityLinkButton, SaveButton} from '../../style/buttons'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer} from '../../style/containers'
-import {GroupAddEditButtonContainer, GroupAddEditErrorContainer, GroupAddEditNoChartToDisplay, GroupAddEntityTitle} from './styles'
-import {EntityOption} from '../../style/options'
-import AddEntityModal from '../../components/Modals/AddEntityModal'
-import RemoveEntityModal from '../../components/Modals/RemoveEntityModal'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer, GroupAddEditButtonContainer, GroupAddEditErrorContainer} from '../../style/containers'
+import {GroupAddEditNoChartToDisplay} from './styles'
 
 
 const GroupAdd = ({history}) => {
@@ -131,7 +131,7 @@ const GroupAdd = ({history}) => {
         setLegalForm('')
         setNewEntityInfo({
             entityName: '',
-            parentName: '',
+            parentId: '',
             taxRate: ''
         })
         setShowAddEntity(false)
@@ -185,10 +185,10 @@ const GroupAdd = ({history}) => {
                     setShowRemoveEntity={setShowRemoveEntity}
                 /> : null}
             {showSuccess &&
-            <SuccessMessage
-                message="Your group has been successfully created!"
-                redirect={GROUPS}
-            />}
+                <SuccessMessage
+                    message="Your group has been successfully created!"
+                    redirect={GROUPS}
+                />}
             <BreadCrumb breadCrumbArray={[
                 {display: 'GROUPS', to: GROUPS, active: false},
                 {display: 'CREATE GROUP', to: `${GROUPS}${ADD_GROUP}`, active: true}]}
@@ -222,7 +222,6 @@ const GroupAdd = ({history}) => {
             </CreateGroupCancelSaveContainer>
         </AuthenticatedPageContainer>
     )
-
 }
 
 export default GroupAdd

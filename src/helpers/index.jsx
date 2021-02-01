@@ -139,7 +139,6 @@ export const createUpdateStepChart = (chartData, dispatch, indexOfStepToDisplay,
 
 // Used by components that add entities to handle input validation
 export const entityInputErrorHandler = (dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, isStepChart = false) => {
-    console.log('entityInputErrorHandler', newEntityInfo)
     if (!newEntityInfo.entityName) {
         isStepChart ? dispatch(setError({entityName: `You must choose a name for this entity.`}))
             : dispatch(setError({entityInput: `You must choose a name for this entity.`}))

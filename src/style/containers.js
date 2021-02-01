@@ -390,6 +390,20 @@ export const NoChartToDisplay = styled.div`
     }
 `
 
+export const GroupAddEditErrorContainer = styled.div`
+    height: 26px;
+    display: flex;
+    align-items: center;
+`
+
+export const GroupAddEditButtonContainer = styled.div`
+    width: 260px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 16px;
+`
+
 // Template Containers
 
 export const ModalExternalContainer = styled.div`

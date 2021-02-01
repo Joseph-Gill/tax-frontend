@@ -1,13 +1,6 @@
 import styled from 'styled-components/macro'
-import {AuthenticatedPageSectionTitle} from '../../style/titles'
 import {TableContainer} from '../../style/containers'
 
-
-export const EntityTitle = styled(AuthenticatedPageSectionTitle)`
-    margin-top: 0;
-    padding-left: 16px;
-    padding-bottom: 10px;
-`
 
 export const EntityTableContainer = styled(TableContainer)`
     width: 860px;

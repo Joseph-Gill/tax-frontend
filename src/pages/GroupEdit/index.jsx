@@ -1,19 +1,24 @@
-import React, {useRef, useState, useEffect} from 'react'
+import React, {useRef, useState, useEffect, useMemo} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {v4 as uuidv4} from 'uuid'
+import Spinner from '../../components/Spinner'
 import BreadCrumb from '../../components/BreadCrumb'
 import GroupInfo from '../../components/GroupInfo'
-import EntityInfo from '../../components/EntityInfo'
 import SuccessMessage from '../../components/SuccessMessage'
-import Spinner from '../../components/Spinner'
-import {entityInputErrorHandler} from '../../helpers'
+import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
+import AddEntityModal from '../../components/Modals/AddEntityModal'
+import RemoveEntityModal from '../../components/Modals/RemoveEntityModal'
+import {addLegalFormTag, entityInputErrorHandler, getEntitiesWithTags, renderRemoveEntitiesOptions} from '../../helpers'
 import {updateGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {EDIT_GROUP, GROUPS, HOME} from '../../routes/paths'
 import {ErrorMessage} from '../../style/messages'
-import {EntityTitle} from '../../components/EntityInfo/styles'
-import {AuthenticatedPageTitle} from '../../style/titles'
-import {AddEntityButton, CancelButton, SaveButton} from '../../style/buttons'
-import {AddEntityButtonContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityInfoErrorContainer, EntityInfoSpaceContainer, EntityTitleContainer} from '../../style/containers'
+import {AuthenticatedPageTitle, GroupAddEntityTitle} from '../../style/titles'
+import {AddEntityLinkButton, CancelButton, RemoveEntityLinkButton, SaveButton} from '../../style/buttons'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer,
+    EntityTitleContainer, GroupAddEditButtonContainer, GroupAddEditErrorContainer} from '../../style/containers'
+import {GroupAddEditNoChartToDisplay} from '../GroupAdd/styles'
+import {EntityOption} from '../../style/options'
 
 
 const GroupEdit = ({history}) => {
@@ -27,10 +32,13 @@ const GroupEdit = ({history}) => {
     const [legalForm, setLegalForm] = useState('')
     const [listOfEntities, setListOfEntities] = useState([])
     const [availableParentNames, setAvailableParentNames] = useState([])
+    const [showAddEntity, setShowAddEntity] = useState(false)
+    const [showRemoveEntity, setShowRemoveEntity] = useState(false)
+    const [entityToRemove, setEntityToRemove] = useState('')
     const [showSuccess, setShowSuccess] = useState(false)
     const [newEntityInfo, setNewEntityInfo] = useState({
         entityName: '',
-        parentName: '',
+        parentId: '',
         taxRate: ''
     })
 
@@ -43,32 +51,37 @@ const GroupEdit = ({history}) => {
             if (group.avatar) {
                 setGroupImage({avatar: group.avatar, changed: false})
             }
-            //Sorts the entities to display by parent id
-            const sortedEntities = group.entities.sort((a,b) => (a.pid > b.pid) ? 1 : ((b.pid > a.pid) ? -1 : 0));
-            setListOfEntities([...sortedEntities.map(entity => {
-                //The top most entity has pid of "" in backend, gives it the name "ultimate" in frontend
-                if(!entity.pid) {
-                    return {...entity, pid: 'Ultimate'}
-                }
-                const pidName = group.entities.filter(index => index.id === parseInt(entity.pid))
-                return {...entity, pid: pidName[0].name}
-            })])
+            //Set each entity with its appropriate tag to show it with the appropriate org chart template
+            setListOfEntities([...getEntitiesWithTags(group.entities)])
             //Populates the available list of parent names for new entities added to the group
-            setAvailableParentNames([...group.entities.map(entity => entity.name)])
+            setAvailableParentNames([...group.entities.map(entity => {
+                return {
+                    name: entity.name,
+                    location: entity.location,
+                    id: entity.id
+                }
+            })])
         }
     }, [group.entities, history, loaded, group])
 
-    const addNewEntityClickHandler = () => {
+    const saveNewEntityHandler = () => {
         dispatch(resetErrors())
         //Handles input validation for the entity inputs
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm)
         if (!error) {
             const newEntity = {
+                //Used to get unique id number
+                id: Date.now(),
                 name: newEntityInfo.entityName,
-                pid: newEntityInfo.parentName,
+                //If an entity is the prime entity of a group, its consider the "ultimate" entity
+                pid: !newEntityInfo.parentId ? 'Ultimate' :listOfEntities.filter(entity => entity.id === newEntityInfo.parentId)[0].id.toString(),
+                //Used in the backend to find the parent entity
+                parent: !newEntityInfo.parentId ? '' : listOfEntities.filter(entity => entity.id === newEntityInfo.parentId)[0],
                 location: countryName,
                 legal_form: legalForm,
+                //Tax rate is optional
                 tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : '',
+                tags: [addLegalFormTag(legalForm)],
                 //"new" status is so frontend knows which entities are new and need to be sent to
                 //the backend during save action
                 new: true
@@ -76,24 +89,41 @@ const GroupEdit = ({history}) => {
             //Adds the new entity to the list of existing entities
             setListOfEntities([...listOfEntities, newEntity])
             //Adds the new entity to the list of available parent names
-            setAvailableParentNames([...availableParentNames, newEntityInfo.entityName])
+            setAvailableParentNames([...availableParentNames, {name: newEntity.name, location: newEntity.location, id: newEntity.id}])
             //Resets the inputs to blank
             setCountryName('')
             setLegalForm('')
             setNewEntityInfo({
                 entityName: '',
-                parentName: '',
+                parentId: '',
                 taxRate: ''
             })
+            setShowAddEntity(false)
         }
     }
 
+    const removeEntityHandler = () => {
+        const newEntitiesToRender = listOfEntities.filter(entity => entity.id !== parseInt(entityToRemove))
+        setListOfEntities(newEntitiesToRender)
+        setAvailableParentNames([...newEntitiesToRender.map(entity => {
+            return {
+                id: entity.id,
+                name: entity.name,
+                location: entity.location,
+            }
+        })])
+        setEntityToRemove('')
+        setShowRemoveEntity(false)
+    }
+
     const saveGroupChangesHandler = async () => {
-        //Filters the list of current entities for any that have the status "new" as true
-        const newEntities = listOfEntities.filter(entity => entity.new)
-        //Adds list of "new" entities to data to be sent to backend
+        //Filters the list of current entities, making a list of all "new" entities, and all existing entities
+        const newEntities = []
+        const currentEntities = []
+        listOfEntities.forEach(entity => entity.new ? newEntities.push(entity) : currentEntities.push(entity))
         const updatedGroupInfo = {
-            entities: newEntities
+            new_entities: newEntities,
+            current_entities: currentEntities
         }
         //If the user changed the group avatar, add the new avatar to the data to be sent
         //to the backend
@@ -106,9 +136,88 @@ const GroupEdit = ({history}) => {
         }
     }
 
+    const renderParentNameOptions = useMemo(() => {
+        if (availableParentNames.length) {
+            return (
+                <>
+                    <EntityOption disabled value=''>Select a parent</EntityOption>
+                    {availableParentNames.map(parent => (
+                        <EntityOption
+                            key={uuidv4()}
+                            value={parent.id}
+                        >{`${parent.name} (${parent.location})`}
+                        </EntityOption>
+                    ))}
+                </>)
+        } else {
+            return (
+                <EntityOption value={0}>Ultimate</EntityOption>
+            )
+        }}, [availableParentNames])
+
+    const renderStepChart = useMemo(() => {
+        if (!listOfEntities.length) {
+            return (
+                <GroupAddEditNoChartToDisplay>
+                    <p>There are no entities to display for this Group.</p>
+                </GroupAddEditNoChartToDisplay>
+            )
+        } else {
+            return (
+                <CurrentOrgChartV2
+                    componentCalling='GroupAddEdit'
+                    nodes={listOfEntities}
+                />
+            )
+        }
+    }, [listOfEntities])
+
+    const cancelNewEntityLinkHandler = () => {
+        dispatch(resetErrors())
+        setCountryName('')
+        setLegalForm('')
+        setNewEntityInfo({
+            entityName: '',
+            parentId: '',
+            taxRate: ''
+        })
+        setShowAddEntity(false)
+    }
+
+    const cancelButtonHandler = () => {
+        dispatch(resetErrors())
+        history.push(GROUPS)
+    }
 
     return (
         <AuthenticatedPageContainer>
+            {showAddEntity ?
+                <AddEntityModal
+                    cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
+                    countryName={countryName}
+                    error={error}
+                    legalForm={legalForm}
+                    newEntityInfo={newEntityInfo}
+                    renderParentNameOptions={renderParentNameOptions}
+                    saveNewEntityHandler={saveNewEntityHandler}
+                    setCountryName={setCountryName}
+                    setLegalForm={setLegalForm}
+                    setNewEntityInfo={setNewEntityInfo}
+                    setShowAddEntity={setShowAddEntity}
+                /> : null}
+            {showRemoveEntity ?
+                <RemoveEntityModal
+                    entityOptions={renderRemoveEntitiesOptions(listOfEntities)}
+                    entityToRemove={entityToRemove}
+                    removeEntityHandler={removeEntityHandler}
+                    setEntityToRemove={setEntityToRemove}
+                    setShowRemoveEntity={setShowRemoveEntity}
+                /> : null}
+            {showSuccess &&
+                <SuccessMessage
+                    message="Your group has been successfully created!"
+                    redirect={GROUPS}
+                />}
             {!loaded ? <Spinner /> : (
                 <>
                     {showSuccess &&
@@ -132,28 +241,18 @@ const GroupEdit = ({history}) => {
                         setGroupImage={setGroupImage}
                     />
                     <EntityTitleContainer>
-                        <EntityTitle>Entities</EntityTitle>
+                        <GroupAddEntityTitle>Entities</GroupAddEntityTitle>
+                        <GroupAddEditErrorContainer>
+                            {error && <ErrorMessage>{error.entities}</ErrorMessage>}
+                        </GroupAddEditErrorContainer>
+                        <GroupAddEditButtonContainer>
+                            <AddEntityLinkButton onClick={() => setShowAddEntity(true)}>Add Entity</AddEntityLinkButton>
+                            <RemoveEntityLinkButton onClick={() => setShowRemoveEntity(true)}>Remove Entity</RemoveEntityLinkButton>
+                        </GroupAddEditButtonContainer>
                     </EntityTitleContainer>
-                    <EntityInfoSpaceContainer>
-                        <EntityInfo
-                            availableParentNames={availableParentNames}
-                            countryName={countryName}
-                            legalForm={legalForm}
-                            listOfEntities={listOfEntities}
-                            newEntityInfo={newEntityInfo}
-                            setCountryName={setCountryName}
-                            setLegalForm={setLegalForm}
-                            setNewEntityInfo={setNewEntityInfo}
-                        />
-                        <EntityInfoErrorContainer>
-                            {error && <ErrorMessage>{error.entityInput}</ErrorMessage>}
-                        </EntityInfoErrorContainer>
-                        <AddEntityButtonContainer>
-                            <AddEntityButton onClick={addNewEntityClickHandler}>Add new entity</AddEntityButton>
-                        </AddEntityButtonContainer>
-                    </EntityInfoSpaceContainer>
+                    {renderStepChart}
                     <CreateGroupCancelSaveContainer>
-                        <CancelButton onClick={() => history.push(GROUPS)}>Cancel</CancelButton>
+                        <CancelButton onClick={cancelButtonHandler}>Cancel</CancelButton>
                         <SaveButton onClick={saveGroupChangesHandler}>Save</SaveButton>
                     </CreateGroupCancelSaveContainer>
                 </>)}
