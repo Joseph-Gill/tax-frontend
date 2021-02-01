@@ -8,7 +8,7 @@ const GroupCard = ({group, history}) => {
     return (
         <GroupCardContainer onClick={() => history.push(`/groups/${group.id}/`)}>
             <GroupAvatarImage alt='group' src={group.avatar ? group.avatar : groupImagePH} />
-            <CardTitleText>{group.name}</CardTitleText>
+            <CardTitleText>{group.name.length > 20 ? group.name.slice(0, 20).concat('....') : group.name}</CardTitleText>
             <GroupCardInfoContainer>
                 <CardInfoText>{`${group.projects.length} Projects`}</CardInfoText>
                 <CardInfoText>{`${group.users.length} Members`}</CardInfoText>
