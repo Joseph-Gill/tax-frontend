@@ -397,7 +397,7 @@ export const GroupAddEditErrorContainer = styled.div`
 `
 
 export const GroupAddEditButtonContainer = styled.div`
-    width: 260px;
+    width: 140px;
     display: flex;
     justify-content: space-between;
     align-items: center;

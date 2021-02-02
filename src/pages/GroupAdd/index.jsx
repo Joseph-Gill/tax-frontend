@@ -7,6 +7,7 @@ import SuccessMessage from '../../components/SuccessMessage'
 import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import AddEntityModal from '../../components/Modals/AddEntityModal'
 import RemoveEntityModal from '../../components/Modals/RemoveEntityModal'
+import AddEntityLinkDropdown from '../../components/Dropdowns/AddEntityLinkDropdown'
 import {createGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {addLegalFormTag, entityInputErrorHandler, renderRemoveEntitiesOptions} from '../../helpers'
@@ -14,9 +15,11 @@ import {EntityOption} from '../../style/options'
 import {ErrorMessage} from '../../style/messages'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AuthenticatedPageTitle, GroupAddEntityTitle} from '../../style/titles'
-import {AddEntityLinkButton, CancelButton, RemoveEntityLinkButton, SaveButton} from '../../style/buttons'
+import {CancelButton, SaveButton} from '../../style/buttons'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer, GroupAddEditButtonContainer, GroupAddEditErrorContainer} from '../../style/containers'
 import {GroupAddEditNoChartToDisplay} from './styles'
+import RemoveEntityLinkDropdown from '../../components/Dropdowns/RemoveEntityLinkDropdown'
+import EditEntityLinkDropdown from '../../components/Dropdowns/EditEntityLinkDropdown'
 
 
 const GroupAdd = ({history}) => {
@@ -32,7 +35,11 @@ const GroupAdd = ({history}) => {
     const [showSuccess, setShowSuccess] = useState(false)
     const [showAddEntity, setShowAddEntity] = useState(false)
     const [showRemoveEntity, setShowRemoveEntity] = useState(false)
+    const [showEditEntity, setShowEditEntity] = useState(false)
     const [entityToRemove, setEntityToRemove] = useState('')
+    const [showAddDropdown, setShowAddDropdown] = useState(false)
+    const [showRemoveDropdown, setShowRemoveDropdown] = useState(false)
+    const [showEditDropdown, setShowEditDropdown] = useState(false)
     const [newEntityInfo, setNewEntityInfo] = useState({
         entityName: '',
         parentId: '',
@@ -211,8 +218,27 @@ const GroupAdd = ({history}) => {
                     {error && <ErrorMessage>{error.entities}</ErrorMessage>}
                 </GroupAddEditErrorContainer>
                 <GroupAddEditButtonContainer>
-                    <AddEntityLinkButton onClick={() => setShowAddEntity(true)}>Add Entity</AddEntityLinkButton>
-                    <RemoveEntityLinkButton onClick={() => setShowRemoveEntity(true)}>Remove Entity</RemoveEntityLinkButton>
+                    <AddEntityLinkDropdown
+                        setShowAddDropdown={setShowAddDropdown}
+                        setShowAddEntity={setShowAddEntity}
+                        setShowEditDropdown={setShowEditDropdown}
+                        setShowRemoveDropdown={setShowRemoveDropdown}
+                        showAddDropdown={showAddDropdown}
+                    />
+                    <RemoveEntityLinkDropdown
+                        setShowAddDropdown={setShowAddDropdown}
+                        setShowEditDropdown={setShowEditDropdown}
+                        setShowRemoveDropdown={setShowRemoveDropdown}
+                        setShowRemoveEntity={setShowRemoveEntity}
+                        showRemoveDropdown={showRemoveDropdown}
+                    />
+                    <EditEntityLinkDropdown
+                        setShowAddDropdown={setShowAddDropdown}
+                        setShowEditDropdown={setShowEditDropdown}
+                        setShowEditEntity={setShowEditEntity}
+                        setShowRemoveDropdown={setShowRemoveDropdown}
+                        showEditDropdown={showEditDropdown}
+                    />
                 </GroupAddEditButtonContainer>
             </EntityTitleContainer>
             {renderStepChart}
