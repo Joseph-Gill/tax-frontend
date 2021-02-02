@@ -8,6 +8,8 @@ import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import AddEntityModal from '../../components/Modals/AddEntityModal'
 import RemoveEntityModal from '../../components/Modals/RemoveEntityModal'
 import AddEntityLinkDropdown from '../../components/Dropdowns/AddEntityLinkDropdown'
+import RemoveEntityLinkDropdown from '../../components/Dropdowns/RemoveEntityLinkDropdown'
+import EditEntityLinkDropdown from '../../components/Dropdowns/EditEntityLinkDropdown'
 import {createGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {addLegalFormTag, entityInputErrorHandler, renderRemoveEntitiesOptions} from '../../helpers'
@@ -18,8 +20,6 @@ import {AuthenticatedPageTitle, GroupAddEntityTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer, EntityTitleContainer, GroupAddEditButtonContainer, GroupAddEditErrorContainer} from '../../style/containers'
 import {GroupAddEditNoChartToDisplay} from './styles'
-import RemoveEntityLinkDropdown from '../../components/Dropdowns/RemoveEntityLinkDropdown'
-import EditEntityLinkDropdown from '../../components/Dropdowns/EditEntityLinkDropdown'
 
 
 const GroupAdd = ({history}) => {
