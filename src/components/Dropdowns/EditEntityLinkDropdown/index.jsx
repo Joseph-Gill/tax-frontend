@@ -28,12 +28,12 @@ const EditEntityLinkDropdown = ({setShowAddDropdown, setShowEditEntity, setShowE
             <DropdownContentContainer show={showEditDropdown ? 1 : 0}>
                 <DropdownContent onClick={editEntityClickHandler}>
                     <DropdownContentText>Edit Entity</DropdownContentText>
-                    <DropdownContentImage />
+                    <DropdownContentImage dropdownCalling='Edit' />
                 </DropdownContent>
                 {stepChart ? (
                     <DropdownContent>
                         <DropdownContentText>Edit Link</DropdownContentText>
-                        <DropdownContentImage />
+                        <DropdownContentImage dropdownCalling='Edit' />
                     </DropdownContent>
                 ) : null}
             </DropdownContentContainer>

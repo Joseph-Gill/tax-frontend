@@ -26,12 +26,12 @@ const RemoveEntityLinkDropdown = ({setShowAddDropdown, setShowRemoveEntity, setS
             <DropdownContentContainer show={showRemoveDropdown ? 1 : 0}>
                 <DropdownContent onClick={removeEntityClickHandler}>
                     <DropdownContentText>Remove Entity</DropdownContentText>
-                    <DropdownContentImage />
+                    <DropdownContentImage dropdownCalling='Remove' />
                 </DropdownContent>
                 {stepChart ? (
                     <DropdownContent>
                         <DropdownContentText>Remove Link</DropdownContentText>
-                        <DropdownContentImage />
+                        <DropdownContentImage dropdownCalling='Remove' />
                     </DropdownContent>
                 ) : null}
             </DropdownContentContainer>
