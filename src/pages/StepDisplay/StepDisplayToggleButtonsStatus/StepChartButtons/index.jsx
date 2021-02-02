@@ -1,32 +1,47 @@
-import React from 'react'
-import {AddEntityLinkButton, RemoveEntityLinkButton} from '../../../../style/buttons'
+import React, {useState} from 'react'
 import {StepChartButtonsContainer} from './styles'
+import AddEntityLinkDropdown from '../../../../components/Dropdowns/AddEntityLinkDropdown'
+import RemoveEntityLinkDropdown from '../../../../components/Dropdowns/RemoveEntityLinkDropdown'
+import EditEntityLinkDropdown from '../../../../components/Dropdowns/EditEntityLinkDropdown'
 
 
 const StepChartButtons = ({currentStepEntities, indexOfStepToDisplay, setShowAddEntity, setShowAddLink,
-                              setShowRemoveEntity, setShowRemoveLink, steps}) => {
+                              setShowEditEntity, setShowEditLink, setShowRemoveEntity, setShowRemoveLink, steps}) => {
+    const [showAddDropdown, setShowAddDropdown] = useState(false)
+    const [showRemoveDropdown, setShowRemoveDropdown] = useState(false)
+    const [showEditDropdown, setShowEditDropdown] = useState(false)
+
     return (
-        <StepChartButtonsContainer>
-            <AddEntityLinkButton
-                disabled={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
-                onClick={() => setShowAddEntity(true)}
-            >Add Entity
-            </AddEntityLinkButton>
-            <AddEntityLinkButton
-                disabled={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
-                onClick={() => setShowAddLink(true)}
-            >Add Link
-            </AddEntityLinkButton>
-            <RemoveEntityLinkButton
-                disabled={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
-                onClick={() => setShowRemoveLink(true)}
-            >Remove Link
-            </RemoveEntityLinkButton>
-            <RemoveEntityLinkButton
-                disabled={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
-                onClick={() => setShowRemoveEntity(true)}
-            >Remove Entity
-            </RemoveEntityLinkButton>
+        <StepChartButtonsContainer
+            hide={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
+        >
+            <AddEntityLinkDropdown
+                setShowAddDropdown={setShowAddDropdown}
+                setShowAddEntity={setShowAddEntity}
+                setShowAddLink={setShowAddLink}
+                setShowEditDropdown={setShowEditDropdown}
+                setShowRemoveDropdown={setShowRemoveDropdown}
+                showAddDropdown={showAddDropdown}
+                stepChart
+            />
+            <RemoveEntityLinkDropdown
+                setShowAddDropdown={setShowAddDropdown}
+                setShowEditDropdown={setShowEditDropdown}
+                setShowRemoveDropdown={setShowRemoveDropdown}
+                setShowRemoveEntity={setShowRemoveEntity}
+                setShowRemoveLink={setShowRemoveLink}
+                showRemoveDropdown={showRemoveDropdown}
+                stepChart
+            />
+            <EditEntityLinkDropdown
+                setShowAddDropdown={setShowAddDropdown}
+                setShowEditDropdown={setShowEditDropdown}
+                setShowEditEntity={setShowEditEntity}
+                setShowEditLink={setShowEditLink}
+                setShowRemoveDropdown={setShowRemoveDropdown}
+                showEditDropdown={showEditDropdown}
+                stepChart
+            />
         </StepChartButtonsContainer>
     )
 }

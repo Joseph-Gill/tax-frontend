@@ -5,11 +5,16 @@ import DropdownContentImage from '../DropdownContentImage'
 
 
 const RemoveEntityLinkDropdown = ({setShowAddDropdown, setShowRemoveEntity, setShowEditDropdown, setShowRemoveDropdown,
-                                   showRemoveDropdown, stepChart}) => {
+                                   showRemoveDropdown, stepChart, setShowRemoveLink}) => {
 
     const removeEntityClickHandler = () => {
         setShowRemoveDropdown(!showRemoveDropdown)
         setShowRemoveEntity(true)
+    }
+
+    const removeLinkClickHandler = () => {
+        setShowRemoveDropdown(!showRemoveDropdown)
+        setShowRemoveLink(true)
     }
 
     const toggleRemoveEntityHandler = () => {
@@ -29,7 +34,7 @@ const RemoveEntityLinkDropdown = ({setShowAddDropdown, setShowRemoveEntity, setS
                     <DropdownContentImage dropdownCalling='Remove' />
                 </DropdownContent>
                 {stepChart ? (
-                    <DropdownContent>
+                    <DropdownContent onClick={removeLinkClickHandler}>
                         <DropdownContentText>Remove Link</DropdownContentText>
                         <DropdownContentImage dropdownCalling='Remove' />
                     </DropdownContent>

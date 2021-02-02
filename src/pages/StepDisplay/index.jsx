@@ -41,6 +41,8 @@ const StepDisplay = ({history}) => {
     const [ableToComplete, setAbleToComplete] = useState(false)
     const [showAddEntity, setShowAddEntity] = useState(false)
     const [showAddLink, setShowAddLink] = useState(false)
+    const [showEditEntity, setShowEditEntity] = useState(false)
+    const [showEditLink, setShowEditLink] = useState(false)
     const [showRemoveLink, setShowRemoveLink] = useState(false)
     const [showRemoveEntity, setShowRemoveEntity] = useState(false)
     const [currentStepEntities, setCurrentStepEntities] = useState([])
@@ -265,6 +267,8 @@ const StepDisplay = ({history}) => {
                         setShowAddEntity={setShowAddEntity}
                         setShowAddLink={setShowAddLink}
                         setShowConfirmation={setShowConfirmation}
+                        setShowEditEntity={setShowEditEntity}
+                        setShowEditLink={setShowEditLink}
                         setShowRemoveEntity={setShowRemoveEntity}
                         setShowRemoveLink={setShowRemoveLink}
                         setStepDetailStatus={setStepDetailStatus}
@@ -288,11 +292,15 @@ const StepDisplay = ({history}) => {
                                 setClinks={setClinks}
                                 setShowAddEntity={setShowAddEntity}
                                 setShowAddLink={setShowAddLink}
+                                setShowEditEntity={setShowEditEntity}
+                                setShowEditLink={setShowEditLink}
                                 setShowRemoveEntity={setShowRemoveEntity}
                                 setShowRemoveLink={setShowRemoveLink}
                                 setSlinks={setSlinks}
                                 showAddEntity={showAddEntity}
                                 showAddLink={showAddLink}
+                                showEditEntity={showEditEntity}
+                                showEditLink={showEditLink}
                                 showRemoveEntity={showRemoveEntity}
                                 showRemoveLink={showRemoveLink}
                                 slinks={slinks}

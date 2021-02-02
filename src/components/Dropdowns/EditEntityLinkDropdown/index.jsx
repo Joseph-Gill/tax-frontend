@@ -7,11 +7,16 @@ import {DropdownButtonContainer, DropdownContainer, DropdownContent, DropdownCon
 
 
 const EditEntityLinkDropdown = ({setShowAddDropdown, setShowEditEntity, setShowEditDropdown,
-                                    setShowRemoveDropdown, showEditDropdown, stepChart}) => {
+                                    setShowRemoveDropdown, showEditDropdown, stepChart, setShowEditLink}) => {
 
     const editEntityClickHandler = () => {
         setShowEditDropdown(!showEditDropdown)
         setShowEditEntity(true)
+    }
+
+    const editLinkClickHandler = () => {
+        setShowEditDropdown(!showEditDropdown)
+        setShowEditLink(true)
     }
 
     const toggleEditEntityHandler = () => {
@@ -31,7 +36,7 @@ const EditEntityLinkDropdown = ({setShowAddDropdown, setShowEditEntity, setShowE
                     <DropdownContentImage dropdownCalling='Edit' />
                 </DropdownContent>
                 {stepChart ? (
-                    <DropdownContent>
+                    <DropdownContent onClick={editLinkClickHandler}>
                         <DropdownContentText>Edit Link</DropdownContentText>
                         <DropdownContentImage dropdownCalling='Edit' />
                     </DropdownContent>

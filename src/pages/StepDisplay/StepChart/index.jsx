@@ -7,15 +7,17 @@ import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {addLegalFormTag, createUpdateStepChart, entityInputErrorHandler, getEntitiesWithTags, linkInputErrorHandler, renderRemoveEntitiesOptions} from '../../../helpers'
+import {addLegalFormTag, createUpdateStepChart, entityInputErrorHandler, getEntitiesWithTags,
+    linkInputErrorHandler, renderRemoveEntitiesOptions} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
 
 
-const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity,
-                       setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks, showAddEntity, showAddLink,
-                       showRemoveEntity, showRemoveLink, slinks, stepChartExists, steps}) => {
+const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity,
+                       setShowEditLink, setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks,
+                       showAddEntity, showAddLink, showEditEntity, showEditLink, showRemoveEntity, showRemoveLink,
+                       slinks, stepChartExists, steps}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [entitiesToRender, setEntitiesToRender] = useState([])

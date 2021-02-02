@@ -6,11 +6,16 @@ import {DropdownButtonContainer, DropdownContainer, DropdownContent,
 
 
 const AddEntityLinkDropdown = ({setShowAddDropdown, setShowAddEntity, setShowEditDropdown, setShowRemoveDropdown,
-                                   showAddDropdown, stepChart}) => {
+                                   showAddDropdown, stepChart, setShowAddLink}) => {
 
     const addEntityClickHandler = () => {
         setShowAddDropdown(!showAddDropdown)
         setShowAddEntity(true)
+    }
+
+    const addLinkClickHandler = () => {
+        setShowAddDropdown(!showAddDropdown)
+        setShowAddLink(true)
     }
 
     const toggleAddEntityHandler = () => {
@@ -30,7 +35,7 @@ const AddEntityLinkDropdown = ({setShowAddDropdown, setShowAddEntity, setShowEdi
                     <DropdownContentImage dropdownCalling='Add' />
                 </DropdownContent>
                 {stepChart ? (
-                    <DropdownContent>
+                    <DropdownContent onClick={addLinkClickHandler}>
                         <DropdownContentText>Add Link</DropdownContentText>
                         <DropdownContentImage dropdownCalling='Add' />
                     </DropdownContent>
