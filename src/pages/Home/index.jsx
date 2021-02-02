@@ -136,7 +136,6 @@ const Home = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            <EditEntityModal />
             {homeLoading || !profileLoaded ? <Spinner /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
