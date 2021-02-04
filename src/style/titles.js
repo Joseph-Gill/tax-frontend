@@ -55,6 +55,6 @@ export const EntityTitle = styled(AuthenticatedPageSectionTitle)`
 
 export const GroupAddEntityTitle = styled(EntityTitle)`
     width: 70px;
-    margin-right: 200px;
+    margin-right: 0;
     margin-top: 20px;
 `

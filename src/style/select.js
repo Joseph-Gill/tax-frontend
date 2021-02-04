@@ -4,18 +4,18 @@ import dropdownArrowUpward from '../assets/icons/stark_dropdown_arrow_gray_upwar
 
 
 export const EntityLegalFormSelect = styled.select`
-    width: ${props => props.callingComponent === 'AddEntityModal' ? '302px' : '157px'};
-    height: ${props => props.callingComponent === 'AddEntityModal' ? '42px' : '34px'};
-    margin: ${props => props.callingComponent === 'AddEntityModal' ? '0' : '17px 10px'};
-    padding-left: ${props => props.callingComponent === 'AddEntityModal' ? '20px' : '12px'};
+    width: 302px;
+    height: 42px;
+    margin: 0;
+    padding-left: 20px;
     background: url(${dropdownArrowDown}) no-repeat right, ${props => props.theme.graySix};
     background-position-x: 92%;
     border: 1px solid ${props => props.theme.grayFour};
     border-radius: ${props => props.theme.inputBorderRadius};
     font-family: ${props => props.theme.nunitoFontFamily};
     font-weight: 600;
-    font-size: ${props => props.callingComponent === 'AddEntityModal' ? '14px' : '10px'};
-    line-height: ${props => props.callingComponent === 'AddEntityModal' ? '19px' : '16px'};
+    font-size: 14px;
+    line-height: 19px;
     color: ${props => props.theme.grayOne};
     /* for Firefox */
     -moz-appearance: none;
@@ -35,8 +35,12 @@ export const EntityLegalFormSelect = styled.select`
         background: url(${dropdownArrowUpward}) no-repeat right, ${props => props.theme.graySix};
         background-position-x: 92%;
     }
+
+    :disabled {
+        border: 1px solid ${props => props.theme.grayThree};
+    }
 `
 
 export const EntityParentSelect = styled(EntityLegalFormSelect)`
-    width: ${props => props.callingComponent === 'AddEntityModal' ? '302px' : '98px'};
+    width: 302px;
 `

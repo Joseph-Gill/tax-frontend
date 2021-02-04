@@ -163,6 +163,25 @@ export const entityInputErrorHandler = (dispatch, setError, availableParentNames
     }
 }
 
+// Used by components that edit entities to handle input validation
+export const editEntityInputErrorHandler = (dispatch, setError, listOfEntities, editEntityInfo, countryName) => {
+    const remainingEntities = listOfEntities.filter(entity => entity.id !== editEntityInfo.entityToEditId)
+    if (!editEntityInfo.entitySelected) {
+        dispatch(setError({entitySelect: `You must choose an entity to edit.`}))
+        return true
+    } else if (!editEntityInfo.entityName) {
+        dispatch(setError({entityName: `You must choose a name for this entity.`}))
+        return true
+    } else if (!countryName) {
+        dispatch(setError({entityCountryName: `You must choose a location for this entity.`}))
+        return true
+    } else if (remainingEntities.filter(entity => entity.name === editEntityInfo.entityName && entity.location === countryName).length) {
+        dispatch(setError({entityName: 'You cannot have the same name and location as another entity.'}))
+    } else {
+        return false
+    }
+}
+
 // Used by components that add links to handle input validation
 export const linkInputErrorHandler = (dispatch, setError, addLinkInfo) => {
     if (!addLinkInfo.to || !addLinkInfo.from) {
@@ -203,4 +222,13 @@ export const renderRemoveEntitiesOptions = (entitiesToRender) => {
         }
     })
     return removableEntities
+}
+
+//Used to sort entities by parentId and put the "Ultimate" entity first in the array, prevents issues
+//in the backend trying to create entities with parents that haven't been created yet.
+export const sortEntitiesByParentId = (entities) => {
+    const sortedEntities = entities.sort((a,b) => (a.pid > b.pid) ? 1 : ((b.pid > a.pid) ? -1 : 0))
+    const ultimateEntity = sortedEntities.pop()
+    sortedEntities.unshift(ultimateEntity)
+    return sortedEntities
 }

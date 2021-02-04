@@ -19,7 +19,6 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {ProjectAccessContainer} from './styles'
-import EditEntityModal from '../../components/Modals/EditEntityModal'
 
 
 const Home = ({history}) => {

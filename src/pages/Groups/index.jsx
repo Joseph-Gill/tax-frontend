@@ -7,6 +7,7 @@ import GroupCard from './GroupCard'
 import NoContent from '../../components/NoContent'
 import {resetGroup} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
+import {resetErrors} from '../../store/errors/actions/errorAction'
 import {getProfileAction} from '../../store/profile/actions'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
@@ -20,6 +21,8 @@ const Groups = ({history}) => {
     const loaded = useSelector(state => state.profileReducer.loaded)
 
     useEffect(() => {
+        //Resets errors in redux state
+        dispatch(resetErrors())
         //Resets group in redux state
         dispatch(resetGroup())
         //Resets project in redux state

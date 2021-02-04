@@ -7,11 +7,12 @@ import GroupInfo from '../../components/GroupInfo'
 import SuccessMessage from '../../components/SuccessMessage'
 import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import AddEntityModal from '../../components/Modals/AddEntityModal'
+import EditEntityModal from '../../components/Modals/EditEntityModal'
 import RemoveEntityModal from '../../components/Modals/RemoveEntityModal'
 import AddEntityLinkDropdown from '../../components/Dropdowns/AddEntityLinkDropdown'
 import RemoveEntityLinkDropdown from '../../components/Dropdowns/RemoveEntityLinkDropdown'
 import EditEntityLinkDropdown from '../../components/Dropdowns/EditEntityLinkDropdown'
-import {addLegalFormTag, entityInputErrorHandler, getEntitiesWithTags, renderRemoveEntitiesOptions} from '../../helpers'
+import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler, getEntitiesWithTags, renderRemoveEntitiesOptions} from '../../helpers'
 import {updateGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {EDIT_GROUP, GROUPS, HOME} from '../../routes/paths'
@@ -109,6 +110,11 @@ const GroupEdit = ({history}) => {
         }
     }
 
+    const saveEditEntityHandler = (editEntityInfo, editCountryName) => {
+        dispatch(resetErrors())
+        const error = editEntityInputErrorHandler(dispatch, setError, listOfEntities, editEntityInfo, editCountryName)
+    }
+
     const removeEntityHandler = () => {
         const newEntitiesToRender = listOfEntities.filter(entity => entity.id !== parseInt(entityToRemove))
         setListOfEntities(newEntitiesToRender)
@@ -198,7 +204,7 @@ const GroupEdit = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {showAddEntity ?
+            {showAddEntity &&
                 <AddEntityModal
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
                     countryName={countryName}
@@ -211,15 +217,21 @@ const GroupEdit = ({history}) => {
                     setLegalForm={setLegalForm}
                     setNewEntityInfo={setNewEntityInfo}
                     setShowAddEntity={setShowAddEntity}
-                /> : null}
-            {showRemoveEntity ?
+                />}
+            {showRemoveEntity &&
                 <RemoveEntityModal
                     entityOptions={renderRemoveEntitiesOptions(listOfEntities)}
                     entityToRemove={entityToRemove}
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}
                     setShowRemoveEntity={setShowRemoveEntity}
-                /> : null}
+                />}
+            {showEditEntity &&
+                <EditEntityModal
+                    entities={listOfEntities}
+                    saveEditEntityHandler={saveEditEntityHandler}
+                    setShowEditEntity={setShowEditEntity}
+                />}
             {showSuccess &&
                 <SuccessMessage
                     message="Your group has been successfully created!"

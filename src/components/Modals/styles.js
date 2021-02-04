@@ -90,7 +90,7 @@ export const AddEntityLinkModalInternalContainer = styled(AddDeleteModalInternal
 export const AddEntitySaveButton = styled(BaseButton)`
     width: 92px;
     height: 32px;
-    margin-left: 13px;
+    margin-left: 23px;
 `
 
 export const RemoveLinkEntityInternalContainer = styled(AddDeleteModalInternalContainer)`
