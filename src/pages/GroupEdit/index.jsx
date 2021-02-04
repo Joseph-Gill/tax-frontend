@@ -12,7 +12,7 @@ import RemoveEntityModal from '../../components/Modals/RemoveEntityModal'
 import AddEntityLinkDropdown from '../../components/Dropdowns/AddEntityLinkDropdown'
 import RemoveEntityLinkDropdown from '../../components/Dropdowns/RemoveEntityLinkDropdown'
 import EditEntityLinkDropdown from '../../components/Dropdowns/EditEntityLinkDropdown'
-import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler, getEntitiesWithTags, renderRemoveEntitiesOptions} from '../../helpers'
+import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler, getEntitiesWithTags, renderRemoveEntitiesOptions, sortEntitiesByParentId} from '../../helpers'
 import {updateGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {EDIT_GROUP, GROUPS, HOME} from '../../routes/paths'
@@ -90,8 +90,9 @@ const GroupEdit = ({history}) => {
                 //Tax rate is optional
                 tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : '',
                 tags: [addLegalFormTag(legalForm)],
-                //"new" status is so frontend knows which entities are new and need to be sent to
+                //"edited" and "new" status is so frontend knows which entities are edited and need to be updated in
                 //the backend during save action
+                edited: true,
                 new: true
             }
             //Adds the new entity to the list of existing entities
@@ -110,9 +111,30 @@ const GroupEdit = ({history}) => {
         }
     }
 
-    const saveEditEntityHandler = (editEntityInfo, editCountryName) => {
+    const saveEditEntityHandler = (editEntityInfo, countryName, legalForm) => {
         dispatch(resetErrors())
-        const error = editEntityInputErrorHandler(dispatch, setError, listOfEntities, editEntityInfo, editCountryName)
+        const error = editEntityInputErrorHandler(dispatch, setError, listOfEntities, editEntityInfo, countryName)
+        if (!error) {
+            //Finds parent entity of entity being edited
+            const targetParent = listOfEntities.filter(entity => entity.id === parseInt(editEntityInfo.parentId))[0]
+            //Finds index of entity being edited in listOfEntities
+            const indexToEdit = listOfEntities.findIndex(entity => entity.id === editEntityInfo.entityToEditId)
+            //Updates all values of entity being edited with current/new values
+            listOfEntities[indexToEdit].name = editEntityInfo.entityName
+            listOfEntities[indexToEdit].tax_rate = editEntityInfo.taxRate
+            listOfEntities[indexToEdit].pid = editEntityInfo.parentId.toString()
+            listOfEntities[indexToEdit].legal_form = legalForm
+            listOfEntities[indexToEdit].location = countryName
+            listOfEntities[indexToEdit].edited = true
+            //Sets parent entity of entity to current/new value, used in backend to get database id of parent
+            listOfEntities[indexToEdit].parent = targetParent
+            //Updates tag of entity to make sure it is rendering correct legal form template
+            listOfEntities[indexToEdit].tags = [addLegalFormTag(legalForm)]
+            //Sorts the list of entities to put Ultimate first, then order by parentId to prevent trying to
+            //create an entity with a parent that has not been created yet and crashing the backend
+            setListOfEntities([...sortEntitiesByParentId(listOfEntities)])
+            setShowEditEntity(false)
+        }
     }
 
     const removeEntityHandler = () => {
@@ -130,13 +152,11 @@ const GroupEdit = ({history}) => {
     }
 
     const saveGroupChangesHandler = async () => {
-        //Filters the list of current entities, making a list of all "new" entities, and all existing entities
         const newEntities = []
-        const currentEntities = []
-        listOfEntities.forEach(entity => entity.new ? newEntities.push(entity) : currentEntities.push(entity))
+        const existingEntities = []
+        listOfEntities.forEach(entity => entity.new ? newEntities.push(entity) : existingEntities.push(entity))
         const updatedGroupInfo = {
-            new_entities: newEntities,
-            current_entities: currentEntities
+            entities: newEntities.concat(existingEntities),
         }
         //If the user changed the group avatar, add the new avatar to the data to be sent
         //to the backend
