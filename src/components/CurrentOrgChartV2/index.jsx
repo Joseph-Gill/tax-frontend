@@ -42,7 +42,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             '<text class="field_2" style="font-size: 22px;" font-weight="800" fill="#000000" x="200" y="110" text-anchor="middle" font-family="Nunito Sans, sans-serif">({val})</text>'
 
         //Draws the Node
-        OrgChart.templates.myTemplate.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+        OrgChart.templates.myTemplate.node = '<rect x="0" y="0" height="150" width="400" fill="#FAFAFA" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
 
         //Creates Hybrid Entity node, triangle inside of a rectangle
         OrgChart.templates.hybridEntity = Object.assign({}, OrgChart.templates.myTemplate)
@@ -59,20 +59,20 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.disregardedEntity.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#8C8C8C" rx="0" ry="0"></rect>'
             + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2""></ellipse>'
 
-        //Creates Branch node, highlighted ellipse inside a rectangle
+        //Creates Branch node, highlighted ellipse
         OrgChart.templates.branch = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.branch.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
-            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#D3D8DD" stroke="#8C8C8C" stroke-width="2""></ellipse>'
+            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2""></ellipse>'
 
-        //Creates Branch node, highlighted triangle inside a rectangle
+        //Creates Partnership node, highlighted triangle
         OrgChart.templates.partnership = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.partnership.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
-            + '<path d="M200 0 L0 150 L400 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#D3D8DD"></path>'
+            + '<path d="M200 0 L0 150 L400 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
 
-        //Creates Representative Office node, highlighted circle inside a rectangle
+        //Creates Representative Office node, highlighted circle
         OrgChart.templates.representativeOffice = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.representativeOffice.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="2" stroke="#FFFFFF" rx="0" ry="0"></rect>'
-            + '<circle cx="200" cy="75" r="73" stroke="#8C8C8C" stroke-width="2" fill="#D3D8DD" />'
+            + '<circle cx="200" cy="75" r="73" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA" />'
 
         //Creates Corporation node with dashed red "X" through entity
         OrgChart.templates.corporationWithX = Object.assign({}, OrgChart.templates.myTemplate)
