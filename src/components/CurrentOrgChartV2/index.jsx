@@ -41,7 +41,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.myTemplate.field_2 =
             '<text class="field_2" style="font-size: 22px;" font-weight="800" fill="#000000" x="200" y="110" text-anchor="middle" font-family="Nunito Sans, sans-serif">({val})</text>'
 
-        //Draws the Node
+        //Creates Corporation Entity node, highlighted rectangle
         OrgChart.templates.myTemplate.node = '<rect x="0" y="0" height="150" width="400" fill="#FAFAFA" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
 
         //Creates Hybrid Entity node, triangle inside of a rectangle
