@@ -7,11 +7,13 @@ import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {addLegalFormTag, createUpdateStepChart, entityInputErrorHandler, getEntitiesWithTags,
+import {
+    addLegalFormTag, createUpdateStepChart, editEntityInputErrorHandler, entityInputErrorHandler, getEntitiesWithTags,
     linkInputErrorHandler, renderRemoveEntitiesOptions} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
+import EditEntityModal from '../../../components/Modals/EditEntityModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity,
@@ -140,6 +142,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 //Used in the backend when creating the entity to find its appropriate parent
                 parent: entitiesToRender.filter(entity => entity.id === newEntityInfo.parentId)[0],
                 //Used in Complete Project action to differentiate between existing and newly created entities
+                edited: true,
                 new: true
             }
             //Attaches the appropriate tag to the entity to assign the correct custom template in the org chart
@@ -253,9 +256,40 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setShowRemoveEntity(false)
     }
 
+    const saveEditEntityHandler = (editEntityInfo, countryName, legalForm) => {
+        dispatch(resetErrors())
+        //Handles input validation for the entity inputs
+        const error = editEntityInputErrorHandler(dispatch, setError, entitiesToRender, editEntityInfo, countryName)
+        if (!error) {
+            //Finds parent entity of entity being edited
+            const targetParent = entitiesToRender.filter(entity => entity.id === parseInt(editEntityInfo.parentId))[0]
+            //Finds index of entity being edited in listOfEntities
+            const indexToEdit = entitiesToRender.findIndex(entity => entity.id === editEntityInfo.entityToEditId)
+            //Updates all values of entity being edited with current/new values
+            entitiesToRender[indexToEdit].name = editEntityInfo.entityName
+            entitiesToRender[indexToEdit].tax_rate = editEntityInfo.taxRate
+            entitiesToRender[indexToEdit].pid = editEntityInfo.parentId.toString()
+            entitiesToRender[indexToEdit].legal_form = legalForm
+            entitiesToRender[indexToEdit].location = countryName
+            entitiesToRender[indexToEdit].edited = true
+            //Sets parent entity of entity to current/new value, used in backend to get database id of parent
+            entitiesToRender[indexToEdit].parent = targetParent
+            //Updates tag of entity to make sure it is rendering correct legal form template
+            entitiesToRender[indexToEdit].tags = [addLegalFormTag(legalForm)]
+            const chartData = {
+                nodes: JSON.stringify(entitiesToRender),
+                slinks: JSON.stringify(slinks),
+                clinks: JSON.stringify(clinks)
+            }
+            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+            setEntitiesToRender([...entitiesToRender])
+            setShowEditEntity(false)
+        }
+    }
+
     return (
         <StepChartAndButtonsContainer>
-            {showAddEntity ?
+            {showAddEntity &&
                 <AddEntityModal
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
                     countryName={countryName}
@@ -268,8 +302,8 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     setLegalForm={setLegalForm}
                     setNewEntityInfo={setNewEntityInfo}
                     setShowAddEntity={setShowAddEntity}
-                /> : null}
-            {showAddLink ?
+                />}
+            {showAddLink &&
                 <AddLinkModal
                     addLinkInfo={addLinkInfo}
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
@@ -278,23 +312,29 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     saveNewLinkHandler={saveNewLinkHandler}
                     setAddLinkInfo={setAddLinkInfo}
                     setShowAddLink={setShowAddLink}
-                /> : null}
-            {showRemoveLink ?
+                />}
+            {showRemoveLink &&
                 <RemoveLinkModal
                     linkOptions={renderRemoveLinkOptions()}
                     linkToRemove={linkToRemove}
                     removeLinkHandler={removeLinkHandler}
                     setLinkToRemove={setLinkToRemove}
                     setShowRemoveLink={setShowRemoveLink}
-                /> : null}
-            {showRemoveEntity ?
+                />}
+            {showRemoveEntity &&
                 <RemoveEntityModal
                     entityOptions={renderRemoveEntitiesOptions(entitiesToRender)}
                     entityToRemove={entityToRemove}
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}
                     setShowRemoveEntity={setShowRemoveEntity}
-                /> : null}
+                />}
+            {showEditEntity &&
+                <EditEntityModal
+                    entities={entitiesToRender}
+                    saveEditEntityHandler={saveEditEntityHandler}
+                    setShowEditEntity={setShowEditEntity}
+                />}
             {renderStepChart}
         </StepChartAndButtonsContainer>
     )

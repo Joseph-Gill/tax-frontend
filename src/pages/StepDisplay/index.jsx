@@ -89,7 +89,7 @@ const StepDisplay = ({history}) => {
                     setCurrentStepEntities([...JSON.parse(response.data.nodes)])
                     setSlinks([...JSON.parse(response.data.slinks)])
                     setClinks([...JSON.parse(response.data.clinks)])
-                    //Used to track if StepChart buttons should be active
+                    //Used in action call of StepChart to decide if it is post or patch
                     setStepChartExists(true)
                 } else {
                     //If the user is on Step 1 and it has no chart created yet, the Chart will display
@@ -104,7 +104,7 @@ const StepDisplay = ({history}) => {
                     setCurrentStepEntities([...JSON.parse(response.data.nodes)])
                     setSlinks([...JSON.parse(response.data.slinks)])
                     setClinks([...JSON.parse(response.data.clinks)])
-                    //Used to track if StepChart buttons should be active
+                    //Used in action call of StepChart to decide if it is post or patch
                     setStepChartExists(true)
                 //If this step does not have a step chart, tries to get the step chart for the previous step
                 //loading its nodes, clinks, and slinks into state

@@ -12,7 +12,8 @@ import RemoveEntityModal from '../../components/Modals/RemoveEntityModal'
 import AddEntityLinkDropdown from '../../components/Dropdowns/AddEntityLinkDropdown'
 import RemoveEntityLinkDropdown from '../../components/Dropdowns/RemoveEntityLinkDropdown'
 import EditEntityLinkDropdown from '../../components/Dropdowns/EditEntityLinkDropdown'
-import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler, getEntitiesWithTags, renderRemoveEntitiesOptions, sortEntitiesByParentId} from '../../helpers'
+import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler, getEntitiesWithTags,
+    renderRemoveEntitiesOptions} from '../../helpers'
 import {updateGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {EDIT_GROUP, GROUPS, HOME} from '../../routes/paths'
@@ -132,7 +133,7 @@ const GroupEdit = ({history}) => {
             listOfEntities[indexToEdit].tags = [addLegalFormTag(legalForm)]
             //Sorts the list of entities to put Ultimate first, then order by parentId to prevent trying to
             //create an entity with a parent that has not been created yet and crashing the backend
-            setListOfEntities([...sortEntitiesByParentId(listOfEntities)])
+            setListOfEntities([...listOfEntities])
             setShowEditEntity(false)
         }
     }

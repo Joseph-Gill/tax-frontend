@@ -155,7 +155,7 @@ export const entityInputErrorHandler = (dispatch, setError, availableParentNames
         isStepChart ? dispatch(setError({entityLegalForm: `You must choose a legal form for this entity.`}))
             : dispatch(setError({entityInput: `You must choose a legal form for this entity.`}))
         return true
-    } else if (availableParentNames.filter(entity => entity.name === newEntityInfo.entityName && entity.location === countryName).length) {
+    } else if (availableParentNames.filter(entity => entity.name.toLowerCase() === newEntityInfo.entityName.toLowerCase() && entity.location === countryName).length) {
         dispatch(setError({entityName: 'You cannot have the same name and location as another entity.'}))
         return true
     } else {
@@ -175,8 +175,9 @@ export const editEntityInputErrorHandler = (dispatch, setError, listOfEntities, 
     } else if (!countryName) {
         dispatch(setError({entityCountryName: `You must choose a location for this entity.`}))
         return true
-    } else if (remainingEntities.filter(entity => entity.name === editEntityInfo.entityName && entity.location === countryName).length) {
+    } else if (remainingEntities.filter(entity => entity.name.toLowerCase() === editEntityInfo.entityName.toLowerCase() && entity.location === countryName).length) {
         dispatch(setError({entityName: 'You cannot have the same name and location as another entity.'}))
+        return true
     } else {
         return false
     }
