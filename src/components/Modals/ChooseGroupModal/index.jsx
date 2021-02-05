@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {useSpring} from 'react-spring'
 import ModalGroupCard from './ModalGroupCard'
+import Draggable from 'react-draggable'
+import Spinner from '../../Spinner'
 import {getProfileAction} from '../../../store/profile/actions'
 import close from '../../../assets/icons/stark_close_icon.svg'
 import {CloseIcon} from '../../../style/images'
@@ -10,7 +12,6 @@ import {CancelButton} from '../../../style/buttons'
 import {AddDeleteModalExternalContainer} from '../styles'
 import {ChooseGroupButtonContainer, ChooseGroupCardContainer, ChooseGroupInput, ChooseGroupModalCloseContainer, ChooseGroupModalInternalContainer,
     ChooseGroupModalTitleContainer, ChooseGroupTitleContainer} from './styles'
-import Spinner from '../../Spinner'
 
 
 //Used by NavBar for choosing which specific group the user is currently accessing
@@ -54,27 +55,29 @@ const ChooseGroupModal = ({history, setShowChooseGroup}) => {
         <AddDeleteModalExternalContainer style={props}>
             {!loaded ?
                 <Spinner /> :
-                <ChooseGroupModalInternalContainer>
-                    <ChooseGroupModalCloseContainer>
-                        <CloseIcon alt='close' onClick={() => setShowChooseGroup(false)} src={close} />
-                    </ChooseGroupModalCloseContainer>
-                    <ChooseGroupModalTitleContainer>
-                        <AuthenticatedPageTitle>Choose a Group</AuthenticatedPageTitle>
-                    </ChooseGroupModalTitleContainer>
-                    <ChooseGroupTitleContainer>Group Name</ChooseGroupTitleContainer>
-                    <ChooseGroupInput
-                        onChange={(e) => setFilterString(e.target.value)}
-                        placeholder='Search for groups'
-                        type='text'
-                        value={filterString}
-                    />
-                    <ChooseGroupCardContainer>
-                        {renderGroups()}
-                    </ChooseGroupCardContainer>
-                    <ChooseGroupButtonContainer>
-                        <CancelButton onClick={() => setShowChooseGroup(false)}>Cancel</CancelButton>
-                    </ChooseGroupButtonContainer>
-                </ChooseGroupModalInternalContainer>}
+                <Draggable>
+                    <ChooseGroupModalInternalContainer>
+                        <ChooseGroupModalCloseContainer>
+                            <CloseIcon alt='close' onClick={() => setShowChooseGroup(false)} src={close} />
+                        </ChooseGroupModalCloseContainer>
+                        <ChooseGroupModalTitleContainer>
+                            <AuthenticatedPageTitle>Choose a Group</AuthenticatedPageTitle>
+                        </ChooseGroupModalTitleContainer>
+                        <ChooseGroupTitleContainer>Group Name</ChooseGroupTitleContainer>
+                        <ChooseGroupInput
+                            onChange={(e) => setFilterString(e.target.value)}
+                            placeholder='Search for groups'
+                            type='text'
+                            value={filterString}
+                        />
+                        <ChooseGroupCardContainer>
+                            {renderGroups()}
+                        </ChooseGroupCardContainer>
+                        <ChooseGroupButtonContainer>
+                            <CancelButton onClick={() => setShowChooseGroup(false)}>Cancel</CancelButton>
+                        </ChooseGroupButtonContainer>
+                    </ChooseGroupModalInternalContainer>
+                </Draggable>}
         </AddDeleteModalExternalContainer>
     )
 }

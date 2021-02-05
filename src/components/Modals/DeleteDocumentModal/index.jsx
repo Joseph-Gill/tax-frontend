@@ -1,12 +1,11 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import ellipse from '../../../assets/icons/stark_modal_ellipse.png'
-import {CloseIcon, Ellipse} from '../../../style/images'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
-import {ModalText} from '../../../style/text'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
+import Draggable from 'react-draggable'
+import ModalTitle from '../ModalComponents/ModalTitle'
+import ModalClose from '../ModalComponents/ModalClose'
+import ModalDeleteButtons from '../ModalComponents/ModalDeleteButtons'
+import DeleteDocumentText from './DeleteDocumentText'
+import {AddDeleteModalExternalContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
 
 //Used by ProjectTasks and TaskEdit to delete a specific document from a task
@@ -18,25 +17,25 @@ const DeleteDocumentModal = ({deleteDocumentHandler, documentName, setShowDelete
         from: {opacity: 0},
     })
 
+    const cancelButtonHandler = () => {
+        setShowDeleteDocumentConfirmation(false)
+    }
+
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <DeleteStepReviewTaskModalInternalContainer>
-                <AddDeleteModalCloseContainer>
-                    <CloseIcon alt='close' onClick={() => setShowDeleteDocumentConfirmation(false)} src={close} />
-                </AddDeleteModalCloseContainer>
-                <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Are you sure?</AuthenticatedPageTitle>
-                </AddDeleteModalTitleContainer>
-                <AddDeleteModalTextContainer>
-                    <Ellipse alt='ellipse' src={ellipse} />
-                    <ModalText>{documentName} will be deleted</ModalText>
-                </AddDeleteModalTextContainer>
-                <AddDeleteModalButtonContainer>
-                    <AuthenticatedButtonCancel onClick={() => setShowDeleteDocumentConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
-                    <RedLargerButton onClick={deleteDocumentHandler}>Confirm Delete</RedLargerButton>
-                </AddDeleteModalButtonContainer>
-            </DeleteStepReviewTaskModalInternalContainer>
+            <Draggable>
+                <DeleteStepReviewTaskModalInternalContainer>
+                    <ModalClose modalDisplay={setShowDeleteDocumentConfirmation} />
+                    <ModalTitle title='Are you sure?' />
+                    <DeleteDocumentText documentName={documentName} />
+                    <ModalDeleteButtons
+                        cancelButtonHandler={cancelButtonHandler}
+                        deleteButtonHandler={deleteDocumentHandler}
+                        deleteText='Confirm Delete'
+                    />
+                </DeleteStepReviewTaskModalInternalContainer>
+            </Draggable>
         </AddDeleteModalExternalContainer>
     )
 }

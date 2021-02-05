@@ -2,20 +2,17 @@ import React, {useState, useMemo} from 'react'
 import {useSpring} from 'react-spring'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
-import EditEntitySelect from './EditEntitySelect'
-import EditEntityTextInput from './EditEntityTextInput'
-import EditParentSelect from './EditParentSelect'
-import EditLegalSelect from './EditLegalSelect'
-import EditLocationSelect from './EditLocationSelect'
+import Draggable from 'react-draggable'
+import ModalClose from '../ModalComponents/ModalClose'
+import ModalTitle from '../ModalComponents/ModalTitle'
+import EditEntityTopRow from './EditEntityTopRow'
+import EditEntityButtons from './EditEntityButtons'
+import EditEntityMiddleRow from './EditEntityMiddleRow'
+import EditEntityBottomRow from './EditEntityBottomRow'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import {CloseIcon} from '../../../style/images'
 import {EntityOption} from '../../../style/options'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddEntitySaveButton} from '../styles'
-import {EditEntityButtonContainer, EditEntityInternalContainer, EditEntityModalTitleContainer,
-    EditEntityRowContainer} from './styles'
+import {AddDeleteModalExternalContainer} from '../styles'
+import {EditEntityInternalContainer} from './styles'
 
 
 const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) => {
@@ -94,21 +91,29 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) =
             )
         }}, [entities])
 
+    const saveButtonHandler = () => {
+        saveEditEntityHandler(editEntityInfo, countryName, legalForm)
+    }
+
     //creates parent options for entity being edited
     const renderParentNameOptions = useMemo(() => {
-        if (editParentNames.length) {
+        if ((!editEntityInfo.parentId || editEntityInfo.parentId === 'Ultimate') && editEntityInfo.entitySelected) {
             return (
                 <>
-                    <EntityOption disabled value=''>Select a parent</EntityOption>
+                    <EntityOption disabled value=''>Ultimate</EntityOption>
                     <EntityOption disabled value='Ultimate'>Ultimate</EntityOption>
-                    {editParentNames.map(parent => (
+                </>
+            )
+        } else if (editParentNames.length) {
+            return (
+                    editParentNames.map(parent => (
                         <EntityOption
                             key={uuidv4()}
                             value={parent.id}
                         >{`${parent.name} (${parent.location})`}
                         </EntityOption>
-                    ))}
-                </>)
+                    ))
+            )
         } else {
             return (
                 <>
@@ -116,73 +121,43 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) =
                     <EntityOption value='Ultimate'>Ultimate</EntityOption>
                 </>
             )
-        }}, [editParentNames])
+        }}, [editParentNames, editEntityInfo.parentId, editEntityInfo.entitySelected])
 
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <EditEntityInternalContainer>
-                <AddDeleteModalCloseContainer>
-                    <CloseIcon alt='close' onClick={() => setShowEditEntity(false)} src={close} />
-                </AddDeleteModalCloseContainer>
-                <EditEntityModalTitleContainer>
-                    <AuthenticatedPageTitle>Choose Entity to Edit</AuthenticatedPageTitle>
-                </EditEntityModalTitleContainer>
-                <EditEntityRowContainer>
-                    <EditEntitySelect
+            <Draggable>
+                <EditEntityInternalContainer>
+                    <ModalClose modalDisplay={setShowEditEntity} />
+                    <ModalTitle title='Choose Entity to Edit' />
+                    <EditEntityTopRow
                         editEntityChangeHandler={editEntityChangeHandler}
                         editEntityInfo={editEntityInfo}
                         error={error}
                         renderEntityToEditOptions={renderEntityToEditOptions}
-                    />
-                    <EditEntityTextInput
-                        changeHandler={(e) => setEditEntityInfo({...editEntityInfo, entityName: e.target.value})}
-                        disabled={!editEntityInfo.entitySelected}
-                        error={error}
-                        errorLocation={error.entityName}
-                        label='Name'
-                        name='name'
-                        placeholder='Enter name'
-                        type='text'
-                        value={editEntityInfo.entityName}
-                    />
-                </EditEntityRowContainer>
-                <EditEntityRowContainer>
-                    <EditParentSelect
-                        editEntityInfo={editEntityInfo}
-                        error={error}
-                        renderParentNameOptions={renderParentNameOptions}
                         setEditEntityInfo={setEditEntityInfo}
                     />
-                    <EditLocationSelect
+                    <EditEntityMiddleRow
                         countryName={countryName}
                         editEntityInfo={editEntityInfo}
                         error={error}
+                        renderParentNameOptions={renderParentNameOptions}
                         setCountryName={setCountryName}
+                        setEditEntityInfo={setEditEntityInfo}
                     />
-                </EditEntityRowContainer>
-                <EditEntityRowContainer>
-                    <EditLegalSelect
+                    <EditEntityBottomRow
                         editEntityInfo={editEntityInfo}
                         error={error}
                         legalForm={legalForm}
+                        setEditEntityInfo={setEditEntityInfo}
                         setLegalForm={setLegalForm}
                     />
-                    <EditEntityTextInput
-                        changeHandler={(e) => setEditEntityInfo({...editEntityInfo, taxRate: e.target.value})}
-                        disabled={!editEntityInfo.entitySelected}
-                        label='Tax Rate (optional)'
-                        name='tax_rate'
-                        placeholder='Enter current income tax rate'
-                        type='text'
-                        value={editEntityInfo.taxRate}
+                    <EditEntityButtons
+                        cancelButtonHandler={cancelButtonHandler}
+                        saveButtonHandler={saveButtonHandler}
                     />
-                </EditEntityRowContainer>
-                <EditEntityButtonContainer>
-                    <AuthenticatedButtonCancel onClick={cancelButtonHandler}>Cancel</AuthenticatedButtonCancel>
-                    <AddEntitySaveButton onClick={() => saveEditEntityHandler(editEntityInfo, countryName, legalForm)}>Save</AddEntitySaveButton>
-                </EditEntityButtonContainer>
-            </EditEntityInternalContainer>
+                </EditEntityInternalContainer>
+            </Draggable>
         </AddDeleteModalExternalContainer>
     )
 }

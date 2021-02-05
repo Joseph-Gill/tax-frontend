@@ -1,12 +1,11 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
-import {CloseIcon, Ellipse} from '../../../style/images'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import ellipse from '../../../assets/icons/stark_modal_ellipse.png'
-import {ModalText} from '../../../style/text'
-import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
+import Draggable from 'react-draggable'
+import DeleteTaskText from './DeleteTaskText'
+import ModalTitle from '../ModalComponents/ModalTitle'
+import ModalClose from '../ModalComponents/ModalClose'
+import ModalDeleteButtons from '../ModalComponents/ModalDeleteButtons'
+import {AddDeleteModalExternalContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
 
 //Used by ProjectTasks for deleting a task from a Step
@@ -18,25 +17,25 @@ const DeleteTaskModal = ({deleteTaskHandler, setShowDeleteTaskConfirmation}) => 
         from: {opacity: 0},
     })
 
+    const cancelButtonHandler = () => {
+        setShowDeleteTaskConfirmation(false)
+    }
+
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <DeleteStepReviewTaskModalInternalContainer>
-                <AddDeleteModalCloseContainer>
-                    <CloseIcon alt='close' onClick={() => setShowDeleteTaskConfirmation(false)} src={close} />
-                </AddDeleteModalCloseContainer>
-                <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Are you sure?</AuthenticatedPageTitle>
-                </AddDeleteModalTitleContainer>
-                <AddDeleteModalTextContainer>
-                    <Ellipse alt='ellipse' src={ellipse} />
-                    <ModalText>All documentation tied to this Task will be deleted</ModalText>
-                </AddDeleteModalTextContainer>
-                <AddDeleteModalButtonContainer>
-                    <AuthenticatedButtonCancel onClick={() => setShowDeleteTaskConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
-                    <RedLargerButton onClick={deleteTaskHandler}>Confirm Delete</RedLargerButton>
-                </AddDeleteModalButtonContainer>
-            </DeleteStepReviewTaskModalInternalContainer>
+            <Draggable>
+                <DeleteStepReviewTaskModalInternalContainer>
+                    <ModalClose modalDisplay={setShowDeleteTaskConfirmation} />
+                    <ModalTitle title='Are you sure?' />
+                    <DeleteTaskText />
+                    <ModalDeleteButtons
+                        cancelButtonHandler={cancelButtonHandler}
+                        deleteButtonHandler={deleteTaskHandler}
+                        deleteText='Confirm Delete'
+                    />
+                </DeleteStepReviewTaskModalInternalContainer>
+            </Draggable>
         </AddDeleteModalExternalContainer>
     )
 }

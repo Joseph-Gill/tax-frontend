@@ -1,13 +1,11 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import {CloseIcon} from '../../../style/images'
-import {DropdownOption} from '../../../style/options'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer,
-    RemoveLinkEntityButton, RemoveLinkEntityButtonContainer, RemoveLinkEntityDropdown,
-    RemoveLinkEntityInternalContainer} from '../styles'
+import Draggable from 'react-draggable'
+import ModalClose from '../ModalComponents/ModalClose'
+import ModalTitle from '../ModalComponents/ModalTitle'
+import ModalRemoveButtons from '../ModalComponents/ModalRemoveButtons'
+import RemoveLinkDropdown from './RemoveLinkDropdown'
+import {AddDeleteModalExternalContainer, RemoveLinkEntityInternalContainer} from '../styles'
 
 
 //Used by StepChart for deleting Links of a StepChart
@@ -19,28 +17,28 @@ const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkT
         from: {opacity: 0},
     })
 
+    const cancelButtonHandler = () => {
+        setShowRemoveLink(false)
+    }
+
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <RemoveLinkEntityInternalContainer>
-                <AddDeleteModalCloseContainer>
-                    <CloseIcon alt='close' onClick={() => setShowRemoveLink(false)} src={close} />
-                </AddDeleteModalCloseContainer>
-                <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Select the link to remove</AuthenticatedPageTitle>
-                </AddDeleteModalTitleContainer>
-                <RemoveLinkEntityDropdown
-                    onChange={(e) => setLinkToRemove(e.target.value)}
-                    value={linkToRemove}
-                >
-                    <DropdownOption disabled value=''>Select a Link</DropdownOption>
-                    {linkOptions}
-                </RemoveLinkEntityDropdown>
-                <RemoveLinkEntityButtonContainer>
-                    <AuthenticatedButtonCancel onClick={() => setShowRemoveLink(false)}>Cancel</AuthenticatedButtonCancel>
-                    <RemoveLinkEntityButton onClick={removeLinkHandler}>Remove</RemoveLinkEntityButton>
-                </RemoveLinkEntityButtonContainer>
-            </RemoveLinkEntityInternalContainer>
+            <Draggable>
+                <RemoveLinkEntityInternalContainer>
+                    <ModalClose modalDisplay={setShowRemoveLink} />
+                    <ModalTitle title='Select the link to remove' />
+                    <RemoveLinkDropdown
+                        linkOptions={linkOptions}
+                        linkToRemove={linkToRemove}
+                        setLinkToRemove={setLinkToRemove}
+                    />
+                    <ModalRemoveButtons
+                        cancelButtonHandler={cancelButtonHandler}
+                        removeButtonHandler={removeLinkHandler}
+                    />
+                </RemoveLinkEntityInternalContainer>
+            </Draggable>
         </AddDeleteModalExternalContainer>
     )
 }

@@ -1,17 +1,14 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import EntityLegalSelect from '../../EntityLegalSelect'
-import {CountryDropdown} from 'react-country-region-selector'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import {CloseIcon} from '../../../style/images'
-import {BaseInput} from '../../../style/inputs'
-import {ErrorMessage} from '../../../style/messages'
-import {EntityParentSelect} from '../../../style/select'
-import {ActiveInputLabel} from '../../../style/labels'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTitleContainer,
-    AddEntityLinkModalInternalContainer, AddEntitySaveButton, EntityErrorContainer} from '../styles'
+import ModalClose from '../ModalComponents/ModalClose'
+import ModalTitle from '../ModalComponents/ModalTitle'
+import ModalInput from '../ModalComponents/ModalInput'
+import ModalAddButtons from '../ModalComponents/ModalAddButtons'
+import AddParentSelect from './AddParentSelect'
+import AddLocationSelect from './AddLocationSelect'
+import AddLegalSelect from './AddLegalSelect'
+import Draggable from 'react-draggable'
+import {AddDeleteModalExternalContainer, AddEntityLinkModalInternalContainer} from '../styles'
 
 
 //Used by StepChart for adding new Entities to a StepChart
@@ -27,77 +24,50 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, error, legalFo
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <AddEntityLinkModalInternalContainer>
-                <AddDeleteModalCloseContainer>
-                    <CloseIcon alt='close' onClick={() => setShowAddEntity(false)} src={close} />
-                </AddDeleteModalCloseContainer>
-                <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Enter entity info</AuthenticatedPageTitle>
-                </AddDeleteModalTitleContainer>
-                <div>
-                    <ActiveInputLabel>Name</ActiveInputLabel>
-                    <BaseInput
+            <Draggable>
+                <AddEntityLinkModalInternalContainer>
+                    <ModalClose modalDisplay={setShowAddEntity} />
+                    <ModalTitle title='Enter entity info' />
+                    <ModalInput
+                        changeHandler={(e) => setNewEntityInfo({...newEntityInfo, entityName: e.target.value})}
+                        error={error}
+                        errorLocation={error.entityName}
+                        label='Name'
                         name='name'
-                        onChange={(e) => setNewEntityInfo({...newEntityInfo, entityName: e.target.value})}
                         placeholder='Enter name'
                         type='text'
                         value={newEntityInfo.entityName}
                     />
-                    <EntityErrorContainer>
-                        {error && <ErrorMessage>{error.entityName}</ErrorMessage>}
-                    </EntityErrorContainer>
-                </div>
-                <div>
-                    <ActiveInputLabel>Parent</ActiveInputLabel>
-                    <EntityParentSelect
-                        callingComponent='AddEntityModal'
-                        onChange={(e) => setNewEntityInfo({...newEntityInfo, parentId: parseInt(e.target.value)})}
+                    <AddParentSelect
+                        changeHandler={(e) => setNewEntityInfo({...newEntityInfo, parentId: parseInt(e.target.value)})}
+                        error={error}
+                        renderParentNameOptions={renderParentNameOptions}
                         value={newEntityInfo.parentId}
-                    >
-                        {renderParentNameOptions}
-                    </EntityParentSelect>
-                    <EntityErrorContainer>
-                        {error && <ErrorMessage>{error.entityParent}</ErrorMessage>}
-                    </EntityErrorContainer>
-                </div>
-                <div>
-                    <ActiveInputLabel>Location</ActiveInputLabel>
-                    <CountryDropdown
-                        classes='profileCountryDropdown'
-                        onChange={(val) => setCountryName(val)}
+                    />
+                    <AddLocationSelect
+                        changeHandler={(val) => setCountryName(val)}
+                        error={error}
                         value={countryName}
                     />
-                    <EntityErrorContainer>
-                        {error && <ErrorMessage>{error.entityCountryName}</ErrorMessage>}
-                    </EntityErrorContainer>
-                </div>
-                <div>
-                    <ActiveInputLabel>Legal Form</ActiveInputLabel>
-                    <EntityLegalSelect
-                        callingComponent='AddEntityModal'
+                    <AddLegalSelect
+                        error={error}
                         legalForm={legalForm}
                         setLegalForm={setLegalForm}
                     />
-                    <EntityErrorContainer>
-                        {error && <ErrorMessage>{error.entityLegalForm}</ErrorMessage>}
-                    </EntityErrorContainer>
-                </div>
-                <div>
-                    <ActiveInputLabel>Tax Rate (optional)</ActiveInputLabel>
-                    <BaseInput
+                    <ModalInput
+                        changeHandler={(e) => setNewEntityInfo({...newEntityInfo, taxRate: e.target.value})}
+                        label='Tax Rate (optional)'
                         name='tax_rate'
-                        onChange={(e) => setNewEntityInfo({...newEntityInfo, taxRate: e.target.value})}
                         placeholder='Enter current income tax rate'
                         type='text'
                         value={newEntityInfo.taxRate}
                     />
-                    <EntityErrorContainer />
-                </div>
-                <AddDeleteModalButtonContainer>
-                    <AuthenticatedButtonCancel onClick={cancelNewEntityLinkHandler}>Cancel</AuthenticatedButtonCancel>
-                    <AddEntitySaveButton onClick={saveNewEntityHandler}>Save</AddEntitySaveButton>
-                </AddDeleteModalButtonContainer>
-            </AddEntityLinkModalInternalContainer>
+                    <ModalAddButtons
+                        cancelHandler={cancelNewEntityLinkHandler}
+                        saveHandler={saveNewEntityHandler}
+                    />
+                </AddEntityLinkModalInternalContainer>
+            </Draggable>
         </AddDeleteModalExternalContainer>
     )
 }

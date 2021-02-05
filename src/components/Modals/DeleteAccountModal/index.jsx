@@ -1,27 +1,25 @@
-import React, {useRef} from 'react'
+import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useSpring} from 'react-spring'
+import Draggable from 'react-draggable'
+import ModalInput from '../ModalComponents/ModalInput'
+import DeleteAccountModalText from './DeleteAccountModalText'
+import ModalClose from '../ModalComponents/ModalClose'
+import ModalTitle from '../ModalComponents/ModalTitle'
+import ModalDeleteButtons from '../ModalComponents/ModalDeleteButtons'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {deleteUserProfileAction} from '../../../store/user/actions/user/userAction'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalErrorContainer, AddDeleteModalExternalContainer, AddDeleteModalInternalContainer, AddDeleteModalTitleContainer} from '../styles'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import {CloseIcon} from '../../../style/images'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import {ActiveInputLabel} from '../../../style/labels'
-import {BaseInput} from '../../../style/inputs'
-import {ErrorMessage} from '../../../style/messages'
-import {AuthenticatedButtonCancel, RedLargerButton} from '../../../style/buttons'
-import DeleteAccountModalText from './DeleteAccountModalText'
+import {AddDeleteModalExternalContainer, AddDeleteModalInternalContainer} from '../styles'
 
 
 //Used by UserProfile for deleting a user's account
 const DeleteAccountModal = ({history, setShowConfirmation}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
-    let password = useRef('')
+    const [password, setPassword] = useState('')
 
-    const deleteUserHandler = async (password) => {
+    const deleteUserHandler = async () => {
         dispatch(resetErrors())
         const currentPassword = {password}
         const response = await dispatch(deleteUserProfileAction(currentPassword))
@@ -47,31 +45,28 @@ const DeleteAccountModal = ({history, setShowConfirmation}) => {
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <AddDeleteModalInternalContainer>
-                <AddDeleteModalCloseContainer>
-                    <CloseIcon alt='close' onClick={() => setShowConfirmation(false)} src={close} />
-                </AddDeleteModalCloseContainer>
-                <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Are you sure?</AuthenticatedPageTitle>
-                </AddDeleteModalTitleContainer>
-                <DeleteAccountModalText />
-                <div>
-                    <ActiveInputLabel>Password</ActiveInputLabel>
-                    <BaseInput
+            <Draggable>
+                <AddDeleteModalInternalContainer>
+                    <ModalClose modalDisplay={setShowConfirmation} />
+                    <ModalTitle title='Are you sure?' />
+                    <DeleteAccountModalText />
+                    <ModalInput
+                        changeHandler={(e) => setPassword(e.target.value)}
+                        error={error}
+                        errorLocation={error.detail}
+                        label='Password'
                         name='password'
                         placeholder='Enter your password to proceed'
-                        ref={password}
                         type='password'
+                        value={password}
                     />
-                </div>
-                <AddDeleteModalErrorContainer>
-                    {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                </AddDeleteModalErrorContainer>
-                <AddDeleteModalButtonContainer>
-                    <AuthenticatedButtonCancel onClick={cancelButtonHandler}>Cancel</AuthenticatedButtonCancel>
-                    <RedLargerButton onClick={() => deleteUserHandler(password.current.value)}>Yes, delete account</RedLargerButton>
-                </AddDeleteModalButtonContainer>
-            </AddDeleteModalInternalContainer>
+                    <ModalDeleteButtons
+                        cancelButtonHandler={cancelButtonHandler}
+                        deleteButtonHandler={deleteUserHandler}
+                        deleteText='Yes, delete account'
+                    />
+                </AddDeleteModalInternalContainer>
+            </Draggable>
         </AddDeleteModalExternalContainer>
     )
 }

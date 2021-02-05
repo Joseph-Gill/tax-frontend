@@ -5,15 +5,14 @@ import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
 
 
-const EditLocationSelect = ({countryName, editEntityInfo, error, setCountryName}) => {
+const AddLocationSelect = ({changeHandler, value, error}) => {
     return (
         <div>
             <ActiveInputLabel>Location</ActiveInputLabel>
             <CountryDropdown
                 classes='profileCountryDropdown'
-                disabled={!editEntityInfo.entitySelected}
-                onChange={(val) => setCountryName(val)}
-                value={countryName}
+                onChange={changeHandler}
+                value={value}
             />
             <EntityErrorContainer>
                 {error && <ErrorMessage>{error.entityCountryName}</ErrorMessage>}
@@ -22,4 +21,4 @@ const EditLocationSelect = ({countryName, editEntityInfo, error, setCountryName}
     )
 }
 
-export default EditLocationSelect
+export default AddLocationSelect

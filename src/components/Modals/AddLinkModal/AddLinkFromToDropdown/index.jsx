@@ -1,21 +1,28 @@
 import React from 'react'
+import {ErrorMessage} from '../../../../style/messages'
 import {DropdownOption} from '../../../../style/options'
+import {EntityErrorContainer} from '../../styles'
 import {AddEntityFromToDropdown, AddEntityTitle, AddEntityTitleInputContainer} from '../styles'
 
 
-const AddLinkFromToDropdown = ({addLinkInfo, fromToOptions, name, title, setAddLinkInfo}) => {
+const AddLinkFromToDropdown = ({addLinkInfo, error, fromToOptions, name, title, setAddLinkInfo}) => {
     return (
-        <AddEntityTitleInputContainer>
-            <AddEntityTitle>{title}</AddEntityTitle>
-            <AddEntityFromToDropdown
-                name={name}
-                onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
-                value={addLinkInfo[name]}
-            >
-                <DropdownOption disabled value=''>Select an entity</DropdownOption>
-                {fromToOptions}
-            </AddEntityFromToDropdown>
-        </AddEntityTitleInputContainer>
+        <div>
+            <AddEntityTitleInputContainer>
+                <AddEntityTitle>{title}</AddEntityTitle>
+                <AddEntityFromToDropdown
+                    name={name}
+                    onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
+                    value={addLinkInfo[name]}
+                >
+                    <DropdownOption disabled value=''>Select an entity</DropdownOption>
+                    {fromToOptions}
+                </AddEntityFromToDropdown>
+            </AddEntityTitleInputContainer>
+            <EntityErrorContainer>
+                {error && <ErrorMessage>{error.linkFromTo}</ErrorMessage>}
+            </EntityErrorContainer>
+        </div>
     )
 }
 

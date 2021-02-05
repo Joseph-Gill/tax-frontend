@@ -1,18 +1,18 @@
 import React from 'react'
+import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
 import {EntityParentSelect} from '../../../../style/select'
-import {EntityErrorContainer} from '../../styles'
 
 
-const EditParentSelect = ({editEntityInfo, error, setEditEntityInfo, renderParentNameOptions}) => {
+const AddParentSelect = ({changeHandler, value, renderParentNameOptions, error}) => {
     return (
         <div>
             <ActiveInputLabel>Parent</ActiveInputLabel>
             <EntityParentSelect
-                disabled={!editEntityInfo.parentId || editEntityInfo.parentId === 'Ultimate'}
-                onChange={(e) => {setEditEntityInfo({...editEntityInfo, parentId: parseInt(e.target.value)})}}
-                value={editEntityInfo.parentId}
+                callingComponent='AddEntityModal'
+                onChange={changeHandler}
+                value={value}
             >
                 {renderParentNameOptions}
             </EntityParentSelect>
@@ -23,4 +23,4 @@ const EditParentSelect = ({editEntityInfo, error, setEditEntityInfo, renderParen
     )
 }
 
-export default EditParentSelect
+export default AddParentSelect

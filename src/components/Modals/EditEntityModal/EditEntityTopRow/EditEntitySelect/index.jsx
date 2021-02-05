@@ -1,8 +1,8 @@
 import React from 'react'
-import {EntityErrorContainer} from '../../styles'
-import {ErrorMessage} from '../../../../style/messages'
-import {ActiveInputLabel} from '../../../../style/labels'
-import {EntityLegalFormSelect} from '../../../../style/select'
+import {ActiveInputLabel} from '../../../../../style/labels'
+import {EntityLegalFormSelect} from '../../../../../style/select'
+import {EntityErrorContainer} from '../../../styles'
+import {ErrorMessage} from '../../../../../style/messages'
 
 
 const EditEntitySelect = ({editEntityChangeHandler, editEntityInfo, error, renderEntityToEditOptions}) => {

@@ -1,12 +1,11 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import ellipse from '../../../assets/icons/stark_modal_ellipse.png'
-import {CloseIcon, Ellipse} from '../../../style/images'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import {ModalText} from '../../../style/text'
-import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer, AddDeleteModalTextContainer, AddDeleteModalTitleContainer, BlueConfirmReviewedButton, DeleteStepReviewTaskModalInternalContainer} from '../styles'
+import Draggable from 'react-draggable'
+import SetReviewedText from './SetReviewedText'
+import SetReviewedButtons from './SetReviewedButtons'
+import ModalClose from '../ModalComponents/ModalClose'
+import ModalTitle from '../ModalComponents/ModalTitle'
+import {AddDeleteModalExternalContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
 
 //Used by StepChart for setting tax consequences of a step as reviewed
@@ -18,25 +17,24 @@ const SetReviewedModal = ({setReviewedHandler, setShowConfirmation}) => {
         from: {opacity: 0},
     })
 
+    const cancelButtonHandler = () => {
+        setShowConfirmation(false)
+    }
+
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <DeleteStepReviewTaskModalInternalContainer>
-                <AddDeleteModalCloseContainer>
-                    <CloseIcon alt='close' onClick={() => setShowConfirmation(false)} src={close} />
-                </AddDeleteModalCloseContainer>
-                <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Are you sure?</AuthenticatedPageTitle>
-                </AddDeleteModalTitleContainer>
-                <AddDeleteModalTextContainer>
-                    <Ellipse alt='ellipse' src={ellipse} />
-                    <ModalText>This tax consequence will be marked as reviewed by you</ModalText>
-                </AddDeleteModalTextContainer>
-                <AddDeleteModalButtonContainer>
-                    <AuthenticatedButtonCancel onClick={() => setShowConfirmation(false)}>Cancel</AuthenticatedButtonCancel>
-                    <BlueConfirmReviewedButton onClick={setReviewedHandler}>Confirm Reviewed</BlueConfirmReviewedButton>
-                </AddDeleteModalButtonContainer>
-            </DeleteStepReviewTaskModalInternalContainer>
+            <Draggable>
+                <DeleteStepReviewTaskModalInternalContainer>
+                    <ModalClose modalDisplay={setShowConfirmation} />
+                    <ModalTitle title='Are you sure?' />
+                    <SetReviewedText />
+                    <SetReviewedButtons
+                        cancelButtonHandler={cancelButtonHandler}
+                        setReviewedHandler={setReviewedHandler}
+                    />
+                </DeleteStepReviewTaskModalInternalContainer>
+            </Draggable>
         </AddDeleteModalExternalContainer>
     )
 }

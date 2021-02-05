@@ -4,15 +4,11 @@ import AddLinkLabel from './AddLinkLabel'
 import AddLinkTypeDropdown from './AddLinkTypeDropdown'
 import AddLinkColorDropdown from './AddLinkColorDropdown'
 import AddLinkFromToDropdown from './AddLinkFromToDropdown'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import {CloseIcon} from '../../../style/images'
-import {ErrorMessage} from '../../../style/messages'
-import {AuthenticatedPageTitle} from '../../../style/titles'
-import {AuthenticatedButtonCancel} from '../../../style/buttons'
-import {
-    AddDeleteModalButtonContainer, AddDeleteModalCloseContainer, AddDeleteModalExternalContainer,
-    AddDeleteModalTitleContainer, AddEntityLinkModalInternalContainer, AddEntitySaveButton, EntityErrorContainer
-} from '../styles'
+import ModalClose from '../ModalComponents/ModalClose'
+import ModalTitle from '../ModalComponents/ModalTitle'
+import ModalAddButtons from '../ModalComponents/ModalAddButtons'
+import Draggable from 'react-draggable'
+import {AddDeleteModalExternalContainer, AddEntityLinkModalInternalContainer} from '../styles'
 
 
 //Used by StepChart for adding new Links to a StepChart
@@ -28,26 +24,18 @@ const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, error, fromToOpt
     return (
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
-            <AddEntityLinkModalInternalContainer>
-                <AddDeleteModalCloseContainer>
-                    <CloseIcon alt='close' onClick={() => setShowAddLink(false)} src={close} />
-                </AddDeleteModalCloseContainer>
-                <AddDeleteModalTitleContainer>
-                    <AuthenticatedPageTitle>Select link options</AuthenticatedPageTitle>
-                </AddDeleteModalTitleContainer>
-                <div>
+            <Draggable>
+                <AddEntityLinkModalInternalContainer>
+                    <ModalClose modalDisplay={setShowAddLink} />
+                    <ModalTitle title='Select link options' />
                     <AddLinkFromToDropdown
                         addLinkInfo={addLinkInfo}
+                        error={error}
                         fromToOptions={fromToOptions}
                         name='from'
                         setAddLinkInfo={setAddLinkInfo}
                         title='From'
                     />
-                    <EntityErrorContainer>
-                        {error && <ErrorMessage>{error.linkFromTo}</ErrorMessage>}
-                    </EntityErrorContainer>
-                </div>
-                <div>
                     <AddLinkFromToDropdown
                         addLinkInfo={addLinkInfo}
                         fromToOptions={fromToOptions}
@@ -55,38 +43,26 @@ const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, error, fromToOpt
                         setAddLinkInfo={setAddLinkInfo}
                         title='To'
                     />
-                    <EntityErrorContainer />
-                </div>
-                <div>
                     <AddLinkLabel
                         addLinkInfo={addLinkInfo}
                         setAddLinkInfo={setAddLinkInfo}
                     />
-                    <EntityErrorContainer />
-                </div>
-                <div>
                     <AddLinkTypeDropdown
                         addLinkInfo={addLinkInfo}
+                        error={error}
                         setAddLinkInfo={setAddLinkInfo}
                     />
-                    <EntityErrorContainer>
-                        {error && <ErrorMessage>{error.linkType}</ErrorMessage>}
-                    </EntityErrorContainer>
-                </div>
-                <div>
                     <AddLinkColorDropdown
                         addLinkInfo={addLinkInfo}
+                        error={error}
                         setAddLinkInfo={setAddLinkInfo}
                     />
-                    <EntityErrorContainer>
-                        {error && <ErrorMessage>{error.color}</ErrorMessage>}
-                    </EntityErrorContainer>
-                </div>
-                <AddDeleteModalButtonContainer>
-                    <AuthenticatedButtonCancel onClick={cancelNewEntityLinkHandler}>Cancel</AuthenticatedButtonCancel>
-                    <AddEntitySaveButton onClick={saveNewLinkHandler}>Save</AddEntitySaveButton>
-                </AddDeleteModalButtonContainer>
-            </AddEntityLinkModalInternalContainer>
+                    <ModalAddButtons
+                        cancelHandler={cancelNewEntityLinkHandler}
+                        saveHandler={saveNewLinkHandler}
+                    />
+                </AddEntityLinkModalInternalContainer>
+            </Draggable>
         </AddDeleteModalExternalContainer>
     )
 }
