@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {CountryDropdown} from 'react-country-region-selector'
-import Spinner from '../../../../components/Spinner'
+import Loading from '../../../../components/Loading'
 import SetReviewedModal from '../../../../components/Modals/SetReviewedModal'
 import SetNotReviewedModal from '../../../../components/Modals/SetNotReviewedModal'
 import {resetErrors} from '../../../../store/errors/actions/errorAction'
@@ -9,11 +9,11 @@ import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, reset
     setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction
 } from '../../../../store/taxConsequence/actions'
 import {CardInfoText} from '../../../../style/text'
+import {ErrorMessage} from '../../../../style/messages'
 import {GrayTaxConsequenceButton, GreenReviewedText, NewTaxConsequenceText, TaxConsequenceButton,
     TaxConsequenceButtonContainer, TaxConsequenceContainer, TaxConsequenceCountryLabel,
     TaxConsequenceDescriptionErrorContainer, TaxConsequenceLocationErrorContainer, TaxConsequenceTextContainer,
     TaxConsequenceTextUsernameContainer, TaxConsequenceTitleContainer, TaxConsequenceUserDateText} from './styles'
-import {ErrorMessage} from '../../../../style/messages'
 
 
 const TaxConsequenceCard = ({step, taxConsequence}) => {
@@ -100,7 +100,6 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
 
     return (
         <TaxConsequenceContainer>
-            {loading ? <Spinner /> : null}
             {showConfirmation ?
                 <SetReviewedModal
                     setReviewedHandler={setReviewedHandler}
@@ -111,75 +110,78 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
                     setNotReviewedHandler={setNotReviewedHandler}
                     setShowSecondConfirmation={setShowSecondConfirmation}
                 /> : null}
-            <TaxConsequenceLocationErrorContainer>
-                {error && editStatus && <ErrorMessage>{error.location}</ErrorMessage>}
-            </TaxConsequenceLocationErrorContainer>
-            <TaxConsequenceTitleContainer>
-                {editStatus ?
-                    <CountryDropdown
-                        onChange={(val) => setCountryName(val)}
-                         // eslint-disable-next-line react/forbid-component-props
-                        style={{
-                            width: '124px',
-                            height: '19px',
-                            fontSize: '10px',
-                            lineHeight: '14px',
-                            background: '#FFFFFF',
-                            border: '1px solid #D3D8DD',
-                            borderRadius: '4px',
-                            fontFamily: 'Nunito Sans, sans-serif',
-                            marginLeft: '15px',
-                        }}
-                        value={countryName}
-                    /> :
-                    <TaxConsequenceCountryLabel>{taxConsequence.location}</TaxConsequenceCountryLabel>}
-                <TaxConsequenceDescriptionErrorContainer>
-                    {error && editStatus && <ErrorMessage>{error.tax_description}</ErrorMessage>}
-                </TaxConsequenceDescriptionErrorContainer>
-                {editStatus ? (
-                    <TaxConsequenceButtonContainer>
-                        {taxConsequence.id ? (
-                            <>
-                                <GrayTaxConsequenceButton onClick={() => setEditStatus(false)}>Cancel</GrayTaxConsequenceButton>
-                                <TaxConsequenceButton onClick={updateTaxConsequenceHandler}>Save</TaxConsequenceButton>
-                            </>) : (
-                                <>
-                                    <GrayTaxConsequenceButton onClick={cancelNewTaxConsequenceHandler}>Cancel</GrayTaxConsequenceButton>
-                                    <TaxConsequenceButton onClick={saveNewTaxConsequenceHandler}>Save</TaxConsequenceButton>
-                                </>)}
-                    </TaxConsequenceButtonContainer>) : (
-                        <TaxConsequenceButtonContainer>
-                            {taxConsequence.reviewed ?
-                                <GreenReviewedText onClick={() => setShowSecondConfirmation(true)}>
-                                    {taxConsequence.reviewing_user ?
-                                        `reviewed by ${taxConsequence.reviewing_user.user.first_name} ${taxConsequence.reviewing_user.user.last_name}` :
-                                        `reviewed by N/A`}
-                                </GreenReviewedText> : (
+            {loading ? <Loading /> : (
+                <>
+                    <TaxConsequenceLocationErrorContainer>
+                        {error && editStatus && <ErrorMessage>{error.location}</ErrorMessage>}
+                    </TaxConsequenceLocationErrorContainer>
+                    <TaxConsequenceTitleContainer>
+                        {editStatus ?
+                            <CountryDropdown
+                                onChange={(val) => setCountryName(val)}
+                                 // eslint-disable-next-line react/forbid-component-props
+                                style={{
+                                    width: '124px',
+                                    height: '19px',
+                                    fontSize: '10px',
+                                    lineHeight: '14px',
+                                    background: '#FFFFFF',
+                                    border: '1px solid #D3D8DD',
+                                    borderRadius: '4px',
+                                    fontFamily: 'Nunito Sans, sans-serif',
+                                    marginLeft: '15px',
+                                }}
+                                value={countryName}
+                            /> :
+                            <TaxConsequenceCountryLabel>{taxConsequence.location}</TaxConsequenceCountryLabel>}
+                        <TaxConsequenceDescriptionErrorContainer>
+                            {error && editStatus && <ErrorMessage>{error.tax_description}</ErrorMessage>}
+                        </TaxConsequenceDescriptionErrorContainer>
+                        {editStatus ? (
+                            <TaxConsequenceButtonContainer>
+                                {taxConsequence.id ? (
                                     <>
-                                        <TaxConsequenceButton onClick={() => setEditStatus(true)}>Edit</TaxConsequenceButton>
-                                        <TaxConsequenceButton onClick={() => setShowConfirmation(true)}>Review</TaxConsequenceButton>
-                                    </>)}
-                        </TaxConsequenceButtonContainer>)}
-            </TaxConsequenceTitleContainer>
-            {editStatus ?
-                <NewTaxConsequenceText
-                    onChange={(e) => setTaxDescription(e.target.value)}
-                    placeholder='Write a tax consequence.'
-                    value={taxDescription}
-                /> : (
-                    <TaxConsequenceTextUsernameContainer>
-                        <TaxConsequenceTextContainer>
-                            <CardInfoText>{taxConsequence.description}</CardInfoText>
-                        </TaxConsequenceTextContainer>
-                        {taxConsequence.editing_user ?
-                            <TaxConsequenceUserDateText>
-                                edited by {taxConsequence.editing_user.user.first_name} {taxConsequence.editing_user.user.last_name} on {taxConsequence.updated.slice(0, 10)}
-                            </TaxConsequenceUserDateText> :
-                            taxConsequence.creating_user ?
-                                <TaxConsequenceUserDateText>
-                                    created by {taxConsequence.creating_user.user.first_name} {taxConsequence.creating_user.user.last_name} on {taxConsequence.created.slice(0, 10)}
-                                </TaxConsequenceUserDateText> : null}
-                    </TaxConsequenceTextUsernameContainer>)}
+                                        <GrayTaxConsequenceButton onClick={() => setEditStatus(false)}>Cancel</GrayTaxConsequenceButton>
+                                        <TaxConsequenceButton onClick={updateTaxConsequenceHandler}>Save</TaxConsequenceButton>
+                                    </>) : (
+                                        <>
+                                            <GrayTaxConsequenceButton onClick={cancelNewTaxConsequenceHandler}>Cancel</GrayTaxConsequenceButton>
+                                            <TaxConsequenceButton onClick={saveNewTaxConsequenceHandler}>Save</TaxConsequenceButton>
+                                        </>)}
+                            </TaxConsequenceButtonContainer>) : (
+                                <TaxConsequenceButtonContainer>
+                                    {taxConsequence.reviewed ?
+                                        <GreenReviewedText onClick={() => setShowSecondConfirmation(true)}>
+                                            {taxConsequence.reviewing_user ?
+                                                `reviewed by ${taxConsequence.reviewing_user.user.first_name} ${taxConsequence.reviewing_user.user.last_name}` :
+                                                `reviewed by N/A`}
+                                        </GreenReviewedText> : (
+                                            <>
+                                                <TaxConsequenceButton onClick={() => setEditStatus(true)}>Edit</TaxConsequenceButton>
+                                                <TaxConsequenceButton onClick={() => setShowConfirmation(true)}>Review</TaxConsequenceButton>
+                                            </>)}
+                                </TaxConsequenceButtonContainer>)}
+                    </TaxConsequenceTitleContainer>
+                    {editStatus ?
+                        <NewTaxConsequenceText
+                            onChange={(e) => setTaxDescription(e.target.value)}
+                            placeholder='Write a tax consequence.'
+                            value={taxDescription}
+                        /> : (
+                            <TaxConsequenceTextUsernameContainer>
+                                <TaxConsequenceTextContainer>
+                                    <CardInfoText>{taxConsequence.description}</CardInfoText>
+                                </TaxConsequenceTextContainer>
+                                {taxConsequence.editing_user ?
+                                    <TaxConsequenceUserDateText>
+                                        edited by {taxConsequence.editing_user.user.first_name} {taxConsequence.editing_user.user.last_name} on {taxConsequence.updated.slice(0, 10)}
+                                    </TaxConsequenceUserDateText> :
+                                    taxConsequence.creating_user ?
+                                        <TaxConsequenceUserDateText>
+                                            created by {taxConsequence.creating_user.user.first_name} {taxConsequence.creating_user.user.last_name} on {taxConsequence.created.slice(0, 10)}
+                                        </TaxConsequenceUserDateText> : null}
+                            </TaxConsequenceTextUsernameContainer>)}
+                </>)}
         </TaxConsequenceContainer>
     )
 }
