@@ -17,8 +17,8 @@ import EditEntityModal from '../../../components/Modals/EditEntityModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity,
-                       setShowEditLink, setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks,
-                       showAddEntity, showAddLink, showEditEntity, showEditLink, showRemoveEntity, showRemoveLink,
+                       setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks,
+                       showAddEntity, showAddLink, showEditEntity, showRemoveEntity, showRemoveLink,
                        slinks, stepChartExists, steps}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
