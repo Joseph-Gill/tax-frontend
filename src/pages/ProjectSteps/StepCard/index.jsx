@@ -5,8 +5,8 @@ import StepCardTaxLocations from './StepCardTaxLocations'
 import {setTaskFilterStepNumber} from '../../../store/task/actions'
 import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
 import {CardInfoText, DateText} from '../../../style/text'
-import {StepCardButton, StepCardButtonDateContainer, StepCardContainer, StepCardDescriptionContainer, StepCardRowContainer, StepCardStatusColorContainer,
-    StepCardStatusColorStepNumberContainer, StepCardTitleText, StepCardUpperRowContainer} from './styles'
+import {StepCardButton, StepCardContainer, StepCardDescriptionContainer, StepCardRowContainer, StepCardStatusColorContainer,
+    StepCardStatusColorStepNumberContainer, StepCardTitleText} from './styles'
 
 
 const StepCard = ({history, number, project, step, stepCardClickHandler}) => {
@@ -25,21 +25,19 @@ const StepCard = ({history, number, project, step, stepCardClickHandler}) => {
     return (
         // eslint-disable-next-line react/forbid-component-props
         <StepCardContainer style={props}>
-            <StepCardUpperRowContainer onClick={() => stepCardClickHandler(step.number - 1)}>
+            <StepCardRowContainer onClick={() => stepCardClickHandler(step.number - 1)}>
                 <StepCardStatusColorStepNumberContainer>
                     <StepCardStatusColorContainer status={step.status} />
                     <StepCardTitleText>Step {number}</StepCardTitleText>
                 </StepCardStatusColorStepNumberContainer>
                 <StepCardTaxLocations taxConsequences={step.tax_consequences} />
-            </StepCardUpperRowContainer>
+            </StepCardRowContainer>
             <StepCardRowContainer>
                 <StepCardDescriptionContainer onClick={() => stepCardClickHandler(step.number - 1)}>
                     <CardInfoText>{step.description.length > 170 ? step.description.slice(0, 170).concat('... ') : step.description}</CardInfoText>
-                </StepCardDescriptionContainer>
-                <StepCardButtonDateContainer>
                     <DateText>{step.effective_date}</DateText>
-                    <StepCardButton onClick={stepCardTasksClickHandler}>Tasks</StepCardButton>
-                </StepCardButtonDateContainer>
+                </StepCardDescriptionContainer>
+                <StepCardButton onClick={stepCardTasksClickHandler}>Tasks</StepCardButton>
             </StepCardRowContainer>
         </StepCardContainer>
     )
