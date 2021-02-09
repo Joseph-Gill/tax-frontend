@@ -8,6 +8,7 @@ export const EndingStructurePlaceholder = styled.div`
     box-shadow: ${props => props.theme.boxShadow};
     background: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.grayFour};
     margin-top: 30px;
 `
 

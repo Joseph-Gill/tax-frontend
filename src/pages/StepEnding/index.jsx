@@ -1,28 +1,64 @@
-import React, {useEffect} from 'react'
-import {useSelector} from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import Spinner from '../../components/Spinner'
 import BreadCrumb from '../../components/BreadCrumb'
 import CompleteProjectTooltip from './CompleteProjectTooltip'
+import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
+import {getChartForStepAction} from '../../store/chart/actions'
 import {ENDING, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
-import {AuthenticatedPageContainer, StepPageTitleWithButtonContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, NoChartToDisplay, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {CompleteProjectButton, EndingStructurePlaceholder} from './styles'
 
 
 const StepEnding = ({history}) => {
+    const dispatch = useDispatch()
     const project = useSelector(state => state.projectReducer.project)
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
     const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.steps)
+    const [finalStepChartNodes, setFinalStepChartNodes] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect (() => {
+        const getFinalStepChart = async () => {
+            const response = await dispatch(getChartForStepAction(project.id, steps.length))
+            if (response.status === 200) {
+                setFinalStepChartNodes([...JSON.parse(response.data.nodes)])
+            }
+        }
        //Pushes to home if project or steps are not loaded due to page refresh
         if (!projectLoaded || !stepsLoaded) {
             history.push(`${HOME}`)
+        } else {
+            setLoading(true)
+            getFinalStepChart()
+                .then(() => setLoading(false))
         }
-    }, [history, projectLoaded, stepsLoaded])
+    }, [history, projectLoaded, stepsLoaded, dispatch, project.id, steps.length])
+
+    const renderStepChart = () => {
+        if (finalStepChartNodes.length) {
+            return (
+                <CurrentOrgChartV2
+                    componentCalling='StepEnding'
+                    nodes={finalStepChartNodes}
+                />
+            )
+        } else {
+            return (
+                <EndingStructurePlaceholder>
+                    <NoChartToDisplay>
+                        <p>The final step of the project has no saved organization chart.</p>
+                        <p>Please create one, update it, and save it so it will appear here.</p>
+                    </NoChartToDisplay>
+                </EndingStructurePlaceholder>
+            )
+        }
+    }
+
 
     const checkIfProjectCanBeCompleted = () => {
         const completed = steps.filter(step => step.status !== 'Completed')
@@ -35,7 +71,7 @@ const StepEnding = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !stepsLoaded ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded || loading ? <Spinner /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
@@ -63,7 +99,7 @@ const StepEnding = ({history}) => {
                             {checkIfProjectCanBeCompleted() ? <CompleteProjectTooltip /> : null}
                         </div>
                     </StepPageTitleWithButtonContainer>
-                    <EndingStructurePlaceholder />
+                    {renderStepChart()}
                     <StepDisplayFooterV2
                         endingNode={1}
                         history={history}
