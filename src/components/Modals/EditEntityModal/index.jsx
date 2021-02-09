@@ -4,15 +4,14 @@ import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
-import ModalTitle from '../ModalComponents/ModalTitle'
 import EditEntityTopRow from './EditEntityTopRow'
-import EditEntityButtons from './EditEntityButtons'
 import EditEntityMiddleRow from './EditEntityMiddleRow'
 import EditEntityBottomRow from './EditEntityBottomRow'
+import ModalEditTitle from '../ModalComponents/ModalEditTitle'
+import ModalEditButtons from '../ModalComponents/ModalEditButtons'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {EntityOption} from '../../../style/options'
-import {AddDeleteModalExternalContainer} from '../styles'
-import {EditEntityInternalContainer} from './styles'
+import {AddDeleteModalExternalContainer, EditEntityLinkInternalContainer} from '../styles'
 
 
 const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) => {
@@ -127,9 +126,9 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) =
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
             <Draggable>
-                <EditEntityInternalContainer>
+                <EditEntityLinkInternalContainer>
                     <ModalClose modalDisplay={setShowEditEntity} />
-                    <ModalTitle title='Choose Entity to Edit' />
+                    <ModalEditTitle title='Choose Entity to Edit' />
                     <EditEntityTopRow
                         editEntityChangeHandler={editEntityChangeHandler}
                         editEntityInfo={editEntityInfo}
@@ -152,11 +151,11 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) =
                         setEditEntityInfo={setEditEntityInfo}
                         setLegalForm={setLegalForm}
                     />
-                    <EditEntityButtons
+                    <ModalEditButtons
                         cancelButtonHandler={cancelButtonHandler}
                         saveButtonHandler={saveButtonHandler}
                     />
-                </EditEntityInternalContainer>
+                </EditEntityLinkInternalContainer>
             </Draggable>
         </AddDeleteModalExternalContainer>
     )

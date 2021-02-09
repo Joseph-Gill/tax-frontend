@@ -1,12 +1,12 @@
 import React from 'react'
 import EditLegalSelect from './EditLegalSelect'
 import EditEntityTextInput from '../EditEntityTextInput'
-import {EditEntityRowContainer} from '../styles'
+import {EditEntityLinkRowContainer} from '../../styles'
 
 
 const EditEntityBottomRow = ({editEntityInfo, error, legalForm, setEditEntityInfo, setLegalForm}) => {
     return (
-        <EditEntityRowContainer>
+        <EditEntityLinkRowContainer>
             <EditLegalSelect
                 editEntityInfo={editEntityInfo}
                 error={error}
@@ -22,7 +22,7 @@ const EditEntityBottomRow = ({editEntityInfo, error, legalForm, setEditEntityInf
                 type='text'
                 value={editEntityInfo.taxRate}
             />
-        </EditEntityRowContainer>
+        </EditEntityLinkRowContainer>
     )
 }
 

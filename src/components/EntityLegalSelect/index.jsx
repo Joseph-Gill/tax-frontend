@@ -1,11 +1,11 @@
 import React from 'react'
-import {EntityLegalFormSelect} from '../../style/select'
+import {EntityFormSelect} from '../../style/select'
 import {EntityOption} from '../../style/options'
 
 
 const EntityLegalSelect = ({callingComponent, disabled, legalForm, setLegalForm}) => {
     return (
-        <EntityLegalFormSelect
+        <EntityFormSelect
             callingComponent={callingComponent}
             disabled={disabled}
             id='legalForm'
@@ -21,7 +21,7 @@ const EntityLegalSelect = ({callingComponent, disabled, legalForm, setLegalForm}
             <EntityOption value='Representative Office'>Representative Office</EntityOption>
             <EntityOption value='Hybrid Entity'>Hybrid Entity</EntityOption>
             <EntityOption value='Reverse Entity'>Reverse Entity</EntityOption>
-        </EntityLegalFormSelect>
+        </EntityFormSelect>
     )
 }
 

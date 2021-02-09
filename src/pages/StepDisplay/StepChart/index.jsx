@@ -6,19 +6,21 @@ import CurrentOrgChartV2 from '../../../components/CurrentOrgChartV2'
 import AddEntityModal from '../../../components/Modals/AddEntityModal'
 import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
+import EditEntityModal from '../../../components/Modals/EditEntityModal'
+import EditLinkModal from '../../../components/Modals/EditLinkModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {
-    addLegalFormTag, createUpdateStepChart, editEntityInputErrorHandler, entityInputErrorHandler, getEntitiesWithTags,
-    linkInputErrorHandler, renderRemoveEntitiesOptions} from '../../../helpers'
+    addLegalFormTag, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType, editLinkSameType, entityInputErrorHandler,
+    getEntitiesWithTags, getEntityName, linkInputErrorHandler, renderRemoveEntitiesOptions
+} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
-import EditEntityModal from '../../../components/Modals/EditEntityModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity,
-                       setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks,
-                       showAddEntity, showAddLink, showEditEntity, showRemoveEntity, showRemoveLink,
+                       setShowEditLink, setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks,
+                       showAddEntity, showAddLink, showEditEntity, showEditLink, showRemoveEntity, showRemoveLink,
                        slinks, stepChartExists, steps}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
@@ -106,27 +108,21 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         )
     )
 
-    //Used to create the list of available links to choose from in RemoveLinkModal selector
-    const renderRemoveLinkOptions = () => {
-        const getEntityName = id => {
-            for (let i = 0; i < entitiesToRender.length; i++) {
-                if (entitiesToRender[i].id === id)
-                    return entitiesToRender[i].name
-            }
-        }
+    //Used to create the list of available links to choose from in Remove/Edit LinkModal selector
+    const renderLinkOptions = useMemo(() => {
         const links = []
         slinks.forEach(link => {
             links.push(
                 <DropdownOption key={uuidv4()} value={link.id}>
-                    {`From: ${getEntityName(link.from)} To: ${getEntityName(link.to)}`}
+                    {`From: ${getEntityName(entitiesToRender, link.from)} To: ${getEntityName(entitiesToRender, link.to)}`}
                 </DropdownOption>)})
         clinks.forEach(link => {
             links.push(
                 <DropdownOption key={uuidv4()} value={link.id}>
-                    {`From: ${getEntityName(link.from)} To: ${getEntityName(link.to)}`}
+                    {`From: ${getEntityName(entitiesToRender, link.from)} To: ${getEntityName(entitiesToRender, link.to)}`}
                 </DropdownOption>)})
         return links
-    }
+    }, [slinks, clinks, entitiesToRender])
 
     const saveNewEntityHandler = () => {
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
@@ -287,6 +283,36 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         }
     }
 
+    const saveEditLinkHandler = (targetLink) => {
+        dispatch(resetErrors())
+        let chartData = {
+            nodes: JSON.stringify(entitiesToRender)
+        }
+        if (targetLink.type === targetLink.originalType) {
+            if (targetLink.type === 'clink') {
+                const newClinks = editLinkSameType(targetLink, clinks, setClinks)
+                chartData.clinks = JSON.stringify(newClinks)
+                chartData.slinks = JSON.stringify(slinks)
+            } else {
+                const newSlinks = editLinkSameType(targetLink, slinks, setSlinks)
+                chartData.slinks = JSON.stringify(newSlinks)
+                chartData.clinks = JSON.stringify(clinks)
+            }
+        } else {
+            if (targetLink.type === 'clink') {
+                const links = editLinkDifferentType(targetLink, slinks, setSlinks, clinks, setClinks)
+                chartData.clinks = JSON.stringify(links[0])
+                chartData.slinks = JSON.stringify(links[1])
+            } else {
+                const links = editLinkDifferentType(targetLink, clinks, setClinks, slinks, setSlinks)
+                chartData.slinks = JSON.stringify(links[0])
+                chartData.clinks = JSON.stringify(links[1])
+            }
+        }
+        createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+        setShowEditLink(false)
+    }
+
     return (
         <StepChartAndButtonsContainer>
             {showAddEntity &&
@@ -315,7 +341,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 />}
             {showRemoveLink &&
                 <RemoveLinkModal
-                    linkOptions={renderRemoveLinkOptions()}
+                    linkOptions={renderLinkOptions}
                     linkToRemove={linkToRemove}
                     removeLinkHandler={removeLinkHandler}
                     setLinkToRemove={setLinkToRemove}
@@ -334,6 +360,15 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     entities={entitiesToRender}
                     saveEditEntityHandler={saveEditEntityHandler}
                     setShowEditEntity={setShowEditEntity}
+                />}
+            {showEditLink &&
+                <EditLinkModal
+                    clinks={clinks}
+                    entities={entitiesToRender}
+                    linkOptions={renderLinkOptions}
+                    saveEditLinkHandler={saveEditLinkHandler}
+                    setShowEditLink={setShowEditLink}
+                    slinks={slinks}
                 />}
             {renderStepChart}
         </StepChartAndButtonsContainer>

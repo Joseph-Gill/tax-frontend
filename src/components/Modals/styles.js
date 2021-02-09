@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import {device as devices} from '../../style/devices'
 import {animated} from 'react-spring'
 import {BaseButton, RedLargerButton} from '../../style/buttons'
-import {StatusDropdown} from '../../style/dropdowns'
+import {EntityFormSelect} from '../../style/select'
 
 
 export const AddDeleteModalExternalContainer = styled(animated.div)`
@@ -98,7 +98,7 @@ export const RemoveLinkEntityInternalContainer = styled(AddDeleteModalInternalCo
     height: 230px;
 `
 
-export const RemoveLinkEntityDropdown = styled(StatusDropdown)`
+export const RemoveLinkEntityDropdown = styled(EntityFormSelect)`
     width: 430px;
 `
 
@@ -119,4 +119,33 @@ export const EntityErrorContainer = styled.div`
     height: 10px;
     display: flex;
     justify-content: center;
+`
+
+export const EditEntityLinkInternalContainer = styled.div`
+    height: 350px;
+    width: 700px;
+    background: ${props => props.theme.white};
+    border-radius: ${props => props.theme.borderRadius};
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15.41px 15.41px 34px 34px;
+`
+
+export const EditEntityLinkRowContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding-right: 19px;
+`
+
+export const EditEntityLinkModalTitleContainer = styled(AddDeleteModalTitleContainer)`
+    justify-content: center;
+    padding-left: 0;
+`
+
+export const EditEntityLinkButtonContainer = styled.div`
+    width: 100%;
+    display: flex;
+    padding-right: 19px;
+    justify-content: flex-end;
 `

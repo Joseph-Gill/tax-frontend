@@ -1,16 +1,15 @@
 import React from 'react'
-import {EditEntityButtonContainer} from '../styles'
+import {AddEntitySaveButton, EditEntityLinkButtonContainer} from '../../styles'
 import {AuthenticatedButtonCancel} from '../../../../style/buttons'
-import {AddEntitySaveButton} from '../../styles'
 
 
-export const EditEntityButtons = ({cancelButtonHandler, saveButtonHandler}) => {
+const ModalEditButtons = ({cancelButtonHandler, saveButtonHandler}) => {
     return (
-        <EditEntityButtonContainer>
+        <EditEntityLinkButtonContainer>
             <AuthenticatedButtonCancel onClick={cancelButtonHandler}>Cancel</AuthenticatedButtonCancel>
             <AddEntitySaveButton onClick={saveButtonHandler}>Save</AddEntitySaveButton>
-        </EditEntityButtonContainer>
+        </EditEntityLinkButtonContainer>
     )
 }
 
-export default EditEntityButtons
+export default ModalEditButtons

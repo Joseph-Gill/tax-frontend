@@ -1,12 +1,12 @@
 import React from 'react'
 import EditEntitySelect from './EditEntitySelect'
 import EditEntityTextInput from '../EditEntityTextInput'
-import {EditEntityRowContainer} from '../styles'
+import {EditEntityLinkRowContainer} from '../../styles'
 
 
 const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, error, renderEntityToEditOptions, setEditEntityInfo}) => {
     return (
-        <EditEntityRowContainer>
+        <EditEntityLinkRowContainer>
             <EditEntitySelect
                 editEntityChangeHandler={editEntityChangeHandler}
                 editEntityInfo={editEntityInfo}
@@ -24,7 +24,7 @@ const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, error, rende
                 type='text'
                 value={editEntityInfo.entityName}
             />
-        </EditEntityRowContainer>
+        </EditEntityLinkRowContainer>
     )
 }
 

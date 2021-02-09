@@ -1,13 +1,13 @@
 import React from 'react'
 import EditParentSelect from './EditParentSelect'
 import EditLocationSelect from './EditLocationSelect'
-import {EditEntityRowContainer} from '../styles'
+import {EditEntityLinkRowContainer} from '../../styles'
 
 
 const EditEntityMiddleRow = ({countryName, editEntityInfo, error, renderParentNameOptions,
                                  setCountryName, setEditEntityInfo}) => {
     return (
-        <EditEntityRowContainer>
+        <EditEntityLinkRowContainer>
             <EditParentSelect
                 editEntityInfo={editEntityInfo}
                 error={error}
@@ -20,7 +20,7 @@ const EditEntityMiddleRow = ({countryName, editEntityInfo, error, renderParentNa
                 error={error}
                 setCountryName={setCountryName}
             />
-        </EditEntityRowContainer>
+        </EditEntityLinkRowContainer>
     )
 }
 

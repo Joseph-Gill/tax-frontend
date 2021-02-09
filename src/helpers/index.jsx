@@ -233,3 +233,42 @@ export const sortEntitiesByParentId = (entities) => {
     sortedEntities.unshift(ultimateEntity)
     return sortedEntities
 }
+
+//Used by Remove and Edit Modals to get Names of each end of a CLink or SLink
+export const getEntityName = (array, id) => {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].id === id)
+            return array[i].name
+    }
+}
+
+//Used for editing CLinks and SLinks when type stays the same
+export const editLinkSameType = (linkData, array, setArray) => {
+    const arrayWithLinkToEdit = [...array]
+    const targetLinkToEdit = arrayWithLinkToEdit.filter(link => link.id === parseInt(linkData.id))[0]
+
+    targetLinkToEdit.to = parseInt(linkData.to)
+    targetLinkToEdit.from = parseInt(linkData.from)
+    targetLinkToEdit.label = linkData.label
+    targetLinkToEdit.template = linkData.template === 'blue' ? 'blue' : linkData.template === 'yellow' ? 'yellow' : ''
+    setArray([...arrayWithLinkToEdit])
+    return arrayWithLinkToEdit
+}
+
+//Used for editing CLinks and SLinks when type is changed
+export const editLinkDifferentType = (linkData, originalArray, setOriginalArray, newArray, setNewArray) => {
+    const arrayToRemoveFrom = [...originalArray]
+    const indexOfLinkToRemove = arrayToRemoveFrom.findIndex(link => link.id === parseInt(linkData.id))
+    arrayToRemoveFrom.splice(indexOfLinkToRemove, 1)
+    setOriginalArray([...arrayToRemoveFrom])
+    const linkWithNewType = {
+        to: parseInt(linkData.to),
+        from: parseInt(linkData.from),
+        label: linkData.label,
+        template: linkData.template === 'blue' ? 'blue' : linkData.template === 'yellow' ? 'yellow' : '',
+        id: Date.now()
+    }
+    const arrayToAddToWithNewLink = [...newArray, linkWithNewType]
+    setNewArray(arrayToAddToWithNewLink)
+    return [arrayToAddToWithNewLink, arrayToRemoveFrom]
+}

@@ -3,7 +3,7 @@ import dropdownArrowDown from '../assets/icons/stark_dropdown_arrow_gray_downwar
 import dropdownArrowUpward from '../assets/icons/stark_dropdown_arrow_gray_upwards.svg'
 
 
-export const EntityLegalFormSelect = styled.select`
+export const EntityFormSelect = styled.select`
     width: 302px;
     height: 42px;
     margin: 0;
@@ -41,6 +41,6 @@ export const EntityLegalFormSelect = styled.select`
     }
 `
 
-export const EntityParentSelect = styled(EntityLegalFormSelect)`
+export const EntityParentSelect = styled(EntityFormSelect)`
     width: 302px;
 `
