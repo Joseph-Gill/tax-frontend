@@ -28,7 +28,3 @@ export const StepDetailsOption = styled(DropdownOption)`
     font-size: 10px;
     line-height: 14px;
 `
-
-export const StepTooltipAnchor = styled.a`
-    margin-left: 10px;
-`

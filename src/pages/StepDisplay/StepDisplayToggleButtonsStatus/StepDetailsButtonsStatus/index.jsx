@@ -1,8 +1,9 @@
 import React from 'react'
 import StepToolTip from '../StepToolTip'
-import {WireFrameDeleteButton} from '../../../../style/buttons'
 import tooltipAnchor from '../../../../assets/icons/stark_tooltip_anchor.png'
-import {ButtonsStatusContainer, StepDetailsOption, StepDetailsStatus, StepDetailsTasklistButton, StepTooltipAnchor} from './styles'
+import {StepTooltipAnchor} from '../../../../style/anchors'
+import {WireFrameDeleteButton} from '../../../../style/buttons'
+import {ButtonsStatusContainer, StepDetailsOption, StepDetailsStatus, StepDetailsTasklistButton} from './styles'
 
 
 const StepDetailsButtonsStatus = ({ableToComplete, editStatus, indexOfStepToDisplay, setShowConfirmation,
