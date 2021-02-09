@@ -22,7 +22,8 @@ const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, error, rende
                 name='name'
                 placeholder='Enter name'
                 type='text'
-                value={editEntityInfo.entityName}
+                // value={editEntityInfo.entityName}
+                value={editEntityInfo.entityName.length > 30 ? editEntityInfo.entityName.slice(0, 24).concat('....') : editEntityInfo.entityName}
             />
         </EditEntityLinkRowContainer>
     )

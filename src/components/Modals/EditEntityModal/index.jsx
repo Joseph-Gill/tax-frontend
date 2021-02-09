@@ -79,7 +79,7 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) =
                         <EntityOption
                             key={uuidv4()}
                             value={entity.id}
-                        >{`${entity.name} (${entity.location})`}
+                        >{entity.name.length > 20 ? `${entity.name.slice(0, 20).concat('....')} (${entity.location})` : `${entity.name} (${entity.location})`}
                         </EntityOption>
                     ))}
                 </>
@@ -109,7 +109,7 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) =
                         <EntityOption
                             key={uuidv4()}
                             value={parent.id}
-                        >{`${parent.name} (${parent.location})`}
+                        >{parent.name.length > 20 ? `${parent.name.slice(0, 20).concat('....')} (${parent.location})` : `${parent.name} (${parent.location})`}
                         </EntityOption>
                     ))
             )
