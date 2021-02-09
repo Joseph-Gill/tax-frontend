@@ -11,6 +11,7 @@ import {ENDING, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, NoChartToDisplay, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {CompleteProjectButton, EndingStructurePlaceholder} from './styles'
+import CompleteProjectModal from '../../components/Modals/CompleteProjectModal'
 
 
 const StepEnding = ({history}) => {
@@ -19,6 +20,7 @@ const StepEnding = ({history}) => {
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
     const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.steps)
+    const [showCompleteProject, setShowCompleteProject] = useState(false)
     const [finalStepChartNodes, setFinalStepChartNodes] = useState([])
     const [loading, setLoading] = useState(false)
 
@@ -66,11 +68,17 @@ const StepEnding = ({history}) => {
     }
 
     const completeProjectHandler = () => {
-        console.log('clicked')
+        //need to add logic to edit Group entities to reflect entities from final step
+        setShowCompleteProject(false)
     }
 
     return (
         <AuthenticatedPageContainer>
+            {showCompleteProject &&
+                <CompleteProjectModal
+                    completeProjectHandler={completeProjectHandler}
+                    setShowCompleteProject={setShowCompleteProject}
+                />}
             {!projectLoaded || !stepsLoaded || loading ? <Spinner /> : (
                 <>
                     <BreadCrumb
@@ -93,7 +101,7 @@ const StepEnding = ({history}) => {
                         <div>
                             <CompleteProjectButton
                                 disabled={checkIfProjectCanBeCompleted()}
-                                onClick={completeProjectHandler}
+                                onClick={() => setShowCompleteProject(true)}
                             >Complete Project
                             </CompleteProjectButton>
                             {checkIfProjectCanBeCompleted() ? <CompleteProjectTooltip /> : null}
