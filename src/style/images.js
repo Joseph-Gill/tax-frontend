@@ -23,15 +23,6 @@ export const Ellipse = styled.img`
     margin-right: 13px;
 `
 
-export const CloseIcon = styled.img`
-    :hover {
-        cursor: pointer;
-        transition: 167ms;
-        box-shadow: ${props => props.theme.boxShadow};
-        background: ${props => props.theme.graySix};
-    }
-`
-
 export const ExpandImage = styled.img`
     width: 18px;
     height: 18px;

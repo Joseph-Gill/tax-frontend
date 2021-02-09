@@ -149,3 +149,16 @@ export const EditEntityLinkButtonContainer = styled.div`
     padding-right: 19px;
     justify-content: flex-end;
 `
+
+export const ModalCloseIconContainer = styled.div`
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+
+    :hover {
+        background: ${props => props.theme.iconHoverBackground};
+    }
+`

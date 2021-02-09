@@ -3,14 +3,13 @@ import {useSpring} from 'react-spring'
 import ModalGroupCard from './ModalGroupCard'
 import Draggable from 'react-draggable'
 import Spinner from '../../Spinner'
+import ModalClose from '../ModalComponents/ModalClose'
 import {getProfileAction} from '../../../store/profile/actions'
-import close from '../../../assets/icons/stark_close_icon.svg'
-import {CloseIcon} from '../../../style/images'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import {useDispatch, useSelector} from 'react-redux'
 import {CancelButton} from '../../../style/buttons'
 import {AddDeleteModalExternalContainer} from '../styles'
-import {ChooseGroupButtonContainer, ChooseGroupCardContainer, ChooseGroupInput, ChooseGroupModalCloseContainer, ChooseGroupModalInternalContainer,
+import {ChooseGroupButtonContainer, ChooseGroupCardContainer, ChooseGroupInput, ChooseGroupModalInternalContainer,
     ChooseGroupModalTitleContainer, ChooseGroupTitleContainer} from './styles'
 
 
@@ -57,9 +56,7 @@ const ChooseGroupModal = ({history, setShowChooseGroup}) => {
                 <Spinner /> :
                 <Draggable>
                     <ChooseGroupModalInternalContainer>
-                        <ChooseGroupModalCloseContainer>
-                            <CloseIcon alt='close' onClick={() => setShowChooseGroup(false)} src={close} />
-                        </ChooseGroupModalCloseContainer>
+                        <ModalClose modalDisplay={setShowChooseGroup} />
                         <ChooseGroupModalTitleContainer>
                             <AuthenticatedPageTitle>Choose a Group</AuthenticatedPageTitle>
                         </ChooseGroupModalTitleContainer>

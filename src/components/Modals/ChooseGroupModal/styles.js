@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {AddDeleteModalCloseContainer, AddDeleteModalInternalContainer} from '../styles'
+import {AddDeleteModalInternalContainer} from '../styles'
 import {NavbarTitle} from '../../../style/titles'
 import {BaseInput} from '../../../style/inputs'
 
@@ -10,10 +10,6 @@ export const ChooseGroupModalInternalContainer = styled(AddDeleteModalInternalCo
     padding: 15.41px 15.41px 5px 24px;
     align-items: flex-start;
     justify-content: flex-start;
-`
-
-export const ChooseGroupModalCloseContainer = styled(AddDeleteModalCloseContainer)`
-    width: 100%;
 `
 
 export const ChooseGroupModalTitleContainer = styled.div`
