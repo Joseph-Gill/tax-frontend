@@ -5,7 +5,7 @@ import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import CompleteProjectModalText from './CompleteProjectModalText'
 import CompleteProjectModalButtons from './CompleteProjectModalButtons'
-import {AddDeleteModalExternalContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
+import {AddDeleteModalExternalContainer, CompleteProjectModalInternalContainer} from '../styles'
 
 
 const CompleteProjectModal = ({completeProjectHandler, setShowCompleteProject}) => {
@@ -24,7 +24,7 @@ const CompleteProjectModal = ({completeProjectHandler, setShowCompleteProject}) 
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
             <Draggable>
-                <DeleteStepReviewTaskModalInternalContainer>
+                <CompleteProjectModalInternalContainer>
                     <ModalClose modalDisplay={setShowCompleteProject} />
                     <ModalTitle title='Are you sure?' />
                     <CompleteProjectModalText />
@@ -32,7 +32,7 @@ const CompleteProjectModal = ({completeProjectHandler, setShowCompleteProject}) 
                         cancelButtonHandler={cancelButtonHandler}
                         completeProjectHandler={completeProjectHandler}
                     />
-                </DeleteStepReviewTaskModalInternalContainer>
+                </CompleteProjectModalInternalContainer>
             </Draggable>
         </AddDeleteModalExternalContainer>
     )

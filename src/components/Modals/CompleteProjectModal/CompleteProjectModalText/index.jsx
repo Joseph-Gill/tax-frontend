@@ -10,11 +10,11 @@ const CompleteProjectModalText = () => {
         <>
             <AddDeleteModalTextContainer>
                 <Ellipse alt='ellipse' src={ellipse} />
-                <ModalText>The group entities will be updated to reflect the final step organization chart.</ModalText>
+                <ModalText>The organization chart will be updated to reflect the changes made in the project.</ModalText>
             </AddDeleteModalTextContainer>
             <AddDeleteModalTextContainer>
                 <Ellipse alt='ellipse' src={ellipse} />
-                <ModalText>The project status will be set as Completed.</ModalText>
+                <ModalText>The project status will be set as Completed, this cannot be undone.</ModalText>
             </AddDeleteModalTextContainer>
         </>
     )

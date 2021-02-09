@@ -78,6 +78,11 @@ export const DeleteStepReviewTaskModalInternalContainer = styled(AddDeleteModalI
     height: 240px;
 `
 
+export const CompleteProjectModalInternalContainer = styled(AddDeleteModalInternalContainer)`
+    width: 370px;
+    height: 270px;
+`
+
 export const BlueConfirmReviewedButton = styled(BaseButton)`
     width: 186px;
     height: 32px;
