@@ -272,6 +272,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             entitiesToRender[indexToEdit].parent = targetParent
             //Updates tag of entity to make sure it is rendering correct legal form template
             entitiesToRender[indexToEdit].tags = [addLegalFormTag(legalForm)]
+            //StepCharts are stored as JSON data in the backend until the Complete Project action is run
             const chartData = {
                 nodes: JSON.stringify(entitiesToRender),
                 slinks: JSON.stringify(slinks),
@@ -285,9 +286,12 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
 
     const saveEditLinkHandler = (targetLink) => {
         dispatch(resetErrors())
+        //StepCharts are stored as JSON data in the backend until the Complete Project action is run
+        //CLinks and SLinks are added later depending on if the type has changed or not
         let chartData = {
             nodes: JSON.stringify(entitiesToRender)
         }
+        //If the link type is unchanged
         if (targetLink.type === targetLink.originalType) {
             if (targetLink.type === 'clink') {
                 const newClinks = editLinkSameType(targetLink, clinks, setClinks)
@@ -298,6 +302,9 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 chartData.slinks = JSON.stringify(newSlinks)
                 chartData.clinks = JSON.stringify(clinks)
             }
+        //If the link type is changed, the helper function returns an array of clinks and slinks
+        //The first value in the array is the array of links the link was added to
+        //The second value in the array is the array of links the link was removed from
         } else {
             if (targetLink.type === 'clink') {
                 const links = editLinkDifferentType(targetLink, slinks, setSlinks, clinks, setClinks)

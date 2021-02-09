@@ -49,6 +49,7 @@ const EditLinkModal = ({clinks, entities, linkOptions, saveEditLinkHandler, setS
         }
     }
 
+    //Renders options for the From / To selects
     const renderEditLinkToFromOptions = useMemo(() => {
         if (entities.length) {
             return (
@@ -71,6 +72,7 @@ const EditLinkModal = ({clinks, entities, linkOptions, saveEditLinkHandler, setS
     }, [entities])
 
     const linkToEditChangeHandler = (e) => {
+        //Checks for link to edit in clinks first, sets input values to link values if found
         const targetCLink = clinks.filter(link => link.id === parseInt(e.target.value))
         if (targetCLink.length) {
             setTargetLink({
@@ -84,10 +86,9 @@ const EditLinkModal = ({clinks, entities, linkOptions, saveEditLinkHandler, setS
                 originalType: 'clink',
                 linkSelected: true,
             })
+        //If link was not found in clinks, finds it in slinks, sets input values to link values
         } else {
             const targetSLink = slinks.filter(link => link.id === parseInt(e.target.value))
-            console.log('slinks>', slinks)
-            console.log('targetSlink>',targetSLink)
             setTargetLink({
                 ...targetLink,
                 id: e.target.value,
