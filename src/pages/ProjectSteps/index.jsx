@@ -6,16 +6,17 @@ import StepStatusLegendEntry from './StepStatusLegendEntry'
 import StepFilterDropdown from './StepsFilterDropdown'
 import StepCard from './StepCard'
 import Spinner from '../../components/Spinner'
+import JumpToStepDropdown from '../../components/Dropdowns/JumpToStepDropdown'
 import {getProjectAction} from '../../store/project/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {addNewStep, getStepsForProjectAction, skipToSpecifiedStep} from '../../store/step/actions'
-import {BEGINNING, DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import noSteps from '../../assets/icons/stark_no_steps.svg'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CardTitleText, NoFilterResultText} from '../../style/text'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilteredTasksStepsContainer, NoFilterTextContainer} from '../../style/containers'
 import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
-import {BeginningStructureButton, NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styles'
+import {NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styles'
 
 
 const ProjectSteps = ({history}) => {
@@ -111,7 +112,11 @@ const ProjectSteps = ({history}) => {
                     />
                     <DisplayTitleWithButtonContainer>
                         <AuthenticatedPageTitle>{project.name} - Steps</AuthenticatedPageTitle>
-                        <BeginningStructureButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)}>Beginning Structure</BeginningStructureButton>
+                        <JumpToStepDropdown
+                            history={history}
+                            stepCardClickHandler={stepCardClickHandler}
+                            steps={steps}
+                        />
                     </DisplayTitleWithButtonContainer>
                     <StatusLegendFilterDropdownContainer>
                         <StepStatusLegendContainer>

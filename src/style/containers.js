@@ -241,6 +241,7 @@ export const StatusLegendContainer = styled.div`
     padding: 0 24px 0 20px;
     border-radius: ${props => props.theme.borderRadius};
     background: ${props => props.theme.white};
+    border: 1px solid ${props => props.theme.grayFour};
 `
 
 export const TooltipRowContainer = styled.div`
