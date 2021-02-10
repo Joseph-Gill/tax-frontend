@@ -182,7 +182,6 @@ export const DropdownChoiceContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     background: ${props => props.theme.white};
-    //border-radius: ${props => props.theme.borderRadius};
 `
 
 export const DropDownChoiceWithBorder = styled(DropdownChoiceContainer)`
@@ -403,6 +402,33 @@ export const GroupAddEditButtonContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-right: 16px;
+`
+
+export const FilterResetImgContainer = styled.div`
+    width: 13.5px;
+    height: 36px;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    :hover {
+        cursor: pointer;
+    }
+`
+
+export const FilterImgContainer = styled.div`
+    width: 16px;
+    height: 36px;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    :hover {
+        cursor: pointer;
+    }
 `
 
 // Template Containers

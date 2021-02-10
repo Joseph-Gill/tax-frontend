@@ -26,6 +26,15 @@ export const allowOnlyOneCheckedBox = (e, initialArray, arraySet) => {
     arraySet([...dataCopy])
 }
 
+//Used in filter search bar components where e.target.value is not available for onClick
+export const allowOnlyOneCheckedBoxContainer = (value, initialArray, arraySet) => {
+    const dataCopy = [...initialArray]
+    for (let i = 0; i < dataCopy.length; i++) {
+        dataCopy[i].isChecked = i === parseInt(value);
+    }
+    arraySet([...dataCopy])
+}
+
 // Used by components that have checkboxes to toggle the checkbox
 export const checkBoxChangeHandler = (e, initialArray, arraySet) => {
     const dataCopy = [...initialArray]

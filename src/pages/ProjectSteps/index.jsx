@@ -3,9 +3,9 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import BreadCrumb from '../../components/BreadCrumb'
 import StepStatusLegendEntry from './StepStatusLegendEntry'
-import StepFilterDropdown from './StepsFilterDropdown'
 import StepCard from './StepCard'
 import Spinner from '../../components/Spinner'
+import StepsFilterSearchBar from './StepsFilterSearchBar'
 import JumpToStepDropdown from '../../components/Dropdowns/JumpToStepDropdown'
 import {getProjectAction} from '../../store/project/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
@@ -123,7 +123,13 @@ const ProjectSteps = ({history}) => {
                             <StepStatusLegendEntry status='Ongoing / Not Started' />
                             <StepStatusLegendEntry status='Completed' />
                         </StepStatusLegendContainer>
-                        <StepFilterDropdown
+                        {/*<StepFilterDropdown*/}
+                        {/*    filterOption={filterOption}*/}
+                        {/*    filterString={filterString}*/}
+                        {/*    setFilterOption={setFilterOption}*/}
+                        {/*    setFilterString={setFilterString}*/}
+                        {/*/>*/}
+                        <StepsFilterSearchBar
                             filterOption={filterOption}
                             filterString={filterString}
                             setFilterOption={setFilterOption}

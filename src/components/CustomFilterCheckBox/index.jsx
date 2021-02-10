@@ -1,7 +1,7 @@
 import React from 'react'
 import {allowOnlyOneCheckedBox} from '../../helpers'
 import {DefaultDropdownText} from '../../style/text'
-import {FilterCustomCheckbox} from './styles'
+import {FilterCustomCheckbox} from '../../style/labels'
 
 
 const CustomFilterCheckBox = ({id, filterOption, setFilterOption, value, label}) => {
