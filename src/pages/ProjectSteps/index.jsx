@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import BreadCrumb from '../../components/BreadCrumb'
@@ -20,14 +20,17 @@ import {NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styl
 
 
 const ProjectSteps = ({history}) => {
-    const dispatch = useDispatch()
     const match = useRouteMatch()
+    const dispatch = useDispatch()
+    let filterString = useRef('')
     const project = useSelector(state => state.projectReducer.project)
     const projectLoaded = useSelector(state => state.projectReducer.loaded)
     const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
-    const [filterString, setFilterString] = useState('')
+    const [showFilterDropdown, setShowFilterDropdown] = useState(false)
+    const [showGoToDropdown, setShowGoToDropdown] = useState(false)
+    const [stepsToDisplay, setStepsToDisplay] = useState([])
     const [filterOption, setFilterOption] = useState([
         {isChecked: true, type: 'status'},
         {isChecked: false, type: 'location'},
@@ -35,10 +38,15 @@ const ProjectSteps = ({history}) => {
     ])
 
     useEffect(() => {
-        //Gets project matching match.params.projectId
-        dispatch(getProjectAction(match.params.projectId))
-        //Gets steps for project matching match.params.projectId
-        dispatch(getStepsForProjectAction(match.params.projectId))
+        const getStepsSetDisplay = async () => {
+            //Gets steps for project matching match.params.projectId
+            return await dispatch(getStepsForProjectAction(match.params.projectId))
+        }
+        getStepsSetDisplay()
+            .then((response) => {
+                setStepsToDisplay(response)
+                dispatch(getProjectAction(match.params.projectId))
+            })
     }, [dispatch, match.params.projectId])
 
     useEffect(() => {
@@ -66,13 +74,31 @@ const ProjectSteps = ({history}) => {
         switch (selectedFilterOption.type) {
             case 'location':
                 if (filterString) {
-                    return steps.filter(step => step.tax_consequences.filter(tax => tax.location.toLowerCase().indexOf(filterString.toLowerCase()) !== -1).length > 0)
+                    return steps.filter(step => step.tax_consequences.filter(tax => tax.location.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1).length > 0)
                 } else {
                     return steps
                 }
             default:
-                return steps.filter(step => step[selectedFilterOption.type].toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
+                return steps.filter(step => step[selectedFilterOption.type].toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1)
         }
+    }
+
+    //Used by search bar to filter by enter keypress in search bar
+    const filterByKeypressChangeHandler = (e) => {
+        if (e.key === 'Enter') {
+            setStepsToDisplay(filteredSteps())
+        }
+    }
+
+    //Used by search bar to filter by clicking search image
+    const filterByClickChangeHandler = () => {
+        setStepsToDisplay(filteredSteps())
+    }
+
+    //Used by search bar to reset the search bar text
+    const resetFilterChangeHandler = () => {
+        filterString.current.value = ''
+        setStepsToDisplay([...steps])
     }
 
     //Renders each step of the project matching filter, or No Steps match this filter if no matches found
@@ -97,6 +123,18 @@ const ProjectSteps = ({history}) => {
         }
     }
 
+    //Used by Go To... dropdown, toggles it open/close, closing the Filter dropdown
+    const toggleGoToCloseFilterSearch = () => {
+        setShowGoToDropdown(!showGoToDropdown)
+        setShowFilterDropdown(false)
+    }
+
+    //Used by Filter dropdown, toggles it open/close, closing the Go To... dropdown
+    const toggleFilterSearchCloseGoTo = () => {
+        setShowFilterDropdown(!showFilterDropdown)
+        setShowGoToDropdown(false)
+    }
+
     return (
         <AuthenticatedPageContainer>
             {!projectLoaded || !stepsLoaded || !groupLoaded ? <Spinner /> : (
@@ -114,8 +152,10 @@ const ProjectSteps = ({history}) => {
                         <AuthenticatedPageTitle>{project.name} - Steps</AuthenticatedPageTitle>
                         <JumpToStepDropdown
                             history={history}
+                            showGoToDropdown={showGoToDropdown}
                             stepCardClickHandler={stepCardClickHandler}
                             steps={steps}
+                            toggleGoToCloseFilterSearch={toggleGoToCloseFilterSearch}
                         />
                     </DisplayTitleWithButtonContainer>
                     <StatusLegendFilterDropdownContainer>
@@ -123,17 +163,16 @@ const ProjectSteps = ({history}) => {
                             <StepStatusLegendEntry status='Ongoing / Not Started' />
                             <StepStatusLegendEntry status='Completed' />
                         </StepStatusLegendContainer>
-                        {/*<StepFilterDropdown*/}
-                        {/*    filterOption={filterOption}*/}
-                        {/*    filterString={filterString}*/}
-                        {/*    setFilterOption={setFilterOption}*/}
-                        {/*    setFilterString={setFilterString}*/}
-                        {/*/>*/}
                         <StepsFilterSearchBar
+                            filterByClickChangeHandler={filterByClickChangeHandler}
+                            filterByKeypressChangeHandler={filterByKeypressChangeHandler}
                             filterOption={filterOption}
                             filterString={filterString}
+                            resetFilterChangeHandler={resetFilterChangeHandler}
                             setFilterOption={setFilterOption}
-                            setFilterString={setFilterString}
+                            setShowFilterDropdown={setShowFilterDropdown}
+                            showFilterDropdown={showFilterDropdown}
+                            toggleFilterSearchCloseGoTo={toggleFilterSearchCloseGoTo}
                         />
                     </StatusLegendFilterDropdownContainer>
                     {!steps.length ? (
@@ -146,7 +185,7 @@ const ProjectSteps = ({history}) => {
                             </NoFilterTextContainer>
                             <NoStepsButton onClick={addNewStepHandler}>Add New Step</NoStepsButton>
                         </NoStepsContainer>
-                    ) : renderSteps(filteredSteps())}
+                    ) : renderSteps(stepsToDisplay)}
                 </>)}
         </AuthenticatedPageContainer>
     )

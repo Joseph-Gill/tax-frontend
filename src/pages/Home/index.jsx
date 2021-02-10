@@ -108,6 +108,7 @@ const Home = ({history}) => {
         setPairingsToDisplay(searchedPairings())
     }
 
+    //Used by search bar to reset the search bar text
     const resetFilterChangeHandler = () => {
         filterString.current.value = ''
         setPairingsToDisplay([...projectGroupPairings])

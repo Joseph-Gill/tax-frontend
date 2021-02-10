@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import JumpToStepImage from './JumpToStepImage'
 import jumpTo from '../../../assets/icons/tax_cheetah_jump_to_icon.svg'
 import {BEGINNING, ENDING, GROUPS, PROJECTS, STEPS} from '../../../routes/paths'
@@ -6,8 +6,7 @@ import {DropdownContainer, DropdownContent, DropdownContentText} from '../styles
 import {JumpToButtonContainer, JumpToIconContainer, JumpToStepContentContainer} from './styles'
 
 
-const JumpToStepDropdown = ({history, stepCardClickHandler, steps}) => {
-    const [showDropdown, setShowDropdown] = useState(false)
+const JumpToStepDropdown = ({history, showGoToDropdown, stepCardClickHandler, steps, toggleGoToCloseFilterSearch}) => {
 
     const renderStepOptions = () => (
         steps.map(step => (
@@ -20,13 +19,13 @@ const JumpToStepDropdown = ({history, stepCardClickHandler, steps}) => {
 
     return (
         <DropdownContainer>
-            <JumpToButtonContainer onClick={() => setShowDropdown(!showDropdown)}>
+            <JumpToButtonContainer onClick={toggleGoToCloseFilterSearch}>
                 <span>Go to...</span>
                 <JumpToIconContainer>
                     <img alt='redirect' src={jumpTo} />
                 </JumpToIconContainer>
             </JumpToButtonContainer>
-            <JumpToStepContentContainer show={showDropdown ? 1 : 0}>
+            <JumpToStepContentContainer show={showGoToDropdown ? 1 : 0}>
                 <DropdownContent onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)}>
                     <DropdownContentText>Beginning</DropdownContentText>
                     <JumpToStepImage />

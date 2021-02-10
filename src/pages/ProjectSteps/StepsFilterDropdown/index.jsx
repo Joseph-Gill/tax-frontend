@@ -4,7 +4,7 @@ import {FilterInput} from '../../../style/inputs'
 import {Dropdown, DropdownOptions, FilterDropdownButton} from '../../../style/dropdowns'
 import {DropdownChoiceContainer, DropDownChoiceWithBorder} from '../../../style/containers'
 
-
+//Not currently used in ProjectSteps, replaced with StepsFilterSearchBar
 const StepFilterDropdown = ({filterOption, filterString, setFilterOption, setFilterString}) => {
     return (
         <Dropdown>
