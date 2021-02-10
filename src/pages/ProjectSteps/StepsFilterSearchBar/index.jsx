@@ -4,9 +4,9 @@ import searchImage from '../../../assets/icons/stark_search_bar_icon.svg'
 import StepsFilterSearchChoices from './StepsFilterSearchChoices'
 import {allowOnlyOneCheckedBoxContainer} from '../../../helpers'
 import {FilterSpacer} from '../../../style/spans'
+import {FilterLabelText, FilterSearchButton, FilterSearchInput, FilterSearchText, FilterSelectionContainer} from '../../../style/dropdowns'
 import {FilterImgContainer, FilterResetImgContainer} from '../../../style/containers'
-import {FilterDropdownContainer, FilterSelectionContainer, StepFilterLabelText, StepFilterSearchButton,
-    StepFilterSearchInput, StepFilterSearchText, StepsFilterSearchContainer} from './styles'
+import {FilterDropdownContainer, StepsFilterSearchContainer} from './styles'
 
 
 const StepsFilterSearchBar = ({filterByKeypressChangeHandler, filterByClickChangeHandler, filterOption,
@@ -34,9 +34,9 @@ const StepsFilterSearchBar = ({filterByKeypressChangeHandler, filterByClickChang
     return (
         <StepsFilterSearchContainer>
             <FilterDropdownContainer>
-                <StepFilterSearchButton onClick={toggleFilterSearchCloseGoTo}>
-                    <StepFilterSearchText>Filter</StepFilterSearchText>
-                </StepFilterSearchButton>
+                <FilterSearchButton onClick={toggleFilterSearchCloseGoTo}>
+                    <FilterSearchText>Filter</FilterSearchText>
+                </FilterSearchButton>
                 <StepsFilterSearchChoices
                     filterOption={filterOption}
                     filterOptionChangeHandler={filterOptionChangeHandler}
@@ -44,9 +44,9 @@ const StepsFilterSearchBar = ({filterByKeypressChangeHandler, filterByClickChang
                 />
             </FilterDropdownContainer>
             <FilterSelectionContainer>
-                <StepFilterLabelText>{setFilterLabel()}</StepFilterLabelText>
+                <FilterLabelText>{setFilterLabel()}</FilterLabelText>
             </FilterSelectionContainer>
-            <StepFilterSearchInput
+            <FilterSearchInput
                 onKeyPress={(e) => filterByKeypressChangeHandler(e)}
                 placeholder='Search steps...'
                 ref={filterString}

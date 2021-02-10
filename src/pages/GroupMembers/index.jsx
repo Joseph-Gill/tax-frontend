@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
-import FilterDropdown from './FilterDropdown'
 import ActionDropdown from './ActionDropdown'
 import MembersTable from './MembersTable'
 import StatusToggle from './StatusToggle'
@@ -10,6 +9,7 @@ import ProjectFilterDropdown from './ProjectFilterDropdown'
 import RemoveMemberModal from '../../components/Modals/RemoveMemberModal'
 import AddMemberModal from '../../components/Modals/AddMemberModal'
 import Loading from '../../components/Loading'
+import MemberFilterSearchBar from './MemberFilterSearchBar'
 import {getAccessUsersForProjectAction, resetMember, resetMemberFilterProjectId, setMemberFilterProjectId} from '../../store/member/actions'
 import {GROUPS, HOME, MEMBERS} from '../../routes/paths'
 import {DropdownOption} from '../../style/options'
@@ -28,6 +28,7 @@ const GroupMembers = ({history}) => {
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [filterMemberStatus, setFilterMemberStatus] = useState(false)
     const [showActionDropdown, setShowActionDropdown] = useState(false)
+    const [showFilterDropdown, setShowFilterDropdown] = useState(false)
     const [activeRenderData, setActiveRenderData] = useState([])
     const [invitedRenderData, setInvitedRenderData] = useState([])
     const [showAddMember, setShowAddMember] = useState(false)
@@ -159,12 +160,14 @@ const GroupMembers = ({history}) => {
                                         projectFilterChangeHandler={projectFilterChangeHandler}
                                         renderProjectFilterOptions={renderProjectFilterOptions}
                                     /> : null}
-                                <FilterDropdown
-                                    filterMemberStraus={filterMemberStatus}
+                                <MemberFilterSearchBar
+                                    filterMemberStatus={filterMemberStatus}
                                     filterOption={filterOption}
                                     filterString={filterString}
                                     setFilterOption={setFilterOption}
                                     setFilterString={setFilterString}
+                                    setShowFilterDropdown={setShowFilterDropdown}
+                                    showFilterDropdown={showFilterDropdown}
                                 />
                                 <ActionDropdown
                                     sendEmailClickHandler={sendEmailClickHandler}

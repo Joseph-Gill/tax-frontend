@@ -6,6 +6,7 @@ import dropdownArrowDownwardGray from '../assets/icons/stark_dropdown_arrow_gray
 import dropdownArrowUpwardGray from '../assets/icons/stark_dropdown_arrow_gray_upwards.svg'
 import filterImage from '../assets/icons/stark_filter.svg'
 import actionImage from '../assets/icons/stark_action.svg'
+import {BaseInput} from './inputs'
 
 
 export const StatusDropdown = styled.select`
@@ -191,5 +192,60 @@ export const DropdownContentContainer = styled.div`
     ${DropdownContent}:last-child {
         border-bottom-right-radius: ${props => props.theme.borderRadius};
         border-bottom-left-radius: ${props => props.theme.borderRadius};
+    }
+`
+
+export const FilterSearchButton = styled.div`
+    width: 70px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: ${props => props.theme.inputBorderRadius};
+    border-bottom-left-radius: ${props => props.theme.inputBorderRadius};
+    background: ${props => props.theme.primaryBlue};
+    color: ${props => props.theme.white};
+
+    :hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+`
+
+export const FilterSearchText = styled.span`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    font-weight: 600;
+    color: ${props => props.theme.white};
+`
+
+export const FilterLabelText = styled(FilterSearchText)`
+    font-size: 10px;
+`
+
+export const FilterSelectionContainer = styled.div`
+    width: 75px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    background: ${props => props.theme.grayThree};
+    border-radius: ${props => props.theme.buttonBorderRadius};
+`
+
+export const FilterSearchInput = styled(BaseInput)`
+    width: 260px;
+    height: 34px;
+    border: none;
+    background: ${props => props.theme.white};
+    padding: 10px 0 10px 10px;
+
+    :hover {
+        filter: none;
+    }
+
+    :focus {
+        border: none;
     }
 `
