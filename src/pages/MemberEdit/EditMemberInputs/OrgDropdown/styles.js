@@ -1,13 +1,21 @@
 import styled from 'styled-components/macro'
-import {Dropdown, DropdownOptions} from '../../../../style/dropdowns'
 import greyDropdownArrow from '../../../../assets/icons/stark_dropdown_arrow_grey.png'
-import {DropDownChoiceWithBorder} from '../../../../style/containers'
-import {AuthenticatedText} from '../../../../style/text'
 import {BaseInput} from '../../../../style/inputs'
+import {AuthenticatedText} from '../../../../style/text'
+import {DropDownChoiceWithBorder} from '../../../../style/containers'
+import {DropdownContent, DropdownContentContainer} from '../../../../components/Dropdowns/styles'
 
 
-export const OrganizationDropdown = styled(Dropdown)`
-    margin-left: 0;
+export const OrgDropdownContainer = styled.div`
+    position: relative;
+    display: inline-block;
+`
+
+export const OrgDropdownContentContainer = styled(DropdownContentContainer)`
+    width: 302px;
+    max-height: 144px;
+    overflow: auto;
+    overflow-x: hidden;
 `
 
 export const OrgDropdownButton = styled.button`
@@ -45,13 +53,6 @@ export const OrgDropdownButton = styled.button`
 
 `
 
-export const OrgDropdownOptions = styled(DropdownOptions)`
-    min-width: 302px;
-    max-height: 144px;
-    overflow: scroll;
-    overflow-x: hidden;
-`
-
 export const OrgDropdownChoiceContainer = styled(DropDownChoiceWithBorder)`
     padding-left: 13px;
 `
@@ -72,7 +73,7 @@ export const AddNewOrgText = styled(AuthenticatedText)`
 `
 
 export const NewOrgInput = styled(BaseInput)`
-    height: 41px;
+    height: 42.8px;
     width: 100%;
 `
 
@@ -88,8 +89,6 @@ export const AddOrgImageContainer = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    height: 30px;
-    width: 30px;
 
     :hover {
         cursor: pointer;
@@ -97,5 +96,6 @@ export const AddOrgImageContainer = styled.div`
     }
 `
 
-export const AddOrgImage = styled.img`
+export const OrgDropdownContent = styled(DropdownContent)`
+    justify-content: flex-start;
 `

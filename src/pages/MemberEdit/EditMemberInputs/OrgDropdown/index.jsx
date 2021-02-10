@@ -1,13 +1,13 @@
-import React from 'react'
+import React, {useState} from 'react'
 import bluePlusSign from '../../../../assets/icons/stark_add_org_icon.svg'
-import {
-    AddNewOrgText, AddOrgImage, AddOrgImageContainer, NewOrgInput, OrganizationDropdown, OrgDowndownText, OrgDropdownButton, OrgDropdownChoiceContainer,
-    OrgDropdownOptions, OrgInputDropdownChoiceContainer
-} from './styles'
+import {DropdownContent} from '../../../../components/Dropdowns/styles'
+import {AddNewOrgText, AddOrgImageContainer, NewOrgInput, OrgDowndownText, OrgDropdownButton,
+    OrgDropdownContainer, OrgDropdownContent, OrgDropdownContentContainer} from './styles'
 
 
 const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, selectNewOrgStatus,
                          selectOrgName, setSelectNewOrgStatus, setSelectOrgName}) => {
+    const [showDropdown, setShowDropdown] = useState(false)
 
     //Saves new Organization user wishes to create by pressing enter
     const handleNewOrgInputPressEnter = (e) => {
@@ -16,36 +16,44 @@ const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, s
         }
     }
 
+    const selectOrgHandler = name => {
+        setSelectOrgName(name)
+        setShowDropdown(false)
+    }
+
     return (
-        <OrganizationDropdown>
-            <OrgDropdownButton>{selectOrgName ? selectOrgName : 'Select a organization'}</OrgDropdownButton>
-            <OrgDropdownOptions>
+        <OrgDropdownContainer>
+            <OrgDropdownButton
+                onClick={() => setShowDropdown(!showDropdown)}
+            >{selectOrgName ? selectOrgName : 'Select a organization'}
+            </OrgDropdownButton>
+            <OrgDropdownContentContainer show={showDropdown ? 1 : 0}>
                 {!selectNewOrgStatus ? (
-                    <OrgDropdownChoiceContainer onClick={() => setSelectNewOrgStatus(!selectNewOrgStatus)}>
+                    <OrgDropdownContent onClick={() => setSelectNewOrgStatus(!selectNewOrgStatus)}>
                         <AddOrgImageContainer>
-                            <AddOrgImage alt='add organization' src={bluePlusSign} />
+                            <img alt='add organization' src={bluePlusSign} />
                         </AddOrgImageContainer>
                         <AddNewOrgText>Add new organization</AddNewOrgText>
-                    </OrgDropdownChoiceContainer>) : (
-                        <OrgInputDropdownChoiceContainer>
-                            <NewOrgInput
-                                name='new_organization'
-                                onKeyPress={(e) => handleNewOrgInputPressEnter(e)}
-                                placeholder='Enter the organization name'
-                                ref={newOrg}
-                                type='text'
-                            />
-                        </OrgInputDropdownChoiceContainer>)}
+                    </OrgDropdownContent>
+                ) : (
+                    <NewOrgInput
+                        name='new_organization'
+                        onKeyPress={(e) => handleNewOrgInputPressEnter(e)}
+                        placeholder='Enter the organization name'
+                        ref={newOrg}
+                        type='text'
+                    />
+                )}
                 {groupOrganizations.map(org => (
-                    <OrgDropdownChoiceContainer
+                    <DropdownContent
                         key={org.id}
-                        onClick={() => setSelectOrgName(org.name)}
+                        onClick={() => selectOrgHandler(org.name)}
                     >
                         <OrgDowndownText>{org.name}</OrgDowndownText>
-                    </OrgDropdownChoiceContainer>
+                    </DropdownContent>
                 ))}
-            </OrgDropdownOptions>
-        </OrganizationDropdown>
+            </OrgDropdownContentContainer>
+        </OrgDropdownContainer>
     )
 }
 
