@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {DropdownContentContainer} from '../styles'
+import {DropdownContentContainer} from '../../../style/dropdowns'
 
 
 export const JumpToButtonContainer = styled.div`

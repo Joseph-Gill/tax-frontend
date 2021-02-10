@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import {BaseInput} from '../../../style/inputs'
-import {DropdownContentContainer} from '../../../components/Dropdowns/styles'
+import {DropdownContentContainer} from '../../../style/dropdowns'
 
 
 export const StepsFilterSearchContainer = styled.div`

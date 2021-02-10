@@ -3,7 +3,7 @@ import greyDropdownArrow from '../../../../assets/icons/stark_dropdown_arrow_gre
 import {BaseInput} from '../../../../style/inputs'
 import {AuthenticatedText} from '../../../../style/text'
 import {DropDownChoiceWithBorder} from '../../../../style/containers'
-import {DropdownContent, DropdownContentContainer} from '../../../../components/Dropdowns/styles'
+import {DropdownContent, DropdownContentContainer} from '../../../../style/dropdowns'
 
 
 export const OrgDropdownContainer = styled.div`

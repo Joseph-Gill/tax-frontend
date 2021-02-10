@@ -1,7 +1,8 @@
 import React from 'react'
-import minusSign from '../../../assets/icons/tax_cheetah_minus_icon_24px.svg'
-import {DropdownButtonContainer, DropdownContainer, DropdownContent, DropdownContentContainer, DropdownContentText} from '../styles'
 import DropdownContentImage from '../DropdownContentImage'
+import minusSign from '../../../assets/icons/tax_cheetah_minus_icon_24px.svg'
+import {DropdownContainer, DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
+import {DropdownButtonContainer, DropdownContentText} from '../styles'
 
 
 const RemoveEntityLinkDropdown = ({setShowAddDropdown, setShowRemoveEntity, setShowEditDropdown, setShowRemoveDropdown,

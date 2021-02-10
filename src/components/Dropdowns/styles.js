@@ -35,44 +35,44 @@ export const DropdownButtonContainer = styled.div`
     }
 `
 
-export const DropdownContainer = styled.div`
-    position: relative;
-    display: inline-block;
-`
-
-export const DropdownContent = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    cursor: pointer;
-
-    :hover {
-        text-decoration: underline;
-        background-color: ${props => props.theme.grayFive};
-    }
-`
-
-export const DropdownContentContainer = styled.div`
-    display: ${props => props.show ? 'block' : 'none'};
-    border-top-right-radius: ${props => props.theme.borderRadius};
-    border-bottom-right-radius: ${props => props.theme.borderRadius};
-    border-bottom-left-radius: ${props => props.theme.borderRadius};
-    position: absolute;
-    background-color: ${props => props.theme.white};
-    width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1;
-
-    ${DropdownContent}:first-child {
-        border-top-right-radius: ${props => props.theme.borderRadius};
-    }
-
-    ${DropdownContent}:last-child {
-        border-bottom-right-radius: ${props => props.theme.borderRadius};
-        border-bottom-left-radius: ${props => props.theme.borderRadius};
-    }
-`
+// export const DropdownContainer = styled.div`
+//     position: relative;
+//     display: inline-block;
+// `
+//
+// export const DropdownContent = styled.div`
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     padding: 12px;
+//     cursor: pointer;
+//
+//     :hover {
+//         text-decoration: underline;
+//         background-color: ${props => props.theme.grayFive};
+//     }
+// `
+//
+// export const DropdownContentContainer = styled.div`
+//     display: ${props => props.show ? 'block' : 'none'};
+//     border-top-right-radius: ${props => props.theme.borderRadius};
+//     border-bottom-right-radius: ${props => props.theme.borderRadius};
+//     border-bottom-left-radius: ${props => props.theme.borderRadius};
+//     position: absolute;
+//     background-color: ${props => props.theme.white};
+//     width: 160px;
+//     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+//     z-index: 1;
+//
+//     ${DropdownContent}:first-child {
+//         border-top-right-radius: ${props => props.theme.borderRadius};
+//     }
+//
+//     ${DropdownContent}:last-child {
+//         border-bottom-right-radius: ${props => props.theme.borderRadius};
+//         border-bottom-left-radius: ${props => props.theme.borderRadius};
+//     }
+// `
 
 export const DropdownContentText = styled.span`
     font-family: ${props => props.theme.nunitoFontFamily};

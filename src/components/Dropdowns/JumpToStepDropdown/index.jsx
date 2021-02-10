@@ -2,8 +2,9 @@ import React from 'react'
 import JumpToStepImage from './JumpToStepImage'
 import jumpTo from '../../../assets/icons/tax_cheetah_jump_to_icon.svg'
 import {BEGINNING, ENDING, GROUPS, PROJECTS, STEPS} from '../../../routes/paths'
-import {DropdownContainer, DropdownContent, DropdownContentText} from '../styles'
+import {DropdownContentText} from '../styles'
 import {JumpToButtonContainer, JumpToIconContainer, JumpToStepContentContainer} from './styles'
+import {DropdownContainer, DropdownContent} from '../../../style/dropdowns'
 
 
 const JumpToStepDropdown = ({history, showGoToDropdown, stepCardClickHandler, steps, toggleGoToCloseFilterSearch}) => {

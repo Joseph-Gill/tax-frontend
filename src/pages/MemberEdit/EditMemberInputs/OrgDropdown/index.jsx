@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import bluePlusSign from '../../../../assets/icons/stark_add_org_icon.svg'
-import {DropdownContent} from '../../../../components/Dropdowns/styles'
 import {AddNewOrgText, AddOrgImageContainer, NewOrgInput, OrgDowndownText, OrgDropdownButton,
     OrgDropdownContainer, OrgDropdownContent, OrgDropdownContentContainer} from './styles'
+import {DropdownContent} from '../../../../style/dropdowns'
 
 
 const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, selectNewOrgStatus,
