@@ -1,27 +1,30 @@
 import React from 'react'
 import emailIcon from '../../../assets/icons/stark_send_email.svg'
 import deleteIcon from '../../../assets/icons/stark_delete_icon.svg'
-import {BlueDropdownText, RedDropdownText} from '../../../style/text'
-import {ActionDropDownChoice, ActionDropdownChoiceWithBorder} from '../../../style/containers'
-import {Dropdown, DropdownButton, DropdownOptions} from '../../../style/dropdowns'
+import actionImage from '../../../assets/icons/stark_action.svg'
 import {DropdownImage} from '../../../style/images'
+import {BlueDropdownText, RedDropdownText} from '../../../style/text'
+import {DropdownContainer, DropdownContentContainer} from '../../../style/dropdowns'
+import {ActionDropdownContent, ActionImageButton} from './styles'
 
 
-const ActionDropdown = ({sendEmailClickHandler, setShowConfirmation}) => {
-    return(
-        <Dropdown>
-            <DropdownButton>Action</DropdownButton>
-            <DropdownOptions>
-                <ActionDropdownChoiceWithBorder onClick={sendEmailClickHandler}>
+const ActionDropdown = ({sendEmailClickHandler, setShowActionDropdown, setShowConfirmation, showActionDropdown}) => {
+    return (
+        <DropdownContainer>
+            <ActionImageButton onClick={() => setShowActionDropdown(!showActionDropdown)}>
+                <img alt='actions' src={actionImage} />
+            </ActionImageButton>
+            <DropdownContentContainer show={showActionDropdown ? 1 : 0}>
+                <ActionDropdownContent onClick={sendEmailClickHandler}>
                     <DropdownImage alt='email' src={emailIcon} />
                     <BlueDropdownText>Send Email</BlueDropdownText>
-                </ActionDropdownChoiceWithBorder>
-                <ActionDropDownChoice onClick={() => setShowConfirmation(true)}>
+                </ActionDropdownContent>
+                <ActionDropdownContent onClick={() => setShowConfirmation(true)}>
                     <DropdownImage alt='delete' src={deleteIcon} />
                     <RedDropdownText>Remove Members</RedDropdownText>
-                </ActionDropDownChoice>
-            </DropdownOptions>
-        </Dropdown>
+                </ActionDropdownContent>
+            </DropdownContentContainer>
+        </DropdownContainer>
     )
 }
 

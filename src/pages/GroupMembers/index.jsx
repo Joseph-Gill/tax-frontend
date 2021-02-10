@@ -27,6 +27,7 @@ const GroupMembers = ({history}) => {
     const filterProjectId = useSelector(state => state.memberReducer.filterProjectId)
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [filterMemberStatus, setFilterMemberStatus] = useState(false)
+    const [showActionDropdown, setShowActionDropdown] = useState(false)
     const [activeRenderData, setActiveRenderData] = useState([])
     const [invitedRenderData, setInvitedRenderData] = useState([])
     const [showAddMember, setShowAddMember] = useState(false)
@@ -100,6 +101,7 @@ const GroupMembers = ({history}) => {
             })
             counter === 1 ? window.location = emailString.slice(0, -4) : window.location = emailString.slice(0, -6)
         }
+        setShowActionDropdown(false)
     }
 
     //Populates the project filter dropdown with all projects of a group
@@ -159,7 +161,9 @@ const GroupMembers = ({history}) => {
                                     /> : null}
                                 <ActionDropdown
                                     sendEmailClickHandler={sendEmailClickHandler}
+                                    setShowActionDropdown={setShowActionDropdown}
                                     setShowConfirmation={setShowConfirmation}
+                                    showActionDropdown={showActionDropdown}
                                 />
                                 <FilterDropdown
                                     filterMemberStraus={filterMemberStatus}
