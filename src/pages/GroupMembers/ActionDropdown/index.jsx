@@ -4,13 +4,13 @@ import deleteIcon from '../../../assets/icons/stark_delete_icon.svg'
 import actionImage from '../../../assets/icons/stark_action.svg'
 import {DropdownImage} from '../../../style/images'
 import {BlueDropdownText, RedDropdownText} from '../../../style/text'
-import {DropdownContainer, DropdownContentContainer} from '../../../style/dropdowns'
-import {ActionDropdownContent, ActionImageButton} from './styles'
+import {DropdownContentContainer} from '../../../style/dropdowns'
+import {ActionDropdownContainer, ActionDropdownContent, ActionImageButton} from './styles'
 
 
 const ActionDropdown = ({sendEmailClickHandler, setShowActionDropdown, setShowConfirmation, showActionDropdown}) => {
     return (
-        <DropdownContainer>
+        <ActionDropdownContainer>
             <ActionImageButton onClick={() => setShowActionDropdown(!showActionDropdown)}>
                 <img alt='actions' src={actionImage} />
             </ActionImageButton>
@@ -24,7 +24,7 @@ const ActionDropdown = ({sendEmailClickHandler, setShowActionDropdown, setShowCo
                     <RedDropdownText>Remove Members</RedDropdownText>
                 </ActionDropdownContent>
             </DropdownContentContainer>
-        </DropdownContainer>
+        </ActionDropdownContainer>
     )
 }
 

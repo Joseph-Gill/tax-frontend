@@ -159,18 +159,18 @@ const GroupMembers = ({history}) => {
                                         projectFilterChangeHandler={projectFilterChangeHandler}
                                         renderProjectFilterOptions={renderProjectFilterOptions}
                                     /> : null}
-                                <ActionDropdown
-                                    sendEmailClickHandler={sendEmailClickHandler}
-                                    setShowActionDropdown={setShowActionDropdown}
-                                    setShowConfirmation={setShowConfirmation}
-                                    showActionDropdown={showActionDropdown}
-                                />
                                 <FilterDropdown
                                     filterMemberStraus={filterMemberStatus}
                                     filterOption={filterOption}
                                     filterString={filterString}
                                     setFilterOption={setFilterOption}
                                     setFilterString={setFilterString}
+                                />
+                                <ActionDropdown
+                                    sendEmailClickHandler={sendEmailClickHandler}
+                                    setShowActionDropdown={setShowActionDropdown}
+                                    setShowConfirmation={setShowConfirmation}
+                                    showActionDropdown={showActionDropdown}
                                 />
                             </>)}
                     </ActionFilterDropdownContainer>

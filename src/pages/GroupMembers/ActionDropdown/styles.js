@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {DropdownContent} from '../../../style/dropdowns'
+import {DropdownContainer, DropdownContent} from '../../../style/dropdowns'
 
 
 export const ActionImageButton = styled.div`
@@ -20,4 +20,8 @@ export const ActionImageButton = styled.div`
 
 export const ActionDropdownContent = styled(DropdownContent)`
     justify-content: flex-start;
+`
+
+export const ActionDropdownContainer = styled(DropdownContainer)`
+    margin-left: 30px;
 `
