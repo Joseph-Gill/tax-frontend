@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import ActionDropdown from './ActionDropdown'
@@ -20,6 +20,7 @@ import {ActionFilterDropdownContainer, AddMemberButton, AddMemberButtonContainer
 
 const GroupMembers = ({history}) => {
     const dispatch = useDispatch()
+    let searchText = useRef('')
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
     const members = useSelector(state => state.groupReducer.group.users)
@@ -126,6 +127,23 @@ const GroupMembers = ({history}) => {
         }
     }
 
+    //Used by search bar to filter by enter keypress in search bar
+    const filterByKeypressChangeHandler = (e) => {
+        if (e.key === 'Enter') {
+            setFilterString(e.target.value)
+        }
+    }
+
+    //Used by search bar to filter by clicking search image
+    const filterByClickChangeHandler = () => {
+        setFilterString(searchText.current.value)
+    }
+
+    //Used by search bar to reset the search bar text
+    const resetFilterChangeHandler = () => {
+        setFilterString('')
+    }
+
     return (
         <AuthenticatedPageContainer>
             {showConfirmation &&
@@ -161,11 +179,13 @@ const GroupMembers = ({history}) => {
                                         renderProjectFilterOptions={renderProjectFilterOptions}
                                     /> : null}
                                 <MemberFilterSearchBar
+                                    filterByClickChangeHandler={filterByClickChangeHandler}
+                                    filterByKeypressChangeHandler={filterByKeypressChangeHandler}
                                     filterMemberStatus={filterMemberStatus}
                                     filterOption={filterOption}
-                                    filterString={filterString}
+                                    resetFilterChangeHandler={resetFilterChangeHandler}
+                                    searchText={searchText}
                                     setFilterOption={setFilterOption}
-                                    setFilterString={setFilterString}
                                     setShowFilterDropdown={setShowFilterDropdown}
                                     showFilterDropdown={showFilterDropdown}
                                 />

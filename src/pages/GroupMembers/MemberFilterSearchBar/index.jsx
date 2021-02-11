@@ -10,8 +10,9 @@ import {DropdownContainer, FilterLabelText, FilterSearchButton,
 import {MembersFilterSearchContainer} from './styles'
 
 
-const MemberFilterSearchBar = ({filterOption, filterMemberStatus, filterString, setFilterOption,
-                            setFilterString, setShowFilterDropdown, showFilterDropdown}) => {
+const MemberFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChangeHandler, filterOption,
+                                   filterMemberStatus, resetFilterChangeHandler, searchText,
+                                   setFilterOption, setShowFilterDropdown, showFilterDropdown}) => {
 
     //Used to change the filter choice and close the dropdown in same click
     const filterOptionChangeHandler = value => {
@@ -60,16 +61,16 @@ const MemberFilterSearchBar = ({filterOption, filterMemberStatus, filterString, 
                 <FilterLabelText>{setFilterLabel()}</FilterLabelText>
             </FilterSelectionContainer>
             <FilterSearchInput
-                onChange={(e) => setFilterString(e.target.value)}
+                onKeyPress={(e) => filterByKeypressChangeHandler(e)}
                 placeholder='Search members...'
+                ref={searchText}
                 type='text'
-                value={filterString}
             />
-            <FilterResetImgContainer>
+            <FilterResetImgContainer onClick={resetFilterChangeHandler}>
                 <img alt='reset filter' src={reset} />
             </FilterResetImgContainer>
             <FilterSpacer />
-            <FilterImgContainer>
+            <FilterImgContainer onClick={filterByClickChangeHandler}>
                 <img alt='search filter' src={searchImage} />
             </FilterImgContainer>
         </MembersFilterSearchContainer>
