@@ -9,16 +9,17 @@ import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
 import Loading from '../../components/Loading'
 import TaskStepFilter from './TaskStepFilter'
+import TasksGoToDropdown from '../../components/Dropdowns/TasksGoToDropdown'
 import {getProjectAction} from '../../store/project/actions'
 import {getStepsForProjectAction} from '../../store/step/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {getTasksForProjectAction, getTasksForStepOfProjectAction, resetTaskFilterStepNumber, setTaskFilterStepNumber} from '../../store/task/actions'
-import {ADD_TASK, GROUPS, PROJECTS, STEPS, TASKS} from '../../routes/paths'
+import {GROUPS, PROJECTS, TASKS} from '../../routes/paths'
 import {DropdownOption} from '../../style/options'
 import {StepFilterInputLabel} from '../../style/labels'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
-import {AddTaskButton, GoToStepsButton, StatusLegendFilterDropdownContainer, TaskListTitleButtonsContainer, TasksTableContainer, TaskStatusLegendContainer} from './styles'
+import {StatusLegendFilterDropdownContainer, TasksTableContainer, TaskStatusLegendContainer} from './styles'
 
 
 const ProjectTasks = ({history}) => {
@@ -35,6 +36,8 @@ const ProjectTasks = ({history}) => {
     const filterStepNumber = useSelector(state => state.taskReducer.filterStepNumber)
     const [filterString, setFilterString] = useState('')
     const [tasksToRender, setTasksToRender] = useState([])
+    const [showGoToDropdown, setShowGoToDropdown] = useState(false)
+    const [showFilterDropdown, setShowFilterDropdown] = useState(false)
     const [loading, setLoading] = useState(false)
     const [filterOption, setFilterOption] = useState([
         {isChecked: true, type: 'due_date'},
@@ -122,6 +125,11 @@ const ProjectTasks = ({history}) => {
         }
     }
 
+    const toggleGoToCloseFilterSearch = () => {
+        setShowGoToDropdown(!showGoToDropdown)
+        setShowFilterDropdown(false)
+    }
+
     return (
         <AuthenticatedPageContainer>
             {!projectLoaded || !tasksLoaded ? <Spinner /> : (
@@ -137,10 +145,12 @@ const ProjectTasks = ({history}) => {
                     />
                     <DisplayTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Taskslist - {project.name}</AuthenticatedPageTitle>
-                        <TaskListTitleButtonsContainer>
-                            <AddTaskButton onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_TASK}`)}>Add Task</AddTaskButton>
-                            <GoToStepsButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)}>Go to Steps</GoToStepsButton>
-                        </TaskListTitleButtonsContainer>
+                        <TasksGoToDropdown
+                            history={history}
+                            project={project}
+                            showGoToDropdown={showGoToDropdown}
+                            toggleGoToCloseFilterSearch={toggleGoToCloseFilterSearch}
+                        />
                     </DisplayTitleWithButtonContainer>
                     {!tasks.length ? <NoTasksFound history={history} /> : (
                         <>

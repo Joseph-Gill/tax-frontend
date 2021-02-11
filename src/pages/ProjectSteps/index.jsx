@@ -6,7 +6,7 @@ import StepStatusLegendEntry from './StepStatusLegendEntry'
 import StepCard from './StepCard'
 import Spinner from '../../components/Spinner'
 import StepsFilterSearchBar from './StepsFilterSearchBar'
-import JumpToStepDropdown from '../../components/Dropdowns/JumpToStepDropdown'
+
 import {getProjectAction} from '../../store/project/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {addNewStep, getStepsForProjectAction, skipToSpecifiedStep} from '../../store/step/actions'
@@ -17,6 +17,7 @@ import {CardTitleText, NoFilterResultText} from '../../style/text'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilteredTasksStepsContainer, NoFilterTextContainer} from '../../style/containers'
 import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
 import {NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styles'
+import StepsGoToDropdown from '../../components/Dropdowns/StepsGoToDropdown'
 
 
 const ProjectSteps = ({history}) => {
@@ -150,7 +151,7 @@ const ProjectSteps = ({history}) => {
                     />
                     <DisplayTitleWithButtonContainer>
                         <AuthenticatedPageTitle>{project.name} - Steps</AuthenticatedPageTitle>
-                        <JumpToStepDropdown
+                        <StepsGoToDropdown
                             history={history}
                             showGoToDropdown={showGoToDropdown}
                             stepCardClickHandler={stepCardClickHandler}

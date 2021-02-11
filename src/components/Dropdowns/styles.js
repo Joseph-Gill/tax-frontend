@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import {DropdownContent, DropdownContentContainer} from '../../style/dropdowns'
 
 
 export const DropdownContentImgContainer = styled.div`
@@ -35,49 +36,60 @@ export const DropdownButtonContainer = styled.div`
     }
 `
 
-// export const DropdownContainer = styled.div`
-//     position: relative;
-//     display: inline-block;
-// `
-//
-// export const DropdownContent = styled.div`
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     padding: 12px;
-//     cursor: pointer;
-//
-//     :hover {
-//         text-decoration: underline;
-//         background-color: ${props => props.theme.grayFive};
-//     }
-// `
-//
-// export const DropdownContentContainer = styled.div`
-//     display: ${props => props.show ? 'block' : 'none'};
-//     border-top-right-radius: ${props => props.theme.borderRadius};
-//     border-bottom-right-radius: ${props => props.theme.borderRadius};
-//     border-bottom-left-radius: ${props => props.theme.borderRadius};
-//     position: absolute;
-//     background-color: ${props => props.theme.white};
-//     width: 160px;
-//     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-//     z-index: 1;
-//
-//     ${DropdownContent}:first-child {
-//         border-top-right-radius: ${props => props.theme.borderRadius};
-//     }
-//
-//     ${DropdownContent}:last-child {
-//         border-bottom-right-radius: ${props => props.theme.borderRadius};
-//         border-bottom-left-radius: ${props => props.theme.borderRadius};
-//     }
-// `
-
 export const DropdownContentText = styled.span`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-size: 14px;
     line-height: 16px;
     font-weight: 600;
     color: ${props => props.theme.grayOne};
+`
+
+export const GoToButtonContainer = styled.div`
+    width: 110px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: ${props => props.theme.buttonBorderRadius};
+    background: ${props => props.theme.white};
+    border: 1px solid ${props => props.theme.grayFour};
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    cursor: pointer;
+
+    :hover {
+        text-decoration: underline;
+        transition: 167ms;
+    }
+
+    span {
+        color: ${props => props.theme.primaryBlue};
+        margin-left: 20px;
+    }
+`
+
+export const GoToIconContainer = styled.div`
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+
+    :hover {
+        background-color: ${props => props.theme.iconHoverBackground};
+    }
+`
+
+export const GoToContentContainer = styled(DropdownContentContainer)`
+    width: 140px;
+    max-height: 320px;
+    overflow: auto;
+    overflow-x: hidden;
+`
+
+export const GoToDropdownContent = styled(DropdownContent)`
+    height: 45px;
 `

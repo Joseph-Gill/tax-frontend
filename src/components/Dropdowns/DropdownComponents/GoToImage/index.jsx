@@ -3,7 +3,7 @@ import jumpToGray from '../../../../assets/icons/tax_cheetah_jump_to_gray_icon.s
 import {DropdownContentImgContainer} from '../../styles'
 
 
-const JumpToStepImage = () => {
+const GoToImage = () => {
     return (
         <DropdownContentImgContainer>
             <img alt='redirect' src={jumpToGray} />
@@ -11,4 +11,4 @@ const JumpToStepImage = () => {
     )
 }
 
-export default JumpToStepImage
+export default GoToImage

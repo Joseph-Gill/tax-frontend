@@ -1,17 +1,6 @@
 import styled from 'styled-components/macro'
-import {BaseButton} from '../../style/buttons'
 import {StatusLegendContainer} from '../../style/containers'
 
-
-export const AddTaskButton = styled(BaseButton)`
-    width: 109px;
-    height: 32px;
-`
-
-export const GoToStepsButton = styled(BaseButton)`
-    width: 120px;
-    height: 32px;
-`
 
 export const TaskListTitleButtonsContainer = styled.div`
     display: flex;
@@ -29,7 +18,7 @@ export const StatusLegendFilterDropdownContainer = styled.div`
 `
 
 export const TaskStatusLegendContainer = styled(StatusLegendContainer)`
-    width: 405px;
+    width: 355px;
 `
 
 export const TasksTableContainer = styled.div`
