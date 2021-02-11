@@ -12,7 +12,8 @@ import {MembersFilterSearchContainer} from './styles'
 
 const MemberFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChangeHandler, filterOption,
                                    filterMemberStatus, resetFilterChangeHandler, searchText,
-                                   setFilterOption, setShowFilterDropdown, showFilterDropdown}) => {
+                                   setFilterOption, setShowFilterDropdown, showFilterDropdown,
+                                   toggleFilterSearchCloseAction}) => {
 
     //Used to change the filter choice and close the dropdown in same click
     const filterOptionChangeHandler = value => {
@@ -47,7 +48,7 @@ const MemberFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChan
     return (
         <MembersFilterSearchContainer>
             <DropdownContainer>
-                <FilterSearchButton onClick={() => setShowFilterDropdown(!showFilterDropdown)}>
+                <FilterSearchButton onClick={toggleFilterSearchCloseAction}>
                     <FilterSearchText>Filter</FilterSearchText>
                 </FilterSearchButton>
                 <MemberFilterSearchChoices

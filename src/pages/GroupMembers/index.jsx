@@ -144,6 +144,16 @@ const GroupMembers = ({history}) => {
         setFilterString('')
     }
 
+    const toggleActionCloseFilterSearch = () => {
+        setShowActionDropdown(!showActionDropdown)
+        setShowFilterDropdown(false)
+    }
+
+    const toggleFilterSearchCloseAction = () => {
+        setShowFilterDropdown(!showFilterDropdown)
+        setShowActionDropdown(false)
+    }
+
     return (
         <AuthenticatedPageContainer>
             {showConfirmation &&
@@ -188,12 +198,13 @@ const GroupMembers = ({history}) => {
                                     setFilterOption={setFilterOption}
                                     setShowFilterDropdown={setShowFilterDropdown}
                                     showFilterDropdown={showFilterDropdown}
+                                    toggleFilterSearchCloseAction={toggleFilterSearchCloseAction}
                                 />
                                 <ActionDropdown
                                     sendEmailClickHandler={sendEmailClickHandler}
-                                    setShowActionDropdown={setShowActionDropdown}
                                     setShowConfirmation={setShowConfirmation}
                                     showActionDropdown={showActionDropdown}
+                                    toggleActionCloseFilterSearch={toggleActionCloseFilterSearch}
                                 />
                             </>)}
                     </ActionFilterDropdownContainer>

@@ -8,10 +8,10 @@ import {DropdownContentContainer} from '../../../style/dropdowns'
 import {ActionDropdownContainer, ActionDropdownContent, ActionImageButton} from './styles'
 
 
-const ActionDropdown = ({sendEmailClickHandler, setShowActionDropdown, setShowConfirmation, showActionDropdown}) => {
+const ActionDropdown = ({sendEmailClickHandler, setShowConfirmation, showActionDropdown, toggleActionCloseFilterSearch}) => {
     return (
         <ActionDropdownContainer>
-            <ActionImageButton onClick={() => setShowActionDropdown(!showActionDropdown)}>
+            <ActionImageButton onClick={toggleActionCloseFilterSearch}>
                 <img alt='actions' src={actionImage} />
             </ActionImageButton>
             <DropdownContentContainer show={showActionDropdown ? 1 : 0}>
