@@ -4,10 +4,10 @@ import BreadCrumb from '../../components/BreadCrumb'
 import ActionDropdown from './ActionDropdown'
 import MembersTable from './MembersTable'
 import StatusToggle from './StatusToggle'
-import Spinner from '../../components/Spinner'
 import ProjectFilterDropdown from './ProjectFilterDropdown'
 import RemoveMemberModal from '../../components/Modals/RemoveMemberModal'
 import AddMemberModal from '../../components/Modals/AddMemberModal'
+import LogoLoading from '../../components/LogoLoading'
 import Loading from '../../components/Loading'
 import MemberFilterSearchBar from './MemberFilterSearchBar'
 import {getAccessUsersForProjectAction, resetMember, resetMemberFilterProjectId, setMemberFilterProjectId} from '../../store/member/actions'
@@ -168,7 +168,7 @@ const GroupMembers = ({history}) => {
                     setShowConfirmation={setShowConfirmation}
                 />}
             {showAddMember && <AddMemberModal groupId={group.id} setShowAddMember={setShowAddMember} />}
-            {!loaded ? <Spinner /> : (
+            {!loaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: false},

@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import Spinner from '../../components/Spinner'
+import LogoLoading from '../../components/LogoLoading'
 import BreadCrumb from '../../components/BreadCrumb'
 import SuccessMessage from '../../components/SuccessMessage'
 import ProjectAddStatusDropdown from './ProjectAddStatusDropdown'
@@ -62,7 +62,7 @@ const ProjectAdd = ({history}) => {
                 message="Your project has been successfully created!"
                 redirect={`${GROUPS}${PROJECTS}`}
             />}
-            {!loaded ? <Spinner /> : (
+            {!loaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: false},

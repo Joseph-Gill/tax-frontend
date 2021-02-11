@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import TaskLowerInputs from './TaskLowerInputs'
 import {useDropzone} from 'react-dropzone'
-import Spinner from '../../components/Spinner'
+import LogoLoading from '../../components/LogoLoading'
 import SuccessMessage from '../../components/SuccessMessage'
 import TaskDates from '../../components/TaskDates'
 import TaskAddDescription from './TaskAddDescription'
@@ -95,7 +95,7 @@ const TaskAdd = ({history}) => {
                 message="Your new task has been successfully created!"
                 redirect={`${GROUPS}${PROJECTS}${TASKS}/${project.id}`}
                             />}
-            {!loaded ? <Spinner /> : (
+            {!loaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

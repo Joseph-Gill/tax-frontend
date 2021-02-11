@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import BreadCrumb from '../../components/BreadCrumb'
 import HomeGroup from './HomeGroup'
-import Spinner from '../../components/Spinner'
+import LogoLoading from '../../components/LogoLoading'
 import NoContent from '../../components/NoContent'
 import HomeFilterSearchBar from './HomeFilterSearchBar'
 import NoFilterResults from '../../components/NoFilterResults'
@@ -19,7 +19,6 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {ProjectAccessContainer} from './styles'
-import LogoLoading from '../../components/LogoLoading'
 
 
 const Home = ({history}) => {

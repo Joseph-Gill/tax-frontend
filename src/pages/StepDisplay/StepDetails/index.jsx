@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
-import Spinner from '../../../components/Spinner'
 import TaxConsequenceCard from './TaxConsequnceCard'
+import LogoLoading from '../../../components/LogoLoading'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {decrementStepToView, removeNewStep} from '../../../store/step/actions'
 import {addNewTaxConsequence, getAllTaxConsequencesForStepAction} from '../../../store/taxConsequence/actions'
 import pencil from '../../../assets/icons/stark_edit_pencil_icon.svg'
 import addConsequence from '../../../assets/icons/stark_add_country_consequence_icon.svg'
@@ -14,7 +15,6 @@ import {ErrorMessage} from '../../../style/messages'
 import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer,
     StepDescriptionTitleContainer, StepDetailErrorContainer, StepDetailsContainer, StepInfoCancelButton, StepInfoDescriptionContainer, StepInfoSaveButton,
     StepInfoSaveImage, StepInfoTextArea, TaxConsequencesContainer} from './styles'
-import {decrementStepToView, removeNewStep} from '../../../store/step/actions'
 
 
 
@@ -101,7 +101,7 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                         </DisplayStepImageButtonContainer>
                     </StepDescriptionTaxTitleContainer>
                     <TaxConsequencesContainer>
-                        {!loaded ? <Spinner /> : renderTaxConsequences}
+                        {!loaded ? <LogoLoading /> : renderTaxConsequences}
                     </TaxConsequencesContainer>
                 </>) : (
                     <NewStepNoTaxConsequencesContainer>

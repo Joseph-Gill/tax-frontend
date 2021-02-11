@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import Spinner from '../../components/Spinner'
 import BreadCrumb from '../../components/BreadCrumb'
 import CompleteProjectTooltip from './CompleteProjectTooltip'
 import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
+import CompleteProjectModal from '../../components/Modals/CompleteProjectModal'
+import LogoLoading from '../../components/LogoLoading'
 import {getChartForStepAction} from '../../store/chart/actions'
 import {ENDING, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, NoChartToDisplay, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {CompleteProjectButton, EndingStructurePlaceholder} from './styles'
-import CompleteProjectModal from '../../components/Modals/CompleteProjectModal'
 
 
 const StepEnding = ({history}) => {
@@ -79,7 +79,7 @@ const StepEnding = ({history}) => {
                     completeProjectHandler={completeProjectHandler}
                     setShowCompleteProject={setShowCompleteProject}
                 />}
-            {!projectLoaded || !stepsLoaded || loading ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded || loading ? <LogoLoading /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

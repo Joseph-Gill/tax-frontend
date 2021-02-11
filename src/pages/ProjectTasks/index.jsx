@@ -2,12 +2,12 @@ import React, {useState, useEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import BreadCrumb from '../../components/BreadCrumb'
-import Spinner from '../../components/Spinner'
 import TaskStatusLegendEntry from './TaskStatusLegendEntry'
 import TasksFilterSearchBar from './TasksFilterSearchBar'
 import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
 import Loading from '../../components/Loading'
+import LogoLoading from '../../components/LogoLoading'
 import TaskStepFilter from './TaskStepFilter'
 import TasksGoToDropdown from '../../components/Dropdowns/TasksGoToDropdown'
 import {getProjectAction} from '../../store/project/actions'
@@ -158,7 +158,7 @@ const ProjectTasks = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !tasksLoaded ? <Spinner /> : (
+            {!projectLoaded || !tasksLoaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

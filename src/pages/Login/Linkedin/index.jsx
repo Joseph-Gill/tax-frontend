@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import Cookie from 'js-cookie'
-import Spinner from '../../../components/Spinner'
+import LogoLoading from '../../../components/LogoLoading'
 import SocialLoginButton from '../../../components/SocialLoginButton'
 import {userSocialLoginAction} from '../../../store/user/actions/authentication/userLoginAction'
 import {HOME} from '../../../routes/paths'
@@ -57,7 +57,7 @@ const LinkedinLogin = () => {
 
     return (
         <>
-            { isLoading && <Spinner loading={isLoading} /> }
+            { isLoading && <LogoLoading loading={isLoading} /> }
             <SocialLoginButton alt='LinkedIn Logo' icon={LinkedInLogo} onClick={linkedinLoginHandler} text='LinkedIn Login' />
         </>
     )

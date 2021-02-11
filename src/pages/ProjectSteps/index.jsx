@@ -4,9 +4,10 @@ import {useRouteMatch} from 'react-router-dom'
 import BreadCrumb from '../../components/BreadCrumb'
 import StepStatusLegendEntry from './StepStatusLegendEntry'
 import StepCard from './StepCard'
-import Spinner from '../../components/Spinner'
 import StepsFilterSearchBar from './StepsFilterSearchBar'
 import {getProjectAction} from '../../store/project/actions'
+import StepsGoToDropdown from '../../components/Dropdowns/StepsGoToDropdown'
+import LogoLoading from '../../components/LogoLoading'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {addNewStep, getStepsForProjectAction, skipToSpecifiedStep} from '../../store/step/actions'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
@@ -16,7 +17,6 @@ import {CardTitleText, NoFilterResultText} from '../../style/text'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilteredTasksStepsContainer, NoFilterTextContainer} from '../../style/containers'
 import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
 import {NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styles'
-import StepsGoToDropdown from '../../components/Dropdowns/StepsGoToDropdown'
 
 
 const ProjectSteps = ({history}) => {
@@ -137,7 +137,7 @@ const ProjectSteps = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !stepsLoaded || !groupLoaded ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded || !groupLoaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

@@ -72,6 +72,15 @@ const Loader = styled.div`
             transform: translateX(120px);
         }
     }
+
+    @-webkit-keyframes loading {
+        0%, 100% {
+            transform: translateX(-33px);
+        }
+        50% {
+            transform: translateX(120px);
+        }
+    }
 `
 
 const LogoLoading = () => {

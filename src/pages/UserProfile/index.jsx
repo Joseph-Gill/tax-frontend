@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import SuccessMessage from '../../components/SuccessMessage'
-import Spinner from '../../components/Spinner'
 import DeleteAccountModal from '../../components/Modals/DeleteAccountModal'
 import UserProfileTextInput from './UserProfileTextInput'
 import UserProfilePhone from './UserProfilePhone'
 import UserProfileCountry from './UserProfileCountry'
+import LogoLoading from '../../components/LogoLoading'
 import {resetGroup} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
@@ -90,7 +90,7 @@ const UserProfile = ({history}) => {
                 message="Your profile has been successfully updated!"
                 redirect={HOME}
                             />}
-            {!loaded ? <Spinner /> : (
+            {!loaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'USER ACCOUNT', to: USERPROFILE, active: false}]}

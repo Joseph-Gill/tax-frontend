@@ -4,12 +4,12 @@ import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import StepChart from './StepChart'
 import StepDetails from './StepDetails'
-import Spinner from '../../components/Spinner'
 import Loading from '../../components/Loading'
 import StepDisplayTitle from './StepDisplayTitle'
 import DeleteStepModal from '../../components/Modals/DeleteStepModal'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 import StepDisplayToggleButtonsStatus from './StepDisplayToggleButtonsStatus'
+import LogoLoading from '../../components/LogoLoading'
 import {setTaskFilterStepNumber} from '../../store/task/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, removeNewStep,
@@ -228,9 +228,9 @@ const StepDisplay = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!stepsLoaded || !projectLoaded ? <Spinner /> : (
+            {!stepsLoaded || !projectLoaded ? <LogoLoading /> : (
                 <>
-                    {loading ? <Spinner /> : null}
+                    {loading ? <LogoLoading /> : null}
                     {showConfirmation ?
                         <DeleteStepModal
                             deleteStepHandler={deleteStepHandler}

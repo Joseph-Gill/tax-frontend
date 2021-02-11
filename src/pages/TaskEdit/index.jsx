@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import {useDropzone} from 'react-dropzone'
-import Spinner from '../../components/Spinner'
 import BreadCrumb from '../../components/BreadCrumb'
 import EditInputTitleStatus from './EditInputTitleStatus'
 import TaskDates from '../../components/TaskDates'
@@ -10,6 +9,7 @@ import SuccessMessage from '../../components/SuccessMessage'
 import TaskEditDescription from './TaskEditDescription'
 import TaskEditLowerInputs from './TaskEditLowerInputs'
 import TaskEditStep from './TaskEditStep'
+import LogoLoading from '../../components/LogoLoading'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {getTasksForProjectAction, updateTaskAction} from '../../store/task/actions'
 import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
@@ -107,7 +107,7 @@ const TaskEdit = ({history}) => {
                 message="Your task has been successfully updated!"
                 redirect={`${GROUPS}${PROJECTS}${TASKS}/${project.id}`}
                             />}
-            {!loaded ? <Spinner /> : (
+            {!loaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react'
 import {useRouteMatch} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
-import Spinner from '../../components/Spinner'
 import DisplayCard from './DisplayCard'
+import LogoLoading from '../../components/LogoLoading'
 import {getGroupAction} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
 import {resetMemberFilterProjectId} from '../../store/member/actions'
@@ -58,7 +58,7 @@ const GroupDisplay = ({history}) => {
     //prop "type" is used in styling the cards
     return (
         <AuthenticatedPageContainer>
-            {!loaded || loading ? <Spinner /> :
+            {!loaded || loading ? <LogoLoading /> :
             <>
                 <BreadCrumb
                     breadCrumbArray={[

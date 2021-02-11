@@ -1,7 +1,7 @@
 import React, {useRef, useState, useEffect, useMemo} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
-import Spinner from '../../components/Spinner'
+import LogoLoading from '../../components/LogoLoading'
 import BreadCrumb from '../../components/BreadCrumb'
 import GroupInfo from '../../components/GroupInfo'
 import SuccessMessage from '../../components/SuccessMessage'
@@ -258,7 +258,7 @@ const GroupEdit = ({history}) => {
                     message="Your group has been successfully created!"
                     redirect={GROUPS}
                 />}
-            {!loaded ? <Spinner /> : (
+            {!loaded ? <LogoLoading /> : (
                 <>
                     {showSuccess &&
                     <SuccessMessage

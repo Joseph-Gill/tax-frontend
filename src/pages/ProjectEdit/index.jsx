@@ -1,8 +1,9 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
-import Spinner from '../../components/Spinner'
 import ProjectStatusDropdown from './ProjectStatusDropdown'
+import SuccessMessage from '../../components/SuccessMessage'
+import LogoLoading from '../../components/LogoLoading'
 import {updateProjectAction} from '../../store/project/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {EDIT_PROJECT, GROUPS, HOME, PROJECTS} from '../../routes/paths'
@@ -14,7 +15,6 @@ import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/t
 import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer,
     ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
 import {ProjectEditErrorContainer} from './styles'
-import SuccessMessage from '../../components/SuccessMessage'
 
 
 const ProjectEdit = ({history}) => {
@@ -55,7 +55,7 @@ const ProjectEdit = ({history}) => {
                 message="Your project has been successfully edited!"
                 redirect={`${GROUPS}${PROJECTS}/${project.id}`}
             />}
-            {!loaded ? <Spinner /> : (
+            {!loaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: false},

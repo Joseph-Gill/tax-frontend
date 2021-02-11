@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
-import Spinner from '../../components/Spinner'
+import LogoLoading from '../../components/LogoLoading'
 import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 import {addNewStep} from '../../store/step/actions'
@@ -57,7 +57,7 @@ const StepBeginning = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!projectLoaded || !stepsLoaded || !groupLoaded || loading ? <Spinner /> : (
+            {!projectLoaded || !stepsLoaded || !groupLoaded || loading ? <LogoLoading /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[

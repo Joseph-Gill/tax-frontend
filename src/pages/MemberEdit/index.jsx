@@ -2,10 +2,10 @@ import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import BreadCrumb from '../../components/BreadCrumb'
-import Spinner from '../../components/Spinner'
 import EditMemberInputs from './EditMemberInputs'
 import SuccessMessage from '../../components/SuccessMessage'
 import RemoveMemberModal from '../../components/Modals/RemoveMemberModal'
+import LogoLoading from '../../components/LogoLoading'
 import {getMemberAction} from '../../store/member/actions'
 import {getGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
@@ -154,7 +154,7 @@ const MemberEdit = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!memberLoaded ? <Spinner /> : (
+            {!memberLoaded ? <LogoLoading /> : (
                 <>
                     {showSuccess &&
                         <SuccessMessage

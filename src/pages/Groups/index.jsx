@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
-import Spinner from '../../components/Spinner'
 import CreateGroupCard from './CreateGroupCard'
 import GroupCard from './GroupCard'
 import NoContent from '../../components/NoContent'
+import LogoLoading from '../../components/LogoLoading'
 import {resetGroup} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
@@ -35,7 +35,7 @@ const Groups = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {!loaded ? <Spinner /> : (
+            {!loaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: true}]}

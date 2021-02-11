@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {useSpring} from 'react-spring'
 import ModalGroupCard from './ModalGroupCard'
 import Draggable from 'react-draggable'
-import Spinner from '../../Spinner'
+import LogoLoading from '../../LogoLoading'
 import ModalClose from '../ModalComponents/ModalClose'
 import {getProfileAction} from '../../../store/profile/actions'
 import {AuthenticatedPageTitle} from '../../../style/titles'
@@ -53,7 +53,7 @@ const ChooseGroupModal = ({history, setShowChooseGroup}) => {
         // eslint-disable-next-line react/forbid-component-props
         <AddDeleteModalExternalContainer style={props}>
             {!loaded ?
-                <Spinner /> :
+                <LogoLoading /> :
                 <Draggable>
                     <ChooseGroupModalInternalContainer>
                         <ModalClose modalDisplay={setShowChooseGroup} />

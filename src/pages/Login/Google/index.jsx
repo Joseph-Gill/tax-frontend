@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom'
 import SocialLoginButton from '../../../components/SocialLoginButton'
-import Spinner from '../../../components/Spinner'
+import LogoLoading from '../../../components/LogoLoading'
 import {userSocialLoginAction} from '../../../store/user/actions/authentication/userLoginAction'
 import {HOME} from '../../../routes/paths'
 import GoogleIcon from '../../../assets/icons/google-icon.svg'
@@ -48,7 +48,7 @@ const GoogleLogin = () => {
 
     return (
         <>
-            { isLoading && <Spinner loading={isLoading} /> }
+            { isLoading && <LogoLoading loading={isLoading} /> }
             <SocialLoginButton alt='Google Logo' icon={GoogleIcon} onClick={googleLoginHandler} text='Google Login' />
         </>
     )
