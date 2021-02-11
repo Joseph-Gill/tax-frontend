@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {DropdownContentContainer} from '../../../style/dropdowns'
+import {DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
 
 
 export const JumpToButtonContainer = styled.div`
@@ -46,4 +46,8 @@ export const JumpToStepContentContainer = styled(DropdownContentContainer)`
     max-height: 320px;
     overflow: auto;
     overflow-x: hidden;
+`
+
+export const JumpToDropdownContent = styled(DropdownContent)`
+    height: 45px;
 `

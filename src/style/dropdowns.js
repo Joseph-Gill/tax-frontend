@@ -162,6 +162,7 @@ export const DropdownContainer = styled.div`
 `
 
 export const DropdownContent = styled.div`
+    height: 38px;
     display: flex;
     justify-content: space-between;
     align-items: center;
