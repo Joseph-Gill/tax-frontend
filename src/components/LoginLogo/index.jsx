@@ -1,13 +1,7 @@
 import React from 'react'
-import styled from 'styled-components/macro'
-import taxCheetahLogo from '../../assets/logos/tax_cheetah_logo.jpg'
+import taxCheetahLogo from '../../assets/logos/tax_cheetah_logo_large.png'
 import {LoginLogoContainer} from '../../style/containers'
-
-
-const LoginLogoImg = styled.img`
-    width: 150px;
-    height: 50px;
-`
+import {LoginLogoImg} from './styles'
 
 
 const LoginLogo = () => {

@@ -11,6 +11,7 @@ export const LogoContainer = styled(Link)`
 `
 
 export const LogoImg = styled.img`
-    width: 240px;
-    height: 80px;
+    width: 200px;
+    height: 71px;
+    margin-top: 16px;
 `
