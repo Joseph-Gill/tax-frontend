@@ -142,6 +142,7 @@ const GroupMembers = ({history}) => {
     //Used by search bar to reset the search bar text
     const resetFilterChangeHandler = () => {
         setFilterString('')
+        searchText.current.value = ''
     }
 
     //Used by Action dropdown, toggles it open/close, closing the Filter dropdown

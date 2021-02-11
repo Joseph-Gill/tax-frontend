@@ -30,3 +30,9 @@ export const TasksTableContainer = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
 `
+
+export const TaskStepFilterGoToContainer = styled.div`
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+`

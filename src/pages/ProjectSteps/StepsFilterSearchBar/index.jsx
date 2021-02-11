@@ -4,9 +4,9 @@ import searchImage from '../../../assets/icons/stark_search_bar_icon.svg'
 import StepsFilterSearchChoices from './StepsFilterSearchChoices'
 import {allowOnlyOneCheckedBoxContainer} from '../../../helpers'
 import {FilterSpacer} from '../../../style/spans'
-import {FilterLabelText, FilterSearchButton, FilterSearchInput, FilterSearchText, FilterSelectionContainer} from '../../../style/dropdowns'
+import {FilterDropdownContainer, FilterLabelText, FilterSearchButton, FilterSearchInput, FilterSearchText, FilterSelectionContainer} from '../../../style/dropdowns'
 import {FilterImgContainer, FilterResetImgContainer} from '../../../style/containers'
-import {FilterDropdownContainer, StepsFilterSearchContainer} from './styles'
+import {StepsFilterSearchContainer} from './styles'
 
 
 const StepsFilterSearchBar = ({filterByKeypressChangeHandler, filterByClickChangeHandler, filterOption,

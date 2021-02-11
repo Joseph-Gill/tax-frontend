@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import BreadCrumb from '../../components/BreadCrumb'
-import TaskFilterDropdown from './TasksFilterDropdown'
 import Spinner from '../../components/Spinner'
 import TaskStatusLegendEntry from './TaskStatusLegendEntry'
+import TasksFilterSearchBar from './TasksFilterSearchBar'
 import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
 import Loading from '../../components/Loading'
@@ -19,11 +19,12 @@ import {DropdownOption} from '../../style/options'
 import {StepFilterInputLabel} from '../../style/labels'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
-import {StatusLegendFilterDropdownContainer, TasksTableContainer, TaskStatusLegendContainer} from './styles'
+import {StatusLegendFilterDropdownContainer, TasksTableContainer, TaskStatusLegendContainer, TaskStepFilterGoToContainer} from './styles'
 
 
 const ProjectTasks = ({history}) => {
     const dispatch = useDispatch()
+    let searchText = useRef('')
     const match = useRouteMatch()
     const group = useSelector(state => state.groupReducer.group)
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
@@ -125,9 +126,34 @@ const ProjectTasks = ({history}) => {
         }
     }
 
+    //Used by search bar to filter by enter keypress in search bar
+    const filterByKeypressChangeHandler = (e) => {
+        if (e.key === 'Enter') {
+            setFilterString(e.target.value)
+        }
+    }
+
+    //Used by search bar to filter by clicking search image
+    const filterByClickChangeHandler = () => {
+        setFilterString(searchText.current.value)
+    }
+
+    //Used by search bar to reset the search bar text
+    const resetFilterChangeHandler = () => {
+        setFilterString('')
+        searchText.current.value = ''
+    }
+
+    //Used by Go To... dropdown, toggles it open/close, closing the Filter dropdown
     const toggleGoToCloseFilterSearch = () => {
         setShowGoToDropdown(!showGoToDropdown)
         setShowFilterDropdown(false)
+    }
+
+    //Used by Filter dropdown, toggles it open/close, closing the Go To... dropdown
+    const toggleFilterSearchCloseGoTo = () => {
+        setShowFilterDropdown(!showFilterDropdown)
+        setShowGoToDropdown(false)
     }
 
     return (
@@ -145,12 +171,23 @@ const ProjectTasks = ({history}) => {
                     />
                     <DisplayTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Taskslist - {project.name}</AuthenticatedPageTitle>
-                        <TasksGoToDropdown
-                            history={history}
-                            project={project}
-                            showGoToDropdown={showGoToDropdown}
-                            toggleGoToCloseFilterSearch={toggleGoToCloseFilterSearch}
-                        />
+                        <TaskStepFilterGoToContainer>
+                            {tasks.length &&
+                                <div>
+                                    <StepFilterInputLabel>Steps Filter</StepFilterInputLabel>
+                                    <TaskStepFilter
+                                        filterStepNumber={filterStepNumber}
+                                        renderTaskStepFilterOptions={renderTaskStepFilterOptions}
+                                        taskStepFilterChangeHandler={taskStepFilterChangeHandler}
+                                    />
+                                </div>}
+                            <TasksGoToDropdown
+                                history={history}
+                                project={project}
+                                showGoToDropdown={showGoToDropdown}
+                                toggleGoToCloseFilterSearch={toggleGoToCloseFilterSearch}
+                            />
+                        </TaskStepFilterGoToContainer>
                     </DisplayTitleWithButtonContainer>
                     {!tasks.length ? <NoTasksFound history={history} /> : (
                         <>
@@ -160,20 +197,17 @@ const ProjectTasks = ({history}) => {
                                     <TaskStatusLegendEntry status='Completed' />
                                     <TaskStatusLegendEntry status='Not Started' />
                                 </TaskStatusLegendContainer>
-                                <div>
-                                    <StepFilterInputLabel>Steps Filter</StepFilterInputLabel>
-                                    <TaskStepFilter
-                                        filterStepNumber={filterStepNumber}
-                                        renderTaskStepFilterOptions={renderTaskStepFilterOptions}
-                                        taskStepFilterChangeHandler={taskStepFilterChangeHandler}
-                                    />
-                                    <TaskFilterDropdown
-                                        filterOption={filterOption}
-                                        filterString={filterString}
-                                        setFilterOption={setFilterOption}
-                                        setFilterString={setFilterString}
-                                    />
-                                </div>
+                                <TasksFilterSearchBar
+                                    filterByClickChangeHandler={filterByClickChangeHandler}
+                                    filterByKeypressChangeHandler={filterByKeypressChangeHandler}
+                                    filterOption={filterOption}
+                                    resetFilterChangeHandler={resetFilterChangeHandler}
+                                    searchText={searchText}
+                                    setFilterOption={setFilterOption}
+                                    setShowFilterDropdown={setShowFilterDropdown}
+                                    showFilterDropdown={showFilterDropdown}
+                                    toggleFilterSearchCloseGoTo={toggleFilterSearchCloseGoTo}
+                                />
                             </StatusLegendFilterDropdownContainer>
                             {loading ? <Loading /> : (
                                 <TasksTableContainer>

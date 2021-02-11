@@ -6,7 +6,6 @@ import StepStatusLegendEntry from './StepStatusLegendEntry'
 import StepCard from './StepCard'
 import Spinner from '../../components/Spinner'
 import StepsFilterSearchBar from './StepsFilterSearchBar'
-
 import {getProjectAction} from '../../store/project/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {addNewStep, getStepsForProjectAction, skipToSpecifiedStep} from '../../store/step/actions'

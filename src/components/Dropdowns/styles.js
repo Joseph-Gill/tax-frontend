@@ -46,7 +46,7 @@ export const DropdownContentText = styled.span`
 
 export const GoToButtonContainer = styled.div`
     width: 110px;
-    height: 32px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -1,8 +1,7 @@
 import React from 'react'
 import {FilterCustomCheckbox} from '../../../../style/labels'
 import {DefaultDropdownText} from '../../../../style/text'
-import {FilterDropdownContentContainer} from '../styles'
-import {DropdownContent} from '../../../../style/dropdowns'
+import {DropdownContent, FilterDropdownContentContainer} from '../../../../style/dropdowns'
 
 
 const StepsFilterSearchChoices = ({filterOption, filterOptionChangeHandler, showFilterDropdown}) => {

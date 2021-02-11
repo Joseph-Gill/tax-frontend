@@ -250,3 +250,12 @@ export const FilterSearchInput = styled(BaseInput)`
         border: none;
     }
 `
+
+export const FilterDropdownContainer = styled.div`
+    position: relative;
+    display: inline-block;
+`
+
+export const FilterDropdownContentContainer = styled(DropdownContentContainer)`
+    width: 180px;
+`
