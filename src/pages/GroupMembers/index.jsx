@@ -144,11 +144,13 @@ const GroupMembers = ({history}) => {
         setFilterString('')
     }
 
+    //Used by Action dropdown, toggles it open/close, closing the Filter dropdown
     const toggleActionCloseFilterSearch = () => {
         setShowActionDropdown(!showActionDropdown)
         setShowFilterDropdown(false)
     }
 
+    //Used by Filter dropdown, toggles it open/close, closing the Action dropdown
     const toggleFilterSearchCloseAction = () => {
         setShowFilterDropdown(!showFilterDropdown)
         setShowActionDropdown(false)
