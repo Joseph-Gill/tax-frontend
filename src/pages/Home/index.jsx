@@ -19,6 +19,7 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {ProjectAccessContainer} from './styles'
+import LogoLoading from '../../components/LogoLoading'
 
 
 const Home = ({history}) => {
@@ -136,7 +137,7 @@ const Home = ({history}) => {
 
     return (
         <AuthenticatedPageContainer>
-            {homeLoading || !profileLoaded ? <Spinner /> : (
+            {homeLoading || !profileLoaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'HOME', to: HOME, active: true}]}
