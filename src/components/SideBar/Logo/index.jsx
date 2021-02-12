@@ -1,5 +1,5 @@
 import React from 'react'
-import taxCheetahLogo from '../../../assets/logos/tax_cheetah_logo_large.png'
+import taxCheetahLogo from '../../../assets/logos/tax_cheetah_logo_new_v1.png'
 import {useSelector} from 'react-redux'
 import {HOME, LOGIN} from '../../../routes/paths'
 import {LogoContainer, LogoImg} from './styles'
