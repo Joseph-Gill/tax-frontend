@@ -5,6 +5,7 @@ import ProjectStatusDropdown from './ProjectStatusDropdown'
 import SuccessMessage from '../../components/SuccessMessage'
 import LogoLoading from '../../components/LogoLoading'
 import {updateProjectAction} from '../../store/project/actions'
+import {getStepsForProjectAction} from '../../store/step/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {EDIT_PROJECT, GROUPS, HOME, PROJECTS} from '../../routes/paths'
 import {ErrorMessage} from '../../style/messages'
@@ -22,18 +23,25 @@ const ProjectEdit = ({history}) => {
     let status = useRef('')
     const error = useSelector(state => state.errorReducer.error)
     const group = useSelector(state => state.groupReducer.group)
-    const loaded = useSelector(state => state.groupReducer.loaded)
+    const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
+    const steps = useSelector(state => state.stepReducer.steps)
+    const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const [projectName, setProjectName] = useState(project.name)
     const [projectDescription, setProjectDescription] = useState(project.description)
     const [showSuccess, setShowSuccess] = useState(false)
 
     useEffect(() => {
-        //Pushes to Home if group is not loaded due to page refresh
-        if (!loaded) {
-            history.push(`${HOME}`)
+        const getStepsForProject = async () => {
+            return await dispatch(getStepsForProjectAction(project.id))
         }
-    }, [history, loaded])
+        //Pushes to Home if group is not loaded due to page refresh
+        if (!groupLoaded) {
+            history.push(`${HOME}`)
+        } else {
+            getStepsForProject()
+        }
+    }, [history, groupLoaded, dispatch, project.id])
 
     const saveProjectEditHandler = async () => {
         dispatch(resetErrors())
@@ -55,7 +63,7 @@ const ProjectEdit = ({history}) => {
                 message="Your project has been successfully edited!"
                 redirect={`${GROUPS}${PROJECTS}/${project.id}`}
             />}
-            {!loaded ? <LogoLoading /> : (
+            {!groupLoaded || !stepsLoaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: false},
@@ -80,13 +88,11 @@ const ProjectEdit = ({history}) => {
                                 {error && <ErrorMessage>{error.name}</ErrorMessage>}
                             </ProjectEditErrorContainer>
                         </ProjectInputContainer>
-                        <ProjectInputContainer>
-                            <AddEditProjectSectionTitles>Project Status</AddEditProjectSectionTitles>
-                            <ProjectStatusDropdown
-                                project={project}
-                                status={status}
-                            />
-                        </ProjectInputContainer>
+                        <ProjectStatusDropdown
+                            project={project}
+                            status={status}
+                            steps={steps}
+                        />
                     </AddEditProjectNameStatusContainer>
                     <AddEditProjectDescriptionContainer>
                         <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>
