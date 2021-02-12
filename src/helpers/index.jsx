@@ -283,7 +283,7 @@ export const editLinkDifferentType = (linkData, originalArray, setOriginalArray,
 }
 
 //Used by components that can set Project status as Complete, to check if it is an available option
-export const checkIfProjectCanBeCompleted = array => {
-    const completed = array.filter(step => step.status !== 'Completed')
+export const checkIfArrayContainsStatus = (array, status) => {
+    const completed = array.filter(index => index.status !== status)
     return completed.length;
 }

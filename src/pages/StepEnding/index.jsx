@@ -8,7 +8,7 @@ import CompleteProjectModal from '../../components/Modals/CompleteProjectModal'
 import CompleteProjectTooltip from '../../components/CompleteProjectTooltip'
 import LogoLoading from '../../components/LogoLoading'
 import {getChartForStepAction} from '../../store/chart/actions'
-import {checkIfProjectCanBeCompleted} from '../../helpers'
+import {checkIfArrayContainsStatus} from '../../helpers'
 import {ENDING, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, NoChartToDisplay, StepPageTitleWithButtonContainer} from '../../style/containers'
@@ -95,11 +95,11 @@ const StepEnding = ({history}) => {
                         <AuthenticatedPageTitle>Ending Structure</AuthenticatedPageTitle>
                         <div>
                             <CompleteProjectButton
-                                disabled={checkIfProjectCanBeCompleted(steps)}
+                                disabled={checkIfArrayContainsStatus(steps, 'Completed')}
                                 onClick={() => setShowCompleteProject(true)}
                             >Complete Project
                             </CompleteProjectButton>
-                            {checkIfProjectCanBeCompleted(steps) ? <CompleteProjectTooltip /> : null}
+                            {checkIfArrayContainsStatus(steps, 'Completed') ? <CompleteProjectTooltip /> : null}
                         </div>
                     </StepPageTitleWithButtonContainer>
                     {renderStepChart()}

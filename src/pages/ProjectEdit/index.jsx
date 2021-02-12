@@ -89,6 +89,7 @@ const ProjectEdit = ({history}) => {
                             </ProjectEditErrorContainer>
                         </ProjectInputContainer>
                         <ProjectStatusDropdown
+                            group={group}
                             project={project}
                             status={status}
                             steps={steps}

@@ -1,13 +1,13 @@
 import React from 'react'
 import CompleteProjectTooltip from '../../../components/CompleteProjectTooltip'
 import CompletedProjectTooltip from '../../../components/CompletedProjectTooltip'
-import {checkIfProjectCanBeCompleted} from '../../../helpers'
+import {checkIfArrayContainsStatus} from '../../../helpers'
 import {DropdownOption} from '../../../style/options'
 import {AddEditProjectSectionTitles} from '../../../style/titles'
 import {EditStatusDropdown, ProjectEditInputTooltipContainer, ProjectEditStatusInputContainer} from './styles'
 
 
-const ProjectStatusDropdown = ({project, status, steps}) => {
+const ProjectStatusDropdown = ({group, project, status, steps}) => {
     return (
         <ProjectEditInputTooltipContainer>
             <ProjectEditStatusInputContainer>
@@ -22,13 +22,13 @@ const ProjectStatusDropdown = ({project, status, steps}) => {
                     <DropdownOption value='Ongoing'>Ongoing</DropdownOption>
                     <DropdownOption value='Not Implemented'>Not Implemented</DropdownOption>
                     <DropdownOption
-                        disabled={checkIfProjectCanBeCompleted(steps)}
+                        disabled={checkIfArrayContainsStatus(steps, 'Completed')}
                         value='Completed'
                     >Completed
                     </DropdownOption>
                 </EditStatusDropdown>
             </ProjectEditStatusInputContainer>
-            {checkIfProjectCanBeCompleted(steps) ? <CompleteProjectTooltip /> : null}
+            {checkIfArrayContainsStatus(steps, 'Completed') ? <CompleteProjectTooltip /> : null}
             {project.status === 'Completed' && <CompletedProjectTooltip />}
         </ProjectEditInputTooltipContainer>
     )
