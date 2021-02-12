@@ -1,6 +1,7 @@
 import React from 'react'
-import CompleteProjectTooltip from '../../../components/CompleteProjectTooltip'
-import CompletedProjectTooltip from '../../../components/CompletedProjectTooltip'
+import CompleteProjectTooltip from '../../../components/Tooltips/CompleteProjectTooltip'
+import CompletedProjectTooltip from '../../../components/Tooltips/CompletedProjectTooltip'
+import OngoingProjectTooltip from '../../../components/Tooltips/OngoingProjectTooltip'
 import {checkIfArrayContainsStatus} from '../../../helpers'
 import {DropdownOption} from '../../../style/options'
 import {AddEditProjectSectionTitles} from '../../../style/titles'
@@ -19,8 +20,12 @@ const ProjectStatusDropdown = ({group, project, status, steps}) => {
                 >
                     <DropdownOption disabled value=''>Select a status</DropdownOption>
                     <DropdownOption value='Not Started'>Not Started</DropdownOption>
-                    <DropdownOption value='Ongoing'>Ongoing</DropdownOption>
                     <DropdownOption value='Not Implemented'>Not Implemented</DropdownOption>
+                    <DropdownOption
+                        disabled={checkIfArrayContainsStatus(group.projects, 'Ongoing')}
+                        value='Ongoing'
+                    >Ongoing
+                    </DropdownOption>
                     <DropdownOption
                         disabled={checkIfArrayContainsStatus(steps, 'Completed')}
                         value='Completed'
@@ -29,6 +34,7 @@ const ProjectStatusDropdown = ({group, project, status, steps}) => {
                 </EditStatusDropdown>
             </ProjectEditStatusInputContainer>
             {checkIfArrayContainsStatus(steps, 'Completed') ? <CompleteProjectTooltip /> : null}
+            {checkIfArrayContainsStatus(group.projects, 'Ongoing') ? <OngoingProjectTooltip /> : null}
             {project.status === 'Completed' && <CompletedProjectTooltip />}
         </ProjectEditInputTooltipContainer>
     )
