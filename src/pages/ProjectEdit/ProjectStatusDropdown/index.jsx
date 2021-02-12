@@ -1,5 +1,6 @@
 import React from 'react'
 import CompleteProjectTooltip from '../../../components/CompleteProjectTooltip'
+import CompletedProjectTooltip from '../../../components/CompletedProjectTooltip'
 import {checkIfProjectCanBeCompleted} from '../../../helpers'
 import {DropdownOption} from '../../../style/options'
 import {AddEditProjectSectionTitles} from '../../../style/titles'
@@ -11,7 +12,11 @@ const ProjectStatusDropdown = ({project, status, steps}) => {
         <ProjectEditInputTooltipContainer>
             <ProjectEditStatusInputContainer>
                 <AddEditProjectSectionTitles>Project Status</AddEditProjectSectionTitles>
-                <EditStatusDropdown defaultValue={project.status} ref={status}>
+                <EditStatusDropdown
+                    defaultValue={project.status}
+                    disabled={project.status === 'Completed'}
+                    ref={status}
+                >
                     <DropdownOption disabled value=''>Select a status</DropdownOption>
                     <DropdownOption value='Not Started'>Not Started</DropdownOption>
                     <DropdownOption value='Ongoing'>Ongoing</DropdownOption>
@@ -24,6 +29,7 @@ const ProjectStatusDropdown = ({project, status, steps}) => {
                 </EditStatusDropdown>
             </ProjectEditStatusInputContainer>
             {checkIfProjectCanBeCompleted(steps) ? <CompleteProjectTooltip /> : null}
+            {project.status === 'Completed' && <CompletedProjectTooltip />}
         </ProjectEditInputTooltipContainer>
     )
 }
