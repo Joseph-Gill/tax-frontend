@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import BreadCrumb from '../../components/BreadCrumb'
-import CompleteProjectTooltip from './CompleteProjectTooltip'
 import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import CompleteProjectModal from '../../components/Modals/CompleteProjectModal'
+import CompleteProjectTooltip from '../../components/CompleteProjectTooltip'
 import LogoLoading from '../../components/LogoLoading'
 import {getChartForStepAction} from '../../store/chart/actions'
+import {checkIfProjectCanBeCompleted} from '../../helpers'
 import {ENDING, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, NoChartToDisplay, StepPageTitleWithButtonContainer} from '../../style/containers'
@@ -61,12 +62,6 @@ const StepEnding = ({history}) => {
         }
     }
 
-
-    const checkIfProjectCanBeCompleted = () => {
-        const completed = steps.filter(step => step.status !== 'Completed')
-        return completed.length;
-    }
-
     const completeProjectHandler = () => {
         //need to add logic to edit Group entities to reflect entities from final step
         setShowCompleteProject(false)
@@ -100,11 +95,11 @@ const StepEnding = ({history}) => {
                         <AuthenticatedPageTitle>Ending Structure</AuthenticatedPageTitle>
                         <div>
                             <CompleteProjectButton
-                                disabled={checkIfProjectCanBeCompleted()}
+                                disabled={checkIfProjectCanBeCompleted(steps)}
                                 onClick={() => setShowCompleteProject(true)}
                             >Complete Project
                             </CompleteProjectButton>
-                            {checkIfProjectCanBeCompleted() ? <CompleteProjectTooltip /> : null}
+                            {checkIfProjectCanBeCompleted(steps) ? <CompleteProjectTooltip /> : null}
                         </div>
                     </StepPageTitleWithButtonContainer>
                     {renderStepChart()}

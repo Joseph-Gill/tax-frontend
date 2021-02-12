@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
-import tooltipAnchor from '../../../assets/icons/stark_tooltip_anchor.png'
-import ellipse from '../../../assets/icons/stark_tooltip_ellipse.png'
-import {TooltipRowText} from '../../../style/text'
-import {TooltipRowImage} from '../../../style/images'
-import {StepTooltipAnchor} from '../../../style/anchors'
-import {TooltipRowContainer} from '../../../style/containers'
+import tooltipAnchor from '../../assets/icons/stark_tooltip_anchor.png'
+import ellipse from '../../assets/icons/stark_tooltip_ellipse.png'
+import {StepTooltipAnchor} from '../../style/anchors'
+import {TooltipRowContainer} from '../../style/containers'
+import {TooltipRowImage} from '../../style/images'
+import {TooltipRowText} from '../../style/text'
+
 
 
 const CompleteProjectTooltip = () => {
