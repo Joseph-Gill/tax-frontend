@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {useSpring} from 'react-spring'
 import Draggable from 'react-draggable'
 import {useDispatch, useSelector} from 'react-redux'
 import RemoveMemberModalText from './RemoveMemberModalText'
@@ -7,24 +6,20 @@ import ModalDeleteButtons from '../ModalComponents/ModalDeleteButtons'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalInput from '../ModalComponents/ModalInput'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {removeMembersFromGroupAction} from '../../../store/member/actions'
 import {getGroupAction} from '../../../store/group/actions'
 import {GROUPS, MEMBERS} from '../../../routes/paths'
-import {AddDeleteModalExternalContainer, AddDeleteModalInternalContainer} from '../styles'
+import {AddDeleteModalInternalContainer} from '../styles'
 
 
 //Used by GroupMembers to remove members from a group
-const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setShowConfirmation}) => {
+const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setShowConfirmation,
+                               showConfirmation}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [password, setPassword] = useState('')
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
 
     const cancelButtonHandler = () => {
         dispatch(resetErrors())
@@ -51,8 +46,10 @@ const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setSh
     }
 
     return (
-        // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowConfirmation}
+            showModalView={showConfirmation}
+        >
             <Draggable>
                 <AddDeleteModalInternalContainer>
                     <ModalClose modalDisplay={setShowConfirmation} />
@@ -75,7 +72,7 @@ const RemoveMemberModal = ({activeMembers, group, history, invitedMembers, setSh
                     />
                 </AddDeleteModalInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 

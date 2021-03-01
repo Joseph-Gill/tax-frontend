@@ -166,6 +166,7 @@ const GroupMembers = ({history}) => {
                     history={history}
                     invitedMembers={invitedRenderData}
                     setShowConfirmation={setShowConfirmation}
+                    showConfirmation={showConfirmation}
                 />}
             {showAddMember &&
             <AddMemberModal

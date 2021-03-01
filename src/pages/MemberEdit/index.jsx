@@ -168,6 +168,7 @@ const MemberEdit = ({history}) => {
                             history={history}
                             invitedMembers={[]}
                             setShowConfirmation={setShowConfirmation}
+                            showConfirmation={showConfirmation}
                         />}
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: false},
