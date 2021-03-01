@@ -369,6 +369,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     entities={entitiesToRender}
                     saveEditEntityHandler={saveEditEntityHandler}
                     setShowEditEntity={setShowEditEntity}
+                    showEditEntity={showEditEntity}
                 />}
             {showEditLink &&
                 <EditLinkModal

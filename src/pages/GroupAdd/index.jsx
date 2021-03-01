@@ -226,6 +226,7 @@ const GroupAdd = ({history}) => {
                     entities={listOfEntities}
                     saveEditEntityHandler={saveEditEntityHandler}
                     setShowEditEntity={setShowEditEntity}
+                    showEditEntity={showEditEntity}
                 />}
             {showSuccess &&
                 <SuccessMessage

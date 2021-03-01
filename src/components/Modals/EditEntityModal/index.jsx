@@ -1,5 +1,4 @@
 import React, {useState, useMemo} from 'react'
-import {useSpring} from 'react-spring'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import Draggable from 'react-draggable'
@@ -9,12 +8,13 @@ import EditEntityMiddleRow from './EditEntityMiddleRow'
 import EditEntityBottomRow from './EditEntityBottomRow'
 import ModalEditTitle from '../ModalComponents/ModalEditTitle'
 import ModalEditButtons from '../ModalComponents/ModalEditButtons'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {EntityOption} from '../../../style/options'
-import {AddDeleteModalExternalContainer, EditEntityLinkInternalContainer} from '../styles'
+import {EditEntityLinkInternalContainer} from '../styles'
 
 
-const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) => {
+const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, showEditEntity}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [countryName, setCountryName] = useState('')
@@ -26,12 +26,6 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) =
         taxRate: '',
         entitySelected: false,
         entityToEditId: ''
-    })
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
     })
 
     const cancelButtonHandler = () => {
@@ -123,8 +117,10 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) =
         }}, [editParentNames, editEntityInfo.parentId, editEntityInfo.entitySelected])
 
     return (
-        // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowEditEntity}
+            showModalView={showEditEntity}
+        >
             <Draggable>
                 <EditEntityLinkInternalContainer>
                     <ModalClose modalDisplay={setShowEditEntity} />
@@ -157,7 +153,7 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity}) =
                     />
                 </EditEntityLinkInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 
