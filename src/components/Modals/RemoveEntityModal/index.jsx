@@ -1,22 +1,16 @@
 import React from 'react'
-import {useSpring} from 'react-spring'
 import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import RemoveEntityDropdown from './RemoveEntityDropdown'
 import ModalRemoveButtons from '../ModalComponents/ModalRemoveButtons'
-import {AddDeleteModalExternalContainer, RemoveLinkEntityInternalContainer} from '../styles'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {RemoveLinkEntityInternalContainer} from '../styles'
 
 
 //Used by StepChart for deleting Entities of a StepChart
 const RemoveEntityModal = ({entityOptions, entityToRemove, removeEntityHandler, setEntityToRemove,
-                               setShowRemoveEntity}) => {
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
+                               setShowRemoveEntity, showRemoveEntity}) => {
 
     const cancelButtonHandler = () => {
         setShowRemoveEntity(false)
@@ -24,7 +18,10 @@ const RemoveEntityModal = ({entityOptions, entityToRemove, removeEntityHandler, 
 
     return (
         // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowRemoveEntity}
+            showModalView={showRemoveEntity}
+        >
             <Draggable>
                 <RemoveLinkEntityInternalContainer>
                     <ModalClose modalDisplay={setShowRemoveEntity} />
@@ -40,7 +37,7 @@ const RemoveEntityModal = ({entityOptions, entityToRemove, removeEntityHandler, 
                     />
                 </RemoveLinkEntityInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 

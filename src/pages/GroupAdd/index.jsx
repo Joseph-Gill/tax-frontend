@@ -220,6 +220,7 @@ const GroupAdd = ({history}) => {
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}
                     setShowRemoveEntity={setShowRemoveEntity}
+                    showRemoveEntity={showRemoveEntity}
                 />}
             {showEditEntity &&
                 <EditEntityModal

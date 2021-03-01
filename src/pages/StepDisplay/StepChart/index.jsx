@@ -363,6 +363,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}
                     setShowRemoveEntity={setShowRemoveEntity}
+                    showRemoveEntity={showRemoveEntity}
                 />}
             {showEditEntity &&
                 <EditEntityModal
