@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import {useSpring} from 'react-spring'
-import ModalGroupCard from './ModalGroupCard'
 import Draggable from 'react-draggable'
+import ModalGroupCard from './ModalGroupCard'
 import LogoLoading from '../../LogoLoading'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'

@@ -335,6 +335,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     setLegalForm={setLegalForm}
                     setNewEntityInfo={setNewEntityInfo}
                     setShowAddEntity={setShowAddEntity}
+                    showAddEntity={showAddEntity}
                 />}
             {showAddLink &&
                 <AddLinkModal

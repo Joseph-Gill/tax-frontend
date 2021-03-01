@@ -211,6 +211,7 @@ const GroupAdd = ({history}) => {
                     setLegalForm={setLegalForm}
                     setNewEntityInfo={setNewEntityInfo}
                     setShowAddEntity={setShowAddEntity}
+                    showAddEntity={showAddEntity}
                 />}
             {showRemoveEntity &&
                 <RemoveEntityModal

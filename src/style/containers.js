@@ -433,19 +433,6 @@ export const FilterImgContainer = styled.div`
 
 // Template Containers
 
-export const ModalExternalContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-  background-color: rgba(0,0,0,0.68);
-`
-
 // if needed to create an internal div in the modal
 export const ModalInternalContainer = styled.div`
   width: 50%;

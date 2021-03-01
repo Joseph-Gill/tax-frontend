@@ -1,29 +1,26 @@
 import React from 'react'
-import {useSpring} from 'react-spring'
+import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalInput from '../ModalComponents/ModalInput'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import AddParentSelect from './AddParentSelect'
 import AddLocationSelect from './AddLocationSelect'
 import AddLegalSelect from './AddLegalSelect'
-import Draggable from 'react-draggable'
-import {AddDeleteModalExternalContainer, AddEntityLinkModalInternalContainer} from '../styles'
+import {AddEntityLinkModalInternalContainer} from '../styles'
 
 
 //Used by StepChart for adding new Entities to a StepChart
 const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, error, legalForm, newEntityInfo, renderParentNameOptions,
-                            saveNewEntityHandler, setCountryName, setLegalForm, setNewEntityInfo, setShowAddEntity}) => {
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
+                            saveNewEntityHandler, showAddEntity, setCountryName, setLegalForm, setNewEntityInfo,
+                            setShowAddEntity}) => {
 
     return (
-        // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowAddEntity}
+            showModalView={showAddEntity}
+        >
             <Draggable>
                 <AddEntityLinkModalInternalContainer>
                     <ModalClose modalDisplay={setShowAddEntity} />
@@ -68,7 +65,7 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, error, legalFo
                     />
                 </AddEntityLinkModalInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 
