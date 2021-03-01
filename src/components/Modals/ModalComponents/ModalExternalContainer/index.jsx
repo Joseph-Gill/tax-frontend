@@ -10,8 +10,6 @@ const ModalExternalContainer = ({children, setModalView, showModalView}) => {
     // Handles closing the modal if the user clicks anywhere outside of the modal
     useEffect(() => {
         const handleClickOutside = e => {
-            console.log('checking to close modal')
-            console.log('node.current>', node.current)
             if (node.current === e.target) {
                 setModalView(false);
             }
