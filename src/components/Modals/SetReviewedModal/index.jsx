@@ -1,21 +1,15 @@
 import React from 'react'
-import {useSpring} from 'react-spring'
 import Draggable from 'react-draggable'
 import SetReviewedText from './SetReviewedText'
 import SetReviewedButtons from './SetReviewedButtons'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
-import {AddDeleteModalExternalContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
 
 //Used by StepChart for setting tax consequences of a step as reviewed
-const SetReviewedModal = ({setReviewedHandler, setShowConfirmation}) => {
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
+const SetReviewedModal = ({setReviewedHandler, setShowConfirmation, showConfirmation}) => {
 
     const cancelButtonHandler = () => {
         setShowConfirmation(false)
@@ -23,7 +17,10 @@ const SetReviewedModal = ({setReviewedHandler, setShowConfirmation}) => {
 
     return (
         // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowConfirmation}
+            showModalView={showConfirmation}
+        >
             <Draggable>
                 <DeleteStepReviewTaskModalInternalContainer>
                     <ModalClose modalDisplay={setShowConfirmation} />
@@ -35,7 +32,7 @@ const SetReviewedModal = ({setReviewedHandler, setShowConfirmation}) => {
                     />
                 </DeleteStepReviewTaskModalInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 
