@@ -109,6 +109,7 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
                 <SetNotReviewedModal
                     setNotReviewedHandler={setNotReviewedHandler}
                     setShowSecondConfirmation={setShowSecondConfirmation}
+                    showSecondConfirmation={showSecondConfirmation}
                 /> : null}
             {loading ? <Loading /> : (
                 <>
