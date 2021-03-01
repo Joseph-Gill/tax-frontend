@@ -378,6 +378,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     linkOptions={renderLinkOptions}
                     saveEditLinkHandler={saveEditLinkHandler}
                     setShowEditLink={setShowEditLink}
+                    showEditLink={showEditLink}
                     slinks={slinks}
                 />}
             {renderStepChart}
