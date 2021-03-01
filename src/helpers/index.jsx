@@ -287,22 +287,3 @@ export const checkIfArrayContainsStatus = (array, status) => {
     const completed = array.filter(index => index.status !== status)
     return completed.length;
 }
-
-//Used by modal components to close the modal if the user clicks outside of the modal
-export const closeModalClickExternal = (node, modalView, setModalView) => {
-        const handleClickOutside = e => {
-            if (node.current === e.target) {
-                setModalView(false);
-            }
-        }
-        //Adds/Removes event listener for user clicking external container
-        if (modalView) {
-            document.addEventListener("mousedown", handleClickOutside);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
-        //Cleans up event listener when modal is closed
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
-}
