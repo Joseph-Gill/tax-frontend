@@ -1,5 +1,5 @@
 import React from 'react'
-import {useSpring} from 'react-spring'
+import Draggable from 'react-draggable'
 import AddLinkLabel from './AddLinkLabel'
 import AddLinkTypeDropdown from './AddLinkTypeDropdown'
 import AddLinkColorDropdown from './AddLinkColorDropdown'
@@ -7,23 +7,19 @@ import AddLinkFromToDropdown from './AddLinkFromToDropdown'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
-import Draggable from 'react-draggable'
-import {AddDeleteModalExternalContainer, AddEntityLinkModalInternalContainer} from '../styles'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {AddEntityLinkModalInternalContainer} from '../styles'
 
 
 //Used by StepChart for adding new Links to a StepChart
 const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, error, fromToOptions, saveNewLinkHandler,
-                          setAddLinkInfo, setShowAddLink}) => {
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
+                          setAddLinkInfo, setShowAddLink, showAddLink}) => {
 
     return (
-        // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowAddLink}
+            showModalView={showAddLink}
+        >
             <Draggable>
                 <AddEntityLinkModalInternalContainer>
                     <ModalClose modalDisplay={setShowAddLink} />
@@ -63,7 +59,7 @@ const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, error, fromToOpt
                     />
                 </AddEntityLinkModalInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 

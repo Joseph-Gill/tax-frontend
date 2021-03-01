@@ -346,6 +346,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     saveNewLinkHandler={saveNewLinkHandler}
                     setAddLinkInfo={setAddLinkInfo}
                     setShowAddLink={setShowAddLink}
+                    showAddLink={showAddLink}
                 />}
             {showRemoveLink &&
                 <RemoveLinkModal
