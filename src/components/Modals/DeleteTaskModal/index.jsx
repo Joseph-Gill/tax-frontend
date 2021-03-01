@@ -1,29 +1,25 @@
 import React from 'react'
-import {useSpring} from 'react-spring'
 import Draggable from 'react-draggable'
 import DeleteTaskText from './DeleteTaskText'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalDeleteButtons from '../ModalComponents/ModalDeleteButtons'
-import {AddDeleteModalExternalContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
 
 //Used by ProjectTasks for deleting a task from a Step
-const DeleteTaskModal = ({deleteTaskHandler, setShowDeleteTaskConfirmation}) => {
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
+const DeleteTaskModal = ({deleteTaskHandler, setShowDeleteTaskConfirmation, showDeleteTaskConfirmation}) => {
 
     const cancelButtonHandler = () => {
         setShowDeleteTaskConfirmation(false)
     }
 
     return (
-        // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowDeleteTaskConfirmation}
+            showModalView={showDeleteTaskConfirmation}
+        >
             <Draggable>
                 <DeleteStepReviewTaskModalInternalContainer>
                     <ModalClose modalDisplay={setShowDeleteTaskConfirmation} />
@@ -36,7 +32,7 @@ const DeleteTaskModal = ({deleteTaskHandler, setShowDeleteTaskConfirmation}) => 
                     />
                 </DeleteStepReviewTaskModalInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 

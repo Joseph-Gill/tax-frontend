@@ -38,6 +38,7 @@ const EntryExpanded = ({history, project, task}) => {
                 <DeleteTaskModal
                     deleteTaskHandler={deleteTaskHandler}
                     setShowDeleteTaskConfirmation={setShowDeleteTaskConfirmation}
+                    showDeleteTaskConfirmation={showDeleteTaskConfirmation}
                 /> : null}
             <ExpandedTaskTile>Task Description</ExpandedTaskTile>
             <ExpandedTaskDescriptionContainer>
