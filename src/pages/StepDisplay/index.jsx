@@ -235,6 +235,7 @@ const StepDisplay = ({history}) => {
                         <DeleteStepModal
                             deleteStepHandler={deleteStepHandler}
                             setShowConfirmation={setShowConfirmation}
+                            showConfirmation={showConfirmation}
                         /> : null}
                     <BreadCrumb
                         breadCrumbArray={[
