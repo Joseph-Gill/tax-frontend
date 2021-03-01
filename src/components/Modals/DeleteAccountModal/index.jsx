@@ -1,20 +1,20 @@
 import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useSpring} from 'react-spring'
 import Draggable from 'react-draggable'
 import ModalInput from '../ModalComponents/ModalInput'
 import DeleteAccountModalText from './DeleteAccountModalText'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalDeleteButtons from '../ModalComponents/ModalDeleteButtons'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {deleteUserProfileAction} from '../../../store/user/actions/user/userAction'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
-import {AddDeleteModalExternalContainer, AddDeleteModalInternalContainer} from '../styles'
+import {AddDeleteModalInternalContainer} from '../styles'
 
 
 //Used by UserProfile for deleting a user's account
-const DeleteAccountModal = ({history, setShowConfirmation}) => {
+const DeleteAccountModal = ({history, setShowConfirmation, showConfirmation}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [password, setPassword] = useState('')
@@ -36,15 +36,11 @@ const DeleteAccountModal = ({history, setShowConfirmation}) => {
         setShowConfirmation(false)
     }
 
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
-
     return (
-        // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowConfirmation}
+            showModalView={showConfirmation}
+        >
             <Draggable>
                 <AddDeleteModalInternalContainer>
                     <ModalClose modalDisplay={setShowConfirmation} />
@@ -67,7 +63,7 @@ const DeleteAccountModal = ({history, setShowConfirmation}) => {
                     />
                 </AddDeleteModalInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 

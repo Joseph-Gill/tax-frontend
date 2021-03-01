@@ -170,6 +170,7 @@ const UserProfile = ({history}) => {
                             <DeleteAccountModal
                                 history={history}
                                 setShowConfirmation={setShowConfirmation}
+                                showConfirmation={showConfirmation}
                             />}
                     </UserDetailsContainer>
                     <SaveChangesButtonContainer>
