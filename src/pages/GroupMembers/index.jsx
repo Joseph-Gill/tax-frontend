@@ -167,7 +167,12 @@ const GroupMembers = ({history}) => {
                     invitedMembers={invitedRenderData}
                     setShowConfirmation={setShowConfirmation}
                 />}
-            {showAddMember && <AddMemberModal groupId={group.id} setShowAddMember={setShowAddMember} />}
+            {showAddMember &&
+            <AddMemberModal
+                groupId={group.id}
+                setShowAddMember={setShowAddMember}
+                showAddMember={showAddMember}
+            />}
             {!loaded ? <LogoLoading /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
