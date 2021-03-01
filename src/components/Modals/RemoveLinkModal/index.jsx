@@ -1,29 +1,26 @@
 import React from 'react'
-import {useSpring} from 'react-spring'
 import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalRemoveButtons from '../ModalComponents/ModalRemoveButtons'
 import RemoveLinkDropdown from './RemoveLinkDropdown'
-import {AddDeleteModalExternalContainer, RemoveLinkEntityInternalContainer} from '../styles'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {RemoveLinkEntityInternalContainer} from '../styles'
 
 
 //Used by StepChart for deleting Links of a StepChart
-const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkToRemove, setShowRemoveLink}) => {
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
+const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkToRemove, setShowRemoveLink,
+                             showRemoveLink}) => {
 
     const cancelButtonHandler = () => {
         setShowRemoveLink(false)
     }
 
     return (
-        // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowRemoveLink}
+            showModalView={showRemoveLink}
+        >
             <Draggable>
                 <RemoveLinkEntityInternalContainer>
                     <ModalClose modalDisplay={setShowRemoveLink} />
@@ -39,7 +36,7 @@ const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkT
                     />
                 </RemoveLinkEntityInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 
