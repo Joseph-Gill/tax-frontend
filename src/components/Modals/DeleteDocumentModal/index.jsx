@@ -1,29 +1,26 @@
 import React from 'react'
-import {useSpring} from 'react-spring'
 import Draggable from 'react-draggable'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalDeleteButtons from '../ModalComponents/ModalDeleteButtons'
 import DeleteDocumentText from './DeleteDocumentText'
-import {AddDeleteModalExternalContainer, DeleteStepReviewTaskModalInternalContainer} from '../styles'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {DeleteStepReviewTaskModalInternalContainer} from '../styles'
 
 
 //Used by ProjectTasks and TaskEdit to delete a specific document from a task
-const DeleteDocumentModal = ({deleteDocumentHandler, documentName, setShowDeleteDocumentConfirmation}) => {
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
+const DeleteDocumentModal = ({deleteDocumentHandler, documentName, setShowDeleteDocumentConfirmation,
+                                 showDeleteDocumentConfirmation}) => {
 
     const cancelButtonHandler = () => {
         setShowDeleteDocumentConfirmation(false)
     }
 
     return (
-        // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowDeleteDocumentConfirmation}
+            showModalView={showDeleteDocumentConfirmation}
+        >
             <Draggable>
                 <DeleteStepReviewTaskModalInternalContainer>
                     <ModalClose modalDisplay={setShowDeleteDocumentConfirmation} />
@@ -36,7 +33,7 @@ const DeleteDocumentModal = ({deleteDocumentHandler, documentName, setShowDelete
                     />
                 </DeleteStepReviewTaskModalInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 

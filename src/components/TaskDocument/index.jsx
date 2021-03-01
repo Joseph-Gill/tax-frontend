@@ -29,6 +29,7 @@ const TaskDocument = ({document, project}) => {
                     deleteDocumentHandler={deleteDocumentHandler}
                     documentName={document.name}
                     setShowDeleteDocumentConfirmation={setShowDeleteDocumentConfirmation}
+                    showDeleteDocumentConfirmation={showDeleteDocumentConfirmation}
                 /> : null}
             <TaskDocumentLink
                 download
