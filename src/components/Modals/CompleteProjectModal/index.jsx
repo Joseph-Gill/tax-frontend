@@ -1,28 +1,24 @@
 import React from 'react'
-import {useSpring} from 'react-spring'
 import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import CompleteProjectModalText from './CompleteProjectModalText'
 import CompleteProjectModalButtons from './CompleteProjectModalButtons'
-import {AddDeleteModalExternalContainer, CompleteProjectModalInternalContainer} from '../styles'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {CompleteProjectModalInternalContainer} from '../styles'
 
 
-const CompleteProjectModal = ({completeProjectHandler, setShowCompleteProject}) => {
-
-    //From react-spring, causes Modal to fade in
-    const props = useSpring({
-        opacity: 1,
-        from: {opacity: 0},
-    })
+const CompleteProjectModal = ({completeProjectHandler, setShowCompleteProject, showCompleteProject}) => {
 
     const cancelButtonHandler = () => {
         setShowCompleteProject(false)
     }
 
     return (
-        // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <ModalExternalContainer
+            setModalView={setShowCompleteProject}
+            showModalView={showCompleteProject}
+        >
             <Draggable>
                 <CompleteProjectModalInternalContainer>
                     <ModalClose modalDisplay={setShowCompleteProject} />
@@ -34,7 +30,7 @@ const CompleteProjectModal = ({completeProjectHandler, setShowCompleteProject}) 
                     />
                 </CompleteProjectModalInternalContainer>
             </Draggable>
-        </AddDeleteModalExternalContainer>
+        </ModalExternalContainer>
     )
 }
 

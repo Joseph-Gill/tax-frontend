@@ -73,6 +73,7 @@ const StepEnding = ({history}) => {
                 <CompleteProjectModal
                     completeProjectHandler={completeProjectHandler}
                     setShowCompleteProject={setShowCompleteProject}
+                    showCompleteProject={showCompleteProject}
                 />}
             {!projectLoaded || !stepsLoaded || loading ? <LogoLoading /> : (
                 <>
