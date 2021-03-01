@@ -33,6 +33,7 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
                 <ChooseGroupModal
                     history={history}
                     setShowChooseGroup={setShowChooseGroup}
+                    showChooseGroup={showChooseGroup}
                 /> : null}
             <NavigationContainer>
                 <NavbarTitle>DASHBOARD</NavbarTitle>

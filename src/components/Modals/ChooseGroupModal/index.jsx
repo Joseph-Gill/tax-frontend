@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useSpring} from 'react-spring'
 import ModalGroupCard from './ModalGroupCard'
 import Draggable from 'react-draggable'
 import LogoLoading from '../../LogoLoading'
 import ModalClose from '../ModalComponents/ModalClose'
 import {getProfileAction} from '../../../store/profile/actions'
+import {closeModalClickExternal} from '../../../helpers'
 import {AuthenticatedPageTitle} from '../../../style/titles'
 import {useDispatch, useSelector} from 'react-redux'
 import {CancelButton} from '../../../style/buttons'
@@ -14,7 +15,9 @@ import {ChooseGroupButtonContainer, ChooseGroupCardContainer, ChooseGroupInput, 
 
 
 //Used by NavBar for choosing which specific group the user is currently accessing
-const ChooseGroupModal = ({history, setShowChooseGroup}) => {
+const ChooseGroupModal = ({history, showChooseGroup, setShowChooseGroup}) => {
+    //Ref used by external modal container to close if user clicks outside modal
+    const node = useRef();
     const dispatch = useDispatch()
     const groups = useSelector(state => state.profileReducer.profile.groups)
     const loaded = useSelector(state => state.profileReducer.loaded)
@@ -26,6 +29,12 @@ const ChooseGroupModal = ({history, setShowChooseGroup}) => {
             dispatch(getProfileAction())
         }
     }, [loaded, dispatch])
+
+    // Handles closing the modal if the user clicks anywhere outside of the modal
+    useEffect(() => {
+        closeModalClickExternal(node, showChooseGroup, setShowChooseGroup)
+    }, [setShowChooseGroup, showChooseGroup])
+
 
     //From react-spring, causes Modal to fade in
     const props = useSpring({
@@ -51,7 +60,7 @@ const ChooseGroupModal = ({history, setShowChooseGroup}) => {
 
     return (
         // eslint-disable-next-line react/forbid-component-props
-        <AddDeleteModalExternalContainer style={props}>
+        <AddDeleteModalExternalContainer ref={node} style={props}>
             {!loaded ?
                 <LogoLoading /> :
                 <Draggable>
