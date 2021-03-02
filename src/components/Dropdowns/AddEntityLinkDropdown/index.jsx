@@ -1,8 +1,9 @@
 import React from 'react'
 import DropdownContentImage from '../DropdownComponents/DropdownContentImage'
 import plusSign from '../../../assets/icons/tax_cheetah_plus_icon_24px.svg'
-import {DropdownContainer, DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
+import {DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
 import {DropdownButtonContainer, DropdownContentText} from '../styles'
+import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
 
 
 const AddEntityLinkDropdown = ({setShowAddDropdown, setShowAddEntity, setShowEditDropdown, setShowRemoveDropdown,
@@ -25,7 +26,10 @@ const AddEntityLinkDropdown = ({setShowAddDropdown, setShowAddEntity, setShowEdi
     }
 
     return (
-        <DropdownContainer>
+        <DropdownInternalContainer
+            setDropdownView={setShowAddDropdown}
+            showDropdownView={showAddDropdown}
+        >
             <DropdownButtonContainer onClick={toggleAddEntityHandler}>
                 <img alt='Add Entity' src={plusSign} />
             </DropdownButtonContainer>
@@ -41,7 +45,7 @@ const AddEntityLinkDropdown = ({setShowAddDropdown, setShowAddEntity, setShowEdi
                     </DropdownContent>
                 ) : null}
             </DropdownContentContainer>
-        </DropdownContainer>
+        </DropdownInternalContainer>
     )
 }
 
