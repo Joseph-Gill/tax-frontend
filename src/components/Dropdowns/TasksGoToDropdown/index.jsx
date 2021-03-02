@@ -1,14 +1,17 @@
 import React from 'react'
 import GoToButton from '../DropdownComponents/GoToButton'
 import GoToImage from '../DropdownComponents/GoToImage'
+import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
 import {ADD_TASK, GROUPS, PROJECTS, STEPS} from '../../../routes/paths'
-import {DropdownContainer} from '../../../style/dropdowns'
 import {DropdownContentText, GoToContentContainer, GoToDropdownContent} from '../styles'
 
 
-const TasksGoToDropdown = ({history, project, showGoToDropdown, toggleGoToCloseFilterSearch}) => {
+const TasksGoToDropdown = ({history, project, setShowGoToDropdown, showGoToDropdown, toggleGoToCloseFilterSearch}) => {
     return (
-        <DropdownContainer>
+        <DropdownInternalContainer
+            setDropdownView={setShowGoToDropdown}
+            showDropdownView={showGoToDropdown}
+        >
             <GoToButton clickHandler={toggleGoToCloseFilterSearch} />
             <GoToContentContainer show={showGoToDropdown ? 1 : 0}>
                 <GoToDropdownContent onClick={() => history.push(`${GROUPS}${PROJECTS}${ADD_TASK}`)}>
@@ -20,7 +23,7 @@ const TasksGoToDropdown = ({history, project, showGoToDropdown, toggleGoToCloseF
                     <GoToImage />
                 </GoToDropdownContent>
             </GoToContentContainer>
-        </DropdownContainer>
+        </DropdownInternalContainer>
     )
 }
 

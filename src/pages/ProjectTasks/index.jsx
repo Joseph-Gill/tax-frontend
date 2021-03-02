@@ -184,6 +184,7 @@ const ProjectTasks = ({history}) => {
                             <TasksGoToDropdown
                                 history={history}
                                 project={project}
+                                setShowGoToDropdown={setShowGoToDropdown}
                                 showGoToDropdown={showGoToDropdown}
                                 toggleGoToCloseFilterSearch={toggleGoToCloseFilterSearch}
                             />
