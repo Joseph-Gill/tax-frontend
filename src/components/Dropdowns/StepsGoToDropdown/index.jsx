@@ -1,12 +1,13 @@
 import React from 'react'
 import GoToImage from '../DropdownComponents/GoToImage'
 import GoToButton from '../DropdownComponents/GoToButton'
-import {DropdownContainer} from '../../../style/dropdowns'
+import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
 import {BEGINNING, ENDING, GROUPS, PROJECTS, STEPS} from '../../../routes/paths'
 import {DropdownContentText, GoToContentContainer, GoToDropdownContent} from '../styles'
 
 
-const StepsGoToDropdown = ({history, showGoToDropdown, stepCardClickHandler, steps, toggleGoToCloseFilterSearch}) => {
+const StepsGoToDropdown = ({history, setShowGoToDropdown, showGoToDropdown, stepCardClickHandler, steps,
+                               toggleGoToCloseFilterSearch}) => {
 
     const renderStepOptions = () => (
         steps.map(step => (
@@ -18,7 +19,10 @@ const StepsGoToDropdown = ({history, showGoToDropdown, stepCardClickHandler, ste
     )
 
     return (
-        <DropdownContainer>
+        <DropdownInternalContainer
+            setDropdownView={setShowGoToDropdown}
+            showDropdownView={showGoToDropdown}
+        >
             <GoToButton clickHandler={toggleGoToCloseFilterSearch} />
             <GoToContentContainer show={showGoToDropdown ? 1 : 0}>
                 <GoToDropdownContent onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)}>
@@ -31,7 +35,7 @@ const StepsGoToDropdown = ({history, showGoToDropdown, stepCardClickHandler, ste
                     <GoToImage />
                 </GoToDropdownContent>
             </GoToContentContainer>
-        </DropdownContainer>
+        </DropdownInternalContainer>
     )
 }
 

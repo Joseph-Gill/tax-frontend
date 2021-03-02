@@ -152,6 +152,7 @@ const ProjectSteps = ({history}) => {
                         <AuthenticatedPageTitle>{project.name} - Steps</AuthenticatedPageTitle>
                         <StepsGoToDropdown
                             history={history}
+                            setShowGoToDropdown={setShowGoToDropdown}
                             showGoToDropdown={showGoToDropdown}
                             stepCardClickHandler={stepCardClickHandler}
                             steps={steps}
