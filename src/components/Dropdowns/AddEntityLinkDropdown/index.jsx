@@ -1,13 +1,13 @@
 import React from 'react'
 import DropdownContentImage from '../DropdownComponents/DropdownContentImage'
+import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
 import plusSign from '../../../assets/icons/tax_cheetah_plus_icon_24px.svg'
 import {DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
 import {DropdownButtonContainer, DropdownContentText} from '../styles'
-import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
 
 
-const AddEntityLinkDropdown = ({setShowAddDropdown, setShowAddEntity, setShowEditDropdown, setShowRemoveDropdown,
-                                   showAddDropdown, stepChart, setShowAddLink}) => {
+const AddEntityLinkDropdown = ({setShowAddDropdown, setShowAddEntity, showAddDropdown,
+                                   stepChart, setShowAddLink}) => {
 
     const addEntityClickHandler = () => {
         setShowAddDropdown(!showAddDropdown)
@@ -19,18 +19,12 @@ const AddEntityLinkDropdown = ({setShowAddDropdown, setShowAddEntity, setShowEdi
         setShowAddLink(true)
     }
 
-    const toggleAddEntityHandler = () => {
-        setShowRemoveDropdown(false)
-        setShowEditDropdown(false)
-        setShowAddDropdown(!showAddDropdown)
-    }
-
     return (
         <DropdownInternalContainer
             setDropdownView={setShowAddDropdown}
             showDropdownView={showAddDropdown}
         >
-            <DropdownButtonContainer onClick={toggleAddEntityHandler}>
+            <DropdownButtonContainer onClick={() => setShowAddDropdown(!showAddDropdown)}>
                 <img alt='Add Entity' src={plusSign} />
             </DropdownButtonContainer>
             <DropdownContentContainer show={showAddDropdown ? 1 : 0}>
