@@ -1,5 +1,5 @@
 import React from 'react'
-import MemberDropdown from '../../../../components/MemberDropdown'
+import MemberDropdown from '../../../../components/Dropdowns/MemberDropdown'
 import {TaskInputLabel} from '../../../../style/labels'
 import {TaskInputRow} from '../../../../style/containers'
 

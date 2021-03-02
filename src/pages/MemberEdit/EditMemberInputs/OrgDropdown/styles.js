@@ -6,11 +6,6 @@ import {DropDownChoiceWithBorder} from '../../../../style/containers'
 import {DropdownContent, DropdownContentContainer} from '../../../../style/dropdowns'
 
 
-export const OrgDropdownContainer = styled.div`
-    position: relative;
-    display: inline-block;
-`
-
 export const OrgDropdownContentContainer = styled(DropdownContentContainer)`
     width: 302px;
     max-height: 144px;
