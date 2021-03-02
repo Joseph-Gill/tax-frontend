@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
+import DropdownInternalContainer from '../../../../components/Dropdowns/DropdownComponents/DropdownInternalContainer'
 import bluePlusSign from '../../../../assets/icons/stark_add_org_icon.svg'
 import {AddNewOrgText, AddOrgImageContainer, NewOrgInput, OrgDowndownText, OrgDropdownButton,
-    OrgDropdownContainer, OrgDropdownContent, OrgDropdownContentContainer} from './styles'
+    OrgDropdownContent, OrgDropdownContentContainer} from './styles'
 import {DropdownContent} from '../../../../style/dropdowns'
 
 
@@ -22,7 +23,10 @@ const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, s
     }
 
     return (
-        <OrgDropdownContainer>
+        <DropdownInternalContainer
+            setDropdownView={setShowDropdown}
+            showDropdownView={showDropdown}
+        >
             <OrgDropdownButton
                 onClick={() => setShowDropdown(!showDropdown)}
             >{selectOrgName ? selectOrgName : 'Select a organization'}
@@ -53,7 +57,7 @@ const OrgDropdown = ({newOrg, groupOrganizations, handleCreateNewOrganization, s
                     </DropdownContent>
                 ))}
             </OrgDropdownContentContainer>
-        </OrgDropdownContainer>
+        </DropdownInternalContainer>
     )
 }
 
