@@ -1,13 +1,14 @@
 import React from 'react'
 import DropdownContentImage from '../DropdownComponents/DropdownContentImage'
+import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
 import editIcon from '../../../assets/icons/tax_cheetah_edit_icon_24px.svg'
-import {DropdownContainer, DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
+import {DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
 import {DropdownButtonContainer, DropdownContentText} from '../styles'
 
 
 
-const EditEntityLinkDropdown = ({setShowAddDropdown, setShowEditEntity, setShowEditDropdown,
-                                    setShowRemoveDropdown, showEditDropdown, stepChart, setShowEditLink}) => {
+const EditEntityLinkDropdown = ({setShowEditEntity, setShowEditDropdown, showEditDropdown,
+                                    stepChart, setShowEditLink}) => {
 
     const editEntityClickHandler = () => {
         setShowEditDropdown(!showEditDropdown)
@@ -19,15 +20,12 @@ const EditEntityLinkDropdown = ({setShowAddDropdown, setShowEditEntity, setShowE
         setShowEditLink(true)
     }
 
-    const toggleEditEntityHandler = () => {
-        setShowRemoveDropdown(false)
-        setShowAddDropdown(false)
-        setShowEditDropdown(!showEditDropdown)
-    }
-
     return (
-        <DropdownContainer>
-            <DropdownButtonContainer onClick={toggleEditEntityHandler}>
+        <DropdownInternalContainer
+            setDropdownView={setShowEditDropdown}
+            showDropdownView={showEditDropdown}
+        >
+            <DropdownButtonContainer onClick={() => setShowEditDropdown(!showEditDropdown)}>
                 <img alt='Edit Entity' src={editIcon} />
             </DropdownButtonContainer>
             <DropdownContentContainer show={showEditDropdown ? 1 : 0}>
@@ -42,7 +40,7 @@ const EditEntityLinkDropdown = ({setShowAddDropdown, setShowEditEntity, setShowE
                     </DropdownContent>
                 ) : null}
             </DropdownContentContainer>
-        </DropdownContainer>
+        </DropdownInternalContainer>
     )
 }
 

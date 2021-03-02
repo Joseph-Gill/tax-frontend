@@ -269,10 +269,8 @@ const GroupAdd = ({history}) => {
                         showRemoveDropdown={showRemoveDropdown}
                     />
                     <EditEntityLinkDropdown
-                        setShowAddDropdown={setShowAddDropdown}
                         setShowEditDropdown={setShowEditDropdown}
                         setShowEditEntity={setShowEditEntity}
-                        setShowRemoveDropdown={setShowRemoveDropdown}
                         showEditDropdown={showEditDropdown}
                     />
                 </GroupAddEditButtonContainer>

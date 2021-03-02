@@ -32,11 +32,9 @@ const StepChartButtons = ({currentStepEntities, indexOfStepToDisplay, setShowAdd
                 stepChart
             />
             <EditEntityLinkDropdown
-                setShowAddDropdown={setShowAddDropdown}
                 setShowEditDropdown={setShowEditDropdown}
                 setShowEditEntity={setShowEditEntity}
                 setShowEditLink={setShowEditLink}
-                setShowRemoveDropdown={setShowRemoveDropdown}
                 showEditDropdown={showEditDropdown}
                 stepChart
             />
