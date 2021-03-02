@@ -295,8 +295,6 @@ const GroupEdit = ({history}) => {
                                 showAddDropdown={showAddDropdown}
                             />
                             <RemoveEntityLinkDropdown
-                                setShowAddDropdown={setShowAddDropdown}
-                                setShowEditDropdown={setShowEditDropdown}
                                 setShowRemoveDropdown={setShowRemoveDropdown}
                                 setShowRemoveEntity={setShowRemoveEntity}
                                 showRemoveDropdown={showRemoveDropdown}

@@ -1,12 +1,13 @@
 import React from 'react'
-import minusSign from '../../../assets/icons/tax_cheetah_minus_icon_24px.svg'
-import {DropdownContainer, DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
-import {DropdownButtonContainer, DropdownContentText} from '../styles'
 import DropdownContentImage from '../DropdownComponents/DropdownContentImage'
+import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
+import minusSign from '../../../assets/icons/tax_cheetah_minus_icon_24px.svg'
+import {DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
+import {DropdownButtonContainer, DropdownContentText} from '../styles'
 
 
-const RemoveEntityLinkDropdown = ({setShowAddDropdown, setShowRemoveEntity, setShowEditDropdown, setShowRemoveDropdown,
-                                   showRemoveDropdown, stepChart, setShowRemoveLink}) => {
+const RemoveEntityLinkDropdown = ({setShowRemoveEntity, setShowRemoveDropdown, showRemoveDropdown,
+                                      stepChart, setShowRemoveLink}) => {
 
     const removeEntityClickHandler = () => {
         setShowRemoveDropdown(!showRemoveDropdown)
@@ -18,15 +19,12 @@ const RemoveEntityLinkDropdown = ({setShowAddDropdown, setShowRemoveEntity, setS
         setShowRemoveLink(true)
     }
 
-    const toggleRemoveEntityHandler = () => {
-        setShowAddDropdown(false)
-        setShowEditDropdown(false)
-        setShowRemoveDropdown(!showRemoveDropdown)
-    }
-
     return (
-        <DropdownContainer>
-            <DropdownButtonContainer onClick={toggleRemoveEntityHandler}>
+        <DropdownInternalContainer
+            setDropdownView={setShowRemoveDropdown}
+            showDropdownView={showRemoveDropdown}
+        >
+            <DropdownButtonContainer onClick={() => setShowRemoveDropdown(!showRemoveDropdown)}>
                 <img alt='Remove Entity' src={minusSign} />
             </DropdownButtonContainer>
             <DropdownContentContainer show={showRemoveDropdown ? 1 : 0}>
@@ -41,7 +39,7 @@ const RemoveEntityLinkDropdown = ({setShowAddDropdown, setShowRemoveEntity, setS
                     </DropdownContent>
                 ) : null}
             </DropdownContentContainer>
-        </DropdownContainer>
+        </DropdownInternalContainer>
     )
 }
 
