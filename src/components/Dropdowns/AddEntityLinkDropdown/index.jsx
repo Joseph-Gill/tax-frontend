@@ -1,6 +1,6 @@
 import React from 'react'
+import DropdownContentImage from '../DropdownComponents/DropdownContentImage'
 import plusSign from '../../../assets/icons/tax_cheetah_plus_icon_24px.svg'
-import DropdownContentImage from '../DropdownContentImage'
 import {DropdownContainer, DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
 import {DropdownButtonContainer, DropdownContentText} from '../styles'
 
