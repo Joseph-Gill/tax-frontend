@@ -8,12 +8,12 @@ import {TaskDocumentLink} from '../../style/links'
 import {DocumentDeleteIconContainer, TaskDocumentDeleteImage, TaskDocumentDeleteImageContainer} from './styles'
 
 
-const TaskDocument = ({document, project}) => {
+const TaskDocument = ({taskDocument, project}) => {
     const dispatch = useDispatch()
     const [showDeleteDocumentConfirmation, setShowDeleteDocumentConfirmation] = useState(false)
 
     const deleteDocumentHandler = async () => {
-        const response = await dispatch(deleteTaskDocumentAction(document.id))
+        const response = await dispatch(deleteTaskDocumentAction(taskDocument.id))
         if (response.status === 204) {
             const response = await dispatch(getTasksForProjectAction(project.id))
             if (response) {
@@ -22,20 +22,32 @@ const TaskDocument = ({document, project}) => {
         }
     }
 
+    const downloadDocumentHandler = () => {
+        fetch(taskDocument.document)
+            .then(response => {
+                response.blob().then(blob => {
+                    let url = window.URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = taskDocument.name;
+                    a.click()
+                })
+            })
+
+    }
+
     return (
         <DocumentDeleteIconContainer>
             {showDeleteDocumentConfirmation ?
                 <DeleteDocumentModal
                     deleteDocumentHandler={deleteDocumentHandler}
-                    documentName={document.name}
+                    documentName={taskDocument.name}
                     setShowDeleteDocumentConfirmation={setShowDeleteDocumentConfirmation}
                     showDeleteDocumentConfirmation={showDeleteDocumentConfirmation}
                 /> : null}
             <TaskDocumentLink
-                download
-                target='_blank'
-                to={document.document}
-            >{document.name.length > 18 ? document.name.slice(0, 11).concat('....').concat(document.name.slice(-4)) : document.name}
+                onClick={downloadDocumentHandler}
+            >{taskDocument.name.length > 18 ? taskDocument.name.slice(0, 11).concat('....').concat(taskDocument.name.slice(-4)) : taskDocument.name}
             </TaskDocumentLink>
             <TaskDocumentDeleteImageContainer>
                 <TaskDocumentDeleteImage

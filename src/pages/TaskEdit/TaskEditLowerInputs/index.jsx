@@ -37,9 +37,9 @@ const TaskEditLowerInputs = ({documents, error, files, getInputProps, getRootPro
                     <DocumentContainer>
                         {documents.map(document => (
                             <TaskDocument
-                                document={document}
                                 key={document.id}
                                 project={project}
+                                taskDocument={document}
                             /> ))}
                     </DocumentContainer>
                 </EditTaskExistingDocumentContainer>

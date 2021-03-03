@@ -13,9 +13,9 @@ const EntryDocuments = ({documents, expanded, project, setExpanded}) => {
             <EntryDocumentsTextContainer>
                 {documents.map(document => (
                     <TaskDocument
-                        document={document}
                         key={document.id}
                         project={project}
+                        taskDocument={document}
                     /> ))}
             </EntryDocumentsTextContainer>
             {expanded ?

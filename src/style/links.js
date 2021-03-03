@@ -43,7 +43,7 @@ export const LogOutLink = styled(Link)`
   padding: 17px;
 `
 
-export const TaskDocumentLink = styled(Link)`
+export const TaskDocumentLink = styled.span`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-weight: 600;
     font-size: 12px;
@@ -54,6 +54,7 @@ export const TaskDocumentLink = styled(Link)`
     :hover {
         transition: 167ms;
         text-decoration: underline;
+        cursor: pointer;
     }
 `
 
