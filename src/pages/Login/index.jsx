@@ -54,8 +54,7 @@ const Login = () => {
                 validateOnChange={false}
             >
                 {({values, errors, touched, handleChange,
-                handleBlur, handleSubmit, isSubmitting,
-                }) => (
+                handleBlur, handleSubmit, isSubmitting,}) => (
                     <LoginForm onSubmit={handleSubmit}>
                         <LoginLogo />
                         <Title>Login</Title>
