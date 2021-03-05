@@ -7,8 +7,5 @@ export const NameInputContainer = styled.div`
     grid-template-rows: 42px 1fr;
     grid-column-gap: 12px;
     width: 302px;
-`
-
-export const NameErrorMessageContainer = styled(NameInputContainer)`
-    height: 10px;
+    height: 60px;
 `

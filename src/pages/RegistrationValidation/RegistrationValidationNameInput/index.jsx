@@ -2,36 +2,45 @@ import React from 'react'
 import {NameInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
 import {ActiveInputLabel} from '../../../style/labels'
-import {NameErrorMessageContainer, NameInputContainer} from './styles'
+import {ErrorMessageContainer} from '../../../style/containers'
+import {NameInputContainer} from './styles'
 
 
-const RegistrationValidationNameInput = ({error, first_name, last_name}) => {
+const RegistrationValidationNameInput = ({error, errors, handleBlur, handleChange, touched, values}) => {
     return (
         <NameInputContainer>
             <div>
                 <ActiveInputLabel htmlFor='first_name'>Firstname</ActiveInputLabel>
                 <NameInput
+                    error={errors.first_name}
                     name='first_name'
+                    onBlur={handleBlur}
+                    onChange={handleChange}
                     placeholder='Enter firstname'
-                    ref={first_name}
                     type='text'
+                    value={values.first_name}
                 />
             </div>
             <div>
                 <ActiveInputLabel htmlFor='last_name'>Lastname</ActiveInputLabel>
                 <NameInput
+                    error={errors.last_name}
                     name='last_name'
+                    onBlur={handleBlur}
+                    onChange={handleChange}
                     placeholder='Enter lastname'
-                    ref={last_name}
                     type='text'
+                    values={values.last_name}
                 />
             </div>
-            <NameErrorMessageContainer>
+            <ErrorMessageContainer>
                 {error && <ErrorMessage>{error.first_name}</ErrorMessage>}
-            </NameErrorMessageContainer>
-            <NameErrorMessageContainer>
+                {errors.first_name && touched.first_name && <ErrorMessage>{errors.first_name}</ErrorMessage>}
+            </ErrorMessageContainer>
+            <ErrorMessageContainer>
                 {error && <ErrorMessage>{error.last_name}</ErrorMessage>}
-            </NameErrorMessageContainer>
+                {errors.last_name && touched.last_name && <ErrorMessage>{errors.last_name}</ErrorMessage>}
+            </ErrorMessageContainer>
         </NameInputContainer>
     )
 }
