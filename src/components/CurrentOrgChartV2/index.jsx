@@ -41,53 +41,134 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.myTemplate.field_2 =
             '<text class="field_2" style="font-size: 22px;" font-weight="800" fill="#000000" x="200" y="110" text-anchor="middle" font-family="Nunito Sans, sans-serif">({val})</text>'
 
-        //Creates Corporation Entity node, highlighted rectangle
+        //-- Corporation Entity Templates --//
+
+        //Creates Corporation Entity node, highlighted rectangle, this is also the "default" entity template
         OrgChart.templates.myTemplate.node = '<rect x="0" y="0" height="150" width="400" fill="#FAFAFA" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
 
-        //Creates Hybrid Entity node, triangle inside of a rectangle
-        OrgChart.templates.hybridEntity = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.hybridEntity.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
-            + '<path d="M200 0 L2 150 L398 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
+        //Creates Corporation node with dashed red border
+        OrgChart.templates.corporationAdd = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.corporationAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
 
-        //Creates Reverse Hybrid node, upside down triangle inside of a rectangle
-        OrgChart.templates.reverseHybridEntity = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.reverseHybridEntity.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#8C8C8C" rx="0" ry="0"></rect>'
-            + '<path d="M200 150 L2 0 L398 0 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
+        // Creates Corporation node with dashed red "X" through entity
+        OrgChart.templates.corporationDelete = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.corporationDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
 
-        //Creates Disregarded Entity node, ellipse inside a rectangle
-        OrgChart.templates.disregardedEntity = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.disregardedEntity.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#8C8C8C" rx="0" ry="0"></rect>'
-            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2""></ellipse>'
+        //-- Branch Entity Templates --//
 
         //Creates Branch node, highlighted ellipse
         OrgChart.templates.branch = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.branch.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
-            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2""></ellipse>'
+            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2"></ellipse>'
+
+        //Creates Branch node with dashed red border
+        OrgChart.templates.branchAdd = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.branchAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
+            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#FF605C" stroke-width="2" stroke-dasharray="6"></ellipse>'
+
+        //Creates Branch node with dashed red "X" through entity
+        OrgChart.templates.branchDelete = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.branchDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
+            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2"></ellipse>'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+
+        //-- Partnership Entity Templates --//
 
         //Creates Partnership node, highlighted triangle
         OrgChart.templates.partnership = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.partnership.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
             + '<path d="M200 0 L0 150 L400 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
 
+        //Creates Partnership node with dashed red border
+        OrgChart.templates.partnershipAdd = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.partnershipAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
+            + '<path d="M200 0 L0 150 L400 150 Z" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" fill="#FAFAFA"></path>'
+
+        //Creates Partnership node with dashed red "X" through entity
+        OrgChart.templates.partnershipDelete = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.partnershipDelete.node = OrgChart.templates.partnership.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
+            + '<path d="M200 0 L0 150 L400 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+
+        //-- Disregarded Entity Templates --//
+
+        //Creates Disregarded Entity node, ellipse inside a rectangle
+        OrgChart.templates.disregardedEntity = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.disregardedEntity.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2""></ellipse>'
+
+        //Creates Disregarded Entity node with dashed red border
+        OrgChart.templates.disregardedEntityAdd = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.disregardedEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#FF605C" stroke-dasharray="6" stroke-width="2""></ellipse>'
+
+        //Creates Disregarded Entity node with dashed red "X" through entity
+        OrgChart.templates.disregardedEntityDelete = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.disregardedEntityDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2""></ellipse>'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+
+        //-- Representative Office Entity Templates --//
+
         //Creates Representative Office node, highlighted circle
         OrgChart.templates.representativeOffice = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.representativeOffice.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="2" stroke="#FFFFFF" rx="0" ry="0"></rect>'
             + '<circle cx="200" cy="75" r="73" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA" />'
 
-        //Creates Corporation node with dashed red "X" through entity
-        OrgChart.templates.corporationWithX = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.corporationWithX.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+        //Creates Representative Office node with dashed red border
+        OrgChart.templates.representativeOfficeAdd = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.representativeOfficeAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="2" stroke="#FFFFFF" rx="0" ry="0"></rect>'
+            + '<circle cx="200" cy="75" r="73" stroke="#FF605C" stroke-dasharray="6" stroke-width="2" fill="#FAFAFA" />'
+
+        //Creates Representative Office node with dashed red "X" through entity
+        OrgChart.templates.representativeOfficeDelete = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.representativeOfficeDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="2" stroke="#FFFFFF" rx="0" ry="0"></rect>'
+            + '<circle cx="200" cy="75" r="73" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA" />'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
 
-        //Creates Corporation node with dashed red border
-        OrgChart.templates.corporationDashedRedBorder = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.corporationDashedRedBorder.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+        //-- Hybrid Entity Templates --//
 
-        //Creates Corporation node with solid red border
-        OrgChart.templates.corporationSolidRedBorder = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.corporationSolidRedBorder.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#FF605C" rx="0" ry="0"></rect>'
+        //Creates Hybrid Entity node, triangle inside of a rectangle
+        OrgChart.templates.hybridEntity = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.hybridEntity.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+            + '<path d="M200 0 L2 150 L398 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
 
+        //Creates Hybrid Entity node with dashed red border
+        OrgChart.templates.hybridEntityAdd = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.hybridEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+            + '<path d="M200 0 L2 150 L398 150 Z" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" fill="#FAFAFA"></path>'
+
+        //Creates Hybrid Entity node with dashed red "X" through entity
+        OrgChart.templates.hybridEntityDelete = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.hybridEntityDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+            + '<path d="M200 0 L2 150 L398 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+
+        //-- Reverse Hybrid Entity --//
+
+        //Creates Reverse Hybrid node, upside down triangle inside of a rectangle
+        OrgChart.templates.reverseHybridEntity = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.reverseHybridEntity.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+            + '<path d="M200 150 L2 0 L398 0 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
+
+        //Creates Reverse Hybrid Entity node with dashed red border
+        OrgChart.templates.reverseHybridEntityAdd = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.reverseHybridEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+            + '<path d="M200 150 L2 0 L398 0 Z" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" fill="#FAFAFA"></path>'
+
+        //Creates Reverse Hybrid Entity node with dashed red "X" through entity
+        OrgChart.templates.reverseHybridEntityDelete = Object.assign({}, OrgChart.templates.myTemplate)
+        OrgChart.templates.reverseHybridEntityDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+            + '<path d="M200 150 L2 0 L398 0 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
 
         // eslint-disable-next-line no-unused-vars
         const chart = new OrgChart(divRef.current, {
@@ -100,25 +181,28 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
                 field_2: 'location',
             },
 
+            // The tag of an entity define which template is applied to it, without a tag it gets the default myTemplate node aka Corporation Entity
             tags: {
-                partnership: {
-                    template: 'partnership'
-                },
-                branch: {
-                    template: 'branch'
-                },
-                disregardedEntity: {
-                    template: 'disregardedEntity'
-                },
-                representativeOffice: {
-                    template: 'representativeOffice'
-                },
-                hybridEntity: {
-                    template: 'hybridEntity'
-                },
-                reverseHybridEntity: {
-                    template: 'reverseHybridEntity'
-                }
+                corporationAdd: {template: 'corporationAdd'},
+                corporationDelete: {template: 'corporationDelete'},
+                branch: {template: 'branch'},
+                branchAdd: {template: 'branchAdd'},
+                branchDelete: {template: 'branchDelete'},
+                partnership: {template: 'partnership'},
+                partnershipAdd: {template: 'partnershipAdd'},
+                partnershipDelete: {template: 'partnershipDelete'},
+                disregardedEntity: {template: 'disregardedEntity'},
+                disregardedEntityAdd: {template: 'disregardedEntityAdd'},
+                disregardedEntityDelete: {template: 'disregardedEntityDelete'},
+                representativeOffice: {template: 'representativeOffice'},
+                representativeOfficeAdd: {template: 'representativeOfficeAdd'},
+                representativeOfficeDelete: {template: 'representativeOfficeDelete'},
+                hybridEntity: {template: 'hybridEntity'},
+                hybridEntityAdd: {template: 'hybridEntityAdd'},
+                hybridEntityDelete: {template: 'hybridEntityDelete'},
+                reverseHybridEntity: {template: 'reverseHybridEntity'},
+                reverseHybridEntityAdd: {template: 'reverseHybridEntityAdd'},
+                reverseHybridEntityDelete: {template: 'reverseHybridEntityDelete'},
             },
 
             toolbar: {
