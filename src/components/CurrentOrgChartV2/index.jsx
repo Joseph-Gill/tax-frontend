@@ -231,7 +231,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
     })
 
     return (
-        // componentCalling is used in the style.js file to adjust the size of the Chart div depending on where it is being called
+        // componentCalling is used in the style.js file to adjust the styling of the Chart div depending on where it is being called
         <OrgChartContainer componentCalling={componentCalling} id="tree" ref={divRef} />
     )
 }
