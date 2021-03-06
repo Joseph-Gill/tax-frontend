@@ -89,7 +89,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
 
         //Creates Partnership node with dashed red "X" through entity
         OrgChart.templates.partnershipDelete = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.partnershipDelete.node = OrgChart.templates.partnership.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
+        OrgChart.templates.partnershipDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
             + '<path d="M200 0 L0 150 L400 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
