@@ -11,7 +11,7 @@ import EditLinkModal from '../../../components/Modals/EditLinkModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {
     addLegalFormTag, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType, editLinkSameType, entityInputErrorHandler,
-    getEntitiesWithTags, getEntityName, linkInputErrorHandler, renderRemoveEntitiesOptions
+    getEntitiesWithTags, getEntityName, highlightTagForAddEntity, highlightTagForDeleteEntity, linkInputErrorHandler, renderRemoveEntitiesOptions
 } from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
@@ -45,7 +45,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
 
     useEffect(() => {
         //Set each entity with its appropriate tag to show it with the appropriate org chart template
-        setEntitiesToRender([...getEntitiesWithTags(entities)])
+        setEntitiesToRender([...getEntitiesWithTags(entities, stepChartExists)])
         //Creates an array of available Parent names/locations/ids for the user to choose from when
         //adding a new entity
         setAvailableParentNames([...entities.map(entity => {
@@ -55,7 +55,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 id: entity.id
             }
         })])
-    }, [entities])
+    }, [entities, stepChartExists])
 
     //Used to create the list of available parents to choose from in AddEntityModal parent selector
     const renderParentNameOptions = useMemo(() => (
@@ -142,7 +142,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 new: true
             }
             //Attaches the appropriate tag to the entity to assign the correct custom template in the org chart
-            const entityTag = addLegalFormTag(legalForm)
+            const entityTag = highlightTagForAddEntity(legalForm)
             if (entityTag) {
                 addEntityInfo.tags = [entityTag]
             }
@@ -238,7 +238,18 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
 
     //Used by RemoveEntityModal
     const removeEntityHandler = () => {
-       const newEntitiesToRender = entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove))
+       // const newEntitiesToRender = entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove))
+       const newEntitiesToRender = entitiesToRender.map(entity => {
+           if (entity.id === parseInt(entityToRemove)) {
+               // Adds the legal form delete template to the entity so it is highlighted on this specific step's chart
+               entity.tags = [highlightTagForDeleteEntity(entity.legal_form)]
+               // Adds a key/value pair that is used in further step charts to not display this entity anymore
+               entity.remove = true
+               return entity
+           } else {
+               return entity
+           }
+       })
         //StepCharts are stored as JSON data in the backend until the Complete Project action is run
         const chartData = {
             nodes: JSON.stringify(newEntitiesToRender),

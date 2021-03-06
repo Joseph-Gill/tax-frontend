@@ -105,9 +105,11 @@ export const createAcceptedFilesList = array => {
     ))
 }
 
-// Used by components displaying Charts to attach tags to nodes to give each Entity its proper shape
+// Used by components displaying Charts to attach tags to nodes to give each Entity its proper shape, also removes the tag for Add/Delete versions of the nodes
 export const addLegalFormTag = legalForm => {
     switch (legalForm) {
+        case 'Corporation':
+            return 'corporation'
         case 'Partnership':
             return 'partnership'
         case 'Branch':
@@ -125,16 +127,65 @@ export const addLegalFormTag = legalForm => {
     }
 }
 
+// Used in the StepChart to add the appropriate tag for Highlighting the Entity that is being Added
+export const highlightTagForAddEntity = legalForm => {
+    switch (legalForm) {
+        case 'Corporation':
+            return 'corporationAdd'
+        case 'Partnership':
+            return 'partnershipAdd'
+        case 'Branch':
+            return 'branchAdd'
+        case 'Disregarded Entity':
+            return 'disregardedEntityAdd'
+        case 'Representative Office':
+            return 'representativeOfficeAdd'
+        case 'Hybrid Entity':
+            return 'hybridEntityAdd'
+        case 'Reverse Entity':
+            return 'reverseHybridEntityAdd'
+        default:
+            return null
+    }
+}
+
+export const highlightTagForDeleteEntity = legalForm => {
+    switch (legalForm){
+        case 'Corporation':
+            return 'corporationDelete'
+        case 'Partnership':
+            return 'partnershipDelete'
+        case 'Branch':
+            return 'branchDelete'
+        case 'Disregarded Entity':
+            return 'disregardedEntityDelete'
+        case 'Representative Office':
+            return 'representativeOfficeDelete'
+        case 'Hybrid Entity':
+            return 'hybridEntityDelete'
+        case 'Reverse Entity':
+            return 'reverseHybridEntityDelete'
+        default:
+            return null
+    }
+}
+
 // Used by components displaying Charts to attach tags to nodes to give each Entity its proper shape
-export const getEntitiesWithTags = entities => {
-    return entities.map(entity => {
-        let entityTag = addLegalFormTag(entity.legal_form)
-        if(entityTag){
-            return {...entity, tags: [entityTag]}
-        } else {
-            return entity
-        }
-    })
+export const getEntitiesWithTags = (entities, stepChartExists) => {
+    // If a StepChart does not already exist, it needs to had the add styling removed from added entities
+    // and the deleted entities removed entirely from the chart
+    if (!stepChartExists) {
+        const entitiesWithoutDeleted = []
+        entities.forEach(entity => {
+            if (!entity.remove) {
+                let entityTag = addLegalFormTag(entity.legal_form)
+                entitiesWithoutDeleted.push({...entity, tags: [entityTag]})
+            }
+        })
+        return entitiesWithoutDeleted
+    } else {
+        return entities
+    }
 }
 
 // Used by components to either create a new StepChart or update an existing StepChart

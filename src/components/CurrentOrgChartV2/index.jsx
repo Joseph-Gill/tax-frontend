@@ -40,11 +40,13 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             '<text class="field_1" style="font-size: 18px;" font-weight="600" fill="#000000" x="200" y="80" text-anchor="middle" font-family="Nunito Sans, sans-serif">{val}</text>'
         OrgChart.templates.myTemplate.field_2 =
             '<text class="field_2" style="font-size: 22px;" font-weight="800" fill="#000000" x="200" y="110" text-anchor="middle" font-family="Nunito Sans, sans-serif">({val})</text>'
+        //Sets the default node appearence of the template
+        OrgChart.templates.myTemplate.node = '<rect x="0" y="0" height="150" width="400" fill="#FAFAFA" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
 
         //-- Corporation Entity Templates --//
 
-        //Creates Corporation Entity node, highlighted rectangle, this is also the "default" entity template
-        OrgChart.templates.myTemplate.node = '<rect x="0" y="0" height="150" width="400" fill="#FAFAFA" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+        //Creates Corporation Entity node, highlighted rectangle
+        OrgChart.templates.corporation = Object.assign({}, OrgChart.templates.myTemplate)
 
         //Creates Corporation node with dashed red border
         OrgChart.templates.corporationAdd = Object.assign({}, OrgChart.templates.myTemplate)
@@ -183,6 +185,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
 
             // The tag of an entity define which template is applied to it, without a tag it gets the default myTemplate node aka Corporation Entity
             tags: {
+                corporation: {template: 'corporation'},
                 corporationAdd: {template: 'corporationAdd'},
                 corporationDelete: {template: 'corporationDelete'},
                 branch: {template: 'branch'},
