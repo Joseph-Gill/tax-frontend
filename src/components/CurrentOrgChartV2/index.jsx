@@ -50,13 +50,13 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
 
         //Creates Corporation node with dashed red border
         OrgChart.templates.corporationAdd = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.corporationAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+        OrgChart.templates.corporationAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
 
         // Creates Corporation node with dashed red "X" through entity
         OrgChart.templates.corporationDelete = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.corporationDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
-            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
-            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
 
         //-- Branch Entity Templates --//
 
@@ -68,14 +68,14 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         //Creates Branch node with dashed red border
         OrgChart.templates.branchAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.branchAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
-            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#FF605C" stroke-width="2" stroke-dasharray="6"></ellipse>'
+            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#FF605C" stroke-width="4" stroke-dasharray="6"></ellipse>'
 
         //Creates Branch node with dashed red "X" through entity
         OrgChart.templates.branchDelete = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.branchDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
             + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2"></ellipse>'
-            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
-            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
 
         //-- Partnership Entity Templates --//
 
@@ -87,14 +87,14 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         //Creates Partnership node with dashed red border
         OrgChart.templates.partnershipAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.partnershipAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
-            + '<path d="M200 0 L0 150 L400 150 Z" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" fill="#FAFAFA"></path>'
+            + '<path d="M200 0 L0 150 L400 150 Z" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" fill="#FAFAFA"></path>'
 
         //Creates Partnership node with dashed red "X" through entity
         OrgChart.templates.partnershipDelete = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.partnershipDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
             + '<path d="M200 0 L0 150 L400 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
-            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
-            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
 
         //-- Disregarded Entity Templates --//
 
@@ -105,15 +105,15 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
 
         //Creates Disregarded Entity node with dashed red border
         OrgChart.templates.disregardedEntityAdd = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.disregardedEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
-            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#FF605C" stroke-dasharray="6" stroke-width="2""></ellipse>'
+        OrgChart.templates.disregardedEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+            + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#FF605C" stroke-dasharray="6" stroke-width="4""></ellipse>'
 
         //Creates Disregarded Entity node with dashed red "X" through entity
         OrgChart.templates.disregardedEntityDelete = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.disregardedEntityDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#8C8C8C" rx="0" ry="0"></rect>'
             + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2""></ellipse>'
-            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
-            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
 
         //-- Representative Office Entity Templates --//
 
@@ -125,14 +125,14 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         //Creates Representative Office node with dashed red border
         OrgChart.templates.representativeOfficeAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.representativeOfficeAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="2" stroke="#FFFFFF" rx="0" ry="0"></rect>'
-            + '<circle cx="200" cy="75" r="73" stroke="#FF605C" stroke-dasharray="6" stroke-width="2" fill="#FAFAFA" />'
+            + '<circle cx="200" cy="75" r="73" stroke="#FF605C" stroke-dasharray="6" stroke-width="4" fill="#FAFAFA" />'
 
         //Creates Representative Office node with dashed red "X" through entity
         OrgChart.templates.representativeOfficeDelete = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.representativeOfficeDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="2" stroke="#FFFFFF" rx="0" ry="0"></rect>'
             + '<circle cx="200" cy="75" r="73" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA" />'
-            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
-            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
 
         //-- Hybrid Entity Templates --//
 
@@ -143,15 +143,15 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
 
         //Creates Hybrid Entity node with dashed red border
         OrgChart.templates.hybridEntityAdd = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.hybridEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
-            + '<path d="M200 0 L2 150 L398 150 Z" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" fill="#FAFAFA"></path>'
+        OrgChart.templates.hybridEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+            + '<path d="M200 0 L2 150 L398 150 Z" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" fill="#FAFAFA"></path>'
 
         //Creates Hybrid Entity node with dashed red "X" through entity
         OrgChart.templates.hybridEntityDelete = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.hybridEntityDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
             + '<path d="M200 0 L2 150 L398 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
-            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
-            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
 
         //-- Reverse Hybrid Entity --//
 
@@ -162,15 +162,15 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
 
         //Creates Reverse Hybrid Entity node with dashed red border
         OrgChart.templates.reverseHybridEntityAdd = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.reverseHybridEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
-            + '<path d="M200 150 L2 0 L398 0 Z" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" fill="#FAFAFA"></path>'
+        OrgChart.templates.reverseHybridEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+            + '<path d="M200 150 L2 0 L398 0 Z" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" fill="#FAFAFA"></path>'
 
         //Creates Reverse Hybrid Entity node with dashed red "X" through entity
         OrgChart.templates.reverseHybridEntityDelete = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.reverseHybridEntityDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="1" stroke="#8C8C8C" rx="0" ry="0"></rect>'
             + '<path d="M200 150 L2 0 L398 0 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
-            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
-            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="2" stroke-dasharray="6" />'
+            + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+            + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
 
         // eslint-disable-next-line no-unused-vars
         const chart = new OrgChart(divRef.current, {
