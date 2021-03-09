@@ -96,7 +96,8 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     //Used to create the list of available link partners to choose from in AddLinkModal selector
     const renderFromToOptions = () => (
         entitiesToRender.map(entity => (
-            <DropdownOption key={uuidv4()} value={entity.id}>{entity.name}</DropdownOption>
+            // Removes any Delete Highlighted entities as options for the user to choose to edit
+            !entity.remove && <DropdownOption key={uuidv4()} value={entity.id}>{entity.name}</DropdownOption>
             )
         )
     )
@@ -167,7 +168,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setLegalForm('')
         setNewEntityInfo({
             entityName: '',
-            parentName: '',
+            parentId: '',
             taxRate: ''
         })
         setShowAddEntity(false)

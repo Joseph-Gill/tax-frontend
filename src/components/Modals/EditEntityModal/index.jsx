@@ -70,11 +70,13 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                 <>
                     <EntityOption disabled value=''>Select entity to edit</EntityOption>
                     {entities.map(entity => (
-                        <EntityOption
-                            key={uuidv4()}
-                            value={entity.id}
-                        >{entity.name.length > 20 ? `${entity.name.slice(0, 20).concat('....')} (${entity.location})` : `${entity.name} (${entity.location})`}
-                        </EntityOption>
+                        // Removes any Delete Highlighted entities as options for the user to choose to edit
+                        !entity.remove &&
+                            <EntityOption
+                                key={uuidv4()}
+                                value={entity.id}
+                            >{entity.name.length > 20 ? `${entity.name.slice(0, 20).concat('....')} (${entity.location})` : `${entity.name} (${entity.location})`}
+                            </EntityOption>
                     ))}
                 </>
             )
