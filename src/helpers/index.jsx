@@ -338,3 +338,16 @@ export const checkIfArrayContainsStatus = (array, status) => {
     const completed = array.filter(index => index.status !== status)
     return completed.length;
 }
+
+//Used by components that need to create list of parent choices, to remove entities with "Delete" highlighting as choices
+export const createAvailableParentNamesWithoutDeletes = arrayOfEntities => {
+    let listOfPotentialParents = []
+    arrayOfEntities.forEach(entity => {
+        // Checks if entity has {remove: true} key/value pair, applied to entities that have Delete Highlighting and that
+        // should not be presented as options in menus
+        if (!entity.remove) {
+            listOfPotentialParents.push({name: entity.name, location: entity.location, id: entity.id})
+        }
+    })
+    return listOfPotentialParents
+}

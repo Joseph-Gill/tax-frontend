@@ -10,7 +10,7 @@ import EditEntityModal from '../../../components/Modals/EditEntityModal'
 import EditLinkModal from '../../../components/Modals/EditLinkModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {
-    addLegalFormTag, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType, editLinkSameType, entityInputErrorHandler,
+    addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType, editLinkSameType, entityInputErrorHandler,
     getEntitiesWithTags, getEntityName, highlightTagForAddEntity, highlightTagForDeleteEntity, linkInputErrorHandler, renderRemoveEntitiesOptions
 } from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
@@ -46,15 +46,8 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     useEffect(() => {
         //Set each entity with its appropriate tag to show it with the appropriate org chart template
         setEntitiesToRender([...getEntitiesWithTags(entities, stepChartExists)])
-        //Creates an array of available Parent names/locations/ids for the user to choose from when
-        //adding a new entity
-        setAvailableParentNames([...entities.map(entity => {
-            return {
-                name: entity.name,
-                location: entity.location,
-                id: entity.id
-            }
-        })])
+        //Creates an array of available Parent names/locations/ids for the user to choose from when adding / editing
+        setAvailableParentNames(createAvailableParentNamesWithoutDeletes(entities))
     }, [entities, stepChartExists])
 
     //Used to create the list of available parents to choose from in AddEntityModal parent selector
@@ -125,6 +118,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     }, [slinks, clinks, entitiesToRender])
 
     const saveNewEntityHandler = () => {
+        dispatch(resetErrors())
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
         if (!error) {
             const addEntityInfo = {
@@ -159,7 +153,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             setLegalForm('')
             setNewEntityInfo({
                 entityName: '',
-                parentName: '',
+                parentId: '',
                 taxRate: ''
             })
             setShowAddEntity(false)
@@ -181,6 +175,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     }
 
     const saveNewLinkHandler = async () => {
+        dispatch(resetErrors())
         //Helper to perform input validation
         const error = linkInputErrorHandler(dispatch, setError, addLinkInfo)
         if (!error) {
@@ -219,8 +214,8 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         }
     }
 
-    //Used by RemoveLinkModal
     const removeLinkHandler = () => {
+        dispatch(resetErrors())
         const newSlinks = slinks.filter(link => link.id !== parseInt(linkToRemove))
         const newClinks = clinks.filter(link => link.id !== parseInt(linkToRemove))
         //StepCharts are stored as JSON data in the backend until the Complete Project action is run
@@ -236,8 +231,8 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setShowRemoveLink(false)
     }
 
-    //Used by RemoveEntityModal
     const removeEntityHandler = () => {
+        dispatch(resetErrors())
        // const newEntitiesToRender = entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove))
        const newEntitiesToRender = entitiesToRender.map(entity => {
            if (entity.id === parseInt(entityToRemove)) {
@@ -258,7 +253,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         }
         createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
         setEntitiesToRender(newEntitiesToRender)
-        setAvailableParentNames([...newEntitiesToRender.map(entity => entity.name)])
+        setAvailableParentNames(createAvailableParentNamesWithoutDeletes(newEntitiesToRender))
         setEntityToRemove('')
         setShowRemoveEntity(false)
     }
