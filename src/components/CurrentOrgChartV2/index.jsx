@@ -50,11 +50,11 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
 
         //Creates Corporation node with dashed red border
         OrgChart.templates.corporationAdd = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.corporationAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+        OrgChart.templates.corporationAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FAFAFA" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
 
         // Creates Corporation node with dashed red "X" through entity
         OrgChart.templates.corporationDelete = Object.assign({}, OrgChart.templates.myTemplate)
-        OrgChart.templates.corporationDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
+        OrgChart.templates.corporationDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#FAFAFA" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
 

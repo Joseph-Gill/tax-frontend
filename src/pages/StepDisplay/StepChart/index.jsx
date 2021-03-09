@@ -265,24 +265,46 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
 
     const saveEditEntityHandler = (editEntityInfo, countryName, legalForm) => {
         dispatch(resetErrors())
-        //Handles input validation for the entity inputs
+        // Handles input validation for the entity inputs
         const error = editEntityInputErrorHandler(dispatch, setError, entitiesToRender, editEntityInfo, countryName)
         if (!error) {
-            //Finds parent entity of entity being edited
+            // Finds parent entity of entity being edited
             const targetParent = entitiesToRender.filter(entity => entity.id === parseInt(editEntityInfo.parentId))[0]
-            //Finds index of entity being edited in listOfEntities
+            // Finds index of entity being edited in listOfEntities
             const indexToEdit = entitiesToRender.findIndex(entity => entity.id === editEntityInfo.entityToEditId)
+            // If an entity's parent is changed during the edit, a ghost version is left under the original parent with a delete template highlight
+            // and the new version is given an add template highlight for the step
+            if (targetParent.id !== parseInt(entitiesToRender[indexToEdit].pid)) {
+                // Creates the ghost copy of the entity that remains behind with a delete node to highlight it was moved
+                const deleteCopyOfEntity = {
+                    id: Date.now(),
+                    name: editEntityInfo.entityName,
+                    tax_rate: editEntityInfo.taxRate,
+                    // Gets the original parent id of the entity before it was changed
+                    pid: entitiesToRender[indexToEdit].pid.toString(),
+                    legal_form: legalForm,
+                    location: countryName,
+                    tags: [highlightTagForDeleteEntity(legalForm)],
+                    // Key/value pair that is used in further step charts to not display this entity anymore
+                    remove: true
+                }
+                entitiesToRender.push(deleteCopyOfEntity)
+                //Updates the tag to be a Add template version of the node for highlighting, since the parent was changed
+                entitiesToRender[indexToEdit].tags = [highlightTagForAddEntity(legalForm)]
+            } else {
+                // The parent of the entity was not change during the edit, so the legalForm tag is update to make sure it is the correct current version
+                // in case the user change the legal form during the edit.
+                entitiesToRender[indexToEdit].tags = [addLegalFormTag(legalForm)]
+            }
             //Updates all values of entity being edited with current/new values
+            entitiesToRender[indexToEdit].pid = editEntityInfo.parentId.toString()
             entitiesToRender[indexToEdit].name = editEntityInfo.entityName
             entitiesToRender[indexToEdit].tax_rate = editEntityInfo.taxRate
-            entitiesToRender[indexToEdit].pid = editEntityInfo.parentId.toString()
             entitiesToRender[indexToEdit].legal_form = legalForm
             entitiesToRender[indexToEdit].location = countryName
             entitiesToRender[indexToEdit].edited = true
             //Sets parent entity of entity to current/new value, used in backend to get database id of parent
             entitiesToRender[indexToEdit].parent = targetParent
-            //Updates tag of entity to make sure it is rendering correct legal form template
-            entitiesToRender[indexToEdit].tags = [addLegalFormTag(legalForm)]
             //StepCharts are stored as JSON data in the backend until the Complete Project action is run
             const chartData = {
                 nodes: JSON.stringify(entitiesToRender),
