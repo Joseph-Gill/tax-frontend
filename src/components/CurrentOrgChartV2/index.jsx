@@ -222,8 +222,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
                 }
             },
 
-
-            scaleInitial: 0.5,
+            scaleInitial: OrgChart.match.boundary,
 
             enableSearch: true,
 
@@ -231,6 +230,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             clinks,
             slinks
         })
+
     })
 
     return (
