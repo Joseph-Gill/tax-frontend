@@ -17,6 +17,7 @@ export const AddDeleteModalExternalContainer = styled(animated.div)`
     align-items: center;
     z-index: 500;
     background-color: rgba(0,0,0,0.68);
+    overflow: hidden;
  `
 
 export const AddDeleteModalInternalContainer = styled.div`
