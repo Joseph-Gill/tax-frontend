@@ -26,6 +26,7 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
     const [editParentNames, setEditParentNames] = useState([])
     const [showEditEntitySelect, setShowEditEntitySelect] = useState(false)
     const [showParentEntitySelect, setShowParentEntitySelect] = useState(false)
+    const [showEntityLegalSelect, setShowEntityLegalSelect] = useState(false)
     const [editEntityInfo, setEditEntityInfo] = useState({
         entityName: '',
         parentId: '',
@@ -153,6 +154,8 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                         legalForm={legalForm}
                         setEditEntityInfo={setEditEntityInfo}
                         setLegalForm={setLegalForm}
+                        setShowEntityLegalSelect={setShowEntityLegalSelect}
+                        showEntityLegalSelect={showEntityLegalSelect}
                     />
                     <ModalEditButtons
                         cancelButtonHandler={cancelButtonHandler}
