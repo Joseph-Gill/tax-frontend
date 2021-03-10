@@ -4,14 +4,17 @@ import EditEntityTextInput from '../EditEntityTextInput'
 import {EditEntityLinkRowContainer} from '../../styles'
 
 
-const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, error, renderEntityToEditOptions, setEditEntityInfo}) => {
+const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, entities, error, setEditEntityInfo,
+                              setShowEditEntitySelect, showEditEntitySelect}) => {
     return (
         <EditEntityLinkRowContainer>
             <EditEntitySelect
                 editEntityChangeHandler={editEntityChangeHandler}
                 editEntityInfo={editEntityInfo}
+                entities={entities}
                 error={error}
-                renderEntityToEditOptions={renderEntityToEditOptions}
+                setShowEditEntitySelect={setShowEditEntitySelect}
+                showEditEntitySelect={showEditEntitySelect}
             />
             <EditEntityTextInput
                 changeHandler={(e) => setEditEntityInfo({...editEntityInfo, entityName: e.target.value})}
@@ -22,7 +25,6 @@ const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, error, rende
                 name='name'
                 placeholder='Enter name'
                 type='text'
-                // value={editEntityInfo.entityName}
                 value={editEntityInfo.entityName.length > 30 ? editEntityInfo.entityName.slice(0, 24).concat('....') : editEntityInfo.entityName}
             />
         </EditEntityLinkRowContainer>

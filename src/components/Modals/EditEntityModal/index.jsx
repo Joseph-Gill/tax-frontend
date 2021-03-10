@@ -19,6 +19,7 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
     const error = useSelector(state => state.errorReducer.error)
     const [countryName, setCountryName] = useState('')
     const [legalForm, setLegalForm] = useState('')
+    const [showEditEntitySelect, setShowEditEntitySelect] = useState(false)
     const [editParentNames, setEditParentNames] = useState([])
     const [editEntityInfo, setEditEntityInfo] = useState({
         entityName: '',
@@ -33,14 +34,14 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
         setShowEditEntity(false)
     }
 
-    const editEntityChangeHandler = (e) => {
+    const editEntityChangeHandler = entityId => {
         //stores Entity to be edited
         const targetEntity = []
-        //stores all entities that aren't being edited
+        //stores all entities that aren't being edited to be used as possible parents
         const remainingEntities = []
         //creates the array of potential parent names for the entity
         entities.forEach(entity => {
-            if (entity.id === parseInt(e.target.value)) {
+            if (entity.id === parseInt(entityId)) {
                 targetEntity.push(entity)
             } else {
                 remainingEntities.push({
@@ -61,30 +62,8 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
         setCountryName(targetEntity[0].location)
         setLegalForm(targetEntity[0].legal_form)
         setEditParentNames(remainingEntities)
+        setShowEditEntitySelect(false)
     }
-
-    //creates options for entity to edit select
-    const renderEntityToEditOptions = useMemo(() => {
-        if (entities.length) {
-            return (
-                <>
-                    <EntityOption disabled value=''>Select entity to edit</EntityOption>
-                    {entities.map(entity => (
-                        // Removes any Delete Highlighted entities as options for the user to choose to edit
-                        !entity.remove &&
-                            <EntityOption
-                                key={uuidv4()}
-                                value={entity.id}
-                            >{entity.name.length > 20 ? `${entity.name.slice(0, 20).concat('....')} (${entity.location})` : `${entity.name} (${entity.location})`}
-                            </EntityOption>
-                    ))}
-                </>
-            )
-        } else {
-            return (
-                <EntityOption value=''>No entities to edit</EntityOption>
-            )
-        }}, [entities])
 
     const saveButtonHandler = () => {
         saveEditEntityHandler(editEntityInfo, countryName, legalForm)
@@ -130,9 +109,11 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                     <EditEntityTopRow
                         editEntityChangeHandler={editEntityChangeHandler}
                         editEntityInfo={editEntityInfo}
+                        entities={entities}
                         error={error}
-                        renderEntityToEditOptions={renderEntityToEditOptions}
                         setEditEntityInfo={setEditEntityInfo}
+                        setShowEditEntitySelect={setShowEditEntitySelect}
+                        showEditEntitySelect={showEditEntitySelect}
                     />
                     <EditEntityMiddleRow
                         countryName={countryName}
