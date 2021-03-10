@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, useRef, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import Draggable from 'react-draggable'
@@ -17,8 +17,10 @@ import {EditEntityLinkInternalContainer} from '../styles'
 const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, showEditEntity}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
+    let searchEntityTerm = useRef('')
     const [countryName, setCountryName] = useState('')
     const [legalForm, setLegalForm] = useState('')
+    const [filteredEntitiesToEdit, setFilteredEntitiesToEdit] = useState([])
     const [showEditEntitySelect, setShowEditEntitySelect] = useState(false)
     const [editParentNames, setEditParentNames] = useState([])
     const [editEntityInfo, setEditEntityInfo] = useState({
@@ -28,6 +30,11 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
         entitySelected: false,
         entityToEditId: ''
     })
+
+    useEffect(() => {
+        // Sorts the list of entities alphabetically before setting the filtered result to all entities initially
+        setFilteredEntitiesToEdit([...entities.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
+    }, [entities])
 
     const cancelButtonHandler = () => {
         dispatch(resetErrors())
@@ -67,6 +74,18 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
 
     const saveButtonHandler = () => {
         saveEditEntityHandler(editEntityInfo, countryName, legalForm)
+    }
+
+    // Used by search input inside select entity to edit dropdown
+    const handleFilterEntitiesToEdit = () => {
+        const filterResults = entities.filter(entity => entity.name.toLowerCase().indexOf(searchEntityTerm.current.value.toLowerCase()) !== -1)
+        setFilteredEntitiesToEdit([...filterResults.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
+    }
+
+    //Used by search input reset icon inside of the select entity to edit dropdown
+    const handleResetFilterEntitiesToEdit = () => {
+        searchEntityTerm.current.value = ''
+        setFilteredEntitiesToEdit([...entities.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
     }
 
     //creates parent options for entity being edited
@@ -111,6 +130,10 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                         editEntityInfo={editEntityInfo}
                         entities={entities}
                         error={error}
+                        filteredEntitiesToEdit={filteredEntitiesToEdit}
+                        handleFilterEntitiesToEdit={handleFilterEntitiesToEdit}
+                        handleResetFilterEntitiesToEdit={handleResetFilterEntitiesToEdit}
+                        searchEntityTerm={searchEntityTerm}
                         setEditEntityInfo={setEditEntityInfo}
                         setShowEditEntitySelect={setShowEditEntitySelect}
                         showEditEntitySelect={showEditEntitySelect}

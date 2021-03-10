@@ -4,8 +4,8 @@ import EditEntityTextInput from '../EditEntityTextInput'
 import {EditEntityLinkRowContainer} from '../../styles'
 
 
-const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, entities, error, setEditEntityInfo,
-                              setShowEditEntitySelect, showEditEntitySelect}) => {
+const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, entities, error, filteredEntitiesToEdit, handleFilterEntitiesToEdit,
+                              handleResetFilterEntitiesToEdit, searchEntityTerm, setEditEntityInfo, setShowEditEntitySelect, showEditEntitySelect}) => {
     return (
         <EditEntityLinkRowContainer>
             <EditEntitySelect
@@ -13,6 +13,10 @@ const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, entities, er
                 editEntityInfo={editEntityInfo}
                 entities={entities}
                 error={error}
+                filteredEntitiesToEdit={filteredEntitiesToEdit}
+                handleFilterEntitiesToEdit={handleFilterEntitiesToEdit}
+                handleResetFilterEntitiesToEdit={handleResetFilterEntitiesToEdit}
+                searchEntityTerm={searchEntityTerm}
                 setShowEditEntitySelect={setShowEditEntitySelect}
                 showEditEntitySelect={showEditEntitySelect}
             />

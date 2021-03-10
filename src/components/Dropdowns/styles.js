@@ -2,6 +2,7 @@ import styled from 'styled-components/macro'
 import {DropdownContent, DropdownContentContainer} from '../../style/dropdowns'
 import dropdownArrowDown from '../../assets/icons/stark_dropdown_arrow_gray_downward.svg'
 import dropdownArrowUpward from '../../assets/icons/stark_dropdown_arrow_gray_upwards.svg'
+import {BaseInput} from '../../style/inputs'
 
 
 export const DropdownContentImgContainer = styled.div`
@@ -156,6 +157,7 @@ export const ModalDropdownContentContainer = styled.div`
     width: 302px;
     max-height: 304px;
     overflow-y: auto;
+    overflow-x: hidden;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 2;
 
@@ -166,5 +168,36 @@ export const ModalDropdownContentContainer = styled.div`
     ${ModalDropdownContent}:last-child {
         border-bottom-right-radius: ${props => props.theme.borderRadius};
         border-bottom-left-radius: ${props => props.theme.borderRadius};
+    }
+`
+
+export const ModalDropdownSearchContainer = styled.div`
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 302px;
+    height: 36px;
+    border: 1px solid ${props => props.theme.grayFour};
+    border-radius: ${props => props.theme.inputBorderRadius};
+    background-color: ${props => props.theme.white};
+
+    :hover {
+        filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
+    }
+`
+
+export const ModalDropdownSearchInput = styled(BaseInput)`
+    width: 202px;
+    height: 34px;
+    border: none;
+    background: ${props => props.theme.white};
+    padding: 10px 0 10px 5px;
+
+    :hover {
+        filter: none;
+    }
+
+    :focus {
+        border: none;
     }
 `
