@@ -124,6 +124,11 @@ export const ModalDropdownButton = styled.button`
         background: url(${dropdownArrowUpward}) no-repeat right, ${props => props.theme.graySix};
         background-position-x: 92%;
     }
+
+    :disabled {
+        background-color: ${props => props.theme.grayFour};
+        border: 1px solid ${props => props.theme.grayThree};
+    }
 `
 
 export const ModalDropdownContent = styled.div`
@@ -153,6 +158,7 @@ export const ModalDropdownContentContainer = styled.div`
     border-bottom-right-radius: ${props => props.theme.borderRadius};
     border-bottom-left-radius: ${props => props.theme.borderRadius};
     position: absolute;
+    margin-top: 2px;
     background-color: ${props => props.theme.white};
     width: 302px;
     max-height: 304px;

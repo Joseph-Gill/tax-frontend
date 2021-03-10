@@ -1,6 +1,5 @@
-import React, {useState, useMemo, useRef, useEffect} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {v4 as uuidv4} from 'uuid'
 import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import EditEntityTopRow from './EditEntityTopRow'
@@ -10,7 +9,6 @@ import ModalEditTitle from '../ModalComponents/ModalEditTitle'
 import ModalEditButtons from '../ModalComponents/ModalEditButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {EntityOption} from '../../../style/options'
 import {EditEntityLinkInternalContainer} from '../styles'
 
 
@@ -18,11 +16,16 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     let searchEntityTerm = useRef('')
+    let searchParentTerm = useRef('')
     const [countryName, setCountryName] = useState('')
     const [legalForm, setLegalForm] = useState('')
     const [filteredEntitiesToEdit, setFilteredEntitiesToEdit] = useState([])
-    const [showEditEntitySelect, setShowEditEntitySelect] = useState(false)
+    // Used to render the parents to edit, array is filtered by the search input
+    const [filteredParents, setFilteredParents] = useState([])
+    // Used to contain a list of available parents during edit that can be rolled back to when resetting the filter
     const [editParentNames, setEditParentNames] = useState([])
+    const [showEditEntitySelect, setShowEditEntitySelect] = useState(false)
+    const [showParentEntitySelect, setShowParentEntitySelect] = useState(false)
     const [editEntityInfo, setEditEntityInfo] = useState({
         entityName: '',
         parentId: '',
@@ -68,8 +71,14 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
         })
         setCountryName(targetEntity[0].location)
         setLegalForm(targetEntity[0].legal_form)
-        setEditParentNames(remainingEntities)
+        setFilteredParents([...remainingEntities])
+        setEditParentNames([...remainingEntities])
         setShowEditEntitySelect(false)
+    }
+
+    const editParentChangeHandler = entityId => {
+        setEditEntityInfo({...editEntityInfo, parentId: parseInt(entityId)})
+        setShowParentEntitySelect(false)
     }
 
     const saveButtonHandler = () => {
@@ -88,33 +97,19 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
         setFilteredEntitiesToEdit([...entities.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
     }
 
-    //creates parent options for entity being edited
-    const renderParentNameOptions = useMemo(() => {
-        if ((!editEntityInfo.parentId || editEntityInfo.parentId === 'Ultimate') && editEntityInfo.entitySelected) {
-            return (
-                <>
-                    <EntityOption disabled value=''>Ultimate</EntityOption>
-                    <EntityOption disabled value='Ultimate'>Ultimate</EntityOption>
-                </>
-            )
-        } else if (editParentNames.length) {
-            return (
-                    editParentNames.map(parent => (
-                        <EntityOption
-                            key={uuidv4()}
-                            value={parent.id}
-                        >{parent.name.length > 20 ? `${parent.name.slice(0, 20).concat('....')} (${parent.location})` : `${parent.name} (${parent.location})`}
-                        </EntityOption>
-                    ))
-            )
-        } else {
-            return (
-                <>
-                    <EntityOption disabled value=''>Select a parent</EntityOption>
-                    <EntityOption value='Ultimate'>Ultimate</EntityOption>
-                </>
-            )
-        }}, [editParentNames, editEntityInfo.parentId, editEntityInfo.entitySelected])
+    const handleFilterParents = () => {
+        const filterResults = editParentNames.filter(entity => entity.name.toLowerCase().indexOf(searchParentTerm.current.value.toLowerCase()) !== -1)
+        setFilteredParents([...filterResults.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
+    }
+
+    const handleResetFilterParents = () => {
+        searchParentTerm.current.value = ''
+        setFilteredParents([...editParentNames.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
+    }
+
+    const getParentNameFromId = parentId => {
+        return editParentNames.filter(entity => entity.id === parentId)[0]
+    }
 
     return (
         <ModalExternalContainer
@@ -141,10 +136,16 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                     <EditEntityMiddleRow
                         countryName={countryName}
                         editEntityInfo={editEntityInfo}
+                        editParentChangeHandler={editParentChangeHandler}
                         error={error}
-                        renderParentNameOptions={renderParentNameOptions}
+                        filteredParents={filteredParents}
+                        getParentNameFromId={getParentNameFromId}
+                        handleFilterParents={handleFilterParents}
+                        handleResetFilterParents={handleResetFilterParents}
+                        searchParentTerm={searchParentTerm}
                         setCountryName={setCountryName}
-                        setEditEntityInfo={setEditEntityInfo}
+                        setShowParentEntitySelect={setShowParentEntitySelect}
+                        showParentEntitySelect={showParentEntitySelect}
                     />
                     <EditEntityBottomRow
                         editEntityInfo={editEntityInfo}

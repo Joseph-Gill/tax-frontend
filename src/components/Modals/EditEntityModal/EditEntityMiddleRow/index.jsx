@@ -4,15 +4,22 @@ import EditLocationSelect from './EditLocationSelect'
 import {EditEntityLinkRowContainer} from '../../styles'
 
 
-const EditEntityMiddleRow = ({countryName, editEntityInfo, error, renderParentNameOptions,
-                                 setCountryName, setEditEntityInfo}) => {
+const EditEntityMiddleRow = ({countryName, editEntityInfo, editParentChangeHandler, error, filteredParents, getParentNameFromId,
+                                 handleFilterParents, handleResetFilterParents, searchParentTerm, setCountryName,
+                                 setShowParentEntitySelect, showParentEntitySelect}) => {
     return (
         <EditEntityLinkRowContainer>
             <EditParentSelect
                 editEntityInfo={editEntityInfo}
+                editParentChangeHandler={editParentChangeHandler}
                 error={error}
-                renderParentNameOptions={renderParentNameOptions}
-                setEditEntityInfo={setEditEntityInfo}
+                filteredParents={filteredParents}
+                getParentNameFromId={getParentNameFromId}
+                handleFilterParents={handleFilterParents}
+                handleResetFilterParents={handleResetFilterParents}
+                searchParentTerm={searchParentTerm}
+                setShowParentEntitySelect={setShowParentEntitySelect}
+                showParentEntitySelect={showParentEntitySelect}
             />
             <EditLocationSelect
                 countryName={countryName}
