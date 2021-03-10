@@ -1,20 +1,13 @@
 import React from 'react'
-import EditLegalSelect from './EditLegalSelect'
 import EditEntityTextInput from '../EditEntityTextInput'
-import {EditEntityLinkRowContainer} from '../../styles'
 import EntityLegalDropdown from '../../../Dropdowns/EntityLegalDropdown'
+import {EditEntityLinkRowContainer} from '../../styles'
 
 
 const EditEntityBottomRow = ({editEntityInfo, error, legalForm, setEditEntityInfo, setLegalForm, setShowEntityLegalSelect,
                                  showEntityLegalSelect}) => {
     return (
         <EditEntityLinkRowContainer>
-            {/*<EditLegalSelect*/}
-            {/*    editEntityInfo={editEntityInfo}*/}
-            {/*    error={error}*/}
-            {/*    legalForm={legalForm}*/}
-            {/*    setLegalForm={setLegalForm}*/}
-            {/*/>*/}
             <EntityLegalDropdown
                 editEntityInfo={editEntityInfo}
                 error={error}
