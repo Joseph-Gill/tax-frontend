@@ -4,7 +4,8 @@ import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/Dro
 import {getEntityInfo} from '../../../../helpers'
 import {EditEntityLinkRowContainer} from '../../styles'
 import {ActiveInputLabel} from '../../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
+import {ModalButtonTwoLineDisplayContainer, ModalDropdownButton, ModalDropdownContent,
+    ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 
 
 const EditLinkTopRow = ({clinks, entities, linkToEditChangeHandler, setShowEditLinkSelect, setTargetLink, showEditLinkSelect,
@@ -51,7 +52,12 @@ const EditLinkTopRow = ({clinks, entities, linkToEditChangeHandler, setShowEditL
                     <ModalDropdownButton
                         onClick={() => setShowEditLinkSelect(!showEditLinkSelect)}
                     >
-                        {!targetLink.linkSelected ? 'Select a link to edit' : 'Placeholder'}
+                        {!targetLink.linkSelected ? 'Select a link to edit' : (
+                            <ModalButtonTwoLineDisplayContainer>
+                                <span>{`From: ${getEntityInfo(entities, targetLink.from, true)}`}</span>
+                                <span>{`To : ${getEntityInfo(entities, targetLink.to, true)}`}</span>
+                            </ModalButtonTwoLineDisplayContainer>
+                        )}
                     </ModalDropdownButton>
                     <ModalDropdownContentContainer show={showEditLinkSelect ? 1 : 0}>
                         {renderLinksToSelect()}

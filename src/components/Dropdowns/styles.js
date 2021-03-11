@@ -207,3 +207,16 @@ export const ModalDropdownSearchInput = styled(BaseInput)`
         border: none;
     }
 `
+
+export const ModalButtonTwoLineDisplayContainer = styled.div`
+    height: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    span {
+        font-family: ${props => props.theme.nunitoFontFamily};
+        font-size: 10px;
+        line-height: 16px;
+    }
+`
