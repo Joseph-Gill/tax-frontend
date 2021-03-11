@@ -42,20 +42,19 @@ const EditParentSelect = ({editEntityInfo, editParentChangeHandler, error, filte
                         searchParentTerm={searchParentTerm}
                     />
                     {filteredParents.length ?
-                        filteredParents.map(entity => {
+                        filteredParents.map(entity => (
                             // Prevents showing entities that are only on the Step Chart from "Delete" highlighting
-                            if (!entity.remove) {
-                                return (
-                                    <ModalDropdownContent
-                                        key={uuidv4()}
-                                        onClick={() => editParentChangeHandler(entity.id)}
-                                    >
-                                        <span>{entity.name}</span>
-                                        <span>{`(${entity.location})`}</span>
-                                    </ModalDropdownContent>)}}) : (
-                                        <ModalDropdownContent>
-                                            <span>No Entities to display</span>
-                                        </ModalDropdownContent>)}
+                            !entity.remove &&
+                                <ModalDropdownContent
+                                    key={uuidv4()}
+                                    onClick={() => editParentChangeHandler(entity.id)}
+                                >
+                                    <span>{entity.name}</span>
+                                    <span>{`(${entity.location})`}</span>
+                                </ModalDropdownContent>)) : (
+                                    <ModalDropdownContent>
+                                        <span>No Entities to display</span>
+                                    </ModalDropdownContent>)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
             <EntityErrorContainer>
