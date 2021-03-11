@@ -9,6 +9,7 @@ import ModalEditTitle from '../ModalComponents/ModalEditTitle'
 import ModalEditButtons from '../ModalComponents/ModalEditButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {filterEntitiesByTerm, sortEntitiesByName} from '../../../helpers'
 import {EditEntityLinkInternalContainer} from '../styles'
 
 
@@ -37,7 +38,7 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
 
     useEffect(() => {
         // Sorts the list of entities alphabetically before setting the filtered result to all entities initially
-        setFilteredEntitiesToEdit([...entities.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
+        setFilteredEntitiesToEdit([...sortEntitiesByName(entities)])
     }, [entities])
 
     const cancelButtonHandler = () => {
@@ -89,26 +90,29 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
 
     // Used by search input inside select entity to edit dropdown
     const handleFilterEntitiesToEdit = () => {
-        const filterResults = entities.filter(entity => entity.name.toLowerCase().indexOf(searchEntityTerm.current.value.toLowerCase()) !== -1)
-        setFilteredEntitiesToEdit([...filterResults.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
+        const filterResults = filterEntitiesByTerm(entities, searchEntityTerm.current.value)
+        setFilteredEntitiesToEdit([...sortEntitiesByName(filterResults)])
     }
 
     //Used by search input reset icon inside of the select entity to edit dropdown
     const handleResetFilterEntitiesToEdit = () => {
         searchEntityTerm.current.value = ''
-        setFilteredEntitiesToEdit([...entities.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
+        setFilteredEntitiesToEdit([...sortEntitiesByName(entities)])
     }
 
+    // Used by search input inside select parent of entity to edit dropdown
     const handleFilterParents = () => {
-        const filterResults = editParentNames.filter(entity => entity.name.toLowerCase().indexOf(searchParentTerm.current.value.toLowerCase()) !== -1)
-        setFilteredParents([...filterResults.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
+        const filterResults = filterEntitiesByTerm(entities, searchParentTerm.current.value)
+        setFilteredParents([...sortEntitiesByName(filterResults)])
     }
 
+    //Used by search input reset icon inside of the select parent of entity to edit dropdown
     const handleResetFilterParents = () => {
         searchParentTerm.current.value = ''
-        setFilteredParents([...editParentNames.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)])
+        setFilteredParents([...sortEntitiesByName(editParentNames)])
     }
 
+    //Used by the parent of entity to edit dropdown to get the name of the selected parent
     const getParentNameFromId = parentId => {
         return editParentNames.filter(entity => entity.id === parentId)[0]
     }

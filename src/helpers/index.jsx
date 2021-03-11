@@ -351,3 +351,11 @@ export const createAvailableParentNamesWithoutDeletes = arrayOfEntities => {
     })
     return listOfPotentialParents
 }
+
+export const sortEntitiesByName = array => {
+    return array.sort((a,b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)
+}
+
+export const filterEntitiesByTerm = (array, term) => {
+    return array.filter(entity => entity.name.toLowerCase().indexOf(term.toLowerCase()) !== -1)
+}
