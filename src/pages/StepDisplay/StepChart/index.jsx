@@ -10,8 +10,8 @@ import EditEntityModal from '../../../components/Modals/EditEntityModal'
 import EditLinkModal from '../../../components/Modals/EditLinkModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType,
-    editLinkSameType, entityInputErrorHandler, getEntitiesWithTags, highlightTagForAddEntity, highlightTagForDeleteEntity, linkInputErrorHandler,
-    renderRemoveEntitiesOptions} from '../../../helpers'
+    editLinkSameType, entityInputErrorHandler, getEntitiesWithTags, highlightTagForAddEntity, highlightTagForDeleteEntity,
+    linkInputErrorHandler} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
@@ -371,7 +371,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 />}
             {showRemoveEntity &&
                 <RemoveEntityModal
-                    entityOptions={renderRemoveEntitiesOptions(entitiesToRender)}
+                    entities={entitiesToRender}
                     entityToRemove={entityToRemove}
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}

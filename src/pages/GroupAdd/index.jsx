@@ -13,7 +13,7 @@ import RemoveEntityLinkDropdown from '../../components/Dropdowns/RemoveEntityLin
 import EditEntityLinkDropdown from '../../components/Dropdowns/EditEntityLinkDropdown'
 import {createGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
-import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler, renderRemoveEntitiesOptions, sortEntitiesByParentId} from '../../helpers'
+import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler, sortEntitiesByParentId} from '../../helpers'
 import {EntityOption} from '../../style/options'
 import {ErrorMessage} from '../../style/messages'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
@@ -215,7 +215,8 @@ const GroupAdd = ({history}) => {
                 />}
             {showRemoveEntity &&
                 <RemoveEntityModal
-                    entityOptions={renderRemoveEntitiesOptions(listOfEntities)}
+                    // entityOptions={renderRemoveEntitiesOptions(listOfEntities)}
+                    entities={listOfEntities}
                     entityToRemove={entityToRemove}
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}

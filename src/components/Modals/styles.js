@@ -100,7 +100,7 @@ export const AddEntitySaveButton = styled(BaseButton)`
 `
 
 export const RemoveLinkEntityInternalContainer = styled(AddDeleteModalInternalContainer)`
-    width: 500px;
+    width: 400px;
     height: 230px;
 `
 
@@ -114,7 +114,8 @@ export const RemoveLinkEntityButton = styled(RedLargerButton)`
 `
 
 export const RemoveLinkEntityButtonContainer = styled.div`
-    width: 430px;
+    width: 100%;
+    padding-right: 18px;
     display: flex;
     justify-content: flex-end;
     align-items: center;

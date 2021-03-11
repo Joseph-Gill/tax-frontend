@@ -1,7 +1,7 @@
 import React from 'react'
 import {v4 as uuidv4} from 'uuid'
-import EditParentSearchInput from './EditParentSearchInput'
 import DropdownInternalContainer from '../../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
+import ModalDropdownSearchField from '../../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
 import {EntityErrorContainer} from '../../../styles'
 import {ErrorMessage} from '../../../../../style/messages'
 import {ActiveInputLabel} from '../../../../../style/labels'
@@ -35,11 +35,13 @@ const EditParentSelect = ({editEntityInfo, editParentChangeHandler, error, filte
                     {!editEntityInfo.entitySelected ? 'Select a parent' : !editEntityInfo.parentId ? 'Ultimate' : getParentNameFromId(parseInt(editEntityInfo.parentId)).name}
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showParentEntitySelect ? 1 : 0}>
-                    <EditParentSearchInput
-                        handleFilterParents={handleFilterParents}
-                        handleResetFilterParents={handleResetFilterParents}
-                        handleSelectParentEntityInputPressEnter={handleSelectParentEntityInputPressEnter}
-                        searchParentTerm={searchParentTerm}
+                    <ModalDropdownSearchField
+                        handleFilterClick={handleFilterParents}
+                        handleFilterReset={handleResetFilterParents}
+                        handleKeyPress={handleSelectParentEntityInputPressEnter}
+                        inputName='parent_entity_search'
+                        inputPlaceholder='Search for parent name'
+                        inputRef={searchParentTerm}
                     />
                     {filteredParents.length ?
                         filteredParents.map(entity => (

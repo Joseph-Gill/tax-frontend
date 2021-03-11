@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
@@ -6,18 +6,52 @@ import RemoveEntityDropdown from './RemoveEntityDropdown'
 import ModalRemoveButtons from '../ModalComponents/ModalRemoveButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {RemoveLinkEntityInternalContainer} from '../styles'
+import {filterEntitiesByTerm, sortEntitiesByName} from '../../../helpers'
 
 
 //Used by StepChart for deleting Entities of a StepChart
-const RemoveEntityModal = ({entityOptions, entityToRemove, removeEntityHandler, setEntityToRemove,
+const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEntityToRemove,
                                setShowRemoveEntity, showRemoveEntity}) => {
+    let searchEntityTerm = useRef('')
+    const [showEntityRemoveSelect, setShowEntityRemoveSelect] = useState(false)
+    // Used to contain a list of entities to remove that can be rolled back to when resetting the filter
+    const [entitiesCanRemove, setEntitiesCanRemove] = useState([])
+    // Used to render the possible entities to remove, array is filtered by the search input
+    const [filteredEntitiesCanRemove, setFilteredEntitiesCanRemove] = useState([])
+
+
+    useEffect(() => {
+        const canEntityBeRemoved = testEntity => {
+            let result = true
+            for (let i = 0; i < entities.length; i++) {
+                if (parseInt(entities[i].pid) === testEntity.id && !entities[i].remove){
+                    result = false
+                    break
+                }
+            }
+            return result
+        }
+        const result = sortEntitiesByName(entities.filter(entity => canEntityBeRemoved(entity)))
+        setEntitiesCanRemove([...result])
+        setFilteredEntitiesCanRemove([...result])
+    }, [entities])
+
+
+    const handleFilterEntitiesCanRemove = () => {
+        const filterResults = filterEntitiesByTerm(entitiesCanRemove, searchEntityTerm.current.value)
+        setFilteredEntitiesCanRemove([...sortEntitiesByName(filterResults)])
+    }
+
+    const handleResetFilterEntitiesCanRemove = () => {
+        searchEntityTerm.current.value = ''
+        setFilteredEntitiesCanRemove([...sortEntitiesByName(entitiesCanRemove)])
+    }
 
     const cancelButtonHandler = () => {
         setShowRemoveEntity(false)
     }
 
     return (
-        // eslint-disable-next-line react/forbid-component-props
         <ModalExternalContainer
             setModalView={setShowRemoveEntity}
             showModalView={showRemoveEntity}
@@ -25,11 +59,17 @@ const RemoveEntityModal = ({entityOptions, entityToRemove, removeEntityHandler, 
             <Draggable>
                 <RemoveLinkEntityInternalContainer>
                     <ModalClose modalDisplay={setShowRemoveEntity} />
-                    <ModalTitle title='Select the entity to remove' />
+                    <ModalTitle title='Select entity to remove' />
                     <RemoveEntityDropdown
-                        entityOptions={entityOptions}
+                        entitiesCanRemove={entitiesCanRemove}
                         entityToRemove={entityToRemove}
+                        filteredEntitiesCanRemove={filteredEntitiesCanRemove}
+                        handleFilterEntitiesCanRemove={handleFilterEntitiesCanRemove}
+                        handleResetFilterEntitiesCanRemove={handleResetFilterEntitiesCanRemove}
+                        searchEntityTerm={searchEntityTerm}
                         setEntityToRemove={setEntityToRemove}
+                        setShowEntityRemoveSelect={setShowEntityRemoveSelect}
+                        showEntityRemoveSelect={showEntityRemoveSelect}
                     />
                     <ModalRemoveButtons
                         cancelButtonHandler={cancelButtonHandler}
