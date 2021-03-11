@@ -1,6 +1,6 @@
 import React from 'react'
 import EditEntitySelect from './EditEntitySelect'
-import EditEntityTextInput from '../EditEntityTextInput'
+import ModalInput from '../../ModalComponents/ModalInput'
 import {EditEntityLinkRowContainer} from '../../styles'
 
 
@@ -20,7 +20,7 @@ const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, entities, er
                 setShowEditEntitySelect={setShowEditEntitySelect}
                 showEditEntitySelect={showEditEntitySelect}
             />
-            <EditEntityTextInput
+            <ModalInput
                 changeHandler={(e) => setEditEntityInfo({...editEntityInfo, entityName: e.target.value})}
                 disabled={!editEntityInfo.entitySelected}
                 error={error}

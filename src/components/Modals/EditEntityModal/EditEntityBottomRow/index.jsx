@@ -1,5 +1,5 @@
 import React from 'react'
-import EditEntityTextInput from '../EditEntityTextInput'
+import ModalInput from '../../ModalComponents/ModalInput'
 import EntityLegalDropdown from '../../../Dropdowns/EntityLegalDropdown'
 import {EditEntityLinkRowContainer} from '../../styles'
 
@@ -17,7 +17,7 @@ const EditEntityBottomRow = ({editEntityInfo, error, legalForm, setEditEntityInf
                 showEntityLegalSelect={showEntityLegalSelect}
 
             />
-            <EditEntityTextInput
+            <ModalInput
                 changeHandler={(e) => setEditEntityInfo({...editEntityInfo, taxRate: e.target.value})}
                 disabled={!editEntityInfo.entitySelected}
                 label='Tax Rate (optional)'

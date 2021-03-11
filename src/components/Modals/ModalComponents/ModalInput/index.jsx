@@ -5,11 +5,16 @@ import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
 
 
-const ModalInput = ({label, name, changeHandler, placeholder, type, value, error, errorLocation}) => {
+const ModalInput = ({disabled, label, name, changeHandler, placeholder, type, value, error, errorLocation}) => {
     return (
         <div>
-            <ActiveInputLabel>{label}</ActiveInputLabel>
+            <ActiveInputLabel
+                disabled={disabled}
+            >
+                {label}
+            </ActiveInputLabel>
             <BaseInput
+                disabled={disabled}
                 name={name}
                 onChange={changeHandler}
                 placeholder={placeholder}

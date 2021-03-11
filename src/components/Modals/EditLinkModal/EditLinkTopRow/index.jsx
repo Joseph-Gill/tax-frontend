@@ -60,6 +60,7 @@ const EditLinkTopRow = ({clinks, entities, linkToEditChangeHandler, setShowEditL
             </div>
             <ModalInput
                 changeHandler={(e) => setTargetLink({...targetLink, label: e.target.value})}
+                disabled={!targetLink.linkSelected}
                 label='Label'
                 name='label'
                 placeholder='Enter your label'
