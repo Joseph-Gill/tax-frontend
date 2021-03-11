@@ -294,11 +294,15 @@ export const sortEntitiesByParentId = (entities) => {
     return sortedEntities
 }
 
-//Used by Remove and Edit Modals to get Names of each end of a CLink or SLink
-export const getEntityName = (array, id) => {
+//Used by modals dealing with Links to get the name and location (only if nameAndLocation is true) of an entity by id
+export const getEntityInfo = (array, id, nameAndLocation=false) => {
     for (let i = 0; i < array.length; i++) {
         if (array[i].id === id)
-            return array[i].name
+            if (nameAndLocation) {
+                return `${array[i].name} (${array[i].location})`
+            } else {
+                return `${array[i].name}`
+            }
     }
 }
 

@@ -1,39 +1,44 @@
 import React from 'react'
-import {ErrorMessage} from '../../../../style/messages'
-import {ActiveInputLabel} from '../../../../style/labels'
-import {EntityFormSelect} from '../../../../style/select'
-import {EditEntityLinkRowContainer, EntityErrorContainer} from '../../styles'
+import EntityNameDropdown from './EntityNameDropdown'
+import {EditEntityLinkRowContainer} from '../../styles'
 
 
-const EditLinkMiddleRow = ({error, renderEditLinkToFromOptions, setTargetLink, targetLink}) => {
+const EditLinkMiddleRow = ({entities, error, filteredFromEntities, filteredToEntities, handleFilterEntities,
+                               handleResetFilterEntities, searchFromEntityTerm, searchToEntityTerm, setFilteredFromEntities,
+                               setFilteredToEntities, setShowEditLinkFromSelect, setShowEditLinkToSelect,
+                               setTargetLink, showEditLinkFromSelect, showEditLinkToSelect, targetLink}) => {
     return (
         <EditEntityLinkRowContainer>
-            <div>
-                <ActiveInputLabel>From</ActiveInputLabel>
-                <EntityFormSelect
-                    disabled={!targetLink.linkSelected}
-                    onChange={(e) => setTargetLink({...targetLink, from: e.target.value})}
-                    value={targetLink.from}
-                >
-                    {renderEditLinkToFromOptions}
-                </EntityFormSelect>
-                <EntityErrorContainer>
-                    {error && <ErrorMessage>{error.linkFromTo}</ErrorMessage>}
-                </EntityErrorContainer>
-            </div>
-            <div>
-                <ActiveInputLabel>To</ActiveInputLabel>
-                <EntityFormSelect
-                    disabled={!targetLink.linkSelected}
-                    onChange={(e) => setTargetLink({...targetLink, to: e.target.value})}
-                    value={targetLink.to}
-                >
-                    {renderEditLinkToFromOptions}
-                </EntityFormSelect>
-                <EntityErrorContainer>
-                    {error && <ErrorMessage>{error.linkFromTo}</ErrorMessage>}
-                </EntityErrorContainer>
-            </div>
+            <EntityNameDropdown
+                entities={entities}
+                error={error}
+                filteredEntities={filteredFromEntities}
+                handleFilterEntities={handleFilterEntities}
+                handleResetFilterEntities={handleResetFilterEntities}
+                label='From'
+                searchEntityTerm={searchFromEntityTerm}
+                setFilteredEntities={setFilteredFromEntities}
+                setKey='from'
+                setShowEditLinkSelect={setShowEditLinkFromSelect}
+                setTargetLink={setTargetLink}
+                showEditLinkSelect={showEditLinkFromSelect}
+                targetLink={targetLink}
+            />
+            <EntityNameDropdown
+                entities={entities}
+                error={error}
+                filteredEntities={filteredToEntities}
+                handleFilterEntities={handleFilterEntities}
+                handleResetFilterEntities={handleResetFilterEntities}
+                label='To'
+                searchEntityTerm={searchToEntityTerm}
+                setFilteredEntities={setFilteredToEntities}
+                setKey='to'
+                setShowEditLinkSelect={setShowEditLinkToSelect}
+                setTargetLink={setTargetLink}
+                showEditLinkSelect={showEditLinkToSelect}
+                targetLink={targetLink}
+            />
         </EditEntityLinkRowContainer>
     )
 }

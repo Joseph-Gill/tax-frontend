@@ -9,10 +9,9 @@ import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
 import EditEntityModal from '../../../components/Modals/EditEntityModal'
 import EditLinkModal from '../../../components/Modals/EditLinkModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {
-    addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType, editLinkSameType, entityInputErrorHandler,
-    getEntitiesWithTags, getEntityName, highlightTagForAddEntity, highlightTagForDeleteEntity, linkInputErrorHandler, renderRemoveEntitiesOptions
-} from '../../../helpers'
+import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType,
+    editLinkSameType, entityInputErrorHandler, getEntitiesWithTags, highlightTagForAddEntity, highlightTagForDeleteEntity, linkInputErrorHandler,
+    renderRemoveEntitiesOptions} from '../../../helpers'
 import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
@@ -101,22 +100,6 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             )
         )
     )
-
-    //Used to create the list of available links to choose from in Remove/Edit LinkModal selector
-    const renderLinkOptions = useMemo(() => {
-        const links = []
-        slinks.forEach(link => {
-            links.push(
-                <DropdownOption key={uuidv4()} value={link.id}>
-                    {`From: ${getEntityName(entitiesToRender, link.from)} To: ${getEntityName(entitiesToRender, link.to)}`}
-                </DropdownOption>)})
-        clinks.forEach(link => {
-            links.push(
-                <DropdownOption key={uuidv4()} value={link.id}>
-                    {`From: ${getEntityName(entitiesToRender, link.from)} To: ${getEntityName(entitiesToRender, link.to)}`}
-                </DropdownOption>)})
-        return links
-    }, [slinks, clinks, entitiesToRender])
 
     const saveNewEntityHandler = () => {
         dispatch(resetErrors())
@@ -379,7 +362,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 />}
             {showRemoveLink &&
                 <RemoveLinkModal
-                    linkOptions={renderLinkOptions}
+                    // linkOptions={renderLinkOptions} needs replaced with new dropdown
                     linkToRemove={linkToRemove}
                     removeLinkHandler={removeLinkHandler}
                     setLinkToRemove={setLinkToRemove}
@@ -406,7 +389,6 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 <EditLinkModal
                     clinks={clinks}
                     entities={entitiesToRender}
-                    linkOptions={renderLinkOptions}
                     saveEditLinkHandler={saveEditLinkHandler}
                     setShowEditLink={setShowEditLink}
                     showEditLink={showEditLink}

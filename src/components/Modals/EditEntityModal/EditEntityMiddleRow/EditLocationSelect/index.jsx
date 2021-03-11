@@ -9,7 +9,11 @@ import {EntityErrorContainer} from '../../../styles'
 const EditLocationSelect = ({countryName, editEntityInfo, error, setCountryName}) => {
     return (
         <div>
-            <ActiveInputLabel>Location</ActiveInputLabel>
+            <ActiveInputLabel
+                disabled={!editEntityInfo.entitySelected}
+            >
+                Location
+            </ActiveInputLabel>
             <CountryDropdown
                 classes='profileCountryDropdown'
                 disabled={!editEntityInfo.entitySelected}

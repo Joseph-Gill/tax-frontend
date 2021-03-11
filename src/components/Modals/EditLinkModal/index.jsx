@@ -1,7 +1,6 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import Draggable from 'react-draggable'
 import {useDispatch, useSelector} from 'react-redux'
-import {v4 as uuidv4} from 'uuid'
 import EditLinkTopRow from './EditLinkTopRow'
 import EditLinkMiddleRow from './EditLinkMiddleRow'
 import EditLinkBottomRow from './EditLinkBottomRow'
@@ -10,14 +9,21 @@ import ModalEditTitle from '../ModalComponents/ModalEditTitle'
 import ModalEditButtons from '../ModalComponents/ModalEditButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {EntityOption} from '../../../style/options'
+import {filterEntitiesByTerm, sortEntitiesByName} from '../../../helpers'
 import {EditEntityLinkInternalContainer} from '../styles'
 
 
-const EditLinkModal = ({clinks, entities, linkOptions, saveEditLinkHandler, setShowEditLink,
+const EditLinkModal = ({clinks, entities, saveEditLinkHandler, setShowEditLink,
                            showEditLink, slinks}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
+    let searchFromEntityTerm = useRef('')
+    let searchToEntityTerm = useRef('')
+    const [filteredFromEntities, setFilteredFromEntities] = useState([])
+    const [filteredToEntities, setFilteredToEntities] = useState([])
+    const [showEditLinkSelect, setShowEditLinkSelect] = useState(false)
+    const [showEditLinkFromSelect, setShowEditLinkFromSelect] = useState(false)
+    const [showEditLinkToSelect, setShowEditLinkToSelect] = useState(false)
     const [targetLink, setTargetLink] = useState({
         id: '',
         to: '',
@@ -28,6 +34,13 @@ const EditLinkModal = ({clinks, entities, linkOptions, saveEditLinkHandler, setS
         originalType: '',
         template: ''
     })
+
+    useEffect(() => {
+        // Sorts the list of entities alphabetically before setting the filtered result to all entities
+        // initially for both the From and To entities lists
+        setFilteredFromEntities([...sortEntitiesByName(entities)])
+        setFilteredToEntities([...sortEntitiesByName(entities)])
+    }, [entities])
 
     const cancelButtonHandler = () => {
         dispatch(resetErrors())
@@ -42,35 +55,13 @@ const EditLinkModal = ({clinks, entities, linkOptions, saveEditLinkHandler, setS
         }
     }
 
-    //Renders options for the From / To selects
-    const renderEditLinkToFromOptions = useMemo(() => {
-        if (entities.length) {
-            return (
-                <>
-                    <EntityOption disabled value=''>Select entity to edit</EntityOption>
-                    {entities.map(entity => (
-                        <EntityOption
-                            key={uuidv4()}
-                            value={entity.id}
-                        >{`${entity.name} (${entity.location})`}
-                        </EntityOption>
-                    ))}
-                </>
-            )
-        } else {
-            return (
-                <EntityOption value=''>No entities</EntityOption>
-            )
-        }
-    }, [entities])
-
-    const linkToEditChangeHandler = (e) => {
+    const linkToEditChangeHandler = linkId => {
         //Checks for link to edit in clinks first, sets input values to link values if found
-        const targetCLink = clinks.filter(link => link.id === parseInt(e.target.value))
+        const targetCLink = clinks.filter(link => link.id === parseInt(linkId))
         if (targetCLink.length) {
             setTargetLink({
                 ...targetLink,
-                id: e.target.value,
+                id: linkId,
                 from: targetCLink[0].from,
                 to: targetCLink[0].to,
                 label: targetCLink[0].label,
@@ -81,10 +72,10 @@ const EditLinkModal = ({clinks, entities, linkOptions, saveEditLinkHandler, setS
             })
         //If link was not found in clinks, finds it in slinks, sets input values to link values
         } else {
-            const targetSLink = slinks.filter(link => link.id === parseInt(e.target.value))
+            const targetSLink = slinks.filter(link => link.id === parseInt(linkId))
             setTargetLink({
                 ...targetLink,
-                id: e.target.value,
+                id: linkId,
                 from: targetSLink[0].from,
                 to: targetSLink[0].to,
                 label: targetSLink[0].label,
@@ -94,6 +85,17 @@ const EditLinkModal = ({clinks, entities, linkOptions, saveEditLinkHandler, setS
                 linkSelected: true,
             })
         }
+        setShowEditLinkSelect(false)
+    }
+
+    const handleFilterEntities = (arrayToFilter, filterStateSet, term) => {
+        const filterResults = filterEntitiesByTerm(arrayToFilter, term.current.value)
+        filterStateSet([...sortEntitiesByName(filterResults)])
+    }
+
+    const handleResetFilterEntities = (term, filterStateSet) => {
+        term.current.value = ''
+        filterStateSet([...sortEntitiesByName(entities)])
     }
 
     return (
@@ -106,15 +108,31 @@ const EditLinkModal = ({clinks, entities, linkOptions, saveEditLinkHandler, setS
                     <ModalClose modalDisplay={setShowEditLink} />
                     <ModalEditTitle title='Choose Link to Edit' />
                     <EditLinkTopRow
-                        linkOptions={linkOptions}
+                        clinks={clinks}
+                        entities={entities}
                         linkToEditChangeHandler={linkToEditChangeHandler}
+                        setShowEditLinkSelect={setShowEditLinkSelect}
                         setTargetLink={setTargetLink}
+                        showEditLinkSelect={showEditLinkSelect}
+                        slinks={slinks}
                         targetLink={targetLink}
                     />
                     <EditLinkMiddleRow
+                        entities={entities}
                         error={error}
-                        renderEditLinkToFromOptions={renderEditLinkToFromOptions}
+                        filteredFromEntities={filteredFromEntities}
+                        filteredToEntities={filteredToEntities}
+                        handleFilterEntities={handleFilterEntities}
+                        handleResetFilterEntities={handleResetFilterEntities}
+                        searchFromEntityTerm={searchFromEntityTerm}
+                        searchToEntityTerm={searchToEntityTerm}
+                        setFilteredFromEntities={setFilteredFromEntities}
+                        setFilteredToEntities={setFilteredToEntities}
+                        setShowEditLinkFromSelect={setShowEditLinkFromSelect}
+                        setShowEditLinkToSelect={setShowEditLinkToSelect}
                         setTargetLink={setTargetLink}
+                        showEditLinkFromSelect={showEditLinkFromSelect}
+                        showEditLinkToSelect={showEditLinkToSelect}
                         targetLink={targetLink}
                     />
                     <EditLinkBottomRow

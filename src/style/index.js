@@ -79,6 +79,7 @@ export const GlobalStyle = createGlobalStyle`
         }
 
         :disabled {
+            background-color: ${props => props.theme.grayFour};
             border: 1px solid ${props => props.theme.grayThree};
         }
     }
