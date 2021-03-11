@@ -37,18 +37,20 @@ const EditEntitySelect = ({editEntityChangeHandler, editEntityInfo, entities, er
                         searchEntityTerm={searchEntityTerm}
                     />
                     {filteredEntitiesToEdit.length ?
-                        filteredEntitiesToEdit.map(entity => (
-                            <ModalDropdownContent
-                                key={uuidv4()}
-                                onClick={() => editEntityChangeHandler(entity.id)}
-                            >
-                                <span>{entity.name}</span>
-                                <span>{`(${entity.location})`}</span>
-                            </ModalDropdownContent>)) : (
-                                <ModalDropdownContent>
-                                    <span>No Entities to display</span>
-                                </ModalDropdownContent>
-                            )}
+                        filteredEntitiesToEdit.map(entity => {
+                            // Prevents showing entities that are only on the Step Chart from "Delete" highlighting
+                            if (!entity.remove) {
+                                return (
+                                    <ModalDropdownContent
+                                        key={uuidv4()}
+                                        onClick={() => editEntityChangeHandler(entity.id)}
+                                    >
+                                        <span>{entity.name}</span>
+                                        <span>{`(${entity.location})`}</span>
+                                    </ModalDropdownContent>)}}) : (
+                                        <ModalDropdownContent>
+                                            <span>No Entities to display</span>
+                                        </ModalDropdownContent>)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
             <EntityErrorContainer>

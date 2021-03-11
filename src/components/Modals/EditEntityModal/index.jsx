@@ -58,7 +58,8 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                 remainingEntities.push({
                         name: entity.name,
                         location: entity.location,
-                        id: entity.id
+                        id: entity.id,
+                        remove: entity.remove,
                     })
             }
         })

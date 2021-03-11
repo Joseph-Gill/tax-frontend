@@ -4,7 +4,7 @@ import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
 
-
+// Can be removed after AddEntityModal is updated with custom dropdowns
 const AddLegalSelect = ({legalForm, setLegalForm, error}) => {
     return (
         <div>
