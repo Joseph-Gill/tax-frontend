@@ -24,6 +24,8 @@ const EditLinkModal = ({clinks, entities, saveEditLinkHandler, setShowEditLink,
     const [showEditLinkSelect, setShowEditLinkSelect] = useState(false)
     const [showEditLinkFromSelect, setShowEditLinkFromSelect] = useState(false)
     const [showEditLinkToSelect, setShowEditLinkToSelect] = useState(false)
+    const [showEditTypeSelect, setShowEditTypeSelect] = useState(false)
+    const [showEditColorSelect, setShowEditColorSelect] = useState(false)
     const [targetLink, setTargetLink] = useState({
         id: '',
         to: '',
@@ -136,7 +138,11 @@ const EditLinkModal = ({clinks, entities, saveEditLinkHandler, setShowEditLink,
                         targetLink={targetLink}
                     />
                     <EditLinkBottomRow
+                        setShowEditColorSelect={setShowEditColorSelect}
+                        setShowEditTypeSelect={setShowEditTypeSelect}
                         setTargetLink={setTargetLink}
+                        showEditColorSelect={showEditColorSelect}
+                        showEditTypeSelect={showEditTypeSelect}
                         targetLink={targetLink}
                     />
                     <ModalEditButtons

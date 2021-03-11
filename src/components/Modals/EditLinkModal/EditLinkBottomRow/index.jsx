@@ -1,37 +1,71 @@
 import React from 'react'
+import EditLinkTypeChoices from './EditLinkTypeChoices'
+import EditLinkColorChoices from './EditLinkColorChoices'
+import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {ActiveInputLabel} from '../../../../style/labels'
-import {EntityFormSelect} from '../../../../style/select'
-import {DropdownOption} from '../../../../style/options'
+import {ModalDropdownButton} from '../../../Dropdowns/styles'
 import {EditEntityLinkRowContainer, EntityErrorContainer} from '../../styles'
 
 
-const EditLinkBottomRow = ({setTargetLink, targetLink}) => {
+const EditLinkBottomRow = ({setShowEditColorSelect, setShowEditTypeSelect, setTargetLink, showEditColorSelect,
+                               showEditTypeSelect, targetLink}) => {
+
+    const handleTypeSelectChange = type => {
+        setTargetLink({...targetLink, type})
+        setShowEditTypeSelect(false)
+    }
+
+    const handleColorSelectChange = color => {
+        setTargetLink({...targetLink, template: color})
+        setShowEditColorSelect(false)
+    }
+
     return (
         <EditEntityLinkRowContainer>
             <div>
-                <ActiveInputLabel>Type</ActiveInputLabel>
-                <EntityFormSelect
+                <ActiveInputLabel
                     disabled={!targetLink.linkSelected}
-                    onChange={(e) => setTargetLink({...targetLink, type: e.target.value})}
-                    value={targetLink.type}
                 >
-                    <DropdownOption disabled value=''>Select a type</DropdownOption>
-                    <DropdownOption value='clink'>C Link</DropdownOption>
-                    <DropdownOption value='slink'>S Link</DropdownOption>
-                </EntityFormSelect>
+                    Type
+                </ActiveInputLabel>
+                <DropdownInternalContainer
+                    setDropdownView={setShowEditTypeSelect}
+                    showDropdownView={showEditTypeSelect}
+                >
+                    <ModalDropdownButton
+                        disabled={!targetLink.linkSelected}
+                        onClick={() => setShowEditTypeSelect(!showEditTypeSelect)}
+                    >
+                        {!targetLink.linkSelected ? 'Select a link type' : targetLink.type === 'clink' ? 'C Link' : 'S Link'}
+                    </ModalDropdownButton>
+                    <EditLinkTypeChoices
+                        handleTypeSelectChange={handleTypeSelectChange}
+                        showEditTypeSelect={showEditTypeSelect}
+                    />
+                </DropdownInternalContainer>
             </div>
             <div>
-                <ActiveInputLabel>Color</ActiveInputLabel>
-                <EntityFormSelect
+                <ActiveInputLabel
                     disabled={!targetLink.linkSelected}
-                    onChange={(e) => setTargetLink({...targetLink, template: e.target.value})}
-                    value={targetLink.template}
                 >
-                    <DropdownOption disabled value=''>Select a color</DropdownOption>
-                    <DropdownOption value='blue'>Blue</DropdownOption>
-                    <DropdownOption value='yellow'>Yellow</DropdownOption>
-                    <DropdownOption value='orange'>Orange</DropdownOption>
-                </EntityFormSelect>
+                    Color
+                </ActiveInputLabel>
+                <DropdownInternalContainer
+                    setDropdownView={setShowEditColorSelect}
+                    showDropdownView={showEditColorSelect}
+                >
+                    <ModalDropdownButton
+                        disabled={!targetLink.linkSelected}
+                        onClick={() => setShowEditColorSelect(!showEditColorSelect)}
+                    >
+                        {!targetLink.linkSelected ? 'Select a color' : targetLink.template === 'blue' ? 'Blue'
+                            : targetLink.template === 'yellow' ? 'Yellow' : 'Orange' }
+                    </ModalDropdownButton>
+                    <EditLinkColorChoices
+                        handleColorSelectChange={handleColorSelectChange}
+                        showEditColorSelect={showEditColorSelect}
+                    />
+                </DropdownInternalContainer>
                 <EntityErrorContainer />
             </div>
         </EditEntityLinkRowContainer>
