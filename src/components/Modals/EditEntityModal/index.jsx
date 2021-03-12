@@ -112,11 +112,6 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
         setFilteredParents([...sortEntitiesByName(editParentNames)])
     }
 
-    //Used by the parent of entity to edit dropdown to get the name of the selected parent
-    const getParentNameFromId = parentId => {
-        return editParentNames.filter(entity => entity.id === parentId)[0]
-    }
-
     return (
         <ModalExternalContainer
             setModalView={setShowEditEntity}
@@ -143,9 +138,9 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                         countryName={countryName}
                         editEntityInfo={editEntityInfo}
                         editParentChangeHandler={editParentChangeHandler}
+                        editParentNames={editParentNames}
                         error={error}
                         filteredParents={filteredParents}
-                        getParentNameFromId={getParentNameFromId}
                         handleFilterParents={handleFilterParents}
                         handleResetFilterParents={handleResetFilterParents}
                         searchParentTerm={searchParentTerm}

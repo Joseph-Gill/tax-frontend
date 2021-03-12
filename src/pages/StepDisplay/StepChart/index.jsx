@@ -49,18 +49,18 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setAvailableParentNames(createAvailableParentNamesWithoutDeletes(entities))
     }, [entities, stepChartExists])
 
-    //Used to create the list of available parents to choose from in AddEntityModal parent selector
-    const renderParentNameOptions = useMemo(() => (
-        <>
-            <EntityOption disabled value=''>Select a parent</EntityOption>
-            {availableParentNames.map(parent => (
-                <EntityOption
-                    key={uuidv4()}
-                    value={parent.id}
-                >{`${parent.name} (${parent.location})`}
-                </EntityOption>
-            ))}
-        </>), [availableParentNames])
+    // //Used to create the list of available parents to choose from in AddEntityModal parent selector
+    // const renderParentNameOptions = useMemo(() => (
+    //     <>
+    //         <EntityOption disabled value=''>Select a parent</EntityOption>
+    //         {availableParentNames.map(parent => (
+    //             <EntityOption
+    //                 key={uuidv4()}
+    //                 value={parent.id}
+    //             >{`${parent.name} (${parent.location})`}
+    //             </EntityOption>
+    //         ))}
+    //     </>), [availableParentNames])
 
     //Renders the appropriate Chart for StepChart
     const renderStepChart = useMemo(() => {
@@ -338,10 +338,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 <AddEntityModal
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
                     countryName={countryName}
+                    entities={entitiesToRender}
                     error={error}
                     legalForm={legalForm}
                     newEntityInfo={newEntityInfo}
-                    renderParentNameOptions={renderParentNameOptions}
                     saveNewEntityHandler={saveNewEntityHandler}
                     setCountryName={setCountryName}
                     setLegalForm={setLegalForm}

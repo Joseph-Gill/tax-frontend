@@ -1,14 +1,16 @@
 import React from 'react'
 import {v4 as uuidv4} from 'uuid'
-import DropdownInternalContainer from '../../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import ModalDropdownSearchField from '../../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {EntityErrorContainer} from '../../../styles'
-import {ErrorMessage} from '../../../../../style/messages'
-import {ActiveInputLabel} from '../../../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
+import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
+import ModalDropdownSearchField from '../DropdownComponents/ModalDropdownSearchField'
+import {ErrorMessage} from '../../../style/messages'
+import {ActiveInputLabel} from '../../../style/labels'
+import {EntityErrorContainer} from '../../Modals/styles'
+import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../styles'
+import {getParentNameFromId} from '../../../helpers'
 
 
-const EditParentSelect = ({editEntityInfo, editParentChangeHandler, error, filteredParents, getParentNameFromId, handleFilterParents,
+
+const EntityParentDropdown = ({editEntityInfo, editParentChangeHandler, editParentNames, error, filteredParents, handleFilterParents,
                               handleResetFilterParents, searchParentTerm, setShowParentEntitySelect, showParentEntitySelect}) => {
 
     const handleSelectParentEntityInputPressEnter = (e) => {
@@ -32,7 +34,8 @@ const EditParentSelect = ({editEntityInfo, editParentChangeHandler, error, filte
                     disabled={!editEntityInfo.entitySelected || !editEntityInfo.parentId}
                     onClick={() => setShowParentEntitySelect(!showParentEntitySelect)}
                 >
-                    {!editEntityInfo.entitySelected ? 'Select a parent' : !editEntityInfo.parentId ? 'Ultimate' : getParentNameFromId(parseInt(editEntityInfo.parentId)).name}
+                    {!editEntityInfo.entitySelected ? 'Select a parent' : !editEntityInfo.parentId ? 'Ultimate' :
+                        getParentNameFromId(parseInt(editEntityInfo.parentId), editParentNames).name}
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showParentEntitySelect ? 1 : 0}>
                     <ModalDropdownSearchField
@@ -66,4 +69,4 @@ const EditParentSelect = ({editEntityInfo, editParentChangeHandler, error, filte
     )
 }
 
-export default EditParentSelect
+export default EntityParentDropdown

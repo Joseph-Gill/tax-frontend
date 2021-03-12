@@ -373,3 +373,8 @@ export const renderEditRemoveLinks = (clinks, slinks, linkChangeHandler, entitie
             )
         }
     }
+
+        //Used by the parent of entity to edit dropdown to get the name of the selected parent
+export const getParentNameFromId = (parentId, array) => {
+    return array.filter(entity => entity.id === parentId)[0]
+}

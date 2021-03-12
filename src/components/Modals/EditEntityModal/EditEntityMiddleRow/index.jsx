@@ -1,20 +1,20 @@
 import React from 'react'
-import EditParentSelect from './EditParentSelect'
 import EditLocationSelect from './EditLocationSelect'
+import EntityParentDropdown from '../../../Dropdowns/EntityParentDropdown'
 import {EditEntityLinkRowContainer} from '../../styles'
 
 
-const EditEntityMiddleRow = ({countryName, editEntityInfo, editParentChangeHandler, error, filteredParents, getParentNameFromId,
+const EditEntityMiddleRow = ({countryName, editEntityInfo, editParentChangeHandler, editParentNames, error, filteredParents,
                                  handleFilterParents, handleResetFilterParents, searchParentTerm, setCountryName,
                                  setShowParentEntitySelect, showParentEntitySelect}) => {
     return (
         <EditEntityLinkRowContainer>
-            <EditParentSelect
+            <EntityParentDropdown
                 editEntityInfo={editEntityInfo}
                 editParentChangeHandler={editParentChangeHandler}
+                editParentNames={editParentNames}
                 error={error}
                 filteredParents={filteredParents}
-                getParentNameFromId={getParentNameFromId}
                 handleFilterParents={handleFilterParents}
                 handleResetFilterParents={handleResetFilterParents}
                 searchParentTerm={searchParentTerm}

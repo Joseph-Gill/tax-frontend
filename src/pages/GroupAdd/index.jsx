@@ -125,25 +125,6 @@ const GroupAdd = ({history}) => {
         setShowRemoveEntity(false)
     }
 
-    const renderParentNameOptions = useMemo(() => {
-        if (availableParentNames.length) {
-            return (
-                <>
-                    <EntityOption disabled value=''>Select a parent</EntityOption>
-                    {availableParentNames.map(parent => (
-                        <EntityOption
-                            key={uuidv4()}
-                            value={parent.id}
-                        >{`${parent.name} (${parent.location})`}
-                        </EntityOption>
-                    ))}
-                </>)
-        } else {
-            return (
-                <EntityOption value={0}>Ultimate</EntityOption>
-            )
-        }}, [availableParentNames])
-
     const renderStepChart = useMemo(() => {
         if (!listOfEntities.length) {
             return (
@@ -202,10 +183,10 @@ const GroupAdd = ({history}) => {
                 <AddEntityModal
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
                     countryName={countryName}
+                    entities={listOfEntities}
                     error={error}
                     legalForm={legalForm}
                     newEntityInfo={newEntityInfo}
-                    renderParentNameOptions={renderParentNameOptions}
                     saveNewEntityHandler={saveNewEntityHandler}
                     setCountryName={setCountryName}
                     setLegalForm={setLegalForm}

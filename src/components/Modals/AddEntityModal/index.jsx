@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
@@ -7,15 +7,46 @@ import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import AddParentSelect from './AddParentSelect'
 import AddLocationSelect from './AddLocationSelect'
-import AddLegalSelect from './AddLegalSelect'
+import EntityLegalDropdown from '../../Dropdowns/EntityLegalDropdown'
+import {filterEntitiesByTerm, sortEntitiesByName} from '../../../helpers'
 import {AddEntityLinkModalInternalContainer} from '../styles'
 
 
 //Used by StepChart for adding new Entities to a StepChart
-const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, error, legalForm, newEntityInfo, renderParentNameOptions,
+const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, error, legalForm, newEntityInfo,
                             saveNewEntityHandler, showAddEntity, setCountryName, setLegalForm, setNewEntityInfo,
                             setShowAddEntity}) => {
 
+    let searchParentTerm = useRef('')
+    const [showAddLegalSelect, setShowAddLegalSelect] = useState(false)
+    const [showAddParentSelect, setShowAddParentSelect] = useState(false)
+    // Used to render the parents to add, array is filtered by the search input
+    const [filteredParents, setFilteredParents] = useState([])
+    // Used to contain a list of available parents during adding that can be rolled back to when resetting the filter
+    const [addParents, setAddParents] = useState([])
+
+    useEffect(() => {
+        const result = sortEntitiesByName(entities)
+        setFilteredParents([...result])
+        setAddParents([...result])
+    }, [entities])
+
+    const handleSelectParentChange = parentId => {
+        setNewEntityInfo({...newEntityInfo, parentId})
+        setShowAddParentSelect(false)
+    }
+
+    // Used by search input inside select parent to add dropdown
+    const handleFilterParents = () => {
+        const filterResults = filterEntitiesByTerm(addParents, searchParentTerm.current.value)
+        setFilteredParents([...sortEntitiesByName(filterResults)])
+    }
+
+    //Used by search input reset icon inside of the select parent of entity to add dropdown
+    const handleResetFilterParents = () => {
+        searchParentTerm.current.value = ''
+        setFilteredParents([...sortEntitiesByName(addParents)])
+    }
     return (
         <ModalExternalContainer
             setModalView={setShowAddEntity}
@@ -36,20 +67,31 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, error, legalFo
                         value={newEntityInfo.entityName}
                     />
                     <AddParentSelect
-                        changeHandler={(e) => setNewEntityInfo({...newEntityInfo, parentId: parseInt(e.target.value)})}
+                        addParents={addParents}
                         error={error}
-                        renderParentNameOptions={renderParentNameOptions}
-                        value={newEntityInfo.parentId}
+                        filteredParents={filteredParents}
+                        handleFilterParents={handleFilterParents}
+                        handleResetFilterParents={handleResetFilterParents}
+                        handleSelectParentChange={handleSelectParentChange}
+                        newEntityInfo={newEntityInfo}
+                        searchParentTerm={searchParentTerm}
+                        setShowAddParentSelect={setShowAddParentSelect}
+                        showAddParentSelect={showAddParentSelect}
                     />
                     <AddLocationSelect
                         changeHandler={(val) => setCountryName(val)}
                         error={error}
                         value={countryName}
                     />
-                    <AddLegalSelect
+                    <EntityLegalDropdown
+                        // Only used to decide if input should be disabled during Edit
+                        // disabling this feature on AddModal
+                        editEntityInfo={{entitySelected: true}}
                         error={error}
                         legalForm={legalForm}
                         setLegalForm={setLegalForm}
+                        setShowEntityLegalSelect={setShowAddLegalSelect}
+                        showEntityLegalSelect={showAddLegalSelect}
                     />
                     <ModalInput
                         changeHandler={(e) => setNewEntityInfo({...newEntityInfo, taxRate: e.target.value})}
