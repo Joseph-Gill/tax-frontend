@@ -3,7 +3,7 @@ import {getMemberOrganizationNameAction} from '../store/organization/actions'
 import {DropdownOption} from '../style/options'
 import {FileListItem} from '../style/listitem'
 import {createChartForStepAction, updateChartForStepAction} from '../store/chart/actions'
-import {v4 as uuidv4} from 'uuid'
+import {ModalDropdownContent} from '../components/Dropdowns/styles'
 
 // User by components that are uploading images for avatars
 export const imageClickHandler = (input) => {
@@ -262,29 +262,6 @@ export const linkInputErrorHandler = (dispatch, setError, addLinkInfo) => {
     }
 }
 
-//Used by StepChart, GroupAdd, and GroupEdit for modal
-export const renderRemoveEntitiesOptions = (entitiesToRender) => {
-    const canEntityBeRemoved = testEntity => {
-        let result = true
-        for (let i = 0; i < entitiesToRender.length; i++) {
-            if (parseInt(entitiesToRender[i].pid) === testEntity.id){
-                result = false
-                break
-            }
-        }
-        return result
-    }
-    const removableEntities = []
-    entitiesToRender.forEach(entity => {
-        if (canEntityBeRemoved(entity)) {
-            removableEntities.push(
-                <DropdownOption key={uuidv4()} value={entity.id}>{entity.name}</DropdownOption>
-            )
-        }
-    })
-    return removableEntities
-}
-
 //Used to sort entities by parentId and put the "Ultimate" entity first in the array, prevents issues
 //in the backend trying to create entities with parents that haven't been created yet.
 export const sortEntitiesByParentId = (entities) => {
@@ -365,3 +342,34 @@ export const sortEntitiesByName = array => {
 export const filterEntitiesByTerm = (array, term) => {
     return array.filter(entity => entity.name.toLowerCase().indexOf(term.toLowerCase()) !== -1)
 }
+
+//Used by edit/remove link modals to render link options for the dropdown
+export const renderEditRemoveLinks = (clinks, slinks, linkChangeHandler, entities) => {
+        if (!clinks.length && !slinks.length) {
+            return (
+                <ModalDropdownContent>
+                    <span>No Links to edit</span>
+                </ModalDropdownContent>
+            )
+        } else {
+            return (
+                clinks.map(link => (
+                    <ModalDropdownContent
+                        key={link.id}
+                        onClick={() => linkChangeHandler(link.id)}
+                    >
+                        <span>{`From: ${getEntityInfo(entities, link.from, true)}`}</span>
+                        <span>{`To : ${getEntityInfo(entities, link.to, true)}`}</span>
+                    </ModalDropdownContent>
+                )).concat(slinks.map(link => (
+                    <ModalDropdownContent
+                        key={link.id}
+                        onClick={() => linkChangeHandler(link.id)}
+                    >
+                        <span>{`From: ${getEntityInfo(entities, link.from, true)}`}</span>
+                        <span>{`To : ${getEntityInfo(entities, link.to, true)}`}</span>
+                    </ModalDropdownContent>
+                )))
+            )
+        }
+    }

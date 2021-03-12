@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
@@ -9,8 +9,14 @@ import {RemoveLinkEntityInternalContainer} from '../styles'
 
 
 //Used by StepChart for deleting Links of a StepChart
-const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkToRemove, setShowRemoveLink,
-                             showRemoveLink}) => {
+const RemoveLinkModal = ({clinks, entities, linkToRemove, removeLinkHandler, setLinkToRemove,
+                             setShowRemoveLink, showRemoveLink, slinks}) => {
+    const [showLinkRemoveSelect, setShowLinkRemoveSelect] = useState(false)
+
+    const handleLinkToRemoveChange = linkId => {
+        setLinkToRemove(linkId)
+        setShowLinkRemoveSelect(false)
+    }
 
     const cancelButtonHandler = () => {
         setShowRemoveLink(false)
@@ -24,11 +30,15 @@ const RemoveLinkModal = ({linkOptions, linkToRemove, removeLinkHandler, setLinkT
             <Draggable>
                 <RemoveLinkEntityInternalContainer>
                     <ModalClose modalDisplay={setShowRemoveLink} />
-                    <ModalTitle title='Select the link to remove' />
+                    <ModalTitle title='Select link to remove' />
                     <RemoveLinkDropdown
-                        linkOptions={linkOptions}
+                        clinks={clinks}
+                        entities={entities}
+                        handleLinkToRemoveChange={handleLinkToRemoveChange}
                         linkToRemove={linkToRemove}
-                        setLinkToRemove={setLinkToRemove}
+                        setShowLinkRemoveSelect={setShowLinkRemoveSelect}
+                        showLinkRemoveSelect={showLinkRemoveSelect}
+                        slinks={slinks}
                     />
                     <ModalRemoveButtons
                         cancelButtonHandler={cancelButtonHandler}

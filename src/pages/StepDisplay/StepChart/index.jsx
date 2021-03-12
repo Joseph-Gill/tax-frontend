@@ -362,12 +362,14 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 />}
             {showRemoveLink &&
                 <RemoveLinkModal
-                    // linkOptions={renderLinkOptions} needs replaced with new dropdown
+                    clinks={clinks}
+                    entities={entitiesToRender}
                     linkToRemove={linkToRemove}
                     removeLinkHandler={removeLinkHandler}
                     setLinkToRemove={setLinkToRemove}
                     setShowRemoveLink={setShowRemoveLink}
                     showRemoveLink={showRemoveLink}
+                    slinks={slinks}
                 />}
             {showRemoveEntity &&
                 <RemoveEntityModal

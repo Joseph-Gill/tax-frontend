@@ -1,45 +1,14 @@
 import React from 'react'
 import ModalInput from '../../ModalComponents/ModalInput'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {getEntityInfo} from '../../../../helpers'
+import {getEntityInfo, renderEditRemoveLinks} from '../../../../helpers'
 import {EditEntityLinkRowContainer} from '../../styles'
 import {ActiveInputLabel} from '../../../../style/labels'
-import {ModalButtonTwoLineDisplayContainer, ModalDropdownButton, ModalDropdownContent,
-    ModalDropdownContentContainer} from '../../../Dropdowns/styles'
+import {ModalButtonTwoLineDisplayContainer, ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 
 
 const EditLinkTopRow = ({clinks, entities, linkToEditChangeHandler, setShowEditLinkSelect, setTargetLink, showEditLinkSelect,
                             slinks, targetLink}) => {
-
-    const renderLinksToSelect = () => {
-        if (!clinks.length && !slinks.length) {
-            return (
-                <ModalDropdownContent>
-                    <span>No Links to edit</span>
-                </ModalDropdownContent>
-            )
-        } else {
-            return (
-                clinks.map(link => (
-                    <ModalDropdownContent
-                        key={link.id}
-                        onClick={() => linkToEditChangeHandler(link.id)}
-                    >
-                        <span>{`From: ${getEntityInfo(entities, link.from, true)}`}</span>
-                        <span>{`To : ${getEntityInfo(entities, link.to, true)}`}</span>
-                    </ModalDropdownContent>
-                )).concat(slinks.map(link => (
-                    <ModalDropdownContent
-                        key={link.id}
-                        onClick={() => linkToEditChangeHandler(link.id)}
-                    >
-                        <span>{`From: ${getEntityInfo(entities, link.from, true)}`}</span>
-                        <span>{`To : ${getEntityInfo(entities, link.to, true)}`}</span>
-                    </ModalDropdownContent>
-                )))
-            )
-        }
-    }
 
     return (
         <EditEntityLinkRowContainer>
@@ -60,7 +29,7 @@ const EditLinkTopRow = ({clinks, entities, linkToEditChangeHandler, setShowEditL
                         )}
                     </ModalDropdownButton>
                     <ModalDropdownContentContainer show={showEditLinkSelect ? 1 : 0}>
-                        {renderLinksToSelect()}
+                        {renderEditRemoveLinks(clinks, slinks, linkToEditChangeHandler, entities)}
                     </ModalDropdownContentContainer>
                 </DropdownInternalContainer>
             </div>

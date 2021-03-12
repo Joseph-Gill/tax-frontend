@@ -5,8 +5,8 @@ import ModalTitle from '../ModalComponents/ModalTitle'
 import RemoveEntityDropdown from './RemoveEntityDropdown'
 import ModalRemoveButtons from '../ModalComponents/ModalRemoveButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import {RemoveLinkEntityInternalContainer} from '../styles'
 import {filterEntitiesByTerm, sortEntitiesByName} from '../../../helpers'
+import {RemoveLinkEntityInternalContainer} from '../styles'
 
 
 //Used by StepChart for deleting Entities of a StepChart
@@ -36,12 +36,13 @@ const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEn
         setFilteredEntitiesCanRemove([...result])
     }, [entities])
 
-
+    // Used by search input inside select entity to remove dropdown
     const handleFilterEntitiesCanRemove = () => {
         const filterResults = filterEntitiesByTerm(entitiesCanRemove, searchEntityTerm.current.value)
         setFilteredEntitiesCanRemove([...sortEntitiesByName(filterResults)])
     }
 
+    //Used by search input reset icon inside of the select entity to remove dropdown
     const handleResetFilterEntitiesCanRemove = () => {
         searchEntityTerm.current.value = ''
         setFilteredEntitiesCanRemove([...sortEntitiesByName(entitiesCanRemove)])
