@@ -1,25 +1,36 @@
 import React from 'react'
-import {DropdownOption} from '../../../../style/options'
-import {AddEntityTitle, AddEntityTitleInputContainer, AddEntityTypeColorLabelDropdown} from '../styles'
+import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
+import LinkTypeChoices from '../../../Dropdowns/DropdownComponents/LinkTypeChoices'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
+import {ActiveInputLabel} from '../../../../style/labels'
+import {ModalDropdownButton} from '../../../Dropdowns/styles'
 
 
-const AddLinkTypeDropdown = ({addLinkInfo, error, setAddLinkInfo}) => {
+const AddLinkTypeDropdown = ({addLinkInfo, error, setAddLinkInfo, setShowAddTypeSelect, showAddTypeSelect}) => {
+
+    const handleTypeSelectChange = type => {
+        setAddLinkInfo({...addLinkInfo, type})
+        setShowAddTypeSelect(false)
+    }
+
     return (
         <div>
-            <AddEntityTitleInputContainer>
-                <AddEntityTitle>Type</AddEntityTitle>
-                <AddEntityTypeColorLabelDropdown
-                    name='type'
-                    onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
-                    value={addLinkInfo.type}
+            <ActiveInputLabel>Type</ActiveInputLabel>
+            <DropdownInternalContainer
+                setDropdownView={setShowAddTypeSelect}
+                showDropdownView={showAddTypeSelect}
+            >
+                <ModalDropdownButton
+                    onClick={() => setShowAddTypeSelect(!showAddTypeSelect)}
                 >
-                    <DropdownOption disabled value=''>Select a type</DropdownOption>
-                    <DropdownOption value='clink'>C Link</DropdownOption>
-                    <DropdownOption value='slink'>S Link</DropdownOption>
-                </AddEntityTypeColorLabelDropdown>
-            </AddEntityTitleInputContainer>
+                    {!addLinkInfo.type ? 'Select a link type' : addLinkInfo.type === 'clink' ? 'C Link' : 'S Link'}
+                </ModalDropdownButton>
+                <LinkTypeChoices
+                    handleTypeSelectChange={handleTypeSelectChange}
+                    showTypeSelect={showAddTypeSelect}
+                />
+            </DropdownInternalContainer>
             <EntityErrorContainer>
                 {error && <ErrorMessage>{error.linkType}</ErrorMessage>}
             </EntityErrorContainer>

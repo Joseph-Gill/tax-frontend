@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
 import Draggable from 'react-draggable'
-import AddLinkLabel from './AddLinkLabel'
 import AddLinkTypeDropdown from './AddLinkTypeDropdown'
 import AddLinkColorDropdown from './AddLinkColorDropdown'
 import AddLinkFromToDropdown from './AddLinkFromToDropdown'
@@ -10,6 +9,7 @@ import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {sortEntitiesByName} from '../../../helpers'
 import {AddEntityLinkModalInternalContainer} from '../styles'
+import ModalInput from '../ModalComponents/ModalInput'
 
 
 //Used by StepChart for adding new Links to a StepChart
@@ -80,19 +80,27 @@ const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, entities, error,
                         setKey='to'
                         showDropdownView={showAddToSelect}
                     />
-                    <AddLinkLabel
-                        addLinkInfo={addLinkInfo}
-                        setAddLinkInfo={setAddLinkInfo}
+                    <ModalInput
+                        changeHandler={(e) => setAddLinkInfo({...addLinkInfo, label: e.target.value})}
+                        label='Label'
+                        name='label'
+                        placeholder='Enter your label'
+                        type='text'
+                        value={addLinkInfo.label}
                     />
                     <AddLinkTypeDropdown
                         addLinkInfo={addLinkInfo}
                         error={error}
                         setAddLinkInfo={setAddLinkInfo}
+                        setShowAddTypeSelect={setShowAddTypeSelect}
+                        showAddTypeSelect={showAddTypeSelect}
                     />
                     <AddLinkColorDropdown
                         addLinkInfo={addLinkInfo}
                         error={error}
                         setAddLinkInfo={setAddLinkInfo}
+                        setShowAddColorSelect={setShowAddColorSelect}
+                        showAddColorSelect={showAddColorSelect}
                     />
                     <ModalAddButtons
                         cancelHandler={cancelNewEntityLinkHandler}

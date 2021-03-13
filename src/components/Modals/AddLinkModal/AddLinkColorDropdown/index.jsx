@@ -1,26 +1,37 @@
 import React from 'react'
-import {DropdownOption} from '../../../../style/options'
-import {AddEntityTitle, AddEntityTitleInputContainer, AddEntityTypeColorLabelDropdown} from '../styles'
+import LinkColorChoices from '../../../Dropdowns/DropdownComponents/LinkColorChoice'
+import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
+import {ActiveInputLabel} from '../../../../style/labels'
+import {ModalDropdownButton} from '../../../Dropdowns/styles'
 
 
-const AddLinkColorDropdown = ({addLinkInfo, error, setAddLinkInfo}) => {
+const AddLinkColorDropdown = ({addLinkInfo, error, setAddLinkInfo, setShowAddColorSelect, showAddColorSelect}) => {
+
+    const handleColorSelectChange = color => {
+        setAddLinkInfo({...addLinkInfo, color})
+        setShowAddColorSelect(false)
+    }
+
     return (
         <div>
-            <AddEntityTitleInputContainer>
-                <AddEntityTitle>Color</AddEntityTitle>
-                <AddEntityTypeColorLabelDropdown
-                    name='color'
-                    onChange={(e) => setAddLinkInfo({...addLinkInfo, [e.target.name]: e.target.value})}
-                    value={addLinkInfo.color}
+            <ActiveInputLabel>Color</ActiveInputLabel>
+            <DropdownInternalContainer
+                setDropdownView={setShowAddColorSelect}
+                showDropdownView={showAddColorSelect}
+            >
+                <ModalDropdownButton
+                    onClick={() => setShowAddColorSelect(!showAddColorSelect)}
                 >
-                    <DropdownOption disabled value=''>Select a color</DropdownOption>
-                    <DropdownOption value='blue'>Blue</DropdownOption>
-                    <DropdownOption value='yellow'>Yellow</DropdownOption>
-                    <DropdownOption value='orange'>Orange</DropdownOption>
-                </AddEntityTypeColorLabelDropdown>
-            </AddEntityTitleInputContainer>
+                    {!addLinkInfo.color ? 'Select a color' : addLinkInfo.color === 'blue' ? 'Blue'
+                            : addLinkInfo.color === 'yellow' ? 'Yellow' : 'Orange' }
+                </ModalDropdownButton>
+                <LinkColorChoices
+                    handleColorSelectChange={handleColorSelectChange}
+                    showColorSelect={showAddColorSelect}
+                />
+            </DropdownInternalContainer>
             <EntityErrorContainer>
                 {error && <ErrorMessage>{error.color}</ErrorMessage>}
             </EntityErrorContainer>
