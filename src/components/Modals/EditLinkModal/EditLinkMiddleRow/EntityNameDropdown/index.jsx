@@ -2,13 +2,13 @@ import React from 'react'
 import {ActiveInputLabel} from '../../../../../style/labels'
 import EntityNameSearchInput from './EntityNameSearchInput'
 import DropdownInternalContainer from '../../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {getEntityInfo} from '../../../../../helpers'
+import {getEntityInfo, handleFilterEntities} from '../../../../../helpers'
 import {ErrorMessage} from '../../../../../style/messages'
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
 import {EntityErrorContainer} from '../../../styles'
 
 
-const EntityNameDropdown = ({entities, error, filteredEntities, handleFilterEntities, handleResetFilterEntities, label, searchEntityTerm,
+const EntityNameDropdown = ({entities, error, filteredEntities, label, searchEntityTerm,
                                 setKey, setFilteredEntities, setShowEditLinkSelect, setTargetLink, showEditLinkSelect, targetLink}) => {
 
     const handleLinkEntityInputPressEnter = e => {
@@ -41,10 +41,9 @@ const EntityNameDropdown = ({entities, error, filteredEntities, handleFilterEnti
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showEditLinkSelect ? 1 : 0}>
                     <EntityNameSearchInput
+                        entities={entities}
                         filteredEntities={filteredEntities}
-                        handleFilterEntities={handleFilterEntities}
                         handleLinkEntityInputPressEnter={handleLinkEntityInputPressEnter}
-                        handleResetFilterEntities={handleResetFilterEntities}
                         searchEntityTerm={searchEntityTerm}
                         setFilteredEntities={setFilteredEntities}
                     />

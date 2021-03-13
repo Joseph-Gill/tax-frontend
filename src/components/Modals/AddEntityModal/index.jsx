@@ -8,7 +8,7 @@ import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import AddParentSelect from './AddParentSelect'
 import AddLocationSelect from './AddLocationSelect'
 import EntityLegalDropdown from '../../Dropdowns/EntityLegalDropdown'
-import {filterEntitiesByTerm, sortEntitiesByName} from '../../../helpers'
+import {sortEntitiesByName} from '../../../helpers'
 import {AddEntityLinkModalInternalContainer} from '../styles'
 
 
@@ -36,17 +36,6 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, erro
         setShowAddParentSelect(false)
     }
 
-    // Used by search input inside select parent to add dropdown
-    const handleFilterParents = () => {
-        const filterResults = filterEntitiesByTerm(addParents, searchParentTerm.current.value)
-        setFilteredParents([...sortEntitiesByName(filterResults)])
-    }
-
-    //Used by search input reset icon inside of the select parent of entity to add dropdown
-    const handleResetFilterParents = () => {
-        searchParentTerm.current.value = ''
-        setFilteredParents([...sortEntitiesByName(addParents)])
-    }
     return (
         <ModalExternalContainer
             setModalView={setShowAddEntity}
@@ -70,11 +59,10 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, erro
                         addParents={addParents}
                         error={error}
                         filteredParents={filteredParents}
-                        handleFilterParents={handleFilterParents}
-                        handleResetFilterParents={handleResetFilterParents}
                         handleSelectParentChange={handleSelectParentChange}
                         newEntityInfo={newEntityInfo}
                         searchParentTerm={searchParentTerm}
+                        setFilteredParents={setFilteredParents}
                         setShowAddParentSelect={setShowAddParentSelect}
                         showAddParentSelect={showAddParentSelect}
                     />

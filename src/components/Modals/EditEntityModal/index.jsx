@@ -9,7 +9,7 @@ import ModalEditTitle from '../ModalComponents/ModalEditTitle'
 import ModalEditButtons from '../ModalComponents/ModalEditButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {filterEntitiesByTerm, sortEntitiesByName} from '../../../helpers'
+import {sortEntitiesByName} from '../../../helpers'
 import {EditEntityLinkInternalContainer} from '../styles'
 
 
@@ -88,30 +88,6 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
         saveEditEntityHandler(editEntityInfo, countryName, legalForm)
     }
 
-    // Used by search input inside select entity to edit dropdown
-    const handleFilterEntitiesToEdit = () => {
-        const filterResults = filterEntitiesByTerm(entities, searchEntityTerm.current.value)
-        setFilteredEntitiesToEdit([...sortEntitiesByName(filterResults)])
-    }
-
-    //Used by search input reset icon inside of the select entity to edit dropdown
-    const handleResetFilterEntitiesToEdit = () => {
-        searchEntityTerm.current.value = ''
-        setFilteredEntitiesToEdit([...sortEntitiesByName(entities)])
-    }
-
-    // Used by search input inside select parent of entity to edit dropdown
-    const handleFilterParents = () => {
-        const filterResults = filterEntitiesByTerm(entities, searchParentTerm.current.value)
-        setFilteredParents([...sortEntitiesByName(filterResults)])
-    }
-
-    //Used by search input reset icon inside of the select parent of entity to edit dropdown
-    const handleResetFilterParents = () => {
-        searchParentTerm.current.value = ''
-        setFilteredParents([...sortEntitiesByName(editParentNames)])
-    }
-
     return (
         <ModalExternalContainer
             setModalView={setShowEditEntity}
@@ -127,10 +103,9 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                         entities={entities}
                         error={error}
                         filteredEntitiesToEdit={filteredEntitiesToEdit}
-                        handleFilterEntitiesToEdit={handleFilterEntitiesToEdit}
-                        handleResetFilterEntitiesToEdit={handleResetFilterEntitiesToEdit}
                         searchEntityTerm={searchEntityTerm}
                         setEditEntityInfo={setEditEntityInfo}
+                        setFilteredEntitiesToEdit={setFilteredEntitiesToEdit}
                         setShowEditEntitySelect={setShowEditEntitySelect}
                         showEditEntitySelect={showEditEntitySelect}
                     />
@@ -139,12 +114,12 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                         editEntityInfo={editEntityInfo}
                         editParentChangeHandler={editParentChangeHandler}
                         editParentNames={editParentNames}
+                        entities={entities}
                         error={error}
                         filteredParents={filteredParents}
-                        handleFilterParents={handleFilterParents}
-                        handleResetFilterParents={handleResetFilterParents}
                         searchParentTerm={searchParentTerm}
                         setCountryName={setCountryName}
+                        setFilteredParents={setFilteredParents}
                         setShowParentEntitySelect={setShowParentEntitySelect}
                         showParentEntitySelect={showParentEntitySelect}
                     />

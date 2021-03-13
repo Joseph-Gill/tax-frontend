@@ -4,10 +4,11 @@ import searchImage from '../../../../assets/icons/stark_search_bar_icon.svg'
 import {FilterSpacer} from '../../../../style/spans'
 import {ModalDropdownSearchContainer, ModalDropdownSearchInput} from '../../styles'
 import {FilterImgContainer, FilterResetImgContainer} from '../../../../style/containers'
+import {handleFilterEntities, handleResetFilterEntities} from '../../../../helpers'
 
 
-const ModalDropdownSearchField = ({inputName, handleKeyPress, inputRef, inputPlaceholder,
-                                  handleFilterReset, handleFilterClick}) => {
+const ModalDropdownSearchField = ({arrayToFilter, inputName, handleKeyPress, filterStateSet, inputRef, inputPlaceholder,
+                                  originalArray, term}) => {
     return (
         <ModalDropdownSearchContainer>
             <ModalDropdownSearchInput
@@ -17,11 +18,11 @@ const ModalDropdownSearchField = ({inputName, handleKeyPress, inputRef, inputPla
                 ref={inputRef}
                 type='text'
             />
-            <FilterResetImgContainer onClick={() => handleFilterReset()}>
+            <FilterResetImgContainer onClick={() => handleResetFilterEntities(term, filterStateSet, originalArray)}>
                 <img alt='reset filter' src={reset} />
             </FilterResetImgContainer>
             <FilterSpacer />
-            <FilterImgContainer onClick={() => handleFilterClick()}>
+            <FilterImgContainer onClick={() => handleFilterEntities(arrayToFilter, filterStateSet, term)}>
                 <img alt='search filter' src={searchImage} />
             </FilterImgContainer>
         </ModalDropdownSearchContainer>

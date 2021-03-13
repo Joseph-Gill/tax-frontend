@@ -1,6 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {v4 as uuidv4} from 'uuid'
 import AddLinkModal from '../../../components/Modals/AddLinkModal'
 import CurrentOrgChartV2 from '../../../components/CurrentOrgChartV2'
 import AddEntityModal from '../../../components/Modals/AddEntityModal'
@@ -12,7 +11,6 @@ import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType,
     editLinkSameType, entityInputErrorHandler, getEntitiesWithTags, highlightTagForAddEntity, highlightTagForDeleteEntity,
     linkInputErrorHandler} from '../../../helpers'
-import {DropdownOption, EntityOption} from '../../../style/options'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
 
@@ -49,19 +47,6 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setAvailableParentNames(createAvailableParentNamesWithoutDeletes(entities))
     }, [entities, stepChartExists])
 
-    // //Used to create the list of available parents to choose from in AddEntityModal parent selector
-    // const renderParentNameOptions = useMemo(() => (
-    //     <>
-    //         <EntityOption disabled value=''>Select a parent</EntityOption>
-    //         {availableParentNames.map(parent => (
-    //             <EntityOption
-    //                 key={uuidv4()}
-    //                 value={parent.id}
-    //             >{`${parent.name} (${parent.location})`}
-    //             </EntityOption>
-    //         ))}
-    //     </>), [availableParentNames])
-
     //Renders the appropriate Chart for StepChart
     const renderStepChart = useMemo(() => {
         //If the step is created from Add New Step, user must first add the description / effective date
@@ -91,15 +76,6 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             )
         }
     }, [entitiesToRender, clinks, slinks, indexOfStepToDisplay, steps])
-
-    //Used to create the list of available link partners to choose from in AddLinkModal selector
-    const renderFromToOptions = () => (
-        entitiesToRender.map(entity => (
-            // Removes any Delete Highlighted entities as options for the user to choose to edit
-            !entity.remove && <DropdownOption key={uuidv4()} value={entity.id}>{entity.name}</DropdownOption>
-            )
-        )
-    )
 
     const saveNewEntityHandler = () => {
         dispatch(resetErrors())
@@ -353,8 +329,8 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 <AddLinkModal
                     addLinkInfo={addLinkInfo}
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
+                    entities={entitiesToRender}
                     error={error}
-                    fromToOptions={renderFromToOptions()}
                     saveNewLinkHandler={saveNewLinkHandler}
                     setAddLinkInfo={setAddLinkInfo}
                     setShowAddLink={setShowAddLink}

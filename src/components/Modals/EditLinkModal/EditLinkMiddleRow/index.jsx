@@ -3,8 +3,7 @@ import EntityNameDropdown from './EntityNameDropdown'
 import {EditEntityLinkRowContainer} from '../../styles'
 
 
-const EditLinkMiddleRow = ({entities, error, filteredFromEntities, filteredToEntities, handleFilterEntities,
-                               handleResetFilterEntities, searchFromEntityTerm, searchToEntityTerm, setFilteredFromEntities,
+const EditLinkMiddleRow = ({entities, error, filteredFromEntities, filteredToEntities, searchFromEntityTerm, searchToEntityTerm, setFilteredFromEntities,
                                setFilteredToEntities, setShowEditLinkFromSelect, setShowEditLinkToSelect,
                                setTargetLink, showEditLinkFromSelect, showEditLinkToSelect, targetLink}) => {
     return (
@@ -13,8 +12,6 @@ const EditLinkMiddleRow = ({entities, error, filteredFromEntities, filteredToEnt
                 entities={entities}
                 error={error}
                 filteredEntities={filteredFromEntities}
-                handleFilterEntities={handleFilterEntities}
-                handleResetFilterEntities={handleResetFilterEntities}
                 label='From'
                 searchEntityTerm={searchFromEntityTerm}
                 setFilteredEntities={setFilteredFromEntities}
@@ -28,8 +25,6 @@ const EditLinkMiddleRow = ({entities, error, filteredFromEntities, filteredToEnt
                 entities={entities}
                 error={error}
                 filteredEntities={filteredToEntities}
-                handleFilterEntities={handleFilterEntities}
-                handleResetFilterEntities={handleResetFilterEntities}
                 label='To'
                 searchEntityTerm={searchToEntityTerm}
                 setFilteredEntities={setFilteredToEntities}

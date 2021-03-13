@@ -374,7 +374,19 @@ export const renderEditRemoveLinks = (clinks, slinks, linkChangeHandler, entitie
         }
     }
 
-        //Used by the parent of entity to edit dropdown to get the name of the selected parent
+//Used by the parent of entity to edit dropdown to get the name of the selected parent
 export const getParentNameFromId = (parentId, array) => {
     return array.filter(entity => entity.id === parentId)[0]
+}
+
+//Used by search input in Modals to filter the results
+export const handleFilterEntities = (arrayToFilter, filterStateSet, term) => {
+    const filterResults = filterEntitiesByTerm(arrayToFilter, term.current.value)
+    filterStateSet([...sortEntitiesByName(filterResults)])
+}
+
+//Used by search input in Modals to reset to the original display of entities
+export const handleResetFilterEntities = (term, filterStateSet, originalArray) => {
+    term.current.value = ''
+    filterStateSet([...sortEntitiesByName(originalArray)])
 }

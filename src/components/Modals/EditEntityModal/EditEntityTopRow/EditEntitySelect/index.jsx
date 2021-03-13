@@ -2,18 +2,19 @@ import React from 'react'
 import {v4 as uuidv4} from 'uuid'
 import DropdownInternalContainer from '../../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
+import {handleFilterEntities} from '../../../../../helpers'
 import {ActiveInputLabel} from '../../../../../style/labels'
 import {EntityErrorContainer} from '../../../styles'
 import {ErrorMessage} from '../../../../../style/messages'
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
 
 
-const EditEntitySelect = ({editEntityChangeHandler, editEntityInfo, entities, error, filteredEntitiesToEdit, handleFilterEntitiesToEdit,
-                              handleResetFilterEntitiesToEdit, searchEntityTerm, setShowEditEntitySelect, showEditEntitySelect}) => {
+const EditEntitySelect = ({editEntityChangeHandler, editEntityInfo, entities, error, filteredEntitiesToEdit,
+                              searchEntityTerm, setFilteredEntitiesToEdit, setShowEditEntitySelect, showEditEntitySelect}) => {
 
     const handleSelectEditEntityInputPressEnter = (e) => {
         if (e.key === 'Enter') {
-            handleFilterEntitiesToEdit()
+            handleFilterEntities(entities, setFilteredEntitiesToEdit, searchEntityTerm)
         }
     }
 
@@ -31,12 +32,14 @@ const EditEntitySelect = ({editEntityChangeHandler, editEntityInfo, entities, er
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showEditEntitySelect ? 1 : 0}>
                     <ModalDropdownSearchField
-                        handleFilterClick={handleFilterEntitiesToEdit}
-                        handleFilterReset={handleResetFilterEntitiesToEdit}
+                        arrayToFilter={entities}
+                        filterStateSet={setFilteredEntitiesToEdit}
                         handleKeyPress={handleSelectEditEntityInputPressEnter}
                         inputName='edit_entity_search'
                         inputPlaceholder='Search for entity name'
                         inputRef={searchEntityTerm}
+                        originalArray={entities}
+                        term={searchEntityTerm}
                     />
                     {filteredEntitiesToEdit.length ?
                         filteredEntitiesToEdit.map(entity => (

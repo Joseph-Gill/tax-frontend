@@ -9,7 +9,7 @@ import ModalEditTitle from '../ModalComponents/ModalEditTitle'
 import ModalEditButtons from '../ModalComponents/ModalEditButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {filterEntitiesByTerm, sortEntitiesByName} from '../../../helpers'
+import {sortEntitiesByName} from '../../../helpers'
 import {EditEntityLinkInternalContainer} from '../styles'
 
 
@@ -90,16 +90,6 @@ const EditLinkModal = ({clinks, entities, saveEditLinkHandler, setShowEditLink,
         setShowEditLinkSelect(false)
     }
 
-    const handleFilterEntities = (arrayToFilter, filterStateSet, term) => {
-        const filterResults = filterEntitiesByTerm(arrayToFilter, term.current.value)
-        filterStateSet([...sortEntitiesByName(filterResults)])
-    }
-
-    const handleResetFilterEntities = (term, filterStateSet) => {
-        term.current.value = ''
-        filterStateSet([...sortEntitiesByName(entities)])
-    }
-
     return (
         <ModalExternalContainer
             setModalView={setShowEditLink}
@@ -124,8 +114,6 @@ const EditLinkModal = ({clinks, entities, saveEditLinkHandler, setShowEditLink,
                         error={error}
                         filteredFromEntities={filteredFromEntities}
                         filteredToEntities={filteredToEntities}
-                        handleFilterEntities={handleFilterEntities}
-                        handleResetFilterEntities={handleResetFilterEntities}
                         searchFromEntityTerm={searchFromEntityTerm}
                         searchToEntityTerm={searchToEntityTerm}
                         setFilteredFromEntities={setFilteredFromEntities}

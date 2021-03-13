@@ -4,8 +4,9 @@ import ModalInput from '../../ModalComponents/ModalInput'
 import {EditEntityLinkRowContainer} from '../../styles'
 
 
-const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, entities, error, filteredEntitiesToEdit, handleFilterEntitiesToEdit,
-                              handleResetFilterEntitiesToEdit, searchEntityTerm, setEditEntityInfo, setShowEditEntitySelect, showEditEntitySelect}) => {
+const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, entities, error, filteredEntitiesToEdit,
+                              searchEntityTerm, setEditEntityInfo, setFilteredEntitiesToEdit,
+                              setShowEditEntitySelect, showEditEntitySelect}) => {
     return (
         <EditEntityLinkRowContainer>
             <EditEntitySelect
@@ -14,9 +15,8 @@ const EditEntityTopRow = ({editEntityChangeHandler, editEntityInfo, entities, er
                 entities={entities}
                 error={error}
                 filteredEntitiesToEdit={filteredEntitiesToEdit}
-                handleFilterEntitiesToEdit={handleFilterEntitiesToEdit}
-                handleResetFilterEntitiesToEdit={handleResetFilterEntitiesToEdit}
                 searchEntityTerm={searchEntityTerm}
+                setFilteredEntitiesToEdit={setFilteredEntitiesToEdit}
                 setShowEditEntitySelect={setShowEditEntitySelect}
                 showEditEntitySelect={showEditEntitySelect}
             />

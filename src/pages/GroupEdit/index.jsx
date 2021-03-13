@@ -1,6 +1,5 @@
 import React, {useRef, useState, useEffect, useMemo} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {v4 as uuidv4} from 'uuid'
 import LogoLoading from '../../components/LogoLoading'
 import BreadCrumb from '../../components/BreadCrumb'
 import GroupInfo from '../../components/GroupInfo'
@@ -23,7 +22,6 @@ import {CancelButton, SaveButton} from '../../style/buttons'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, CreateGroupCancelSaveContainer,
     EntityTitleContainer, GroupAddEditButtonContainer, GroupAddEditErrorContainer} from '../../style/containers'
 import {GroupAddEditNoChartToDisplay} from '../GroupAdd/styles'
-import {EntityOption} from '../../style/options'
 
 
 const GroupEdit = ({history}) => {

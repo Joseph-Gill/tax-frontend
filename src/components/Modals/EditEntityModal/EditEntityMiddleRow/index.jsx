@@ -4,8 +4,8 @@ import EntityParentDropdown from '../../../Dropdowns/EntityParentDropdown'
 import {EditEntityLinkRowContainer} from '../../styles'
 
 
-const EditEntityMiddleRow = ({countryName, editEntityInfo, editParentChangeHandler, editParentNames, error, filteredParents,
-                                 handleFilterParents, handleResetFilterParents, searchParentTerm, setCountryName,
+const EditEntityMiddleRow = ({countryName, editEntityInfo, editParentChangeHandler, editParentNames, entities, error,
+                                 filteredParents, searchParentTerm, setCountryName, setFilteredParents,
                                  setShowParentEntitySelect, showParentEntitySelect}) => {
     return (
         <EditEntityLinkRowContainer>
@@ -13,11 +13,11 @@ const EditEntityMiddleRow = ({countryName, editEntityInfo, editParentChangeHandl
                 editEntityInfo={editEntityInfo}
                 editParentChangeHandler={editParentChangeHandler}
                 editParentNames={editParentNames}
+                entities={entities}
                 error={error}
                 filteredParents={filteredParents}
-                handleFilterParents={handleFilterParents}
-                handleResetFilterParents={handleResetFilterParents}
                 searchParentTerm={searchParentTerm}
+                setFilteredParents={setFilteredParents}
                 setShowParentEntitySelect={setShowParentEntitySelect}
                 showParentEntitySelect={showParentEntitySelect}
             />

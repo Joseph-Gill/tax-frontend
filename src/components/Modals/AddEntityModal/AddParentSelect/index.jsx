@@ -1,21 +1,19 @@
 import React from 'react'
-import {v4 as uuidv4} from 'uuid'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
+import {getParentNameFromId, handleFilterEntities} from '../../../../helpers'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
-import {getParentNameFromId} from '../../../../helpers'
 
 
-const AddParentSelect = ({addParents, error, filteredParents, handleFilterParents, handleResetFilterParents,
-                             handleSelectParentChange, newEntityInfo, searchParentTerm, setShowAddParentSelect,
-                             showAddParentSelect}) => {
+const AddParentSelect = ({addParents, error, filteredParents, handleSelectParentChange, newEntityInfo,
+                             searchParentTerm, setFilteredParents, setShowAddParentSelect, showAddParentSelect}) => {
 
     const handleSelectParentEntityInputPressEnter = (e) => {
         if (e.key === 'Enter') {
-            handleFilterParents()
+            handleFilterEntities(addParents, setFilteredParents, searchParentTerm)
         }
     }
 
@@ -33,19 +31,21 @@ const AddParentSelect = ({addParents, error, filteredParents, handleFilterParent
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showAddParentSelect ? 1 : 0}>
                     <ModalDropdownSearchField
-                        handleFilterClick={handleFilterParents}
-                        handleFilterReset={handleResetFilterParents}
+                        arrayToFilter={filteredParents}
+                        filterStateSet={setFilteredParents}
                         handleKeyPress={handleSelectParentEntityInputPressEnter}
                         inputName='parent_entity_search'
                         inputPlaceholder='Search for parent name'
                         inputRef={searchParentTerm}
+                        originalArray={addParents}
+                        term={searchParentTerm}
                     />
                     {filteredParents.length ?
                         filteredParents.map(entity => (
                             // Prevents showing entities that are only on the Step Chart from "Delete" highlighting
                             !entity.remove &&
                                 <ModalDropdownContent
-                                    key={uuidv4()}
+                                    key={entity.id}
                                     onClick={() => handleSelectParentChange(entity.id)}
                                 >
                                     <span>{entity.name}</span>

@@ -1,14 +1,14 @@
 import React from 'react'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {getEntityInfo} from '../../../../helpers'
+import {getEntityInfo, handleFilterEntities} from '../../../../helpers'
 import {ActiveInputLabel} from '../../../../style/labels'
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 
 
-const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntitiesCanRemove, handleFilterEntitiesCanRemove,
-                                  handleResetFilterEntitiesCanRemove, searchEntityTerm, setEntityToRemove,
-                                  setShowEntityRemoveSelect, showEntityRemoveSelect}) => {
+const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntitiesCanRemove, searchEntityTerm,
+                                  setEntityToRemove, setFilteredEntitiesCanRemove, setShowEntityRemoveSelect,
+                                  showEntityRemoveSelect}) => {
 
     const handleEntityToRemoveChange = entityId => {
         setEntityToRemove(entityId)
@@ -17,7 +17,7 @@ const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntiti
 
     const handleRemoveEntityInputPressEnter = (e) => {
         if (e.key === 'Enter')
-            handleFilterEntitiesCanRemove()
+            handleFilterEntities(entitiesCanRemove, setFilteredEntitiesCanRemove, searchEntityTerm)
     }
 
     return (
@@ -34,12 +34,14 @@ const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntiti
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showEntityRemoveSelect ? 1 : 0}>
                     <ModalDropdownSearchField
-                        handleFilterClick={handleFilterEntitiesCanRemove}
-                        handleFilterReset={handleResetFilterEntitiesCanRemove}
+                        arrayToFilter={entitiesCanRemove}
+                        filterStateSet={setFilteredEntitiesCanRemove}
                         handleKeyPress={handleRemoveEntityInputPressEnter}
                         inputName='remove_entity_search'
                         inputPlaceholder='Search for entity name'
                         inputRef={searchEntityTerm}
+                        originalArray={entitiesCanRemove}
+                        term={searchEntityTerm}
                     />
                     {filteredEntitiesCanRemove.length ?
                         filteredEntitiesCanRemove.map(entity => (

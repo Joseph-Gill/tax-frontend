@@ -1,13 +1,14 @@
 import React from 'react'
 import reset from '../../../../../../assets/icons/stark_close_icon.svg'
 import searchImage from '../../../../../../assets/icons/stark_search_bar_icon.svg'
+import {handleFilterEntities, handleResetFilterEntities} from '../../../../../../helpers'
+import {FilterSpacer} from '../../../../../../style/spans'
 import {FilterImgContainer, FilterResetImgContainer} from '../../../../../../style/containers'
 import {ModalDropdownSearchContainer, ModalDropdownSearchInput} from '../../../../../Dropdowns/styles'
-import {FilterSpacer} from '../../../../../../style/spans'
 
 
-const EntityNameSearchInput = ({filteredEntities, handleFilterEntities, handleLinkEntityInputPressEnter,
-                                   handleResetFilterEntities, searchEntityTerm, setFilteredEntities}) => {
+const EntityNameSearchInput = ({entities, filteredEntities, handleLinkEntityInputPressEnter, searchEntityTerm,
+                                   setFilteredEntities}) => {
     return (
         <ModalDropdownSearchContainer>
             <ModalDropdownSearchInput
@@ -17,7 +18,7 @@ const EntityNameSearchInput = ({filteredEntities, handleFilterEntities, handleLi
                 ref={searchEntityTerm}
                 type='text'
             />
-            <FilterResetImgContainer onClick={() => handleResetFilterEntities(searchEntityTerm, setFilteredEntities)}>
+            <FilterResetImgContainer onClick={() => handleResetFilterEntities(searchEntityTerm, setFilteredEntities, entities)}>
                 <img alt='reset filter' src={reset} />
             </FilterResetImgContainer>
             <FilterSpacer />
