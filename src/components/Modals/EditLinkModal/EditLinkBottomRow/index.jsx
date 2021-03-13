@@ -1,6 +1,6 @@
 import React from 'react'
-import EditLinkTypeChoices from './EditLinkTypeChoices'
-import EditLinkColorChoices from './EditLinkColorChoices'
+import LinkTypeChoices from '../../../Dropdowns/DropdownComponents/LinkTypeChoices'
+import LinkColorChoices from '../../../Dropdowns/DropdownComponents/LinkColorChoice'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {ActiveInputLabel} from '../../../../style/labels'
 import {ModalDropdownButton} from '../../../Dropdowns/styles'
@@ -38,9 +38,9 @@ const EditLinkBottomRow = ({setShowEditColorSelect, setShowEditTypeSelect, setTa
                     >
                         {!targetLink.linkSelected ? 'Select a link type' : targetLink.type === 'clink' ? 'C Link' : 'S Link'}
                     </ModalDropdownButton>
-                    <EditLinkTypeChoices
+                    <LinkTypeChoices
                         handleTypeSelectChange={handleTypeSelectChange}
-                        showEditTypeSelect={showEditTypeSelect}
+                        showTypeSelect={showEditTypeSelect}
                     />
                 </DropdownInternalContainer>
             </div>
@@ -61,9 +61,9 @@ const EditLinkBottomRow = ({setShowEditColorSelect, setShowEditTypeSelect, setTa
                         {!targetLink.linkSelected ? 'Select a color' : targetLink.template === 'blue' ? 'Blue'
                             : targetLink.template === 'yellow' ? 'Yellow' : 'Orange' }
                     </ModalDropdownButton>
-                    <EditLinkColorChoices
+                    <LinkColorChoices
                         handleColorSelectChange={handleColorSelectChange}
-                        showEditColorSelect={showEditColorSelect}
+                        showColorSelect={showEditColorSelect}
                     />
                 </DropdownInternalContainer>
                 <EntityErrorContainer />

@@ -1,10 +1,10 @@
+import {ModalDropdownContent, ModalDropdownContentContainer} from '../../styles'
 import React from 'react'
-import {ModalDropdownContent, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
 
 
-const EditLinkColorChoices = ({handleColorSelectChange, showEditColorSelect}) => {
+const LinkColorChoices = ({handleColorSelectChange, showColorSelect}) => {
     return (
-        <ModalDropdownContentContainer show={showEditColorSelect ? 1 : 0}>
+        <ModalDropdownContentContainer show={showColorSelect ? 1 : 0}>
             <ModalDropdownContent
                 onClick={() => handleColorSelectChange('blue')}
             >
@@ -24,4 +24,4 @@ const EditLinkColorChoices = ({handleColorSelectChange, showEditColorSelect}) =>
     )
 }
 
-export default EditLinkColorChoices
+export default LinkColorChoices

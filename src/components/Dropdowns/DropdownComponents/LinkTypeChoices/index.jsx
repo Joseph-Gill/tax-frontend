@@ -1,10 +1,10 @@
+import {ModalDropdownContent, ModalDropdownContentContainer} from '../../styles'
 import React from 'react'
-import {ModalDropdownContent, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
 
 
-const EditLinkTypeChoices = ({handleTypeSelectChange, showEditTypeSelect}) => {
+const LinkTypeChoices = ({handleTypeSelectChange, showTypeSelect}) => {
     return (
-        <ModalDropdownContentContainer show={showEditTypeSelect ? 1 : 0}>
+        <ModalDropdownContentContainer show={showTypeSelect ? 1 : 0}>
             <ModalDropdownContent
                 onClick={() => handleTypeSelectChange('clink')}
             >
@@ -19,4 +19,4 @@ const EditLinkTypeChoices = ({handleTypeSelectChange, showEditTypeSelect}) => {
     )
 }
 
-export default EditLinkTypeChoices
+export default LinkTypeChoices
