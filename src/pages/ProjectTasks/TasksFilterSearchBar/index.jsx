@@ -8,6 +8,7 @@ import {TaskFilterSearchInput, TasksFilterSearchContainer} from './styles'
 import {FilterImgContainer, FilterResetImgContainer} from '../../../style/containers'
 import {FilterDropdownContainer, FilterLabelText, FilterSearchButton, FilterSearchText,
     FilterSelectionContainer} from '../../../style/dropdowns'
+import DropdownInternalContainer from '../../../components/Dropdowns/DropdownComponents/DropdownInternalContainer'
 
 
 const TasksFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChangeHandler, filterOption,
@@ -36,7 +37,10 @@ const TasksFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChang
 
     return (
         <TasksFilterSearchContainer>
-            <FilterDropdownContainer>
+            <DropdownInternalContainer
+                setDropdownView={setShowFilterDropdown}
+                showDropdownView={showFilterDropdown}
+            >
                 <FilterSearchButton onClick={toggleFilterSearchCloseGoTo}>
                     <FilterSearchText>Filter</FilterSearchText>
                 </FilterSearchButton>
@@ -45,7 +49,7 @@ const TasksFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChang
                     filterOptionChangeHandler={filterOptionChangeHandler}
                     showFilterDropdown={showFilterDropdown}
                 />
-            </FilterDropdownContainer>
+            </DropdownInternalContainer>
             <FilterSelectionContainer>
                 <FilterLabelText>{setFilterLabel()}</FilterLabelText>
             </FilterSelectionContainer>

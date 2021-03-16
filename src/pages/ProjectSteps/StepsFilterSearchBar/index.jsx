@@ -2,9 +2,10 @@ import React from 'react'
 import reset from '../../../assets/icons/stark_close_icon.svg'
 import searchImage from '../../../assets/icons/stark_search_bar_icon.svg'
 import StepsFilterSearchChoices from './StepsFilterSearchChoices'
+import DropdownInternalContainer from '../../../components/Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {allowOnlyOneCheckedBoxContainer} from '../../../helpers'
 import {FilterSpacer} from '../../../style/spans'
-import {FilterDropdownContainer, FilterLabelText, FilterSearchButton, FilterSearchInput, FilterSearchText, FilterSelectionContainer} from '../../../style/dropdowns'
+import {FilterLabelText, FilterSearchButton, FilterSearchInput, FilterSearchText, FilterSelectionContainer} from '../../../style/dropdowns'
 import {FilterImgContainer, FilterResetImgContainer} from '../../../style/containers'
 import {StepsFilterSearchContainer} from './styles'
 
@@ -33,7 +34,10 @@ const StepsFilterSearchBar = ({filterByKeypressChangeHandler, filterByClickChang
 
     return (
         <StepsFilterSearchContainer>
-            <FilterDropdownContainer>
+            <DropdownInternalContainer
+                setDropdownView={setShowFilterDropdown}
+                showDropdownView={showFilterDropdown}
+            >
                 <FilterSearchButton onClick={toggleFilterSearchCloseGoTo}>
                     <FilterSearchText>Filter</FilterSearchText>
                 </FilterSearchButton>
@@ -42,7 +46,7 @@ const StepsFilterSearchBar = ({filterByKeypressChangeHandler, filterByClickChang
                     filterOptionChangeHandler={filterOptionChangeHandler}
                     showFilterDropdown={showFilterDropdown}
                 />
-            </FilterDropdownContainer>
+            </DropdownInternalContainer>
             <FilterSelectionContainer>
                 <FilterLabelText>{setFilterLabel()}</FilterLabelText>
             </FilterSelectionContainer>
