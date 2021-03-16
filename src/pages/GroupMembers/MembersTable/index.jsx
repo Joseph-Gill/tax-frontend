@@ -1,21 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
-import {v4 as uuidv4} from 'uuid'
 import NoPendingInvited from './NoPendingInvited'
 import Loading from '../../../components/Loading'
 import {getMemberOrganizationNameAction} from '../../../store/organization/actions'
 import {checkBoxChangeHandler} from '../../../helpers'
 import {EDIT_MEMBER, GROUPS, MEMBERS} from '../../../routes/paths'
-import headerCheckbox from '../../../assets/icons/stark_checkbox_header.svg'
 import rightChevron from '../../../assets/icons/stark_right_chevron.png'
-import {CheckBox} from '../../../style/inputs'
 import {CustomCheckbox} from '../../../style/checkbox'
 import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../style/tables'
-import {
-    ActiveMemberUserContainer, ActiveMemberUserText, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText,
-    RoleFieldChevronContainer, RoleFieldText, RoleTextImageContainer, TableDataCheckbox
-} from './styles'
-import {MemberTableHeaderImg} from '../styles'
+import {ActiveMemberUserContainer, ActiveMemberUserText, GroupMembersTableContainer, NewMemberGreenText, NewMemberYellowText,
+    RoleFieldChevronContainer, RoleFieldText, RoleTextImageContainer, TableDataCheckbox} from './styles'
 
 
 const MembersTable = ({activeRenderData, filterMemberStatus, group, history, filterOption, filterString, invitedMembers,
@@ -168,14 +162,17 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
     //Used to render each member line of table for invited members
     const renderInvitedMembers = (array) => {
         return array.map((member, index) => (
-            <TableDataRow key={uuidv4()}>
+            <TableDataRow key={member.id}>
                 <TableDataCheckbox>
-                    <CheckBox
-                        checked={invitedRenderData[index].isChecked}
-                        onChange={(e) => checkBoxChangeHandler(e, invitedRenderData, setInvitedRenderData)}
-                        type='checkbox'
-                        value={index}
-                    />
+                    <CustomCheckbox>
+                        <input
+                            checked={invitedRenderData[index].isChecked}
+                            onChange={(e) => checkBoxChangeHandler(e, invitedRenderData, setInvitedRenderData)}
+                            type='checkbox'
+                            value={index}
+                        />
+                        <span className='checkmark' />
+                    </CustomCheckbox>
                 </TableDataCheckbox>
                 <TableData>{member.email}</TableData>
                 <TableData>N/A</TableData>
@@ -200,11 +197,15 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                             {!filterMemberStatus ? (
                                 <TableTitleRow>
                                     <TableDataCheckbox>
-                                        <MemberTableHeaderImg
-                                            alt='checkbox'
-                                            onClick={() => checkAllMembersHandler(activeRenderData, setActiveRenderData, allActiveStatus, setAllActiveStatus)}
-                                            src={headerCheckbox}
-                                        />
+                                        <CustomCheckbox>
+                                            <input
+                                                checked={!allActiveStatus}
+                                                onChange={() => checkAllMembersHandler(activeRenderData, setActiveRenderData, allActiveStatus, setAllActiveStatus)}
+                                                type='checkbox'
+                                                value={!allActiveStatus}
+                                            />
+                                            <span className='checkmark' />
+                                        </CustomCheckbox>
                                     </TableDataCheckbox>
                                     <TableHeader>User</TableHeader>
                                     <TableHeader>Organization</TableHeader>
@@ -214,11 +215,15 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                                 </TableTitleRow>) : invitedMembers.length ? (
                                     <TableTitleRow>
                                         <TableDataCheckbox>
-                                            <img
-                                                alt='checkbox'
-                                                onClick={() => checkAllMembersHandler(invitedRenderData, setInvitedRenderData, allInvitedStatus, setAllInvitedStatus)}
-                                                src={headerCheckbox}
-                                            />
+                                            <CustomCheckbox>
+                                                <input
+                                                    checked={!allInvitedStatus}
+                                                    onChange={() => checkAllMembersHandler(invitedRenderData, setInvitedRenderData, allInvitedStatus, setAllInvitedStatus)}
+                                                    type='checkbox'
+                                                    value={!allInvitedStatus}
+                                                />
+                                                <span className='checkmark' />
+                                            </CustomCheckbox>
                                         </TableDataCheckbox>
                                         <TableHeader>User</TableHeader>
                                         <TableHeader>Organization</TableHeader>
