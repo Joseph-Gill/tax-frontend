@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 
 export const StepChartButtonsContainer = styled.div`
-    width: 140px;
+    width: 170px;
     display: ${props => props.hide ? 'none' : 'flex'};
     justify-content: space-between;
     align-items: center;

@@ -186,6 +186,7 @@ export const DropdownContentContainer = styled.div`
     border-bottom-right-radius: ${props => props.theme.borderRadius};
     border-bottom-left-radius: ${props => props.theme.borderRadius};
     position: absolute;
+    margin-top: 2px;
     background-color: ${props => props.theme.white};
     width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);

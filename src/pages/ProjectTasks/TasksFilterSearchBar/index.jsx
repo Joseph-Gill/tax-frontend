@@ -1,14 +1,14 @@
 import React from 'react'
 import TaskFilterSearchChoices from './TaskFilterSearchChoices'
+import DropdownInternalContainer from '../../../components/Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {allowOnlyOneCheckedBoxContainer} from '../../../helpers'
 import reset from '../../../assets/icons/stark_close_icon.svg'
 import searchImage from '../../../assets/icons/stark_search_bar_icon.svg'
 import {FilterSpacer} from '../../../style/spans'
 import {TaskFilterSearchInput, TasksFilterSearchContainer} from './styles'
 import {FilterImgContainer, FilterResetImgContainer} from '../../../style/containers'
-import {FilterDropdownContainer, FilterLabelText, FilterSearchButton, FilterSearchText,
+import {FilterLabelText, FilterSearchButton, FilterSearchText,
     FilterSelectionContainer} from '../../../style/dropdowns'
-import DropdownInternalContainer from '../../../components/Dropdowns/DropdownComponents/DropdownInternalContainer'
 
 
 const TasksFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChangeHandler, filterOption,
