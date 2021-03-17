@@ -45,6 +45,7 @@ const StepDisplay = ({history}) => {
     const [showEditLink, setShowEditLink] = useState(false)
     const [showRemoveLink, setShowRemoveLink] = useState(false)
     const [showRemoveEntity, setShowRemoveEntity] = useState(false)
+    const [showPredefinedContribution, setShowPredefinedContribution] = useState(false)
     const [currentStepEntities, setCurrentStepEntities] = useState([])
     const [clinks, setClinks] = useState([])
     const [slinks, setSlinks] = useState([])
@@ -270,6 +271,7 @@ const StepDisplay = ({history}) => {
                         setShowConfirmation={setShowConfirmation}
                         setShowEditEntity={setShowEditEntity}
                         setShowEditLink={setShowEditLink}
+                        setShowPredefinedContribution={setShowPredefinedContribution}
                         setShowRemoveEntity={setShowRemoveEntity}
                         setShowRemoveLink={setShowRemoveLink}
                         setStepDetailStatus={setStepDetailStatus}
@@ -295,6 +297,7 @@ const StepDisplay = ({history}) => {
                                 setShowAddLink={setShowAddLink}
                                 setShowEditEntity={setShowEditEntity}
                                 setShowEditLink={setShowEditLink}
+                                setShowPredefinedContribution={setShowPredefinedContribution}
                                 setShowRemoveEntity={setShowRemoveEntity}
                                 setShowRemoveLink={setShowRemoveLink}
                                 setSlinks={setSlinks}
@@ -302,6 +305,7 @@ const StepDisplay = ({history}) => {
                                 showAddLink={showAddLink}
                                 showEditEntity={showEditEntity}
                                 showEditLink={showEditLink}
+                                showPredefinedContribution={showPredefinedContribution}
                                 showRemoveEntity={showRemoveEntity}
                                 showRemoveLink={showRemoveLink}
                                 slinks={slinks}

@@ -1,18 +1,19 @@
 import React from 'react'
-import styled from 'styled-components'
 import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
 import DropdownContentImage from '../DropdownComponents/DropdownContentImage'
 import robot from '../../../assets/icons/tax_cheetah_robot_icon_blue_24px.svg'
 import {DropdownButtonContainer, DropdownContentText} from '../styles'
-import {DropdownContent, DropdownContentContainer} from '../../../style/dropdowns'
+import {DropdownContent} from '../../../style/dropdowns'
+import {PredefinedDropdownContentContainer} from './styles'
 
 
-const PredefinedDropdownContentContainer = styled(DropdownContentContainer)`
-    width: 210px;
-`
+const PredefinedStepDropdown = ({setShowPredefinedContribution, setShowPredefinedStepsDropdown, showPredefinedStepsDropdown}) => {
 
+    const handlePredefinedClick = (setShow) => {
+        setShow(true)
+        setShowPredefinedStepsDropdown(false)
+    }
 
-const PredefinedStepDropdown = ({setShowPredefinedStepsDropdown, showPredefinedStepsDropdown}) => {
     return (
         <DropdownInternalContainer
             setDropdownView={setShowPredefinedStepsDropdown}
@@ -26,7 +27,9 @@ const PredefinedStepDropdown = ({setShowPredefinedStepsDropdown, showPredefinedS
                     <DropdownContentText>Merger</DropdownContentText>
                     <DropdownContentImage dropdownCalling='Predefined' />
                 </DropdownContent>
-                <DropdownContent>
+                <DropdownContent
+                    onClick={() => handlePredefinedClick(setShowPredefinedContribution)}
+                >
                     <DropdownContentText>Contribution</DropdownContentText>
                     <DropdownContentImage dropdownCalling='Predefined' />
                 </DropdownContent>

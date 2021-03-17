@@ -13,12 +13,13 @@ import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateS
     linkInputErrorHandler} from '../../../helpers'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
+import PredefinedContributionModal from '../../../components/Modals/PredefinedContributionModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity,
-                       setShowEditLink, setShowAddLink, setShowRemoveEntity, setShowRemoveLink, setSlinks,
-                       showAddEntity, showAddLink, showEditEntity, showEditLink, showRemoveEntity, showRemoveLink,
-                       slinks, stepChartExists, steps}) => {
+                       setShowEditLink, setShowAddLink, setShowPredefinedContribution, setShowRemoveEntity, setShowRemoveLink,
+                       setSlinks, showAddEntity, showAddLink, showEditEntity, showEditLink, showPredefinedContribution,
+                       showRemoveEntity, showRemoveLink, slinks, stepChartExists, steps}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [entitiesToRender, setEntitiesToRender] = useState([])
@@ -371,6 +372,12 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     setShowEditLink={setShowEditLink}
                     showEditLink={showEditLink}
                     slinks={slinks}
+                />}
+            {showPredefinedContribution &&
+                <PredefinedContributionModal
+                    entities={entitiesToRender}
+                    setShowPredefinedContribution={setShowPredefinedContribution}
+                    showPredefinedContribution={showPredefinedContribution}
                 />}
             {renderStepChart}
         </StepChartAndButtonsContainer>
