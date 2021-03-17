@@ -169,3 +169,7 @@ export const ModalCloseIconContainer = styled.div`
         background: ${props => props.theme.iconHoverBackground};
     }
 `
+
+export const PredefinedModalInternalContainer = styled(AddDeleteModalInternalContainer)`
+    height: 500px;
+`

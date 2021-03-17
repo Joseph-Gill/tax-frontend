@@ -4,17 +4,21 @@ import Draggable from 'react-draggable'
 import styled from 'styled-components/macro'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalClose from '../ModalComponents/ModalClose'
+import RecipientEntitySelect from './RecipientEntitySelect'
+import ContributeAssetsSelect from './ContributeAssetsSelect'
 import ContributorEntitySelect from './ContributorEntitySelect'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
+import ContributionIssuanceSelect from './ContributionIssuanceSelect'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import ModalDropdownSearchField from '../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import DropdownInternalContainer from '../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getEntityInfo, getParentFromId, handleFilterEntities, sortEntitiesByName} from '../../../helpers'
-import {AddDeleteModalInternalContainer} from '../styles'
-import {ActiveInputLabel} from '../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../Dropdowns/styles'
-import RecipientEntitySelect from './RecipientEntitySelect'
+import {getParentFromId, sortEntitiesByName} from '../../../helpers'
+import {PredefinedModalInternalContainer} from '../styles'
+
+
+const ParticipationOtherAssetsInputPlaceholder = styled.div`
+    height: 42px;
+    width: 302px;
+`
 
 
 const PredefinedContributionModal = ({entities, error, setShowPredefinedContribution, showPredefinedContribution}) => {
@@ -24,11 +28,14 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
     const dispatch = useDispatch()
     const [showContributorDropdown, setShowContributorDropdown] = useState(false)
     const [showRecipientDropdown, setShowRecipientDropdown] = useState(false)
+    const [showAssetsDropdown, setShowAssetsDropdown] = useState(false)
     const [filteredContributors, setFilteredContributors] = useState([])
     const [availableRecipients, setAvailableRecipients] = useState([])
     const [filteredRecipients, setFilteredRecipients] = useState([])
     const [targetContributor, setTargetContributor] = useState('')
     const [targetRecipient, setTargetRecipient] = useState('')
+    const [contributedAssets, setContributedAssets] = useState('')
+    const [issuanceNewShares, setIssuanceNewShares] = useState(false)
 
     useEffect(() => {
         const result = sortEntitiesByName(entities)
@@ -80,6 +87,11 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
         setShowRecipientDropdown(false)
     }
 
+    const handleSelectAssetsContributedChange = assetType => {
+        setContributedAssets(assetType)
+        setShowAssetsDropdown(false)
+    }
+
     const handleCancelButton = () => {
         dispatch(resetErrors())
         setShowPredefinedContribution(false)
@@ -91,7 +103,7 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
             showModalView={showPredefinedContribution}
         >
             <Draggable>
-                <AddDeleteModalInternalContainer>
+                <PredefinedModalInternalContainer>
                     <ModalClose modalDisplay={setShowPredefinedContribution} />
                     <ModalTitle title='Contribution Step' />
                     <ContributorEntitySelect
@@ -108,6 +120,7 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
                     <RecipientEntitySelect
                         availableRecipients={availableRecipients}
                         entities={entities}
+                        error={error}
                         filteredRecipients={filteredRecipients}
                         handleSelectRecipientChange={handleSelectRecipientChange}
                         searchRecipientTerm={searchRecipientTerm}
@@ -117,10 +130,23 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
                         targetContributor={targetContributor}
                         targetRecipient={targetRecipient}
                     />
+                    <ContributeAssetsSelect
+                        contributedAssets={contributedAssets}
+                        error={error}
+                        handleSelectAssetsContributedChange={handleSelectAssetsContributedChange}
+                        setShowAssetsDropdown={setShowAssetsDropdown}
+                        showAssetsDropdown={showAssetsDropdown}
+                        targetContributor={targetContributor}
+                    />
+                    <ContributionIssuanceSelect
+                        issuanceNewShares={issuanceNewShares}
+                        setIssuanceNewShares={setIssuanceNewShares}
+                    />
+                    <ParticipationOtherAssetsInputPlaceholder />
                     <ModalAddButtons
                         cancelHandler={handleCancelButton}
                     />
-                </AddDeleteModalInternalContainer>
+                </PredefinedModalInternalContainer>
             </Draggable>
         </ModalExternalContainer>
     )

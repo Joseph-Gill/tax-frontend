@@ -1,12 +1,14 @@
 import React from 'react'
+import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
+import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {getEntityInfo, handleFilterEntities} from '../../../../helpers'
 import {ActiveInputLabel} from '../../../../style/labels'
-import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
-import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
+import {EntityErrorContainer} from '../../styles'
+import {ErrorMessage} from '../../../../style/messages'
 
 
-const RecipientEntitySelect = ({availableRecipients, entities, filteredRecipients, handleSelectRecipientChange,
+const RecipientEntitySelect = ({availableRecipients, entities, error, filteredRecipients, handleSelectRecipientChange,
                                    searchRecipientTerm, setFilteredRecipients, setShowRecipientDropdown,
                                    showRecipientDropdown, targetContributor, targetRecipient}) => {
 
@@ -59,6 +61,9 @@ const RecipientEntitySelect = ({availableRecipients, entities, filteredRecipient
                                     </ModalDropdownContent>)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
+            <EntityErrorContainer>
+                {error && <ErrorMessage>{error.recipient}</ErrorMessage>}
+            </EntityErrorContainer>
         </div>
     )
 }

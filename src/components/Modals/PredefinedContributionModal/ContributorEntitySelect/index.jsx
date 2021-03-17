@@ -1,9 +1,9 @@
 import React from 'react'
-import {ActiveInputLabel} from '../../../../style/labels'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
-import {getEntityInfo, handleFilterEntities} from '../../../../helpers'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
+import {getEntityInfo, handleFilterEntities} from '../../../../helpers'
+import {ActiveInputLabel} from '../../../../style/labels'
+import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 
