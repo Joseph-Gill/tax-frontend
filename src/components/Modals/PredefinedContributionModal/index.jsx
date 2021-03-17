@@ -19,7 +19,7 @@ import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer
 
 
 
-const PredefinedContributionModal = ({entities, setShowPredefinedContribution, showPredefinedContribution}) => {
+const PredefinedContributionModal = ({entities, error, setShowPredefinedContribution, showPredefinedContribution}) => {
 
     let searchContributorTerm = useRef('')
     const dispatch = useDispatch()
@@ -53,6 +53,7 @@ const PredefinedContributionModal = ({entities, setShowPredefinedContribution, s
                     <ModalTitle title='Contribution Step' />
                     <ContributorEntitySelect
                         entities={entities}
+                        error={error}
                         filteredContributors={filteredContributors}
                         handleSelectContributorChange={handleSelectContributorChange}
                         searchContributorTerm={searchContributorTerm}

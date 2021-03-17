@@ -376,6 +376,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             {showPredefinedContribution &&
                 <PredefinedContributionModal
                     entities={entitiesToRender}
+                    error={error}
                     setShowPredefinedContribution={setShowPredefinedContribution}
                     showPredefinedContribution={showPredefinedContribution}
                 />}

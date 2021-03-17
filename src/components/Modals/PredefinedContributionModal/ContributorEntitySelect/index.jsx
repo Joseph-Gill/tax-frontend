@@ -4,9 +4,11 @@ import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/Dro
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 import {getEntityInfo, handleFilterEntities} from '../../../../helpers'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
+import {EntityErrorContainer} from '../../styles'
+import {ErrorMessage} from '../../../../style/messages'
 
 
-const ContributorEntitySelect = ({entities, filteredContributors, handleSelectContributorChange, searchContributorTerm,
+const ContributorEntitySelect = ({entities, error, filteredContributors, handleSelectContributorChange, searchContributorTerm,
                                      setFilteredContributors, setShowContributorDropdown, showContributorDropdown, targetContributor }) => {
 
     const handleSelectContributorInputPressEnter = (e) => {
@@ -53,6 +55,9 @@ const ContributorEntitySelect = ({entities, filteredContributors, handleSelectCo
                                     </ModalDropdownContent>)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
+            <EntityErrorContainer>
+                {error && <ErrorMessage>{error.entitySelect}</ErrorMessage>}
+            </EntityErrorContainer>
         </div>
     )
 }
