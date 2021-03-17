@@ -374,9 +374,9 @@ export const renderEditRemoveLinks = (clinks, slinks, linkChangeHandler, entitie
         }
     }
 
-//Used by the parent of entity to edit dropdown to get the name of the selected parent
-export const getParentNameFromId = (parentId, array) => {
-    return array.filter(entity => entity.id === parentId)[0]
+//Used to get the Parent Entity when given an array and a parent Id
+export const getParentFromId = (parentId, array) => {
+    return array.filter(entity => parseInt(entity.id) === parseInt(parentId))[0]
 }
 
 //Used by search input in Modals to filter the results
@@ -389,4 +389,11 @@ export const handleFilterEntities = (arrayToFilter, filterStateSet, term) => {
 export const handleResetFilterEntities = (term, filterStateSet, originalArray) => {
     term.current.value = ''
     filterStateSet([...sortEntitiesByName(originalArray)])
+}
+
+//Used by dropdown search fields to handle when enter is pressed to search/reset
+export const handleSearchInputPressEnter = (e, array, setFilter, term) => {
+    if (e.key === 'Enter') {
+        handleFilterEntities(array, setFilter, term)
+    }
 }

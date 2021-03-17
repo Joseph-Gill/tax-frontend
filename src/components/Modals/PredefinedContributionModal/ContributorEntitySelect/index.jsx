@@ -56,7 +56,7 @@ const ContributorEntitySelect = ({entities, error, filteredContributors, handleS
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
             <EntityErrorContainer>
-                {error && <ErrorMessage>{error.entitySelect}</ErrorMessage>}
+                {error && <ErrorMessage>{error.contributor}</ErrorMessage>}
             </EntityErrorContainer>
         </div>
     )
