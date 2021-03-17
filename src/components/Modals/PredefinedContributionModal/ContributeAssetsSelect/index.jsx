@@ -1,8 +1,9 @@
 import React from 'react'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
+import ContributeAssetsChoices from './ContributeAssetsChoices'
 import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
+import {ModalDropdownButton} from '../../../Dropdowns/styles'
 import {EntityErrorContainer} from '../../styles'
 
 
@@ -25,18 +26,10 @@ const ContributeAssetsSelect = ({contributedAssets, error, handleSelectAssetsCon
                 >
                     {!contributedAssets ? 'Select assets to contribute' : contributedAssets === 'participation' ? 'Participation' : 'Other Assets'}
                 </ModalDropdownButton>
-                <ModalDropdownContentContainer show={showAssetsDropdown ? 1 : 0}>
-                    <ModalDropdownContent
-                        onClick={() => handleSelectAssetsContributedChange('participation')}
-                    >
-                        <span>Participation</span>
-                    </ModalDropdownContent>
-                    <ModalDropdownContent
-                        onClick={() => handleSelectAssetsContributedChange('other assets')}
-                    >
-                        <span>Other Assets</span>
-                    </ModalDropdownContent>
-                </ModalDropdownContentContainer>
+                <ContributeAssetsChoices
+                    handleSelectAssetsContributedChange={handleSelectAssetsContributedChange}
+                    showAssetsDropdown={showAssetsDropdown}
+                />
             </DropdownInternalContainer>
             <EntityErrorContainer>
                 {error && <ErrorMessage>{error.contributedAssets}</ErrorMessage>}
