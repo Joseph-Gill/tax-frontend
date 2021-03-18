@@ -1,7 +1,7 @@
 import React from 'react'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {getParentFromId, handleFilterEntities} from '../../../../helpers'
+import {getParentFromId} from '../../../../helpers'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
@@ -10,12 +10,6 @@ import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer
 
 const AddParentSelect = ({addParents, error, filteredParents, handleSelectParentChange, newEntityInfo,
                              searchParentTerm, setFilteredParents, setShowAddParentSelect, showAddParentSelect}) => {
-
-    const handleSelectParentEntityInputPressEnter = (e) => {
-        if (e.key === 'Enter') {
-            handleFilterEntities(addParents, setFilteredParents, searchParentTerm)
-        }
-    }
 
     return (
         <div>
@@ -31,9 +25,7 @@ const AddParentSelect = ({addParents, error, filteredParents, handleSelectParent
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showAddParentSelect ? 1 : 0}>
                     <ModalDropdownSearchField
-                        arrayToFilter={filteredParents}
                         filterStateSet={setFilteredParents}
-                        handleKeyPress={handleSelectParentEntityInputPressEnter}
                         inputName='parent_entity_search'
                         inputPlaceholder='Search for parent name'
                         inputRef={searchParentTerm}

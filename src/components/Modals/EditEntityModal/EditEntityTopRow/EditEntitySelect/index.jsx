@@ -2,7 +2,6 @@ import React from 'react'
 import {v4 as uuidv4} from 'uuid'
 import DropdownInternalContainer from '../../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {handleFilterEntities} from '../../../../../helpers'
 import {ActiveInputLabel} from '../../../../../style/labels'
 import {EntityErrorContainer} from '../../../styles'
 import {ErrorMessage} from '../../../../../style/messages'
@@ -11,12 +10,6 @@ import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer
 
 const EditEntitySelect = ({editEntityChangeHandler, editEntityInfo, entities, error, filteredEntitiesToEdit,
                               searchEntityTerm, setFilteredEntitiesToEdit, setShowEditEntitySelect, showEditEntitySelect}) => {
-
-    const handleSelectEditEntityInputPressEnter = (e) => {
-        if (e.key === 'Enter') {
-            handleFilterEntities(entities, setFilteredEntitiesToEdit, searchEntityTerm)
-        }
-    }
 
     return (
         <div>
@@ -32,9 +25,7 @@ const EditEntitySelect = ({editEntityChangeHandler, editEntityInfo, entities, er
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showEditEntitySelect ? 1 : 0}>
                     <ModalDropdownSearchField
-                        arrayToFilter={entities}
                         filterStateSet={setFilteredEntitiesToEdit}
-                        handleKeyPress={handleSelectEditEntityInputPressEnter}
                         inputName='edit_entity_search'
                         inputPlaceholder='Search for entity name'
                         inputRef={searchEntityTerm}

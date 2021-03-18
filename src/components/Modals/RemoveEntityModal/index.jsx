@@ -36,18 +36,6 @@ const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEn
         setFilteredEntitiesCanRemove([...result])
     }, [entities])
 
-    // // Used by search input inside select entity to remove dropdown
-    // const handleFilterEntitiesCanRemove = () => {
-    //     const filterResults = filterEntitiesByTerm(entitiesCanRemove, searchEntityTerm.current.value)
-    //     setFilteredEntitiesCanRemove([...sortEntitiesByName(filterResults)])
-    // }
-    //
-    // //Used by search input reset icon inside of the select entity to remove dropdown
-    // const handleResetFilterEntitiesCanRemove = () => {
-    //     searchEntityTerm.current.value = ''
-    //     setFilteredEntitiesCanRemove([...sortEntitiesByName(entitiesCanRemove)])
-    // }
-
     const cancelButtonHandler = () => {
         setShowRemoveEntity(false)
     }
@@ -65,8 +53,6 @@ const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEn
                         entitiesCanRemove={entitiesCanRemove}
                         entityToRemove={entityToRemove}
                         filteredEntitiesCanRemove={filteredEntitiesCanRemove}
-                        // handleFilterEntitiesCanRemove={handleFilterEntitiesCanRemove}
-                        // handleResetFilterEntitiesCanRemove={handleResetFilterEntitiesCanRemove}
                         searchEntityTerm={searchEntityTerm}
                         setEntityToRemove={setEntityToRemove}
                         setFilteredEntitiesCanRemove={setFilteredEntitiesCanRemove}

@@ -1,7 +1,7 @@
 import React from 'react'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {getEntityInfo, handleFilterEntities} from '../../../../helpers'
+import {getEntityInfo} from '../../../../helpers'
 import {ActiveInputLabel} from '../../../../style/labels'
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 import {EntityErrorContainer} from '../../styles'
@@ -10,12 +10,6 @@ import {ErrorMessage} from '../../../../style/messages'
 
 const ContributorEntitySelect = ({entities, error, filteredContributors, handleSelectContributorChange, searchContributorTerm,
                                      setFilteredContributors, setShowContributorDropdown, showContributorDropdown, targetContributor }) => {
-
-    const handleSelectContributorInputPressEnter = (e) => {
-        if (e.key === 'Enter') {
-            handleFilterEntities(entities, setFilteredContributors, searchContributorTerm)
-        }
-    }
 
     return (
         <div>
@@ -31,9 +25,7 @@ const ContributorEntitySelect = ({entities, error, filteredContributors, handleS
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showContributorDropdown ? 1 : 0}>
                     <ModalDropdownSearchField
-                        arrayToFilter={filteredContributors}
                         filterStateSet={setFilteredContributors}
-                        handleKeyPress={handleSelectContributorInputPressEnter}
                         inputName='contributor_entity_search'
                         inputPlaceholder='Search for contributor'
                         inputRef={searchContributorTerm}

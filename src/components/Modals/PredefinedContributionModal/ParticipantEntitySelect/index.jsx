@@ -2,7 +2,7 @@ import React from 'react'
 import {ActiveInputLabel} from '../../../../style/labels'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
-import {getEntityInfo, handleFilterEntities} from '../../../../helpers'
+import {getEntityInfo} from '../../../../helpers'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
@@ -12,12 +12,6 @@ import {FadeInContainer} from '../../../../style/animations'
 const ParticipantEntitySelect = ({availableParticipants, entities, error, filteredParticipants, handleSelectParticipantChange,
                                      searchParticipantTerm, setFilteredParticipants, setShowParticipantDropdown,
                                      showParticipantDropdown, targetParticipant, targetRecipient}) => {
-
-    const handleSelectParticipantInputPressEnter = (e) => {
-        if (e.key === 'Enter') {
-            handleFilterEntities(entities, setFilteredParticipants, searchParticipantTerm)
-        }
-    }
 
     return (
         <FadeInContainer>
@@ -38,9 +32,7 @@ const ParticipantEntitySelect = ({availableParticipants, entities, error, filter
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showParticipantDropdown ? 1 : 0}>
                     <ModalDropdownSearchField
-                        arrayToFilter={filteredParticipants}
                         filterStateSet={setFilteredParticipants}
-                        handleKeyPress={handleSelectParticipantInputPressEnter}
                         inputName='participant_entity_search'
                         inputPlaceholder='Search for participant'
                         inputRef={searchParticipantTerm}

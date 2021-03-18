@@ -1,7 +1,7 @@
 import React from 'react'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {getEntityInfo, handleFilterEntities} from '../../../../helpers'
+import {getEntityInfo} from '../../../../helpers'
 import {ActiveInputLabel} from '../../../../style/labels'
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 
@@ -13,11 +13,6 @@ const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntiti
     const handleEntityToRemoveChange = entityId => {
         setEntityToRemove(entityId)
         setShowEntityRemoveSelect(false)
-    }
-
-    const handleRemoveEntityInputPressEnter = (e) => {
-        if (e.key === 'Enter')
-            handleFilterEntities(entitiesCanRemove, setFilteredEntitiesCanRemove, searchEntityTerm)
     }
 
     return (
@@ -34,9 +29,7 @@ const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntiti
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showEntityRemoveSelect ? 1 : 0}>
                     <ModalDropdownSearchField
-                        arrayToFilter={entitiesCanRemove}
                         filterStateSet={setFilteredEntitiesCanRemove}
-                        handleKeyPress={handleRemoveEntityInputPressEnter}
                         inputName='remove_entity_search'
                         inputPlaceholder='Search for entity name'
                         inputRef={searchEntityTerm}

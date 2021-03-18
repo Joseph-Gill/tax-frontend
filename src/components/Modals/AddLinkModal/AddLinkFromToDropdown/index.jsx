@@ -1,22 +1,16 @@
 import React from 'react'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {getEntityInfo, handleFilterEntities} from '../../../../helpers'
+import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
+import {getEntityInfo} from '../../../../helpers'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
 import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
-import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
 
 
 const AddLinkFromToDropdown = ({addLinkInfo, entities, error, filteredEntities, handleSelectChange, inputName, inputPlaceholder,
                                    inputRef, label, setDropdownView, setKey, setFilteredEntities,
                                    showDropdownView}) => {
-
-    const handleSelectLinkToFromInputPressEnter = (e) => {
-        if (e.key === 'Enter') {
-            handleFilterEntities(entities, setFilteredEntities, inputRef)
-        }
-    }
 
     return (
         <div>
@@ -32,9 +26,7 @@ const AddLinkFromToDropdown = ({addLinkInfo, entities, error, filteredEntities, 
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showDropdownView ? 1 : 0}>
                     <ModalDropdownSearchField
-                        arrayToFilter={filteredEntities}
                         filterStateSet={setFilteredEntities}
-                        handleKeyPress={handleSelectLinkToFromInputPressEnter}
                         inputName={inputName}
                         inputPlaceholder={inputPlaceholder}
                         inputRef={inputRef}

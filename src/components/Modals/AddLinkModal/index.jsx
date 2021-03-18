@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import Draggable from 'react-draggable'
+import ModalInput from '../ModalComponents/ModalInput'
 import AddLinkTypeDropdown from './AddLinkTypeDropdown'
 import AddLinkColorDropdown from './AddLinkColorDropdown'
 import AddLinkFromToDropdown from './AddLinkFromToDropdown'
@@ -9,7 +10,6 @@ import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {sortEntitiesByName} from '../../../helpers'
 import {AddEntityLinkModalInternalContainer} from '../styles'
-import ModalInput from '../ModalComponents/ModalInput'
 
 
 //Used by StepChart for adding new Links to a StepChart
