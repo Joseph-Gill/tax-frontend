@@ -51,6 +51,10 @@ export const AddDeleteModalCloseContainer = styled.div`
     justify-content: flex-end;
     width: 100%;
     height: 13.5px;
+
+    :hover {
+        cursor: pointer;
+    }
 `
 
 export const AddDeleteModalTitleContainer = styled(AddDeleteModalCloseContainer)`
