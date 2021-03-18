@@ -13,9 +13,8 @@ import ContributionIssuanceSelect from './ContributionIssuanceSelect'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
-import {EntityErrorContainer, PredefinedModalInternalContainer} from '../styles'
+import {PredefinedModalInternalContainer} from '../styles'
 import {ParticipationOtherAssetsInputPlaceholder} from './styles'
-import {ErrorMessage} from '../../../style/messages'
 
 
 const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveEditEntityHandler,

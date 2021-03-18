@@ -4,7 +4,7 @@ import EntityParentDropdown from '../../../Dropdowns/EntityParentDropdown'
 import {EditEntityLinkRowContainer} from '../../styles'
 
 
-const EditEntityMiddleRow = ({countryName, editEntityInfo, editParentChangeHandler, editParentNames, entities, error,
+const EditEntityMiddleRow = ({countryName, editEntityInfo, editParentChangeHandler, editParentNames, error,
                                  filteredParents, searchParentTerm, setCountryName, setFilteredParents,
                                  setShowParentEntitySelect, showParentEntitySelect}) => {
     return (

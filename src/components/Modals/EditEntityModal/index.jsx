@@ -114,7 +114,6 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
                         editEntityInfo={editEntityInfo}
                         editParentChangeHandler={editParentChangeHandler}
                         editParentNames={editParentNames}
-                        entities={entities}
                         error={error}
                         filteredParents={filteredParents}
                         searchParentTerm={searchParentTerm}
