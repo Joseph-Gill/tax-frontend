@@ -1,19 +1,14 @@
 import React from 'react'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {getEntityInfo} from '../../../../helpers'
+import {getEntityInfo, renderEntitiesForModalDropdowns} from '../../../../helpers'
 import {ActiveInputLabel} from '../../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 
 
-const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntitiesCanRemove, searchEntityTerm,
-                                  setEntityToRemove, setFilteredEntitiesCanRemove, setShowEntityRemoveSelect,
+const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntitiesCanRemove, handleEntityToRemoveChange,
+                                  searchEntityTerm, setFilteredEntitiesCanRemove, setShowEntityRemoveSelect,
                                   showEntityRemoveSelect}) => {
-
-    const handleEntityToRemoveChange = entityId => {
-        setEntityToRemove(entityId)
-        setShowEntityRemoveSelect(false)
-    }
 
     return (
         <div>
@@ -36,18 +31,7 @@ const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntiti
                         originalArray={entitiesCanRemove}
                         term={searchEntityTerm}
                     />
-                    {filteredEntitiesCanRemove.length ?
-                        filteredEntitiesCanRemove.map(entity => (
-                            <ModalDropdownContent
-                                key={entity.id}
-                                onClick={() => handleEntityToRemoveChange(entity.id)}
-                            >
-                                <span>{entity.name}</span>
-                                <span>{`(${entity.location})`}</span>
-                            </ModalDropdownContent>)) : (
-                                <ModalDropdownContent>
-                                    <span>No Entities to display</span>
-                                </ModalDropdownContent>)}
+                    {renderEntitiesForModalDropdowns(filteredEntitiesCanRemove, handleEntityToRemoveChange)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
         </div>

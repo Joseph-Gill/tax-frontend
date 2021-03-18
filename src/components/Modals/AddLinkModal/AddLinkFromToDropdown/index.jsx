@@ -1,11 +1,11 @@
 import React from 'react'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {getEntityInfo} from '../../../../helpers'
+import {getEntityInfo, renderEntitiesForModalDropdowns} from '../../../../helpers'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 
 
 const AddLinkFromToDropdown = ({addLinkInfo, entities, error, filteredEntities, handleSelectChange, inputName, inputPlaceholder,
@@ -33,20 +33,7 @@ const AddLinkFromToDropdown = ({addLinkInfo, entities, error, filteredEntities, 
                         originalArray={entities}
                         term={inputRef}
                     />
-                    {filteredEntities.length ?
-                        filteredEntities.map(entity => (
-                            // Prevents showing entities that are only on the Step Chart from "Delete" highlighting
-                            !entity.remove &&
-                                <ModalDropdownContent
-                                    key={entity.id}
-                                    onClick={() => handleSelectChange(entity.id)}
-                                >
-                                    <span>{entity.name}</span>
-                                    <span>{`(${entity.location})`}</span>
-                                </ModalDropdownContent>)) : (
-                                    <ModalDropdownContent>
-                                        <span>No Entities to display</span>
-                                    </ModalDropdownContent>)}
+                    {renderEntitiesForModalDropdowns(filteredEntities, handleSelectChange)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
             <EntityErrorContainer>

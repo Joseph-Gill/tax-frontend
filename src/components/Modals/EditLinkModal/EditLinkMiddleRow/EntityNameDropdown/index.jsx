@@ -2,9 +2,9 @@ import React from 'react'
 import {ActiveInputLabel} from '../../../../../style/labels'
 import EntityNameSearchInput from './EntityNameSearchInput'
 import DropdownInternalContainer from '../../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {getEntityInfo, handleFilterEntities} from '../../../../../helpers'
+import {getEntityInfo, handleFilterEntities, renderEntitiesForModalDropdowns} from '../../../../../helpers'
 import {ErrorMessage} from '../../../../../style/messages'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
 import {EntityErrorContainer} from '../../../styles'
 
 
@@ -13,7 +13,7 @@ const EntityNameDropdown = ({entities, error, filteredEntities, label, searchEnt
 
     const handleLinkEntityInputPressEnter = e => {
         if (e.key === 'Enter') {
-            handleFilterEntities(filteredEntities, setFilteredEntities, searchEntityTerm)
+            handleFilterEntities(entities, setFilteredEntities, searchEntityTerm)
         }
     }
 
@@ -47,20 +47,7 @@ const EntityNameDropdown = ({entities, error, filteredEntities, label, searchEnt
                         searchEntityTerm={searchEntityTerm}
                         setFilteredEntities={setFilteredEntities}
                     />
-                    {filteredEntities.length ?
-                        filteredEntities.map(entity => (
-                            // Prevents showing entities that are only on the Step Chart from "Delete" highlighting
-                            !entity.remove &&
-                                <ModalDropdownContent
-                                    key={entity.id}
-                                    onClick={() => handleLinkEntitySelect(entity.id)}
-                                >
-                                    <span>{entity.name}</span>
-                                    <span>{`(${entity.location})`}</span>
-                                </ModalDropdownContent>)) : (
-                                    <ModalDropdownContent>
-                                        <span>No Entities to display</span>
-                                    </ModalDropdownContent>)}
+                    {renderEntitiesForModalDropdowns(filteredEntities, handleLinkEntitySelect)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
             <EntityErrorContainer>

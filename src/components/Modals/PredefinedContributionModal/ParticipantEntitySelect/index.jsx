@@ -1,9 +1,9 @@
 import React from 'react'
 import {ActiveInputLabel} from '../../../../style/labels'
-import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
-import {getEntityInfo} from '../../../../helpers'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
+import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
+import {getEntityInfo, renderEntitiesForModalDropdowns} from '../../../../helpers'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 import {FadeInContainer} from '../../../../style/animations'
@@ -39,20 +39,7 @@ const ParticipantEntitySelect = ({availableParticipants, entities, error, filter
                         originalArray={availableParticipants}
                         term={searchParticipantTerm}
                     />
-                    {filteredParticipants.length ?
-                        filteredParticipants.map(entity => (
-                            // Prevents showing entities that are only on the Step Chart from "Delete" highlighting
-                            !entity.remove &&
-                                <ModalDropdownContent
-                                    key={entity.id}
-                                    onClick={() => handleSelectParticipantChange(entity.id)}
-                                >
-                                    <span>{entity.name}</span>
-                                    <span>{`(${entity.location})`}</span>
-                                </ModalDropdownContent>)) : (
-                                    <ModalDropdownContent>
-                                        <span>No Entities to display</span>
-                                    </ModalDropdownContent>)}
+                    {renderEntitiesForModalDropdowns(filteredParticipants, handleSelectParticipantChange)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
             <EntityErrorContainer>

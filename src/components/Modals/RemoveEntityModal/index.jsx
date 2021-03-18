@@ -36,6 +36,11 @@ const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEn
         setFilteredEntitiesCanRemove([...result])
     }, [entities])
 
+    const handleEntityToRemoveChange = entityId => {
+        setEntityToRemove(entityId)
+        setShowEntityRemoveSelect(false)
+    }
+
     const cancelButtonHandler = () => {
         setShowRemoveEntity(false)
     }
@@ -53,8 +58,8 @@ const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEn
                         entitiesCanRemove={entitiesCanRemove}
                         entityToRemove={entityToRemove}
                         filteredEntitiesCanRemove={filteredEntitiesCanRemove}
+                        handleEntityToRemoveChange={handleEntityToRemoveChange}
                         searchEntityTerm={searchEntityTerm}
-                        setEntityToRemove={setEntityToRemove}
                         setFilteredEntitiesCanRemove={setFilteredEntitiesCanRemove}
                         setShowEntityRemoveSelect={setShowEntityRemoveSelect}
                         showEntityRemoveSelect={showEntityRemoveSelect}

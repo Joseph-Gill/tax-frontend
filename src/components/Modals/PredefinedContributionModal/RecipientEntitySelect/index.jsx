@@ -1,9 +1,9 @@
 import React from 'react'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {getEntityInfo} from '../../../../helpers'
+import {getEntityInfo, renderEntitiesForModalDropdowns} from '../../../../helpers'
 import {ActiveInputLabel} from '../../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 
@@ -38,19 +38,7 @@ const RecipientEntitySelect = ({availableRecipients, entities, error, filteredRe
                         originalArray={availableRecipients}
                         term={searchRecipientTerm}
                     />
-                    {filteredRecipients.length ?
-                        filteredRecipients.map(entity => (
-                            !entity.remove &&
-                                <ModalDropdownContent
-                                    key={entity.id}
-                                    onClick={() => handleSelectRecipientChange(entity.id)}
-                                >
-                                    <span>{entity.name}</span>
-                                    <span>{`(${entity.location})`}</span>
-                                </ModalDropdownContent>)) : (
-                                    <ModalDropdownContent>
-                                        <span>No Entities to display</span>
-                                    </ModalDropdownContent>)}
+                    {renderEntitiesForModalDropdowns(filteredRecipients, handleSelectRecipientChange)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
             <EntityErrorContainer>

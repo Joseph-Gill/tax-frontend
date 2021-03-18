@@ -397,3 +397,26 @@ export const handleSearchInputPressEnter = (e, array, setFilter, term) => {
         handleFilterEntities(array, setFilter, term)
     }
 }
+
+//Used by modal custom dropdowns that render entity lists
+export const renderEntitiesForModalDropdowns = (arrayOfEntities, handleSelectChange) => {
+    if (arrayOfEntities.length) {
+        return (
+            arrayOfEntities.map(entity => (
+                // Prevents showing entities that are only on the Step Chart from "Delete" highlighting
+                !entity.remove &&
+                    <ModalDropdownContent
+                        key={entity.id}
+                        onClick={() => handleSelectChange(entity.id)}
+                    >
+                        <span>{entity.name}</span>
+                        <span>{`(${entity.location})`}</span>
+                    </ModalDropdownContent>)))
+    } else {
+        return (
+            <ModalDropdownContent>
+                <span>No Entities to display</span>
+            </ModalDropdownContent>
+        )
+    }
+}

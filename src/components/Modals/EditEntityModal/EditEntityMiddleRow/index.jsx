@@ -13,7 +13,6 @@ const EditEntityMiddleRow = ({countryName, editEntityInfo, editParentChangeHandl
                 editEntityInfo={editEntityInfo}
                 editParentChangeHandler={editParentChangeHandler}
                 editParentNames={editParentNames}
-                entities={entities}
                 error={error}
                 filteredParents={filteredParents}
                 searchParentTerm={searchParentTerm}
