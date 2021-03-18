@@ -33,6 +33,13 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.myTemplate.size = [400, 150];
         //Draws the click effect when user clicks on a node
         OrgChart.templates.myTemplate.ripple = {radius: 40, color: "#00709F", rect: { x: 0, y: 0, width: 400, height: 150, rx: 0, ry: 0 }};
+
+        // OrgChart.clinkTemplates.myTemplate = {
+        //     defs: '<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path fill="#F57C00" d="M 0 0 L 10 5 L 0 10 z" /></marker><marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="5" cy="5" r="5" fill="#ccc" /></marker>',
+        //     link: '<path stroke-dasharray="4" marker-start="url(#dot)" marker-end="url(#arrow)" stroke="#FFCA28" stroke-width="2" fill="none" d="{d}" />',
+        //     label: '<text fill="#039BE5"  text-anchor="middle" x="{x}" y="{y}">{val}</text>'
+        // };
+
         //Sets field binding and styling for Node Fields
         OrgChart.templates.myTemplate.field_0 =
             '<text class="field_0" style="font-size: 24px;" font-weight="800" fill="#000000" x="200" y="40" text-anchor="middle" font-family="Nunito Sans, sans-serif" text-decoration="underline">{val}</text>'

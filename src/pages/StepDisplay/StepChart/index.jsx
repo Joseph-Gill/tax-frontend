@@ -135,7 +135,11 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setShowAddLink(false)
     }
 
-    const saveNewLinkHandler = async (linkInfo) => {
+    //checkStepChart needs a default value because during automated steps, a saveEntity is
+    //followed by a saveLink, but the stepChartExists will be false causing the saveLink to
+    //be a post and throwing an error. Automated steps give checkStepChart a true value so
+    //it forces the request to become a patch.
+    const saveNewLinkHandler = async (linkInfo, checkStepChart = stepChartExists) => {
         dispatch(resetErrors())
         //Helper to perform input validation
         const error = linkInputErrorHandler(dispatch, setError, linkInfo)
@@ -169,7 +173,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 chartData.slinks = JSON.stringify([...slinks, newLink])
                 setSlinks([...slinks, newLink])
             }
-            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, checkStepChart)
             setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
             setShowAddLink(false)
         }
@@ -219,7 +223,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setShowRemoveEntity(false)
     }
 
-    const saveEditEntityHandler = (editEntityInfo, countryName, legalForm) => {
+    const saveEditEntityHandler = async (editEntityInfo, countryName, legalForm) => {
         dispatch(resetErrors())
         // Handles input validation for the entity inputs
         const error = editEntityInputErrorHandler(dispatch, setError, entitiesToRender, editEntityInfo, countryName)
@@ -270,10 +274,11 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
             setEntitiesToRender([...entitiesToRender])
             setShowEditEntity(false)
+            return true
         }
     }
 
-    const saveEditLinkHandler = (targetLink) => {
+    const saveEditLinkHandler = (targetLink, stepChartExists) => {
         dispatch(resetErrors())
         //StepCharts are stored as JSON data in the backend until the Complete Project action is run
         //CLinks and SLinks are added later depending on if the type has changed or not

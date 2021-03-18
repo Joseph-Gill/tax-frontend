@@ -142,7 +142,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
         setShowPredefinedContribution(false)
     }
 
-    const handleSaveButton = () => {
+    const handleSaveButton = async () => {
         if (contributedAssets === 'other assets') {
             const assetLink = {
                 from: targetContributor,
@@ -161,7 +161,6 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                 taxRate: participant.tax_rate,
                 entityToEditId: participant.id
             }
-            saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
             const participationLink = {
                 from: targetContributor,
                 to: targetRecipient,
@@ -169,7 +168,10 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                 label: "Contribution of Shares",
                 color: 'orange'
             }
-            saveNewLinkHandler(participationLink)
+            const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
+                if (response) {
+                    saveNewLinkHandler(participationLink, true)
+                }
         }
         setShowPredefinedContribution(false)
     }
