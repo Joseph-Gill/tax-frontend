@@ -135,15 +135,15 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setShowAddLink(false)
     }
 
-    const saveNewLinkHandler = async () => {
+    const saveNewLinkHandler = async (linkInfo) => {
         dispatch(resetErrors())
         //Helper to perform input validation
-        const error = linkInputErrorHandler(dispatch, setError, addLinkInfo)
+        const error = linkInputErrorHandler(dispatch, setError, linkInfo)
         if (!error) {
             const newLink = {
-                from: parseInt(addLinkInfo.from),
-                to: parseInt(addLinkInfo.to),
-                label: addLinkInfo.label,
+                from: parseInt(linkInfo.from),
+                to: parseInt(linkInfo.to),
+                label: linkInfo.label,
                 //Used to create a unique number id for each link
                 id: Date.now()
             }
@@ -151,13 +151,13 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             const chartData = {
                 nodes: JSON.stringify(entitiesToRender)
             }
-            if (addLinkInfo.color === 'blue') {
+            if (linkInfo.color === 'blue') {
                 newLink.template = 'blue'
-            } else if (addLinkInfo.color === 'yellow') {
+            } else if (linkInfo.color === 'yellow') {
                 newLink.template = 'yellow'
             }
             //StepCharts are stored as JSON data in the backend until the Complete Project action is run
-            if (addLinkInfo.type === 'clink') {
+            if (linkInfo.type === 'clink') {
                 //If a clink was added, slinks are sent unchanged and the new link is added to clinks
                 chartData.slinks = JSON.stringify(slinks)
                 chartData.clinks = JSON.stringify([...clinks, newLink])
@@ -225,12 +225,12 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         const error = editEntityInputErrorHandler(dispatch, setError, entitiesToRender, editEntityInfo, countryName)
         if (!error) {
             // Finds parent entity of entity being edited
-            const targetParent = entitiesToRender.filter(entity => entity.id === parseInt(editEntityInfo.parentId))[0]
+            const targetParent = entitiesToRender.filter(entity => parseInt(entity.id) === parseInt(editEntityInfo.parentId))[0]
             // Finds index of entity being edited in listOfEntities
-            const indexToEdit = entitiesToRender.findIndex(entity => entity.id === editEntityInfo.entityToEditId)
+            const indexToEdit = entitiesToRender.findIndex(entity => parseInt(entity.id) === parseInt(editEntityInfo.entityToEditId))
             // If an entity's parent is changed during the edit, a ghost version is left under the original parent with a delete template highlight
             // and the new version is given an add template highlight for the step
-            if (targetParent.id !== parseInt(entitiesToRender[indexToEdit].pid)) {
+            if (parseInt(targetParent.id) !== parseInt(entitiesToRender[indexToEdit].pid)) {
                 // Creates the ghost copy of the entity that remains behind with a delete node to highlight it was moved
                 const deleteCopyOfEntity = {
                     id: Date.now(),
@@ -377,6 +377,8 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 <PredefinedContributionModal
                     entities={entitiesToRender}
                     error={error}
+                    saveEditEntityHandler={saveEditEntityHandler}
+                    saveNewLinkHandler={saveNewLinkHandler}
                     setShowPredefinedContribution={setShowPredefinedContribution}
                     showPredefinedContribution={showPredefinedContribution}
                 />}

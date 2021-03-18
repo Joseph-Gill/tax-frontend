@@ -1,7 +1,7 @@
 import React from 'react'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {getParentFromId, renderEntitiesForModalDropdowns} from '../../../../helpers'
+import {getEntityFromId, renderEntitiesForModalDropdowns} from '../../../../helpers'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
@@ -21,7 +21,7 @@ const AddParentSelect = ({addParents, error, filteredParents, handleSelectParent
                 <ModalDropdownButton
                     onClick={() => setShowAddParentSelect(!showAddParentSelect)}
                 >
-                    {!newEntityInfo.parentId ? 'Select a parent' : getParentFromId(parseInt(newEntityInfo.parentId), addParents).name}
+                    {!newEntityInfo.parentId ? 'Select a parent' : getEntityFromId(parseInt(newEntityInfo.parentId), addParents).name}
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showAddParentSelect ? 1 : 0}>
                     <ModalDropdownSearchField

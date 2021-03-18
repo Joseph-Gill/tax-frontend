@@ -12,12 +12,14 @@ import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ContributionIssuanceSelect from './ContributionIssuanceSelect'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getParentFromId, sortEntitiesByName} from '../../../helpers'
-import {PredefinedModalInternalContainer} from '../styles'
+import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
+import {EntityErrorContainer, PredefinedModalInternalContainer} from '../styles'
 import {ParticipationOtherAssetsInputPlaceholder} from './styles'
+import {ErrorMessage} from '../../../style/messages'
 
 
-const PredefinedContributionModal = ({entities, error, setShowPredefinedContribution, showPredefinedContribution}) => {
+const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveEditEntityHandler,
+                                         setShowPredefinedContribution, showPredefinedContribution}) => {
 
     let searchContributorTerm = useRef('')
     let searchRecipientTerm = useRef('')
@@ -65,7 +67,7 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
                 if (entity.pid) {
                     parentId = entity.pid
                     while (parentId) {
-                        const parentEntity = getParentFromId(parentId, entities)
+                        const parentEntity = getEntityFromId(parentId, entities)
                         if (checkIfEntityIsParent(parentEntity.pid, contributorId)) {
                             recipients.push(entity)
                             break
@@ -85,14 +87,29 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
     }
 
     //Used to filter a list of entities for all entities that are direct children of a specified entityId
-    const findPossibleParticipants = (arrayOfEntities, recipientId) => {
+    const findPossibleParticipants = (arrayOfEntities, contributorId, recipientId) => {
         const participants = []
 
+        //Finds all the direct children of the contributor, and adds them to participants
         arrayOfEntities.forEach(entity => {
-            if (checkIfEntityIsParent(entity.pid, recipientId)) {
+            if (checkIfEntityIsParent(entity.pid, contributorId)) {
                 participants.push(entity)
             }
         })
+
+        //Starts from the recipient and works up the family tree checking if the entity is contained in participants
+        //Removes any entities that are in the direct line between recipient and contributor from participants
+        const checkParticipants = recipientId => {
+            if (recipientId) {
+                const index = participants.findIndex(entity => parseInt(entity.id) === parseInt(recipientId))
+                if (index >= 0) {
+                    participants.splice(index, 1)
+                }
+                const recipient = getEntityFromId(recipientId, entities)
+                checkParticipants(recipient.pid)
+            }
+        }
+        checkParticipants(recipientId)
         setAvailableParticipants([...participants])
         setFilteredParticipants([...participants])
     }
@@ -106,7 +123,7 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
 
     const handleSelectRecipientChange = recipientId => {
         setTargetParticipant('')
-        findPossibleParticipants(entities, recipientId)
+        findPossibleParticipants(entities, targetContributor, recipientId)
         setTargetRecipient(recipientId)
         setShowRecipientDropdown(false)
     }
@@ -123,6 +140,38 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
 
     const handleCancelButton = () => {
         dispatch(resetErrors())
+        setShowPredefinedContribution(false)
+    }
+
+    const handleSaveButton = () => {
+        if (contributedAssets === 'other assets') {
+            const assetLink = {
+                from: targetContributor,
+                to: targetRecipient,
+                type: 'clink',
+                label: `Contribution of: ${otherAssetsLabel}`,
+                color: 'orange'
+            }
+            saveNewLinkHandler(assetLink)
+        } else if (contributedAssets === 'participation') {
+            const participant = getEntityFromId(targetParticipant, entities)
+            const editParticipantInfo = {
+                entitySelected: true,
+                entityName: participant.name,
+                parentId: targetRecipient,
+                taxRate: participant.tax_rate,
+                entityToEditId: participant.id
+            }
+            saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
+            const participationLink = {
+                from: targetContributor,
+                to: targetRecipient,
+                type: 'clink',
+                label: "Contribution of Shares",
+                color: 'orange'
+            }
+            saveNewLinkHandler(participationLink)
+        }
         setShowPredefinedContribution(false)
     }
 
@@ -194,6 +243,7 @@ const PredefinedContributionModal = ({entities, error, setShowPredefinedContribu
                     />
                     <ModalAddButtons
                         cancelHandler={handleCancelButton}
+                        saveHandler={handleSaveButton}
                     />
                 </PredefinedModalInternalContainer>
             </Draggable>
