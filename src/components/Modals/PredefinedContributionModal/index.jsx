@@ -169,7 +169,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                 color: 'orange'
             }
             const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
-                if (response) {
+                if (response.status === 201) {
                     saveNewLinkHandler(participationLink, true)
                 }
         }

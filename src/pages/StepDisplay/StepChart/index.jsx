@@ -271,10 +271,9 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 slinks: JSON.stringify(slinks),
                 clinks: JSON.stringify(clinks)
             }
-            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
             setEntitiesToRender([...entitiesToRender])
             setShowEditEntity(false)
-            return true
+            return createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
         }
     }
 

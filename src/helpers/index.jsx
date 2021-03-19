@@ -191,9 +191,9 @@ export const getEntitiesWithTags = (entities, stepChartExists) => {
 // Used by components to either create a new StepChart or update an existing StepChart
 export const createUpdateStepChart = (chartData, dispatch, indexOfStepToDisplay, project, stepChartExists) => {
     if (!stepChartExists) {
-        dispatch(createChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
+        return dispatch(createChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
     } else {
-        dispatch(updateChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
+        return dispatch(updateChartForStepAction(project.id, indexOfStepToDisplay + 1, chartData))
     }
 }
 
