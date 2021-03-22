@@ -38,11 +38,7 @@ const PredefinedStepDropdown = ({setShowPredefinedContribution, setShowPredefine
                     <DropdownContentImage dropdownCalling='Predefined' />
                 </DropdownContent>
                 <DropdownContent>
-                    <DropdownContentText>Sale of Participation</DropdownContentText>
-                    <DropdownContentImage dropdownCalling='Predefined' />
-                </DropdownContent>
-                <DropdownContent>
-                    <DropdownContentText>Sale of Assets</DropdownContentText>
+                    <DropdownContentText>Intercompany Sale</DropdownContentText>
                     <DropdownContentImage dropdownCalling='Predefined' />
                 </DropdownContent>
                 <DropdownContent>
