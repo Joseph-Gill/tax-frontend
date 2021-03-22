@@ -34,11 +34,36 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         //Draws the click effect when user clicks on a node
         OrgChart.templates.myTemplate.ripple = {radius: 40, color: "#00709F", rect: { x: 0, y: 0, width: 400, height: 150, rx: 0, ry: 0 }};
 
-        // OrgChart.clinkTemplates.myTemplate = {
-        //     defs: '<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path fill="#F57C00" d="M 0 0 L 10 5 L 0 10 z" /></marker><marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="5" cy="5" r="5" fill="#ccc" /></marker>',
-        //     link: '<path stroke-dasharray="4" marker-start="url(#dot)" marker-end="url(#arrow)" stroke="#FFCA28" stroke-width="2" fill="none" d="{d}" />',
-        //     label: '<text fill="#039BE5"  text-anchor="middle" x="{x}" y="{y}">{val}</text>'
-        // };
+        //Sets the appearance of CLink templates in the chart
+        OrgChart.clinkTemplates.orange = {
+            defs: '<marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path fill="#FF605C" d="M 0 0 L 10 5 L 0 10 z" /></marker>' +
+                '<marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="4" cy="4" r="4" fill="#FF605C" /></marker>',
+            link: '<path marker-start="url(#dot)" marker-end="url(#arrowOrange)" stroke="#FF605C" stroke-width="6" fill="none" d="{d}" />',
+            label: '<text fill="#000000" style="font-size: 22px;" font-family="Nunito Sans, sans-serif" font-weight="600" text-anchor="middle" x="{x}" y="{y}">{val}</text>'
+        };
+        OrgChart.clinkTemplates.blue = {
+            defs: '<marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path fill="#00709F" d="M 0 0 L 10 5 L 0 10 z" /></marker>' +
+                '<marker id="dotBlue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="4" cy="4" r="4" fill="#00709F" /></marker>',
+            link: '<path marker-start="url(#dotBlue)" marker-end="url(#arrowBlue)" stroke="#00709F" stroke-width="6" fill="none" d="{d}" />',
+            label: '<text fill="#000000" style="font-size: 22px;" font-family="Nunito Sans, sans-serif" font-weight="600" text-anchor="middle" x="{x}" y="{y}">{val}</text>'
+        };
+        OrgChart.clinkTemplates.yellow = {
+            defs: '<marker id="arrowYellow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path fill="#FFBD44" d="M 0 0 L 10 5 L 0 10 z" /></marker>' +
+                '<marker id="dotYellow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="4" cy="4" r="4" fill="#FFBD44" /></marker>',
+            link: '<path marker-start="url(#dotYellow)" marker-end="url(#arrowYellow)" stroke="#FFBD44" stroke-width="6" fill="none" d="{d}" />',
+            label: '<text fill="#000000" style="font-size: 22px;" font-family="Nunito Sans, sans-serif" font-weight="600" text-anchor="middle" x="{x}" y="{y}">{val}</text>'
+        };
+
+        //Sets the appearance of SLink templates in the chart
+        OrgChart.slinkTemplates.orange = {
+            defs: '<marker id="arrowSlinkOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path fill="#F57C00" d="M 0 0 L 10 5 L 0 10 z" /></marker>' +
+                '<marker id="dotSlinkOrange" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="5" cy="5" r="5" fill="#F57C00" /></marker>',
+            link: '<path stroke-dasharray="4, 2" marker-start="url(#dotSlinkOrange)" marker-end="url(#arrowSlinkOrange)" stroke-linejoin="round" stroke="#F57C00" stroke-width="2" fill="none" d="{d}" />',
+            label: '<text dominant-baseline="middle" fill="#F57C00" alignment-baseline="middle" text-anchor="middle" x="{x}" y="{y}">{val}</text>',
+            labelPosition: "middle"
+        }
+
+
 
         //Sets field binding and styling for Node Fields
         OrgChart.templates.myTemplate.field_0 =
@@ -58,12 +83,14 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         //Creates Corporation node with dashed red border
         OrgChart.templates.corporationAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.corporationAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FAFAFA" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
+        OrgChart.templates.corporationAdd.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         // Creates Corporation node with dashed red "X" through entity
         OrgChart.templates.corporationDelete = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.corporationDelete.node = '<rect x="0" y="0" height="150" width="400" fill="#FAFAFA" stroke-width="2" stroke="#8C8C8C" rx="0" ry="0"></rect>'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+        OrgChart.templates.corporationDelete.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //-- Branch Entity Templates --//
 
@@ -76,6 +103,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.branchAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.branchAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
             + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#FF605C" stroke-width="4" stroke-dasharray="6"></ellipse>'
+        OrgChart.templates.branchAdd.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //Creates Branch node with dashed red "X" through entity
         OrgChart.templates.branchDelete = Object.assign({}, OrgChart.templates.myTemplate)
@@ -83,6 +111,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2"></ellipse>'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+        OrgChart.templates.branchDelete.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //-- Partnership Entity Templates --//
 
@@ -95,6 +124,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.partnershipAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.partnershipAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="1" stroke="#FFFFFF" rx="0" ry="0"></rect>'
             + '<path d="M200 0 L0 150 L400 150 Z" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" fill="#FAFAFA"></path>'
+        OrgChart.templates.partnershipAdd.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //Creates Partnership node with dashed red "X" through entity
         OrgChart.templates.partnershipDelete = Object.assign({}, OrgChart.templates.myTemplate)
@@ -102,6 +132,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             + '<path d="M200 0 L0 150 L400 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+        OrgChart.templates.partnershipDelete.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //-- Disregarded Entity Templates --//
 
@@ -114,6 +145,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.disregardedEntityAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.disregardedEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
             + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#FF605C" stroke-dasharray="6" stroke-width="4""></ellipse>'
+        OrgChart.templates.disregardedEntityAdd.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //Creates Disregarded Entity node with dashed red "X" through entity
         OrgChart.templates.disregardedEntityDelete = Object.assign({}, OrgChart.templates.myTemplate)
@@ -121,6 +153,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             + '<ellipse cx="200" cy="75" rx="198" ry="73" fill="#FAFAFA" stroke="#8C8C8C" stroke-width="2""></ellipse>'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+        OrgChart.templates.disregardedEntityDelete.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //-- Representative Office Entity Templates --//
 
@@ -133,6 +166,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.representativeOfficeAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.representativeOfficeAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#FFFFFF" stroke-width="2" stroke="#FFFFFF" rx="0" ry="0"></rect>'
             + '<circle cx="200" cy="75" r="73" stroke="#FF605C" stroke-dasharray="6" stroke-width="4" fill="#FAFAFA" />'
+        OrgChart.templates.representativeOfficeAdd.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //Creates Representative Office node with dashed red "X" through entity
         OrgChart.templates.representativeOfficeDelete = Object.assign({}, OrgChart.templates.myTemplate)
@@ -140,6 +174,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             + '<circle cx="200" cy="75" r="73" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA" />'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+        OrgChart.templates.representativeOfficeDelete.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //-- Hybrid Entity Templates --//
 
@@ -152,6 +187,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.hybridEntityAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.hybridEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
             + '<path d="M200 0 L2 150 L398 150 Z" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" fill="#FAFAFA"></path>'
+        OrgChart.templates.hybridEntityAdd.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //Creates Hybrid Entity node with dashed red "X" through entity
         OrgChart.templates.hybridEntityDelete = Object.assign({}, OrgChart.templates.myTemplate)
@@ -159,6 +195,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             + '<path d="M200 0 L2 150 L398 150 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+        OrgChart.templates.hybridEntityDelete.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //-- Reverse Hybrid Entity --//
 
@@ -171,6 +208,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.reverseHybridEntityAdd = Object.assign({}, OrgChart.templates.myTemplate)
         OrgChart.templates.reverseHybridEntityAdd.node = '<rect x="0" y="0" height="150" width="400" fill="#D3D8DD" stroke-width="4" stroke="#FF605C" stroke-dasharray="6" rx="0" ry="0"></rect>'
             + '<path d="M200 150 L2 0 L398 0 Z" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" fill="#FAFAFA"></path>'
+        OrgChart.templates.reverseHybridEntityAdd.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
 
         //Creates Reverse Hybrid Entity node with dashed red "X" through entity
         OrgChart.templates.reverseHybridEntityDelete = Object.assign({}, OrgChart.templates.myTemplate)
@@ -178,6 +216,10 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             + '<path d="M200 150 L2 0 L398 0 Z" stroke="#8C8C8C" stroke-width="2" fill="#FAFAFA"></path>'
             + '<line x1="0" y1="0" x2="400" y2="150" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
             + '<line x1="0" y1="150" x2="400" y2="0" stroke="#FF605C" stroke-width="4" stroke-dasharray="6" />'
+        OrgChart.templates.reverseHybridEntityDelete.link = '<path stroke-dasharray="6, 4" stroke-linejoin="round" stroke="#FF605C" stroke-width="1px" fill="none" d="M{xa},{ya} {xb},{yb} {xc},{yc} L{xd},{yd}" />';
+
+        //Adjusts the overall curve of CLinks
+        // OrgChart.CLINK_CURVE = 0.3;
 
         // eslint-disable-next-line no-unused-vars
         const chart = new OrgChart(divRef.current, {
@@ -232,6 +274,10 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             scaleInitial: OrgChart.match.boundary,
 
             enableSearch: true,
+
+            levelSeparation: 150,
+
+            subtreeSeparation: 150,
 
             nodes,
             clinks,
