@@ -46,6 +46,7 @@ const StepDisplay = ({history}) => {
     const [showRemoveLink, setShowRemoveLink] = useState(false)
     const [showRemoveEntity, setShowRemoveEntity] = useState(false)
     const [showPredefinedContribution, setShowPredefinedContribution] = useState(false)
+    const [showPredefinedDistribution, setShowPredefinedDistribution] = useState(false)
     const [currentStepEntities, setCurrentStepEntities] = useState([])
     const [clinks, setClinks] = useState([])
     const [slinks, setSlinks] = useState([])
@@ -272,6 +273,7 @@ const StepDisplay = ({history}) => {
                         setShowEditEntity={setShowEditEntity}
                         setShowEditLink={setShowEditLink}
                         setShowPredefinedContribution={setShowPredefinedContribution}
+                        setShowPredefinedDistribution={setShowPredefinedDistribution}
                         setShowRemoveEntity={setShowRemoveEntity}
                         setShowRemoveLink={setShowRemoveLink}
                         setStepDetailStatus={setStepDetailStatus}
@@ -298,6 +300,7 @@ const StepDisplay = ({history}) => {
                                 setShowEditEntity={setShowEditEntity}
                                 setShowEditLink={setShowEditLink}
                                 setShowPredefinedContribution={setShowPredefinedContribution}
+                                setShowPredefinedDistribution={setShowPredefinedDistribution}
                                 setShowRemoveEntity={setShowRemoveEntity}
                                 setShowRemoveLink={setShowRemoveLink}
                                 setSlinks={setSlinks}
@@ -306,6 +309,7 @@ const StepDisplay = ({history}) => {
                                 showEditEntity={showEditEntity}
                                 showEditLink={showEditLink}
                                 showPredefinedContribution={showPredefinedContribution}
+                                showPredefinedDistribtion={showPredefinedDistribution}
                                 showRemoveEntity={showRemoveEntity}
                                 showRemoveLink={showRemoveLink}
                                 slinks={slinks}

@@ -7,7 +7,8 @@ import {DropdownContent} from '../../../style/dropdowns'
 import {PredefinedDropdownContentContainer} from './styles'
 
 
-const PredefinedStepDropdown = ({setShowPredefinedContribution, setShowPredefinedStepsDropdown, showPredefinedStepsDropdown}) => {
+const PredefinedStepDropdown = ({setShowPredefinedContribution, setShowPredefinedDistribution, setShowPredefinedStepsDropdown,
+                                    showPredefinedStepsDropdown}) => {
 
     const handlePredefinedClick = (setShow) => {
         setShow(true)
@@ -33,7 +34,9 @@ const PredefinedStepDropdown = ({setShowPredefinedContribution, setShowPredefine
                     <DropdownContentText>Contribution</DropdownContentText>
                     <DropdownContentImage dropdownCalling='Predefined' />
                 </DropdownContent>
-                <DropdownContent>
+                <DropdownContent
+                    onClick={() => handlePredefinedClick(setShowPredefinedDistribution)}
+                >
                     <DropdownContentText>Distribution</DropdownContentText>
                     <DropdownContentImage dropdownCalling='Predefined' />
                 </DropdownContent>

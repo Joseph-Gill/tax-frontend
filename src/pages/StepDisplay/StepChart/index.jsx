@@ -14,12 +14,14 @@ import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateS
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
 import PredefinedContributionModal from '../../../components/Modals/PredefinedContributionModal'
+import PredefinedDistributionModal from '../../../components/Modals/PredefinedDistributionModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity,
-                       setShowEditLink, setShowAddLink, setShowPredefinedContribution, setShowRemoveEntity, setShowRemoveLink,
-                       setSlinks, showAddEntity, showAddLink, showEditEntity, showEditLink, showPredefinedContribution,
-                       showRemoveEntity, showRemoveLink, slinks, stepChartExists, steps}) => {
+                       setShowEditLink, setShowAddLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowRemoveEntity,
+                       setShowRemoveLink, setSlinks, showAddEntity, showAddLink, showEditEntity, showEditLink, showPredefinedContribution,
+                       showPredefinedDistribtion, showRemoveEntity, showRemoveLink, slinks, stepChartExists, steps}) => {
+
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [entitiesToRender, setEntitiesToRender] = useState([])
@@ -385,6 +387,13 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     saveNewLinkHandler={saveNewLinkHandler}
                     setShowPredefinedContribution={setShowPredefinedContribution}
                     showPredefinedContribution={showPredefinedContribution}
+                />}
+            {showPredefinedDistribtion &&
+                <PredefinedDistributionModal
+                    entites={entitiesToRender}
+                    error={error}
+                    setShowPredefinedDistribution={setShowPredefinedDistribution}
+                    showPredefinedDistribution={showPredefinedDistribtion}
                 />}
             {renderStepChart}
         </StepChartAndButtonsContainer>
