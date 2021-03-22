@@ -15,7 +15,7 @@ import {resetErrors} from '../../store/errors/actions/errorAction'
 import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, removeNewStep,
     skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
 import {getChartForStepAction} from '../../store/chart/actions'
-import {convertDate} from '../../helpers'
+import {convertDate, getEntitiesWithTags} from '../../helpers'
 import {ErrorMessage} from '../../style/messages'
 import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS, TASKS} from '../../routes/paths'
 import {AuthenticatedPageContainer} from '../../style/containers'
@@ -50,11 +50,11 @@ const StepDisplay = ({history}) => {
     const [currentStepEntities, setCurrentStepEntities] = useState([])
     const [clinks, setClinks] = useState([])
     const [slinks, setSlinks] = useState([])
-    const [chartLoading, setChartLoading] = useState(false)
+    const [chartLoading, setChartLoading] = useState(true)
     const [stepChartExists, setStepChartExists] = useState(false)
 
     useEffect(() => {
-        //Used to prevent user from setting the status of a step to complete if all previous steps aren't complete
+        //Used to prevent user from setting the status of a step to completed if all previous steps aren't complete
         const checkIfStepCanComplete = () => {
             for (let i = 0; i < indexOfStepToDisplay; i++) {
                 if (steps[i].status !== 'Completed') {
@@ -63,24 +63,6 @@ const StepDisplay = ({history}) => {
             }
             return true
         }
-        //Pushes to Home if steps or project are not loaded due to page refresh
-        if (!stepsLoaded || !projectLoaded) {
-            history.push(`${HOME}`)
-        } else {
-            //If a step has no id, it was created by "Add New Step"
-            //StepDisplay then is automatically set to the Detail tab with Edit active
-            if (!steps[indexOfStepToDisplay].id) {
-                setEditStatus(true)
-                setStepDetailStatus(true)
-            }
-            //Sets the Description and Status inputs to the current steps values
-            setDescription(steps[indexOfStepToDisplay].description)
-            setStepStatus(steps[indexOfStepToDisplay].status)
-            setAbleToComplete(checkIfStepCanComplete())
-        }
-    }, [stepsLoaded, projectLoaded, indexOfStepToDisplay, steps, history])
-
-    useEffect(() => {
         //Checks to see if the currently displayed Step has a StepChart
         const checkForCurrentStepChart = async () => {
             //If the currently step is Step Number 1...
@@ -88,7 +70,7 @@ const StepDisplay = ({history}) => {
                 //If this step has a step chart, loads its nodes, clinks, and slinks into state
                 const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay + 1))
                 if (response.status === 200) {
-                    setCurrentStepEntities([...JSON.parse(response.data.nodes)])
+                    setCurrentStepEntities([...getEntitiesWithTags(JSON.parse(response.data.nodes), true)])
                     setSlinks([...JSON.parse(response.data.slinks)])
                     setClinks([...JSON.parse(response.data.clinks)])
                     //Used in action call of StepChart to decide if it is post or patch
@@ -96,14 +78,14 @@ const StepDisplay = ({history}) => {
                 } else {
                     //If the user is on Step 1 and it has no chart created yet, the Chart will display
                     //the current Group's org chart entities as its chart
-                    setCurrentStepEntities([...entities])
+                    setCurrentStepEntities([...getEntitiesWithTags(entities, false)])
                 }
             //If the step is not Step Number 1...
             } else {
                 //If this step has a step chart, loads its nodes, clinks, and slinks into state
                 const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay + 1))
                 if (response.status === 200) {
-                    setCurrentStepEntities([...JSON.parse(response.data.nodes)])
+                    setCurrentStepEntities([...getEntitiesWithTags(JSON.parse(response.data.nodes), true)])
                     setSlinks([...JSON.parse(response.data.slinks)])
                     setClinks([...JSON.parse(response.data.clinks)])
                     //Used in action call of StepChart to decide if it is post or patch
@@ -113,25 +95,39 @@ const StepDisplay = ({history}) => {
                 } else {
                     const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay))
                         if (response.status === 200) {
-                            setCurrentStepEntities([...JSON.parse(response.data.nodes)])
+                            setCurrentStepEntities([...getEntitiesWithTags(JSON.parse(response.data.nodes), false)])
                             setSlinks([...JSON.parse(response.data.slinks)])
                             setClinks([...JSON.parse(response.data.clinks)])
                         //If the previous chart has no steps, an empty array is loaded into state
                         } else {
                             setCurrentStepEntities([])
                         }
-
                 }
             }
         }
         setChartLoading(true)
-        //Used to track if StepChart buttons should be active
         setStepChartExists(false)
-        checkForCurrentStepChart()
-            .then(() => {
-                setChartLoading(false)
-            })
-    }, [dispatch, entities, indexOfStepToDisplay, project.id, stepDetailStatus])
+        //Pushes to Home if steps or project are not loaded due to page refresh
+        if (!stepsLoaded || !projectLoaded) {
+            history.push(`${HOME}`)
+        } else {
+            //If a step has no id, it was created by "Add New Step" StepDisplay then set to the detail tab with edit active
+            if (!steps[indexOfStepToDisplay].id) {
+                setEditStatus(true)
+                setStepDetailStatus(true)
+            }
+            //Sets the description and status inputs to the current steps values
+            setDescription(steps[indexOfStepToDisplay].description)
+            setStepStatus(steps[indexOfStepToDisplay].status)
+            //Checks if the step is allowed to be completed status
+            setAbleToComplete(checkIfStepCanComplete())
+            //Used to track if StepChart buttons should be active
+            checkForCurrentStepChart()
+                .then(() => {
+                    setChartLoading(false)
+                })
+        }
+    }, [dispatch, entities, indexOfStepToDisplay, project.id, stepsLoaded, projectLoaded, steps, history])
 
     const saveNewStepHandler = async () => {
         dispatch(resetErrors())
@@ -287,45 +283,48 @@ const StepDisplay = ({history}) => {
                         {error && <ErrorMessage>{error.status}</ErrorMessage>}
                     </StepDisplayErrorContainer>
                     <StepChartDetailsContainer>
-                        {!stepDetailStatus ? chartLoading ?
+                        {chartLoading ?
                             <Loading /> :
-                            <StepChart
-                                clinks={clinks}
-                                entities={currentStepEntities}
-                                indexOfStepToDisplay={indexOfStepToDisplay}
-                                project={project}
-                                setClinks={setClinks}
-                                setShowAddEntity={setShowAddEntity}
-                                setShowAddLink={setShowAddLink}
-                                setShowEditEntity={setShowEditEntity}
-                                setShowEditLink={setShowEditLink}
-                                setShowPredefinedContribution={setShowPredefinedContribution}
-                                setShowPredefinedDistribution={setShowPredefinedDistribution}
-                                setShowRemoveEntity={setShowRemoveEntity}
-                                setShowRemoveLink={setShowRemoveLink}
-                                setSlinks={setSlinks}
-                                showAddEntity={showAddEntity}
-                                showAddLink={showAddLink}
-                                showEditEntity={showEditEntity}
-                                showEditLink={showEditLink}
-                                showPredefinedContribution={showPredefinedContribution}
-                                showPredefinedDistribtion={showPredefinedDistribution}
-                                showRemoveEntity={showRemoveEntity}
-                                showRemoveLink={showRemoveLink}
-                                slinks={slinks}
-                                stepChartExists={stepChartExists}
-                                steps={steps}
-                            /> :
-                            <StepDetails
-                                description={description}
-                                editStatus={editStatus}
-                                saveNewStepHandler={saveNewStepHandler}
-                                setDescription={setDescription}
-                                setEditStatus={setEditStatus}
-                                step={steps[indexOfStepToDisplay]}
-                                steps={steps}
-                                updateExistingStepHandler={updateExistingStepHandler}
-                            />}
+                            !stepDetailStatus ?
+                                <StepChart
+                                    clinks={clinks}
+                                    entities={currentStepEntities}
+                                    indexOfStepToDisplay={indexOfStepToDisplay}
+                                    project={project}
+                                    setClinks={setClinks}
+                                    setCurrentStepEntities={setCurrentStepEntities}
+                                    setShowAddEntity={setShowAddEntity}
+                                    setShowAddLink={setShowAddLink}
+                                    setShowEditEntity={setShowEditEntity}
+                                    setShowEditLink={setShowEditLink}
+                                    setShowPredefinedContribution={setShowPredefinedContribution}
+                                    setShowPredefinedDistribution={setShowPredefinedDistribution}
+                                    setShowRemoveEntity={setShowRemoveEntity}
+                                    setShowRemoveLink={setShowRemoveLink}
+                                    setSlinks={setSlinks}
+                                    setStepChartExists={setStepChartExists}
+                                    showAddEntity={showAddEntity}
+                                    showAddLink={showAddLink}
+                                    showEditEntity={showEditEntity}
+                                    showEditLink={showEditLink}
+                                    showPredefinedContribution={showPredefinedContribution}
+                                    showPredefinedDistribtion={showPredefinedDistribution}
+                                    showRemoveEntity={showRemoveEntity}
+                                    showRemoveLink={showRemoveLink}
+                                    slinks={slinks}
+                                    stepChartExists={stepChartExists}
+                                    steps={steps}
+                                /> :
+                                <StepDetails
+                                    description={description}
+                                    editStatus={editStatus}
+                                    saveNewStepHandler={saveNewStepHandler}
+                                    setDescription={setDescription}
+                                    setEditStatus={setEditStatus}
+                                    step={steps[indexOfStepToDisplay]}
+                                    steps={steps}
+                                    updateExistingStepHandler={updateExistingStepHandler}
+                                />}
                     </StepChartDetailsContainer>
                     <StepDisplayFooterV2
                         endingNode={0}

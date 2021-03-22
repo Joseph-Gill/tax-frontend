@@ -9,7 +9,7 @@ import EditEntityModal from '../../../components/Modals/EditEntityModal'
 import EditLinkModal from '../../../components/Modals/EditLinkModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType,
-    editLinkSameType, entityInputErrorHandler, getEntitiesWithTags, highlightTagForAddEntity, highlightTagForDeleteEntity,
+    editLinkSameType, entityInputErrorHandler, highlightTagForAddEntity, highlightTagForDeleteEntity,
     linkInputErrorHandler} from '../../../helpers'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
@@ -17,10 +17,11 @@ import PredefinedContributionModal from '../../../components/Modals/PredefinedCo
 import PredefinedDistributionModal from '../../../components/Modals/PredefinedDistributionModal'
 
 
-const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity,
-                       setShowEditLink, setShowAddLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowRemoveEntity,
-                       setShowRemoveLink, setSlinks, showAddEntity, showAddLink, showEditEntity, showEditLink, showPredefinedContribution,
-                       showPredefinedDistribtion, showRemoveEntity, showRemoveLink, slinks, stepChartExists, steps}) => {
+const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity, setShowEditLink,
+                       setShowAddLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowRemoveEntity,
+                       setShowRemoveLink, setSlinks, setStepChartExists, showAddEntity, showAddLink, showEditEntity, showEditLink,
+                       showPredefinedContribution, showPredefinedDistribtion, showRemoveEntity, showRemoveLink, slinks,
+                       stepChartExists, steps}) => {
 
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
@@ -44,11 +45,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     })
 
     useEffect(() => {
-        //Set each entity with its appropriate tag to show it with the appropriate org chart template
-        setEntitiesToRender([...getEntitiesWithTags(entities, stepChartExists)])
+        setEntitiesToRender([...entities])
         //Creates an array of available Parent names/locations/ids for the user to choose from when adding / editing
         setAvailableParentNames(createAvailableParentNamesWithoutDeletes(entities))
-    }, [entities, stepChartExists])
+    }, [entities])
 
     //Renders the appropriate Chart for StepChart
     const renderStepChart = useMemo(() => {
@@ -120,6 +120,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 taxRate: ''
             })
             setShowAddEntity(false)
+            setStepChartExists(true)
         }
     }
 
@@ -137,11 +138,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setShowAddLink(false)
     }
 
-    //checkStepChart needs a default value because during automated steps, a saveEntity is
-    //followed by a saveLink, but the stepChartExists will be false causing the saveLink to
-    //be a post and throwing an error. Automated steps give checkStepChart a true value so
-    //it forces the request to become a patch.
-    const saveNewLinkHandler = async (linkInfo, checkStepChart = stepChartExists) => {
+    const saveNewLinkHandler = async linkInfo => {
         dispatch(resetErrors())
         //Helper to perform input validation
         const error = linkInputErrorHandler(dispatch, setError, linkInfo)
@@ -175,9 +172,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 chartData.slinks = JSON.stringify([...slinks, newLink])
                 setSlinks([...slinks, newLink])
             }
-            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, checkStepChart)
+            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
             setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
             setShowAddLink(false)
+            setStepChartExists(true)
         }
     }
 
@@ -196,6 +194,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setClinks(newClinks)
         setLinkToRemove('')
         setShowRemoveLink(false)
+        setStepChartExists(true)
     }
 
     const removeEntityHandler = () => {
@@ -223,6 +222,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setAvailableParentNames(createAvailableParentNamesWithoutDeletes(newEntitiesToRender))
         setEntityToRemove('')
         setShowRemoveEntity(false)
+        setStepChartExists(true)
     }
 
     const saveEditEntityHandler = async (editEntityInfo, countryName, legalForm) => {
@@ -275,7 +275,9 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             }
             setEntitiesToRender([...entitiesToRender])
             setShowEditEntity(false)
-            return createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+            const response = createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+            setStepChartExists(true)
+            return response
         }
     }
 
@@ -313,6 +315,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         }
         createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
         setShowEditLink(false)
+        setStepChartExists(true)
     }
 
     return (
