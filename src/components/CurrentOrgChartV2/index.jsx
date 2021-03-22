@@ -56,14 +56,26 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
 
         //Sets the appearance of SLink templates in the chart
         OrgChart.slinkTemplates.orange = {
-            defs: '<marker id="arrowSlinkOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path fill="#F57C00" d="M 0 0 L 10 5 L 0 10 z" /></marker>' +
-                '<marker id="dotSlinkOrange" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="5" cy="5" r="5" fill="#F57C00" /></marker>',
-            link: '<path stroke-dasharray="4, 2" marker-start="url(#dotSlinkOrange)" marker-end="url(#arrowSlinkOrange)" stroke-linejoin="round" stroke="#F57C00" stroke-width="2" fill="none" d="{d}" />',
-            label: '<text dominant-baseline="middle" fill="#F57C00" alignment-baseline="middle" text-anchor="middle" x="{x}" y="{y}">{val}</text>',
+            defs: '<marker id="arrowSlinkOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path fill="#FF605C" d="M 0 0 L 10 5 L 0 10 z" /></marker>' +
+                '<marker id="dotSlinkOrange" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="5" cy="5" r="5" fill="#FF605C" /></marker>',
+            link: '<path stroke-dasharray="4, 2" marker-start="url(#dotSlinkOrange)" marker-end="url(#arrowSlinkOrange)" stroke-linejoin="round" stroke="#FF605C" stroke-width="6" fill="none" d="{d}" />',
+            label: '<text dominant-baseline="middle" fill="#000000" style="font-size: 22px;" alignment-baseline="middle" text-anchor="middle" x="{x}" y="{y}">{val}</text>',
             labelPosition: "middle"
         }
-
-
+        OrgChart.slinkTemplates.blue = {
+            defs: '<marker id="arrowSlinkBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path fill="#00709F" d="M 0 0 L 10 5 L 0 10 z" /></marker>' +
+                '<marker id="dotSlinkBlue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="5" cy="5" r="5" fill="#00709F" /></marker>',
+            link: '<path stroke-dasharray="4, 2" marker-start="url(#dotSlinkBlue)" marker-end="url(#arrowSlinkBlue)" stroke-linejoin="round" stroke="#00709F" stroke-width="6" fill="none" d="{d}" />',
+            label: '<text fill="#000000" style="font-size: 22px;" text-anchor="middle" x="{x}" y="{y}">{val}</text>',
+            labelPosition: "middle"
+        }
+        OrgChart.slinkTemplates.yellow = {
+            defs: '<marker id="arrowSlinkYellow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path fill="#FFBD44" d="M 0 0 L 10 5 L 0 10 z" /></marker>' +
+                '<marker id="dotSlinkYellow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="5" cy="5" r="5" fill="#FFBD44" /></marker>',
+            link: '<path stroke-dasharray="4, 2" marker-start="url(#dotSlinkYellow)" marker-end="url(#arrowSlinkYellow)" stroke-linejoin="round" stroke="#FFBD44" stroke-width="6" fill="none" d="{d}" />',
+            label: '<text  fill="#000000" style="font-size: 22px;" text-anchor="middle" x="{x}" y="{y}">{val}</text>',
+            labelPosition: 'middle'
+        }
 
         //Sets field binding and styling for Node Fields
         OrgChart.templates.myTemplate.field_0 =
