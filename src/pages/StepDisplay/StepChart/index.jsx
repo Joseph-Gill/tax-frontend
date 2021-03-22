@@ -390,7 +390,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 />}
             {showPredefinedDistribtion &&
                 <PredefinedDistributionModal
-                    entites={entitiesToRender}
+                    entities={entitiesToRender}
                     error={error}
                     setShowPredefinedDistribution={setShowPredefinedDistribution}
                     showPredefinedDistribution={showPredefinedDistribtion}
