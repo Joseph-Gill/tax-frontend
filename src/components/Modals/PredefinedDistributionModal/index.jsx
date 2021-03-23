@@ -32,11 +32,13 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
     const [filteredDistributors, setFilteredDistributors] = useState([])
     // Used to render the recipients to add, array is filtered by the search input
     const [filteredRecipients, setFilteredRecipients] = useState([])
+    // Used to render the participants to add, array is filtered by the search input
+    const [filteredParticipants, setFilteredParticipants] = useState([])
     // Used to contain a list of available recipients during adding that can be rolled back to when resetting the filter
     const [availableRecipients, setAvailableRecipients] = useState([])
     // Used to contain a list of available distributors during adding that can be rolled back to when resetting the filter
     const [availableDistributors, setAvailableDistributors] = useState([])
-    const [filteredParticipants, setFilteredParticipants] = useState([])
+    // Used to contain a list of available participants during adding that can be rolled back to when resetting the filter
     const [availableParticipants, setAvailableParticipants] = useState([])
     const [targetDistributor, setTargetDistributor] = useState('')
     const [targetRecipient, setTargetRecipient] = useState('')
@@ -85,6 +87,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
         setShowAssetsDropdown(false)
         setOtherAssetsLabel('')
         setBusinessAssetsLabel('')
+        setTargetParticipant('')
     }
 
     const handleSelectParticipantChange = participantId => {

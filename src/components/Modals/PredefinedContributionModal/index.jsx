@@ -131,6 +131,8 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
     const handleSelectAssetsContributedChange = assetType => {
         setContributedAssets(assetType)
         setShowAssetsDropdown(false)
+        setOtherAssetsLabel('')
+        setTargetParticipant('')
     }
 
     const handleSelectParticipantChange = participantId => {
