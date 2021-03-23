@@ -1,34 +1,24 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import Draggable from 'react-draggable'
+import ModalInput from '../ModalComponents/ModalInput'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import DropdownInternalContainer from '../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import ModalDropdownSearchField from '../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getEntityInfo, renderEntitiesForModalDropdowns, sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
-import {ErrorMessage} from '../../../style/messages'
-import {ActiveInputLabel} from '../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContentContainer} from '../../Dropdowns/styles'
-import {
-    EntityErrorContainer,
-    ParticipationOtherAssetsInputPlaceholder,
-    PredefinedCheckboxCheckmarkContainer,
-    PredefinedCheckboxCheckmarkLabel,
-    PredefinedCheckboxContainer,
-    PredefinedCheckboxTextContainer,
-    PredefinedModalInternalContainer
-} from '../styles'
 import PredefinedAssetsDropdown from '../../Dropdowns/PredefinedAssetsDropdown'
-import {FadeInContainer} from '../../../style/animations'
-import ModalInput from '../ModalComponents/ModalInput'
+import IntercompanySaleBuyerSelect from './IntercompanySaleBuyerSelect'
+import IntercompanySaleSellerSelect from './IntercompanySaleSellerSelect'
+import IntercompanySaleMarketValueSelect from './IntercompanySaleMarketValueSelect'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
-import {CustomCheckbox} from '../../../style/checkbox'
+import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {getEntityFromId, sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
+import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
+import {FadeInContainer} from '../../../style/animations'
 
 
-const PredefinedIntercompanySaleModal = ({entities, error, setShowPredefinedIntercompanySale, showPredefinedIntercompanySale}) => {
+const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler, saveNewLinkHandler,
+                                             setShowPredefinedIntercompanySale, showPredefinedIntercompanySale}) => {
 
     let searchSellerTerm = useRef('')
     let searchBuyerTerm = useRef('')
@@ -54,7 +44,7 @@ const PredefinedIntercompanySaleModal = ({entities, error, setShowPredefinedInte
     const [soldAssets, setSoldAssets] = useState('')
     const [otherAssetsLabel, setOtherAssetsLabel] = useState('')
     const [businessAssetsLabel, setBusinessAssetsLabel] = useState('')
-    const [soldAtFairMarketValue, setSoldAtFairMarketValue] = useState(false)
+    const [soldAtFairMarketValue, setSoldAtFairMarketValue] = useState(true)
 
     useEffect(() => {
         const result = sortEntitiesByName(entities)
@@ -69,8 +59,9 @@ const PredefinedIntercompanySaleModal = ({entities, error, setShowPredefinedInte
     }
 
     //Used to filter a list of entities for any direct children of the seller
-    const findPossibleParticipants = (arrayOfEntities, sellerId) => {
-        const result = sortedDirectChildrenOfEntity(arrayOfEntities, sellerId)
+    const findPossibleParticipants = (arrayOfEntities, sellerId, buyerId) => {
+        //Filter removes the buyer from the possible participants preventing an entity from buying itself
+        const result = sortedDirectChildrenOfEntity(arrayOfEntities, sellerId).filter(entity => parseInt(entity.id) !== parseInt(buyerId))
         setAvailableParticipants([...result])
         setFilteredParticipants([...result])
     }
@@ -84,7 +75,7 @@ const PredefinedIntercompanySaleModal = ({entities, error, setShowPredefinedInte
 
     const handleSelectBuyerChange = buyerId => {
         setTargetParticipant('')
-        findPossibleParticipants(entities, targetSeller)
+        findPossibleParticipants(entities, targetSeller, buyerId)
         setTargetBuyer(buyerId)
         setShowBuyerDropdown(false)
     }
@@ -107,6 +98,50 @@ const PredefinedIntercompanySaleModal = ({entities, error, setShowPredefinedInte
         setShowPredefinedIntercompanySale(false)
     }
 
+    const handleSaveButton = async () => {
+        if (soldAssets === 'other assets') {
+            const assetLink = {
+                from: targetSeller,
+                to: targetBuyer,
+                type: 'clink',
+                label: `Sale of ${otherAssetsLabel}`,
+                color: 'orange'
+            }
+            saveNewLinkHandler(assetLink)
+        } else if (soldAssets === 'business') {
+            const businessLink = {
+                from: targetSeller,
+                to: targetBuyer,
+                type: 'clink',
+                label: `Sale of ${businessAssetsLabel}`,
+                color: 'orange'
+            }
+            saveNewLinkHandler(businessLink)
+        } else {
+            //Edit participant pid to be buyerId
+            const participant = getEntityFromId(targetParticipant, entities)
+            const editParticipantInfo = {
+                entitySelected: true,
+                entityName: participant.name,
+                parentId: targetBuyer,
+                taxRate: participant.tax_rate,
+                entityToEditId: participant.id
+            }
+            const participantLink = {
+                from: targetSeller,
+                to: targetBuyer,
+                type: 'clink',
+                label: 'Sale of shares',
+                color: 'orange'
+            }
+            const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
+            if (response.status === 201 || response.status === 200) {
+                saveNewLinkHandler(participantLink, true)
+            }
+        }
+        setShowPredefinedIntercompanySale(false)
+    }
+
     return (
         <ModalExternalContainer
             setModalView={setShowPredefinedIntercompanySale}
@@ -116,65 +151,30 @@ const PredefinedIntercompanySaleModal = ({entities, error, setShowPredefinedInte
                 <PredefinedModalInternalContainer>
                     <ModalClose modalDisplay={setShowPredefinedIntercompanySale} />
                     <ModalTitle title='Intercompany Sale' />
-                    <div>
-                        <ActiveInputLabel>Seller</ActiveInputLabel>
-                        <DropdownInternalContainer
-                            setDropdownView={setShowSellerDropdown}
-                            showDropdownView={showSellerDropdown}
-                        >
-                            <ModalDropdownButton
-                                onClick={() => setShowSellerDropdown(!showSellerDropdown)}
-                            >
-                                {!targetSeller ? 'Select a seller' : getEntityInfo(entities, targetSeller)}
-                            </ModalDropdownButton>
-                            <ModalDropdownContentContainer show={showSellerDropdown ? 1 : 0}>
-                                <ModalDropdownSearchField
-                                    filterStateSet={setFilteredSellers}
-                                    inputName='seller_entity_search'
-                                    inputPlaceholder='Search for seller'
-                                    inputRef={searchSellerTerm}
-                                    originalArray={entities}
-                                    term={searchSellerTerm}
-                                />
-                                {renderEntitiesForModalDropdowns(filteredSellers, handleSelectSellerChange)}
-                            </ModalDropdownContentContainer>
-                        </DropdownInternalContainer>
-                        <EntityErrorContainer>
-                            {error && <ErrorMessage>{error.seller}</ErrorMessage>}
-                        </EntityErrorContainer>
-                    </div>
-                    <div>
-                        <ActiveInputLabel
-                            disabled={!targetSeller}
-                        >
-                            Buyer
-                        </ActiveInputLabel>
-                        <DropdownInternalContainer
-                            setDropdownView={setShowBuyerDropdown}
-                            showDropdownView={showBuyerDropdown}
-                        >
-                            <ModalDropdownButton
-                                disabled={!targetSeller}
-                                onClick={() => setShowBuyerDropdown(!showBuyerDropdown)}
-                            >
-                                {!targetBuyer ? 'Select a buyer' : getEntityInfo(entities, targetBuyer)}
-                            </ModalDropdownButton>
-                            <ModalDropdownContentContainer show={showBuyerDropdown ? 1 : 0}>
-                                <ModalDropdownSearchField
-                                    filterStateSet={setFilteredBuyers}
-                                    inputName='buyer_entity_search'
-                                    inputPlaceholder='Search for buyer'
-                                    inputRef={searchBuyerTerm}
-                                    originalArray={availableBuyers}
-                                    term={searchBuyerTerm}
-                                />
-                                {renderEntitiesForModalDropdowns(filteredBuyers, handleSelectBuyerChange)}
-                            </ModalDropdownContentContainer>
-                        </DropdownInternalContainer>
-                        <EntityErrorContainer>
-                            {error && <ErrorMessage>{error.buyer}</ErrorMessage>}
-                        </EntityErrorContainer>
-                    </div>
+                    <IntercompanySaleSellerSelect
+                        entities={entities}
+                        error={error}
+                        filteredSellers={filteredSellers}
+                        handleSelectSellerChange={handleSelectSellerChange}
+                        searchSellerTerm={searchSellerTerm}
+                        setFilteredSellers={setFilteredSellers}
+                        setShowSellerDropdown={setShowSellerDropdown}
+                        showSellerDropdown={showSellerDropdown}
+                        targetSeller={targetSeller}
+                    />
+                    <IntercompanySaleBuyerSelect
+                        availableBuyers={availableBuyers}
+                        entities={entities}
+                        error={error}
+                        filteredBuyers={filteredBuyers}
+                        handleSelectBuyerChange={handleSelectBuyerChange}
+                        searchBuyerTerm={searchBuyerTerm}
+                        setFilteredBuyers={setFilteredBuyers}
+                        setShowBuyerDropdown={setShowBuyerDropdown}
+                        showBuyerDropdown={showBuyerDropdown}
+                        targetBuyer={targetBuyer}
+                        targetSeller={targetSeller}
+                    />
                     <PredefinedAssetsDropdown
                         assetsChoice={soldAssets}
                         disabled={!targetSeller}
@@ -225,38 +225,13 @@ const PredefinedIntercompanySaleModal = ({entities, error, setShowPredefinedInte
                                             showParticipantDropdown={showParticipantDropdown}
                                             targetParticipant={targetParticipant}
                                         />)}
-                        <PredefinedCheckboxContainer>
-                            <PredefinedCheckboxTextContainer>
-                                <span>Sell at Fair Market</span>
-                                <span>Value?</span>
-                            </PredefinedCheckboxTextContainer>
-                            <PredefinedCheckboxCheckmarkContainer>
-                                <CustomCheckbox>
-                                    <input
-                                        checked={soldAtFairMarketValue}
-                                        id='yes'
-                                        onChange={() => setSoldAtFairMarketValue(!soldAtFairMarketValue)}
-                                        type='checkbox'
-                                        value='yes'
-                                    />
-                                    <span className='checkmark' />
-                                    <PredefinedCheckboxCheckmarkLabel htmlFor='yes'>Yes</PredefinedCheckboxCheckmarkLabel>
-                                </CustomCheckbox>
-                                <CustomCheckbox>
-                                    <input
-                                        checked={!soldAtFairMarketValue}
-                                        id='no'
-                                        onChange={() => setSoldAtFairMarketValue(!soldAtFairMarketValue)}
-                                        type='checkbox'
-                                        value='no'
-                                    />
-                                    <span className='checkmark' />
-                                    <PredefinedCheckboxCheckmarkLabel htmlFor='no'>No</PredefinedCheckboxCheckmarkLabel>
-                                </CustomCheckbox>
-                            </PredefinedCheckboxCheckmarkContainer>
-                        </PredefinedCheckboxContainer>
+                    <IntercompanySaleMarketValueSelect
+                        setSoldAtFairMarketValue={setSoldAtFairMarketValue}
+                        soldAtFairMarketValue={soldAtFairMarketValue}
+                    />
                     <ModalAddButtons
                         cancelHandler={handleCancelButton}
+                        saveHandler={handleSaveButton}
                     />
                 </PredefinedModalInternalContainer>
             </Draggable>
