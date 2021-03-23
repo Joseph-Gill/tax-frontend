@@ -138,7 +138,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setShowAddLink(false)
     }
 
-    const saveNewLinkHandler = async linkInfo => {
+    //checkChartExists is used in automated steps that are preforming multiple chart saves in a row
+    //to bypass the delay that exists in setting StepChartExists to true in local state and needing
+    //it to be true when the second save from an automated step is triggered and checks it
+    const saveNewLinkHandler = async (linkInfo, checkChartExists = stepChartExists) => {
         dispatch(resetErrors())
         //Helper to perform input validation
         const error = linkInputErrorHandler(dispatch, setError, linkInfo)
@@ -172,7 +175,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 chartData.slinks = JSON.stringify([...slinks, newLink])
                 setSlinks([...slinks, newLink])
             }
-            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, checkChartExists)
             setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
             setShowAddLink(false)
             setStepChartExists(true)
