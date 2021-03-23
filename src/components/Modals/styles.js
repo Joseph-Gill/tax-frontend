@@ -177,3 +177,8 @@ export const ModalCloseIconContainer = styled.div`
 export const PredefinedModalInternalContainer = styled(AddDeleteModalInternalContainer)`
     height: 500px;
 `
+
+export const ParticipationOtherAssetsInputPlaceholder = styled.div`
+    height: 52px;
+    width: 302px;
+`

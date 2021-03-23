@@ -1,21 +1,20 @@
 import React from 'react'
-import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {getEntityInfo, renderEntitiesForModalDropdowns} from '../../../../helpers'
-import {ActiveInputLabel} from '../../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
-import {EntityErrorContainer} from '../../styles'
-import {ErrorMessage} from '../../../../style/messages'
+import {ActiveInputLabel} from '../../../style/labels'
+import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../styles'
+import {getEntityInfo, renderEntitiesForModalDropdowns} from '../../../helpers'
+import ModalDropdownSearchField from '../DropdownComponents/ModalDropdownSearchField'
+import {EntityErrorContainer} from '../../Modals/styles'
+import {ErrorMessage} from '../../../style/messages'
 
 
-const RecipientEntitySelect = ({availableRecipients, entities, error, filteredRecipients, handleSelectRecipientChange,
+const PredefinedRecipientDropdown = ({availableRecipients, disabled, entities, error, filteredRecipients, handleSelectRecipientChange,
                                    searchRecipientTerm, setFilteredRecipients, setShowRecipientDropdown,
-                                   showRecipientDropdown, targetContributor, targetRecipient}) => {
-
+                                   showRecipientDropdown, targetRecipient}) => {
     return (
         <div>
             <ActiveInputLabel
-                disabled={!targetContributor}
+                disabled={disabled}
             >
                 Recipient
             </ActiveInputLabel>
@@ -24,7 +23,7 @@ const RecipientEntitySelect = ({availableRecipients, entities, error, filteredRe
                 showDropdownView={showRecipientDropdown}
             >
                 <ModalDropdownButton
-                    disabled={!targetContributor}
+                    disabled={disabled}
                     onClick={() => setShowRecipientDropdown(!showRecipientDropdown)}
                 >
                     {!targetRecipient ? 'Select a recipient' : getEntityInfo(entities, targetRecipient)}
@@ -48,4 +47,4 @@ const RecipientEntitySelect = ({availableRecipients, entities, error, filteredRe
     )
 }
 
-export default RecipientEntitySelect
+export default PredefinedRecipientDropdown

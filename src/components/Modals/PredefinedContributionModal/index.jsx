@@ -4,17 +4,16 @@ import Draggable from 'react-draggable'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalInput from '../ModalComponents/ModalInput'
-import RecipientEntitySelect from './RecipientEntitySelect'
 import ContributeAssetsSelect from './ContributeAssetsSelect'
 import ContributorEntitySelect from './ContributorEntitySelect'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ContributionIssuanceSelect from './ContributionIssuanceSelect'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
+import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
-import {PredefinedModalInternalContainer} from '../styles'
-import {ParticipationOtherAssetsInputPlaceholder} from './styles'
+import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
 
 
@@ -199,8 +198,9 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                         showContributorDropdown={showContributorDropdown}
                         targetContributor={targetContributor}
                     />
-                    <RecipientEntitySelect
+                    <PredefinedRecipientDropdown
                         availableRecipients={availableRecipients}
+                        disabled={!targetContributor}
                         entities={entities}
                         error={error}
                         filteredRecipients={filteredRecipients}
@@ -209,7 +209,6 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                         setFilteredRecipients={setFilteredRecipients}
                         setShowRecipientDropdown={setShowRecipientDropdown}
                         showRecipientDropdown={showRecipientDropdown}
-                        targetContributor={targetContributor}
                         targetRecipient={targetRecipient}
                     />
                     <ContributeAssetsSelect

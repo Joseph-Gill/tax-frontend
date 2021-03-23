@@ -4,19 +4,16 @@ import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalInput from '../ModalComponents/ModalInput'
+import DistributeAssetsSelect from './DistributeAssetsSelect'
+import DistributorEntitySelect from './DistributorEntitySelect'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import ModalDropdownSearchField from '../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import DropdownInternalContainer from '../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getEntityInfo, renderEntitiesForModalDropdowns, sortEntitiesByName} from '../../../helpers'
-import {ErrorMessage} from '../../../style/messages'
-import {ActiveInputLabel} from '../../../style/labels'
-import {EntityErrorContainer, PredefinedModalInternalContainer} from '../styles'
-import {ModalDropdownButton, ModalDropdownContent, ModalDropdownContentContainer} from '../../Dropdowns/styles'
-import {ParticipationOtherAssetsInputPlaceholder} from '../PredefinedContributionModal/styles'
-import {FadeInContainer} from '../../../style/animations'
+import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
+import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {sortEntitiesByName} from '../../../helpers'
+import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
+import {FadeInContainer} from '../../../style/animations'
 
 const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribution, showPredefinedDistribution}) => {
 
@@ -100,6 +97,10 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
         setShowPredefinedDistribution(false)
     }
 
+    const handleSaveButton = () => {
+
+    }
+
     return (
         <ModalExternalContainer
             setModalView={setShowPredefinedDistribution}
@@ -109,103 +110,39 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
                 <PredefinedModalInternalContainer>
                     <ModalClose modalDisplay={setShowPredefinedDistribution} />
                     <ModalTitle title='Distribution Step' />
-                    <div>
-                        <ActiveInputLabel>Distributor</ActiveInputLabel>
-                        <DropdownInternalContainer
-                            setDropdownView={setShowDistributorDropdown}
-                            showDropdownView={showDistributorDropdown}
-                        >
-                            <ModalDropdownButton
-                                onClick={() => setShowDistributorDropdown(!showDistributorDropdown)}
-                            >
-                                {!targetDistributor ? 'Select a distributor' : getEntityInfo(entities, targetDistributor)}
-                            </ModalDropdownButton>
-                            <ModalDropdownContentContainer show={showDistributorDropdown ? 1 : 0}>
-                                <ModalDropdownSearchField
-                                    filterStateSet={setFilteredDistributors}
-                                    inputName='distributor_entity_search'
-                                    inputPlaceholder='Search for distributor'
-                                    inputRef={searchDistributorTerm}
-                                    originalArray={availableDistributors}
-                                    term={searchDistributorTerm}
-                                />
-                                {renderEntitiesForModalDropdowns(filteredDistributors, handleSelectDistributorChange)}
-                            </ModalDropdownContentContainer>
-                        </DropdownInternalContainer>
-                        <EntityErrorContainer>
-                            {error && <ErrorMessage>{error.distributor}</ErrorMessage>}
-                        </EntityErrorContainer>
-                    </div>
-                    <div>
-                        <ActiveInputLabel
-                            disabled={!targetDistributor}
-                        >
-                            Recipient
-                        </ActiveInputLabel>
-                        <DropdownInternalContainer
-                            setDropdownView={setShowRecipientDropdown}
-                            showDropdownView={showRecipientDropdown}
-                        >
-                            <ModalDropdownButton
-                                disabled={!targetDistributor}
-                                onClick={() => setShowRecipientDropdown(!showRecipientDropdown)}
-                            >
-                                {!targetRecipient ? 'Select a recipient' : getEntityInfo(entities, targetRecipient)}
-                            </ModalDropdownButton>
-                            <ModalDropdownContentContainer show={showRecipientDropdown ? 1 : 0}>
-                                <ModalDropdownSearchField
-                                    filterStateSet={setFilteredRecipients}
-                                    inputName='recipient_entity_search'
-                                    inputPlaceholder='Search for recipient'
-                                    inputRef={searchRecipientTerm}
-                                    originalArray={availableRecipients}
-                                    term={searchRecipientTerm}
-                                />
-                                {renderEntitiesForModalDropdowns(filteredRecipients, handleSelectRecipientChange)}
-                            </ModalDropdownContentContainer>
-                        </DropdownInternalContainer>
-                        <EntityErrorContainer>
-                            {error && <ErrorMessage>{error.recipient}</ErrorMessage>}
-                        </EntityErrorContainer>
-                    </div>
-                    <div>
-                        <ActiveInputLabel
-                            disabled={!targetDistributor}
-                        >
-                            Assets to be distributed
-                        </ActiveInputLabel>
-                        <DropdownInternalContainer
-                            setDropdownView={setShowAssetsDropdown}
-                            showDropdownView={showAssetsDropdown}
-                        >
-                            <ModalDropdownButton
-                                disabled={!targetDistributor}
-                                onClick={() => setShowAssetsDropdown(!showAssetsDropdown)}
-                            >
-                                {!distributedAssets ? 'Select assets to distribute' : distributedAssets === 'participation' ? 'Participation' : distributedAssets === 'business' ? 'Business or business related assets' : 'Other Assets' }
-                            </ModalDropdownButton>
-                            <ModalDropdownContentContainer show={showAssetsDropdown ? 1 : 0}>
-                                <ModalDropdownContent
-                                    onClick={() => handleSelectAssetsDistributedChange('participation')}
-                                >
-                                    <span>Participation</span>
-                                </ModalDropdownContent>
-                                <ModalDropdownContent
-                                    onClick={() => handleSelectAssetsDistributedChange('business')}
-                                >
-                                    <span>Business or business related assets</span>
-                                </ModalDropdownContent>
-                                <ModalDropdownContent
-                                    onClick={() => handleSelectAssetsDistributedChange('other assets')}
-                                >
-                                    <span>Other Assets</span>
-                                </ModalDropdownContent>
-                            </ModalDropdownContentContainer>
-                        </DropdownInternalContainer>
-                        <EntityErrorContainer>
-                            {error && <ErrorMessage>{error.distributedAssets}</ErrorMessage>}
-                        </EntityErrorContainer>
-                    </div>
+                    <DistributorEntitySelect
+                        availableDistributors={availableDistributors}
+                        entities={entities}
+                        error={error}
+                        filteredDistributors={filteredDistributors}
+                        handleSelectDistributorChange={handleSelectDistributorChange}
+                        searchDistributorTerm={searchDistributorTerm}
+                        setFilteredDistributors={setFilteredDistributors}
+                        setShowDistributorDropdown={setShowDistributorDropdown}
+                        showDistributorDropdown={showDistributorDropdown}
+                        targetDistributor={targetDistributor}
+                    />
+                    <PredefinedRecipientDropdown
+                        availableRecipients={availableRecipients}
+                        disabled={!targetDistributor}
+                        entities={entities}
+                        error={error}
+                        filteredRecipients={filteredRecipients}
+                        handleSelectRecipientChange={handleSelectRecipientChange}
+                        searchRecipientTerm={searchRecipientTerm}
+                        setFilteredRecipients={setFilteredRecipients}
+                        setShowRecipientDropdown={setShowRecipientDropdown}
+                        showRecipientDropdown={showRecipientDropdown}
+                        targetRecipient={targetRecipient}
+                    />
+                    <DistributeAssetsSelect
+                        distributedAssets={distributedAssets}
+                        error={error}
+                        handleSelectAssetsDistributedChange={handleSelectAssetsDistributedChange}
+                        setShowAssetsDropdown={setShowAssetsDropdown}
+                        showAssetsDropdown={showAssetsDropdown}
+                        targetDistributor={targetDistributor}
+                    />
                     {!distributedAssets ? (
                         <ParticipationOtherAssetsInputPlaceholder />) :
                             distributedAssets === 'other assets' ? (
@@ -250,6 +187,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
                                         />)}
                     <ModalAddButtons
                         cancelHandler={handleCancelButton}
+                        saveHandler={handleSaveButton}
                     />
                 </PredefinedModalInternalContainer>
             </Draggable>
