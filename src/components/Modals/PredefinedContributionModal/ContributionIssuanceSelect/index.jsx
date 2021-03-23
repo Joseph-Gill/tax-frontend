@@ -1,16 +1,17 @@
 import React from 'react'
 import {CustomCheckbox} from '../../../../style/checkbox'
-import {IssuanceCheckmarkContainer, IssuanceCheckmarkLabel, IssuanceContainer, IssuanceTextContainer} from './styles'
+import {PredefinedCheckboxCheckmarkContainer, PredefinedCheckboxCheckmarkLabel,
+    PredefinedCheckboxContainer, PredefinedCheckboxTextContainer} from '../../styles'
 
 
 const ContributionIssuanceSelect = ({issuanceNewShares, setIssuanceNewShares}) => {
     return (
-        <IssuanceContainer>
-            <IssuanceTextContainer>
+        <PredefinedCheckboxContainer>
+            <PredefinedCheckboxTextContainer>
                 <span>Is this contribution against</span>
                 <span>issuance of new shares?</span>
-            </IssuanceTextContainer>
-            <IssuanceCheckmarkContainer>
+            </PredefinedCheckboxTextContainer>
+            <PredefinedCheckboxCheckmarkContainer>
                 <CustomCheckbox>
                     <input
                         checked={issuanceNewShares}
@@ -20,7 +21,7 @@ const ContributionIssuanceSelect = ({issuanceNewShares, setIssuanceNewShares}) =
                         value='yes'
                     />
                     <span className='checkmark' />
-                    <IssuanceCheckmarkLabel htmlFor='yes'>Yes</IssuanceCheckmarkLabel>
+                    <PredefinedCheckboxCheckmarkLabel htmlFor='yes'>Yes</PredefinedCheckboxCheckmarkLabel>
                 </CustomCheckbox>
                 <CustomCheckbox>
                     <input
@@ -31,10 +32,10 @@ const ContributionIssuanceSelect = ({issuanceNewShares, setIssuanceNewShares}) =
                         value='no'
                     />
                     <span className='checkmark' />
-                    <IssuanceCheckmarkLabel htmlFor='no'>No</IssuanceCheckmarkLabel>
+                    <PredefinedCheckboxCheckmarkLabel htmlFor='no'>No</PredefinedCheckboxCheckmarkLabel>
                 </CustomCheckbox>
-            </IssuanceCheckmarkContainer>
-        </IssuanceContainer>
+            </PredefinedCheckboxCheckmarkContainer>
+        </PredefinedCheckboxContainer>
     )
 }
 

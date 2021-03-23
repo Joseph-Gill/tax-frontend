@@ -9,13 +9,13 @@ import {FadeInContainer} from '../../../style/animations'
 import {ModalDropdownButton, ModalDropdownContentContainer} from '../styles'
 
 
-const PredefinedParticipantDropdown = ({availableParticipants, entities, error, filteredParticipants, handleSelectParticipantChange,
+const PredefinedParticipantDropdown = ({availableParticipants, disabled, entities, error, filteredParticipants, handleSelectParticipantChange,
                                      searchParticipantTerm, setFilteredParticipants, setShowParticipantDropdown,
-                                     showParticipantDropdown, targetParticipant, targetRecipient}) => {
+                                     showParticipantDropdown, targetParticipant}) => {
     return (
         <FadeInContainer>
             <ActiveInputLabel
-                disabled={!targetRecipient}
+                disabled={disabled}
             >
                 Participant
             </ActiveInputLabel>
@@ -24,7 +24,7 @@ const PredefinedParticipantDropdown = ({availableParticipants, entities, error, 
                 showDropdownView={showParticipantDropdown}
             >
                 <ModalDropdownButton
-                    disabled={!targetRecipient}
+                    disabled={disabled}
                     onClick={() => setShowParticipantDropdown(!showParticipantDropdown)}
                 >
                     {!targetParticipant ? 'Select a participant' : getEntityInfo(entities, targetParticipant)}

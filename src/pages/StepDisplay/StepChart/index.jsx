@@ -406,6 +406,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 />}
             {showPredefinedIntercompanySale &&
                 <PredefinedIntercompanySaleModal
+                    entities={entitiesToRender}
+                    error={error}
+                    saveEditEntityHandler={saveEditEntityHandler}
+                    saveNewLinkHandler={saveNewLinkHandler}
                     setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
                     showPredefinedIntercompanySale={showPredefinedIntercompanySale}
                 />}

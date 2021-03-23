@@ -400,18 +400,18 @@ export const handleSearchInputPressEnter = (e, array, setFilter, term) => {
 
 //Used by modal custom dropdowns that render entity lists
 export const renderEntitiesForModalDropdowns = (arrayOfEntities, handleSelectChange) => {
-    if (arrayOfEntities.length) {
+    //Removes entities that are only in the array for the purpose of delete highlighting
+    const result = arrayOfEntities.filter(entity => !entity.remove)
+    if (result.length) {
         return (
             arrayOfEntities.map(entity => (
-                // Prevents showing entities that are only on the Step Chart from "Delete" highlighting
-                !entity.remove &&
-                    <ModalDropdownContent
-                        key={entity.id}
-                        onClick={() => handleSelectChange(entity.id)}
-                    >
-                        <span>{entity.name}</span>
-                        <span>{`(${entity.location})`}</span>
-                    </ModalDropdownContent>)))
+                <ModalDropdownContent
+                    key={entity.id}
+                    onClick={() => handleSelectChange(entity.id)}
+                >
+                    <span>{entity.name}</span>
+                    <span>{`(${entity.location})`}</span>
+                </ModalDropdownContent>)))
     } else {
         return (
             <ModalDropdownContent>
@@ -419,4 +419,9 @@ export const renderEntitiesForModalDropdowns = (arrayOfEntities, handleSelectCha
             </ModalDropdownContent>
         )
     }
+}
+
+//Used by predefined Modals to find the direct children of a specific entity
+export const sortedDirectChildrenOfEntity = (arrayOfEntities, parentId) => {
+    return sortEntitiesByName(arrayOfEntities.filter(entity => parseInt(entity.pid) === parseInt(parentId)))
 }

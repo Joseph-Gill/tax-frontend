@@ -4,14 +4,14 @@ import Draggable from 'react-draggable'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalInput from '../ModalComponents/ModalInput'
-import DistributeAssetsSelect from './DistributeAssetsSelect'
 import DistributorEntitySelect from './DistributorEntitySelect'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import PredefinedAssetsDropdown from '../../Dropdowns/PredefinedAssetsDropdown'
 import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
+import {getEntityFromId, sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
 
@@ -61,7 +61,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
 
     //Used to filter a list of entities for the distributor that are direct children of the distributor
     const findPossibleParticipants = (arrayOfEntities, distributorId) => {
-        const result = sortEntitiesByName(arrayOfEntities.filter(entity => parseInt(entity.pid) === parseInt(distributorId)))
+        const result = sortedDirectChildrenOfEntity(arrayOfEntities, distributorId)
         setAvailableParticipants([...result])
         setFilteredParticipants([...result])
     }
@@ -149,7 +149,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
             <Draggable>
                 <PredefinedModalInternalContainer>
                     <ModalClose modalDisplay={setShowPredefinedDistribution} />
-                    <ModalTitle title='Distribution Step' />
+                    <ModalTitle title='Distribution' />
                     <DistributorEntitySelect
                         availableDistributors={availableDistributors}
                         entities={entities}
@@ -175,13 +175,13 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
                         showRecipientDropdown={showRecipientDropdown}
                         targetRecipient={targetRecipient}
                     />
-                    <DistributeAssetsSelect
-                        distributedAssets={distributedAssets}
+                    <PredefinedAssetsDropdown
+                        assetsChoice={distributedAssets}
+                        disabled={!targetDistributor}
                         error={error}
-                        handleSelectAssetsDistributedChange={handleSelectAssetsDistributedChange}
+                        handleSelectAssetsChange={handleSelectAssetsDistributedChange}
                         setShowAssetsDropdown={setShowAssetsDropdown}
                         showAssetsDropdown={showAssetsDropdown}
-                        targetDistributor={targetDistributor}
                     />
                     {!distributedAssets ? (
                         <ParticipationOtherAssetsInputPlaceholder />) :
@@ -193,7 +193,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
                                         error={error}
                                         errorLocation={error.distributedOtherAssets}
                                         label='Distributed assets'
-                                        name='other_assets'
+                                        name='other_assets_input'
                                         placeholder='Specify assets to distribute'
                                         type='text'
                                         value={otherAssetsLabel}
@@ -214,6 +214,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
                                     </FadeInContainer>) : (
                                         <PredefinedParticipantDropdown
                                             availableParticipants={availableParticipants}
+                                            disabled={!targetRecipient}
                                             entities={entities}
                                             error={error}
                                             filteredParticipants={filteredParticipants}
@@ -223,7 +224,6 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
                                             setShowParticipantDropdown={setShowParticipantDropdown}
                                             showParticipantDropdown={showParticipantDropdown}
                                             targetParticipant={targetParticipant}
-                                            targetRecipient={targetRecipient}
                                         />)}
                     <ModalAddButtons
                         cancelHandler={handleCancelButton}

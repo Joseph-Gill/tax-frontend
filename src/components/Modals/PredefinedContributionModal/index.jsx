@@ -186,7 +186,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
             <Draggable>
                 <PredefinedModalInternalContainer>
                     <ModalClose modalDisplay={setShowPredefinedContribution} />
-                    <ModalTitle title='Contribution Step' />
+                    <ModalTitle title='Contribution' />
                     <ContributorEntitySelect
                         entities={entities}
                         error={error}
@@ -238,6 +238,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                             ) : (
                                 <PredefinedParticipantDropdown
                                     availableParticipants={availableParticipants}
+                                    disabled={!targetRecipient}
                                     entities={entities}
                                     error={error}
                                     filteredParticipants={filteredParticipants}
@@ -247,7 +248,6 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                                     setShowParticipantDropdown={setShowParticipantDropdown}
                                     showParticipantDropdown={showParticipantDropdown}
                                     targetParticipant={targetParticipant}
-                                    targetRecipient={targetRecipient}
                                 />)}
                     <ContributionIssuanceSelect
                         issuanceNewShares={issuanceNewShares}

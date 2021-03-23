@@ -1,22 +1,22 @@
 import React from 'react'
-import {ModalDropdownContent, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
+import {ModalDropdownContent, ModalDropdownContentContainer} from '../../styles'
 
 
-const DistributeAssetsChoices = ({handleSelectAssetsDistributedChange, showAssetsDropdown}) => {
+const PredefinedAssetsChoices = ({handleSelectAssetsChange, showAssetsDropdown}) => {
     return (
         <ModalDropdownContentContainer show={showAssetsDropdown ? 1 : 0}>
             <ModalDropdownContent
-                onClick={() => handleSelectAssetsDistributedChange('participation')}
+                onClick={() => handleSelectAssetsChange('participation')}
             >
                 <span>Participation</span>
             </ModalDropdownContent>
             <ModalDropdownContent
-                onClick={() => handleSelectAssetsDistributedChange('business')}
+                onClick={() => handleSelectAssetsChange('business')}
             >
                 <span>Business or business related assets</span>
             </ModalDropdownContent>
             <ModalDropdownContent
-                onClick={() => handleSelectAssetsDistributedChange('other assets')}
+                onClick={() => handleSelectAssetsChange('other assets')}
             >
                 <span>Other Assets</span>
             </ModalDropdownContent>
@@ -24,4 +24,4 @@ const DistributeAssetsChoices = ({handleSelectAssetsDistributedChange, showAsset
     )
 }
 
-export default DistributeAssetsChoices
+export default PredefinedAssetsChoices

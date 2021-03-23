@@ -182,3 +182,44 @@ export const ParticipationOtherAssetsInputPlaceholder = styled.div`
     height: 52px;
     width: 302px;
 `
+
+export const PredefinedCheckboxContainer = styled.div`
+    display: flex;
+    width: 302px;
+    justify-content: space-between;
+`
+
+export const PredefinedCheckboxTextContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    span {
+        font-family: ${props => props.theme.nunitoFontFamily};
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 19px;
+    }
+`
+
+export const PredefinedCheckboxCheckmarkContainer = styled.div`
+    width: 110px;
+    display: flex;
+    justify-content: space-between;
+`
+
+export const PredefinedCheckboxCheckmarkLabel = styled.label`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+    font-style: normal;
+    font-weight: normal;
+    color: ${props => props.theme.grayOne};
+    margin-left: 8px;
+
+    :hover {
+        cursor: pointer;
+        transition: 167ms;
+        text-decoration: underline;
+    }
+`
