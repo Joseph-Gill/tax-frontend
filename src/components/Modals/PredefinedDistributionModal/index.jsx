@@ -100,8 +100,6 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
 
     const handleSaveButton = async () => {
         if (distributedAssets === 'other assets') {
-            //Create red CLink from Distributor to Recipient with
-            //label "Distribution of ${otherAssetsLabel}"
             const assetLink = {
                 from: targetDistributor,
                 to: targetRecipient,
@@ -111,8 +109,6 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
             }
             saveNewLinkHandler(assetLink)
         } else if (distributedAssets === 'business') {
-            //Create red CLink from Distributor to Recipient with
-            //label "Distribution of ${businessAssetsLabel}"
             const businessLink = {
                 from: targetDistributor,
                 to: targetRecipient,
@@ -122,8 +118,6 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
             }
             saveNewLinkHandler(businessLink)
         } else {
-            //Edit the participant and change the pid from distributor
-            //to recipient
             const participant = getEntityFromId(targetParticipant, entities)
             const editParticipantInfo = {
                 entitySelected: true,
@@ -132,8 +126,6 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
                 taxRate: participant.tax_rate,
                 entityToEditId: participant.id
             }
-            //Create red Clink from Distributor to Recipient with
-            //label "Distribution of Shares"
             const participationLink = {
                 from: targetDistributor,
                 to: targetRecipient,
