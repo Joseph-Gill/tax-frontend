@@ -47,6 +47,7 @@ const StepDisplay = ({history}) => {
     const [showRemoveEntity, setShowRemoveEntity] = useState(false)
     const [showPredefinedContribution, setShowPredefinedContribution] = useState(false)
     const [showPredefinedDistribution, setShowPredefinedDistribution] = useState(false)
+    const [showPredefinedIntercompanySale, setShowPredefinedIntercompanySale] = useState(false)
     const [currentStepEntities, setCurrentStepEntities] = useState([])
     const [clinks, setClinks] = useState([])
     const [slinks, setSlinks] = useState([])
@@ -271,6 +272,7 @@ const StepDisplay = ({history}) => {
                         setShowEditLink={setShowEditLink}
                         setShowPredefinedContribution={setShowPredefinedContribution}
                         setShowPredefinedDistribution={setShowPredefinedDistribution}
+                        setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
                         setShowRemoveEntity={setShowRemoveEntity}
                         setShowRemoveLink={setShowRemoveLink}
                         setStepDetailStatus={setStepDetailStatus}
@@ -293,13 +295,13 @@ const StepDisplay = ({history}) => {
                                     indexOfStepToDisplay={indexOfStepToDisplay}
                                     project={project}
                                     setClinks={setClinks}
-                                    setCurrentStepEntities={setCurrentStepEntities}
                                     setShowAddEntity={setShowAddEntity}
                                     setShowAddLink={setShowAddLink}
                                     setShowEditEntity={setShowEditEntity}
                                     setShowEditLink={setShowEditLink}
                                     setShowPredefinedContribution={setShowPredefinedContribution}
                                     setShowPredefinedDistribution={setShowPredefinedDistribution}
+                                    setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
                                     setShowRemoveEntity={setShowRemoveEntity}
                                     setShowRemoveLink={setShowRemoveLink}
                                     setSlinks={setSlinks}
@@ -309,7 +311,8 @@ const StepDisplay = ({history}) => {
                                     showEditEntity={showEditEntity}
                                     showEditLink={showEditLink}
                                     showPredefinedContribution={showPredefinedContribution}
-                                    showPredefinedDistribtion={showPredefinedDistribution}
+                                    showPredefinedDistribution={showPredefinedDistribution}
+                                    showPredefinedIntercompanySale={showPredefinedIntercompanySale}
                                     showRemoveEntity={showRemoveEntity}
                                     showRemoveLink={showRemoveLink}
                                     slinks={slinks}

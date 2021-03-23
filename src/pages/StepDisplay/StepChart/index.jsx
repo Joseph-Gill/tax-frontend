@@ -15,12 +15,13 @@ import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
 import PredefinedContributionModal from '../../../components/Modals/PredefinedContributionModal'
 import PredefinedDistributionModal from '../../../components/Modals/PredefinedDistributionModal'
+import PredefinedIntercompanySaleModal from '../../../components/Modals/PredefinedIntercompanySaleModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity, setShowEditLink,
-                       setShowAddLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowRemoveEntity,
+                       setShowAddLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowPredefinedIntercompanySale, setShowRemoveEntity,
                        setShowRemoveLink, setSlinks, setStepChartExists, showAddEntity, showAddLink, showEditEntity, showEditLink,
-                       showPredefinedContribution, showPredefinedDistribtion, showRemoveEntity, showRemoveLink, slinks,
+                       showPredefinedContribution, showPredefinedDistribution, showPredefinedIntercompanySale, showRemoveEntity, showRemoveLink, slinks,
                        stepChartExists, steps}) => {
 
     const dispatch = useDispatch()
@@ -394,14 +395,19 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     setShowPredefinedContribution={setShowPredefinedContribution}
                     showPredefinedContribution={showPredefinedContribution}
                 />}
-            {showPredefinedDistribtion &&
+            {showPredefinedDistribution &&
                 <PredefinedDistributionModal
                     entities={entitiesToRender}
                     error={error}
                     saveEditEntityHandler={saveEditEntityHandler}
                     saveNewLinkHandler={saveNewLinkHandler}
                     setShowPredefinedDistribution={setShowPredefinedDistribution}
-                    showPredefinedDistribution={showPredefinedDistribtion}
+                    showPredefinedDistribution={showPredefinedDistribution}
+                />}
+            {showPredefinedIntercompanySale &&
+                <PredefinedIntercompanySaleModal
+                    setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
+                    showPredefinedIntercompanySale={showPredefinedIntercompanySale}
                 />}
             {renderStepChart}
         </StepChartAndButtonsContainer>
