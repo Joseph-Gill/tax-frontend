@@ -45,6 +45,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     })
 
     useEffect(() => {
+        console.log(stepChartExists)
         setEntitiesToRender([...entities])
         //Creates an array of available Parent names/locations/ids for the user to choose from when adding / editing
         setAvailableParentNames(createAvailableParentNamesWithoutDeletes(entities))
