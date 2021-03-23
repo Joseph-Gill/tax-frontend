@@ -1,20 +1,21 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {useDispatch} from 'react-redux'
 import Draggable from 'react-draggable'
-import OtherAssetsInput from './OtherAssetsInput'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalClose from '../ModalComponents/ModalClose'
+import ModalInput from '../ModalComponents/ModalInput'
 import RecipientEntitySelect from './RecipientEntitySelect'
 import ContributeAssetsSelect from './ContributeAssetsSelect'
-import ParticipantEntitySelect from './ParticipantEntitySelect'
 import ContributorEntitySelect from './ContributorEntitySelect'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ContributionIssuanceSelect from './ContributionIssuanceSelect'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {PredefinedModalInternalContainer} from '../styles'
 import {ParticipationOtherAssetsInputPlaceholder} from './styles'
+import {FadeInContainer} from '../../../style/animations'
 
 
 const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveEditEntityHandler,
@@ -220,12 +221,21 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                     {!contributedAssets ? (
                         <ParticipationOtherAssetsInputPlaceholder />) :
                         contributedAssets === 'other assets' ? (
-                            <OtherAssetsInput
-                                error={error}
-                                otherAssetsLabel={otherAssetsLabel}
-                                setOtherAssetsLabel={setOtherAssetsLabel}
-                            />) : (
-                                <ParticipantEntitySelect
+                            <FadeInContainer>
+                                <ModalInput
+                                    changeHandler={(e) => setOtherAssetsLabel(e.target.value)}
+                                    disabled={!targetContributor}
+                                    error={error}
+                                    errorLocation={error.contributedOtherAssets}
+                                    label='Distributed assets'
+                                    name='other_assets'
+                                    placeholder='Specify assets to distribute'
+                                    type='text'
+                                    value={otherAssetsLabel}
+                                />
+                            </FadeInContainer>
+                            ) : (
+                                <PredefinedParticipantDropdown
                                     availableParticipants={availableParticipants}
                                     entities={entities}
                                     error={error}

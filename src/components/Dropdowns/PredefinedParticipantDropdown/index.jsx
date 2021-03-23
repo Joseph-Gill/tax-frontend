@@ -1,18 +1,17 @@
 import React from 'react'
-import {ActiveInputLabel} from '../../../../style/labels'
-import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {getEntityInfo, renderEntitiesForModalDropdowns} from '../../../../helpers'
-import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
-import {EntityErrorContainer} from '../../styles'
-import {ErrorMessage} from '../../../../style/messages'
-import {FadeInContainer} from '../../../../style/animations'
+import {ActiveInputLabel} from '../../../style/labels'
+import ModalDropdownSearchField from '../DropdownComponents/ModalDropdownSearchField'
+import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
+import {getEntityInfo, renderEntitiesForModalDropdowns} from '../../../helpers'
+import {ErrorMessage} from '../../../style/messages'
+import {EntityErrorContainer} from '../../Modals/styles'
+import {FadeInContainer} from '../../../style/animations'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../styles'
 
 
-const ParticipantEntitySelect = ({availableParticipants, entities, error, filteredParticipants, handleSelectParticipantChange,
+const PredefinedParticipantDropdown = ({availableParticipants, entities, error, filteredParticipants, handleSelectParticipantChange,
                                      searchParticipantTerm, setFilteredParticipants, setShowParticipantDropdown,
                                      showParticipantDropdown, targetParticipant, targetRecipient}) => {
-
     return (
         <FadeInContainer>
             <ActiveInputLabel
@@ -49,4 +48,4 @@ const ParticipantEntitySelect = ({availableParticipants, entities, error, filter
     )
 }
 
-export default ParticipantEntitySelect
+export default PredefinedParticipantDropdown
