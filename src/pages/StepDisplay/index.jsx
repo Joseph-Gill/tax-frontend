@@ -97,7 +97,8 @@ const StepDisplay = ({history}) => {
                         if (response.status === 200) {
                             setCurrentStepEntities([...getEntitiesWithTags(JSON.parse(response.data.nodes), false)])
                             setSlinks([...JSON.parse(response.data.slinks)])
-                            setClinks([...JSON.parse(response.data.clinks)])
+                            //SLinks should show from previous StepCharts, CLinks should not show from previous StepCharts
+                            // setClinks([...JSON.parse(response.data.clinks)])
                         //If the previous chart has no steps, an empty array is loaded into state
                         } else {
                             setCurrentStepEntities([])
