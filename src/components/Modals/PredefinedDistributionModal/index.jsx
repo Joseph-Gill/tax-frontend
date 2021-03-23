@@ -11,11 +11,12 @@ import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {sortEntitiesByName} from '../../../helpers'
+import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
 
-const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribution, showPredefinedDistribution}) => {
+const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribution, saveNewLinkHandler, saveEditEntityHandler,
+                                         showPredefinedDistribution}) => {
 
     let searchDistributorTerm = useRef('')
     let searchRecipientTerm = useRef('')
@@ -97,8 +98,55 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
         setShowPredefinedDistribution(false)
     }
 
-    const handleSaveButton = () => {
-
+    const handleSaveButton = async () => {
+        if (distributedAssets === 'other assets') {
+            //Create red CLink from Distributor to Recipient with
+            //label "Distribution of ${otherAssetsLabel}"
+            const assetLink = {
+                from: targetDistributor,
+                to: targetRecipient,
+                type: 'clink',
+                label: `Distribution of ${otherAssetsLabel}`,
+                color: 'orange'
+            }
+            saveNewLinkHandler(assetLink)
+        } else if (distributedAssets === 'business') {
+            //Create red CLink from Distributor to Recipient with
+            //label "Distribution of ${businessAssetsLabel}"
+            const businessLink = {
+                from: targetDistributor,
+                to: targetRecipient,
+                type: 'clink',
+                label: `Distribution of ${businessAssetsLabel}`,
+                color: 'orange'
+            }
+            saveNewLinkHandler(businessLink)
+        } else {
+            //Edit the participant and change the pid from distributor
+            //to recipient
+            const participant = getEntityFromId(targetParticipant, entities)
+            const editParticipantInfo = {
+                entitySelected: true,
+                entityName: participant.name,
+                parentId: targetRecipient,
+                taxRate: participant.tax_rate,
+                entityToEditId: participant.id
+            }
+            //Create red Clink from Distributor to Recipient with
+            //label "Distribution of Shares"
+            const participationLink = {
+                from: targetDistributor,
+                to: targetRecipient,
+                type: 'clink',
+                label: 'Distribution of Shares',
+                color: 'orange'
+            }
+            const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
+            if (response.status === 201 || response.status === 200) {
+                saveNewLinkHandler(participationLink, true)
+            }
+        }
+        setShowPredefinedDistribution(false)
     }
 
     return (
