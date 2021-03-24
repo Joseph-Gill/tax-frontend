@@ -199,7 +199,7 @@ const StepDisplay = ({history}) => {
                         setShowConfirmation(false)
                         setLoading(false)
                     }
-                //If the Step deleted is the first step, pushes the user to StepBeginning
+                //If the Step deleted is the first step, pushes the user to ProjectSteps
                 } else {
                     history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)
                 }
