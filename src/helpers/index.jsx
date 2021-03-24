@@ -425,3 +425,8 @@ export const renderEntitiesForModalDropdowns = (arrayOfEntities, handleSelectCha
 export const sortedDirectChildrenOfEntity = (arrayOfEntities, parentId) => {
     return sortEntitiesByName(arrayOfEntities.filter(entity => parseInt(entity.pid) === parseInt(parentId)))
 }
+
+//Used by predefined Modals to find all entities that aren't the Ultimate entity
+export const sortedNonUltimateEntities = (arrayOfEntities) => {
+    return sortEntitiesByName(arrayOfEntities.filter(entity => entity.pid && entity.pid !== 'Ultimate'))
+}

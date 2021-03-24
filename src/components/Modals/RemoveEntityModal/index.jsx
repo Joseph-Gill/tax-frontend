@@ -66,7 +66,7 @@ const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEn
                     />
                     <ModalRemoveButtons
                         cancelButtonHandler={cancelButtonHandler}
-                        removeButtonHandler={removeEntityHandler}
+                        removeButtonHandler={() => removeEntityHandler(entities)}
                     />
                 </RemoveLinkEntityInternalContainer>
             </Draggable>

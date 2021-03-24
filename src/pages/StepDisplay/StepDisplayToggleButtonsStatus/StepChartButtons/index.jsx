@@ -8,8 +8,8 @@ import PredefinedToolTip from './PredefinedToolTip'
 
 const StepChartButtons = ({currentStepEntities, indexOfStepToDisplay, setShowAddEntity, setShowAddLink,
                               setShowEditEntity, setShowEditLink, setShowPredefinedContribution, setShowPredefinedDistribution,
-                              setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowRemoveEntity,
-                              setShowRemoveLink, steps}) => {
+                              setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation,
+                              setShowRemoveEntity, setShowRemoveLink, steps}) => {
 
     const [showAddDropdown, setShowAddDropdown] = useState(false)
     const [showRemoveDropdown, setShowRemoveDropdown] = useState(false)
@@ -25,6 +25,7 @@ const StepChartButtons = ({currentStepEntities, indexOfStepToDisplay, setShowAdd
                 setShowPredefinedDistribution={setShowPredefinedDistribution}
                 setShowPredefinedIncorporate={setShowPredefinedIncorporate}
                 setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
+                setShowPredefinedLiquidation={setShowPredefinedLiquidation}
                 setShowPredefinedStepsDropdown={setShowPredefinedStepsDropdown}
                 showPredefinedStepsDropdown={showPredefinedStepsDropdown}
             />

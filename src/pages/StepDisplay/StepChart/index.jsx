@@ -16,13 +16,15 @@ import {NoChartToDisplay} from '../../../style/containers'
 import PredefinedContributionModal from '../../../components/Modals/PredefinedContributionModal'
 import PredefinedDistributionModal from '../../../components/Modals/PredefinedDistributionModal'
 import PredefinedIntercompanySaleModal from '../../../components/Modals/PredefinedIntercompanySaleModal'
+import PredefinedLiquidationModal from '../../../components/Modals/PredefinedLiquidationModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity, setShowEditLink,
                        setShowAddLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowPredefinedIncorporate,
-                       setShowPredefinedIntercompanySale, setShowRemoveEntity, setShowRemoveLink, setSlinks, setStepChartExists, showAddEntity,
-                       showAddLink, showEditEntity, showEditLink, showPredefinedContribution, showPredefinedDistribution, showPredefinedIntercompanySale,
-                       showRemoveEntity, showRemoveLink, showPredefinedIncorporate, slinks, stepChartExists, steps}) => {
+                       setShowPredefinedIntercompanySale, setShowPredefinedLiquidation, setShowRemoveEntity, setShowRemoveLink, setSlinks,
+                       setStepChartExists, showAddEntity, showAddLink, showEditEntity, showEditLink, showPredefinedContribution,
+                       showPredefinedDistribution, showPredefinedIntercompanySale, showPredefinedLiquidation, showRemoveEntity,
+                       showRemoveLink, showPredefinedIncorporate, slinks, stepChartExists, steps}) => {
 
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
@@ -204,11 +206,12 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         setStepChartExists(true)
     }
 
-    const removeEntityHandler = () => {
+    //removedEntity is used in automated steps to bypass the delay that exists in setting entityToRemove in local state
+    const removeEntityHandler = (currentEntities, removedEntity = entityToRemove) => {
         dispatch(resetErrors())
        // const newEntitiesToRender = entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove))
-       const newEntitiesToRender = entitiesToRender.map(entity => {
-           if (entity.id === parseInt(entityToRemove)) {
+       const newEntitiesToRender = currentEntities.map(entity => {
+           if (entity.id === parseInt(removedEntity)) {
                // Adds the legal form delete template to the entity so it is highlighted on this specific step's chart
                entity.tags = [highlightTagForDeleteEntity(entity.legal_form)]
                // Adds a key/value pair that is used in further step charts to not display this entity anymore
@@ -432,6 +435,15 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     setNewEntityInfo={setNewEntityInfo}
                     showModalView={showPredefinedIncorporate}
                     title='Incorporation'
+                />}
+            {showPredefinedLiquidation &&
+                <PredefinedLiquidationModal
+                    entities={entitiesToRender}
+                    error={error}
+                    removeEntityHandler={removeEntityHandler}
+                    setEntitiesToRender={setEntitiesToRender}
+                    setShowPredefinedLiquidation={setShowPredefinedLiquidation}
+                    showPredefinedLiquidation={showPredefinedLiquidation}
                 />}
             {renderStepChart}
         </StepChartAndButtonsContainer>

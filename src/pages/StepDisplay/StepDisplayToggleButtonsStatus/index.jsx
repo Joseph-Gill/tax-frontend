@@ -8,8 +8,8 @@ import {ToggleButtonsStatusContainer} from './styles'
 const StepDisplayToggleButtonsStatus = ({ableToComplete, currentStepEntities, editStatus, indexOfStepToDisplay, setShowConfirmation,
                                             setStepDetailStatus, stepDetailStatus, setShowAddEntity, setShowAddLink, setShowEditEntity,
                                             setShowEditLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowPredefinedIncorporate,
-                                            setShowPredefinedIntercompanySale, setShowRemoveEntity, setShowRemoveLink, setStepStatus,
-                                            steps, stepStatus, tasklistButtonClickHandler}) => {
+                                            setShowPredefinedIntercompanySale, setShowPredefinedLiquidation, setShowRemoveEntity, setShowRemoveLink,
+                                            setStepStatus, steps, stepStatus, tasklistButtonClickHandler}) => {
     return (
         <ToggleButtonsStatusContainer>
             <StepDisplayToggle
@@ -28,6 +28,7 @@ const StepDisplayToggleButtonsStatus = ({ableToComplete, currentStepEntities, ed
                     setShowPredefinedDistribution={setShowPredefinedDistribution}
                     setShowPredefinedIncorporate={setShowPredefinedIncorporate}
                     setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
+                    setShowPredefinedLiquidation={setShowPredefinedLiquidation}
                     setShowRemoveEntity={setShowRemoveEntity}
                     setShowRemoveLink={setShowRemoveLink}
                     steps={steps}

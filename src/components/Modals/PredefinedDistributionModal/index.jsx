@@ -11,7 +11,7 @@ import PredefinedAssetsDropdown from '../../Dropdowns/PredefinedAssetsDropdown'
 import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getEntityFromId, sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
+import {getEntityFromId, sortedDirectChildrenOfEntity, sortedNonUltimateEntities} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
 
@@ -46,7 +46,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
     const [businessAssetsLabel, setBusinessAssetsLabel] = useState('')
 
     useEffect(() => {
-        const result = sortEntitiesByName(entities.filter(entity => entity.pid && entity.pid !== 'Ultimate'))
+        const result = sortedNonUltimateEntities(entities)
         setAvailableDistributors([...result])
         setFilteredDistributors([...result])
     }, [entities])

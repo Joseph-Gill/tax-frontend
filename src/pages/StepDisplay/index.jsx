@@ -49,6 +49,7 @@ const StepDisplay = ({history}) => {
     const [showPredefinedDistribution, setShowPredefinedDistribution] = useState(false)
     const [showPredefinedIntercompanySale, setShowPredefinedIntercompanySale] = useState(false)
     const [showPredefinedIncorporate, setShowPredefinedIncorporate] = useState(false)
+    const [showPredefinedLiquidation, setShowPredefinedLiquidation] = useState(false)
     const [currentStepEntities, setCurrentStepEntities] = useState([])
     const [clinks, setClinks] = useState([])
     const [slinks, setSlinks] = useState([])
@@ -275,6 +276,7 @@ const StepDisplay = ({history}) => {
                         setShowPredefinedDistribution={setShowPredefinedDistribution}
                         setShowPredefinedIncorporate={setShowPredefinedIncorporate}
                         setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
+                        setShowPredefinedLiquidation={setShowPredefinedLiquidation}
                         setShowRemoveEntity={setShowRemoveEntity}
                         setShowRemoveLink={setShowRemoveLink}
                         setStepDetailStatus={setStepDetailStatus}
@@ -305,6 +307,7 @@ const StepDisplay = ({history}) => {
                                     setShowPredefinedDistribution={setShowPredefinedDistribution}
                                     setShowPredefinedIncorporate={setShowPredefinedIncorporate}
                                     setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
+                                    setShowPredefinedLiquidation={setShowPredefinedLiquidation}
                                     setShowRemoveEntity={setShowRemoveEntity}
                                     setShowRemoveLink={setShowRemoveLink}
                                     setSlinks={setSlinks}
@@ -317,6 +320,7 @@ const StepDisplay = ({history}) => {
                                     showPredefinedDistribution={showPredefinedDistribution}
                                     showPredefinedIncorporate={showPredefinedIncorporate}
                                     showPredefinedIntercompanySale={showPredefinedIntercompanySale}
+                                    showPredefinedLiquidation={showPredefinedLiquidation}
                                     showRemoveEntity={showRemoveEntity}
                                     showRemoveLink={showRemoveLink}
                                     slinks={slinks}
