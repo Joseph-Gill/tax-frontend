@@ -1,17 +1,14 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import Draggable from 'react-draggable'
+import ChangeEntitySelect from './ChangeEntitySelect'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import EntityLegalDropdown from '../../Dropdowns/EntityLegalDropdown'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import ModalDropdownSearchField from '../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import DropdownInternalContainer from '../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getEntityFromId, getEntityInfo, renderEntitiesForModalDropdowns, sortEntitiesByName} from '../../../helpers'
-import {ActiveInputLabel} from '../../../style/labels'
-import {ModalDropdownButton, ModalDropdownContentContainer} from '../../Dropdowns/styles'
+import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {PredefinedChangeLegalFormInternalContainer} from './styles'
 
 
@@ -67,30 +64,17 @@ const PredefinedChangeLegalFormModal = ({entities, error, saveEditEntityHandler,
                 <PredefinedChangeLegalFormInternalContainer>
                     <ModalClose modalDisplay={setShowPredefinedChangeLegalForm} />
                     <ModalTitle title='Change Legal Form' />
-                    <div>
-                        <ActiveInputLabel>Entity to change</ActiveInputLabel>
-                        <DropdownInternalContainer
-                            setDropdownView={setShowEntityToChange}
-                            showDropdownView={showEntityToChange}
-                        >
-                            <ModalDropdownButton
-                                onClick={() => setShowEntityToChange(!showEntityToChange)}
-                            >
-                                {!targetEntityToChange ? 'Select entity to change' : getEntityInfo(entities, targetEntityToChange)}
-                            </ModalDropdownButton>
-                            <ModalDropdownContentContainer show={showEntityToChange ? 1 : 0}>
-                                <ModalDropdownSearchField
-                                    filterStateSet={setFilteredEntitiesToChange}
-                                    inputName='entity_to_change'
-                                    inputPlaceholder='Search for entity to change'
-                                    inputRef={searchEntityToChangeTerm}
-                                    originalArray={entities}
-                                    term={searchEntityToChangeTerm}
-                                />
-                                {renderEntitiesForModalDropdowns(filteredEntitiesToChange, handleSelectEntityToChange)}
-                            </ModalDropdownContentContainer>
-                        </DropdownInternalContainer>
-                    </div>
+                    <ChangeEntitySelect
+                        entities={entities}
+                        error={error}
+                        filteredEntitiesToChange={filteredEntitiesToChange}
+                        handleSelectEntityToChange={handleSelectEntityToChange}
+                        searchEntityToChangeTerm={searchEntityToChangeTerm}
+                        setFilteredEntitiesToChange={setFilteredEntitiesToChange}
+                        setShowEntityToChange={setShowEntityToChange}
+                        showEntityToChange={showEntityToChange}
+                        targetEntityToChange={targetEntityToChange}
+                    />
                     <EntityLegalDropdown
                         editEntityInfo={{entitySelected: targetEntityToChange}}
                         error={error}
