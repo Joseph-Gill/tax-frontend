@@ -7,16 +7,16 @@ import RemoveLinkModal from '../../../components/Modals/RemoveLinkModal'
 import RemoveEntityModal from '../../../components/Modals/RemoveEntityModal'
 import EditEntityModal from '../../../components/Modals/EditEntityModal'
 import EditLinkModal from '../../../components/Modals/EditLinkModal'
+import PredefinedContributionModal from '../../../components/Modals/PredefinedContributionModal'
+import PredefinedDistributionModal from '../../../components/Modals/PredefinedDistributionModal'
+import PredefinedIntercompanySaleModal from '../../../components/Modals/PredefinedIntercompanySaleModal'
+import PredefinedLiquidationModal from '../../../components/Modals/PredefinedLiquidationModal'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType,
     editLinkSameType, entityInputErrorHandler, highlightTagForAddEntity, highlightTagForDeleteEntity,
     linkInputErrorHandler} from '../../../helpers'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
-import PredefinedContributionModal from '../../../components/Modals/PredefinedContributionModal'
-import PredefinedDistributionModal from '../../../components/Modals/PredefinedDistributionModal'
-import PredefinedIntercompanySaleModal from '../../../components/Modals/PredefinedIntercompanySaleModal'
-import PredefinedLiquidationModal from '../../../components/Modals/PredefinedLiquidationModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity, setShowEditLink,

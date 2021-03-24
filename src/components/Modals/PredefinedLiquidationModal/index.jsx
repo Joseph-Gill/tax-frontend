@@ -1,23 +1,15 @@
 import React, {useState, useRef, useEffect} from 'react'
-import styled from 'styled-components/macro'
 import {useDispatch} from 'react-redux'
 import Draggable from 'react-draggable'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalClose from '../ModalComponents/ModalClose'
+import LiquidatedEntitySelect from './LiquidatedEntitySelect'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {EntityErrorContainer, PredefinedModalInternalContainer} from '../styles'
-import {ActiveInputLabel} from '../../../style/labels'
-import DropdownInternalContainer from '../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {ModalDropdownButton, ModalDropdownContentContainer} from '../../Dropdowns/styles'
-import {getEntityFromId, getEntityInfo, renderEntitiesForModalDropdowns, sortedNonUltimateEntities} from '../../../helpers'
-import ModalDropdownSearchField from '../../Dropdowns/DropdownComponents/ModalDropdownSearchField'
-import {ErrorMessage} from '../../../style/messages'
+import {getEntityFromId, sortedNonUltimateEntities} from '../../../helpers'
+import {PredefinedLiquidationInternalContainer} from './styles'
 
-const PredefinedLiquidationInternalContainer = styled(PredefinedModalInternalContainer)`
-    height: 230px;
-`
 
 const PredefinedLiquidationModal = ({entities, error, removeEntityHandler, setEntitiesToRender,
                                         setShowPredefinedLiquidation, showPredefinedLiquidation}) => {
@@ -70,33 +62,18 @@ const PredefinedLiquidationModal = ({entities, error, removeEntityHandler, setEn
                 <PredefinedLiquidationInternalContainer>
                     <ModalClose modalDisplay={setShowPredefinedLiquidation} />
                     <ModalTitle title='Liquidation' />
-                    <div>
-                        <ActiveInputLabel>Liquidated Entity</ActiveInputLabel>
-                        <DropdownInternalContainer
-                            setDropdownView={setShowLiquidatedDropdown}
-                            showDropdownView={showLiquidatedDropdown}
-                        >
-                            <ModalDropdownButton
-                                onClick={() => setShowLiquidatedDropdown(!showLiquidatedDropdown)}
-                            >
-                                {!targetLiquidated ? 'Select a liquidated entity' : getEntityInfo(entities, targetLiquidated)}
-                            </ModalDropdownButton>
-                            <ModalDropdownContentContainer show={showLiquidatedDropdown ? 1 : 0}>
-                                <ModalDropdownSearchField
-                                    filterStateSet={setFilteredLiquidated}
-                                    inputName='liquidated_entity_search'
-                                    inputPlaceholder='Search for liquidated entity'
-                                    inputRef={searchLiquidatedTerm}
-                                    originalArray={availableLiquidated}
-                                    term={searchLiquidatedTerm}
-                                />
-                                {renderEntitiesForModalDropdowns(filteredLiquidated, handleSelectLiquidatedChange)}
-                            </ModalDropdownContentContainer>
-                        </DropdownInternalContainer>
-                        <EntityErrorContainer>
-                            {error && <ErrorMessage>{error.liquidated}</ErrorMessage>}
-                        </EntityErrorContainer>
-                    </div>
+                    <LiquidatedEntitySelect
+                        availableLiquidated={availableLiquidated}
+                        entities={entities}
+                        error={error}
+                        filteredLiquidated={filteredLiquidated}
+                        handleSelectLiquidatedChange={handleSelectLiquidatedChange}
+                        searchLiquidatedTerm={searchLiquidatedTerm}
+                        setFilteredLiquidated={setFilteredLiquidated}
+                        setShowLiquidatedDropdown={setShowLiquidatedDropdown}
+                        showLiquidatedDropdown={showLiquidatedDropdown}
+                        targetLiquidated={targetLiquidated}
+                    />
                     <ModalAddButtons
                         cancelHandler={handleCancelButton}
                         saveHandler={handleSaveButton}
