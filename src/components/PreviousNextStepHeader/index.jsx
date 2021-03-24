@@ -8,8 +8,10 @@ import previousActive from '../../assets/icons/stark_step_header_left_active.png
 import nextActive from '../../assets/icons/stark_step_header_right_active.png'
 import previousInactive from '../../assets/icons/stark_step_header_left_inactive.png'
 import nextInactive from '../../assets/icons/stark_step_header_right_inactive.png'
-import {ImageTextStepHeaderContainer, ImageTextStepHeaderContainerLeft, PreviousNextActiveText, PreviousNextArrowLeft,
-    PreviousNextArrowRight, PreviousNextStepHeaderContainer} from './styles'
+import {
+    ImageTextStepHeaderContainer, ImageTextStepHeaderContainerLeft, ImageTextStepPlaceholder, PreviousNextActiveText, PreviousNextArrowLeft,
+    PreviousNextArrowRight, PreviousNextStepHeaderContainer
+} from './styles'
 
 
 //Used by StepDisplay to provide the header where users click to next / previous step of the current step
@@ -65,21 +67,17 @@ const PreviousNextStepHeader = ({indexOfStepToDisplay, previous, next, stepBegin
             {previous ? (
                 <ImageTextStepHeaderContainerLeft active={previous} onClick={previousClickHandler}>
                     <PreviousNextArrowLeft alt='previous step' src={previousActive} />
-                    <PreviousNextActiveText active={previous}>Previous Step</PreviousNextActiveText>
+                    <PreviousNextActiveText active={previous}>{stepEnding ? 'Last Step' : !indexOfStepToDisplay ? 'Beginning Structure' : 'Previous Step'}</PreviousNextActiveText>
                 </ImageTextStepHeaderContainerLeft> ) : (
-                    <ImageTextStepHeaderContainerLeft active={previous}>
-                        <PreviousNextArrowLeft alt='previous step' src={previousInactive} />
-                        <PreviousNextActiveText active={previous}>Previous Step</PreviousNextActiveText>
-                    </ImageTextStepHeaderContainerLeft>)}
+                    <ImageTextStepPlaceholder />
+            )}
             {next ? (
                 <ImageTextStepHeaderContainer active={next} onClick={nextClickHandler}>
-                    <PreviousNextActiveText active={next}>Next Step</PreviousNextActiveText>
+                    <PreviousNextActiveText active={next}>{stepBeginning ? 'First Step' : steps.length === indexOfStepToDisplay + 1 ? 'Ending Structure' : 'Next Step'}</PreviousNextActiveText>
                     <PreviousNextArrowRight alt='next step' src={nextActive} />
                 </ImageTextStepHeaderContainer> ) : (
-                    <ImageTextStepHeaderContainer active={next}>
-                        <PreviousNextActiveText active={next}>Next Step</PreviousNextActiveText>
-                        <PreviousNextArrowRight alt='next step' src={nextInactive} />
-                    </ImageTextStepHeaderContainer>)}
+                    <ImageTextStepPlaceholder />
+            )}
         </PreviousNextStepHeaderContainer>
     )
 }

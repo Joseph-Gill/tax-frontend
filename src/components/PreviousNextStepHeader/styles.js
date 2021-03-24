@@ -9,7 +9,7 @@ export const PreviousNextStepHeaderContainer = styled.div`
 `
 
 export const ImageTextStepHeaderContainer = styled.div`
-    width: 170px;
+    width: 190px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -58,4 +58,8 @@ export const PreviousNextActiveText = styled.p`
         transition: 167ms;
         text-decoration: ${props => props.active ? 'underline' : 'none'};
     }
+`
+
+export const ImageTextStepPlaceholder = styled.div`
+    width: 170px;
 `
