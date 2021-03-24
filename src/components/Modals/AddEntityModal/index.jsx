@@ -13,9 +13,10 @@ import {AddEntityLinkModalInternalContainer} from '../styles'
 
 
 //Used by StepChart for adding new Entities to a StepChart
+//and by PredefinedIncorporate automated step
 const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, error, legalForm, newEntityInfo,
-                            saveNewEntityHandler, showAddEntity, setCountryName, setLegalForm, setNewEntityInfo,
-                            setShowAddEntity}) => {
+                            saveNewEntityHandler, setCountryName, setLegalForm, setModalView, setNewEntityInfo,
+                            showModalView, title}) => {
 
     let searchParentTerm = useRef('')
     const [showAddLegalSelect, setShowAddLegalSelect] = useState(false)
@@ -38,13 +39,13 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, erro
 
     return (
         <ModalExternalContainer
-            setModalView={setShowAddEntity}
-            showModalView={showAddEntity}
+            setModalView={setModalView}
+            showModalView={showModalView}
         >
             <Draggable>
                 <AddEntityLinkModalInternalContainer>
-                    <ModalClose modalDisplay={setShowAddEntity} />
-                    <ModalTitle title='Enter entity info' />
+                    <ModalClose modalDisplay={setModalView} />
+                    <ModalTitle title={title} />
                     <ModalInput
                         changeHandler={(e) => setNewEntityInfo({...newEntityInfo, entityName: e.target.value})}
                         error={error}

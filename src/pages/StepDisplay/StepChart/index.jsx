@@ -19,10 +19,10 @@ import PredefinedIntercompanySaleModal from '../../../components/Modals/Predefin
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity, setShowEditLink,
-                       setShowAddLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowPredefinedIntercompanySale, setShowRemoveEntity,
-                       setShowRemoveLink, setSlinks, setStepChartExists, showAddEntity, showAddLink, showEditEntity, showEditLink,
-                       showPredefinedContribution, showPredefinedDistribution, showPredefinedIntercompanySale, showRemoveEntity, showRemoveLink, slinks,
-                       stepChartExists, steps}) => {
+                       setShowAddLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowPredefinedIncorporate,
+                       setShowPredefinedIntercompanySale, setShowRemoveEntity, setShowRemoveLink, setSlinks, setStepChartExists, showAddEntity,
+                       showAddLink, showEditEntity, showEditLink, showPredefinedContribution, showPredefinedDistribution, showPredefinedIntercompanySale,
+                       showRemoveEntity, showRemoveLink, showPredefinedIncorporate, slinks, stepChartExists, steps}) => {
 
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
@@ -121,6 +121,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 taxRate: ''
             })
             setShowAddEntity(false)
+            setShowPredefinedIncorporate(false)
             setStepChartExists(true)
         }
     }
@@ -137,6 +138,8 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         })
         setShowAddEntity(false)
         setShowAddLink(false)
+        //PredefinedIncorporate uses the same AddEntityModal as AddEntity
+        setShowPredefinedIncorporate(false)
     }
 
     //checkChartExists is used in automated steps that are preforming multiple chart saves in a row
@@ -335,9 +338,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     saveNewEntityHandler={saveNewEntityHandler}
                     setCountryName={setCountryName}
                     setLegalForm={setLegalForm}
+                    setModalView={setShowAddEntity}
                     setNewEntityInfo={setNewEntityInfo}
-                    setShowAddEntity={setShowAddEntity}
-                    showAddEntity={showAddEntity}
+                    showModalView={showAddEntity}
+                    title='Enter entity info'
                 />}
             {showAddLink &&
                 <AddLinkModal
@@ -412,6 +416,22 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     saveNewLinkHandler={saveNewLinkHandler}
                     setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
                     showPredefinedIntercompanySale={showPredefinedIntercompanySale}
+                />}
+            {showPredefinedIncorporate &&
+                <AddEntityModal
+                    cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
+                    countryName={countryName}
+                    entities={entitiesToRender}
+                    error={error}
+                    legalForm={legalForm}
+                    newEntityInfo={newEntityInfo}
+                    saveNewEntityHandler={saveNewEntityHandler}
+                    setCountryName={setCountryName}
+                    setLegalForm={setLegalForm}
+                    setModalView={setShowPredefinedIncorporate}
+                    setNewEntityInfo={setNewEntityInfo}
+                    showModalView={showPredefinedIncorporate}
+                    title='Incorporation'
                 />}
             {renderStepChart}
         </StepChartAndButtonsContainer>
