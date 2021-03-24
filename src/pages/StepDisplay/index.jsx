@@ -201,7 +201,7 @@ const StepDisplay = ({history}) => {
                     }
                 //If the Step deleted is the first step, pushes the user to StepBeginning
                 } else {
-                    history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)
+                    history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)
                 }
             }
         //If the step being deleted is a newly created step it only exists in local state
