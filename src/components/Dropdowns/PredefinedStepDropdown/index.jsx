@@ -7,9 +7,9 @@ import {DropdownContent} from '../../../style/dropdowns'
 import {PredefinedDropdownContentContainer} from './styles'
 
 
-const PredefinedStepDropdown = ({setShowPredefinedContribution, setShowPredefinedDistribution, setShowPredefinedIncorporate,
-                                    setShowPredefinedIntercompanySale, setShowPredefinedLiquidation, setShowPredefinedStepsDropdown,
-                                    showPredefinedStepsDropdown}) => {
+const PredefinedStepDropdown = ({setShowPredefinedChangeLegalForm, setShowPredefinedContribution, setShowPredefinedDistribution,
+                                    setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation,
+                                    setShowPredefinedStepsDropdown, showPredefinedStepsDropdown}) => {
 
     const handlePredefinedClick = (setShow) => {
         setShow(true)
@@ -59,7 +59,9 @@ const PredefinedStepDropdown = ({setShowPredefinedContribution, setShowPredefine
                     <DropdownContentText>Incorporation</DropdownContentText>
                     <DropdownContentImage dropdownCalling='Predefined' />
                 </DropdownContent>
-                <DropdownContent>
+                <DropdownContent
+                    onClick={() => handlePredefinedClick(setShowPredefinedChangeLegalForm)}
+                >
                     <DropdownContentText>Change of Legal Form</DropdownContentText>
                     <DropdownContentImage dropdownCalling='Predefined' />
                 </DropdownContent>

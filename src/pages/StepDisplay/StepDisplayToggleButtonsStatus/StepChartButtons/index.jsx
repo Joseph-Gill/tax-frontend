@@ -7,9 +7,10 @@ import {StepChartButtonsContainer} from './styles'
 import PredefinedToolTip from './PredefinedToolTip'
 
 const StepChartButtons = ({currentStepEntities, indexOfStepToDisplay, setShowAddEntity, setShowAddLink,
-                              setShowEditEntity, setShowEditLink, setShowPredefinedContribution, setShowPredefinedDistribution,
-                              setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation,
-                              setShowRemoveEntity, setShowRemoveLink, steps}) => {
+                              setShowEditEntity, setShowEditLink, setShowPredefinedChangeLegalForm,
+                              setShowPredefinedContribution, setShowPredefinedDistribution, setShowPredefinedIncorporate,
+                              setShowPredefinedIntercompanySale, setShowPredefinedLiquidation, setShowRemoveEntity,
+                              setShowRemoveLink, steps}) => {
 
     const [showAddDropdown, setShowAddDropdown] = useState(false)
     const [showRemoveDropdown, setShowRemoveDropdown] = useState(false)
@@ -21,6 +22,7 @@ const StepChartButtons = ({currentStepEntities, indexOfStepToDisplay, setShowAdd
             hide={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
         >
             <PredefinedStepDropdown
+                setShowPredefinedChangeLegalForm={setShowPredefinedChangeLegalForm}
                 setShowPredefinedContribution={setShowPredefinedContribution}
                 setShowPredefinedDistribution={setShowPredefinedDistribution}
                 setShowPredefinedIncorporate={setShowPredefinedIncorporate}

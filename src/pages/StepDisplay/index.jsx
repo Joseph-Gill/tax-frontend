@@ -50,6 +50,7 @@ const StepDisplay = ({history}) => {
     const [showPredefinedIntercompanySale, setShowPredefinedIntercompanySale] = useState(false)
     const [showPredefinedIncorporate, setShowPredefinedIncorporate] = useState(false)
     const [showPredefinedLiquidation, setShowPredefinedLiquidation] = useState(false)
+    const [showPredefinedChangeLegalForm, setShowPredefinedChangeLegalForm] = useState(false)
     const [currentStepEntities, setCurrentStepEntities] = useState([])
     const [clinks, setClinks] = useState([])
     const [slinks, setSlinks] = useState([])
@@ -272,6 +273,7 @@ const StepDisplay = ({history}) => {
                         setShowConfirmation={setShowConfirmation}
                         setShowEditEntity={setShowEditEntity}
                         setShowEditLink={setShowEditLink}
+                        setShowPredefinedChangeLegalForm={setShowPredefinedChangeLegalForm}
                         setShowPredefinedContribution={setShowPredefinedContribution}
                         setShowPredefinedDistribution={setShowPredefinedDistribution}
                         setShowPredefinedIncorporate={setShowPredefinedIncorporate}
@@ -303,6 +305,7 @@ const StepDisplay = ({history}) => {
                                     setShowAddLink={setShowAddLink}
                                     setShowEditEntity={setShowEditEntity}
                                     setShowEditLink={setShowEditLink}
+                                    setShowPredefinedChangeLegalForm={setShowPredefinedChangeLegalForm}
                                     setShowPredefinedContribution={setShowPredefinedContribution}
                                     setShowPredefinedDistribution={setShowPredefinedDistribution}
                                     setShowPredefinedIncorporate={setShowPredefinedIncorporate}
@@ -316,6 +319,7 @@ const StepDisplay = ({history}) => {
                                     showAddLink={showAddLink}
                                     showEditEntity={showEditEntity}
                                     showEditLink={showEditLink}
+                                    showPredefinedChangeLegalForm={showPredefinedChangeLegalForm}
                                     showPredefinedContribution={showPredefinedContribution}
                                     showPredefinedDistribution={showPredefinedDistribution}
                                     showPredefinedIncorporate={showPredefinedIncorporate}

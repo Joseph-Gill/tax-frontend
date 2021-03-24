@@ -17,14 +17,16 @@ import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateS
     linkInputErrorHandler} from '../../../helpers'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
+import PredefinedChangeLegalFormModal from '../../../components/Modals/PredefinedChangeLegalFormModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity, setShowEditLink,
-                       setShowAddLink, setShowPredefinedContribution, setShowPredefinedDistribution, setShowPredefinedIncorporate,
-                       setShowPredefinedIntercompanySale, setShowPredefinedLiquidation, setShowRemoveEntity, setShowRemoveLink, setSlinks,
-                       setStepChartExists, showAddEntity, showAddLink, showEditEntity, showEditLink, showPredefinedContribution,
-                       showPredefinedDistribution, showPredefinedIntercompanySale, showPredefinedLiquidation, showRemoveEntity,
-                       showRemoveLink, showPredefinedIncorporate, slinks, stepChartExists, steps}) => {
+                       setShowAddLink, setShowPredefinedChangeLegalForm, setShowPredefinedContribution, setShowPredefinedDistribution,
+                       setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation, setShowRemoveEntity,
+                       setShowRemoveLink, setSlinks, setStepChartExists, showAddEntity, showAddLink, showEditEntity, showEditLink,
+                       showPredefinedChangeLegalForm, showPredefinedContribution, showPredefinedDistribution, showPredefinedIntercompanySale,
+                       showPredefinedLiquidation, showRemoveEntity, showRemoveLink, showPredefinedIncorporate, slinks, stepChartExists,
+                       steps}) => {
 
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
@@ -241,7 +243,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         const error = editEntityInputErrorHandler(dispatch, setError, entitiesToRender, editEntityInfo, countryName)
         if (!error) {
             // Finds parent entity of entity being edited
-            const targetParent = entitiesToRender.filter(entity => parseInt(entity.id) === parseInt(editEntityInfo.parentId))[0]
+            const targetParent = entitiesToRender.find(entity => parseInt(entity.id) === parseInt(editEntityInfo.parentId))
             // Finds index of entity being edited in listOfEntities
             const indexToEdit = entitiesToRender.findIndex(entity => parseInt(entity.id) === parseInt(editEntityInfo.entityToEditId))
             // If an entity's parent is changed during the edit, a ghost version is left under the original parent with a delete template highlight
@@ -263,10 +265,16 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 entitiesToRender.push(deleteCopyOfEntity)
                 //Updates the tag to be a Add template version of the node for highlighting, since the parent was changed
                 entitiesToRender[indexToEdit].tags = [highlightTagForAddEntity(legalForm)]
+            // The parent of the entity was not change during the edit, so the legalForm tag is update to make sure it is the correct current version
+            // in case the user change the legal form during the edit.
             } else {
-                // The parent of the entity was not change during the edit, so the legalForm tag is update to make sure it is the correct current version
-                // in case the user change the legal form during the edit.
-                entitiesToRender[indexToEdit].tags = [addLegalFormTag(legalForm)]
+                //If editEntityInfo has legalFormChange: true, it was changed by Predefined Change of Legal Form, and needs to be highlighted
+                if (editEntityInfo.legalFormChange) {
+                    entitiesToRender[indexToEdit].tags = [highlightTagForAddEntity(legalForm)]
+                } else {
+                    entitiesToRender[indexToEdit].tags = [addLegalFormTag(legalForm)]
+                }
+
             }
             //Updates all values of entity being edited with current/new values
             entitiesToRender[indexToEdit].pid = editEntityInfo.parentId.toString()
@@ -444,6 +452,14 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     setEntitiesToRender={setEntitiesToRender}
                     setShowPredefinedLiquidation={setShowPredefinedLiquidation}
                     showPredefinedLiquidation={showPredefinedLiquidation}
+                />}
+            {showPredefinedChangeLegalForm &&
+                <PredefinedChangeLegalFormModal
+                    entities={entitiesToRender}
+                    error={error}
+                    saveEditEntityHandler={saveEditEntityHandler}
+                    setShowPredefinedChangeLegalForm={setShowPredefinedChangeLegalForm}
+                    showPredefinedChangeLegalForm={showPredefinedChangeLegalForm}
                 />}
             {renderStepChart}
         </StepChartAndButtonsContainer>
