@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react'
 import Draggable from 'react-draggable'
+import AddParentSelect from './AddParentSelect'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalInput from '../ModalComponents/ModalInput'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import AddParentSelect from './AddParentSelect'
-import AddLocationSelect from './AddLocationSelect'
+import EntityLocationDropdown from '../../Dropdowns/EntityLocationDropdown'
 import EntityLegalDropdown from '../../Dropdowns/EntityLegalDropdown'
 import {sortEntitiesByName} from '../../../helpers'
 import {AddEntityLinkModalInternalContainer} from '../styles'
@@ -67,9 +67,10 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, erro
                         setShowAddParentSelect={setShowAddParentSelect}
                         showAddParentSelect={showAddParentSelect}
                     />
-                    <AddLocationSelect
+                    <EntityLocationDropdown
                         changeHandler={(val) => setCountryName(val)}
                         error={error}
+                        errorLocation={error.entityCountryName}
                         value={countryName}
                     />
                     <EntityLegalDropdown

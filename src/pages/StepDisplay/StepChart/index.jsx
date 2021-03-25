@@ -464,8 +464,14 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 />}
             {showPredefinedMerger &&
                 <PredefinedMergerModal
+                    countryName={countryName}
                     entities={entitiesToRender}
                     error={error}
+                    legalForm={legalForm}
+                    newEntityInfo={newEntityInfo}
+                    setCountryName={setCountryName}
+                    setLegalForm={setLegalForm}
+                    setNewEntityInfo={setNewEntityInfo}
                     setShowPredefinedMerger={setShowPredefinedMerger}
                     showPredefinedMerger={showPredefinedMerger}
                 />}

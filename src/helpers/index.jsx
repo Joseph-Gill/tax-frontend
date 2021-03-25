@@ -430,3 +430,10 @@ export const sortedDirectChildrenOfEntity = (arrayOfEntities, parentId) => {
 export const sortedNonUltimateEntities = (arrayOfEntities) => {
     return sortEntitiesByName(arrayOfEntities.filter(entity => entity.pid && entity.pid !== 'Ultimate'))
 }
+
+//Used by predefined Modals to find out if entities are sister entities
+export const areEntitiesSisters = (arrayOfEntities, entityIdOne, entityIdTwo) => {
+    const entityOne = getEntityFromId(entityIdOne, arrayOfEntities)
+    const entityTwo = getEntityFromId(entityIdTwo, arrayOfEntities)
+    return parseInt(entityOne.pid) === parseInt(entityTwo.pid)
+}

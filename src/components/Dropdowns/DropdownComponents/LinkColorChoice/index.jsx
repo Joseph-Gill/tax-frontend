@@ -1,10 +1,11 @@
-import {ModalDropdownContent, ModalDropdownContentContainer} from '../../styles'
+import {ModalDropdownContent} from '../../styles'
 import React from 'react'
+import {EditLinkModalDropdownContentContainer} from '../../../Modals/EditLinkModal/styles'
 
 
 const LinkColorChoices = ({handleColorSelectChange, showColorSelect}) => {
     return (
-        <ModalDropdownContentContainer show={showColorSelect ? 1 : 0}>
+        <EditLinkModalDropdownContentContainer show={showColorSelect ? 1 : 0}>
             <ModalDropdownContent
                 onClick={() => handleColorSelectChange('blue')}
             >
@@ -20,7 +21,7 @@ const LinkColorChoices = ({handleColorSelectChange, showColorSelect}) => {
             >
                 <span>Orange</span>
             </ModalDropdownContent>
-        </ModalDropdownContentContainer>
+        </EditLinkModalDropdownContentContainer>
     )
 }
 

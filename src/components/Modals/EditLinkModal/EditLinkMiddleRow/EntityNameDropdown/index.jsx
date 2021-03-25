@@ -6,7 +6,7 @@ import {getEntityInfo, handleFilterEntities, renderEntitiesForModalDropdowns} fr
 import {ErrorMessage} from '../../../../../style/messages'
 import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
 import {EntityErrorContainer} from '../../../styles'
-import {EditLinkModalDropdownButton} from '../../styles'
+import {EditLinkModalDropdownButton, EditLinkModalDropdownContentContainer} from '../../styles'
 
 
 const EntityNameDropdown = ({entities, error, filteredEntities, label, rightLink, searchEntityTerm,
@@ -53,16 +53,27 @@ const EntityNameDropdown = ({entities, error, filteredEntities, label, rightLink
                         >
                             {!targetLink.linkSelected ? 'Select an entity' : `${getEntityInfo(entities, targetLink[setKey])}`}
                         </EditLinkModalDropdownButton>)}
-                <ModalDropdownContentContainer show={showEditLinkSelect ? 1 : 0}>
-                    <EntityNameSearchInput
-                        entities={entities}
-                        filteredEntities={filteredEntities}
-                        handleLinkEntityInputPressEnter={handleLinkEntityInputPressEnter}
-                        searchEntityTerm={searchEntityTerm}
-                        setFilteredEntities={setFilteredEntities}
-                    />
-                    {renderEntitiesForModalDropdowns(filteredEntities, handleLinkEntitySelect)}
-                </ModalDropdownContentContainer>
+                {!rightLink ? (
+                    <ModalDropdownContentContainer show={showEditLinkSelect ? 1 : 0}>
+                        <EntityNameSearchInput
+                            entities={entities}
+                            filteredEntities={filteredEntities}
+                            handleLinkEntityInputPressEnter={handleLinkEntityInputPressEnter}
+                            searchEntityTerm={searchEntityTerm}
+                            setFilteredEntities={setFilteredEntities}
+                        />
+                        {renderEntitiesForModalDropdowns(filteredEntities, handleLinkEntitySelect)}
+                    </ModalDropdownContentContainer>) : (
+                        <EditLinkModalDropdownContentContainer show={showEditLinkSelect ? 1 : 0}>
+                            <EntityNameSearchInput
+                                entities={entities}
+                                filteredEntities={filteredEntities}
+                                handleLinkEntityInputPressEnter={handleLinkEntityInputPressEnter}
+                                searchEntityTerm={searchEntityTerm}
+                                setFilteredEntities={setFilteredEntities}
+                            />
+                            {renderEntitiesForModalDropdowns(filteredEntities, handleLinkEntitySelect)}
+                        </EditLinkModalDropdownContentContainer>)}
             </DropdownInternalContainer>
             <EntityErrorContainer>
                 {error && <ErrorMessage>{error.linkFromTo}</ErrorMessage>}

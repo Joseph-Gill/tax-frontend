@@ -158,7 +158,7 @@ export const ModalDropdownContentContainer = styled.div`
     border-bottom-right-radius: ${props => props.theme.borderRadius};
     border-bottom-left-radius: ${props => props.theme.borderRadius};
     position: absolute;
-    margin-top: 2px;
+    margin: 2px 0 0 15px;
     background-color: ${props => props.theme.white};
     width: 302px;
     max-height: 304px;
