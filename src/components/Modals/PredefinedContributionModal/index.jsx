@@ -12,7 +12,7 @@ import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
+import {checkIfEntityIsParent, findAllDescendantsOfTargetEntity, getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
 
@@ -49,38 +49,9 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
         setFilteredContributors([...result])
     }, [entities])
 
-    //Used to check if a entity matches a target entity's parentId
-    const checkIfEntityIsParent = (entityParentId, targetParentId) => {
-        return parseInt(entityParentId) === parseInt(targetParentId)
-    }
-
     //Used to filter a list of entities for all entities that are descendants of a specified entityId
     const findPossibleRecipients = (arrayOfEntities, contributorId) => {
-        const recipients = []
-        let parentId = ''
-
-        arrayOfEntities.forEach(entity => {
-            if (checkIfEntityIsParent(entity.pid, contributorId)) {
-                recipients.push(entity)
-            } else {
-                if (entity.pid) {
-                    parentId = entity.pid
-                    while (parentId) {
-                        const parentEntity = getEntityFromId(parentId, entities)
-                        if (checkIfEntityIsParent(parentEntity.pid, contributorId)) {
-                            recipients.push(entity)
-                            break
-                        } else {
-                            if (parentEntity.pid) {
-                                parentId = parentEntity.pid
-                            } else {
-                                parentId = ''
-                            }
-                        }
-                    }
-                }
-            }
-        })
+        const recipients = findAllDescendantsOfTargetEntity(arrayOfEntities, contributorId)
         setAvailableRecipients([...recipients])
         setFilteredRecipients([...recipients])
     }
@@ -153,7 +124,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                 label: `Contribution of: ${otherAssetsLabel}`,
                 color: 'orange'
             }
-            saveNewLinkHandler(assetLink)
+            saveNewLinkHandler(assetLink, entities)
         } else if (contributedAssets === 'participation') {
             const participant = getEntityFromId(targetParticipant, entities)
             const editParticipantInfo = {
@@ -172,7 +143,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
             }
             const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
                 if (response.status === 201 || response.status === 200) {
-                    saveNewLinkHandler(participationLink, true)
+                    saveNewLinkHandler(participationLink, entities, true)
                 }
         }
         setShowPredefinedContribution(false)

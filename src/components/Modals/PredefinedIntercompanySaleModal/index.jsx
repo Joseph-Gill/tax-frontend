@@ -107,7 +107,7 @@ const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler
                 label: `Sale of ${otherAssetsLabel}`,
                 color: 'orange'
             }
-            saveNewLinkHandler(assetLink)
+            saveNewLinkHandler(assetLink, entities)
         } else if (soldAssets === 'business') {
             const businessLink = {
                 from: targetSeller,
@@ -116,7 +116,7 @@ const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler
                 label: `Sale of ${businessAssetsLabel}`,
                 color: 'orange'
             }
-            saveNewLinkHandler(businessLink)
+            saveNewLinkHandler(businessLink, entities)
         } else {
             //Edit participant pid to be buyerId
             const participant = getEntityFromId(targetParticipant, entities)
@@ -136,7 +136,7 @@ const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler
             }
             const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
             if (response.status === 201 || response.status === 200) {
-                saveNewLinkHandler(participantLink, true)
+                saveNewLinkHandler(participantLink, entities, true)
             }
         }
         setShowPredefinedIntercompanySale(false)

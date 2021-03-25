@@ -107,7 +107,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
                 label: `Distribution of ${otherAssetsLabel}`,
                 color: 'orange'
             }
-            saveNewLinkHandler(assetLink)
+            saveNewLinkHandler(assetLink, entities)
         } else if (distributedAssets === 'business') {
             const businessLink = {
                 from: targetDistributor,
@@ -116,7 +116,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
                 label: `Distribution of ${businessAssetsLabel}`,
                 color: 'orange'
             }
-            saveNewLinkHandler(businessLink)
+            saveNewLinkHandler(businessLink, entities)
         } else {
             const participant = getEntityFromId(targetParticipant, entities)
             const editParticipantInfo = {
@@ -135,7 +135,7 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
             }
             const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
             if (response.status === 201 || response.status === 200) {
-                saveNewLinkHandler(participationLink, true)
+                saveNewLinkHandler(participationLink, entities, true)
             }
         }
         setShowPredefinedDistribution(false)

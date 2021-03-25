@@ -86,7 +86,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
         }
     }, [entitiesToRender, clinks, slinks, indexOfStepToDisplay, steps])
 
-    const saveNewEntityHandler = () => {
+    const saveNewEntityHandler = async () => {
         dispatch(resetErrors())
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
         if (!error) {
@@ -97,9 +97,9 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 location: countryName,
                 name: newEntityInfo.entityName,
                 tax_rate: newEntityInfo.taxRate,
-                pid: entitiesToRender.filter(entity => entity.id === newEntityInfo.parentId)[0].id.toString(),
+                pid: entitiesToRender.find(entity => parseInt(entity.id) === parseInt(newEntityInfo.parentId)).id.toString(),
                 //Used in the backend when creating the entity to find its appropriate parent
-                parent: entitiesToRender.filter(entity => entity.id === newEntityInfo.parentId)[0],
+                parent: entitiesToRender.find(entity => parseInt(entity.id) === parseInt(newEntityInfo.parentId)),
                 //Used in Complete Project action to differentiate between existing and newly created entities
                 edited: true,
                 new: true
@@ -115,7 +115,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 slinks: JSON.stringify(slinks),
                 clinks: JSON.stringify(clinks)
             }
-            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+            const response = createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
             setEntitiesToRender([...entitiesToRender, addEntityInfo])
             setAvailableParentNames([...availableParentNames, {name: addEntityInfo.name, location: addEntityInfo.location, id: addEntityInfo.id}])
             setCountryName('')
@@ -128,6 +128,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             setShowAddEntity(false)
             setShowPredefinedIncorporate(false)
             setStepChartExists(true)
+            return response
         }
     }
 
@@ -150,7 +151,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
     //checkChartExists is used in automated steps that are preforming multiple chart saves in a row
     //to bypass the delay that exists in setting StepChartExists to true in local state and needing
     //it to be true when the second save from an automated step is triggered and checks it
-    const saveNewLinkHandler = async (linkInfo, checkChartExists = stepChartExists) => {
+    const saveNewLinkHandler = async (linkInfo, arrayOfEntities, checkChartExists = stepChartExists) => {
         dispatch(resetErrors())
         //Helper to perform input validation
         const error = linkInputErrorHandler(dispatch, setError, linkInfo)
@@ -164,7 +165,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             }
             //StepCharts are stored as JSON data in the backend until the Complete Project action is run
             const chartData = {
-                nodes: JSON.stringify(entitiesToRender)
+                nodes: JSON.stringify(arrayOfEntities)
             }
             if (linkInfo.color === 'blue') {
                 newLink.template = 'blue'
@@ -184,11 +185,46 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 chartData.slinks = JSON.stringify([...slinks, newLink])
                 setSlinks([...slinks, newLink])
             }
-            createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, checkChartExists)
+            const response = createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, checkChartExists)
             setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
             setShowAddLink(false)
             setStepChartExists(true)
+            return response
         }
+    }
+
+    // Used by PredefinedMergerModal which needs to create two links at once, instead of just one
+    const saveMultipleLinksHandler = (arrayOfLinkData, arrayOfEntities) => {
+        const newCLinks = [...clinks]
+        const newSLinks = [...slinks]
+
+        arrayOfLinkData.forEach(link => {
+            const newLink = {
+                from: parseInt(link.from),
+                to: parseInt(link.to),
+                label: link.label,
+                //Used to create a unique number id for each link
+                id: Date.now()
+            }
+            if (link.color === 'blue') {
+                newLink.template = 'blue'
+            } else if (link.color === 'yellow') {
+                newLink.template = 'yellow'
+            }
+            if (link.type === 'clink') {
+                newCLinks.push(link)
+            } else {
+                newSLinks.push(link)
+            }
+        })
+        const chartData = {
+            nodes: JSON.stringify(arrayOfEntities),
+            clinks: JSON.stringify(newCLinks),
+            slinks: JSON.stringify(newSLinks)
+        }
+        createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, true)
+        setClinks([...newCLinks])
+        setSlinks([...newSLinks])
     }
 
     const removeLinkHandler = () => {
@@ -469,7 +505,11 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     error={error}
                     legalForm={legalForm}
                     newEntityInfo={newEntityInfo}
+                    saveMultipleLinksHandler={saveMultipleLinksHandler}
+                    saveNewEntityHandler={saveNewEntityHandler}
+                    saveNewLinkHandler={saveNewLinkHandler}
                     setCountryName={setCountryName}
+                    setEntitiesToRender={setEntitiesToRender}
                     setLegalForm={setLegalForm}
                     setNewEntityInfo={setNewEntityInfo}
                     setShowPredefinedMerger={setShowPredefinedMerger}

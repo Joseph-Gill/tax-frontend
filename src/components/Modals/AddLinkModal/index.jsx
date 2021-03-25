@@ -104,7 +104,7 @@ const AddLinkModal = ({addLinkInfo, cancelNewEntityLinkHandler, entities, error,
                     />
                     <ModalAddButtons
                         cancelHandler={cancelNewEntityLinkHandler}
-                        saveHandler={() => saveNewLinkHandler(addLinkInfo)}
+                        saveHandler={() => saveNewLinkHandler(addLinkInfo, entities)}
                     />
                 </AddEntityLinkModalInternalContainer>
             </Draggable>
