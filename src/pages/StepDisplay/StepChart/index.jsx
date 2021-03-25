@@ -18,15 +18,16 @@ import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateS
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
 import PredefinedChangeLegalFormModal from '../../../components/Modals/PredefinedChangeLegalFormModal'
+import PredefinedMergerModal from '../../../components/Modals/PredefinedMergerModal'
 
 
 const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity, setShowEditLink,
                        setShowAddLink, setShowPredefinedChangeLegalForm, setShowPredefinedContribution, setShowPredefinedDistribution,
-                       setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation, setShowRemoveEntity,
-                       setShowRemoveLink, setSlinks, setStepChartExists, showAddEntity, showAddLink, showEditEntity, showEditLink,
-                       showPredefinedChangeLegalForm, showPredefinedContribution, showPredefinedDistribution, showPredefinedIntercompanySale,
-                       showPredefinedLiquidation, showRemoveEntity, showRemoveLink, showPredefinedIncorporate, slinks, stepChartExists,
-                       steps}) => {
+                       setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation, setShowPredefinedMerger,
+                       setShowRemoveEntity, setShowRemoveLink, setSlinks, setStepChartExists, showAddEntity, showAddLink, showEditEntity,
+                       showEditLink, showPredefinedChangeLegalForm, showPredefinedContribution, showPredefinedDistribution, showPredefinedIntercompanySale,
+                       showPredefinedLiquidation, showPredefinedMerger, showRemoveEntity, showRemoveLink, showPredefinedIncorporate, slinks,
+                       stepChartExists, steps}) => {
 
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
@@ -460,6 +461,13 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     saveEditEntityHandler={saveEditEntityHandler}
                     setShowPredefinedChangeLegalForm={setShowPredefinedChangeLegalForm}
                     showPredefinedChangeLegalForm={showPredefinedChangeLegalForm}
+                />}
+            {showPredefinedMerger &&
+                <PredefinedMergerModal
+                    entities={entitiesToRender}
+                    error={error}
+                    setShowPredefinedMerger={setShowPredefinedMerger}
+                    showPredefinedMerger={showPredefinedMerger}
                 />}
             {renderStepChart}
         </StepChartAndButtonsContainer>

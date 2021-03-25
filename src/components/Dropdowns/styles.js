@@ -100,7 +100,7 @@ export const GoToDropdownContent = styled(DropdownContent)`
 export const ModalDropdownButton = styled.button`
     width: 302px;
     height: 42px;
-    margin: 0;
+    margin: 0 15px 0 15px;
     padding-left: 20px;
     background: url(${dropdownArrowDown}) no-repeat right, ${props => props.theme.graySix};
     background-position-x: 92%;

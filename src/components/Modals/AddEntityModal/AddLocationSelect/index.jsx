@@ -2,13 +2,13 @@ import React from 'react'
 import {CountryDropdown} from 'react-country-region-selector'
 import {EntityErrorContainer} from '../../styles'
 import {ErrorMessage} from '../../../../style/messages'
-import {ActiveInputLabel} from '../../../../style/labels'
+import {TextActiveInputLabel} from '../../../../style/labels'
 
 
 const AddLocationSelect = ({changeHandler, value, error}) => {
     return (
         <div>
-            <ActiveInputLabel>Location</ActiveInputLabel>
+            <TextActiveInputLabel>Location</TextActiveInputLabel>
             <CountryDropdown
                 classes='profileCountryDropdown'
                 onChange={changeHandler}

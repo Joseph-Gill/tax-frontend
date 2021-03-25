@@ -2,9 +2,10 @@ import React from 'react'
 import LinkTypeChoices from '../../../Dropdowns/DropdownComponents/LinkTypeChoices'
 import LinkColorChoices from '../../../Dropdowns/DropdownComponents/LinkColorChoice'
 import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
-import {ActiveInputLabel} from '../../../../style/labels'
+import {ActiveInputLabel, TextActiveInputLabel} from '../../../../style/labels'
 import {ModalDropdownButton} from '../../../Dropdowns/styles'
 import {EditEntityLinkRowContainer, EntityErrorContainer} from '../../styles'
+import {EditLinkModalDropdownButton} from '../styles'
 
 
 const EditLinkBottomRow = ({setShowEditColorSelect, setShowEditTypeSelect, setTargetLink, showEditColorSelect,
@@ -45,22 +46,22 @@ const EditLinkBottomRow = ({setShowEditColorSelect, setShowEditTypeSelect, setTa
                 </DropdownInternalContainer>
             </div>
             <div>
-                <ActiveInputLabel
+                <TextActiveInputLabel
                     disabled={!targetLink.linkSelected}
                 >
                     Color
-                </ActiveInputLabel>
+                </TextActiveInputLabel>
                 <DropdownInternalContainer
                     setDropdownView={setShowEditColorSelect}
                     showDropdownView={showEditColorSelect}
                 >
-                    <ModalDropdownButton
+                    <EditLinkModalDropdownButton
                         disabled={!targetLink.linkSelected}
                         onClick={() => setShowEditColorSelect(!showEditColorSelect)}
                     >
                         {!targetLink.linkSelected ? 'Select a color' : targetLink.template === 'blue' ? 'Blue'
                             : targetLink.template === 'yellow' ? 'Yellow' : 'Orange' }
-                    </ModalDropdownButton>
+                    </EditLinkModalDropdownButton>
                     <LinkColorChoices
                         handleColorSelectChange={handleColorSelectChange}
                         showColorSelect={showEditColorSelect}

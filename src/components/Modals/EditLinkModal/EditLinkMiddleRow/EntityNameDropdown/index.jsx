@@ -1,14 +1,15 @@
 import React from 'react'
-import {ActiveInputLabel} from '../../../../../style/labels'
+import {ActiveInputLabel, TextActiveInputLabel} from '../../../../../style/labels'
 import EntityNameSearchInput from './EntityNameSearchInput'
 import DropdownInternalContainer from '../../../../Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {getEntityInfo, handleFilterEntities, renderEntitiesForModalDropdowns} from '../../../../../helpers'
 import {ErrorMessage} from '../../../../../style/messages'
 import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../../Dropdowns/styles'
 import {EntityErrorContainer} from '../../../styles'
+import {EditLinkModalDropdownButton} from '../../styles'
 
 
-const EntityNameDropdown = ({entities, error, filteredEntities, label, searchEntityTerm,
+const EntityNameDropdown = ({entities, error, filteredEntities, label, rightLink, searchEntityTerm,
                                 setKey, setFilteredEntities, setShowEditLinkSelect, setTargetLink, showEditLinkSelect, targetLink}) => {
 
     const handleLinkEntityInputPressEnter = e => {
@@ -24,21 +25,34 @@ const EntityNameDropdown = ({entities, error, filteredEntities, label, searchEnt
 
     return (
         <div>
-            <ActiveInputLabel
-                disabled={!targetLink.linkSelected}
-            >
-                {label}
-            </ActiveInputLabel>
+            {!rightLink ? (
+                <ActiveInputLabel
+                    disabled={!targetLink.linkSelected}
+                >
+                    {label}
+                </ActiveInputLabel>) : (
+                    <TextActiveInputLabel
+                        disabled={!targetLink.linkSelected}
+                    >
+                        {label}
+                    </TextActiveInputLabel>)}
             <DropdownInternalContainer
                 setDropdownView={setShowEditLinkSelect}
                 showDropdownView={showEditLinkSelect}
             >
-                <ModalDropdownButton
-                    disabled={!targetLink.linkSelected}
-                    onClick={() => setShowEditLinkSelect(!showEditLinkSelect)}
-                >
-                    {!targetLink.linkSelected ? 'Select an entity' : `${getEntityInfo(entities, targetLink[setKey])}`}
-                </ModalDropdownButton>
+                {!rightLink ? (
+                    <ModalDropdownButton
+                        disabled={!targetLink.linkSelected}
+                        onClick={() => setShowEditLinkSelect(!showEditLinkSelect)}
+                    >
+                        {!targetLink.linkSelected ? 'Select an entity' : `${getEntityInfo(entities, targetLink[setKey])}`}
+                    </ModalDropdownButton>) : (
+                        <EditLinkModalDropdownButton
+                            disabled={!targetLink.linkSelected}
+                            onClick={() => setShowEditLinkSelect(!showEditLinkSelect)}
+                        >
+                            {!targetLink.linkSelected ? 'Select an entity' : `${getEntityInfo(entities, targetLink[setKey])}`}
+                        </EditLinkModalDropdownButton>)}
                 <ModalDropdownContentContainer show={showEditLinkSelect ? 1 : 0}>
                     <EntityNameSearchInput
                         entities={entities}

@@ -6,12 +6,9 @@ import {resetErrors} from '../../store/errors/actions/errorAction'
 import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import previousActive from '../../assets/icons/stark_step_header_left_active.png'
 import nextActive from '../../assets/icons/stark_step_header_right_active.png'
-import previousInactive from '../../assets/icons/stark_step_header_left_inactive.png'
-import nextInactive from '../../assets/icons/stark_step_header_right_inactive.png'
-import {
-    ImageTextStepHeaderContainer, ImageTextStepHeaderContainerLeft, ImageTextStepPlaceholder, PreviousNextActiveText, PreviousNextArrowLeft,
-    PreviousNextArrowRight, PreviousNextStepHeaderContainer
-} from './styles'
+import {ImageTextStepHeaderContainer, ImageTextStepHeaderContainerLeft, ImageTextStepPlaceholder,
+    PreviousNextActiveText, PreviousNextArrowLeft, PreviousNextArrowRight,
+    PreviousNextStepHeaderContainer} from './styles'
 
 
 //Used by StepDisplay to provide the header where users click to next / previous step of the current step

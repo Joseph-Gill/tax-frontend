@@ -2,17 +2,17 @@ import React from 'react'
 import {EntityErrorContainer} from '../../styles'
 import {BaseInput} from '../../../../style/inputs'
 import {ErrorMessage} from '../../../../style/messages'
-import {ActiveInputLabel} from '../../../../style/labels'
+import {TextActiveInputLabel} from '../../../../style/labels'
 
 
 const ModalInput = ({disabled, label, name, changeHandler, placeholder, type, value, error, errorLocation}) => {
     return (
         <div>
-            <ActiveInputLabel
+            <TextActiveInputLabel
                 disabled={disabled}
             >
                 {label}
-            </ActiveInputLabel>
+            </TextActiveInputLabel>
             <BaseInput
                 disabled={disabled}
                 name={name}

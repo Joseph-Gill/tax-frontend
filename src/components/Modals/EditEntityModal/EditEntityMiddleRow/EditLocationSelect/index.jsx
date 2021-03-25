@@ -1,19 +1,19 @@
 import React from 'react'
 import {CountryDropdown} from 'react-country-region-selector'
-import {ActiveInputLabel} from '../../../../../style/labels'
 import {ErrorMessage} from '../../../../../style/messages'
 import {EntityErrorContainer} from '../../../styles'
+import {TextActiveInputLabel} from '../../../../../style/labels'
 
 
 
 const EditLocationSelect = ({countryName, editEntityInfo, error, setCountryName}) => {
     return (
         <div>
-            <ActiveInputLabel
+            <TextActiveInputLabel
                 disabled={!editEntityInfo.entitySelected}
             >
                 Location
-            </ActiveInputLabel>
+            </TextActiveInputLabel>
             <CountryDropdown
                 classes='profileCountryDropdown'
                 disabled={!editEntityInfo.entitySelected}

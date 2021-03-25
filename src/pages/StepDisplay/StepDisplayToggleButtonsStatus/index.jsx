@@ -9,7 +9,8 @@ const StepDisplayToggleButtonsStatus = ({ableToComplete, currentStepEntities, ed
                                             setStepDetailStatus, stepDetailStatus, setShowAddEntity, setShowAddLink, setShowEditEntity,
                                             setShowEditLink, setShowPredefinedChangeLegalForm, setShowPredefinedContribution, setShowPredefinedDistribution,
                                             setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation,
-                                            setShowRemoveEntity, setShowRemoveLink, setStepStatus, steps, stepStatus, tasklistButtonClickHandler}) => {
+                                            setShowPredefinedMerger, setShowRemoveEntity, setShowRemoveLink, setStepStatus, steps,
+                                            stepStatus, tasklistButtonClickHandler}) => {
     return (
         <ToggleButtonsStatusContainer>
             <StepDisplayToggle
@@ -30,6 +31,7 @@ const StepDisplayToggleButtonsStatus = ({ableToComplete, currentStepEntities, ed
                     setShowPredefinedIncorporate={setShowPredefinedIncorporate}
                     setShowPredefinedIntercompanySale={setShowPredefinedIntercompanySale}
                     setShowPredefinedLiquidation={setShowPredefinedLiquidation}
+                    setShowPredefinedMerger={setShowPredefinedMerger}
                     setShowRemoveEntity={setShowRemoveEntity}
                     setShowRemoveLink={setShowRemoveLink}
                     steps={steps}

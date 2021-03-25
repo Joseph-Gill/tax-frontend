@@ -26,6 +26,7 @@ const EditLinkMiddleRow = ({entities, error, filteredFromEntities, filteredToEnt
                 error={error}
                 filteredEntities={filteredToEntities}
                 label='To'
+                rightLink
                 searchEntityTerm={searchToEntityTerm}
                 setFilteredEntities={setFilteredToEntities}
                 setKey='to'

@@ -9,7 +9,7 @@ import {PredefinedDropdownContentContainer} from './styles'
 
 const PredefinedStepDropdown = ({setShowPredefinedChangeLegalForm, setShowPredefinedContribution, setShowPredefinedDistribution,
                                     setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation,
-                                    setShowPredefinedStepsDropdown, showPredefinedStepsDropdown}) => {
+                                    setShowPredefinedMerger, setShowPredefinedStepsDropdown, showPredefinedStepsDropdown}) => {
 
     const handlePredefinedClick = (setShow) => {
         setShow(true)
@@ -25,7 +25,9 @@ const PredefinedStepDropdown = ({setShowPredefinedChangeLegalForm, setShowPredef
                 <img alt='Predefined Step' data-for='predefined' data-tip src={robot} />
             </DropdownButtonContainer>
             <PredefinedDropdownContentContainer show={showPredefinedStepsDropdown ? 1 : 0}>
-                <DropdownContent>
+                <DropdownContent
+                    onClick={() => handlePredefinedClick(setShowPredefinedMerger)}
+                >
                     <DropdownContentText>Merger</DropdownContentText>
                     <DropdownContentImage dropdownCalling='Predefined' />
                 </DropdownContent>
