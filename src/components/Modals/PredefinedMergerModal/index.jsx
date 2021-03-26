@@ -5,8 +5,10 @@ import PredefinedMergerLeft from './PredefinedMergerLeft'
 import PredefinedMergerRight from './PredefinedMergerRight'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {areEntitiesSisters, findAllDescendantsOfTargetEntity, getEntityFromId, highlightTagForAddEntity, highlightTagForDeleteEntity, sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
+import {areEntitiesSisters, findAllDescendantsOfTargetEntity, getEntityFromId, highlightTagForAddEntity, highlightTagForDeleteEntity,
+    sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
 import {CompleteMergerModalContainer} from './styles'
+import {ModalDropdownContent} from '../../Dropdowns/styles'
 
 
 const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEntityInfo, saveNewEntityHandler,
@@ -94,6 +96,50 @@ const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEnti
         setShowMergerIntoDropdown(false)
     }
 
+    // Used in PredefinedMergerLeft to decide what available merger choices the user can choose from
+    const renderMergerIntoChoices = () => {
+        const mergerOfEntity = getEntityFromId(targetMergerOfEntity, entities)
+        const mergerToEntity = getEntityFromId(targetMergerToEntity, entities)
+        if (!mergerOfEntity.pid || mergerOfEntity.pid === 'Ultimate') {
+            return (
+                <ModalDropdownContent
+                    onClick={() => handleSelectMergerIntoChange(targetMergerOfEntity)}
+                >
+                    <span>{`${mergerOfEntity.name} (${mergerOfEntity.location})`}</span>
+                </ModalDropdownContent>
+            )
+        } else if (!mergerToEntity.pid || mergerToEntity.pid === 'Ultimate') {
+            return (
+                <ModalDropdownContent
+                    onClick={() => handleSelectMergerIntoChange(targetMergerToEntity)}
+                >
+                    <span>{`${mergerToEntity.name} (${mergerToEntity.location})`}</span>
+                </ModalDropdownContent>
+            )
+        } else {
+            return (
+                <>
+                    <ModalDropdownContent
+                        onClick={() => handleSelectMergerIntoChange(targetMergerOfEntity)}
+                    >
+                        <span>{`${mergerOfEntity.name} (${mergerOfEntity.location})`}</span>
+                    </ModalDropdownContent>
+                    <ModalDropdownContent
+                        onClick={() => handleSelectMergerIntoChange(targetMergerToEntity)}
+                    >
+                        <span>{`${mergerToEntity.name} (${mergerToEntity.location})`}</span>
+                    </ModalDropdownContent>
+                    {mergerInto.newCompanyAvailable &&
+                        <ModalDropdownContent
+                            onClick={() => handleSelectMergerIntoChange('new_company')}
+                        >
+                            <span>New Company</span>
+                        </ModalDropdownContent>}
+                </>
+            )
+        }
+    }
+
     const handleCancelButton = () => {
         setNewEntityInfo({
             entityName: '',
@@ -107,33 +153,25 @@ const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEnti
     }
 
     const handleSaveButton = async () => {
-        // if mergeInto.select === 'new company'
         if (mergerInto.selection === 'new_company') {
-            // - Create new Entity with stored info, set newEntityInfo parentId to be pid of targetMergerOfEntity (both have same parent)
             const response = await saveNewEntityHandler()
             if (response.status === 201 || response.status === 200) {
                 const responseArray = JSON.parse(response.data.nodes)
                 const newCompany = responseArray.find(entity => entity.name === newEntityInfo.entityName && entity.location === countryName)
-                // - Give Add Highlighting to all descendants of targetMergerOf
                 findAllDescendantsOfTargetEntity(responseArray, targetMergerOfEntity).forEach(entity => {
                     const entityTag = highlightTagForAddEntity(entity.legal_form)
                     if (entityTag) {
                         entity.tags = [entityTag]
                     }
                 })
-                // - Give Add Highlight to all descendants of targetMergerTo
                 findAllDescendantsOfTargetEntity(responseArray, targetMergerToEntity).forEach(entity => {
                     const entityTag = highlightTagForAddEntity(entity.legal_form)
                     if (entityTag) {
                         entity.tags = [entityTag]
                     }
                 })
-                // - Change the pid of all children of targetMergerOf to newCompany
                 sortedDirectChildrenOfEntity(responseArray, targetMergerOfEntity).forEach(entity => entity.pid = newCompany.id.toString())
-                // - Change the pid of all children of targetMergerTo to newCompany
                 sortedDirectChildrenOfEntity(responseArray, targetMergerToEntity).forEach(entity => entity.pid = newCompany.id.toString())
-                // - Remove targetMergerOf Entity (gets Delete Highlighted)
-                // - Remove targetMergerTo Entity (gets Delete Highlighted)
                 responseArray.forEach(entity => {
                     if (parseInt(entity.id) === parseInt(targetMergerToEntity) || parseInt(entity.id) === parseInt(targetMergerOfEntity)) {
                         entity.tags = [highlightTagForDeleteEntity(entity.legal_form)]
@@ -141,8 +179,6 @@ const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEnti
                     }
                 })
                 setEntitiesToRender([...responseArray])
-                // - Create red CLink from targetMergerOf to newCompany with label "Merger"
-                // - Create red CLink from targetMergerTo to newCompany with label "Merger"
                 const mergerLinks = [{
                     from: targetMergerOfEntity,
                     to: newCompany.id,
@@ -181,10 +217,10 @@ const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEnti
                         filteredMergerToEntities={filteredMergerToEntities}
                         handleCancelButton={handleCancelButton}
                         handleSaveButton={handleSaveButton}
-                        handleSelectMergerIntoChange={handleSelectMergerIntoChange}
                         handleSelectMergerOfChange={handleSelectMergerOfChange}
                         handleSelectMergerToChange={handleSelectMergerToChange}
                         mergerInto={mergerInto}
+                        renderMergerIntoChoices={renderMergerIntoChoices}
                         searchMergerOfEntityTerm={searchMergerOfEntityTerm}
                         searchMergerToEntityTerm={searchMergerToEntityTerm}
                         setFilteredMergerOfEntities={setFilteredMergerOfEntities}

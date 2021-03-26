@@ -1,5 +1,6 @@
 import React from 'react'
-import MergerIntoChoices from './MergerIntoChoices'
+import MergerToChoices from './MergerToChoices'
+import MergerOfChoices from './MergerOfChoices'
 import ModalClose from '../../ModalComponents/ModalClose'
 import ModalTitle from '../../ModalComponents/ModalTitle'
 import ModalAddButtons from '../../ModalComponents/ModalAddButtons'
@@ -7,15 +8,13 @@ import DropdownInternalContainer from '../../../Dropdowns/DropdownComponents/Dro
 import {getEntityInfo} from '../../../../helpers'
 import {ErrorMessage} from '../../../../style/messages'
 import {ActiveInputLabel} from '../../../../style/labels'
-import {ModalDropdownButton} from '../../../Dropdowns/styles'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 import {PredefinedMergerInternalContainer} from './styles'
 import {EntityErrorContainer} from '../../styles'
-import MergerToChoices from './MergerToChoices'
-import MergerOfChoices from './MergerOfChoices'
 
 
 const PredefinedMergerLeft = ({availableMergerToEntities, entities, error, filteredMergerOfEntities, filteredMergerToEntities, handleCancelButton,
-                                  handleSaveButton, handleSelectMergerIntoChange, handleSelectMergerOfChange, handleSelectMergerToChange, mergerInto,
+                                  handleSaveButton, handleSelectMergerOfChange, handleSelectMergerToChange, mergerInto, renderMergerIntoChoices,
                                   searchMergerOfEntityTerm, searchMergerToEntityTerm, setFilteredMergerOfEntities, setFilteredMergerToEntities,
                                   setShowPredefinedMerger, setShowMergerIntoDropdown, setShowMergerOfDropdown, setShowMergerToDropdown,
                                   showMergerIntoDropdown, showMergerOfDropdown, showMergerToDropdown, targetMergerOfEntity,
@@ -79,7 +78,7 @@ const PredefinedMergerLeft = ({availableMergerToEntities, entities, error, filte
             </div>
             <div>
                 <ActiveInputLabel
-                    disabled={!targetMergerToEntity}
+                    disabled={!targetMergerToEntity || !targetMergerOfEntity}
                 >
                     Into
                 </ActiveInputLabel>
@@ -88,19 +87,14 @@ const PredefinedMergerLeft = ({availableMergerToEntities, entities, error, filte
                     showDropdownView={showMergerIntoDropdown}
                 >
                     <ModalDropdownButton
-                        disabled={!targetMergerToEntity}
+                        disabled={!targetMergerToEntity || !targetMergerOfEntity}
                         onClick={() => setShowMergerIntoDropdown(!showMergerIntoDropdown)}
                     >
                         {!mergerInto.selection ? 'Select merger format' : mergerInto.selection === 'new_company' ? 'New Company' : getEntityInfo(entities, mergerInto.selection)}
                     </ModalDropdownButton>
-                    <MergerIntoChoices
-                        entities={entities}
-                        handleSelectMergerIntoChange={handleSelectMergerIntoChange}
-                        mergerInto={mergerInto}
-                        showMergerIntoDropdown={showMergerIntoDropdown}
-                        targetMergerOfEntity={targetMergerOfEntity}
-                        targetMergerToEntity={targetMergerToEntity}
-                    />
+                    <ModalDropdownContentContainer show={showMergerIntoDropdown ? 1 : 0}>
+                        {targetMergerOfEntity && targetMergerToEntity && renderMergerIntoChoices()}
+                    </ModalDropdownContentContainer>
                 </DropdownInternalContainer>
             </div>
             <ModalAddButtons
