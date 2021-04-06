@@ -4,7 +4,7 @@ import {BasePageContainer} from '../../style/containers'
 
 export const LandingPageContainer = styled(BasePageContainer)`
     justify-content: space-between;
-    padding-top: 50px;
+    overflow-x: hidden;
     overflow-y: auto;
     height: 2510px;
     background: ${props => props.theme.landingBackground};
@@ -14,7 +14,7 @@ export const LandingHeaderContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 75%;
+    width: 1118px;
 `
 
 export const LandingHeaderLinkContainer = styled.div`
@@ -82,8 +82,8 @@ export const LandingTitleContainer = styled.div`
     h1 {
         font-family: ${props => props.theme.spartanFontFamily};
         font-weight: 400;
-        font-size: 40px;
-        line-height: 52px;
+        font-size: 50px;
+        line-height: 65px;
         margin-bottom: 50px;
     }
 
@@ -160,8 +160,17 @@ export const LandingTeamContainer = styled.div`
     width: 1118px;
     height: 709px;
     background: ${props => props.theme.primaryBlue};
-    border-radius: ${props => props.theme.borderRadius};
+    border-radius: 50px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 50px;
+`
+
+export const BackToTopText = styled.span`
+    font-family: ${props => props.theme.spartanFontFamily};
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: none;
 `
