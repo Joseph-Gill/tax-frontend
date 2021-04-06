@@ -49,3 +49,8 @@ export const TooltipRowImage = styled.img`
     width: 5px;
     height: 5px;
 `
+
+export const LoginLogoImg = styled.img`
+    width: 150px;
+    height: 50px;
+`

@@ -6,6 +6,8 @@ export const PASSWORD_RESET = '/password-reset'
 export const PASSWORD_RESET_VALIDATION = '/password-reset-validation'
 export const BACKEND_AUTH_URL = 'auth/token/'
 // Landing Page
+export const LANDING = '/'
+// Home / User Profile Page
 export const HOME = '/home'
 export const USERPROFILE = '/userprofile'
 // Groups
