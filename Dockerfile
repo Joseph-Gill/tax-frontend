@@ -10,5 +10,6 @@ COPY ./yarn.lock /frontend_tmp/
 RUN yarn install --frozen-lockfile
 COPY ./ /frontend_tmp
 RUN yarn build
+#COPY ./licensed_node_modules/@balkangraph /node_modules/@balkangraph
 
 

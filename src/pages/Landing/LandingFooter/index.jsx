@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
-import PrivacyPolicy from '../PrivacyPolicy'
-import TermsConditions from '../TermsConditions'
-import PrivacyTermsModal from '../Modals/PrivacyTermsModal'
-import {LANDING} from '../../routes/paths'
-import {FooterLink, FooterSpan} from '../../style/links'
-import {LoginFooterContainer} from './styles'
+import PrivacyTermsModal from '../../../components/Modals/PrivacyTermsModal'
+import TermsConditions from '../../../components/TermsConditions'
+import PrivacyPolicy from '../../../components/PrivacyPolicy'
+import {LANDING} from '../../../routes/paths'
+import {FooterLink, FooterSpan} from '../../../style/links'
+import {LandingFooterContainer} from './styles'
 
-const LoginFooter = () => {
+
+const LandingFooter = () => {
     const [showHideTermsAndConditions, setShowHideTermsAndConditions] = useState(false)
     const [showHidePrivacyPolicy, setShowHidePrivacyPolicy] = useState(false)
 
@@ -28,13 +29,17 @@ const LoginFooter = () => {
                     <button onClick={() => setShowHidePrivacyPolicy(false)}>Close</button>
                 </PrivacyPolicy>
             </PrivacyTermsModal>
-            <LoginFooterContainer>
-                <FooterSpan onClick={() => setShowHideTermsAndConditions(true)}>Terms & Conditions</FooterSpan>
-                <FooterSpan onClick={() => setShowHidePrivacyPolicy(true)}>Privacy Policy</FooterSpan>
+            <LandingFooterContainer>
+                <FooterSpan onClick={() => setShowHideTermsAndConditions(true)}>
+                    Terms & Conditions
+                </FooterSpan>
+                <FooterSpan onClick={() => setShowHidePrivacyPolicy(true)}>
+                    Privacy Policy
+                </FooterSpan>
                 <FooterLink to={LANDING}>© 2020 Company, Inc</FooterLink>
-            </LoginFooterContainer>
+            </LandingFooterContainer>
         </>
     )
 }
 
-export default LoginFooter
+export default LandingFooter

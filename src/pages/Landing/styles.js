@@ -3,10 +3,10 @@ import {BasePageContainer} from '../../style/containers'
 
 
 export const LandingPageContainer = styled(BasePageContainer)`
-    justify-content: space-between;
+    justify-content: flex-start;
     overflow-x: hidden;
     overflow-y: auto;
-    height: 2510px;
+    min-height: 2510px;
     background: ${props => props.theme.landingBackground};
 `
 
@@ -78,6 +78,7 @@ export const LandingTitleContainer = styled.div`
     align-items: center;
     font-family: ${props => props.theme.spartanFontFamily};
     font-weight: 400;
+    margin-bottom: 100px;
 
     h1 {
         font-family: ${props => props.theme.spartanFontFamily};
@@ -98,6 +99,7 @@ export const LandingAboutContainer = styled.div`
     height: 766px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 100px;
 `
 export const AboutSectionContainer = styled.div`
     width: 540px;
@@ -158,7 +160,7 @@ export const AboutSectionTextContent = styled.p`
 
 export const LandingTeamContainer = styled.div`
     width: 1118px;
-    height: 709px;
+    min-height: 709px;
     background: ${props => props.theme.lightPrimaryBlue};
     border-radius: 50px;
     display: flex;
@@ -166,6 +168,7 @@ export const LandingTeamContainer = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
     padding: 50px;
+    margin-bottom: 100px;
 `
 
 export const BackToTopText = styled.span`
@@ -182,4 +185,12 @@ export const LandingHeaderBar = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 100px;
+`
+
+export const BackToTopContainer = styled.div`
+    display: flex;
+    width: 1118px;
+    justify-content: center;
+    margin-bottom: 100px;
 `

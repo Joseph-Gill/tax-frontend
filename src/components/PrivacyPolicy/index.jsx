@@ -1,17 +1,8 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import {Policy} from './styles'
 
-const Policy = styled.div`
-    color: black;
-    overflow-y: scroll;
-    height: 70vh;
 
-    div {
-      margin-top: 10px;
-    };
-`;
-
-export const PrivacyPolicy = ( { children } ) => {
+const PrivacyPolicy = ( { children } ) => {
   return (
       // eslint-disable-next-line react/no-adjacent-inline-elements
       <Policy>
@@ -62,3 +53,5 @@ export const PrivacyPolicy = ( { children } ) => {
       </Policy>
   );
 };
+
+export default PrivacyPolicy

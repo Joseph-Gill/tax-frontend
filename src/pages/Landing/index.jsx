@@ -1,10 +1,11 @@
 import React from 'react'
 import {HashLink} from 'react-router-hash-link'
 import LandingHeader from './LandingHeader'
+import LandingFooter from './LandingFooter'
 import LandingTeamMembers from './LandingTeamMembers'
 import AboutSectionLowerRow from './AboutSectionLowerRow'
 import AboutSectionUpperRow from './AboutSectionUpperRow'
-import {BackToTopText, LandingAboutContainer, LandingHeaderBar, LandingPageContainer,
+import {BackToTopContainer, BackToTopText, LandingAboutContainer, LandingHeaderBar, LandingPageContainer,
     LandingTitleContainer} from './styles'
 
 
@@ -25,8 +26,10 @@ const Landing = ({history}) => {
                 <AboutSectionLowerRow />
             </LandingAboutContainer>
             <LandingTeamMembers />
-            <HashLink smooth to="#top"><BackToTopText>Back to top</BackToTopText></HashLink>
-            <div>Footer Placeholder</div>
+            <BackToTopContainer>
+                <HashLink smooth to="#top"><BackToTopText>Back to top</BackToTopText></HashLink>
+            </BackToTopContainer>
+            <LandingFooter />
         </LandingPageContainer>
     )
 }

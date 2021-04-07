@@ -4,7 +4,7 @@ import Backdrop from './Backdrop'
 import {ModalWrapper} from './styles'
 
 
-const Modal = ({children, clicked, show}) => {
+const PrivacyTermsModal = ({children, clicked, show}) => {
     return (
         <>
             <Backdrop clicked={clicked} show={show} />
@@ -20,4 +20,4 @@ const Modal = ({children, clicked, show}) => {
     )
 }
 
-export default Modal
+export default PrivacyTermsModal
