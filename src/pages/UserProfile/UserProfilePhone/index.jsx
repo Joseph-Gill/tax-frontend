@@ -1,6 +1,6 @@
 import React from 'react'
 import PhoneInput from 'react-phone-input-2'
-import {ActiveInputLabel} from '../../../style/labels'
+import {TextActiveInputLabel} from '../../../style/labels'
 import {ErrorMessage} from '../../../style/messages'
 import {UserProfileInputErrorContainer} from '../styles'
 
@@ -8,7 +8,7 @@ import {UserProfileInputErrorContainer} from '../styles'
 const UserProfilePhone = ({error ,profileInfo, setProfileInfo}) => {
     return (
         <UserProfileInputErrorContainer>
-            <ActiveInputLabel>Phone</ActiveInputLabel>
+            <TextActiveInputLabel>Phone</TextActiveInputLabel>
             <PhoneInput
                 country='ch'
                 inputClass='profilePhoneInput'

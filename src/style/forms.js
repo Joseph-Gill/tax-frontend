@@ -8,7 +8,6 @@ export const FormBase = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    margin-left: 600px;
     align-items: center;
 `
 export const LoginForm = styled(FormBase)`

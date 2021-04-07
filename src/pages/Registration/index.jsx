@@ -14,7 +14,7 @@ import {BaseInput} from '../../style/inputs'
 import {BaseButton} from '../../style/buttons'
 import {ErrorMessage} from '../../style/messages'
 import {RegistrationForm} from '../../style/forms'
-import {ActiveInputLabel} from '../../style/labels'
+import {TextActiveInputLabel} from '../../style/labels'
 import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
 
 
@@ -61,7 +61,7 @@ const Registration = ({history}) => {
                         />
                         <Title>Registration</Title>
                         <div>
-                            <ActiveInputLabel>Email</ActiveInputLabel>
+                            <TextActiveInputLabel>Email</TextActiveInputLabel>
                             <BaseInput
                                 error={errors.email}
                                 name='email'

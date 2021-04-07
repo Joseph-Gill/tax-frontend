@@ -1,7 +1,7 @@
 import React from 'react'
 import {NameInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
-import {ActiveInputLabel} from '../../../style/labels'
+import {TextActiveInputLabel} from '../../../style/labels'
 import {ErrorMessageContainer} from '../../../style/containers'
 import {NameInputContainer} from './styles'
 
@@ -10,7 +10,7 @@ const RegistrationValidationNameInput = ({error, errors, handleBlur, handleChang
     return (
         <NameInputContainer>
             <div>
-                <ActiveInputLabel htmlFor='first_name'>Firstname</ActiveInputLabel>
+                <TextActiveInputLabel htmlFor='first_name'>Firstname</TextActiveInputLabel>
                 <NameInput
                     error={errors.first_name}
                     name='first_name'
@@ -22,7 +22,7 @@ const RegistrationValidationNameInput = ({error, errors, handleBlur, handleChang
                 />
             </div>
             <div>
-                <ActiveInputLabel htmlFor='last_name'>Lastname</ActiveInputLabel>
+                <TextActiveInputLabel htmlFor='last_name'>Lastname</TextActiveInputLabel>
                 <NameInput
                     error={errors.last_name}
                     name='last_name'

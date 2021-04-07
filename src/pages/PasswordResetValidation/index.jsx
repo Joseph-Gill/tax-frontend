@@ -13,7 +13,7 @@ import {LOGIN} from '../../routes/paths'
 import {Title} from "../../style/titles"
 import {BaseInput} from "../../style/inputs"
 import {BaseButton} from "../../style/buttons"
-import {ActiveInputLabel} from '../../style/labels'
+import {TextActiveInputLabel} from '../../style/labels'
 import {ErrorMessage} from "../../style/messages"
 import {PasswordResetValidationForm} from '../../style/forms'
 import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
@@ -75,7 +75,7 @@ const PasswordResetValidation = ({history}) => {
                               />
                               <Title>Create New Password</Title>
                               <div>
-                                  <ActiveInputLabel>Password</ActiveInputLabel>
+                                  <TextActiveInputLabel>Password</TextActiveInputLabel>
                                   <BaseInput
                                       error={errors.password}
                                       name='password'
@@ -91,7 +91,7 @@ const PasswordResetValidation = ({history}) => {
                                   {errors.password && touched.password && <ErrorMessage>{errors.password}</ErrorMessage>}
                               </ErrorMessageContainer>
                               <div>
-                                  <ActiveInputLabel>Password</ActiveInputLabel>
+                                  <TextActiveInputLabel>Password</TextActiveInputLabel>
                                   <BaseInput
                                       error={errors.password_repeat}
                                       name='password_repeat'

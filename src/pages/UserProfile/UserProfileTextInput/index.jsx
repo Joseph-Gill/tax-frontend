@@ -2,13 +2,13 @@ import React from 'react'
 import {UserProfileInputErrorContainer} from '../styles'
 import {BaseInput} from '../../../style/inputs'
 import {ErrorMessage} from '../../../style/messages'
-import {ActiveInputLabel} from '../../../style/labels'
+import {TextActiveInputLabel} from '../../../style/labels'
 
 
 const UserProfileTextInput = ({error, label, name, placeholder, profileInfo, setProfileInfo, type}) => {
     return (
         <UserProfileInputErrorContainer>
-            <ActiveInputLabel>{label}</ActiveInputLabel>
+            <TextActiveInputLabel>{label}</TextActiveInputLabel>
             <BaseInput
                 name={name}
                 onChange={e => setProfileInfo({...profileInfo, [name]: e.target.value})}

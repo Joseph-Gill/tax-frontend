@@ -17,7 +17,7 @@ import {BaseInput} from '../../style/inputs'
 import {BaseButton} from '../../style/buttons'
 import {ErrorMessage} from '../../style/messages'
 import {RegistrationValidationForm} from '../../style/forms'
-import {EmailInputLabel, ActiveInputLabel} from '../../style/labels'
+import {EmailInputLabel, TextActiveInputLabel} from '../../style/labels'
 import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
 import 'react-phone-input-2/lib/style.css'
 import {PasswordErrorMessageContainer} from './styles'
@@ -110,7 +110,7 @@ const RegistrationValidation = ({history}) => {
                               </div>
                               <ErrorMessageContainer />
                               <div>
-                                  <ActiveInputLabel>Phone</ActiveInputLabel>
+                                  <TextActiveInputLabel>Phone</TextActiveInputLabel>
                                   <PhoneInput
                                       country='ch'
                                       inputClass='profilePhoneInput'
@@ -129,7 +129,7 @@ const RegistrationValidation = ({history}) => {
                                   {error && <ErrorMessage>{error.phone_number}</ErrorMessage>}
                               </ErrorMessageContainer>
                               <div>
-                                  <ActiveInputLabel>Password</ActiveInputLabel>
+                                  <TextActiveInputLabel>Password</TextActiveInputLabel>
                                   <BaseInput
                                       error={errors.password}
                                       name='password'
@@ -145,7 +145,7 @@ const RegistrationValidation = ({history}) => {
                                   {errors.password && touched.password && <ErrorMessage>{errors.password}</ErrorMessage>}
                               </PasswordErrorMessageContainer>
                               <div>
-                                  <ActiveInputLabel>Password Repeat</ActiveInputLabel>
+                                  <TextActiveInputLabel>Password Repeat</TextActiveInputLabel>
                                   <BaseInput
                                       error={errors.password_repeat}
                                       name='password_repeat'
@@ -161,7 +161,7 @@ const RegistrationValidation = ({history}) => {
                                   {errors.password_repeat && touched.password_repeat && <ErrorMessage>{errors.password_repeat}</ErrorMessage>}
                               </ErrorMessageContainer>
                               <div>
-                                  <ActiveInputLabel>Country</ActiveInputLabel>
+                                  <TextActiveInputLabel>Country</TextActiveInputLabel>
                                   <CountryDropdown
                                       classes='profileCountryDropdown'
                                       onChange={(val) => setCountryName(val)}

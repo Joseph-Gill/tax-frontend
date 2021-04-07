@@ -14,7 +14,7 @@ import {ErrorMessage} from '../../style/messages'
 import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
 import {LoginForm} from '../../style/forms'
 import {BaseInput} from '../../style/inputs'
-import {ActiveInputLabel} from '../../style/labels'
+import {TextActiveInputLabel} from '../../style/labels'
 
 
 const Login = ({history}) => {
@@ -59,7 +59,7 @@ const Login = ({history}) => {
                         />
                         <Title>Login</Title>
                         <div>
-                            <ActiveInputLabel>Email</ActiveInputLabel>
+                            <TextActiveInputLabel>Email</TextActiveInputLabel>
                             <BaseInput
                                 error={errors.email}
                                 name="email"
@@ -74,7 +74,7 @@ const Login = ({history}) => {
                             {errors.email && touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
                         </ErrorMessageContainer>
                         <div>
-                            <ActiveInputLabel>Password</ActiveInputLabel>
+                            <TextActiveInputLabel>Password</TextActiveInputLabel>
                             <BaseInput
                                 error={errors.password}
                                 name="password"
