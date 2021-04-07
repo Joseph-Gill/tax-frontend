@@ -23,7 +23,7 @@ import 'react-phone-input-2/lib/style.css'
 import {PasswordErrorMessageContainer} from './styles'
 
 
-const RegistrationValidation = () => {
+const RegistrationValidation = ({history}) => {
     const dispatch = useDispatch()
     const email = useUrlQueryParams('email')
     const code = useUrlQueryParams('code')
@@ -86,7 +86,9 @@ const RegistrationValidation = () => {
                 {({values, errors, touched, handleChange,
                       handleBlur, handleSubmit, isSubmitting}) => (
                           <RegistrationValidationForm onSubmit={handleSubmit}>
-                              <LoginLogo />
+                              <LoginLogo
+                                  history={history}
+                              />
                               <Title>Register</Title>
                               <RegistrationValidationNameInput
                                   error={error}

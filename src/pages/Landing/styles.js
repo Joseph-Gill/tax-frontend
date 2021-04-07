@@ -159,7 +159,7 @@ export const AboutSectionTextContent = styled.p`
 export const LandingTeamContainer = styled.div`
     width: 1118px;
     height: 709px;
-    background: ${props => props.theme.primaryBlue};
+    background: ${props => props.theme.lightPrimaryBlue};
     border-radius: 50px;
     display: flex;
     flex-direction: column;
@@ -173,4 +173,13 @@ export const BackToTopText = styled.span`
     font-size: 12px;
     font-weight: 400;
     text-decoration: none;
+`
+
+export const LandingHeaderBar = styled.div`
+    width: 100vw;
+    height: 100px;
+    background: ${props => props.theme.grayFour};
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `

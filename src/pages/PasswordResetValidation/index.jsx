@@ -19,7 +19,7 @@ import {PasswordResetValidationForm} from '../../style/forms'
 import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
 
 
-const PasswordResetValidation = () => {
+const PasswordResetValidation = ({history}) => {
     const dispatch = useDispatch()
     const email = useUrlQueryParams("email")
     const code = useUrlQueryParams("code")
@@ -70,7 +70,9 @@ const PasswordResetValidation = () => {
                 {({values, errors, touched, handleChange,
                       handleBlur, handleSubmit, isSubmitting}) => (
                           <PasswordResetValidationForm onSubmit={handleSubmit}>
-                              <LoginLogo />
+                              <LoginLogo
+                                  history={history}
+                              />
                               <Title>Create New Password</Title>
                               <div>
                                   <ActiveInputLabel>Password</ActiveInputLabel>

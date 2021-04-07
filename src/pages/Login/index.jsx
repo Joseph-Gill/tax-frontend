@@ -18,8 +18,7 @@ import {BaseInput} from '../../style/inputs'
 import {ActiveInputLabel} from '../../style/labels'
 
 
-const Login = () => {
-    const history = useHistory()
+const Login = ({history}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
 
@@ -56,7 +55,9 @@ const Login = () => {
                 {({values, errors, touched, handleChange,
                 handleBlur, handleSubmit, isSubmitting,}) => (
                     <LoginForm onSubmit={handleSubmit}>
-                        <LoginLogo />
+                        <LoginLogo
+                            history={history}
+                        />
                         <Title>Login</Title>
                         <div>
                             <ActiveInputLabel>Email</ActiveInputLabel>

@@ -53,4 +53,8 @@ export const TooltipRowImage = styled.img`
 export const LoginLogoImg = styled.img`
     width: 150px;
     height: 50px;
+
+    :hover {
+        cursor: pointer;
+    }
 `

@@ -193,6 +193,7 @@ export const defaultTheme = {
     inputErrorRed: '#FF605C',
     landingBackground: '#F9FCFE',
     iconHoverBackground: 'rgba(211, 216, 221, .5)',
+    lightPrimaryBlue: '#80B7CF',
     // Box Shadows
     boxShadow: '0px 0px 20px #EFEFEF',
     buttonBoxShadow: '0 4px 10px rgba(0, 112, 159, 0.24)',

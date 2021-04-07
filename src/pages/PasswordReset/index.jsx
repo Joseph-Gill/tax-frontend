@@ -18,7 +18,7 @@ import {ActiveInputLabel} from '../../style/labels'
 import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
 
 
-const PasswordReset = () => {
+const PasswordReset = ({history}) => {
     const dispatch = useDispatch()
     const error = useSelector(state => state.errorReducer.error)
     const [showSuccess, setShowSuccess] = useState(false)
@@ -57,7 +57,9 @@ const PasswordReset = () => {
                 {({values, errors, touched, handleChange,
                       handleBlur, handleSubmit, isSubmitting}) => (
                           <ResetPasswordForm onSubmit={handleSubmit}>
-                              <LoginLogo />
+                              <LoginLogo
+                                  history={history}
+                              />
                               <Title>Forgot Your Password?</Title>
                               <div>
                                   <ActiveInputLabel>Email</ActiveInputLabel>

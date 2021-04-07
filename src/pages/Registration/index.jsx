@@ -18,7 +18,7 @@ import {ActiveInputLabel} from '../../style/labels'
 import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
 
 
-const Registration = () => {
+const Registration = ({history}) => {
     const [showSuccess, setShowSuccess] = useState(false)
     const error = useSelector(state => state.errorReducer.error)
     const dispatch = useDispatch()
@@ -56,7 +56,9 @@ const Registration = () => {
                 {({values, errors, touched, handleChange,
                 handleBlur, handleSubmit, isSubmitting,}) => (
                     <RegistrationForm onSubmit={handleSubmit}>
-                        <LoginLogo />
+                        <LoginLogo
+                            history={history}
+                        />
                         <Title>Registration</Title>
                         <div>
                             <ActiveInputLabel>Email</ActiveInputLabel>
