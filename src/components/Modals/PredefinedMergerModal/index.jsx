@@ -53,7 +53,7 @@ const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEnti
                 if (parseInt(entity.id) === parseInt(targetEntity.pid)) {
                     return true
                 // Sister entities of targetMergerOfEntity
-                } else if (parseInt(entity.pid) === parseInt(targetEntity.pid)) {
+                } else if (parseInt(entity.pid) === parseInt(targetEntity.pid) && parseInt(entity.id) !== parseInt(targetEntity.id)) {
                     return true
                 // Direct children of targetMergerOfEntity
                 } else {
