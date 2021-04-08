@@ -6,7 +6,7 @@ const TermsConditions = ( { children } ) => {
     return (
         // eslint-disable-next-line react/no-adjacent-inline-elements
         <TermsAndConditions>
-            This is the Stark Terms and Conditions<br /><br />
+            This is the Tax Cheetah Terms and Conditions<br /><br />
 
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium sapien vel elit consequat, quis luctus mi
             lobortis. Duis malesuada consectetur libero eu cursus. Ut ac rhoncus mi. Class aptent taciti sociosqu ad litora torquent

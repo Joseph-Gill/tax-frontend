@@ -6,7 +6,7 @@ const PrivacyPolicy = ( { children } ) => {
   return (
       // eslint-disable-next-line react/no-adjacent-inline-elements
       <Policy>
-          This is the Stark Privacy Policy<br /><br />
+          This is the Tax Cheetah Privacy Policy<br /><br />
 
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium sapien vel elit consequat, quis luctus mi
           lobortis. Duis malesuada consectetur libero eu cursus. Ut ac rhoncus mi. Class aptent taciti sociosqu ad litora torquent
