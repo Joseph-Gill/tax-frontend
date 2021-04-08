@@ -167,7 +167,7 @@ export const LandingTeamContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 50px;
+    padding: 50px 50px 0 50px;
     margin-bottom: 100px;
 `
 

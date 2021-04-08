@@ -10,14 +10,12 @@ export const LandingTeamTitle = styled.span`
     margin-bottom: 50px;
 `
 
-export const LandingTeamMemberContainer = styled.div`
+export const LandingTeamMembersRow = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 50px;
-    grid-row-gap: 50px;
-    grid-auto-rows: auto;
+    margin-bottom: 50px;
 `
 
 export const TeamMemberCardContainer = styled.div`

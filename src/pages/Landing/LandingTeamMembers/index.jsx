@@ -5,14 +5,14 @@ import josephProfile from '../../../assets/profiles/tax_cheetah_joseph_profile.p
 import laurentProfile from '../../../assets/profiles/tax_cheetah_laurent_profile.jpg'
 import danieleProfile from '../../../assets/profiles/tax_cheetah_daniele_profile.jpg'
 import {LandingTeamContainer} from '../styles'
-import {LandingTeamMemberContainer, LandingTeamTitle} from './styles'
+import {LandingTeamMembersRow, LandingTeamTitle} from './styles'
 
 
 const LandingTeamMembers = () => {
     return (
         <LandingTeamContainer id='team'>
             <LandingTeamTitle>Our Team</LandingTeamTitle>
-            <LandingTeamMemberContainer>
+            <LandingTeamMembersRow>
                 <TeamMemberCard
                     description='Prior to founding Tax Cheetah, Alain worked for EY in Zurich and New York advising corporate groups in Swiss and international tax matters.
                             Alain is a Swiss tax expert and a Swiss CPA. Besides tax and finance, his passion was always technology. This led him to Propulsion Academy where
@@ -32,6 +32,8 @@ const LandingTeamMembers = () => {
                     position='Software Developer Consultant'
                     profilePicture={josephProfile}
                 />
+            </LandingTeamMembersRow>
+            <LandingTeamMembersRow>
                 <TeamMemberCard
                     description='Ever since his childhood, Laurent has lived and breathed IT and entrepreneurship. His passion is to educate the world in the most advanced
                             IT technologies, filling the gap between the enormous demands for experts in the coming decades. He is adamant that many talented, dedicated people
@@ -50,7 +52,7 @@ const LandingTeamMembers = () => {
                     position='Advisor'
                     profilePicture={danieleProfile}
                 />
-            </LandingTeamMemberContainer>
+            </LandingTeamMembersRow>
         </LandingTeamContainer>
     )
 }
