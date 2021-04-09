@@ -501,6 +501,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 />}
             {showPredefinedMerger &&
                 <PredefinedMergerModal
+                    availableParentNames={availableParentNames}
                     countryName={countryName}
                     entities={entitiesToRender}
                     error={error}

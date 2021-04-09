@@ -18,7 +18,7 @@ const PredefinedMergerRight = ({countryName, error, legalForm, newEntityInfo, se
                 <ModalInput
                     changeHandler={(e) => setNewEntityInfo({...newEntityInfo, entityName: e.target.value})}
                     error={error}
-                    errorLocation={error.newCompanyName}
+                    errorLocation={error.entityName}
                     label='New company name'
                     name='new_company_name'
                     placeholder='Enter new company name'
@@ -30,7 +30,7 @@ const PredefinedMergerRight = ({countryName, error, legalForm, newEntityInfo, se
                 <EntityLocationDropdown
                     changeHandler={(val) => setCountryName(val)}
                     error={error}
-                    errorLocation={error.newCompanyCountryName}
+                    errorLocation={error.entityCountryName}
                     value={countryName}
                 />
             </FadeInContainerDelay>

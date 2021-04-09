@@ -96,6 +96,9 @@ const PredefinedMergerLeft = ({availableMergerToEntities, entities, error, filte
                         {targetMergerOfEntity && targetMergerToEntity && renderMergerIntoChoices()}
                     </ModalDropdownContentContainer>
                 </DropdownInternalContainer>
+                <EntityErrorContainer>
+                    {error && <ErrorMessage>{error.mergerInto}</ErrorMessage>}
+                </EntityErrorContainer>
             </div>
             <ModalAddButtons
                 cancelHandler={handleCancelButton}
