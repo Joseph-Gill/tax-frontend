@@ -11,8 +11,8 @@ import {CompleteMergerModalContainer} from './styles'
 import {ModalDropdownContent} from '../../Dropdowns/styles'
 
 
-const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEntityInfo, saveNewEntityHandler,
-                                   saveMultipleLinksHandler, setCountryName, setEntitiesToRender, setLegalForm,
+const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEntityInfo, removeEntityHandler, saveNewEntityHandler,
+                                   saveMultipleLinksHandler, saveNewLinkHandler, setCountryName, setEntitiesToRender, setLegalForm,
                                    setNewEntityInfo, setShowPredefinedMerger, showPredefinedMerger}) => {
 
     const dispatch = useDispatch()
@@ -32,8 +32,6 @@ const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEnti
     const [targetMergerToEntity, setTargetMergerToEntity] = useState('')
     const [showExpanded, setShowExpanded] = useState(false)
     const [mergerInto, setMergerInto] = useState({
-        companyOf: false,
-        companyTo: false,
         newCompanyAvailable: false,
         selection: ''
     })
@@ -154,31 +152,41 @@ const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEnti
 
     const handleSaveButton = async () => {
         if (mergerInto.selection === 'new_company') {
+            //Create the new company entity with the data store in newEntityInfo
             const response = await saveNewEntityHandler()
             if (response.status === 201 || response.status === 200) {
+                //Access the returned array of entities
                 const responseArray = JSON.parse(response.data.nodes)
+                //Find the new company within the array of entities
                 const newCompany = responseArray.find(entity => entity.name === newEntityInfo.entityName && entity.location === countryName)
+                //Highlight all descendants of the mergerOf entity with add highlighting
                 findAllDescendantsOfTargetEntity(responseArray, targetMergerOfEntity).forEach(entity => {
                     const entityTag = highlightTagForAddEntity(entity.legal_form)
                     if (entityTag) {
                         entity.tags = [entityTag]
                     }
                 })
+                //Highlight all descendants of the mergerTo entity with add highlighting
                 findAllDescendantsOfTargetEntity(responseArray, targetMergerToEntity).forEach(entity => {
                     const entityTag = highlightTagForAddEntity(entity.legal_form)
                     if (entityTag) {
                         entity.tags = [entityTag]
                     }
                 })
+                //Change the parent of all direct children of mergerOf entity to the new company
                 sortedDirectChildrenOfEntity(responseArray, targetMergerOfEntity).forEach(entity => entity.pid = newCompany.id.toString())
+                //Change the parent of all direct children of mergerTo entity to the new company
                 sortedDirectChildrenOfEntity(responseArray, targetMergerToEntity).forEach(entity => entity.pid = newCompany.id.toString())
+                //Highlight both mergerOf entity and mergerTo entity with delete highlighting
                 responseArray.forEach(entity => {
                     if (parseInt(entity.id) === parseInt(targetMergerToEntity) || parseInt(entity.id) === parseInt(targetMergerOfEntity)) {
                         entity.tags = [highlightTagForDeleteEntity(entity.legal_form)]
                         entity.remove = true
                     }
                 })
+                //Set the modified array of entities into local state
                 setEntitiesToRender([...responseArray])
+                //Create the CLinks that link from the deleted entities to the new company
                 const mergerLinks = [{
                     from: targetMergerOfEntity,
                     to: newCompany.id,
@@ -193,11 +201,49 @@ const PredefinedMergerModal = ({countryName, entities, error, legalForm, newEnti
                     label: 'Merger',
                     color: 'orange'
                 }]
+                //Save the CLinks
                 saveMultipleLinksHandler(mergerLinks, responseArray)
             }
-        // else - it is a merger into targetMergerOf or targetMergerTo
         } else {
-            return false
+            // Figure out which entity is being deleted and which is being merged into
+            let deletedEntity, mergedEntity;
+            if (parseInt(targetMergerOfEntity) === parseInt(mergerInto.selection)) {
+                deletedEntity = getEntityFromId(targetMergerToEntity, entities)
+                mergedEntity = getEntityFromId(targetMergerOfEntity, entities)
+            } else {
+                deletedEntity = getEntityFromId(targetMergerOfEntity, entities)
+                mergedEntity = getEntityFromId(targetMergerToEntity, entities)
+            }
+            //Change the deleted entity to have delete highlighting and remove = true
+            const response = await removeEntityHandler(entities, deletedEntity.id)
+            if (response.status === 201 || response.status === 200) {
+                //Access the returned array of entities
+                const responseArray = JSON.parse(response.data.nodes)
+                //Check if the parent of merged entity needs to be changed, this happens if the merged entity is a child of the deleted entity
+                if (parseInt(mergedEntity.pid) === parseInt(deletedEntity.id)) {
+                    const targetEntityIndex = responseArray.findIndex(entity => parseInt(mergedEntity.id) === parseInt(entity.id))
+                    responseArray[targetEntityIndex].pid = deletedEntity.pid
+                }
+                //Change the descendants of deleted entity to be the descendants of the merged entity, give them all add highlighting
+                findAllDescendantsOfTargetEntity(responseArray, deletedEntity.id).forEach(entity => {
+                    const entityTag = highlightTagForAddEntity(entity.legal_form)
+                    if (entityTag) {
+                        entity.tags = [entityTag]
+                    }
+                })
+                sortedDirectChildrenOfEntity(responseArray, deletedEntity.id).forEach(entity => entity.pid = mergedEntity.id)
+                //Set the modified array of entities into local state
+                setEntitiesToRender([...responseArray])
+                //Create a CLink between deleted entity and kept entity with label merger
+                const mergerLink = {
+                    from: deletedEntity.id,
+                    to: mergedEntity.id,
+                    type: 'clink',
+                    label: 'Merger',
+                    color: 'orange'
+                }
+                saveNewLinkHandler(mergerLink, responseArray, true)
+            }
         }
         setShowPredefinedMerger(false)
     }

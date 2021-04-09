@@ -266,12 +266,13 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             slinks: JSON.stringify(slinks),
             clinks: JSON.stringify(clinks)
         }
-        createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+        const response = createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
         setEntitiesToRender(newEntitiesToRender)
         setAvailableParentNames(createAvailableParentNamesWithoutDeletes(newEntitiesToRender))
         setEntityToRemove('')
         setShowRemoveEntity(false)
         setStepChartExists(true)
+        return response
     }
 
     const saveEditEntityHandler = async (editEntityInfo, countryName, legalForm) => {
@@ -505,6 +506,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     error={error}
                     legalForm={legalForm}
                     newEntityInfo={newEntityInfo}
+                    removeEntityHandler={removeEntityHandler}
                     saveMultipleLinksHandler={saveMultipleLinksHandler}
                     saveNewEntityHandler={saveNewEntityHandler}
                     saveNewLinkHandler={saveNewLinkHandler}
