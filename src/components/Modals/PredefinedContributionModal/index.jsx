@@ -126,9 +126,9 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
             dispatch(setError({contributedAssets: 'You must choose the type of assets contributed.'}))
             return true
         } else if (contributedAssets === 'other assets' && !otherAssetsLabel) {
-            dispatch(setError({contributedOtherAssets: 'You must specify what assets are being contributed.'}))
+            dispatch(setError({contributedOtherAssets: 'You must specify what other assets are being contributed.'}))
             return true
-        } else if (contributedAssets !== 'other assets' && !targetParticipant) {
+        } else if (contributedAssets && !targetParticipant) {
             dispatch(setError({participant: 'You must choose an entity to be the participant.'}))
             return true
         } else {

@@ -11,7 +11,7 @@ import IntercompanySaleBuyerSelect from './IntercompanySaleBuyerSelect'
 import IntercompanySaleSellerSelect from './IntercompanySaleSellerSelect'
 import IntercompanySaleMarketValueSelect from './IntercompanySaleMarketValueSelect'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {getEntityFromId, sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
@@ -98,48 +98,77 @@ const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler
         setShowPredefinedIntercompanySale(false)
     }
 
-    const handleSaveButton = async () => {
-        if (soldAssets === 'other assets') {
-            const assetLink = {
-                from: targetSeller,
-                to: targetBuyer,
-                type: 'clink',
-                label: `Sale of ${otherAssetsLabel}`,
-                color: 'orange'
-            }
-            saveNewLinkHandler(assetLink, entities)
-        } else if (soldAssets === 'business') {
-            const businessLink = {
-                from: targetSeller,
-                to: targetBuyer,
-                type: 'clink',
-                label: `Sale of ${businessAssetsLabel}`,
-                color: 'orange'
-            }
-            saveNewLinkHandler(businessLink, entities)
+    const intercompanySaleErrorHandler = () => {
+        if (!targetSeller) {
+            dispatch(setError({seller: 'You must choose an entity to be the seller.'}))
+            return true
+        } else if (!targetBuyer) {
+            dispatch(setError({buyer: 'You must choose an entity to be the buyer.'}))
+            return true
+        } else if (!soldAssets) {
+            dispatch(setError({distributedAssets: 'You must choose the type of assets distributed.'}))
+            return true
+        } else if (soldAssets === 'other assets' && !otherAssetsLabel) {
+            dispatch(setError({soldOtherAssets: 'You must specify what other assets are being sold.'}))
+            return true
+        } else if (soldAssets === 'business' && !businessAssetsLabel) {
+            dispatch(setError({soldBusinessAssets: 'You must specify what business assets are being sold.'}))
+            return true
+        } else if (soldAssets && !targetParticipant) {
+            dispatch(setError({participant: 'You must choose an entity to be the participant.'}))
+            return true
         } else {
-            //Edit participant pid to be buyerId
-            const participant = getEntityFromId(targetParticipant, entities)
-            const editParticipantInfo = {
-                entitySelected: true,
-                entityName: participant.name,
-                parentId: targetBuyer,
-                taxRate: participant.tax_rate,
-                entityToEditId: participant.id
-            }
-            const participantLink = {
-                from: targetSeller,
-                to: targetBuyer,
-                type: 'clink',
-                label: 'Sale of shares',
-                color: 'orange'
-            }
-            const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
-            if (response.status === 201 || response.status === 200) {
-                saveNewLinkHandler(participantLink, entities, true)
-            }
+            return false
         }
-        setShowPredefinedIntercompanySale(false)
+    }
+
+    const handleSaveButton = async () => {
+        dispatch(resetErrors())
+        //Handles input validation for intercompany sale modal
+        const error = intercompanySaleErrorHandler()
+        if (!error) {
+            if (soldAssets === 'other assets') {
+                const assetLink = {
+                    from: targetSeller,
+                    to: targetBuyer,
+                    type: 'clink',
+                    label: `Sale of ${otherAssetsLabel}`,
+                    color: 'orange'
+                }
+                saveNewLinkHandler(assetLink, entities)
+            } else if (soldAssets === 'business') {
+                const businessLink = {
+                    from: targetSeller,
+                    to: targetBuyer,
+                    type: 'clink',
+                    label: `Sale of ${businessAssetsLabel}`,
+                    color: 'orange'
+                }
+                saveNewLinkHandler(businessLink, entities)
+            } else {
+                //Edit participant pid to be buyerId
+                const participant = getEntityFromId(targetParticipant, entities)
+                const editParticipantInfo = {
+                    entitySelected: true,
+                    entityName: participant.name,
+                    parentId: targetBuyer,
+                    taxRate: participant.tax_rate,
+                    entityToEditId: participant.id
+                }
+                const participantLink = {
+                    from: targetSeller,
+                    to: targetBuyer,
+                    type: 'clink',
+                    label: 'Sale of shares',
+                    color: 'orange'
+                }
+                const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
+                if (response.status === 201 || response.status === 200) {
+                    saveNewLinkHandler(participantLink, entities, true)
+                }
+            }
+            setShowPredefinedIntercompanySale(false)
+        }
     }
 
     return (

@@ -106,15 +106,15 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
             dispatch(setError({recipient: 'You must choose an entity to be the recipient.'}))
             return true
         } else if (!distributedAssets) {
-            dispatch(setError({distributedAssets: 'You must choose the type of assets distributred.'}))
+            dispatch(setError({distributedAssets: 'You must choose the type of assets distributed.'}))
             return true
         } else if (distributedAssets === 'other assets' && !otherAssetsLabel) {
-            dispatch(setError({distributedOtherAssets: 'You must specify what assets are being distributed.'}))
+            dispatch(setError({distributedOtherAssets: 'You must specify what other assets are being distributed.'}))
             return true
         } else if (distributedAssets === 'business' && !businessAssetsLabel) {
-            dispatch(setError({distributedBusinessAssets: 'You must specify what assets are being distributed.'}))
+            dispatch(setError({distributedBusinessAssets: 'You must specify what business assets are being distributed.'}))
             return true
-        } else if (distributedAssets !== 'other assets' && !targetParticipant) {
+        } else if (distributedAssets && !targetParticipant) {
             dispatch(setError({participant: 'You must choose an entity to be the participant.'}))
             return true
         } else {
@@ -124,6 +124,8 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
 
 
     const handleSaveButton = async () => {
+        dispatch(resetErrors())
+        //Handles input validation for distribution modal
         const error = distributionModalErrorHandler()
         if (!error) {
             if (distributedAssets === 'other assets') {
