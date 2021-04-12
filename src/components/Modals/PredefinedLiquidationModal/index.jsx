@@ -6,7 +6,7 @@ import ModalClose from '../ModalComponents/ModalClose'
 import LiquidatedEntitySelect from './LiquidatedEntitySelect'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {getEntityFromId, sortedNonUltimateEntities} from '../../../helpers'
 import {PredefinedLiquidationInternalContainer} from './styles'
 
@@ -39,18 +39,33 @@ const PredefinedLiquidationModal = ({entities, error, removeEntityHandler, setEn
         setShowPredefinedLiquidation(false)
     }
 
+    const liquidationModalErrorHandler = () => {
+        if (!targetLiquidated) {
+            dispatch(setError({liquidated: 'You must choose an entity to be liquidated.'}))
+            return true
+        } else {
+            return false
+        }
+    }
+
     const handleSaveButton = () => {
-        //Change all direct children of liquidatedId to have pid equal to liquidatedId's pid
-        const liquidatedEntity = getEntityFromId(targetLiquidated, entities)
-        entities.forEach(entity => {
-            if (parseInt(entity.pid) === parseInt(targetLiquidated)) {
-                entity.pid = liquidatedEntity.pid.toString()
-            }
-        })
-        setEntitiesToRender([...entities])
-        //Remove liquidatedId
-        removeEntityHandler(entities, targetLiquidated)
-        setShowPredefinedLiquidation(false)
+        dispatch(resetErrors())
+        //Handles input validation for liquidation modal
+        const error = liquidationModalErrorHandler()
+        if (!error) {
+            //Change all direct children of liquidatedId to have pid equal to liquidatedId's pid
+            const liquidatedEntity = getEntityFromId(targetLiquidated, entities)
+            entities.forEach(entity => {
+                if (parseInt(entity.pid) === parseInt(targetLiquidated)) {
+                    entity.pid = liquidatedEntity.pid.toString()
+                }
+            })
+            setEntitiesToRender([...entities])
+            //Remove liquidatedId
+            removeEntityHandler(entities, targetLiquidated)
+            setShowPredefinedLiquidation(false)
+        }
+
     }
 
     return (

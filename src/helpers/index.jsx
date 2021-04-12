@@ -430,9 +430,9 @@ export const sortedDirectChildrenOfEntity = (arrayOfEntities, parentId) => {
     return sortEntitiesByName(arrayOfEntities.filter(entity => parseInt(entity.pid) === parseInt(parentId)))
 }
 
-//Used by predefined Modals to find all entities that aren't the Ultimate entity
+//Used by predefined Modals to find all entities that aren't the Ultimate entity and not delete highlighted
 export const sortedNonUltimateEntities = (arrayOfEntities) => {
-    return sortEntitiesByName(arrayOfEntities.filter(entity => entity.pid && entity.pid !== 'Ultimate'))
+    return sortEntitiesByName(arrayOfEntities.filter(entity => entity.pid && entity.pid !== 'Ultimate' && !entity.remove))
 }
 
 //Used by predefined Modals to find out if entities are sister entities
