@@ -32,7 +32,7 @@ const PredefinedAssetsDropdown = ({assetsChoice, disabled, error, handleSelectAs
                 />
             </DropdownInternalContainer>
             <EntityErrorContainer>
-                {error && <ErrorMessage>{error.assets}</ErrorMessage>}
+                {error && <ErrorMessage>{error.distributedAssets}</ErrorMessage>}
             </EntityErrorContainer>
         </div>
     )

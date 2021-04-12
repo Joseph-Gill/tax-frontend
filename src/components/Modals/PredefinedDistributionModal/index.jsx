@@ -10,7 +10,7 @@ import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import PredefinedAssetsDropdown from '../../Dropdowns/PredefinedAssetsDropdown'
 import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {getEntityFromId, sortedDirectChildrenOfEntity, sortedNonUltimateEntities} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
@@ -98,47 +98,75 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
         setShowPredefinedDistribution(false)
     }
 
-    const handleSaveButton = async () => {
-        if (distributedAssets === 'other assets') {
-            const assetLink = {
-                from: targetDistributor,
-                to: targetRecipient,
-                type: 'clink',
-                label: `Distribution of ${otherAssetsLabel}`,
-                color: 'orange'
-            }
-            saveNewLinkHandler(assetLink, entities)
-        } else if (distributedAssets === 'business') {
-            const businessLink = {
-                from: targetDistributor,
-                to: targetRecipient,
-                type: 'clink',
-                label: `Distribution of ${businessAssetsLabel}`,
-                color: 'orange'
-            }
-            saveNewLinkHandler(businessLink, entities)
+    const distributionModalErrorHandler = () => {
+        if (!targetDistributor) {
+            dispatch(setError({distributor: 'You must choose an entity to distribute from.'}))
+            return true
+        } else if (!targetRecipient) {
+            dispatch(setError({recipient: 'You must choose an entity to be the recipient.'}))
+            return true
+        } else if (!distributedAssets) {
+            dispatch(setError({distributedAssets: 'You must choose the type of assets distributred.'}))
+            return true
+        } else if (distributedAssets === 'other assets' && !otherAssetsLabel) {
+            dispatch(setError({distributedOtherAssets: 'You must specify what assets are being distributed.'}))
+            return true
+        } else if (distributedAssets === 'business' && !businessAssetsLabel) {
+            dispatch(setError({distributedBusinessAssets: 'You must specify what assets are being distributed.'}))
+            return true
+        } else if (distributedAssets !== 'other assets' && !targetParticipant) {
+            dispatch(setError({participant: 'You must choose an entity to be the participant.'}))
+            return true
         } else {
-            const participant = getEntityFromId(targetParticipant, entities)
-            const editParticipantInfo = {
-                entitySelected: true,
-                entityName: participant.name,
-                parentId: targetRecipient,
-                taxRate: participant.tax_rate,
-                entityToEditId: participant.id
-            }
-            const participationLink = {
-                from: targetDistributor,
-                to: targetRecipient,
-                type: 'clink',
-                label: 'Distribution of Shares',
-                color: 'orange'
-            }
-            const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
-            if (response.status === 201 || response.status === 200) {
-                saveNewLinkHandler(participationLink, entities, true)
-            }
+            return false
         }
-        setShowPredefinedDistribution(false)
+    }
+
+
+    const handleSaveButton = async () => {
+        const error = distributionModalErrorHandler()
+        if (!error) {
+            if (distributedAssets === 'other assets') {
+                const assetLink = {
+                    from: targetDistributor,
+                    to: targetRecipient,
+                    type: 'clink',
+                    label: `Distribution of ${otherAssetsLabel}`,
+                    color: 'orange'
+                }
+                saveNewLinkHandler(assetLink, entities)
+            } else if (distributedAssets === 'business') {
+                const businessLink = {
+                    from: targetDistributor,
+                    to: targetRecipient,
+                    type: 'clink',
+                    label: `Distribution of ${businessAssetsLabel}`,
+                    color: 'orange'
+                }
+                saveNewLinkHandler(businessLink, entities)
+            } else {
+                const participant = getEntityFromId(targetParticipant, entities)
+                const editParticipantInfo = {
+                    entitySelected: true,
+                    entityName: participant.name,
+                    parentId: targetRecipient,
+                    taxRate: participant.tax_rate,
+                    entityToEditId: participant.id
+                }
+                const participationLink = {
+                    from: targetDistributor,
+                    to: targetRecipient,
+                    type: 'clink',
+                    label: 'Distribution of Shares',
+                    color: 'orange'
+                }
+                const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
+                if (response.status === 201 || response.status === 200) {
+                    saveNewLinkHandler(participationLink, entities, true)
+                }
+            }
+            setShowPredefinedDistribution(false)
+        }
     }
 
     return (

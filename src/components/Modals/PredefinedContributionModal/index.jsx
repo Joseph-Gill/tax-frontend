@@ -116,17 +116,17 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
     }
 
     const contributionModalErrorHandler = () => {
-        if (!targetContributor){
+        if (!targetContributor) {
             dispatch(setError({contributor: 'You must choose an entity to contribute from.'}))
             return true
-        } else if (!targetRecipient){
+        } else if (!targetRecipient) {
             dispatch(setError({recipient: 'You must choose an entity to be the recipient.'}))
             return true
         } else if (!contributedAssets){
             dispatch(setError({contributedAssets: 'You must choose the type of assets contributed.'}))
             return true
         } else if (contributedAssets === 'other assets' && !otherAssetsLabel) {
-            dispatch(setError({contributedOtherAssets: 'You must specify what assets are being distributed.'}))
+            dispatch(setError({contributedOtherAssets: 'You must specify what assets are being contributed.'}))
             return true
         } else if (contributedAssets !== 'other assets' && !targetParticipant) {
             dispatch(setError({participant: 'You must choose an entity to be the participant.'}))
