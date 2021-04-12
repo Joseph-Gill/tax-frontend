@@ -1,8 +1,8 @@
 import React from 'react'
 import {getMemberOrganizationNameAction} from '../store/organization/actions'
-import {DropdownOption} from '../style/options'
-import {FileListItem} from '../style/listitem'
 import {createChartForStepAction, updateChartForStepAction} from '../store/chart/actions'
+import {FileListItem} from '../style/listitem'
+import {DropdownOption} from '../style/options'
 import {ModalDropdownContent} from '../components/Dropdowns/styles'
 
 // User by components that are uploading images for avatars
@@ -314,10 +314,14 @@ export const editLinkDifferentType = (linkData, originalArray, setOriginalArray,
     return [arrayToAddToWithNewLink, arrayToRemoveFrom]
 }
 
-//Used by components that can set Project status as Complete, to check if it is an available option
-export const checkIfArrayContainsStatus = (array, status) => {
-    const completed = array.filter(index => index.status !== status)
-    return completed.length;
+//Used by components that can set Project status as Completed, to check if it is an available option
+export const checkIfProjectCanBeCompleted = (array) => {
+    return !!array.filter(index => index.status !== 'Completed').length
+}
+
+//Used by components that can set Project status as Completed, to check if it is an available option
+export const checkIfProjectCanBeOngoing = (array) => {
+    return !!array.filter(index => index.status === 'Ongoing').length
 }
 
 //Used by components that need to create list of parent choices, to remove entities with "Delete" highlighting as choices

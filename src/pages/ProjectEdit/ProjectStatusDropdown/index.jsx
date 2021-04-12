@@ -2,13 +2,16 @@ import React from 'react'
 import CompleteProjectTooltip from '../../../components/Tooltips/CompleteProjectTooltip'
 import CompletedProjectTooltip from '../../../components/Tooltips/CompletedProjectTooltip'
 import OngoingProjectTooltip from '../../../components/Tooltips/OngoingProjectTooltip'
-import {checkIfArrayContainsStatus} from '../../../helpers'
+import {checkIfProjectCanBeCompleted, checkIfProjectCanBeOngoing} from '../../../helpers'
 import {DropdownOption} from '../../../style/options'
 import {AddEditProjectSectionTitles} from '../../../style/titles'
 import {EditStatusDropdown, ProjectEditInputTooltipContainer, ProjectEditStatusInputContainer} from './styles'
 
 
 const ProjectStatusDropdown = ({group, project, status, steps}) => {
+    const canBeOngoing = checkIfProjectCanBeOngoing(group.projects)
+    const canBeCompleted = checkIfProjectCanBeCompleted(steps)
+
     return (
         <ProjectEditInputTooltipContainer>
             <ProjectEditStatusInputContainer>
@@ -22,19 +25,19 @@ const ProjectStatusDropdown = ({group, project, status, steps}) => {
                     <DropdownOption value='Not Started'>Not Started</DropdownOption>
                     <DropdownOption value='Not Implemented'>Not Implemented</DropdownOption>
                     <DropdownOption
-                        disabled={checkIfArrayContainsStatus(group.projects, 'Ongoing')}
+                        disabled={canBeOngoing}
                         value='Ongoing'
                     >Ongoing
                     </DropdownOption>
                     <DropdownOption
-                        disabled={checkIfArrayContainsStatus(steps, 'Completed')}
+                        disabled={canBeCompleted}
                         value='Completed'
                     >Completed
                     </DropdownOption>
                 </EditStatusDropdown>
             </ProjectEditStatusInputContainer>
-            {checkIfArrayContainsStatus(steps, 'Completed') ? <CompleteProjectTooltip /> : null}
-            {checkIfArrayContainsStatus(group.projects, 'Ongoing') ? <OngoingProjectTooltip /> : null}
+            {canBeCompleted ? <CompleteProjectTooltip /> : null}
+            {canBeOngoing ? <OngoingProjectTooltip /> : null}
             {project.status === 'Completed' && <CompletedProjectTooltip />}
         </ProjectEditInputTooltipContainer>
     )
