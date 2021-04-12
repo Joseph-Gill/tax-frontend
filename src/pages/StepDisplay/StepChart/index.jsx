@@ -286,7 +286,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
             const indexToEdit = entitiesToRender.findIndex(entity => parseInt(entity.id) === parseInt(editEntityInfo.entityToEditId))
             // If an entity's parent is changed during the edit, a ghost version is left under the original parent with a delete template highlight
             // and the new version is given an add template highlight for the step
-            if (parseInt(targetParent.id) !== parseInt(entitiesToRender[indexToEdit].pid)) {
+            if (editEntityInfo.parentId && parseInt(targetParent.id) !== parseInt(entitiesToRender[indexToEdit].pid)) {
                 // Creates the ghost copy of the entity that remains behind with a delete node to highlight it was moved
                 const deleteCopyOfEntity = {
                     id: Date.now(),

@@ -7,7 +7,7 @@ import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import EntityLegalDropdown from '../../Dropdowns/EntityLegalDropdown'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {PredefinedChangeLegalFormInternalContainer} from './styles'
 
@@ -40,19 +40,36 @@ const PredefinedChangeLegalFormModal = ({entities, error, saveEditEntityHandler,
         setShowPredefinedChangeLegalForm(false)
     }
 
-    const handleSaveButton = () => {
-        const targetEntity = getEntityFromId(targetEntityToChange, entities)
-        const editEntityInfo = {
-            entitySelected: true,
-            entityName: targetEntity.name,
-            parentId: targetEntity.pid,
-            taxRate: targetEntity.tax_rate,
-            entityToEditId: targetEntity.id,
-            //Makes it so that the entity will receive Add Highlighting during edit process
-            legalFormChange: true,
+    const changeLegalFormModalErrorHandler = () => {
+        if (!targetEntityToChange) {
+            dispatch(setError({changeEntity: 'You must choose an entity to change legal form.'}))
+            return true
+        } else if (!legalForm) {
+            dispatch(setError({entityLegalForm: 'You must choose a new legal form for this entity.'}))
+            return true
+        } else {
+            return false
         }
-        saveEditEntityHandler(editEntityInfo, targetEntity.location, legalForm)
-        setShowPredefinedChangeLegalForm(false)
+    }
+
+    const handleSaveButton = () => {
+        dispatch(resetErrors())
+        //Handles input validation for change of legal form modal
+        const error = changeLegalFormModalErrorHandler()
+        if (!error) {
+            const targetEntity = getEntityFromId(targetEntityToChange, entities)
+            const editEntityInfo = {
+                entitySelected: true,
+                entityName: targetEntity.name,
+                parentId: targetEntity.pid,
+                taxRate: targetEntity.tax_rate,
+                entityToEditId: targetEntity.id,
+                //Makes it so that the entity will receive Add Highlighting during edit process
+                legalFormChange: true,
+            }
+            saveEditEntityHandler(editEntityInfo, targetEntity.location, legalForm)
+            setShowPredefinedChangeLegalForm(false)
+        }
     }
 
     return (
