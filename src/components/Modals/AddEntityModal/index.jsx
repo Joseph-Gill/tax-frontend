@@ -27,7 +27,7 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, erro
     const [addParents, setAddParents] = useState([])
 
     useEffect(() => {
-        const result = sortEntitiesByName(entities)
+        const result = sortEntitiesByName(entities).filter(entity => !entity.remove)
         setFilteredParents([...result])
         setAddParents([...result])
     }, [entities])
