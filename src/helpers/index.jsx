@@ -452,21 +452,23 @@ export const findAllDescendantsOfTargetEntity = (arrayOfEntities, targetEntityId
     const result = []
     let parentId = ''
     arrayOfEntities.forEach(entity => {
-        if (checkIfEntityIsParent(entity.pid, targetEntityId)) {
-            result.push(entity)
-        } else {
-            if (entity.pid) {
-                parentId = entity.pid
-                while (parentId) {
-                    const parentEntity = getEntityFromId(parentId, arrayOfEntities)
-                    if (checkIfEntityIsParent(parentEntity.pid, targetEntityId)) {
-                        result.push(entity)
-                        break
-                    } else {
-                        if (parentEntity.pid) {
-                            parentId = parentEntity.pid
+        if (!entity.remove) {
+            if (checkIfEntityIsParent(entity.pid, targetEntityId)) {
+                result.push(entity)
+            } else {
+                if (entity.pid) {
+                    parentId = entity.pid
+                    while (parentId) {
+                        const parentEntity = getEntityFromId(parentId, arrayOfEntities)
+                        if (checkIfEntityIsParent(parentEntity.pid, targetEntityId)) {
+                            result.push(entity)
+                            break
                         } else {
-                            parentId = ''
+                            if (parentEntity.pid) {
+                                parentId = parentEntity.pid
+                            } else {
+                                parentId = ''
+                            }
                         }
                     }
                 }

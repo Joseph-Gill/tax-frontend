@@ -11,7 +11,7 @@ import ContributionIssuanceSelect from './ContributionIssuanceSelect'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
-import {resetErrors} from '../../../store/errors/actions/errorAction'
+import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {checkIfEntityIsParent, findAllDescendantsOfTargetEntity, getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
@@ -115,38 +115,64 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
         setShowPredefinedContribution(false)
     }
 
-    const handleSaveButton = async () => {
-        if (contributedAssets === 'other assets') {
-            const assetLink = {
-                from: targetContributor,
-                to: targetRecipient,
-                type: 'clink',
-                label: `Contribution of: ${otherAssetsLabel}`,
-                color: 'orange'
-            }
-            saveNewLinkHandler(assetLink, entities)
-        } else if (contributedAssets === 'participation') {
-            const participant = getEntityFromId(targetParticipant, entities)
-            const editParticipantInfo = {
-                entitySelected: true,
-                entityName: participant.name,
-                parentId: targetRecipient,
-                taxRate: participant.tax_rate,
-                entityToEditId: participant.id
-            }
-            const participationLink = {
-                from: targetContributor,
-                to: targetRecipient,
-                type: 'clink',
-                label: "Contribution of Shares",
-                color: 'orange'
-            }
-            const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
-                if (response.status === 201 || response.status === 200) {
-                    saveNewLinkHandler(participationLink, entities, true)
-                }
+    const contributionModalErrorHandler = () => {
+        if (!targetContributor){
+            dispatch(setError({contributor: 'You must choose an entity to contribute from.'}))
+            return true
+        } else if (!targetRecipient){
+            dispatch(setError({recipient: 'You must choose an entity to be the recipient.'}))
+            return true
+        } else if (!contributedAssets){
+            dispatch(setError({contributedAssets: 'You must choose the type of assets contributed.'}))
+            return true
+        } else if (contributedAssets === 'other assets' && !otherAssetsLabel) {
+            dispatch(setError({contributedOtherAssets: 'You must specify what assets are being distributed.'}))
+            return true
+        } else if (contributedAssets !== 'other assets' && !targetParticipant) {
+            dispatch(setError({participant: 'You must choose an entity to be the participant.'}))
+            return true
+        } else {
+            return false
         }
-        setShowPredefinedContribution(false)
+    }
+
+    const handleSaveButton = async () => {
+        dispatch(resetErrors())
+        //Handles input validation for contribution modal
+        const error = contributionModalErrorHandler()
+        if (!error) {
+            if (contributedAssets === 'other assets') {
+                const assetLink = {
+                    from: targetContributor,
+                    to: targetRecipient,
+                    type: 'clink',
+                    label: `Contribution of: ${otherAssetsLabel}`,
+                    color: 'orange'
+                }
+                saveNewLinkHandler(assetLink, entities)
+            } else if (contributedAssets === 'participation') {
+                const participant = getEntityFromId(targetParticipant, entities)
+                const editParticipantInfo = {
+                    entitySelected: true,
+                    entityName: participant.name,
+                    parentId: targetRecipient,
+                    taxRate: participant.tax_rate,
+                    entityToEditId: participant.id
+                }
+                const participationLink = {
+                    from: targetContributor,
+                    to: targetRecipient,
+                    type: 'clink',
+                    label: "Contribution of Shares",
+                    color: 'orange'
+                }
+                const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
+                    if (response.status === 201 || response.status === 200) {
+                        saveNewLinkHandler(participationLink, entities, true)
+                    }
+            }
+            setShowPredefinedContribution(false)
+        }
     }
 
     return (
