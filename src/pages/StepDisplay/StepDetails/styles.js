@@ -1,12 +1,14 @@
 import styled from 'styled-components/macro'
 import {StepInfoText} from '../styles'
 import {ProjectDescriptionTextArea} from '../../../style/textarea'
+import {device as devices} from '../../../style/devices'
 
 
 export const StepDetailsContainer = styled.div`
     width: 860px;
-    height: 400px;
+    height: 100%;
     padding: 15px 20px 10px 20px;
+
 `
 
 export const StepDescriptionTitleContainer = styled.div`
@@ -87,6 +89,11 @@ export const TaxConsequencesContainer = styled.div`
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
+
+    @media ${devices.laptop} {
+        height: 430px;
+        max-height: 430px;
+    }
 `
 
 export const NewStepNoTaxConsequencesContainer = styled.div`
@@ -96,6 +103,10 @@ export const NewStepNoTaxConsequencesContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media ${devices.laptop} {
+        height: 468px;
+    }
 
     p {
         font-family: ${props => props.theme.nunitoFontFamily};

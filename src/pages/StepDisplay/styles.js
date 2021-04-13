@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import {NavbarTitle} from '../../style/titles'
-
+import {device as devices} from '../../style/devices'
 
 export const StepInfoText = styled.p`
     font-family: ${props => props.theme.nunitoFontFamily};
@@ -35,6 +35,10 @@ export const StepChartDetailsContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media ${devices.laptop} {
+        height: 600px
+    }
 `
 
 export const StepDisplayErrorContainer = styled.div`

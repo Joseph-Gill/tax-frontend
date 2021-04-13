@@ -59,7 +59,7 @@ export const TaxConsequenceTextUsernameContainer = styled.div`
 
 export const TaxConsequenceTextContainer = styled.div`
     width: 100%;
-    max-height: 75px;
+    max-height: 140px;
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;

@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import {device as devices} from '../../style/devices'
 
 
 export const OrgChartContainer = styled.div`
@@ -17,4 +18,10 @@ export const OrgChartContainer = styled.div`
     border-right: 1px solid ${props => props.theme.grayFour};
     border-bottom: 1px solid ${props => props.theme.grayFour};
     border-left: 1px solid ${props => props.theme.grayFour};
+
+    @media ${devices.laptop} {
+        height: ${props => props.componentCalling === 'GroupOrgChart' ? '516px'
+            : props.componentCalling === 'StepDisplay' ? '598px'
+                : props.componentCalling === 'GroupAddEdit' ? '335px' : '437px'};
+    }
 `
