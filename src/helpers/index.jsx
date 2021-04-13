@@ -47,6 +47,10 @@ export const convertDate = date => {
     return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 }
 
+export const createDate = date => {
+    return new Date(parseInt(date.slice(0,5)), (parseInt(date.slice(5,7)) - 1), parseInt(date.slice(-2)))
+}
+
 // Used by components that need to create an array of member information that also contains their respective Group Role
 export const listMemberWithOrgAndRole = async (array, group, dispatch) => {
     const result = [];

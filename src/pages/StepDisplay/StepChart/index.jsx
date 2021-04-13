@@ -21,7 +21,7 @@ import PredefinedChangeLegalFormModal from '../../../components/Modals/Predefine
 import PredefinedMergerModal from '../../../components/Modals/PredefinedMergerModal'
 
 
-const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, setShowAddEntity, setShowEditEntity, setShowEditLink,
+const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, setClinks, setShowAddEntity, setShowEditEntity, setShowEditLink,
                        setShowAddLink, setShowPredefinedChangeLegalForm, setShowPredefinedContribution, setShowPredefinedDistribution,
                        setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation, setShowPredefinedMerger,
                        setShowRemoveEntity, setShowRemoveLink, setSlinks, setStepChartExists, showAddEntity, showAddLink, showEditEntity,
@@ -452,6 +452,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                 <PredefinedDistributionModal
                     entities={entitiesToRender}
                     error={error}
+                    profile={profile}
                     saveEditEntityHandler={saveEditEntityHandler}
                     saveNewLinkHandler={saveNewLinkHandler}
                     setShowPredefinedDistribution={setShowPredefinedDistribution}

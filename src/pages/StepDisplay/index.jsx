@@ -20,6 +20,7 @@ import {ErrorMessage} from '../../style/messages'
 import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS, TASKS} from '../../routes/paths'
 import {AuthenticatedPageContainer} from '../../style/containers'
 import {StepChartDetailsContainer, StepDisplayErrorContainer} from './styles'
+import {getProfileAction} from '../../store/profile/actions'
 
 
 const StepDisplay = ({history}) => {
@@ -31,6 +32,8 @@ const StepDisplay = ({history}) => {
     const projectLoaded = useSelector(state => state.projectReducer.project)
     const error = useSelector(state => state.errorReducer.error)
     const entities = useSelector(state => state.groupReducer.group.entities)
+    const profile = useSelector(state => state.profileReducer.profile)
+    const profileLoaded = useSelector(state => state.profileReducer.loaded)
     const [editStatus, setEditStatus] = useState(false)
     const [date, setDate] = useState(new Date());
     const [description, setDescription] = useState('')
@@ -57,6 +60,12 @@ const StepDisplay = ({history}) => {
     const [slinks, setSlinks] = useState([])
     const [chartLoading, setChartLoading] = useState(true)
     const [stepChartExists, setStepChartExists] = useState(false)
+
+    useEffect(() => {
+        if (!profileLoaded) {
+                dispatch(getProfileAction())
+            }
+    }, [profileLoaded, dispatch])
 
     useEffect(() => {
         //Used to prevent user from setting the status of a step to completed if all previous steps aren't complete
@@ -301,6 +310,7 @@ const StepDisplay = ({history}) => {
                                     clinks={clinks}
                                     entities={currentStepEntities}
                                     indexOfStepToDisplay={indexOfStepToDisplay}
+                                    profile={profile}
                                     project={project}
                                     setClinks={setClinks}
                                     setShowAddEntity={setShowAddEntity}

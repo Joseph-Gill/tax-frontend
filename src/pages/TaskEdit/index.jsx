@@ -12,7 +12,7 @@ import TaskEditStep from './TaskEditStep'
 import LogoLoading from '../../components/LogoLoading'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {getTasksForProjectAction, updateTaskAction} from '../../store/task/actions'
-import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
+import {convertDate, createAcceptedFilesList, createDate, createTaskMemberSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import {EDIT_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import {ErrorMessage} from '../../style/messages'
 import {AuthenticatedPageTitle} from '../../style/titles'
@@ -62,9 +62,9 @@ const TaskEdit = ({history}) => {
             setSelectedStep(targetTask.step.id)
             setDescription(targetTask.description)
             //format necessary to input a date object into react-datepicker since django stores the date as a string
-            setDueDate(new Date(parseInt(targetTask.due_date.slice(0,5)), (parseInt(targetTask.due_date.slice(5,7)) - 1), parseInt(targetTask.due_date.slice(-2))))
+            setDueDate(createDate(targetTask.due_date))
             //format necessary to input a date object into react-datepicker since django stores the date as a string
-            setCompletionDate(new Date(parseInt(targetTask.planned_completion_date.slice(0,5)), (parseInt(targetTask.planned_completion_date.slice(5,7)) - 1), parseInt(targetTask.planned_completion_date.slice(-2))))
+            setCompletionDate(createDate(targetTask.planned_completion_date))
             setSelectedMember(targetTask.assigned_user.id)
             //Used by Member dropdown to format choices with Name, Role, and Organization
             listMemberWithOrgAndRole(members, group, dispatch)

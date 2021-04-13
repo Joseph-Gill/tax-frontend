@@ -12,11 +12,12 @@ import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDrop
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {getEntityFromId, sortedDirectChildrenOfEntity, sortedNonUltimateEntities} from '../../../helpers'
+import {distributionTaxConsequencesTaskGeneration} from '../../../helpers/automatedTaxConsequencesTaskGeneration'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
-import {distributionTaxConsequences} from '../../../helpers/automatedTaxConsequences'
 
-const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribution, saveNewLinkHandler, saveEditEntityHandler,
+
+const PredefinedDistributionModal = ({entities, error, profile, setShowPredefinedDistribution, saveNewLinkHandler, saveEditEntityHandler,
                                          showPredefinedDistribution, step}) => {
 
     let searchDistributorTerm = useRef('')
@@ -130,49 +131,47 @@ const PredefinedDistributionModal = ({entities, error, setShowPredefinedDistribu
         if (!error) {
             const distributor = getEntityFromId(targetDistributor, entities)
             const recipient = getEntityFromId(targetRecipient, entities)
-            const automatedTaxResponse = await distributionTaxConsequences(distributor, recipient, step, dispatch)
-            if (automatedTaxResponse) {
-                if (distributedAssets === 'other assets') {
-                    const assetLink = {
-                        from: targetDistributor,
-                        to: targetRecipient,
-                        type: 'clink',
-                        label: `Distribution of ${otherAssetsLabel}`,
-                        color: 'orange'
-                    }
-                    saveNewLinkHandler(assetLink, entities)
-                } else if (distributedAssets === 'business') {
-                    const businessLink = {
-                        from: targetDistributor,
-                        to: targetRecipient,
-                        type: 'clink',
-                        label: `Distribution of ${businessAssetsLabel}`,
-                        color: 'orange'
-                    }
-                    saveNewLinkHandler(businessLink, entities)
-                } else {
-                    const participant = getEntityFromId(targetParticipant, entities)
-                    const editParticipantInfo = {
-                        entitySelected: true,
-                        entityName: participant.name,
-                        parentId: targetRecipient,
-                        taxRate: participant.tax_rate,
-                        entityToEditId: participant.id
-                    }
-                    const participationLink = {
-                        from: targetDistributor,
-                        to: targetRecipient,
-                        type: 'clink',
-                        label: 'Distribution of Shares',
-                        color: 'orange'
-                    }
-                    const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
-                    if (response.status === 201 || response.status === 200) {
-                        saveNewLinkHandler(participationLink, entities, true)
-                    }
+            await distributionTaxConsequencesTaskGeneration(distributor, recipient, step, dispatch, profile)
+            if (distributedAssets === 'other assets') {
+                const assetLink = {
+                    from: targetDistributor,
+                    to: targetRecipient,
+                    type: 'clink',
+                    label: `Distribution of ${otherAssetsLabel}`,
+                    color: 'orange'
                 }
-                setShowPredefinedDistribution(false)
+                saveNewLinkHandler(assetLink, entities)
+            } else if (distributedAssets === 'business') {
+                const businessLink = {
+                    from: targetDistributor,
+                    to: targetRecipient,
+                    type: 'clink',
+                    label: `Distribution of ${businessAssetsLabel}`,
+                    color: 'orange'
+                }
+                saveNewLinkHandler(businessLink, entities)
+            } else {
+                const participant = getEntityFromId(targetParticipant, entities)
+                const editParticipantInfo = {
+                    entitySelected: true,
+                    entityName: participant.name,
+                    parentId: targetRecipient,
+                    taxRate: participant.tax_rate,
+                    entityToEditId: participant.id
+                }
+                const participationLink = {
+                    from: targetDistributor,
+                    to: targetRecipient,
+                    type: 'clink',
+                    label: 'Distribution of Shares',
+                    color: 'orange'
+                }
+                const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
+                if (response.status === 201 || response.status === 200) {
+                    saveNewLinkHandler(participationLink, entities, true)
+                }
             }
+            setShowPredefinedDistribution(false)
         }
     }
 
