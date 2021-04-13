@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {CountryDropdown} from 'react-country-region-selector'
+import {v4 as uuidv4} from 'uuid'
 import Loading from '../../../../components/Loading'
 import SetReviewedModal from '../../../../components/Modals/SetReviewedModal'
 import SetNotReviewedModal from '../../../../components/Modals/SetNotReviewedModal'
@@ -98,6 +99,10 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
         }
     }
 
+    const multilineText = (text) => {
+         return text.split('\\n').map(item => <CardInfoText key={uuidv4()}>{item}</CardInfoText>)
+    }
+
     return (
         <TaxConsequenceContainer>
             {showConfirmation ?
@@ -172,7 +177,7 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
                         /> : (
                             <TaxConsequenceTextUsernameContainer>
                                 <TaxConsequenceTextContainer>
-                                    <CardInfoText>{taxConsequence.description}</CardInfoText>
+                                    {multilineText(taxConsequence.description)}
                                 </TaxConsequenceTextContainer>
                                 {taxConsequence.editing_user ?
                                     <TaxConsequenceUserDateText>

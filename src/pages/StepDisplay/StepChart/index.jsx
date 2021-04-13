@@ -456,6 +456,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, project, setClinks, 
                     saveNewLinkHandler={saveNewLinkHandler}
                     setShowPredefinedDistribution={setShowPredefinedDistribution}
                     showPredefinedDistribution={showPredefinedDistribution}
+                    step={steps[indexOfStepToDisplay]}
                 />}
             {showPredefinedIntercompanySale &&
                 <PredefinedIntercompanySaleModal
