@@ -128,7 +128,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
         } else if (contributedAssets === 'other assets' && !otherAssetsLabel) {
             dispatch(setError({contributedOtherAssets: 'You must specify what other assets are being contributed.'}))
             return true
-        } else if (contributedAssets && !targetParticipant) {
+        } else if (contributedAssets === 'participation' && !targetParticipant) {
             dispatch(setError({participant: 'You must choose an entity to be the participant.'}))
             return true
         } else {

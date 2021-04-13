@@ -114,7 +114,7 @@ const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler
         } else if (soldAssets === 'business' && !businessAssetsLabel) {
             dispatch(setError({soldBusinessAssets: 'You must specify what business assets are being sold.'}))
             return true
-        } else if (soldAssets && !targetParticipant) {
+        } else if (soldAssets === 'participation' && !targetParticipant) {
             dispatch(setError({participant: 'You must choose an entity to be the participant.'}))
             return true
         } else {

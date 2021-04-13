@@ -168,7 +168,8 @@ const PredefinedMergerModal = ({availableParentNames, countryName, entities, err
     const handleSaveButton = async () => {
         dispatch(resetErrors())
         //Handles input validation for merger modal
-        const error = mergerModalErrorHandler() || entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
+        //Only validates the right half of the modal inputs through entityInputErrorHandler if it is active with new company selection
+        const error = mergerModalErrorHandler() || mergerInto.selection === 'new_company' ? entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true) : false
         if (!error) {
             if (mergerInto.selection === 'new_company') {
                 //Create the new company entity with the data store in newEntityInfo
