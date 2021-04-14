@@ -5,9 +5,10 @@ import {createTaskAction} from '../store/task/actions'
 export const distributionTaxConsequencesTaskGeneration = async (distributor, recipient, step, dispatch, profile) => {
     let description, location;
     const stepEffectiveDate = createDate(step.effective_date)
+    const dateToChange = createDate(step.effective_date)
 
     if (distributor.location === 'Switzerland' && recipient.location === 'Switzerland') {
-        const datePlus30Days = new Date(stepEffectiveDate.setDate(stepEffectiveDate.getDate() + 30))
+        const datePlus30Days = new Date(dateToChange.setDate(dateToChange.getDate() + 30))
         // Tax Consequence
         const createTaxConsequence = async () => {
             description = `CIT: Dividends received by ${recipient.name} from ${distributor.name} should be exempt under the Swiss participation exemption regime if:\\n
@@ -71,12 +72,11 @@ export const distributionTaxConsequencesTaskGeneration = async (distributor, rec
             }
             return await dispatch(createTaskAction(newTask))
         }
-        Promise.all([createTaxConsequence(), createTaskOne(), createTaskTwo(), createTaskThree(), createTaskFour()])
-            .then(responses => {
-                return responses
-            }).catch(error => {
-                console.log('Error in automated Tax Consequence / Task Creation>', error)
-        })
+        const asyncFunctions = [createTaxConsequence, createTaskOne, createTaskTwo, createTaskThree, createTaskFour]
+        for (let i = 0; i < asyncFunctions.length; i++) {
+            await asyncFunctions[i]()
+        }
+
     } else if (distributor.location === 'Switzerland' && recipient.location !== 'Switzerland') {
         description = `The assets need to be distributed at FMV.\\n
                        Distribution of capital contribution reserves:\\n
