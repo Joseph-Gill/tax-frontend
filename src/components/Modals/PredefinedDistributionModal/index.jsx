@@ -17,8 +17,8 @@ import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContain
 import {FadeInContainer} from '../../../style/animations'
 
 
-const PredefinedDistributionModal = ({entities, error, profile, setShowPredefinedDistribution, saveNewLinkHandler, saveEditEntityHandler,
-                                         showPredefinedDistribution, step}) => {
+const PredefinedDistributionModal = ({entities, error, profile, project, setShowPredefinedDistribution, saveNewLinkHandler,
+                                         saveEditEntityHandler, showPredefinedDistribution, step}) => {
 
     let searchDistributorTerm = useRef('')
     let searchRecipientTerm = useRef('')
@@ -131,7 +131,7 @@ const PredefinedDistributionModal = ({entities, error, profile, setShowPredefine
         if (!error) {
             const distributor = getEntityFromId(targetDistributor, entities)
             const recipient = getEntityFromId(targetRecipient, entities)
-            await distributionTaxConsequencesTaskGeneration(distributor, recipient, step, dispatch, profile)
+            await distributionTaxConsequencesTaskGeneration(distributor, recipient, step, dispatch, profile, project)
             if (distributedAssets === 'other assets') {
                 const assetLink = {
                     from: targetDistributor,

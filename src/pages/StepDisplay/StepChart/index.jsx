@@ -453,6 +453,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
                     entities={entitiesToRender}
                     error={error}
                     profile={profile}
+                    project={project}
                     saveEditEntityHandler={saveEditEntityHandler}
                     saveNewLinkHandler={saveNewLinkHandler}
                     setShowPredefinedDistribution={setShowPredefinedDistribution}

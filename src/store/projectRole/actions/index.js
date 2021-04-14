@@ -1,4 +1,5 @@
 import Axios from '../../../axios'
+import {catchError} from '../../errors/actions/errorAction'
 
 
 export const getRolesForProfileGroupAction = (profileId, groupId) => async (dispatch, getState) => {
@@ -29,5 +30,21 @@ export const updateRolesForProfileGroupAction = (memberProjectAccess, groupId, u
     } catch(e) {
         console.log('Error updating a member>', e)
         return e
+    }
+}
+
+export const getProjectRolesForProjectAction = (groupId, projectId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        const response = await Axios.get(`/projectroles/group/${groupId}/project/${projectId}/`, config)
+        return [...response.data]
+    } catch (e) {
+        console.log('Error getting User Project Roles with access to Specified Project>', e)
+        return catchError(e, dispatch)
     }
 }
