@@ -5,46 +5,7 @@ import {CommentTable, TableHeader, TableTitleRow} from '../../../style/tables'
 import {TaskStatusTableHeader} from './styles'
 
 
-const TasksTable = ({group, history, project, tasks}) => {
-
-    //Used to provide the " Task Number " of a task. Task numbers arent stored in
-    //the backend, they are assigned to tasks of a step ordered by their created
-    //date.
-    const renderTaskEntries = () => {
-        let taskNum = 1
-        let stepNum = 1
-        const tasksToDisplay = []
-        for (let i = 0; i < tasks.length; i++) {
-            if (parseInt(tasks[i].step.number) === stepNum ) {
-                const Task = (
-                    <TaskTableEntry
-                        group={group}
-                        history={history}
-                        key={tasks[i].id}
-                        project={project}
-                        task={tasks[i]}
-                        taskNum={taskNum}
-                    />)
-                taskNum += 1
-                tasksToDisplay.push(Task)
-            } else {
-                stepNum += 1
-                taskNum = 1
-                tasksToDisplay.push(
-                    <TaskTableEntry
-                        group={group}
-                        history={history}
-                        key={tasks[i].id}
-                        project={project}
-                        task={tasks[i]}
-                        taskNum={taskNum}
-                    />)
-                taskNum += 1
-            }
-        }
-        return tasksToDisplay
-    }
-
+const TasksTable = ({dispatch, group, history, project, tasks}) => {
     return (
         <div>
             {!tasks.length ?
@@ -65,7 +26,15 @@ const TasksTable = ({group, history, project, tasks}) => {
                             </TableTitleRow>
                         </thead>
                         <tbody>
-                            {renderTaskEntries()}
+                            {tasks.map(task => (
+                                <TaskTableEntry
+                                    dispatch={dispatch}
+                                    group={group}
+                                    history={history}
+                                    key={task.id}
+                                    project={project}
+                                    task={task}
+                                />))}
                         </tbody>
                     </CommentTable>
                 )}

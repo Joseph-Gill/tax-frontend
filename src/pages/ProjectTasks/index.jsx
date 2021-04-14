@@ -39,7 +39,7 @@ const ProjectTasks = ({history}) => {
     const [tasksToRender, setTasksToRender] = useState([])
     const [showGoToDropdown, setShowGoToDropdown] = useState(false)
     const [showFilterDropdown, setShowFilterDropdown] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [filterOption, setFilterOption] = useState([
         {isChecked: true, type: 'due_date'},
         {isChecked: false, type: 'responsible_country'},
@@ -88,10 +88,11 @@ const ProjectTasks = ({history}) => {
                 setTasksToRender([...tasks])
             }
         }
-        setLoading(true)
-        filterTasksForStepFilter()
-            .then(() => setLoading(false))
-    }, [project.id, filterStepNumber, dispatch, tasks])
+        if (projectLoaded && tasksLoaded && stepsLoaded && groupLoaded) {
+            filterTasksForStepFilter()
+                .then(() => setLoading(false))
+        }
+    }, [project.id, filterStepNumber, dispatch, tasks, projectLoaded, tasksLoaded, stepsLoaded, groupLoaded])
 
     //Used by TaskStepFilter to adjust which step is being filter for, or to reset if all step tasks to be displayed
     const taskStepFilterChangeHandler = stepNumber => {
@@ -190,7 +191,7 @@ const ProjectTasks = ({history}) => {
                             />
                         </TaskStepFilterGoToContainer>
                     </DisplayTitleWithButtonContainer>
-                    {!tasks.length ? <NoTasksFound history={history} /> : (
+                    {!tasks.length && !loading ? <NoTasksFound history={history} /> : (
                         <>
                             <StatusLegendFilterDropdownContainer>
                                 <TaskStatusLegendContainer>
@@ -213,6 +214,7 @@ const ProjectTasks = ({history}) => {
                             {loading ? <Loading /> : (
                                 <TasksTableContainer>
                                     <TasksTable
+                                        dispatch={dispatch}
                                         group={group}
                                         history={history}
                                         project={project}
