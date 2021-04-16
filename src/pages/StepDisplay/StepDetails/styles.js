@@ -90,7 +90,7 @@ export const TaxConsequencesContainer = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
 
-    @media ${devices.laptop} {
+    @media ${devices.laptopL} {
         height: 430px;
         max-height: 430px;
     }
@@ -104,7 +104,7 @@ export const NewStepNoTaxConsequencesContainer = styled.div`
     align-items: center;
     justify-content: center;
 
-    @media ${devices.laptop} {
+    @media ${devices.laptopL} {
         height: 468px;
     }
 

@@ -19,7 +19,7 @@ export const OrgChartContainer = styled.div`
     border-bottom: 1px solid ${props => props.theme.grayFour};
     border-left: 1px solid ${props => props.theme.grayFour};
 
-    @media ${devices.laptop} {
+    @media ${devices.laptopL} {
         height: ${props => props.componentCalling === 'GroupOrgChart' ? '516px'
             : props.componentCalling === 'StepDisplay' ? '598px'
                 : props.componentCalling === 'GroupAddEdit' ? '335px' : '437px'};

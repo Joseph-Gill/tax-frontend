@@ -1,22 +1,58 @@
-import React from 'react';
-import {Editor} from 'react-draft-wysiwyg';
-import htmlToDraft from "html-to-draftjs";
-import {ContentState, EditorState} from "draft-js";
+import React, {useEffect} from 'react';
+import { EditorState, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import './styles.css'
 
 
-// Currently not used in the Project, leftover from the Template
-const EditorHTML = ({data}) => {
-    const blocksFromHtml = htmlToDraft(data);
-    const {contentBlocks, entityMap} = blocksFromHtml;
-    const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-    const editorState = EditorState.createWithContent(contentState);
+// WYSIWYG Editor used in ProjectAdd
+const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad}) => {
+
+    useEffect(() => {
+        if (textToLoad) {
+            setEditorState(() => EditorState.createWithContent(ContentState.createFromText(textToLoad)))
+        }
+    }, [textToLoad, setEditorState])
+
+    const toolbarProps = {
+        options: ['inline', 'fontSize', 'list', 'textAlign', 'link', 'embedded', 'remove', 'history']
+    }
+
+    const editorStyling = () => {
+        switch (componentCalling) {
+            case 'ProjectAddEdit': {
+                return 'textEditorProjectAddEdit'
+            }
+            default:
+                return 'editor-class'
+        }
+    }
+
+    const wrapperStyling = () => {
+        switch (componentCalling) {
+            case 'ProjectAddEdit': {
+                return 'editorWrapperProjectAddEdit'
+            }
+            default:
+                return 'wrapper-class'
+        }
+    }
+
+    const handleEditorChange = state => {
+        setEditorState(state)
+    }
+
 
     return (
         <Editor
+            editorClassName={editorStyling()}
             editorState={editorState}
-            readOnly
-            toolbarHidden
-        />)
+            onEditorStateChange={handleEditorChange}
+            toolbar={toolbarProps}
+            toolbarClassName='textEditorToolbar'
+            wrapperClassName={wrapperStyling()}
+        />
+    )
 };
 
 export default EditorHTML;

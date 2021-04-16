@@ -1,5 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import { EditorState } from 'draft-js'
 import LogoLoading from '../../components/LogoLoading'
 import BreadCrumb from '../../components/BreadCrumb'
 import SuccessMessage from '../../components/SuccessMessage'
@@ -11,22 +12,23 @@ import {resetErrors} from '../../store/errors/actions/errorAction'
 import {GROUPS, ADD_PROJECT, PROJECTS, HOME} from '../../routes/paths'
 import {ErrorMessage} from '../../style/messages'
 import {ProjectNameInput} from '../../style/inputs'
-import {ProjectDescriptionTextArea} from '../../style/textarea'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
 import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import {ProjectAddErrorContainer} from './styles'
+import EditorHTML from '../../components/EditorHTML'
+import {convertContentToHTML} from '../../helpers'
 
 
 const ProjectAdd = ({history}) => {
     const dispatch = useDispatch()
     let status = useRef('')
     let name = useRef('')
-    let description = useRef('')
     const error = useSelector(state => state.errorReducer.error)
     const group = useSelector(state => state.groupReducer.group)
     const loaded = useSelector(state => state.groupReducer.loaded)
     const [showSuccess, setShowSuccess] = useState(false)
+    const [descriptionState, setDescriptionState] = useState(() => EditorState.createEmpty())
 
     useEffect (() => {
         //Pushes to Home is group is not loaded due to page refresh
@@ -36,10 +38,11 @@ const ProjectAdd = ({history}) => {
     }, [history, loaded])
 
     const clickSaveButtonHandler =  async () => {
+        // console.log(convertContentToHTML(descriptionState))
         dispatch(resetErrors())
         const projectData = {
             name: name.current.value,
-            description: description.current.value,
+            description: convertContentToHTML(descriptionState),
             status: status.current.value
         }
         const response = await dispatch(createProjectAction(projectData, group.id))
@@ -93,9 +96,10 @@ const ProjectAdd = ({history}) => {
                     </AddEditProjectNameStatusContainer>
                     <AddEditProjectDescriptionContainer>
                         <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>
-                        <ProjectDescriptionTextArea
-                            placeholder='Write your project description...'
-                            ref={description}
+                        <EditorHTML
+                            componentCalling='ProjectAddEdit'
+                            editorState={descriptionState}
+                            setEditorState={setDescriptionState}
                         />
                     </AddEditProjectDescriptionContainer>
                     <ProjectSaveCancelButtonContainer>

@@ -1,6 +1,7 @@
 import {createGlobalStyle} from 'styled-components'
 import dropdownArrowDown from '../assets/icons/stark_dropdown_arrow_gray_downward.svg'
 import dropdownArrowUpward from '../assets/icons/stark_dropdown_arrow_gray_upwards.svg'
+import {device as devices} from './devices'
 
 
 export const GlobalStyle = createGlobalStyle`
@@ -147,7 +148,40 @@ export const GlobalStyle = createGlobalStyle`
             transition: 167ms !important;
         }
     }
+
+    .textEditorProjectAddEdit {
+        background: ${props => props.theme.graySix};
+        width: 828px;
+        padding: 0 16px 16px 16px;
+        border: 1px solid ${props => props.theme.grayFour};
+        border-radius: ${props => props.theme.borderRadius};
+        font-family: ${props => props.theme.nunitoFontFamily};
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        color: ${props => props.theme.grayOne};
+
+        :hover {
+            filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
+            cursor: pointer;
+            transition: 0.5s;
+        }
+    }
+
+    .editorWrapperProjectAddEdit {
+        height: 230px;
+
+        @media ${devices.laptopL} {
+            height: 480px;
+        }
+    }
+
+    .textEditorToolbar {
+        border: 1px solid ${props => props.theme.grayFour};
+        margin-top: 4px;
+    }
 `
+
 
 export const defaultTheme = {
     // Template Colors ( will eventually be removed )

@@ -36,7 +36,7 @@ export const StepChartDetailsContainer = styled.div`
     align-items: center;
     justify-content: center;
 
-    @media ${devices.laptop} {
+    @media ${devices.laptopL} {
         height: 600px
     }
 `

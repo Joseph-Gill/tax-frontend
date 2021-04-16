@@ -1,4 +1,6 @@
 import React from 'react'
+import { convertToHTML } from 'draft-convert';
+import DOMPurify from 'dompurify';
 import {getMemberOrganizationNameAction} from '../store/organization/actions'
 import {createChartForStepAction, updateChartForStepAction} from '../store/chart/actions'
 import {FileListItem} from '../style/listitem'
@@ -481,4 +483,16 @@ export const findAllDescendantsOfTargetEntity = (arrayOfEntities, targetEntityId
     })
     // console.log(result)
     return result
+}
+
+//Used by WYSIWYG Editor to display HTML formatted content
+export const convertContentToHTML = editorState => {
+    return convertToHTML(editorState.getCurrentContent())
+}
+
+//Used by components displaying WYSIWYG Editor content to purify against XSS attacks
+export const createMarkup = html => {
+    return {
+        __html: DOMPurify.sanitize(html)
+    }
 }

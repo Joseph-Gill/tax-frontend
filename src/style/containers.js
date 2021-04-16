@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 import {CancelButton} from './buttons'
 import {animated} from 'react-spring'
+import {device} from './devices'
 
 
 export const BasePageContainer = styled.div`
@@ -115,10 +116,15 @@ export const AddEditProjectNameStatusContainer = styled.div`
 export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatusContainer)`
     width: 860px;
     height: 342px;
+    display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     border: 1px solid ${props => props.theme.grayFour};
     padding: 16px;
+
+    @media ${device.laptopL} {
+        height: 592px;
+    }
 `
 
 export const ProjectInputContainer = styled.div`
