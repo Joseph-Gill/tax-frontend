@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
-import { EditorState, ContentState } from 'draft-js';
+import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
+import { stateFromHTML } from 'draft-js-import-html'
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import './styles.css'
 
@@ -10,7 +11,7 @@ const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad})
 
     useEffect(() => {
         if (textToLoad) {
-            setEditorState(() => EditorState.createWithContent(ContentState.createFromText(textToLoad)))
+            setEditorState(() => EditorState.createWithContent(stateFromHTML(textToLoad)))
         }
     }, [textToLoad, setEditorState])
 

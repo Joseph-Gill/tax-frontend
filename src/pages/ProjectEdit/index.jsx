@@ -16,6 +16,9 @@ import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/t
 import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer,
     ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
 import {ProjectEditErrorContainer} from './styles'
+import EditorHTML from '../../components/EditorHTML'
+import { EditorState } from 'draft-js'
+import {convertContentToHTML} from '../../helpers'
 
 
 const ProjectEdit = ({history}) => {
@@ -28,7 +31,8 @@ const ProjectEdit = ({history}) => {
     const steps = useSelector(state => state.stepReducer.steps)
     const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const [projectName, setProjectName] = useState(project.name)
-    const [projectDescription, setProjectDescription] = useState(project.description)
+    // const [projectDescription, setProjectDescription] = useState(project.description)
+    const [descriptionState, setDescriptionState] = useState(() => EditorState.createEmpty())
     const [showSuccess, setShowSuccess] = useState(false)
 
     useEffect(() => {
@@ -46,7 +50,7 @@ const ProjectEdit = ({history}) => {
     const saveProjectEditHandler = async () => {
         dispatch(resetErrors())
         const newProjectInfo = {
-            description: projectDescription,
+            description: convertContentToHTML(descriptionState),
             status: status.current.value,
             name: projectName
         }
@@ -97,10 +101,16 @@ const ProjectEdit = ({history}) => {
                     </AddEditProjectNameStatusContainer>
                     <AddEditProjectDescriptionContainer>
                         <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>
-                        <ProjectDescriptionTextArea
-                            onChange={(e) => setProjectDescription(e.target.value)}
-                            placeholder='Write your project description...'
-                            value={projectDescription}
+                        {/*<ProjectDescriptionTextArea*/}
+                        {/*    onChange={(e) => setProjectDescription(e.target.value)}*/}
+                        {/*    placeholder='Write your project description...'*/}
+                        {/*    value={projectDescription}*/}
+                        {/*/>*/}
+                        <EditorHTML
+                            componentCalling='ProjectAddEdit'
+                            editorState={descriptionState}
+                            setEditorState={setDescriptionState}
+                            textToLoad={project.description}
                         />
                     </AddEditProjectDescriptionContainer>
                     <ProjectSaveCancelButtonContainer>
