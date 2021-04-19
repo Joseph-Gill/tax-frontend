@@ -1,6 +1,5 @@
 import styled from 'styled-components/macro'
 import {AddEditProjectDescriptionContainer} from '../../style/containers'
-import {AuthenticatedText} from '../../style/text'
 
 
 export const ProjectDisplayInfoBoxesContainer = styled.div`
@@ -157,15 +156,19 @@ export const ProjectDisplayTitleDescriptionContainer = styled(AddEditProjectDesc
     justify-content: flex-start;
 `
 
-export const ProjectDisplayDescriptionText = styled(AuthenticatedText)`
+export const ProjectDisplayText = styled.div`
     margin-top: 10px;
-`
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    line-height: 19px;
+    color: ${props => props.theme.grayOne};
 
-export const ProjectDisplayTextContainer = styled.div`
-    max-height: 284px;
-    overflow: scroll;
-    overflow-y: auto;
-    overflow-x: hidden;
+    ul, li {
+        list-style-position: inside;
+    }
 `
 
 export const ArrowImageContainer = styled.div`

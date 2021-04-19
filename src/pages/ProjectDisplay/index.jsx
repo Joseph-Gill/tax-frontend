@@ -10,11 +10,12 @@ import StepsCard from './StepsCard'
 import {setMemberFilterProjectId} from '../../store/member/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {getProjectAction, getProjectStepsStatusesAction, getProjectTasksStatusesAction} from '../../store/project/actions'
+import {createSanitizedMarkup} from '../../helpers'
 import {EDIT_PROJECT, GROUPS, MEMBERS, PROJECTS} from '../../routes/paths'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
 import {EditGroupButton} from '../GroupDisplay/styling'
-import {ProjectDisplayDescriptionText, ProjectDisplayInfoBoxesContainer, ProjectDisplayTextContainer, ProjectDisplayTitleDescriptionContainer} from './styles'
+import {ProjectDisplayInfoBoxesContainer, ProjectDisplayText, ProjectDisplayTitleDescriptionContainer} from './styles'
 
 
 const ProjectDisplay = ({history}) => {
@@ -73,9 +74,7 @@ const ProjectDisplay = ({history}) => {
                     </DisplayTitleWithButtonContainer>
                     <ProjectDisplayTitleDescriptionContainer>
                         <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>
-                        <ProjectDisplayTextContainer>
-                            <ProjectDisplayDescriptionText>{project.description}</ProjectDisplayDescriptionText>
-                        </ProjectDisplayTextContainer>
+                        <ProjectDisplayText dangerouslySetInnerHTML={createSanitizedMarkup(project.description)} />
                     </ProjectDisplayTitleDescriptionContainer>
                     <ProjectDisplayInfoBoxesContainer>
                         <StepsCard
