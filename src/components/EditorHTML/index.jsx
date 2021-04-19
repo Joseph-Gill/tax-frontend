@@ -16,9 +16,12 @@ const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad})
     }, [textToLoad, setEditorState])
 
     const toolbarProps = {
-        options: ['inline', 'fontSize', 'list', 'textAlign', 'link', 'embedded', 'remove', 'history'],
+        options: ['inline', 'fontSize', 'list', 'history'],
         inline: {
             options: ['bold', 'italic', 'underline', 'monospace'],
+        },
+        list : {
+            options: ['unordered', 'ordered'],
         },
     }
 
