@@ -173,7 +173,7 @@ const ProjectTasks = ({history}) => {
                     <DisplayTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Taskslist - {project.name}</AuthenticatedPageTitle>
                         <TaskStepFilterGoToContainer>
-                            {tasks.length &&
+                            {tasks.length ? (
                                 <div>
                                     <StepFilterInputLabel>Steps Filter</StepFilterInputLabel>
                                     <TaskStepFilter
@@ -181,7 +181,7 @@ const ProjectTasks = ({history}) => {
                                         renderTaskStepFilterOptions={renderTaskStepFilterOptions}
                                         taskStepFilterChangeHandler={taskStepFilterChangeHandler}
                                     />
-                                </div>}
+                                </div>) : <div />}
                             <TasksGoToDropdown
                                 history={history}
                                 project={project}
