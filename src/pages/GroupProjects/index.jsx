@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import ProjectCardV2 from './ProjectCardV2'
 import BreadCrumb from '../../components/BreadCrumb'
-import ProjectCard from './ProjectCard'
 import NoContent from '../../components/NoContent'
 import LogoLoading from '../../components/LogoLoading'
 import {resetProject} from '../../store/project/actions'
@@ -74,7 +74,8 @@ const GroupProjects = ({history}) => {
                     {!projects.length ?
                         <NoContent buttonText='Create Project' redirect={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} text='Your group does not have any projects yet.' /> : (
                             <ProjectCardListContainer>
-                                {projects.length ? setProjectCardDisplayOrder(projects).map(project => <ProjectCard history={history} key={project.id} project={project} />) : null}
+                                {projects.length ?
+                                    setProjectCardDisplayOrder(projects).map(project => <ProjectCardV2 history={history} key={project.id} project={project} />) : null}
                             </ProjectCardListContainer>)}
                 </>)}
         </AuthenticatedPageContainer>

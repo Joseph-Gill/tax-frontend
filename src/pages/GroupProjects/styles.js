@@ -8,7 +8,11 @@ export const AddProjectButton = styled(BaseButton)`
 `
 
 export const ProjectCardListContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 42px;
+    width: 860px;
+    margin: 30px 0 42px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: auto;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
 `
