@@ -1,7 +1,8 @@
 import React from 'react'
 import {useSpring} from 'react-spring'
+import {createSanitizedMarkup} from '../../../helpers'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
-import {CardInfoText, StatusText} from '../../../style/text'
+import {CardDescriptionText, CardInfoText, StatusText} from '../../../style/text'
 import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatusContainer, ProjectCardNameText,
     ProjectNameTextContainer} from './styles'
 
@@ -23,7 +24,8 @@ const ProjectCard = ({project, history}) => {
                 </ProjectNameTextContainer>
                 <StatusText status={project.status}>{project.status}</StatusText>
             </ProjectCardNameStatusContainer>
-            <CardInfoText>{project.description.length > 380 ? project.description.slice(0, 380).concat('... ') : project.description}</CardInfoText>
+            {/* eslint-disable-next-line react/no-danger */}
+            <CardDescriptionText dangerouslySetInnerHTML={createSanitizedMarkup(project.description)} />
             <ProjectCardMembersContainer>
                 <CardInfoText>{project.assigned_users_roles.length} {project.assigned_users_roles.length === 1 ? 'Member' : 'Members'}</CardInfoText>
             </ProjectCardMembersContainer>

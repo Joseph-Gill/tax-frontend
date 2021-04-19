@@ -481,7 +481,6 @@ export const findAllDescendantsOfTargetEntity = (arrayOfEntities, targetEntityId
             }
         }
     })
-    // console.log(result)
     return result
 }
 
@@ -491,7 +490,7 @@ export const convertContentToHTML = editorState => {
 }
 
 //Used by components displaying WYSIWYG Editor content to purify against XSS attacks
-export const createMarkup = html => {
+export const createSanitizedMarkup = html => {
     return {
         __html: DOMPurify.sanitize(html)
     }

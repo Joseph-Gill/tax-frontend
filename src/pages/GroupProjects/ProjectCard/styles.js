@@ -5,7 +5,7 @@ import {animated} from 'react-spring'
 
 export const ProjectCardContainer = styled(animated.div)`
     width: 860px;
-    height: 163px;
+    min-height: 163px;
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
     margin-top: 30px;

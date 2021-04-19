@@ -156,8 +156,6 @@ export const GlobalStyle = createGlobalStyle`
         border: 1px solid ${props => props.theme.grayFour};
         border-radius: ${props => props.theme.borderRadius};
         font-family: ${props => props.theme.nunitoFontFamily};
-        font-weight: 600;
-        font-size: 14px;
         line-height: 19px;
         color: ${props => props.theme.grayOne};
 

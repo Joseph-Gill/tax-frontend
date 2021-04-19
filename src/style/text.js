@@ -128,3 +128,16 @@ export const NoTasksOrTaxConsequencesText = styled.p`
     line-height: 19px;
     color: ${props => props.theme.grayTwo};
 `
+
+export const CardDescriptionText = styled.div`
+    display: flex;
+    flex-direction: column;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    line-height: 19px;
+    color: ${props => props.theme.grayOne};
+
+    ul, li {
+        list-style-position: inside;
+    }
+`
