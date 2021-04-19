@@ -152,7 +152,7 @@ export const GlobalStyle = createGlobalStyle`
     .textEditorProjectAddEdit {
         background: ${props => props.theme.graySix};
         width: 828px;
-        padding: 0 16px 16px 16px;
+    padding: 0 16px 16px 16px;
         border: 1px solid ${props => props.theme.grayFour};
         border-radius: ${props => props.theme.borderRadius};
         font-family: ${props => props.theme.nunitoFontFamily};
@@ -161,7 +161,7 @@ export const GlobalStyle = createGlobalStyle`
 
         :hover {
             filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
-            cursor: pointer;
+            cursor: text;
             transition: 0.5s;
         }
     }
