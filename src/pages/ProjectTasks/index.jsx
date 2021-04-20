@@ -8,14 +8,13 @@ import NoTasksFound from './NoTasksFound'
 import TasksTable from './TasksTable'
 import Loading from '../../components/Loading'
 import LogoLoading from '../../components/LogoLoading'
-import TaskStepFilter from './TaskStepFilter'
 import TasksGoToDropdown from '../../components/Dropdowns/TasksGoToDropdown'
+import ProjectTasksStepFilterDropdown from '../../components/Dropdowns/ProjectTasksStepFilterDropdown'
 import {getProjectAction} from '../../store/project/actions'
 import {getStepsForProjectAction} from '../../store/step/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {getTasksForProjectAction, getTasksForStepOfProjectAction, resetTaskFilterStepNumber, setTaskFilterStepNumber} from '../../store/task/actions'
 import {GROUPS, PROJECTS, TASKS} from '../../routes/paths'
-import {DropdownOption} from '../../style/options'
 import {StepFilterInputLabel} from '../../style/labels'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
@@ -39,6 +38,7 @@ const ProjectTasks = ({history}) => {
     const [tasksToRender, setTasksToRender] = useState([])
     const [showGoToDropdown, setShowGoToDropdown] = useState(false)
     const [showFilterDropdown, setShowFilterDropdown] = useState(false)
+    const [showTaskStepFilter, setShowTaskStepFilter] = useState(false)
     const [loading, setLoading] = useState(true)
     const [filterOption, setFilterOption] = useState([
         {isChecked: true, type: 'due_date'},
@@ -94,24 +94,15 @@ const ProjectTasks = ({history}) => {
         }
     }, [project.id, filterStepNumber, dispatch, tasks, projectLoaded, tasksLoaded, stepsLoaded, groupLoaded])
 
-    //Used by TaskStepFilter to adjust which step is being filter for, or to reset if all step tasks to be displayed
+    //Used by ProjectTasksStepFilterDropdown to adjust which step is being filter for, or to reset if all step tasks to be displayed
     const taskStepFilterChangeHandler = stepNumber => {
         if (stepNumber) {
             dispatch(setTaskFilterStepNumber(stepNumber))
         } else {
             dispatch(resetTaskFilterStepNumber())
         }
+        setShowTaskStepFilter(false)
     }
-
-    //Renders all tasks matching filtered task
-    const renderTaskStepFilterOptions = () => (
-        steps.map(step => (
-            <DropdownOption
-                key={step.id}
-                value={step.number}
-            >{`Step #${step.number}`}
-            </DropdownOption>))
-    )
 
     //Used by StepFilterDropdown to filter which tasks should be displayed by filter input
     const filteredTasks = () => {
@@ -176,9 +167,11 @@ const ProjectTasks = ({history}) => {
                             {tasks.length ? (
                                 <div>
                                     <StepFilterInputLabel>Steps Filter</StepFilterInputLabel>
-                                    <TaskStepFilter
+                                    <ProjectTasksStepFilterDropdown
                                         filterStepNumber={filterStepNumber}
-                                        renderTaskStepFilterOptions={renderTaskStepFilterOptions}
+                                        setShowTaskStepFilter={setShowTaskStepFilter}
+                                        showTaskStepFilter={showTaskStepFilter}
+                                        steps={steps}
                                         taskStepFilterChangeHandler={taskStepFilterChangeHandler}
                                     />
                                 </div>) : <div />}

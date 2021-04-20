@@ -68,7 +68,6 @@ export const GoToButtonContainer = styled.div`
     }
 
     span {
-        color: ${props => props.theme.primaryBlue};
         margin-left: 20px;
     }
 `
