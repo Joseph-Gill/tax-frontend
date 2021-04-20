@@ -105,9 +105,6 @@ const ProjectAdd = ({history}) => {
                                 setShowProjectStatus={setShowProjectStatus}
                                 showProjectStatus={showProjectStatus}
                             />
-                            <ProjectAddErrorContainer>
-                                {error && <ErrorMessage>{error.status}</ErrorMessage>}
-                            </ProjectAddErrorContainer>
                         </ProjectInputContainer>
                     </AddEditProjectNameStatusContainer>
                     <AddEditProjectDescriptionContainer>
