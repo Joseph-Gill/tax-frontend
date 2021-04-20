@@ -3,6 +3,7 @@ import {device as devices} from '../../style/devices'
 import {animated} from 'react-spring'
 import {BaseButton, RedLargerButton} from '../../style/buttons'
 import {EntityFormSelect} from '../../style/select'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../Dropdowns/styles'
 
 
 export const AddDeleteModalExternalContainer = styled(animated.div)`
@@ -222,4 +223,12 @@ export const PredefinedCheckboxCheckmarkLabel = styled.label`
         transition: 167ms;
         text-decoration: underline;
     }
+`
+
+export const CustomDropdownButton = styled(ModalDropdownButton)`
+    margin: 0;
+`
+
+export const CustomDropdownContentContainer = styled(ModalDropdownContentContainer)`
+    margin-left: 0;
 `
