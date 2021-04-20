@@ -4,8 +4,8 @@ import { EditorState } from 'draft-js'
 import EditorHTML from '../../components/EditorHTML'
 import BreadCrumb from '../../components/BreadCrumb'
 import LogoLoading from '../../components/LogoLoading'
+import ProjectStatusDropdown from './ProjectStatusDropdown'
 import SuccessMessage from '../../components/SuccessMessage'
-import ProjectAddStatusDropdown from '../../components/Dropdowns/ProjectAddStatusDropdown'
 import {getGroupAction} from '../../store/group/actions'
 import {getProfileAction} from '../../store/profile/actions'
 import {createProjectAction} from '../../store/project/actions'
@@ -15,7 +15,8 @@ import {GROUPS, ADD_PROJECT, PROJECTS, HOME} from '../../routes/paths'
 import {ErrorMessage} from '../../style/messages'
 import {ProjectNameInput} from '../../style/inputs'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
-import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer, AuthenticatedPageTitleContainer, ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
+import {AddEditProjectDescriptionContainer, AddEditProjectNameStatusContainer, AuthenticatedPageContainer,
+    AuthenticatedPageTitleContainer, ProjectInputContainer, ProjectSaveCancelButtonContainer} from '../../style/containers'
 import {CancelButton, SaveButton} from '../../style/buttons'
 import {ProjectAddErrorContainer} from './styles'
 
@@ -96,8 +97,9 @@ const ProjectAdd = ({history}) => {
                             </ProjectAddErrorContainer>
                         </ProjectInputContainer>
                         <ProjectInputContainer>
-                            <AddEditProjectSectionTitles>Project Status</AddEditProjectSectionTitles>
-                            <ProjectAddStatusDropdown
+                            <ProjectStatusDropdown
+                                error={error}
+                                group={group}
                                 handleSelectProjectStatusChange={handleSelectProjectStatusChange}
                                 projectStatus={projectStatus}
                                 setShowProjectStatus={setShowProjectStatus}

@@ -325,9 +325,14 @@ export const checkIfProjectCanBeCompleted = (array) => {
     return !!array.filter(index => index.status !== 'Completed').length
 }
 
-//Used by components that can set Project status as Completed, to check if it is an available option
-export const checkIfProjectCanBeOngoing = (array) => {
-    return !!array.filter(index => index.status === 'Ongoing').length
+//Used by components that can set Project status as Ongoing, to check if it is an available option
+export const checkIfProjectCanBeOngoing = (groupProjects, projectId) => {
+    const result = groupProjects.filter(index => index.status === 'Ongoing')
+    if (result.length) {
+            return parseInt(result[0].id) !== parseInt(projectId);
+        } else {
+            return false
+        }
 }
 
 //Used by components that need to create list of parent choices, to remove entities with "Delete" highlighting as choices

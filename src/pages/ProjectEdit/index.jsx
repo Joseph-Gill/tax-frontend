@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { EditorState } from 'draft-js'
 import BreadCrumb from '../../components/BreadCrumb'
@@ -22,16 +22,17 @@ import {ProjectEditErrorContainer} from './styles'
 
 const ProjectEdit = ({history}) => {
     const dispatch = useDispatch()
-    let status = useRef('')
     const error = useSelector(state => state.errorReducer.error)
     const group = useSelector(state => state.groupReducer.group)
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
     const steps = useSelector(state => state.stepReducer.steps)
-    const stepsLoaded = useSelector(state => state.stepReducer.loaded)
     const [projectName, setProjectName] = useState(project.name)
+    const [projectStatus, setProjectStatus] = useState(project.status)
+    const [showProjectStatus, setShowProjectStatus] = useState(false)
     const [descriptionState, setDescriptionState] = useState(() => EditorState.createEmpty())
     const [showSuccess, setShowSuccess] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const getStepsForProject = async () => {
@@ -42,14 +43,20 @@ const ProjectEdit = ({history}) => {
             history.push(`${HOME}`)
         } else {
             getStepsForProject()
+                .then(() => setLoading(false))
         }
     }, [history, groupLoaded, dispatch, project.id])
+
+    const handleSelectProjectStatusChange = status => {
+        setProjectStatus(status)
+        setShowProjectStatus(false)
+    }
 
     const saveProjectEditHandler = async () => {
         dispatch(resetErrors())
         const newProjectInfo = {
             description: convertContentToHTML(descriptionState),
-            status: status.current.value,
+            status: projectStatus,
             name: projectName
         }
         const response = await dispatch(updateProjectAction(newProjectInfo, project.id))
@@ -65,7 +72,7 @@ const ProjectEdit = ({history}) => {
                 message="Your project has been successfully edited!"
                 redirect={`${GROUPS}${PROJECTS}/${project.id}`}
             />}
-            {!groupLoaded || !stepsLoaded ? <LogoLoading /> : (
+            {loading ? <LogoLoading /> : (
                 <>
                     <BreadCrumb breadCrumbArray={[
                         {display: 'GROUPS', to: GROUPS, active: false},
@@ -91,9 +98,13 @@ const ProjectEdit = ({history}) => {
                             </ProjectEditErrorContainer>
                         </ProjectInputContainer>
                         <ProjectStatusDropdown
+                            error={error}
                             group={group}
+                            handleSelectProjectStatusChange={handleSelectProjectStatusChange}
                             project={project}
-                            status={status}
+                            projectStatus={projectStatus}
+                            setShowProjectStatus={setShowProjectStatus}
+                            showProjectStatus={showProjectStatus}
                             steps={steps}
                         />
                     </AddEditProjectNameStatusContainer>
@@ -107,7 +118,7 @@ const ProjectEdit = ({history}) => {
                         />
                     </AddEditProjectDescriptionContainer>
                     <ProjectSaveCancelButtonContainer>
-                        <CancelButton onClick={() => history.push(`${GROUPS}/${group.id}`)} >Cancel</CancelButton>
+                        <CancelButton onClick={() => history.push(`${GROUPS}/${group.id}`)}>Cancel</CancelButton>
                         <SaveButton onClick={saveProjectEditHandler}>Save</SaveButton>
                     </ProjectSaveCancelButtonContainer>
                 </>)}

@@ -437,6 +437,15 @@ export const FilterImgContainer = styled.div`
     }
 `
 
+export const ProjectAddEditInputTooltipContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const ProjectAddEditStatusInputContainer = styled(ProjectInputContainer)`
+    margin-right: 0;
+`
+
 // Template Containers
 
 // if needed to create an internal div in the modal

@@ -152,6 +152,15 @@ export const ModalDropdownContent = styled.div`
     }
 `
 
+export const DisabledModalDropdownContent = styled(ModalDropdownContent)`
+    cursor: default;
+
+    :hover {
+        text-decoration: none;
+        background-color: ${props => props.theme.white};
+    }
+`
+
 export const ModalDropdownContentContainer = styled.div`
     display: ${props => props.show ? 'block' : 'none'};
     border-top-right-radius: ${props => props.theme.borderRadius};
