@@ -7,6 +7,7 @@ import {ProjectCardContainer, ProjectCardMembersContainer, ProjectCardNameStatus
     ProjectNameTextContainer} from './styles'
 
 
+//No longer used in current version, replaced with V2
 const ProjectCard = ({project, history}) => {
 
     //From react-spring, causes component to fade in
