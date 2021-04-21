@@ -204,8 +204,8 @@ const ProjectTasks = ({history}) => {
                                     toggleFilterSearchCloseGoTo={toggleFilterSearchCloseGoTo}
                                 />
                             </StatusLegendFilterDropdownContainer>
-                            {loading ? <Loading /> : (
-                                <TasksTableContainer>
+                            <TasksTableContainer>
+                                {loading ? <Loading /> : (
                                     <TasksTable
                                         dispatch={dispatch}
                                         group={group}
@@ -213,7 +213,8 @@ const ProjectTasks = ({history}) => {
                                         project={project}
                                         tasks={filteredTasks()}
                                     />
-                                </TasksTableContainer>)}
+                                )}
+                            </TasksTableContainer>
                         </>)}
                 </>)}
         </AuthenticatedPageContainer>

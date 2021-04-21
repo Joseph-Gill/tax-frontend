@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
+import EntryExpanded from './EntryExpanded'
+import EntryDocuments from './EntryDocuments'
+import EntryResponsible from './EntryResponsible'
+import Loading from '../../../../components/Loading'
+import {getTaskNumberForTaskOfStepAction} from '../../../../store/task/actions'
 import {TableData} from '../../../../style/tables'
 import {DateTableData, ExpandedTableRow, TaskStatusColorIndicator, TaskTableRow, TitleTableData} from './styles'
-import EntryResponsible from './EntryResponsible'
-import EntryDocuments from './EntryDocuments'
-import EntryExpanded from './EntryExpanded'
-import {getTaskNumberForTaskOfStepAction} from '../../../../store/task/actions'
-import Loading from '../../../../components/Loading'
 
 
 const TaskTableEntry = ({group, history, project, task, dispatch}) => {
@@ -27,7 +27,7 @@ const TaskTableEntry = ({group, history, project, task, dispatch}) => {
         <>
             {loading ? (
                 <TaskTableRow>
-                    <TableData>
+                    <TableData colSpan={8}>
                         <Loading />
                     </TableData>
                 </TaskTableRow>
