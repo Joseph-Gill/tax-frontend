@@ -1,8 +1,7 @@
 import React from 'react'
 import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
 import {createTaskStepsChoices, getEntityFromId} from '../../../helpers'
-import {CustomDropdownContentContainer} from '../../Modals/styles'
-import {TaskStepDropdownButton} from './styles'
+import {TaskStepDropdownButton, TaskStepDropdownContentContainer} from './styles'
 
 
 const TaskAddEditStepDropdown = ({handleTaskStepSelectChange, selectedStep, setShowTaskStepSelect,
@@ -18,9 +17,9 @@ const TaskAddEditStepDropdown = ({handleTaskStepSelectChange, selectedStep, setS
             >
                 {!selectedStep ? 'Select a step' : `Step #${getEntityFromId(selectedStep, steps).number}`}
             </TaskStepDropdownButton>
-            <CustomDropdownContentContainer show={showTaskStepSelect ? 1 : 0}>
+            <TaskStepDropdownContentContainer show={showTaskStepSelect ? 1 : 0}>
                 {createTaskStepsChoices(steps, handleTaskStepSelectChange)}
-            </CustomDropdownContentContainer>
+            </TaskStepDropdownContentContainer>
         </DropdownInternalContainer>
     )
 }
