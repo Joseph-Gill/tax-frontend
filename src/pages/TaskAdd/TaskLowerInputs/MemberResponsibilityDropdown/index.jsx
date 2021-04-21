@@ -1,17 +1,25 @@
 import React from 'react'
-import MemberDropdown from '../../../../components/Dropdowns/MemberDropdown'
 import {TaskInputLabel} from '../../../../style/labels'
 import {TaskInputRow} from '../../../../style/containers'
+import TaskAddEditMemberDropdown from '../../../../components/Dropdowns/TaskAddEditMemberDropdown'
 
 
-const MemberResponsibilityDropdown = ({membersOptions, selectedMember, setSelectedMember}) => {
+const MemberResponsibilityDropdown = ({members, handleTaskMemberSelectChange, selectedMember,
+                                          setShowTaskMemberSelect, showTaskMemberSelect}) => {
     return (
         <TaskInputRow>
             <TaskInputLabel>Responsibility</TaskInputLabel>
-            <MemberDropdown
-                membersOptions={membersOptions}
+            {/*<MemberDropdown*/}
+            {/*    membersOptions={membersOptions}*/}
+            {/*    selectedMember={selectedMember}*/}
+            {/*    setSelectedMember={setSelectedMember}*/}
+            {/*/>*/}
+            <TaskAddEditMemberDropdown
+                handleTaskMemberSelectChange={handleTaskMemberSelectChange}
+                members={members}
                 selectedMember={selectedMember}
-                setSelectedMember={setSelectedMember}
+                setShowTaskMemberSelect={setShowTaskMemberSelect}
+                showTaskMemberSelect={showTaskMemberSelect}
             />
         </TaskInputRow>
     )

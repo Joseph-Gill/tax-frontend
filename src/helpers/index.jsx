@@ -5,7 +5,7 @@ import {getMemberOrganizationNameAction} from '../store/organization/actions'
 import {createChartForStepAction, updateChartForStepAction} from '../store/chart/actions'
 import {FileListItem} from '../style/listitem'
 import {DropdownOption} from '../style/options'
-import {ModalDropdownContent} from '../components/Dropdowns/styles'
+import {ModalButtonTwoLineDisplayContainer, ModalDropdownContent} from '../components/Dropdowns/styles'
 
 // User by components that are uploading images for avatars
 export const imageClickHandler = (input) => {
@@ -83,6 +83,7 @@ export const listMemberWithOrgAndRole = async (array, group, dispatch) => {
 }
 
 // Used by components creating a select that needs to populate with Options containing a users Name, Role, and Organization
+// Used by old versions of the dropdowns, will eventually be phased out
 export const createTaskMemberSelectOptions = array => {
     return  array.map(user => (
         <DropdownOption
@@ -93,7 +94,21 @@ export const createTaskMemberSelectOptions = array => {
     ))
 }
 
+// Used by TaskAdd / TaskEdit to render member choices for the custom dropdowns
+export const createTaskMembersChoices = (array, changeHandler) => (
+    array.map(member => (
+        <ModalDropdownContent
+            key={member.id}
+            onClick={() => changeHandler(member.id)}
+        >
+            <span>{`${member.first_name} ${member.last_name}`}</span>
+            <span>{`( ${member.project_role} : ${member.organization} )`}</span>
+        </ModalDropdownContent>
+    ))
+)
+
 // Used by components created a select that needs to populate with Options containing a project's Steps
+// Used by old versions of the dropdowns, will eventually be phased out
 export const createTaskStepSelectOptions = array => {
     return array.map(step => (
         <DropdownOption
@@ -307,6 +322,19 @@ export const getEntityInfo = (array, id, nameAndLocation=false) => {
             } else {
                 return `${array[i].name}`
             }
+    }
+}
+
+export const getMemberInfo = (array, memberId) => {
+    for (let i = 0; i < array.length; i++) {
+        if (parseInt(array[i].id) === parseInt(memberId)) {
+            return (
+                <ModalButtonTwoLineDisplayContainer>
+                    <span>{`${array[i].first_name} ${array[i].last_name}`}</span>
+                    <span>{`( ${array[i].project_role} : ${array[i].organization} )`}</span>
+                </ModalButtonTwoLineDisplayContainer>
+            )
+        }
     }
 }
 

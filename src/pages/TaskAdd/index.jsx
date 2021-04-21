@@ -12,7 +12,7 @@ import TaskAddTitle from './TaskAddTitle'
 import TaskAddStep from './TaskAddStep'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {createTaskAction, getTasksForProjectAction} from '../../store/task/actions'
-import {convertContentToHTML, convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
+import {convertContentToHTML, convertDate, createAcceptedFilesList, listMemberWithOrgAndRole} from '../../helpers'
 import {ADD_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
@@ -39,6 +39,7 @@ const TaskAdd = ({history}) => {
     const [memberRenderData, setMemberRenderData] = useState([])
     const [descriptionState, setDescriptionState] = useState(() => EditorState.createEmpty())
     const [showTaskStepSelect, setShowTaskStepSelect] = useState(false)
+    const [showTaskMemberSelect, setShowTaskMemberSelect] = useState(false)
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
@@ -61,6 +62,11 @@ const TaskAdd = ({history}) => {
     const handleTaskStepSelectChange = stepNumber => {
         setSelectedStep(stepNumber)
         setShowTaskStepSelect(false)
+    }
+
+    const handleTaskMemberSelectChange = memberId => {
+        setSelectedMember(memberId)
+        setShowTaskMemberSelect(false)
     }
 
     const saveNewTaskHandler = async () => {
@@ -146,9 +152,11 @@ const TaskAdd = ({history}) => {
                             files={createAcceptedFilesList(acceptedFiles)}
                             getInputProps={getInputProps}
                             getRootProps={getRootProps}
-                            membersOptions={createTaskMemberSelectOptions(memberRenderData)}
+                            handleTaskMemberSelectChange={handleTaskMemberSelectChange}
+                            members={memberRenderData}
                             selectedMember={selectedMember}
-                            setSelectedMember={setSelectedMember}
+                            setShowTaskMemberSelect={setShowTaskMemberSelect}
+                            showTaskMemberSelect={showTaskMemberSelect}
                         />
                     </TaskInputsContainer>
                     <TaskCancelSaveButtonContainer>

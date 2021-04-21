@@ -8,7 +8,8 @@ import {AddTaskDocumentContainer, TaskLowerRightContainer} from './styles'
 import {TaskErrorContainer, TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
 
 
-const TaskLowerInputs = ({error, files, getInputProps, getRootProps, membersOptions, selectedMember, setSelectedMember}) => {
+const TaskLowerInputs = ({error, files, getInputProps, getRootProps, handleTaskMemberSelectChange, members,
+                             selectedMember, setShowTaskMemberSelect, showTaskMemberSelect}) => {
     return (
         <TaskLowerInputsContainer>
             <TaskLowerLeftContainer>
@@ -21,9 +22,11 @@ const TaskLowerInputs = ({error, files, getInputProps, getRootProps, membersOpti
                 </TaskInputRow>
                 <div>
                     <MemberResponsibilityDropdown
-                        membersOptions={membersOptions}
+                        handleTaskMemberSelectChange={handleTaskMemberSelectChange}
+                        members={members}
                         selectedMember={selectedMember}
-                        setSelectedMember={setSelectedMember}
+                        setShowTaskMemberSelect={setShowTaskMemberSelect}
+                        showTaskMemberSelect={showTaskMemberSelect}
                     />
                     <TaskErrorContainer>
                         {error && <ErrorMessage>{error.member}</ErrorMessage>}
