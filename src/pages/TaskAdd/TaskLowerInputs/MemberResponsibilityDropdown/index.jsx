@@ -1,7 +1,7 @@
 import React from 'react'
+import TaskAddEditMemberDropdown from '../../../../components/Dropdowns/TaskAddEditMemberDropdown'
 import {TaskInputLabel} from '../../../../style/labels'
 import {TaskInputRow} from '../../../../style/containers'
-import TaskAddEditMemberDropdown from '../../../../components/Dropdowns/TaskAddEditMemberDropdown'
 
 
 const MemberResponsibilityDropdown = ({members, handleTaskMemberSelectChange, selectedMember,
@@ -9,11 +9,6 @@ const MemberResponsibilityDropdown = ({members, handleTaskMemberSelectChange, se
     return (
         <TaskInputRow>
             <TaskInputLabel>Responsibility</TaskInputLabel>
-            {/*<MemberDropdown*/}
-            {/*    membersOptions={membersOptions}*/}
-            {/*    selectedMember={selectedMember}*/}
-            {/*    setSelectedMember={setSelectedMember}*/}
-            {/*/>*/}
             <TaskAddEditMemberDropdown
                 handleTaskMemberSelectChange={handleTaskMemberSelectChange}
                 members={members}
