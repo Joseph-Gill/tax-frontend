@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {EditorState} from 'draft-js'
 import BreadCrumb from '../../components/BreadCrumb'
 import TaskLowerInputs from './TaskLowerInputs'
 import {useDropzone} from 'react-dropzone'
@@ -11,7 +12,7 @@ import TaskAddTitle from './TaskAddTitle'
 import TaskAddStep from './TaskAddStep'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {createTaskAction, getTasksForProjectAction} from '../../store/task/actions'
-import {convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
+import {convertContentToHTML, convertDate, createAcceptedFilesList, createTaskMemberSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
 import {ADD_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
@@ -21,7 +22,6 @@ import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelS
 const TaskAdd = ({history}) => {
     const dispatch = useDispatch()
     let title = useRef('')
-    let description = useRef('')
     const group = useSelector(state => state.groupReducer.group)
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
@@ -37,6 +37,7 @@ const TaskAdd = ({history}) => {
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone()
     const [showSuccess, setShowSuccess] = useState(false)
     const [memberRenderData, setMemberRenderData] = useState([])
+    const [descriptionState, setDescriptionState] = useState(() => EditorState.createEmpty())
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
@@ -67,7 +68,7 @@ const TaskAdd = ({history}) => {
         } else {
             const newTask = {
                 title: title.current.value,
-                description: description.current.value,
+                description: convertContentToHTML(descriptionState),
                 planned_completion_date: convertDate(completionDate),
                 due_date: convertDate(dueDate),
                 documents: acceptedFiles,
@@ -122,8 +123,9 @@ const TaskAdd = ({history}) => {
                             steps={steps}
                         />
                         <TaskAddDescription
-                            description={description}
+                            descriptionState={descriptionState}
                             error={error}
+                            setDescriptionState={setDescriptionState}
                         />
                         <TaskDates
                             completionDate={completionDate}

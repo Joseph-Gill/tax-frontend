@@ -3,11 +3,12 @@ import {TaskErrorContainer, TaskInputRow} from '../../../style/containers'
 import {TaskInputLabel} from '../../../style/labels'
 import {ErrorMessage} from '../../../style/messages'
 import {TaskTitleInput} from '../../../style/inputs'
+import {TaskAddErrorInputRow} from '../styles'
 
 
 const TaskAddTitle = ({error, title}) => {
     return (
-        <div>
+        <TaskAddErrorInputRow>
             <TaskInputRow>
                 <TaskInputLabel>Task title</TaskInputLabel>
                 <TaskTitleInput
@@ -20,7 +21,7 @@ const TaskAddTitle = ({error, title}) => {
             <TaskErrorContainer>
                 {error && <ErrorMessage>{error.title}</ErrorMessage>}
             </TaskErrorContainer>
-        </div>
+        </TaskAddErrorInputRow>
     )
 }
 

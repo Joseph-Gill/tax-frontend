@@ -1,24 +1,36 @@
 import React from 'react'
+import EditorHTML from '../../../components/EditorHTML'
+import styled from 'styled-components/macro'
 import {TaskErrorContainer, TaskUpperLabelRow} from '../../../style/containers'
 import {TaskInputLabel} from '../../../style/labels'
 import {ErrorMessage} from '../../../style/messages'
-import {TaskDescriptionTextArea} from '../../../style/textarea'
+import {device as devices} from '../../../style/devices'
 
 
-const TaskAddDescription = ({description, error}) => {
+const TaskDescriptionRow = styled.div`
+    height: 160px;
+    margin-bottom: 12px;
+
+    @media ${devices.height1080p} {
+            height: 480px;
+        }
+`
+
+const TaskAddDescription = ({descriptionState, error, setDescriptionState}) => {
     return (
-        <div>
+        <TaskDescriptionRow>
             <TaskUpperLabelRow>
                 <TaskInputLabel>Task description</TaskInputLabel>
-                <TaskDescriptionTextArea
-                    placeholder='Write your task description'
-                    ref={description}
+                <EditorHTML
+                    componentCalling='TaskAddEdit'
+                    editorState={descriptionState}
+                    setEditorState={setDescriptionState}
                 />
             </TaskUpperLabelRow>
             <TaskErrorContainer>
                 {error && <ErrorMessage>{error.description}</ErrorMessage>}
             </TaskErrorContainer>
-        </div>
+        </TaskDescriptionRow>
     )
 }
 

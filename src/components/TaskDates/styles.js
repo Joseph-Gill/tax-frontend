@@ -6,6 +6,7 @@ export const TaskDatesContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 22px;
 `
 
 export const DueDateContainer = styled.div`

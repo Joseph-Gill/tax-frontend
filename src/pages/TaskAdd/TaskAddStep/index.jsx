@@ -4,11 +4,12 @@ import {createTaskStepSelectOptions} from '../../../helpers'
 import {ErrorMessage} from '../../../style/messages'
 import {TaskInputLabel} from '../../../style/labels'
 import {TaskErrorContainer, TaskInputRow} from '../../../style/containers'
+import {TaskAddErrorInputRow} from '../styles'
 
 
 const TaskAddStep = ({error, selectedStep, setSelectedStep, steps}) => {
     return (
-        <div>
+        <TaskAddErrorInputRow>
             <TaskInputRow>
                 <TaskInputLabel>Assign a step</TaskInputLabel>
                 <StepDropdown
@@ -20,7 +21,7 @@ const TaskAddStep = ({error, selectedStep, setSelectedStep, steps}) => {
             <TaskErrorContainer>
                 {error && <ErrorMessage>{error.step}</ErrorMessage>}
             </TaskErrorContainer>
-        </div>
+        </TaskAddErrorInputRow>
     )
 }
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 import {CancelButton} from './buttons'
 import {animated} from 'react-spring'
-import {device} from './devices'
+import {device as devices} from '../style/devices'
 
 
 export const BasePageContainer = styled.div`
@@ -122,7 +122,7 @@ export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatu
     border: 1px solid ${props => props.theme.grayFour};
     padding: 16px;
 
-    @media ${device.laptopL} {
+    @media ${devices.laptopL} {
         height: 592px;
     }
 `
@@ -256,7 +256,7 @@ export const TooltipRowContainer = styled.div`
 
 export const TaskInputsContainer = styled.div`
     width: 860px;
-    height: 484px;
+    height: 520px;
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
@@ -265,14 +265,18 @@ export const TaskInputsContainer = styled.div`
     padding: 20px 20px 5px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+
+    @media ${devices.height1080p} {
+        height: 620px
+    }
 `
 
 export const TaskCancelSaveButtonContainer = styled.div`
     width: 860px;
     display: flex;
     justify-content: flex-end;
-    margin-top: 20px;
+    margin: 20px 0;
 
     button {
         margin-left: 20px;
@@ -286,6 +290,11 @@ export const TaskInputRow = styled.div`
 
 export const TaskUpperLabelRow = styled(TaskInputRow)`
     align-items: flex-start;
+    height: 160px;
+
+    @media ${devices.height1080p} {
+            height: 260px;
+        }
 `
 
 export const TaskErrorContainer = styled.div`

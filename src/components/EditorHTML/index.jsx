@@ -30,6 +30,9 @@ const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad})
             case 'ProjectAddEdit': {
                 return 'textEditorProjectAddEdit'
             }
+            case 'TaskAddEdit': {
+                return 'textEditorTaskAddEdit'
+            }
             default:
                 return 'editor-class'
         }
@@ -39,6 +42,9 @@ const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad})
         switch (componentCalling) {
             case 'ProjectAddEdit': {
                 return 'editorWrapperProjectAddEdit'
+            }
+            case 'TaskAddEdit': {
+                return 'editorWrapperTaskAddEdit'
             }
             default:
                 return 'wrapper-class'
