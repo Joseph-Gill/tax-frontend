@@ -104,6 +104,27 @@ export const createTaskStepSelectOptions = array => {
     ))
 }
 
+// Used by TaskAdd / TaskEdit to render step choices for the custom dropdowns
+export const createTaskStepsChoices = (array, changeHandler) => {
+    if (array.length) {
+            return (
+                array.map(step => (
+                    <ModalDropdownContent
+                        key={step.id}
+                        onClick={() => changeHandler(step.id)}
+                    >
+                        <span>{`Step #${step.number}`}</span>
+                    </ModalDropdownContent>
+                )))
+        } else {
+            return (
+                <ModalDropdownContent>
+                    <span>This project has no steps</span>
+                </ModalDropdownContent>
+            )
+        }
+}
+
 // Used by components needing to render a list of files uploaded by the user, trims name length to be 18 characters or less, while keeping the file extension
 export const createAcceptedFilesList = array => {
     return array.map(file => (

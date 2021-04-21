@@ -38,6 +38,7 @@ const TaskAdd = ({history}) => {
     const [showSuccess, setShowSuccess] = useState(false)
     const [memberRenderData, setMemberRenderData] = useState([])
     const [descriptionState, setDescriptionState] = useState(() => EditorState.createEmpty())
+    const [showTaskStepSelect, setShowTaskStepSelect] = useState(false)
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
@@ -56,6 +57,11 @@ const TaskAdd = ({history}) => {
                 })
         }
     }, [dispatch, group, groupLoaded, history, members, project.id, projectLoaded, stepsLoaded])
+
+    const handleTaskStepSelectChange = stepNumber => {
+        setSelectedStep(stepNumber)
+        setShowTaskStepSelect(false)
+    }
 
     const saveNewTaskHandler = async () => {
         dispatch(resetErrors())
@@ -118,8 +124,10 @@ const TaskAdd = ({history}) => {
                         />
                         <TaskAddStep
                             error={error}
+                            handleTaskStepSelectChange={handleTaskStepSelectChange}
                             selectedStep={selectedStep}
-                            setSelectedStep={setSelectedStep}
+                            setShowTaskStepSelect={setShowTaskStepSelect}
+                            showTaskStepSelect={showTaskStepSelect}
                             steps={steps}
                         />
                         <TaskAddDescription
