@@ -28,6 +28,7 @@ export const TasksTableContainer = styled.div`
     background-color: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
     overflow: auto;
+    overflow-x: hidden;
 
     @media ${devices.height1080p} {
         max-height: 718px;

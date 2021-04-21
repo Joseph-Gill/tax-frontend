@@ -18,6 +18,8 @@ export const ExpandedTaskTile = styled(NavbarTitle)`
 `
 
 export const ExpandedTaskDescriptionContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 772px;
     height: 92px;
     max-height: 92px;
@@ -26,9 +28,11 @@ export const ExpandedTaskDescriptionContainer = styled.div`
     line-height: 19px;
     color: ${props => props.theme.grayOne};
     margin-top: 10px;
-    overflow: scroll;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
+
+    ul, li {
+        list-style-position: inside;
+    }
 `
 
 export const ExpandedTaskStatusButtonContainer = styled.div`

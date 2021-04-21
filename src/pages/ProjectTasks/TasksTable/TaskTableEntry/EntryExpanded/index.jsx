@@ -10,6 +10,7 @@ import {
     ExpandedTaskDescriptionContainer, ExpandedTaskEditLogButton, ExpandedTaskStatusButtonContainer,
     ExpandedTaskStatusButtonLeftContainer, ExpandedTaskStepButton, ExpandedTaskTile, TaskTableEntryExpandedContainer
 } from './styles'
+import {createSanitizedMarkup} from '../../../../../helpers'
 
 
 const EntryExpanded = ({history, project, task}) => {
@@ -41,9 +42,7 @@ const EntryExpanded = ({history, project, task}) => {
                     showDeleteTaskConfirmation={showDeleteTaskConfirmation}
                 /> : null}
             <ExpandedTaskTile>Task Description</ExpandedTaskTile>
-            <ExpandedTaskDescriptionContainer>
-                {task.description}
-            </ExpandedTaskDescriptionContainer>
+            <ExpandedTaskDescriptionContainer dangerouslySetInnerHTML={createSanitizedMarkup(task.description)} />
             <ExpandedTaskStatusButtonContainer>
                 <ExpandedTaskStatusButtonLeftContainer>
                     <TaskStatusDropdown task={task} />
