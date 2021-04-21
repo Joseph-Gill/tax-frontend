@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import {StatusLegendContainer} from '../../style/containers'
+import {device as devices} from '../../style/devices'
 
 
 export const TaskListTitleButtonsContainer = styled.div`
@@ -26,9 +27,11 @@ export const TasksTableContainer = styled.div`
     max-height: 469px;
     background-color: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
-    overflow: scroll;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
+
+    @media ${devices.height1080p} {
+        max-height: 718px;
+    }
 `
 
 export const TaskStepFilterGoToContainer = styled.div`
