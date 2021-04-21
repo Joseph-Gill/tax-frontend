@@ -1,19 +1,20 @@
 import React from 'react'
 import {TaskErrorContainer, TaskUpperLabelRow} from '../../../style/containers'
 import {TaskInputLabel} from '../../../style/labels'
-import {TaskDescriptionTextArea} from '../../../style/textarea'
 import {ErrorMessage} from '../../../style/messages'
+import EditorHTML from '../../../components/EditorHTML'
 
 
-const TaskEditDescription = ({description, error, setDescription}) => {
+const TaskEditDescription = ({descriptionState, error, setDescriptionState, textToLoad}) => {
     return (
         <div>
             <TaskUpperLabelRow>
                 <TaskInputLabel>Task description</TaskInputLabel>
-                <TaskDescriptionTextArea
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder='Write your task description'
-                    value={description}
+                <EditorHTML
+                    componentCalling='TaskAddEdit'
+                    editorState={descriptionState}
+                    setEditorState={setDescriptionState}
+                    textToLoad={textToLoad}
                 />
             </TaskUpperLabelRow>
             <TaskErrorContainer>

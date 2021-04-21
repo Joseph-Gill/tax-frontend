@@ -1,15 +1,16 @@
 import React from 'react'
 import DocumentUpload from '../../../components/DocumentUpload'
 import TaskDocument from '../../../components/TaskDocument'
+import MemberResponsibilityDropdown from './MemberResponsibilityDropdown'
 import {TaskInputLabel} from '../../../style/labels'
 import {ErrorMessage} from '../../../style/messages'
 import {DocumentUploadAreaText} from '../../../style/text'
 import {DocumentContainer, TaskErrorContainer, TaskInputRow, TaskLowerInputsContainer, TaskLowerLeftContainer} from '../../../style/containers'
 import {EditTaskExistingDocumentContainer, EditTaskLowerRightContainer} from './styles'
-import MemberResponsibilityDropdown from './MemberResponsibilityDropdown'
 
 
-const TaskEditLowerInputs = ({documents, error, files, getInputProps, getRootProps, membersOptions, project, selectedMember, setSelectedMember}) => {
+const TaskEditLowerInputs = ({documents, error, files, getInputProps, getRootProps, handleTaskMemberSelectChange,
+                                 members, project, selectedMember, setShowTaskMemberSelect, showTaskMemberSelect}) => {
     return (
         <TaskLowerInputsContainer>
             <TaskLowerLeftContainer>
@@ -22,9 +23,11 @@ const TaskEditLowerInputs = ({documents, error, files, getInputProps, getRootPro
                 </TaskInputRow>
                 <div>
                     <MemberResponsibilityDropdown
-                        membersOptions={membersOptions}
+                        handleTaskMemberSelectChange={handleTaskMemberSelectChange}
+                        members={members}
                         selectedMember={selectedMember}
-                        setSelectedMember={setSelectedMember}
+                        setShowTaskMemberSelect={setShowTaskMemberSelect}
+                        showTaskMemberSelect={showTaskMemberSelect}
                     />
                     <TaskErrorContainer>
                         {error && <ErrorMessage>{error.member}</ErrorMessage>}

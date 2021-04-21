@@ -1,9 +1,14 @@
 import styled from 'styled-components/macro'
-import {StatusDropdown} from '../../../../style/dropdowns'
+import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../../components/Dropdowns/styles'
 
 
-export const TaskStatus = styled(StatusDropdown)`
+export const TaskStatusDropdownButton = styled(ModalDropdownButton)`
     width: 130px;
-    background-position-x: 111px;
+    height: 42px;
+    margin-left: 45px;
+`
+
+export const TaskStatusDropdownContentContainer = styled(ModalDropdownContentContainer)`
+    width: 130px;
     margin-left: 45px;
 `

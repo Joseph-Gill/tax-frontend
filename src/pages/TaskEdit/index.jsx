@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import {useDropzone} from 'react-dropzone'
+import {EditorState} from 'draft-js'
 import BreadCrumb from '../../components/BreadCrumb'
 import EditInputTitleStatus from './EditInputTitleStatus'
 import TaskDates from '../../components/TaskDates'
@@ -12,12 +13,14 @@ import TaskEditStep from './TaskEditStep'
 import LogoLoading from '../../components/LogoLoading'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {getTasksForProjectAction, updateTaskAction} from '../../store/task/actions'
-import {convertDate, createAcceptedFilesList, createDate, createTaskMemberSelectOptions, listMemberWithOrgAndRole} from '../../helpers'
+import {convertContentToHTML, convertDate, createAcceptedFilesList, createDate,
+    listMemberWithOrgAndRole} from '../../helpers'
 import {EDIT_TASK, GROUPS, HOME, PROJECTS, TASKS} from '../../routes/paths'
 import {ErrorMessage} from '../../style/messages'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {CancelButton, SaveButton} from '../../style/buttons'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer, TaskErrorContainer, TaskInputsContainer} from '../../style/containers'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, TaskCancelSaveButtonContainer,
+    TaskErrorContainer, TaskInputsContainer} from '../../style/containers'
 
 
 const TaskEdit = ({history}) => {
@@ -37,14 +40,17 @@ const TaskEdit = ({history}) => {
     const [selectedStep, setSelectedStep] = useState('')
     const [selectedMember, setSelectedMember] = useState('')
     const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
     const [dueDate, setDueDate] = useState(new Date())
     const [completionDate, setCompletionDate] = useState(new Date())
     const [taskStatus, setTaskStatus] = useState('')
     const {acceptedFiles, getRootProps, getInputProps} = useDropzone()
     const [showSuccess, setShowSuccess] = useState(false)
     const [memberRenderData, setMemberRenderData] = useState([])
-    const [loaded, setLoaded] = useState(false)
+    const [descriptionState, setDescriptionState] = useState(() => EditorState.createEmpty())
+    const [showTaskStepSelect, setShowTaskStepSelect] = useState(false)
+    const [showTaskMemberSelect, setShowTaskMemberSelect] = useState(false)
+    const [showTaskStatusSelect, setShowTaskStatusSelect] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         //Pushes to home if project is not loaded due to page refresh
@@ -60,7 +66,6 @@ const TaskEdit = ({history}) => {
             setTitle(targetTask.title)
             setTaskStatus(targetTask.status)
             setSelectedStep(targetTask.step.id)
-            setDescription(targetTask.description)
             //format necessary to input a date object into react-datepicker since django stores the date as a string
             setDueDate(createDate(targetTask.due_date))
             //format necessary to input a date object into react-datepicker since django stores the date as a string
@@ -70,16 +75,31 @@ const TaskEdit = ({history}) => {
             listMemberWithOrgAndRole(members, group, dispatch)
                 .then(result => {
                     setMemberRenderData([...result])
-                    setLoaded(true)
+                    setLoading(false)
                 })
         }
     }, [members, group, dispatch, tasks, groupLoaded, history, match.params.taskId, project.id, projectLoaded, stepsLoaded, tasksLoaded])
+
+    const handleTaskStepSelectChange = stepNumber => {
+        setSelectedStep(stepNumber)
+        setShowTaskStepSelect(false)
+    }
+
+    const handleTaskMemberSelectChange = memberId => {
+        setSelectedMember(memberId)
+        setShowTaskMemberSelect(false)
+    }
+
+    const handleTaskStatusSelectChange = taskStatus => {
+        setTaskStatus(taskStatus)
+        setShowTaskStatusSelect(false)
+    }
 
     const saveEditTaskHandler = async () => {
         dispatch(resetErrors())
         const updatedTask = {
             title,
-            description,
+            description: convertContentToHTML(descriptionState),
             planned_completion_date: convertDate(completionDate),
             due_date: convertDate(dueDate),
             documents: acceptedFiles,
@@ -107,7 +127,7 @@ const TaskEdit = ({history}) => {
                 message="Your task has been successfully updated!"
                 redirect={`${GROUPS}${PROJECTS}${TASKS}/${project.id}`}
                             />}
-            {!loaded ? <LogoLoading /> : (
+            {loading ? <LogoLoading /> : (
                 <>
                     <BreadCrumb
                         breadCrumbArray={[
@@ -125,8 +145,10 @@ const TaskEdit = ({history}) => {
                     <TaskInputsContainer>
                         <div>
                             <EditInputTitleStatus
-                                setTaskStatus={setTaskStatus}
+                                handleTaskStatusSelectChange={handleTaskStatusSelectChange}
+                                setShowTaskStatusSelect={setShowTaskStatusSelect}
                                 setTitle={setTitle}
+                                showTaskStatusSelect={showTaskStatusSelect}
                                 taskStatus={taskStatus}
                                 title={title}
                             />
@@ -136,14 +158,17 @@ const TaskEdit = ({history}) => {
                         </div>
                         <TaskEditStep
                             error={error}
+                            handleTaskStepSelectChange={handleTaskStepSelectChange}
                             selectedStep={selectedStep}
-                            setSelectedStep={setSelectedStep}
+                            setShowTaskStepSelect={setShowTaskStepSelect}
+                            showTaskStepSelect={showTaskStepSelect}
                             steps={steps}
                         />
                         <TaskEditDescription
-                            description={description}
+                            descriptionState={descriptionState}
                             error={error}
-                            setDescription={setDescription}
+                            setDescriptionState={setDescriptionState}
+                            textToLoad={targetTask.description}
                         />
                         <TaskDates
                             completionDate={completionDate}
@@ -157,10 +182,12 @@ const TaskEdit = ({history}) => {
                             files={createAcceptedFilesList(acceptedFiles)}
                             getInputProps={getInputProps}
                             getRootProps={getRootProps}
-                            membersOptions={createTaskMemberSelectOptions(memberRenderData)}
+                            handleTaskMemberSelectChange={handleTaskMemberSelectChange}
+                            members={memberRenderData}
                             project={project}
                             selectedMember={selectedMember}
-                            setSelectedMember={setSelectedMember}
+                            setShowTaskMemberSelect={setShowTaskMemberSelect}
+                            showTaskMemberSelect={showTaskMemberSelect}
                         />
                     </TaskInputsContainer>
                     <TaskCancelSaveButtonContainer>

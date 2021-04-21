@@ -1,19 +1,45 @@
 import React from 'react'
-import {DropdownOption} from '../../../../style/options'
-import {TaskStatus} from './styles'
+import DropdownInternalContainer from '../../../../components/Dropdowns/DropdownComponents/DropdownInternalContainer'
+import {ModalDropdownContent} from '../../../../components/Dropdowns/styles'
+import {TaskStatusDropdownButton, TaskStatusDropdownContentContainer} from './styles'
 
 
-const TaskStatusDropdown = ({setTaskStatus, taskStatus}) => {
+const TaskStatusDropdown = ({handleTaskStatusSelectChange, setShowTaskStatusSelect,
+                                showTaskStatusSelect, taskStatus}) => {
+
     return (
-        <TaskStatus
-            onChange={(e) => setTaskStatus(e.target.value)}
-            value={taskStatus}
+        <DropdownInternalContainer
+            setDropdownView={setShowTaskStatusSelect}
+            showDropdownView={showTaskStatusSelect}
         >
-            <DropdownOption value='Not Started'>Not Started</DropdownOption>
-            <DropdownOption value='Ongoing'>Ongoing</DropdownOption>
-            <DropdownOption value='Planned'>Planned</DropdownOption>
-            <DropdownOption value='Completed'>Completed</DropdownOption>
-        </TaskStatus>
+            <TaskStatusDropdownButton
+                onClick={() => setShowTaskStatusSelect(!showTaskStatusSelect)}
+            >
+                {!taskStatus ? 'Select a status' : taskStatus}
+            </TaskStatusDropdownButton>
+            <TaskStatusDropdownContentContainer show={showTaskStatusSelect ? 1 : 0}>
+                <ModalDropdownContent
+                    onClick={() => handleTaskStatusSelectChange('Not Started')}
+                >
+                    <span>Not Started</span>
+                </ModalDropdownContent>
+                <ModalDropdownContent
+                    onClick={() => handleTaskStatusSelectChange('Ongoing')}
+                >
+                    <span>Ongoing</span>
+                </ModalDropdownContent>
+                <ModalDropdownContent
+                    onClick={() => handleTaskStatusSelectChange('Planned')}
+                >
+                    <span>Planned</span>
+                </ModalDropdownContent>
+                <ModalDropdownContent
+                    onClick={() => handleTaskStatusSelectChange('Completed')}
+                >
+                    <span>Completed</span>
+                </ModalDropdownContent>
+            </TaskStatusDropdownContentContainer>
+        </DropdownInternalContainer>
     )
 }
 

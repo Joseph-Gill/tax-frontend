@@ -5,7 +5,9 @@ import {InputContainer, InputStatusContainer, StatusContainer} from './styles'
 import {TaskTitleInput} from '../../../style/inputs'
 
 
-const EditInputTitleStatus = ({setTaskStatus, setTitle, taskStatus, title}) => {
+const EditInputTitleStatus = ({handleTaskStatusSelectChange, setShowTaskStatusSelect, setTitle, showTaskStatusSelect,
+                                  taskStatus, title}) => {
+
     return (
         <InputStatusContainer>
             <InputContainer>
@@ -21,7 +23,9 @@ const EditInputTitleStatus = ({setTaskStatus, setTitle, taskStatus, title}) => {
             <StatusContainer>
                 <TaskInputLabel>Status</TaskInputLabel>
                 <TaskStatusDropdown
-                    setTaskStatus={setTaskStatus}
+                    handleTaskStatusSelectChange={handleTaskStatusSelectChange}
+                    setShowTaskStatusSelect={setShowTaskStatusSelect}
+                    showTaskStatusSelect={showTaskStatusSelect}
                     taskStatus={taskStatus}
                 />
             </StatusContainer>

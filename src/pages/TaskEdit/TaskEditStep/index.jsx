@@ -1,20 +1,22 @@
 import React from 'react'
-import StepDropdown from '../../../components/StepDropdown'
-import {createTaskStepSelectOptions} from '../../../helpers'
+import TaskAddEditStepDropdown from '../../../components/Dropdowns/TaskAddEditStepDropdown'
 import {TaskInputLabel} from '../../../style/labels'
 import {ErrorMessage} from '../../../style/messages'
 import {TaskErrorContainer, TaskInputRow} from '../../../style/containers'
 
 
-const TaskEditStep = ({error, selectedStep, setSelectedStep, steps}) => {
+const TaskEditStep = ({error, handleTaskStepSelectChange, selectedStep, steps, setShowTaskStepSelect,
+                         showTaskStepSelect}) => {
     return (
         <div>
             <TaskInputRow>
                 <TaskInputLabel>Assign a step</TaskInputLabel>
-                <StepDropdown
+                <TaskAddEditStepDropdown
+                    handleTaskStepSelectChange={handleTaskStepSelectChange}
                     selectedStep={selectedStep}
-                    setSelectedStep={setSelectedStep}
-                    stepOptions={createTaskStepSelectOptions(steps)}
+                    setShowTaskStepSelect={setShowTaskStepSelect}
+                    showTaskStepSelect={showTaskStepSelect}
+                    steps={steps}
                 />
             </TaskInputRow>
             <TaskErrorContainer>
