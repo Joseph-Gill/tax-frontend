@@ -5,7 +5,7 @@ import {device as devices} from '../../../style/devices'
 
 
 export const StepDetailsContainer = styled.div`
-    width: 860px;
+    width: 100%;
     height: 100%;
     padding: 15px 20px 10px 20px;
 
@@ -67,9 +67,7 @@ export const StepInfoDescriptionContainer = styled.div`
     margin-top: 7px;
     height: 70px;
     max-height: 70px;
-    overflow: scroll;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
 `
 
 export const StepInfoTextArea = styled(ProjectDescriptionTextArea)`
@@ -80,19 +78,17 @@ export const StepInfoTextArea = styled(ProjectDescriptionTextArea)`
 `
 
 export const TaxConsequencesContainer = styled.div`
-    width: 820px;
+    width: 100%;
     height: 230px;
     max-height: 230px;
     margin-top: 10px;
     border: 1px solid ${props => props.theme.grayFour};
     border-radius: ${props => props.theme.borderRadius};
-    overflow: scroll;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
 
     @media ${devices.laptopL} {
-        height: 430px;
-        max-height: 430px;
+        height: 582px;
+        max-height: 582px;
     }
 `
 
