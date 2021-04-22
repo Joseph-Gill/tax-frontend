@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import {device as devices} from '../../style/devices'
 
 
 export const StepDisplayContainer = styled.div`
@@ -7,6 +8,10 @@ export const StepDisplayContainer = styled.div`
     display: flex;
     margin-top: 21px;
     padding-bottom: 10px;
+
+    @media ${devices.laptopL} {
+        max-width: 1160px;
+    }
 `
 
 export const StepNode = styled.li`

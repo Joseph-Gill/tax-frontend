@@ -398,7 +398,8 @@ export const NoChartToDisplay = styled.div`
     flex-direction: column;
 
     @media ${devices.laptopL} {
-        height: 600px;
+        height: 750px;
+        width: 1160px;
     }
 
     p {

@@ -27,7 +27,7 @@ export const DisabledDateLabelContainer = styled.div`
 
 export const StepChartDetailsContainer = styled.div`
     width: 860px;
-    height: 400px;
+    height: 398px;
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
@@ -37,7 +37,8 @@ export const StepChartDetailsContainer = styled.div`
     justify-content: center;
 
     @media ${devices.laptopL} {
-        height: 600px
+        width: 1160px;
+        height: 750px;
     }
 `
 

@@ -21,7 +21,8 @@ export const OrgChartContainer = styled.div`
 
     @media ${devices.laptopL} {
         height: ${props => props.componentCalling === 'GroupOrgChart' ? '516px'
-            : props.componentCalling === 'StepDisplay' ? '598px'
+            : props.componentCalling === 'StepDisplay' ? '750px'
                 : props.componentCalling === 'GroupAddEdit' ? '335px' : '437px'};
+        width: ${props => props.componentCalling === 'StepDisplay' ? '1160px' : '860px'};
     }
 `
