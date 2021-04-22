@@ -64,10 +64,22 @@ export const StepInfoSaveButton = styled(DisplayStepButtonText)`
 `
 
 export const StepInfoDescriptionContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     margin-top: 7px;
+    width: 100%;
     height: 70px;
     max-height: 70px;
     overflow: auto;
+    color: ${props => props.theme.grayOne};
+    font-weight: 600;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    line-height: 19px;
+
+    ul, li {
+        list-style-position: inside;
+    }
 `
 
 export const StepInfoTextArea = styled(ProjectDescriptionTextArea)`
@@ -79,16 +91,16 @@ export const StepInfoTextArea = styled(ProjectDescriptionTextArea)`
 
 export const TaxConsequencesContainer = styled.div`
     width: 100%;
-    height: 230px;
-    max-height: 230px;
+    height: ${props => props.editStatus ? '70px' : '230px'};
+    max-height: ${props => props.editStatus ? '70px' : '230px'};
     margin-top: 10px;
     border: 1px solid ${props => props.theme.grayFour};
     border-radius: ${props => props.theme.borderRadius};
     overflow: auto;
 
     @media ${devices.laptopL} {
-        height: 582px;
-        max-height: 582px;
+        height: ${props => props.editStatus ? '422px' : '582px'};
+        max-height: ${props => props.editStatus ? '422px' : '582px'};
     }
 `
 

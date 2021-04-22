@@ -34,7 +34,7 @@ const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad})
                 return 'textEditorTaskAddEdit'
             }
             default:
-                return 'editor-class'
+                return 'textEditorStepDisplay'
         }
     }
 
@@ -47,7 +47,7 @@ const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad})
                 return 'editorWrapperTaskAddEdit'
             }
             default:
-                return 'wrapper-class'
+                return 'editorWrapperStepDisplay'
         }
     }
 

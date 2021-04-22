@@ -21,7 +21,7 @@ export const StepStatusLegendContainer = styled(StatusLegendContainer)`
 `
 
 export const StepCardListContainer = styled.div`
-    margin: 30px 0 42px 0;
+    margin-bottom: 42px;
     display: grid;
     grid-auto-rows: auto;
     grid-column-gap: 30px;

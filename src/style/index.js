@@ -184,6 +184,28 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 
+    .textEditorStepDisplay {
+        background: ${props => props.theme.graySix};
+        height: 184.75px !important;
+        width: 820px;
+        padding: 0 16px 16px 16px;
+        border: 1px solid ${props => props.theme.grayFour};
+        border-radius: ${props => props.theme.borderRadius};
+        font-family: ${props => props.theme.nunitoFontFamily};
+        line-height: 19px;
+        color: ${props => props.theme.grayOne};
+
+        @media ${devices.laptopL} {
+            width: 1120px;
+        }
+
+        :hover {
+            filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
+            cursor: text;
+            transition: 0.5s;
+        }
+    }
+
     .editorWrapperProjectAddEdit {
         height: 230px;
 
@@ -199,6 +221,10 @@ export const GlobalStyle = createGlobalStyle`
         @media ${devices.height1080p} {
             height: 201px;
         }
+    }
+
+    .editorWrapperStepDisplay {
+
     }
 
     .textEditorToolbar {

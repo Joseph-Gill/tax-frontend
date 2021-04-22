@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {EditorState} from 'draft-js'
 import BreadCrumb from '../../components/BreadCrumb'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import StepChart from './StepChart'
@@ -15,7 +16,7 @@ import {resetErrors} from '../../store/errors/actions/errorAction'
 import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, removeNewStep,
     skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
 import {getChartForStepAction} from '../../store/chart/actions'
-import {convertDate, getEntitiesWithTags} from '../../helpers'
+import {convertContentToHTML, convertDate, getEntitiesWithTags} from '../../helpers'
 import {ErrorMessage} from '../../style/messages'
 import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS, TASKS} from '../../routes/paths'
 import {AuthenticatedPageContainer} from '../../style/containers'
@@ -35,8 +36,8 @@ const StepDisplay = ({history}) => {
     const profile = useSelector(state => state.profileReducer.profile)
     const profileLoaded = useSelector(state => state.profileReducer.loaded)
     const [editStatus, setEditStatus] = useState(false)
-    const [date, setDate] = useState(new Date());
-    const [description, setDescription] = useState('')
+    const [date, setDate] = useState(new Date())
+    const [descriptionState, setDescriptionState] = useState(() => EditorState.createEmpty())
     const [stepDetailStatus, setStepDetailStatus] = useState(false)
     const [loading, setLoading] = useState(false)
     const [stepStatus, setStepStatus] = useState('')
@@ -132,7 +133,7 @@ const StepDisplay = ({history}) => {
                 setStepDetailStatus(true)
             }
             //Sets the description and status inputs to the current steps values
-            setDescription(steps[indexOfStepToDisplay].description)
+            // setDescription(steps[indexOfStepToDisplay].description)
             setStepStatus(steps[indexOfStepToDisplay].status)
             //Checks if the step is allowed to be completed status
             setAbleToComplete(checkIfStepCanComplete())
@@ -148,7 +149,7 @@ const StepDisplay = ({history}) => {
         dispatch(resetErrors())
         setLoading(true)
         const newStepData = {
-            description: description,
+            description: convertContentToHTML(descriptionState),
             effective_date: convertDate(date),
             number: indexOfStepToDisplay + 1,
             status: stepStatus
@@ -169,7 +170,7 @@ const StepDisplay = ({history}) => {
         dispatch(resetErrors())
         setLoading(true)
         const updatedStepData = {
-            description: description,
+            description: convertContentToHTML(descriptionState),
             effective_date: convertDate(date),
             number: indexOfStepToDisplay + 1,
             status: stepStatus
@@ -188,7 +189,8 @@ const StepDisplay = ({history}) => {
     }
 
     const addNewStepHandler = () => {
-        setDescription('')
+        // setDescription('')
+        setDescriptionState(() => EditorState.createEmpty())
         //Creates a new blank Step with the next appropriate Step Number
         dispatch(addNewStep(indexOfStepToDisplay + 2))
         //Pushes StepDisplay to display the next Step
@@ -346,10 +348,12 @@ const StepDisplay = ({history}) => {
                                     steps={steps}
                                 /> :
                                 <StepDetails
-                                    description={description}
+                                    // description={description}
+                                    descriptionState={descriptionState}
                                     editStatus={editStatus}
                                     saveNewStepHandler={saveNewStepHandler}
-                                    setDescription={setDescription}
+                                    // setDescription={setDescription}
+                                    setDescriptionState={setDescriptionState}
                                     setEditStatus={setEditStatus}
                                     step={steps[indexOfStepToDisplay]}
                                     steps={steps}

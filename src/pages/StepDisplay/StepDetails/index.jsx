@@ -6,19 +6,20 @@ import LogoLoading from '../../../components/LogoLoading'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {decrementStepToView, removeNewStep} from '../../../store/step/actions'
 import {addNewTaxConsequence, getAllTaxConsequencesForStepAction} from '../../../store/taxConsequence/actions'
+import {createSanitizedMarkup} from '../../../helpers'
 import pencil from '../../../assets/icons/stark_edit_pencil_icon.svg'
 import addConsequence from '../../../assets/icons/stark_add_country_consequence_icon.svg'
 import save from '../../../assets/icons/stark_step_save_icon.svg'
 import {NavbarTitle} from '../../../style/titles'
-import {CardInfoText} from '../../../style/text'
 import {ErrorMessage} from '../../../style/messages'
 import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer,
     StepDescriptionTitleContainer, StepDetailErrorContainer, StepDetailsContainer, StepInfoCancelButton, StepInfoDescriptionContainer, StepInfoSaveButton,
     StepInfoSaveImage, StepInfoTextArea, TaxConsequencesContainer} from './styles'
+import EditorHTML from '../../../components/EditorHTML'
 
 
 
-const StepDetails = ({description, editStatus, saveNewStepHandler, setDescription, setEditStatus, step, steps, updateExistingStepHandler}) => {
+const StepDetails = ({descriptionState, editStatus, saveNewStepHandler, setDescriptionState, setEditStatus, step, steps, updateExistingStepHandler}) => {
     const dispatch = useDispatch()
     const taxConsequences = useSelector(state => state.taxConsequenceReducer.taxConsequences)
     const loaded = useSelector(state => state.taxConsequenceReducer.loaded)
@@ -43,10 +44,10 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
             dispatch(decrementStepToView())
             dispatch(removeNewStep(steps.slice(0, -1)))
             setEditStatus(false)
-            setDescription(step.description)
+            // setDescription(step.description)
         } else {
             setEditStatus(false)
-            setDescription(step.description)
+            // setDescription(step.description)
         }
     }
 
@@ -79,15 +80,14 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                             </DisplayStepImageButtonContainer>
                         </DisplayStepImageButtonContainer>)}
             </StepDescriptionTitleContainer>
-            {!editStatus ? (
-                <StepInfoDescriptionContainer>
-                    <CardInfoText>{step.description ? step.description : "No Step Description to display, please edit and enter a Step Description."}</CardInfoText>
-                </StepInfoDescriptionContainer>) : (
-                    <StepInfoTextArea
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder='Write your step description...'
-                        value={description}
-                    />)}
+            {!editStatus ?
+                <StepInfoDescriptionContainer dangerouslySetInnerHTML={createSanitizedMarkup(step.description)} /> :
+                <EditorHTML
+                    componentCalling='StepDisplay'
+                    editorState={descriptionState}
+                    setEditorState={setDescriptionState}
+                    textToLoad={step.description}
+                />}
             <StepDetailErrorContainer>
                 {error && <ErrorMessage>{error.description}</ErrorMessage>}
             </StepDetailErrorContainer>
@@ -100,7 +100,7 @@ const StepDetails = ({description, editStatus, saveNewStepHandler, setDescriptio
                             <DisplayStepButtonText onClick={addNewTaxConsequenceHandler}>Add Country Consequence</DisplayStepButtonText>
                         </DisplayStepImageButtonContainer>
                     </StepDescriptionTaxTitleContainer>
-                    <TaxConsequencesContainer>
+                    <TaxConsequencesContainer editStatus={editStatus ? 1 : 0}>
                         {!loaded ? <LogoLoading /> : renderTaxConsequences}
                     </TaxConsequencesContainer>
                 </>) : (

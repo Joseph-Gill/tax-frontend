@@ -86,6 +86,10 @@ export const StepCardDescriptionContainer = styled.div`
     line-height: 19px;
     color: ${props => props.theme.grayOne};
     font-weight: 600;
+
+    ul, li {
+        list-style-position: inside;
+    }
 `
 
 export const StepCardButton = styled(TableButton)`
