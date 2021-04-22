@@ -397,6 +397,10 @@ export const NoChartToDisplay = styled.div`
     justify-content: center;
     flex-direction: column;
 
+    @media ${devices.laptopL} {
+        height: 600px;
+    }
+
     p {
         font-family: ${props => props.theme.nunitoFontFamily};
         font-size: 14px;
