@@ -6,6 +6,8 @@ export const TaxLocationsContainer = styled.div`
 `
 
 export const TaxLocation = styled.div`
+    display: flex;
+    justify-content: center;
     background: ${props => props.theme.primaryBlueLight};
     padding: 2px 6px;
     border-radius: ${props => props.theme.borderRadius};
@@ -13,5 +15,4 @@ export const TaxLocation = styled.div`
     font-size: 10px;
     line-height: 14px;
     color: ${props => props.theme.primaryBlue};
-    margin-left: 5px;
 `

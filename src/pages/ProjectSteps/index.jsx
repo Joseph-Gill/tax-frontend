@@ -16,7 +16,8 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {CardTitleText, NoFilterResultText} from '../../style/text'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilteredTasksStepsContainer, NoFilterTextContainer} from '../../style/containers'
 import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
-import {NoStepsButton, NoStepsContainer, StepStatusLegendContainer} from './styles'
+import {NoStepsButton, NoStepsContainer, StepCardListContainer, StepStatusLegendContainer} from './styles'
+import StepCardV2 from './StepCardV2'
 
 
 const ProjectSteps = ({history}) => {
@@ -110,16 +111,19 @@ const ProjectSteps = ({history}) => {
                 </NoFilteredTasksStepsContainer>
             )
         } else {
-            return array.map(step => (
-                <StepCard
-                    history={history}
-                    key={step.id}
-                    number={step.number}
-                    project={project}
-                    step={step}
-                    stepCardClickHandler={stepCardClickHandler}
-                />
-            ))
+            return (
+                <StepCardListContainer numCards={array.length}>
+                    {array.map(step => (
+                        <StepCardV2
+                            dispatch={dispatch}
+                            history={history}
+                            key={step.id}
+                            project={project}
+                            step={step}
+                            stepCardClickHandler={stepCardClickHandler}
+                        />))}
+                </StepCardListContainer>
+            )
         }
     }
 

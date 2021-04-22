@@ -9,6 +9,7 @@ import {StepCardButton, StepCardContainer, StepCardDescriptionContainer, StepCar
     StepCardStatusColorStepNumberContainer, StepCardTitleText} from './styles'
 
 
+//No longer used in current version, replaced with V2
 const StepCard = ({history, number, project, step, stepCardClickHandler}) => {
     const dispatch = useDispatch()
     const props = useSpring({
