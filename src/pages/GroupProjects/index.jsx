@@ -73,9 +73,9 @@ const GroupProjects = ({history}) => {
                     </DisplayTitleWithButtonContainer>
                     {!projects.length ?
                         <NoContent buttonText='Create Project' redirect={`${GROUPS}${PROJECTS}${ADD_PROJECT}`} text='Your group does not have any projects yet.' /> : (
-                            <ProjectCardListContainer>
+                            <ProjectCardListContainer numCards={projects.length}>
                                 {projects.length ?
-                                    setProjectCardDisplayOrder(projects).map(project => <ProjectCardV2 history={history} key={project.id} project={project} />) : null}
+                                    setProjectCardDisplayOrder(projects).map(project => <ProjectCardV2 history={history} key={project.id} numCards={projects.length + 1} project={project} />) : null}
                             </ProjectCardListContainer>)}
                 </>)}
         </AuthenticatedPageContainer>
