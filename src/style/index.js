@@ -206,6 +206,27 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 
+    .textEditorTaxConsequence {
+        background: ${props => props.theme.graySix};
+        height: 110px !important;
+        width: 812px;
+        padding: 0 16px 16px 16px;
+        font-family: ${props => props.theme.nunitoFontFamily};
+        line-height: 19px;
+        color: ${props => props.theme.grayOne};
+
+        @media ${devices.laptopL} {
+            width: 1112px;
+            height: 140px !important;
+        }
+
+        :hover {
+            filter: drop-shadow(0px 2px 2px rgba(148, 154, 159, 0.25));
+            cursor: text;
+            transition: 0.5s;
+        }
+    }
+
     .editorWrapperProjectAddEdit {
         height: 230px;
 
@@ -224,6 +245,10 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     .editorWrapperStepDisplay {
+
+    }
+
+    .editorWrapperTaxConsequence {
 
     }
 

@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro'
-import {ProjectDescriptionTextArea} from '../../../../style/textarea'
 
 
 export const TaxConsequenceContainer = styled.div`
@@ -58,22 +57,20 @@ export const TaxConsequenceTextUsernameContainer = styled.div`
 `
 
 export const TaxConsequenceTextContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-height: 140px;
-    overflow: scroll;
-    overflow-y: auto;
-    overflow-x: hidden;
-`
+    overflow: auto;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 14px;
+    line-height: 19px;
+    color: ${props => props.theme.grayOne};
+    font-weight: 600;
 
-export const NewTaxConsequenceText = styled(ProjectDescriptionTextArea)`
-    height: 110px;
-    width: 100%;
-    border-style: none;
-    border-color: transparent;
-    background: ${props => props.theme.grayFive};
-    vertical-align: top;
-    padding: 7px;
-    border-radius: 0;
+    ul, li {
+        list-style-position: inside;
+    }
 `
 
 export const TaxConsequenceUserDateText = styled.p`

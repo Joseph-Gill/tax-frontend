@@ -3,10 +3,9 @@ import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import { stateFromHTML } from 'draft-js-import-html'
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import './styles.css'
 
 
-// WYSIWYG Editor used in ProjectAdd
+// WYSIWYG Editor used in ProjectAdd/Edit, TaskAdd/Edit, StepDetails, and TaxConsequenceCard
 const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad}) => {
 
     useEffect(() => {
@@ -33,6 +32,9 @@ const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad})
             case 'TaskAddEdit': {
                 return 'textEditorTaskAddEdit'
             }
+            case 'TaxConsequenceCard': {
+                return 'textEditorTaxConsequence'
+            }
             default:
                 return 'textEditorStepDisplay'
         }
@@ -45,6 +47,9 @@ const EditorHTML = ({componentCalling, editorState, setEditorState, textToLoad})
             }
             case 'TaskAddEdit': {
                 return 'editorWrapperTaskAddEdit'
+            }
+            case 'TaxConsequenceCard': {
+                return 'editorWrapperTaxConsequence'
             }
             default:
                 return 'editorWrapperStepDisplay'

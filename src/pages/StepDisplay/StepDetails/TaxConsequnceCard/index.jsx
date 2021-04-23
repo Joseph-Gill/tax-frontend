@@ -1,20 +1,21 @@
 import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {CountryDropdown} from 'react-country-region-selector'
-import {v4 as uuidv4} from 'uuid'
+import {EditorState} from 'draft-js'
 import Loading from '../../../../components/Loading'
+import EditorHTML from '../../../../components/EditorHTML'
 import SetReviewedModal from '../../../../components/Modals/SetReviewedModal'
 import SetNotReviewedModal from '../../../../components/Modals/SetNotReviewedModal'
 import {resetErrors} from '../../../../store/errors/actions/errorAction'
 import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, resetStepTaxConsequences,
     setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction
 } from '../../../../store/taxConsequence/actions'
-import {CardInfoText} from '../../../../style/text'
+import {convertContentToHTML, createSanitizedMarkup} from '../../../../helpers'
 import {ErrorMessage} from '../../../../style/messages'
-import {GrayTaxConsequenceButton, GreenReviewedText, NewTaxConsequenceText, TaxConsequenceButton,
-    TaxConsequenceButtonContainer, TaxConsequenceContainer, TaxConsequenceCountryLabel,
-    TaxConsequenceDescriptionErrorContainer, TaxConsequenceLocationErrorContainer, TaxConsequenceTextContainer,
-    TaxConsequenceTextUsernameContainer, TaxConsequenceTitleContainer, TaxConsequenceUserDateText} from './styles'
+import {GrayTaxConsequenceButton, GreenReviewedText, TaxConsequenceButton, TaxConsequenceButtonContainer,
+    TaxConsequenceContainer, TaxConsequenceCountryLabel, TaxConsequenceDescriptionErrorContainer,
+    TaxConsequenceLocationErrorContainer, TaxConsequenceTextContainer, TaxConsequenceTextUsernameContainer,
+    TaxConsequenceTitleContainer, TaxConsequenceUserDateText} from './styles'
 
 
 const TaxConsequenceCard = ({step, taxConsequence}) => {
@@ -22,7 +23,7 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
     const error = useSelector(state => state.errorReducer.error)
     const [editStatus, setEditStatus] = useState(false)
     const [countryName, setCountryName] = useState('')
-    const [taxDescription, setTaxDescription] = useState('')
+    const [descriptionState, setDescriptionState] = useState(() => EditorState.createEmpty())
     const [loading, setLoading] = useState(false)
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [showSecondConfirmation, setShowSecondConfirmation] = useState(false)
@@ -32,15 +33,14 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
             setEditStatus(true)
         }
         setCountryName(taxConsequence.location)
-        setTaxDescription(taxConsequence.description)
-    }, [taxConsequence.id, taxConsequence.location, taxConsequence.description])
+    }, [taxConsequence])
 
     const saveNewTaxConsequenceHandler = async () => {
         dispatch(resetErrors())
         setLoading(true)
         const newTaxConsequenceData = {
             location: countryName,
-            description: taxDescription
+            description: convertContentToHTML(descriptionState)
         }
         const response = await dispatch(createNewTaxConsequenceAction(newTaxConsequenceData, step.id))
         if (response.status === 201) {
@@ -58,7 +58,7 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
         setLoading(true)
         const updatedTaxConsequenceData = {
             location: countryName,
-            description: taxDescription
+            description: convertContentToHTML(descriptionState)
         }
         const response = await dispatch(updateTaxConsequenceAction(updatedTaxConsequenceData, taxConsequence.id))
         if (response.status === 200) {
@@ -97,10 +97,6 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
                 setLoading(false)
             }
         }
-    }
-
-    const multilineText = (text) => {
-         return text.split('\\n').map(item => <CardInfoText key={uuidv4()}>{item}</CardInfoText>)
     }
 
     return (
@@ -170,15 +166,14 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
                                 </TaxConsequenceButtonContainer>)}
                     </TaxConsequenceTitleContainer>
                     {editStatus ?
-                        <NewTaxConsequenceText
-                            onChange={(e) => setTaxDescription(e.target.value)}
-                            placeholder='Write a tax consequence.'
-                            value={taxDescription}
+                        <EditorHTML
+                            componentCalling='TaxConsequenceCard'
+                            editorState={descriptionState}
+                            setEditorState={setDescriptionState}
+                            textToLoad={taxConsequence.description}
                         /> : (
                             <TaxConsequenceTextUsernameContainer>
-                                <TaxConsequenceTextContainer>
-                                    {multilineText(taxConsequence.description)}
-                                </TaxConsequenceTextContainer>
+                                <TaxConsequenceTextContainer dangerouslySetInnerHTML={createSanitizedMarkup(taxConsequence.description)} />
                                 {taxConsequence.editing_user ?
                                     <TaxConsequenceUserDateText>
                                         edited by {taxConsequence.editing_user.user.first_name} {taxConsequence.editing_user.user.last_name} on {taxConsequence.updated.slice(0, 10)}
