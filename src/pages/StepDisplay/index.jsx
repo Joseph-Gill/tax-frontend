@@ -16,12 +16,12 @@ import {resetErrors} from '../../store/errors/actions/errorAction'
 import {addNewStep, createNewStepAction, deleteStepAction, getStepsForProjectAction, removeNewStep,
     skipToSpecifiedStep, updateStepAction} from '../../store/step/actions'
 import {getChartForStepAction} from '../../store/chart/actions'
+import {getProfileAction} from '../../store/profile/actions'
 import {convertContentToHTML, convertDate, getEntitiesWithTags} from '../../helpers'
 import {ErrorMessage} from '../../style/messages'
 import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS, TASKS} from '../../routes/paths'
 import {AuthenticatedPageContainer} from '../../style/containers'
 import {StepChartDetailsContainer, StepDisplayErrorContainer} from './styles'
-import {getProfileAction} from '../../store/profile/actions'
 
 
 const StepDisplay = ({history}) => {
