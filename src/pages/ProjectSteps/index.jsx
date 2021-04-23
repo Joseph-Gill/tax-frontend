@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
 import BreadCrumb from '../../components/BreadCrumb'
 import StepStatusLegendEntry from './StepStatusLegendEntry'
-import StepCard from './StepCard'
+import StepCardV2 from './StepCardV2'
 import StepsFilterSearchBar from './StepsFilterSearchBar'
 import {getProjectAction} from '../../store/project/actions'
 import StepsGoToDropdown from '../../components/Dropdowns/StepsGoToDropdown'
@@ -17,7 +17,6 @@ import {CardTitleText, NoFilterResultText} from '../../style/text'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilteredTasksStepsContainer, NoFilterTextContainer} from '../../style/containers'
 import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
 import {NoStepsButton, NoStepsContainer, StepCardListContainer, StepStatusLegendContainer} from './styles'
-import StepCardV2 from './StepCardV2'
 
 
 const ProjectSteps = ({history}) => {

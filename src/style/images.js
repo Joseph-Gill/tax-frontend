@@ -1,15 +1,6 @@
 import styled from 'styled-components'
 
 
-export const Avatar = styled.img`
-    height: 50px;
-    width: 50px;
-`
-
-export const LogOutIcon = styled.img`
-    transform: rotate(-180deg);
-`
-
 export const SelectedGroupIcon = styled.img`
     background-color: ${props => props.theme.primaryShadeOne};
     padding: 8px;
@@ -32,13 +23,6 @@ export const ExpandImage = styled.img`
 
 export const CollapseImage = styled(ExpandImage)`
     transform: rotate(90deg);
-`
-
-export const FilterImage = styled.img`
-    position: absolute;
-    z-index: 1;
-    margin-top: 8px;
-    margin-left: 14px;
 `
 
 export const DropdownImage = styled.img`

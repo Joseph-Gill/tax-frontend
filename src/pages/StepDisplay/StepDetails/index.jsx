@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import TaxConsequenceCard from './TaxConsequnceCard'
+import EditorHTML from '../../../components/EditorHTML'
 import LogoLoading from '../../../components/LogoLoading'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {decrementStepToView, removeNewStep} from '../../../store/step/actions'
@@ -14,8 +15,7 @@ import {NavbarTitle} from '../../../style/titles'
 import {ErrorMessage} from '../../../style/messages'
 import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer,
     StepDescriptionTitleContainer, StepDetailErrorContainer, StepDetailsContainer, StepInfoCancelButton, StepInfoDescriptionContainer, StepInfoSaveButton,
-    StepInfoSaveImage, StepInfoTextArea, TaxConsequencesContainer} from './styles'
-import EditorHTML from '../../../components/EditorHTML'
+    StepInfoSaveImage, TaxConsequencesContainer} from './styles'
 
 
 

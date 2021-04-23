@@ -40,7 +40,3 @@ export const EntityFormSelect = styled.select`
         border: 1px solid ${props => props.theme.grayThree};
     }
 `
-
-export const EntityParentSelect = styled(EntityFormSelect)`
-    width: 302px;
-`

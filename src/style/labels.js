@@ -30,22 +30,6 @@ export const EmailInputLabel = styled(InputLabel)`
     background: linear-gradient(#FFFFFF, #FFFFFF, #d4d4d4, ${props => props.theme.grayFour});
 `
 
-export const ModalInputLabel = styled(ActiveInputLabel)`
-    margin-top: -40px;
-`
-
-export const FilterLabel = styled.label`
-    position: absolute;
-    font-family: ${props => props.theme.nunitoFontFamily};
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 19px;
-    color: ${props => props.theme.primaryBlue};
-    z-index: 1;
-    margin-top: 8px;
-    margin-left: 44px;
-`
-
 export const TaskInputLabel = styled.label`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-weight: 600;
@@ -55,7 +39,6 @@ export const TaskInputLabel = styled.label`
 `
 
 export const StepFilterInputLabel = styled(InputLabel)`
-    //color: ${props => props.theme.primaryBlue};
     background: linear-gradient(${props => props.theme.grayFive}, ${props => props.theme.white});
     margin-top: -10px;
 `

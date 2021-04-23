@@ -132,8 +132,7 @@ const StepDisplay = ({history}) => {
                 setEditStatus(true)
                 setStepDetailStatus(true)
             }
-            //Sets the description and status inputs to the current steps values
-            // setDescription(steps[indexOfStepToDisplay].description)
+            //Sets the status input to the current steps values
             setStepStatus(steps[indexOfStepToDisplay].status)
             //Checks if the step is allowed to be completed status
             setAbleToComplete(checkIfStepCanComplete())
@@ -348,11 +347,9 @@ const StepDisplay = ({history}) => {
                                     steps={steps}
                                 /> :
                                 <StepDetails
-                                    // description={description}
                                     descriptionState={descriptionState}
                                     editStatus={editStatus}
                                     saveNewStepHandler={saveNewStepHandler}
-                                    // setDescription={setDescription}
                                     setDescriptionState={setDescriptionState}
                                     setEditStatus={setEditStatus}
                                     step={steps[indexOfStepToDisplay]}

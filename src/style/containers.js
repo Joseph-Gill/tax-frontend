@@ -163,12 +163,6 @@ export const EntityTitleContainer = styled.div`
     justify-content: space-between;
 `
 
-export const AddEntityButtonContainer = styled.div`
-    width: 860px;
-    display: flex;
-    justify-content: flex-end;
-`
-
 export const CreateGroupCancelSaveContainer = styled.div`
     width: 860px;
     display: flex;
@@ -192,26 +186,6 @@ export const DropdownChoiceContainer = styled.div`
 
 export const DropDownChoiceWithBorder = styled(DropdownChoiceContainer)`
     border-bottom: 1px solid ${props => props.theme.grayFive};
-`
-
-export const ActionDropDownChoice = styled(DropdownChoiceContainer)`
-    color: ${props => props.theme.red};
-
-    :hover {
-        cursor: pointer;
-        text-decoration: underline;
-        transition: 167ms;
-    }
-`
-
-export const ActionDropdownChoiceWithBorder = styled(DropDownChoiceWithBorder)`
-    color: ${props => props.theme.primaryBlue};
-
-    :hover {
-        cursor: pointer;
-        text-decoration: underline;
-        transition: 167ms;
-    }
 `
 
 export const NoFilterResultsContainer = styled.div`
@@ -364,14 +338,6 @@ export const NoTasksOrTaxConsequencesDisplay = styled.div`
 
 export const EntityInfoSpaceContainer = styled.div`
     height: 315px;
-`
-
-export const EntityInfoErrorContainer = styled.div`
-    margin-top: 5px;
-    width: 860px;
-    height: 10px;
-    display: flex;
-    justify-content: center;
 `
 
 export const NoFilteredTasksStepsContainer = styled.div`

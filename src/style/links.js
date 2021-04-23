@@ -57,4 +57,3 @@ export const TaskDocumentLink = styled.span`
         cursor: pointer;
     }
 `
-

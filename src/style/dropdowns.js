@@ -4,7 +4,6 @@ import dropdownArrowDownward from '../assets/icons/stark_dropdown_arrow_blue_dow
 import dropdownArrowUpward from '../assets/icons/stark_dropdown_arrow_blue_upwards.svg'
 import dropdownArrowDownwardGray from '../assets/icons/stark_dropdown_arrow_gray_downward.svg'
 import dropdownArrowUpwardGray from '../assets/icons/stark_dropdown_arrow_gray_upwards.svg'
-import filterImage from '../assets/icons/stark_filter.svg'
 import actionImage from '../assets/icons/stark_action.svg'
 import {BaseInput} from './inputs'
 
@@ -91,18 +90,6 @@ export const DropdownOptions = styled.div`
     }
 `
 
-export const Dropdown = styled.div`
-    position: relative;
-    display: inline-block;
-    margin-left: 30px;
-
-    :hover {
-        ${DropdownOptions} {
-            display: block;
-        }
-    }
-`
-
 export const DropdownButton = styled.button`
     width: 170px;
     height: 34px;
@@ -128,10 +115,6 @@ export const DropdownButton = styled.button`
         outline: none;
         transition: 1s;
     }
-`
-
-export const FilterDropdownButton = styled(DropdownButton)`
-    background-image: url(${filterImage}), url(${arrow});
 `
 
 export const TaskStepFilterSelect = styled(StatusDropdown)`
