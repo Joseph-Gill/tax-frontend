@@ -16,11 +16,13 @@ export const distributionTaxConsequencesTaskGeneration = async (distributor, rec
             const swissLegalUsers = response.filter(projectRole => projectRole.role === 'Legal' && projectRole.user.country === 'Switzerland')
             // Tax Consequence
             const createTaxConsequence = async () => {
-                description = `CIT: Dividends received by ${recipient.name} from ${distributor.name} should be exempt under the Swiss participation exemption regime if:\\n
-                               \u2022 The shareholding represents an interest of at least 10% in the subsidiary, or\\n
-                               \u2022 Has a FMV of CHF 1m or more\\n
-                               \u2022 Financing and administration costs allocable to investments in subsidiaries are not deductible in years in which subsidiaries distribute dividends.\\n
-                               Swiss WHT: Dividend should not be subject to Swiss WHT (notification procedure applies).`
+                description = `<p>CIT: Dividences received by ${recipient.name} from ${distributor.name} should be exempt under the Swiss participation exemption regime if:</p>
+                               <ul>
+                               <li>The shareholding represents an interest of at least 10% in the subsidiary, or</li>
+                               <li>Has a FMV of CHF 1m or more</li>
+                               <li>Financing and administration costs allocable to investments in subsidiaries are not deductible in years in which subsidiaries distribute dividends.</li>
+                               </ul>
+                               <p>Swiss WHT: Dividend should not be subject to Swiss WHT (notification procedure applies).</p>`
                 location = 'Switzerland'
                 const newTaxConsequenceData = { location, description }
                 return await dispatch(createNewTaxConsequenceAction(newTaxConsequenceData, step.id))
@@ -84,21 +86,27 @@ export const distributionTaxConsequencesTaskGeneration = async (distributor, rec
         }
 
     } else if (distributor.location === 'Switzerland' && recipient.location !== 'Switzerland') {
-        description = `The assets need to be distributed at FMV.\\n
-                       Distribution of capital contribution reserves:\\n
-                       \u2022 Capital contribution reserves can be distributed free of Swiss WHT\\n
-                       Distribution of profit brought forwards:\\n
-                       \u2022 Distribution is subject to 35% Swiss WHT which can be reduced to 0% provided that the double tax treaty between Switzerland and
-                       ${recipient.location} applies, resp. a valid treaty clearance confirmation is in place.`
+        description = `<p>The assets need to be distributed at FMV.</p>
+                       <p>Distribution of capital contribution reserves:</p>
+                       <ul>
+                       <li>Capital contribution reserves can be distributed free of Swiss WHT</li>
+                       </ul>
+                       <p>Distribution of profit brought forwards:</p>
+                       <ul>
+                       <li>Distribution is subject to 35% Swiss WHT which can be reduced to 0% provided that the double tax treaty between Switzerland and ${recipient.location} applies, resp. a valid treaty clearance confirmation is in place.</li>
+                       </ul>`
         location = 'Switzerland'
         const newTaxConsequenceData = { location, description }
         return await dispatch(createNewTaxConsequenceAction(newTaxConsequenceData, step.id))
 
     } else if (distributor.location !== 'Switzerland' && recipient.location === 'Switzerland') {
-        description = `Dividends received by ${recipient.name} from ${distributor.name} should be exempt under the Swiss participation exemption regime if:\\n
-                       \u2022 The shareholding represents an interest of at least 10% in the subsidiary, or\\n
-                       \u2022 Has a FMV of CHF 1m or more, and\\n
-                       \u2022 The dividend is not tax deductible in ${distributor.location}`
+        description = `<p>Dividends received by ${recipient.name} from ${distributor.name} should be exempt under the Swiss participation exemption regime if:</p>
+                       <ul>
+                       <li>The shareholding represents an interest of at least 10% in the subsidiary, or</li>
+                       <li>Has a FMV of CHF 1m or more, and</li>
+                       <li>The dividend is not tax deductible in ${distributor.location}</li>
+                       </ul>
+                       <p>Financing and administration costs allocable to investments in subsidiaries are not deductible in years in which subsidiaries distribute dividends.</p>`
         location = 'Switzerland'
         const newTaxConsequenceData = { location, description }
         return await dispatch(createNewTaxConsequenceAction(newTaxConsequenceData, step.id))
