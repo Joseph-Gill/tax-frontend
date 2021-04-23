@@ -12,9 +12,10 @@ import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDrop
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {getEntityFromId, sortedDirectChildrenOfEntity, sortedNonUltimateEntities} from '../../../helpers'
-import {distributionTaxConsequencesTaskGeneration} from '../../../helpers/automatedTaxConsequencesTaskGeneration'
+// import {distributionTaxConsequencesTaskGeneration} from '../../../helpers/automatedTaxConsequencesTaskGeneration'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
+import {distributionTaxConsequencesTaskGeneration} from './automatedTaxConsequencesTaskGeneration'
 
 
 const PredefinedDistributionModal = ({entities, error, profile, project, setShowPredefinedDistribution, saveNewLinkHandler,
