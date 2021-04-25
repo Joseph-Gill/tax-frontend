@@ -23,6 +23,7 @@ const ProjectAddEditStatusDropdown = ({disabled, editProject, handleSelectProjec
                         place="top"
                     >
                         <TooltipAnchorText
+                            displayEllipse={false}
                             tooltipText='You must mark all steps as Completed before you can complete this project.'
                         />
                     </ReactTooltip>
@@ -53,6 +54,7 @@ const ProjectAddEditStatusDropdown = ({disabled, editProject, handleSelectProjec
                         place="top"
                     >
                         <TooltipAnchorText
+                            displayEllipse={false}
                             tooltipText='A group can only have one Ongoing project at any time.'
                         />
                     </ReactTooltip>

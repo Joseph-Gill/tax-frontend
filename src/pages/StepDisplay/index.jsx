@@ -56,6 +56,7 @@ const StepDisplay = ({history}) => {
     const [showPredefinedIntercompanySale, setShowPredefinedIntercompanySale] = useState(false)
     const [showPredefinedLiquidation, setShowPredefinedLiquidation] = useState(false)
     const [showPredefinedMerger, setShowPredefinedMerger] = useState(false)
+    const [showStepStatusSelect, setShowStepStatusSelect] = useState(false)
     const [currentStepEntities, setCurrentStepEntities] = useState([])
     const [clinks, setClinks] = useState([])
     const [slinks, setSlinks] = useState([])
@@ -240,6 +241,11 @@ const StepDisplay = ({history}) => {
         history.push(`${GROUPS}${PROJECTS}${TASKS}/${project.id}/`)
     }
 
+    const handleStepStatusSelectChange = stepStatus => {
+        setStepStatus(stepStatus)
+        setShowStepStatusSelect(false)
+    }
+
     return (
         <AuthenticatedPageContainer>
             {!stepsLoaded || !projectLoaded ? <LogoLoading /> : (
@@ -278,6 +284,7 @@ const StepDisplay = ({history}) => {
                         ableToComplete={ableToComplete}
                         currentStepEntities={currentStepEntities}
                         editStatus={editStatus}
+                        handleStepStatusSelectChange={handleStepStatusSelectChange}
                         indexOfStepToDisplay={indexOfStepToDisplay}
                         setShowAddEntity={setShowAddEntity}
                         setShowAddLink={setShowAddLink}
@@ -293,8 +300,9 @@ const StepDisplay = ({history}) => {
                         setShowPredefinedMerger={setShowPredefinedMerger}
                         setShowRemoveEntity={setShowRemoveEntity}
                         setShowRemoveLink={setShowRemoveLink}
+                        setShowStepStatusSelect={setShowStepStatusSelect}
                         setStepDetailStatus={setStepDetailStatus}
-                        setStepStatus={setStepStatus}
+                        showStepStatusSelect={showStepStatusSelect}
                         stepDetailStatus={stepDetailStatus}
                         stepStatus={stepStatus}
                         steps={steps}

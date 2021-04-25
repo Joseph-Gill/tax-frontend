@@ -5,10 +5,10 @@ import {TooltipRowText} from '../../../../style/text'
 import {TooltipRowContainer} from '../../../../style/containers'
 
 
-const TooltipAnchorText = ({tooltipText}) => {
+const TooltipAnchorText = ({tooltipText, displayEllipse = true}) => {
     return (
         <TooltipRowContainer>
-            <TooltipRowImage alt='ellipse' src={ellipse} />
+            {displayEllipse && <TooltipRowImage alt='ellipse' src={ellipse} />}
             <TooltipRowText>{tooltipText}</TooltipRowText>
         </TooltipRowContainer>
     )

@@ -1,31 +1,28 @@
 import React from 'react'
 import StepToolTip from '../StepToolTip'
+import StepDetailsStatusDropdown from '../../../../components/Dropdowns/StepDetailsStatusDropdown'
 import tooltipAnchor from '../../../../assets/icons/stark_tooltip_anchor.png'
 import {StepTooltipAnchor} from '../../../../style/anchors'
 import {WireFrameDeleteButton} from '../../../../style/buttons'
-import {ButtonsStatusContainer, StepDetailsOption, StepDetailsStatus, StepDetailsTasklistButton} from './styles'
+import {ButtonsStatusContainer, StepDetailsTasklistButton} from './styles'
 
 
-const StepDetailsButtonsStatus = ({ableToComplete, editStatus, indexOfStepToDisplay, setShowConfirmation,
-                                  setStepStatus, stepStatus, steps, tasklistButtonClickHandler}) => {
+const StepDetailsButtonsStatus = ({ableToComplete, editStatus, handleStepStatusSelectChange, indexOfStepToDisplay,
+                                  setShowConfirmation, setShowStepStatusSelect, showStepStatusSelect, stepStatus,
+                                  steps, tasklistButtonClickHandler}) => {
+
     return (
         <ButtonsStatusContainer>
             {indexOfStepToDisplay + 1 === steps.length ? <WireFrameDeleteButton onClick={() => setShowConfirmation(true)}>Delete</WireFrameDeleteButton> : null}
             <StepDetailsTasklistButton onClick={tasklistButtonClickHandler}>Tasklist</StepDetailsTasklistButton>
-            {!editStatus ? (
-                <StepDetailsStatus disabled onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
-                    <StepDetailsOption value={steps[indexOfStepToDisplay].status}>{steps[indexOfStepToDisplay].status}</StepDetailsOption>
-                </StepDetailsStatus>
-                ) : (
-                    <StepDetailsStatus onChange={(e) => setStepStatus(e.target.value)} value={stepStatus}>
-                        <StepDetailsOption disabled value=''>Select status</StepDetailsOption>
-                        <StepDetailsOption value='Not Started'>Not Started</StepDetailsOption>
-                        <StepDetailsOption value='Ongoing'>Ongoing</StepDetailsOption>
-                        {ableToComplete ?
-                            <StepDetailsOption value='Completed'>Completed</StepDetailsOption> :
-                            <StepDetailsOption disabled value='Completed'>Completed</StepDetailsOption>}
-                    </StepDetailsStatus>
-            )}
+            <StepDetailsStatusDropdown
+                ableToComplete={ableToComplete}
+                disabled={!editStatus}
+                handleStepStatusSelectChange={handleStepStatusSelectChange}
+                setShowStepStatusSelect={setShowStepStatusSelect}
+                showStepStatusSelect={showStepStatusSelect}
+                stepStatus={stepStatus}
+            />
             {!ableToComplete ? (
                 <>
                     <StepTooltipAnchor>

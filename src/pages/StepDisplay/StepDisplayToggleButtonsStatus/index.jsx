@@ -5,12 +5,12 @@ import StepDetailsButtonsStatus from './StepDetailsButtonsStatus'
 import {ToggleButtonsStatusContainer} from './styles'
 
 
-const StepDisplayToggleButtonsStatus = ({ableToComplete, currentStepEntities, editStatus, indexOfStepToDisplay, setShowConfirmation,
-                                            setStepDetailStatus, stepDetailStatus, setShowAddEntity, setShowAddLink, setShowEditEntity,
-                                            setShowEditLink, setShowPredefinedChangeLegalForm, setShowPredefinedContribution, setShowPredefinedDistribution,
-                                            setShowPredefinedIncorporate, setShowPredefinedIntercompanySale, setShowPredefinedLiquidation,
-                                            setShowPredefinedMerger, setShowRemoveEntity, setShowRemoveLink, setStepStatus, steps,
-                                            stepStatus, tasklistButtonClickHandler}) => {
+const StepDisplayToggleButtonsStatus = ({ableToComplete, currentStepEntities, editStatus, handleStepStatusSelectChange, indexOfStepToDisplay,
+                                            setShowConfirmation, setStepDetailStatus, stepDetailStatus, setShowAddEntity, setShowAddLink,
+                                            setShowEditEntity, setShowEditLink, setShowPredefinedChangeLegalForm, setShowPredefinedContribution,
+                                            setShowPredefinedDistribution, setShowPredefinedIncorporate, setShowPredefinedIntercompanySale,
+                                            setShowPredefinedLiquidation, setShowPredefinedMerger, setShowRemoveEntity, setShowRemoveLink,
+                                            setShowStepStatusSelect, showStepStatusSelect, steps, stepStatus, tasklistButtonClickHandler}) => {
     return (
         <ToggleButtonsStatusContainer>
             <StepDisplayToggle
@@ -39,9 +39,11 @@ const StepDisplayToggleButtonsStatus = ({ableToComplete, currentStepEntities, ed
                     <StepDetailsButtonsStatus
                         ableToComplete={ableToComplete}
                         editStatus={editStatus}
+                        handleStepStatusSelectChange={handleStepStatusSelectChange}
                         indexOfStepToDisplay={indexOfStepToDisplay}
                         setShowConfirmation={setShowConfirmation}
-                        setStepStatus={setStepStatus}
+                        setShowStepStatusSelect={setShowStepStatusSelect}
+                        showStepStatusSelect={showStepStatusSelect}
                         stepStatus={stepStatus}
                         steps={steps}
                         tasklistButtonClickHandler={tasklistButtonClickHandler}
