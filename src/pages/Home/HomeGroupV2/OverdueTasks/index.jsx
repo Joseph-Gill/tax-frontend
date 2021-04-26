@@ -3,13 +3,13 @@ import {GroupCommentTaskContainer} from '../../../../style/containers'
 import {HomeGroupTextRed, OverdueTaskNumber} from './styles'
 
 
-const TasksOverdue = ({number}) => {
+const OverdueTasks = ({number}) => {
     return (
         <GroupCommentTaskContainer>
-            <OverdueTaskNumber>{number}</OverdueTaskNumber>
             <HomeGroupTextRed>Tasks Overdue</HomeGroupTextRed>
+            <OverdueTaskNumber>{number}</OverdueTaskNumber>
         </GroupCommentTaskContainer>
     )
 }
 
-export default TasksOverdue
+export default OverdueTasks

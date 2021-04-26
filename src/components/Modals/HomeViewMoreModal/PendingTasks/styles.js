@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {TableData, TableDataRow, TableHeader} from '../../../../../style/tables'
+import {TableData, TableDataRow, TableHeader} from '../../../../style/tables'
 
 
 export const PendingTaskTableRow = styled(TableDataRow)`

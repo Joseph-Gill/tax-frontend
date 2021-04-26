@@ -6,8 +6,8 @@ import {HomeGroupTextBlue, ReviewCommentsNumber} from './styles'
 const ReviewComments = ({number}) => {
     return (
         <GroupCommentTaskContainer>
-            <ReviewCommentsNumber>{number}</ReviewCommentsNumber>
             <HomeGroupTextBlue>Comments to Review</HomeGroupTextBlue>
+            <ReviewCommentsNumber>{number}</ReviewCommentsNumber>
         </GroupCommentTaskContainer>
     )
 }

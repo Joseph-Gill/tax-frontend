@@ -7,7 +7,7 @@ import {ModalDropdownButton, ModalDropdownContentContainer} from '../Dropdowns/s
 
 
 export const AddDeleteModalExternalContainer = styled(animated.div)`
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     left: 0;

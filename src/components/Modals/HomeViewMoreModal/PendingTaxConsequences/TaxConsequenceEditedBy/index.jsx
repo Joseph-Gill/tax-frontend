@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
-import Loading from '../../../../../../components/Loading'
-import {getRolesForProfileGroupAction} from '../../../../../../store/projectRole/actions'
-import {EntryResponsibleText} from '../../../../../../style/text'
-import {EntryResponsibleContainer} from '../../../../../../style/containers'
+import Loading from '../../../../../components/Loading'
+import {getRolesForProfileGroupAction} from '../../../../../store/projectRole/actions'
+import {EntryResponsibleText} from '../../../../../style/text'
+import {EntryResponsibleContainer} from '../../../../../style/containers'
 
 
 const TaxConsequenceEditedBy = ({user, groupId}) => {

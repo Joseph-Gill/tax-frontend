@@ -1,9 +1,9 @@
 import React from 'react'
 import TaxConsequenceEditedBy from './TaxConsequenceEditedBy'
-import {TableButton} from '../../../../../style/buttons'
-import {NoTasksOrTaxConsequencesDisplay, TableContainer} from '../../../../../style/containers'
-import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../../../style/tables'
-import {NoTasksOrTaxConsequencesText} from '../../../../../style/text'
+import {TableButton} from '../../../../style/buttons'
+import {NoTasksOrTaxConsequencesDisplay, TableContainer} from '../../../../style/containers'
+import {CommentTable, TableData, TableDataRow, TableHeader, TableTitleRow} from '../../../../style/tables'
+import {NoTasksOrTaxConsequencesText} from '../../../../style/text'
 
 
 const PendingTaxConsequences = ({goToSpecificStepHandler, groupId, taxConsequencesToRender}) => {

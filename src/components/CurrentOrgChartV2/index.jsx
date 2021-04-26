@@ -33,6 +33,7 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.myTemplate.size = [400, 150];
         //Draws the click effect when user clicks on a node
         OrgChart.templates.myTemplate.ripple = {radius: 40, color: "#00709F", rect: { x: 0, y: 0, width: 400, height: 150, rx: 0, ry: 0 }};
+        console.log(OrgChart.templates.myTemplate.link)
 
         //Sets the appearance of CLink templates in the chart
         OrgChart.clinkTemplates.orange = {
@@ -62,10 +63,11 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             label: '<text dominant-baseline="middle" fill="#000000" style="font-size: 22px;" alignment-baseline="middle" text-anchor="middle" x="{x}" y="{y}">{val}</text>',
             labelPosition: "middle"
         }
+        //Blue SLink is currently repurposed to be the Multiple Shareholders Link
         OrgChart.slinkTemplates.blue = {
             defs: '<marker id="arrowSlinkBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path fill="#00709F" d="M 0 0 L 10 5 L 0 10 z" /></marker>' +
                 '<marker id="dotSlinkBlue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5"> <circle cx="5" cy="5" r="5" fill="#00709F" /></marker>',
-            link: '<path stroke-dasharray="4, 2" marker-start="url(#dotSlinkBlue)" marker-end="url(#arrowSlinkBlue)" stroke-linejoin="round" stroke="#00709F" stroke-width="6" fill="none" d="{d}" />',
+            link: '<path stroke-linejoin="round" stroke="#AEAEAE" stroke-width="1px" fill="none" d="{d}" />',
             label: '<text fill="#000000" style="font-size: 22px;" text-anchor="middle" x="{x}" y="{y}">{val}</text>',
             labelPosition: "middle"
         }

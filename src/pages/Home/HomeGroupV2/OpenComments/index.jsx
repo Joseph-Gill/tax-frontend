@@ -6,8 +6,8 @@ import {HomeGroupTextYellow, OpenCommentsNumber} from './styles'
 const OpenComments = ({number}) => {
     return (
         <GroupCommentTaskContainer>
-            <OpenCommentsNumber>{number}</OpenCommentsNumber>
             <HomeGroupTextYellow>Comments Open</HomeGroupTextYellow>
+            <OpenCommentsNumber>{number}</OpenCommentsNumber>
         </GroupCommentTaskContainer>
     )
 }

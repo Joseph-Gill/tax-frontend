@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
 import BreadCrumb from '../../components/BreadCrumb'
-import HomeGroup from './HomeGroup'
 import LogoLoading from '../../components/LogoLoading'
 import NoContent from '../../components/NoContent'
 import HomeFilterSearchBar from './HomeFilterSearchBar'
@@ -18,7 +17,8 @@ import {GROUPS, HOME} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
-import {ProjectAccessContainer} from './styles'
+import {HomeGroupListContainer, ProjectAccessContainer} from './styles'
+import HomeGroupV2 from './HomeGroupV2'
 
 
 const Home = ({history}) => {
@@ -44,7 +44,14 @@ const Home = ({history}) => {
                         //For each project of the user's group
                         for (let x = 0; x < groups[i].projects.length; x++) {
                             //Creates an object with groupId, group name, project, user's role, firstUncompletedStep (initially null)
-                            let result = {groupId: groups[i].id, groupName: groups[i].name, project:groups[i].projects[x], userRole: roleResponse[0].role, firstUncompletedStep: null}
+                            let result = {
+                                groupId: groups[i].id,
+                                groupName: groups[i].name,
+                                groupImage: groups[i].avatar,
+                                project:groups[i].projects[x],
+                                userRole: roleResponse[0].role,
+                                firstUncompletedStep: null
+                            }
                             //Looks at project of the group and finds it's first step that has a status not "Completed"
                             const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(groups[i].projects[x].id))
                                 if (stepResponse) {
@@ -117,19 +124,18 @@ const Home = ({history}) => {
     //Used to render a Group Card for each entry in pairingsToDisplay
     const renderPairings = () => {
         if (pairingsToDisplay.length){
-            return pairingsToDisplay.map((pair) => (
-                <HomeGroup
-                    firstUncompletedStep={pair.firstUncompletedStep}
-                    groupId={pair.groupId}
-                    groupName={pair.groupName}
-                    history={history}
-                    key={uuidv4()}
-                    project={pair.project}
-                    setHomeLoading={setHomeLoading}
-                    user={user}
-                    userRole={pair.userRole}
-                />
-            ))
+            return (
+                <HomeGroupListContainer>
+                    {pairingsToDisplay.map((pair) => (
+                        <HomeGroupV2
+                            dispatch={dispatch}
+                            history={history}
+                            key={uuidv4()}
+                            pair={pair}
+                            user={user}
+                        />
+                    ))}
+                </HomeGroupListContainer>)
         } else {
             return <NoFilterResults />}
     }
@@ -166,4 +172,3 @@ const Home = ({history}) => {
 }
 
 export default Home
-

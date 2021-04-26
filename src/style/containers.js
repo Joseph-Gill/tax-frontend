@@ -62,7 +62,9 @@ export const GroupCommentTaskNumberContainer = styled.div`
 `
 
 export const GroupCommentTaskContainer = styled.div`
+    width: 180px;
     display: flex;
+    justify-content: space-between;
 `
 
 export const TableContainer = styled.div`
