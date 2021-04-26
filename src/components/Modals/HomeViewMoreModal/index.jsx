@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import Draggable from 'react-draggable'
-import styled from 'styled-components/macro'
 import Loading from '../../Loading'
 import PendingTasks from './PendingTasks'
 import ViewMoreButtons from './ViewMoreButtons'
