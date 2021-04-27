@@ -7,12 +7,12 @@ import ReviewComments from './ReviewComments'
 import Loading from '../../../components/Loading'
 import HomeViewMoreModal from '../../../components/Modals/HomeViewMoreModal'
 import {getGroupOfProjectAction} from '../../../store/group/actions'
+import {toggleFavoriteProjectStatusAction} from '../../../store/projectRole/actions'
 import {getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction} from '../../../store/project/actions'
 import {getPastDueNumberAndUncompletedTasksAction, getTaskNumberForTaskOfStepAction} from '../../../store/task/actions'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
 import {GroupImage, GroupTitle, HomeGroupButton, HomeGroupFavStatsContainer, HomeGroupV2Container, HomeGroupViewMoreProjectButtonContainer,
     ProjectTitle, StatsContainer, TitlesContainer, TitlesGroupImageContainer, ViewMoreText} from './styles'
-import {toggleFavoriteProjectStatusAction} from '../../../store/projectRole/actions'
 
 
 const HomeGroupV2 = ({dispatch, history, pair, user}) => {
@@ -53,7 +53,7 @@ const HomeGroupV2 = ({dispatch, history, pair, user}) => {
         setFavoriteProject(pair.favorite)
         getPastDueNumberUncompletedTasksCommentsOpenAndReviewed()
             .then(() => setLoading(false))
-    }, [pair, dispatch, setLoading])
+    }, [pair, dispatch])
 
     //From react-spring, causes to fade in
     const props = useSpring({

@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {v4 as uuidv4} from 'uuid'
+import HomeGroupV2 from './HomeGroupV2'
+import HomeProjectTabs from './HomeProjectTabs'
 import BreadCrumb from '../../components/BreadCrumb'
 import LogoLoading from '../../components/LogoLoading'
 import NoContent from '../../components/NoContent'
@@ -18,7 +20,6 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
 import {HomeGroupListContainer, ProjectAccessContainer} from './styles'
-import HomeGroupV2 from './HomeGroupV2'
 
 
 const Home = ({history}) => {
@@ -30,6 +31,7 @@ const Home = ({history}) => {
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
     const [pairingsToDisplay, setPairingsToDisplay] = useState([])
     const [homeLoading, setHomeLoading] = useState(false)
+    const [displayFavorites, setDisplayFavorites] = useState(true)
 
     useEffect(() => {
         //Is given all groups the user is a member of
@@ -126,8 +128,27 @@ const Home = ({history}) => {
     //Used to render a Group Card for each entry in pairingsToDisplay
     const renderPairings = () => {
         if (pairingsToDisplay.length){
+            if (displayFavorites) {
+                const favoriteProjects = pairingsToDisplay.filter(pair => pair.favorite)
+                return (
+                    <HomeGroupListContainer
+                        numCards={favoriteProjects.length}
+                    >
+                        {favoriteProjects.map((pair) => (
+                            <HomeGroupV2
+                                dispatch={dispatch}
+                                history={history}
+                                key={uuidv4()}
+                                pair={pair}
+                                user={user}
+                            />))}
+                    </HomeGroupListContainer>
+                )
+            }
             return (
-                <HomeGroupListContainer>
+                <HomeGroupListContainer
+                    numCards={pairingsToDisplay.length}
+                >
                     {pairingsToDisplay.map((pair) => (
                         <HomeGroupV2
                             dispatch={dispatch}
@@ -152,7 +173,6 @@ const Home = ({history}) => {
                     <AuthenticatedPageTitleContainer>
                         <AuthenticatedPageTitle>Welcome {profile.user.first_name}</AuthenticatedPageTitle>
                     </AuthenticatedPageTitleContainer>
-
                     {!projectGroupPairings.length ?
                         <NoContent buttonText='Go to groups overview' redirect={GROUPS} text='You have not created or been granted access to a group/project yet.' /> : (
                             <>
@@ -165,9 +185,12 @@ const Home = ({history}) => {
                                         resetFilterChangeHandler={resetFilterChangeHandler}
                                     />
                                 </ProjectAccessContainer>
+                                <HomeProjectTabs
+                                    displayFavorites={displayFavorites}
+                                    setDisplayFavorites={setDisplayFavorites}
+                                />
                                 {renderPairings()}
-                            </>
-                        )}
+                            </>)}
                 </>)}
         </AuthenticatedPageContainer>
     )
