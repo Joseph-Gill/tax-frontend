@@ -14,17 +14,6 @@ export const Ellipse = styled.img`
     margin-right: 13px;
 `
 
-export const ExpandImage = styled.img`
-    width: 18px;
-    height: 18px;
-    transform: rotate(-90deg);
-    margin-left: 5px;
-`
-
-export const CollapseImage = styled(ExpandImage)`
-    transform: rotate(90deg);
-`
-
 export const DropdownImage = styled.img`
     margin-left: 10px;
 `

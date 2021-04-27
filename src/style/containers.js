@@ -77,21 +77,6 @@ export const TableContainer = styled.div`
     margin-bottom: 20px;
 `
 
-export const HomeExpandCollapseContainer = styled(animated.div)`
-    display: flex;
-    align-self: flex-end;
-    align-items: center;
-    justify-content: space-between;
-    height: 26px;
-    color: ${props => props.theme.primaryBlue};
-
-    :hover {
-        cursor: pointer;
-        text-decoration: underline;
-        transition: 167ms;
-    }
-`
-
 export const DisplayTitleWithButtonContainer = styled(AuthenticatedPageTitleContainer)`
     display: flex;
     justify-content: space-between;
