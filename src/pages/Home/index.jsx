@@ -50,9 +50,9 @@ const Home = ({history}) => {
                                 groupId: groups[i].id,
                                 groupName: groups[i].name,
                                 groupImage: groups[i].avatar,
-                                // project: groups[i].projects[x],
-                                project: roleResponse[x].project,
-                                userRole: roleResponse[x].role,
+                                project: groups[i].projects[x],
+                                // project: roleResponse[x].project,
+                                userRole: roleResponse[0].role,
                                 firstUncompletedStep: null,
                                 favorite: roleResponse[x].favorite
                             }
