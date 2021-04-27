@@ -49,6 +49,7 @@ const HomeGroupV2 = ({dispatch, history, pair, user}) => {
                 setReviewComments(commentResponse.comments_to_review)
             }
         }
+        setFavoriteProject(pair.favorite)
         getPastDueNumberUncompletedTasksCommentsOpenAndReviewed()
             .then(() => setLoading(false))
     }, [pair, dispatch, setLoading])

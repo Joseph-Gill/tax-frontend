@@ -48,9 +48,11 @@ const Home = ({history}) => {
                                 groupId: groups[i].id,
                                 groupName: groups[i].name,
                                 groupImage: groups[i].avatar,
-                                project:groups[i].projects[x],
-                                userRole: roleResponse[0].role,
-                                firstUncompletedStep: null
+                                // project: groups[i].projects[x],
+                                project: roleResponse[x].project,
+                                userRole: roleResponse[x].role,
+                                firstUncompletedStep: null,
+                                favorite: roleResponse[x].favorite
                             }
                             //Looks at project of the group and finds it's first step that has a status not "Completed"
                             const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(groups[i].projects[x].id))
