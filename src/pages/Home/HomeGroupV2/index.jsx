@@ -2,16 +2,16 @@ import React, {useEffect, useState} from 'react'
 import {useSpring} from 'react-spring'
 import OpenComments from './OpenComments'
 import OverdueTasks from './OverdueTasks'
+import FavoriteToggle from './FavoriteToggle'
 import ReviewComments from './ReviewComments'
 import Loading from '../../../components/Loading'
+import HomeViewMoreModal from '../../../components/Modals/HomeViewMoreModal'
 import {getGroupOfProjectAction} from '../../../store/group/actions'
 import {getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction} from '../../../store/project/actions'
 import {getPastDueNumberAndUncompletedTasksAction, getTaskNumberForTaskOfStepAction} from '../../../store/task/actions'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
 import {GroupImage, GroupTitle, HomeGroupButton, HomeGroupFavStatsContainer, HomeGroupV2Container, HomeGroupViewMoreProjectButtonContainer,
     ProjectTitle, StatsContainer, TitlesContainer, TitlesGroupImageContainer, ViewMoreText} from './styles'
-import HomeViewMoreModal from '../../../components/Modals/HomeViewMoreModal'
-
 
 
 const HomeGroupV2 = ({dispatch, history, pair, user}) => {
@@ -21,6 +21,7 @@ const HomeGroupV2 = ({dispatch, history, pair, user}) => {
     const [loading, setLoading] = useState(true)
     const [tasksToRender, setTasksToRender] = useState([])
     const [showViewMoreModal, setShowViewMoreModal] = useState(false)
+    const [favoriteProject, setFavoriteProject] = useState(false)
 
     useEffect(() => {
         const getPastDueNumberUncompletedTasksCommentsOpenAndReviewed = async () => {
@@ -91,7 +92,10 @@ const HomeGroupV2 = ({dispatch, history, pair, user}) => {
                         {pair.groupImage ? <GroupImage alt='group image' src={pair.groupImage} /> : <div />}
                     </TitlesGroupImageContainer>
                     <HomeGroupFavStatsContainer>
-                        <div>Favourite PH</div>
+                        <FavoriteToggle
+                            favoriteProject={favoriteProject}
+                            setFavoriteProject={setFavoriteProject}
+                        />
                         <StatsContainer>
                             <OpenComments number={openComments} />
                             <ReviewComments number={reviewComments} />
