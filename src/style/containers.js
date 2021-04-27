@@ -1,6 +1,5 @@
 import styled from 'styled-components/macro'
 import {CancelButton} from './buttons'
-import {animated} from 'react-spring'
 import {device as devices} from '../style/devices'
 
 

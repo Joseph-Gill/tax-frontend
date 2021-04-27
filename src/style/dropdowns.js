@@ -1,10 +1,8 @@
 import styled from 'styled-components/macro'
-import arrow from '../assets/icons/stark_dropdown_arrow_blue.svg'
 import dropdownArrowDownward from '../assets/icons/stark_dropdown_arrow_blue_downward.svg'
 import dropdownArrowUpward from '../assets/icons/stark_dropdown_arrow_blue_upwards.svg'
 import dropdownArrowDownwardGray from '../assets/icons/stark_dropdown_arrow_gray_downward.svg'
 import dropdownArrowUpwardGray from '../assets/icons/stark_dropdown_arrow_gray_upwards.svg'
-import actionImage from '../assets/icons/stark_action.svg'
 import {BaseInput} from './inputs'
 
 
