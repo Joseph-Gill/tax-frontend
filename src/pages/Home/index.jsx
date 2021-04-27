@@ -30,7 +30,7 @@ const Home = ({history}) => {
     const profileLoaded = useSelector(state => state.profileReducer.loaded)
     const [projectGroupPairings, setProjectGroupPairings] = useState([])
     const [pairingsToDisplay, setPairingsToDisplay] = useState([])
-    const [homeLoading, setHomeLoading] = useState(false)
+    const [homeLoading, setHomeLoading] = useState(true)
     const [displayFavorites, setDisplayFavorites] = useState(true)
 
     useEffect(() => {
@@ -81,7 +81,6 @@ const Home = ({history}) => {
             //Stores list of result to render Group Cards
             setPairingsToDisplay([...result])
         }
-        setHomeLoading(true)
         //Resets project in redux state
         dispatch(resetProject())
         //Resets group in redux state
