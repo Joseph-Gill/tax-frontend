@@ -55,7 +55,7 @@ const HomeViewMoreModal = ({dispatch, goToProjectClickHandler, history, pair, se
                         <ExpandedGroupContainer>
                             <NextStepContainer>
                                 <TitleNextStepContainer>
-                                    <ViewMoreTitle>{`${pair.groupName}: ${pair.project.name}`}</ViewMoreTitle>
+                                    <ViewMoreTitle>{pair.project.name}</ViewMoreTitle>
                                 </TitleNextStepContainer>
                                 <AccountInfoContainer>
                                     {pair.firstUncompletedStep ? (
