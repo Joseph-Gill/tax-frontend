@@ -57,9 +57,9 @@ export const FavoriteToggleControl = styled.label`
             //top: var(--toggle-gutter);
             top: 2.5px;
             //width: var(--toggle-control-size);
-            width: 20px;
+            width: 19.5px;
             //height: var(--toggle-control-size);
-            height: 20px;
+            height: 19.5px;
             //border-radius: var(--toggle-radius);
             border-radius: 12.5px;
             background-color: ${props => props.theme.white};
