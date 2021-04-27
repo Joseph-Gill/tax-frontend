@@ -42,6 +42,7 @@ const Home = ({history}) => {
                 if (groups[i].projects.length) {
                     //Gets the role a member has for projects in the group
                     const roleResponse = await dispatch(getRolesForProfileGroupAction(user.user_profile.id, groups[i].id))
+                    console.log(roleResponse)
                     if (roleResponse.length) {
                         //For each project of the user's group
                         for (let x = 0; x < groups[i].projects.length; x++) {
@@ -54,7 +55,7 @@ const Home = ({history}) => {
                                 // project: roleResponse[x].project,
                                 userRole: roleResponse[0].role,
                                 firstUncompletedStep: null,
-                                favorite: roleResponse[x].favorite
+                                favorite: false,
                             }
                             //Looks at project of the group and finds it's first step that has a status not "Completed"
                             const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(groups[i].projects[x].id))
