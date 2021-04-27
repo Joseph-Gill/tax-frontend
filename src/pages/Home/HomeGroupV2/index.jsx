@@ -12,6 +12,7 @@ import {getPastDueNumberAndUncompletedTasksAction, getTaskNumberForTaskOfStepAct
 import {GROUPS, PROJECTS} from '../../../routes/paths'
 import {GroupImage, GroupTitle, HomeGroupButton, HomeGroupFavStatsContainer, HomeGroupV2Container, HomeGroupViewMoreProjectButtonContainer,
     ProjectTitle, StatsContainer, TitlesContainer, TitlesGroupImageContainer, ViewMoreText} from './styles'
+import {toggleFavoriteProjectStatusAction} from '../../../store/projectRole/actions'
 
 
 const HomeGroupV2 = ({dispatch, history, pair, user}) => {
@@ -69,6 +70,11 @@ const HomeGroupV2 = ({dispatch, history, pair, user}) => {
         }
     }
 
+    const toggleFavoriteClickHandler = () => {
+        dispatch(toggleFavoriteProjectStatusAction(user.user_profile.id, pair.project.id))
+        setFavoriteProject(!favoriteProject)
+    }
+
     return (
         // eslint-disable-next-line react/forbid-component-props
         <HomeGroupV2Container style={props}>
@@ -95,7 +101,7 @@ const HomeGroupV2 = ({dispatch, history, pair, user}) => {
                     <HomeGroupFavStatsContainer>
                         <FavoriteToggle
                             favoriteProject={favoriteProject}
-                            setFavoriteProject={setFavoriteProject}
+                            toggleFavoriteClickHandler={toggleFavoriteClickHandler}
                         />
                         <StatsContainer>
                             <OpenComments number={openComments} />

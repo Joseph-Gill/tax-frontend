@@ -4,13 +4,13 @@ import TooltipAnchorText from '../../../../components/Tooltips/TooltipComponents
 import {FavoriteContainer, FavoriteToggleControl} from './styles'
 
 
-const FavoriteToggle = ({favoriteProject, setFavoriteProject}) => {
+const FavoriteToggle = ({favoriteProject, toggleFavoriteClickHandler}) => {
     return (
         <FavoriteContainer>
             <FavoriteToggleControl data-for='favoriteProject' data-tip>
                 <input
                     checked={favoriteProject}
-                    onChange={() => setFavoriteProject(!favoriteProject)}
+                    onChange={toggleFavoriteClickHandler}
                     type='checkbox'
                 />
                 <span className='control' />

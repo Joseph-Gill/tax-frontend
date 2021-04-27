@@ -48,3 +48,18 @@ export const getProjectRolesForProjectAction = (groupId, projectId) => async (di
         return catchError(e, dispatch)
     }
 }
+
+export const toggleFavoriteProjectStatusAction = (userProfileId, projectId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.post(`/projectroles/userprofile/${userProfileId}/project/${projectId}/`, {}, config)
+    } catch (e) {
+        console.log('Error toggling favorite status of a project')
+        return catchError(e, dispatch)
+    }
+}
