@@ -15,7 +15,7 @@ import {GroupImage, GroupTitle, HomeGroupButton, HomeGroupFavStatsContainer, Hom
     ProjectTitle, StatsContainer, TitlesContainer, TitlesGroupImageContainer, ViewMoreText} from './styles'
 
 
-const HomeGroupV2 = ({dispatch, history, pair, user}) => {
+const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, user}) => {
     const [openComments, setOpenComments] = useState(0)
     const [reviewComments, setReviewComments] = useState(0)
     const [pastDueTasks, setPastDueTasks] = useState(0)
@@ -70,9 +70,13 @@ const HomeGroupV2 = ({dispatch, history, pair, user}) => {
         }
     }
 
-    const toggleFavoriteClickHandler = () => {
-        dispatch(toggleFavoriteProjectStatusAction(user.user_profile.id, pair.project.id))
-        setFavoriteProject(!favoriteProject)
+    const toggleFavoriteClickHandler = async () => {
+        const response = await dispatch(toggleFavoriteProjectStatusAction(user.user_profile.id, pair.project.id))
+        if (response) {
+            const targetPairIndex = pairingsToDisplay.findIndex(pair => pair.id === response.data.project.id)
+            pairingsToDisplay[targetPairIndex].favorite = response.data.favorite
+            setFavoriteProject(!favoriteProject)
+        }
     }
 
     return (

@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {v4 as uuidv4} from 'uuid'
 import HomeGroupV2 from './HomeGroupV2'
 import HomeProjectTabs from './HomeProjectTabs'
 import BreadCrumb from '../../components/BreadCrumb'
@@ -34,71 +33,53 @@ const Home = ({history}) => {
     const [displayFavorites, setDisplayFavorites] = useState(true)
 
     useEffect(() => {
-        //Is given all groups the user is a member of
-        const createGroupProjectPairingWithRole = async (groups) => {
+        const getProfileAndProjects = async () => {
+            //Used to store the Group/Project pairings needed to render each card
             const groupNameProjectPairing = []
-            //Loops over all groups the user is a member of
-            for (let i = 0; i < groups.length; i++) {
-                if (groups[i].projects.length) {
-                    //Gets the role a member has for projects in the group
-                    const roleResponse = await dispatch(getRolesForProfileGroupAction(user.user_profile.id, groups[i].id))
-                    console.log(roleResponse)
-                    if (roleResponse.length) {
-                        //For each project of the user's group
-                        for (let x = 0; x < groups[i].projects.length; x++) {
-                            //Creates an object with groupId, group name, project, user's role, firstUncompletedStep (initially null)
-                            let result = {
-                                groupId: groups[i].id,
-                                groupName: groups[i].name,
-                                groupImage: groups[i].avatar,
-                                project: groups[i].projects[x],
-                                // project: roleResponse[x].project,
-                                userRole: roleResponse[0].role,
-                                firstUncompletedStep: null,
-                                favorite: false,
-                            }
-                            //Looks at project of the group and finds it's first step that has a status not "Completed"
-                            const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(groups[i].projects[x].id))
-                                if (stepResponse) {
-                                    result.firstUncompletedStep = stepResponse
-                                    groupNameProjectPairing.push(result)
-                                } else {
-                                    groupNameProjectPairing.push(result)
-                                }
-                        }
+            const response = await dispatch(getProfileAction())
+            //Gets all Groups the user has access to
+            const userGroups = response.groups
+            //For each of the Groups, we need to get the projects the User has a Project Role for
+            for (let i = 0; i < userGroups.length; i++) {
+                const roleResponse = await dispatch(getRolesForProfileGroupAction(response.id, userGroups[i].id))
+                for (let x = 0; x < roleResponse.length; x++) {
+                    //Creates the object with all information needed to render the card
+                    let result = {
+                        id: roleResponse[x].project.id,
+                        groupId: roleResponse[x].project.group.id,
+                        groupName: roleResponse[x].project.group.name,
+                        groupImage: roleResponse[x].project.group.avatar,
+                        project: roleResponse[x].project,
+                        userRole: roleResponse[x].role,
+                        firstUncompletedStep: null,
+                        favorite: roleResponse[x].favorite,
+                    }
+                    //Finds the first uncompleted step for each project, updating the card object if a step is found
+                    const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(roleResponse[x].project.group.id))
+                    if (stepResponse) {
+                        result.firstUncompletedStep = stepResponse
+                        groupNameProjectPairing.push(result)
+                    } else {
+                        groupNameProjectPairing.push(result)
                     }
                 }
             }
-            return groupNameProjectPairing
-        }
-
-        const getProfileCreateParing = async () => {
-            //Gets the user's profile
-            const response = await dispatch(getProfileAction())
-            //Creates an array of Group/Project pairings used to render Group/Project cards
-            const result = await createGroupProjectPairingWithRole(response.groups)
-            //Stores list of results to be used to filter
-            setProjectGroupPairings([...result])
+            //Stores list of results to be used to reset the filter
+            setProjectGroupPairings([...groupNameProjectPairing])
             //Stores list of result to render Group Cards
-            setPairingsToDisplay([...result])
+            setPairingsToDisplay([...groupNameProjectPairing])
         }
-        //Resets project in redux state
+        //Resets redux state to default
         dispatch(resetProject())
-        //Resets group in redux state
         dispatch(resetGroup())
-        //Resets selected member in redux state
         dispatch(resetMember())
-        //Resets project steps in redux state
         dispatch(resetSteps())
-        //Resets step tasks in redux state
         dispatch(resetTasks())
-        //Resets task step number filter in redux state
         dispatch(resetTaskFilterStepNumber())
-        //Resets member project filter in redux state
         dispatch(resetMemberFilterProjectId())
-        getProfileCreateParing()
+        getProfileAndProjects()
             .then(() => setHomeLoading(false))
-    }, [dispatch, user])
+    }, [dispatch])
 
     //Used by Group/Project filter to filter by Group or Project name
     const searchedPairings = () => (
@@ -138,8 +119,9 @@ const Home = ({history}) => {
                             <HomeGroupV2
                                 dispatch={dispatch}
                                 history={history}
-                                key={uuidv4()}
+                                key={pair.id}
                                 pair={pair}
+                                pairingsToDisplay={pairingsToDisplay}
                                 user={user}
                             />))}
                     </HomeGroupListContainer>
@@ -153,8 +135,9 @@ const Home = ({history}) => {
                         <HomeGroupV2
                             dispatch={dispatch}
                             history={history}
-                            key={uuidv4()}
+                            key={pair.id}
                             pair={pair}
+                            pairingsToDisplay={pairingsToDisplay}
                             user={user}
                         />
                     ))}

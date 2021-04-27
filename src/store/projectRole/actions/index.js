@@ -11,7 +11,7 @@ export const getRolesForProfileGroupAction = (profileId, groupId) => async (disp
     }
     try {
         const response = await Axios.get(`/projectroles/userprofile/${profileId}/group/${groupId}/`, config)
-        return response.data
+        return [...response.data]
     } catch(e) {
         console.log('Error getting project roles>', e)
         return e
