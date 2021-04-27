@@ -63,11 +63,6 @@ export const NextStepContainer = styled.div`
     width: 820px;
     border-bottom: 1px solid ${props => props.theme.grayFour};
     padding-left: 20px;
-
-    div {
-        margin-top: 11px;
-        display: flex;
-    }
 `
 
 export const GroupSectionTitle = styled(AuthenticatedPageSectionTitle)`
@@ -80,6 +75,7 @@ export const AccountInfoContainer = styled.div`
     align-items: center;
     padding-right: 20px;
     justify-content: space-between;
+    margin-top: 10px;
 `
 
 export const CommentsContainer = styled.div`
@@ -109,6 +105,7 @@ export const StepDateTextContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 `
 
 export const GroupExpandedDateText = styled(DateText)`
@@ -117,4 +114,35 @@ export const GroupExpandedDateText = styled(DateText)`
 
 export const ProjectStepsButton = styled(TableButton)`
     width: 140px;
+`
+
+export const TitleNextStepContainer = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+`
+
+export const NextStepTitle = styled.h2`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 10px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: ${props => props.theme.graySeven};
+`
+
+export const ViewMoreTitle = styled.h4`
+    font-family: ${props => props.theme.spartanFontFamily};
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 600;
+    color: ${props => props.theme.black};
+    justify-self: flex-end;
+    margin-right: 20px;
+`
+
+export const StepNumDateContainer = styled.div`
+    display: flex;
 `

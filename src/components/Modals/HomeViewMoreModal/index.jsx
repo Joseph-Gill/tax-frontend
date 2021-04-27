@@ -11,12 +11,13 @@ import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS, TASKS} from '../../../routes/path
 import {TableButton} from '../../../style/buttons'
 import {AuthenticatedText} from '../../../style/text'
 import {AccountInfoContainer, CommentsContainer, ExpandedGroupContainer, GroupExpandedDateText, GroupSectionTitle, HomeViewMoreInternalContainer,
-    NextStepContainer, ProjectStepsButton, StepDateTextContainer, TaskButtonContainer, TaskContainer, TaskTableButton} from './styles'
+    NextStepContainer, NextStepTitle, ProjectStepsButton, StepDateTextContainer, StepNumDateContainer, TaskButtonContainer, TaskContainer,
+    TaskTableButton, TitleNextStepContainer, ViewMoreTitle} from './styles'
 
 
 const HomeViewMoreModal = ({dispatch, goToProjectClickHandler, history, pair, setShowViewMoreModal, showViewMoreModal, tasksToRender, user}) => {
     const [taxConsequencesToRender, setTaxConsequencesToRender] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         //Fetches tax consequences for project that are same location as user's counry
@@ -53,17 +54,21 @@ const HomeViewMoreModal = ({dispatch, goToProjectClickHandler, history, pair, se
                     {loading ? <Loading /> : (
                         <ExpandedGroupContainer>
                             <NextStepContainer>
-                                <GroupSectionTitle>Next Step</GroupSectionTitle>
+                                <TitleNextStepContainer>
+                                    <ViewMoreTitle>{`${pair.groupName}: ${pair.project.name}`}</ViewMoreTitle>
+                                </TitleNextStepContainer>
                                 <AccountInfoContainer>
                                     {pair.firstUncompletedStep ? (
-                                        <>
-                                            <StepDateTextContainer>
+                                        <StepDateTextContainer>
+                                            <NextStepTitle>Next Step</NextStepTitle>
+                                            <StepNumDateContainer>
                                                 <AuthenticatedText>{`Step ${pair.firstUncompletedStep.number} -`}</AuthenticatedText>
                                                 <GroupExpandedDateText>{pair.firstUncompletedStep.effective_date}</GroupExpandedDateText>
-                                            </StepDateTextContainer>
+                                            </StepNumDateContainer>
                                             <TableButton onClick={() => goToSpecificStepHandler(pair.firstUncompletedStep.number)}>Go to Step</TableButton>
-                                        </>) : (
+                                        </StepDateTextContainer>) : (
                                             <>
+                                                <NextStepTitle>Next Step</NextStepTitle>
                                                 <AuthenticatedText>This project has no uncompleted Steps</AuthenticatedText>
                                                 <ProjectStepsButton onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}/${pair.project.id}/`)}>Go to project steps</ProjectStepsButton>
                                             </>)}
