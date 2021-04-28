@@ -195,7 +195,6 @@ const GroupAdd = ({history}) => {
                 />}
             {showRemoveEntity &&
                 <RemoveEntityModal
-                    // entityOptions={renderRemoveEntitiesOptions(listOfEntities)}
                     entities={listOfEntities}
                     entityToRemove={entityToRemove}
                     removeEntityHandler={removeEntityHandler}
