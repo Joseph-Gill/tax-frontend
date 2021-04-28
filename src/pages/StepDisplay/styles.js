@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro'
-import {NavbarTitle} from '../../style/titles'
 import {device as devices} from '../../style/devices'
 
 export const StepInfoText = styled.p`
@@ -16,15 +15,6 @@ export const DisplayStepTitleContainer = styled.div`
     justify-content: space-between;
 `
 
-export const DisplayStepSectionTitle = styled(NavbarTitle)`
-    width: 113px;
-`
-
-export const DisabledDateLabelContainer = styled.div`
-    display: flex;
-    align-items: center;
-`
-
 export const StepChartDetailsContainer = styled.div`
     width: 860px;
     height: 398px;
@@ -38,7 +28,7 @@ export const StepChartDetailsContainer = styled.div`
 
     @media ${devices.laptopL} {
         width: 1160px;
-        height: 750px;
+        height: 720px;
     }
 `
 
