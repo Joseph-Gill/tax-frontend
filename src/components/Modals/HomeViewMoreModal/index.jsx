@@ -5,6 +5,7 @@ import Loading from '../../Loading'
 import PendingTasks from './PendingTasks'
 import ViewMoreButtons from './ViewMoreButtons'
 import PendingTaxConsequences from './PendingTaxConsequences'
+import {getGroupOfProjectAction} from '../../../store/group/actions'
 import {getProjectAction, getProjectTaxConsequencesUnreviewedSameLocationAsUserAction} from '../../../store/project/actions'
 import {getStepsForProjectAction, skipToSpecifiedStep} from '../../../store/step/actions'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS, TASKS} from '../../../routes/paths'
@@ -15,12 +16,12 @@ import {AccountInfoContainer, CommentsContainer, ExpandedGroupContainer, GroupEx
     TaskTableButton, TitleNextStepContainer, ViewMoreTitle} from './styles'
 
 
-const HomeViewMoreModal = ({dispatch, goToProjectClickHandler, history, pair, setShowViewMoreModal, showViewMoreModal, tasksToRender, user}) => {
+const HomeViewMoreModal = ({dispatch, goToProjectClickHandler, history, pair, setShowViewMoreModal, showViewMoreModal, setHomeLoading, tasksToRender, user}) => {
     const [taxConsequencesToRender, setTaxConsequencesToRender] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        //Fetches tax consequences for project that are same location as user's counry
+        //Fetches tax consequences for project that are same location as user's country
         const getUserTaxConsequences = async () => {
             const taxResponse = await dispatch(getProjectTaxConsequencesUnreviewedSameLocationAsUserAction(pair.project.id))
             if (taxResponse){
@@ -32,16 +33,17 @@ const HomeViewMoreModal = ({dispatch, goToProjectClickHandler, history, pair, se
             .then(() => setLoading(false))
     }, [pair, dispatch])
 
-    //Used to push to DisplayStep, fetching specified project, project's steps first, and setting indexOfStepToDisplay
+    //Used to push to DisplayStep, fetching specified project, project's group, project's steps, and setting indexOfStepToDisplay
     const goToSpecificStepHandler = async (stepNumber) => {
-        const response = await dispatch(getProjectAction(pair.project.id))
-        if (response) {
-            const response = await dispatch(getStepsForProjectAction(pair.project.id))
-            if (response) {
-                dispatch(skipToSpecifiedStep(stepNumber - 1))
-                history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
-            }
-        }
+        setHomeLoading(true)
+        await Promise.all([
+            await dispatch(getProjectAction(pair.project.id)),
+            await dispatch(getGroupOfProjectAction(pair.project.id)),
+            await dispatch(getStepsForProjectAction(pair.project.id))
+        ]).then(() => {
+            dispatch(skipToSpecifiedStep(stepNumber - 1))
+            history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+        })
     }
 
     return (

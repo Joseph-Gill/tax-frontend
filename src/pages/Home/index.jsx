@@ -122,6 +122,7 @@ const Home = ({history}) => {
                                 key={pair.id}
                                 pair={pair}
                                 pairingsToDisplay={pairingsToDisplay}
+                                setHomeLoading={setHomeLoading}
                                 user={user}
                             />))}
                     </HomeGroupListContainer>
@@ -138,6 +139,7 @@ const Home = ({history}) => {
                             key={pair.id}
                             pair={pair}
                             pairingsToDisplay={pairingsToDisplay}
+                            setHomeLoading={setHomeLoading}
                             user={user}
                         />
                     ))}

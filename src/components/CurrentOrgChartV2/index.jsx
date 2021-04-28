@@ -33,7 +33,6 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
         OrgChart.templates.myTemplate.size = [400, 150];
         //Draws the click effect when user clicks on a node
         OrgChart.templates.myTemplate.ripple = {radius: 40, color: "#00709F", rect: { x: 0, y: 0, width: 400, height: 150, rx: 0, ry: 0 }};
-        console.log(OrgChart.templates.myTemplate.link)
 
         //Sets the appearance of CLink templates in the chart
         OrgChart.clinkTemplates.orange = {

@@ -15,7 +15,7 @@ import {GroupImage, GroupTitle, HomeGroupButton, HomeGroupFavStatsContainer, Hom
     ProjectTitle, StatsContainer, TitlesContainer, TitlesGroupImageContainer, ViewMoreText} from './styles'
 
 
-const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, user}) => {
+const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, setHomeLoading, user}) => {
     const [openComments, setOpenComments] = useState(0)
     const [reviewComments, setReviewComments] = useState(0)
     const [pastDueTasks, setPastDueTasks] = useState(0)
@@ -88,6 +88,7 @@ const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, user}) => {
                     goToProjectClickHandler={goToProjectClickHandler}
                     history={history}
                     pair={pair}
+                    setHomeLoading={setHomeLoading}
                     setShowViewMoreModal={setShowViewMoreModal}
                     showViewMoreModal={showViewMoreModal}
                     tasksToRender={tasksToRender}
