@@ -83,11 +83,8 @@ const StepDisplay = ({history}) => {
         const checkForCurrentStepChart = async () => {
             //If the currently step is Step Number 1...
             if (indexOfStepToDisplay === 0) {
-                console.log('test spot 1')
                 //If this step has a step chart, loads its nodes, clinks, and slinks into state
                 const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay + 1))
-                console.log(response)
-                console.log('group entities>', entities)
                 if (response.status === 200) {
                     setCurrentStepEntities([...getEntitiesWithTags(JSON.parse(response.data.nodes), true)])
                     setSlinks([...JSON.parse(response.data.slinks)])
