@@ -12,7 +12,7 @@ import {sortEntitiesByName} from '../../../helpers'
 import {AddEntityLinkModalInternalContainer} from '../styles'
 
 
-//Used by StepChart for adding new Entities to a StepChart
+//Used by StepChart for adding new Entities to a StepChart, GroupAdd to add Entities
 //and by PredefinedIncorporate automated step
 const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, error, legalForm, newEntityInfo,
                             saveNewEntityHandler, setCountryName, setLegalForm, setModalView, setNewEntityInfo,

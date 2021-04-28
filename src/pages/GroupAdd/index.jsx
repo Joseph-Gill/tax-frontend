@@ -188,9 +188,10 @@ const GroupAdd = ({history}) => {
                     saveNewEntityHandler={saveNewEntityHandler}
                     setCountryName={setCountryName}
                     setLegalForm={setLegalForm}
+                    setModalView={setShowAddEntity}
                     setNewEntityInfo={setNewEntityInfo}
-                    setShowAddEntity={setShowAddEntity}
-                    showAddEntity={showAddEntity}
+                    showModalView={showAddEntity}
+                    title='Enter entity info'
                 />}
             {showRemoveEntity &&
                 <RemoveEntityModal
