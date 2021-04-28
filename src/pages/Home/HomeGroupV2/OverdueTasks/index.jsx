@@ -3,9 +3,9 @@ import {GroupCommentTaskContainer} from '../../../../style/containers'
 import {HomeGroupTextRed, OverdueTaskNumber} from './styles'
 
 
-const OverdueTasks = ({number}) => {
+const OverdueTasks = ({number, setShowViewMoreModal}) => {
     return (
-        <GroupCommentTaskContainer>
+        <GroupCommentTaskContainer onClick={() => setShowViewMoreModal(true)}>
             <HomeGroupTextRed>Tasks Overdue</HomeGroupTextRed>
             <OverdueTaskNumber>{number}</OverdueTaskNumber>
         </GroupCommentTaskContainer>

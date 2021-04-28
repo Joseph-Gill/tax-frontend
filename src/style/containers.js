@@ -64,6 +64,14 @@ export const GroupCommentTaskContainer = styled.div`
     width: 180px;
     display: flex;
     justify-content: space-between;
+
+    :hover {
+        cursor: pointer;
+
+        p {
+            text-decoration: underline;
+        }
+    }
 `
 
 export const TableContainer = styled.div`

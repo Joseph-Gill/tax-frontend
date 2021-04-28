@@ -18,7 +18,7 @@ import {GroupImage, GroupTitle, HomeGroupButton, HomeGroupFavStatsContainer, Hom
 const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, setHomeLoading, user}) => {
     const [openComments, setOpenComments] = useState(0)
     const [reviewComments, setReviewComments] = useState(0)
-    const [pastDueTasks, setPastDueTasks] = useState(0)
+    const [overDueTasks, setOverDueTasks] = useState(0)
     const [loading, setLoading] = useState(true)
     const [tasksToRender, setTasksToRender] = useState([])
     const [showViewMoreModal, setShowViewMoreModal] = useState(false)
@@ -30,7 +30,7 @@ const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, setHomeLoading
             const taskResponse = await dispatch(getPastDueNumberAndUncompletedTasksAction(pair.project.id))
             if (taskResponse) {
                 const userTasks = []
-                setPastDueTasks(taskResponse.past_due_tasks)
+                setOverDueTasks(taskResponse.past_due_tasks)
                 for (let i = 0; i < taskResponse.user_uncompleted_tasks.length; i++) {
                     //Assigns task number to task, matches task number that would display on ProjectTasks
                     const response = await dispatch(getTaskNumberForTaskOfStepAction(taskResponse.user_uncompleted_tasks[i].id, taskResponse.user_uncompleted_tasks[i].step.id))
@@ -109,9 +109,24 @@ const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, setHomeLoading
                             toggleFavoriteClickHandler={toggleFavoriteClickHandler}
                         />
                         <StatsContainer>
-                            <OpenComments number={openComments} />
-                            <ReviewComments number={reviewComments} />
-                            <OverdueTasks number={pastDueTasks} />
+                            {openComments ?
+                                <OpenComments
+                                    number={openComments}
+                                    setShowViewMoreModal={setShowViewMoreModal}
+                                /> : null}
+                            {reviewComments ?
+                                <ReviewComments
+                                    number={reviewComments}
+                                    setShowViewMoreModal={setShowViewMoreModal}
+                                /> : null}
+                            {overDueTasks ?
+                                <OverdueTasks
+                                    number={overDueTasks}
+                                    setShowViewMoreModal={setShowViewMoreModal}
+                                /> : null}
+                            {/*<OpenComments number={openComments} />*/}
+                            {/*<ReviewComments number={reviewComments} />*/}
+                            {/*<OverdueTasks number={pastDueTasks} />*/}
                         </StatsContainer>
                     </HomeGroupFavStatsContainer>
                     <HomeGroupViewMoreProjectButtonContainer>

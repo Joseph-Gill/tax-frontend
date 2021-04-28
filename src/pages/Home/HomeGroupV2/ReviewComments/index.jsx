@@ -3,9 +3,9 @@ import {GroupCommentTaskContainer} from '../../../../style/containers'
 import {HomeGroupTextBlue, ReviewCommentsNumber} from './styles'
 
 
-const ReviewComments = ({number}) => {
+const ReviewComments = ({number, setShowViewMoreModal}) => {
     return (
-        <GroupCommentTaskContainer>
+        <GroupCommentTaskContainer onClick={() => setShowViewMoreModal(true)}>
             <HomeGroupTextBlue>Comments to Review</HomeGroupTextBlue>
             <ReviewCommentsNumber>{number}</ReviewCommentsNumber>
         </GroupCommentTaskContainer>
