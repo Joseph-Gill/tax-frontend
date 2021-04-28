@@ -155,6 +155,10 @@ export const EntityTitleContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media ${devices.laptopL} {
+        width: 1160px;
+    }
 `
 
 export const CreateGroupCancelSaveContainer = styled.div`
