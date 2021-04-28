@@ -55,7 +55,7 @@ const Home = ({history}) => {
                         favorite: roleResponse[x].favorite,
                     }
                     //Finds the first uncompleted step for each project, updating the card object if a step is found
-                    const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(roleResponse[x].project.group.id))
+                    const stepResponse = await dispatch(getProjectFirstUncompletedStepAction(roleResponse[x].project.id))
                     if (stepResponse) {
                         result.firstUncompletedStep = stepResponse
                         groupNameProjectPairing.push(result)
