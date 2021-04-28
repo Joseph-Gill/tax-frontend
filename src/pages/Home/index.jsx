@@ -68,6 +68,11 @@ const Home = ({history}) => {
             setProjectGroupPairings([...groupNameProjectPairing])
             //Stores list of result to render Group Cards
             setPairingsToDisplay([...groupNameProjectPairing])
+            //Checks if the user has no favorites and sets the tab to All Projects if they do not
+            const favoriteProjects = groupNameProjectPairing.filter(pair => pair.favorite)
+            if (!favoriteProjects.length) {
+                setDisplayFavorites(false)
+            }
         }
         //Resets redux state to default
         dispatch(resetProject())
@@ -106,44 +111,43 @@ const Home = ({history}) => {
         setPairingsToDisplay([...projectGroupPairings])
     }
 
+    //Used in renderPairings to only render Projects that are not status Completed
+    const renderNonCompletedProjects = array => {
+        const result = []
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].project.status !== 'Completed') {
+                result.push(
+                    <HomeGroupV2
+                        dispatch={dispatch}
+                        history={history}
+                        key={array[i].id}
+                        pair={array[i]}
+                        pairingsToDisplay={pairingsToDisplay}
+                        setHomeLoading={setHomeLoading}
+                        user={user}
+                    />)
+            }
+        }
+        return result
+    }
+
     //Used to render a Group Card for each entry in pairingsToDisplay
     const renderPairings = () => {
         if (pairingsToDisplay.length){
             if (displayFavorites) {
                 const favoriteProjects = pairingsToDisplay.filter(pair => pair.favorite)
                 return (
-                    <HomeGroupListContainer
-                        numCards={favoriteProjects.length}
-                    >
-                        {favoriteProjects.map((pair) => (
-                            <HomeGroupV2
-                                dispatch={dispatch}
-                                history={history}
-                                key={pair.id}
-                                pair={pair}
-                                pairingsToDisplay={pairingsToDisplay}
-                                setHomeLoading={setHomeLoading}
-                                user={user}
-                            />))}
+                    <HomeGroupListContainer numCards={favoriteProjects.length}>
+                        {renderNonCompletedProjects(favoriteProjects)}
+                    </HomeGroupListContainer>
+                )
+            } else {
+                return (
+                    <HomeGroupListContainer numCards={pairingsToDisplay.length}>
+                        {renderNonCompletedProjects(pairingsToDisplay)}
                     </HomeGroupListContainer>
                 )
             }
-            return (
-                <HomeGroupListContainer
-                    numCards={pairingsToDisplay.length}
-                >
-                    {pairingsToDisplay.map((pair) => (
-                        <HomeGroupV2
-                            dispatch={dispatch}
-                            history={history}
-                            key={pair.id}
-                            pair={pair}
-                            pairingsToDisplay={pairingsToDisplay}
-                            setHomeLoading={setHomeLoading}
-                            user={user}
-                        />
-                    ))}
-                </HomeGroupListContainer>)
         } else {
             return <NoFilterResults />}
     }

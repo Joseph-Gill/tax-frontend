@@ -98,7 +98,6 @@ const StepDisplay = ({history}) => {
                 }
             //If the step is not Step Number 1...
             } else {
-                console.log('test spot 2')
                 //If this step has a step chart, loads its nodes, clinks, and slinks into state
                 const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay + 1))
                 if (response.status === 200) {
