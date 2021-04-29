@@ -90,6 +90,21 @@ export const updateTaxConsequenceAction = (taxConsequenceData, taxConsequenceId)
     }
 }
 
+export const deleteTaxConsequenceAction = (taxConsequenceId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.delete(`taxes/tax/${taxConsequenceId}/`, config)
+    } catch (e) {
+        console.log('Error deleting a Tax Consequence>', e)
+        return catchError(e, dispatch)
+    }
+}
+
 export const setReviewedTaxConsequenceAction = taxConsequenceId => async (dispatch, getState) => {
     let {userLoginReducer} = getState()
     const config = {

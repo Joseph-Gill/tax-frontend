@@ -50,6 +50,10 @@ export const GrayTaxConsequenceButton = styled(TaxConsequenceButton)`
     color: ${props => props.theme.grayTwo};
 `
 
+export const RedTaxConsequenceButton = styled(TaxConsequenceButton)`
+    color: ${props => props.theme.red};
+`
+
 export const TaxConsequenceTextUsernameContainer = styled.div`
     width: 100%;
     padding: 0 15px;

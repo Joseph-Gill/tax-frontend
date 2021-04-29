@@ -7,15 +7,15 @@ import EditorHTML from '../../../../components/EditorHTML'
 import SetReviewedModal from '../../../../components/Modals/SetReviewedModal'
 import SetNotReviewedModal from '../../../../components/Modals/SetNotReviewedModal'
 import {resetErrors} from '../../../../store/errors/actions/errorAction'
-import {createNewTaxConsequenceAction, getAllTaxConsequencesForStepAction, resetStepTaxConsequences,
-    setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction
-} from '../../../../store/taxConsequence/actions'
+import {createNewTaxConsequenceAction, deleteTaxConsequenceAction, getAllTaxConsequencesForStepAction, resetStepTaxConsequences,
+    setNotReviewedTaxConsequenceAction, setReviewedTaxConsequenceAction, updateTaxConsequenceAction} from '../../../../store/taxConsequence/actions'
 import {convertContentToHTML, createSanitizedMarkup} from '../../../../helpers'
 import {ErrorMessage} from '../../../../style/messages'
-import {GrayTaxConsequenceButton, GreenReviewedText, TaxConsequenceButton, TaxConsequenceButtonContainer,
+import {GrayTaxConsequenceButton, GreenReviewedText, RedTaxConsequenceButton, TaxConsequenceButton, TaxConsequenceButtonContainer,
     TaxConsequenceContainer, TaxConsequenceCountryLabel, TaxConsequenceDescriptionErrorContainer,
     TaxConsequenceLocationErrorContainer, TaxConsequenceTextContainer, TaxConsequenceTextUsernameContainer,
     TaxConsequenceTitleContainer, TaxConsequenceUserDateText} from './styles'
+import DeleteTaxConsequenceModal from '../../../../components/Modals/DeleteTaxConsequenceModal'
 
 
 const TaxConsequenceCard = ({step, taxConsequence}) => {
@@ -27,6 +27,7 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
     const [loading, setLoading] = useState(false)
     const [showConfirmation, setShowConfirmation] = useState(false)
     const [showSecondConfirmation, setShowSecondConfirmation] = useState(false)
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
 
     useEffect(() => {
         if (!taxConsequence.id) {
@@ -99,20 +100,37 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
         }
     }
 
+    const deleteTaxConsequenceHandler = async () => {
+        setLoading(true)
+        const response = await dispatch(deleteTaxConsequenceAction(taxConsequence.id))
+        if (response.status === 204) {
+            const response = dispatch(getAllTaxConsequencesForStepAction(step.id))
+            if (response) {
+                setLoading(false)
+            }
+        }
+    }
+
     return (
         <TaxConsequenceContainer>
-            {showConfirmation ?
+            {showConfirmation &&
                 <SetReviewedModal
                     setReviewedHandler={setReviewedHandler}
                     setShowConfirmation={setShowConfirmation}
                     showConfirmation={showConfirmation}
-                /> : null}
-            {showSecondConfirmation ?
+                />}
+            {showSecondConfirmation &&
                 <SetNotReviewedModal
                     setNotReviewedHandler={setNotReviewedHandler}
                     setShowSecondConfirmation={setShowSecondConfirmation}
                     showSecondConfirmation={showSecondConfirmation}
-                /> : null}
+                />}
+            {showDeleteConfirmation &&
+                <DeleteTaxConsequenceModal
+                    deleteTaxConsequenceHandler={deleteTaxConsequenceHandler}
+                    setShowDeleteConfirmation={setShowDeleteConfirmation}
+                    showDeleteConfirmation={showDeleteConfirmation}
+                />}
             {loading ? <Loading /> : (
                 <>
                     <TaxConsequenceLocationErrorContainer>
@@ -162,6 +180,7 @@ const TaxConsequenceCard = ({step, taxConsequence}) => {
                                             <>
                                                 <TaxConsequenceButton onClick={() => setEditStatus(true)}>Edit</TaxConsequenceButton>
                                                 <TaxConsequenceButton onClick={() => setShowConfirmation(true)}>Review</TaxConsequenceButton>
+                                                <RedTaxConsequenceButton onClick={() => setShowDeleteConfirmation(true)}>Delete</RedTaxConsequenceButton>
                                             </>)}
                                 </TaxConsequenceButtonContainer>)}
                     </TaxConsequenceTitleContainer>
