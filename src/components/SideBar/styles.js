@@ -1,10 +1,9 @@
 import styled from 'styled-components/macro'
-import stark from '../../assets/logos/stark-login-sidebar.png'
 
 
 export const SideBarContainer = styled.div`
     height: 100vh;
-    width: 270px;
+    width: ${props => props.expanded ? '270px' : '100px'};
     background-color: ${props => props.theme.white};
     display: flex;
     flex-direction: column;
@@ -12,50 +11,29 @@ export const SideBarContainer = styled.div`
     position: fixed;
     z-index: 400;
     margin: 0;
-    box-shadow: 0 0 20px #D9D9D9;
-    justify-content: space-between;
+    box-shadow: ${props => props.theme.projectCardBoxShadow};
+    justify-content: flex-start;
     padding: 14px;
+    transition: 0.25s;
 `
 
-export const SideBarLoginContainer = styled.div`
-    padding: 60px;
-    height: 100%;
-    width: 49.33%;
-    max-width: 592px;
-    flex-direction: column;
+export const SideBarToggle = styled.div`
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: ${props => props.theme.white};
+    cursor: pointer;
+    border: 5px solid ${props => props.theme.grayFive};
+    top: calc(50% - 20px);
+    right: -20px;
+    display: flex;
     align-items: center;
-    float: left;
-    position: fixed;
-    z-index: 400;
-    opacity: 0.8;
-    background-image: url(${stark}), linear-gradient(${props => props.theme.primaryBlue}, ${props => props.theme.primaryBlue});
-    background-blend-mode: multiply;
-    background-size: cover;
-    background-repeat: no-repeat;
-    box-shadow: 4px 0 10px rgba(0, 112, 159, 0.24);
+    justify-content: center;
 
-    h1 {
-        font-family: ${props => props.theme.spartanFontFamily};
-        margin-top: 385px;
-        margin-bottom: 15px;
-        font-size: 40px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 42px;
-        letter-spacing: 0.01em;
-        text-align: left;
-        color: #FFFFFF;
+    img {
+        -webkit-transform: scaleX(${props => props.expanded ? '1' : '-1'});
+        transform: scaleX(${props => props.expanded ? '1' : '-1'});
     }
 
-    p {
-        font-family: ${props => props.theme.nunitoFontFamily};
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 19px;
-        letter-spacing: 0.01em;
-        text-align: left;
-        color: #FFFFFF;
-    }
-    }
 `

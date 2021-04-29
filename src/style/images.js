@@ -31,3 +31,9 @@ export const LoginLogoImg = styled.img`
         cursor: pointer;
     }
 `
+
+export const GroupImage = styled.img`
+    height: 56px;
+    width: 88px;
+    border-radius: ${props => props.theme.borderRadius};
+`

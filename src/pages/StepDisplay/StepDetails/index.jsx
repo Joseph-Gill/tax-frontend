@@ -11,8 +11,8 @@ import {createSanitizedMarkup} from '../../../helpers'
 import pencil from '../../../assets/icons/stark_edit_pencil_icon.svg'
 import addConsequence from '../../../assets/icons/stark_add_country_consequence_icon.svg'
 import save from '../../../assets/icons/stark_step_save_icon.svg'
-import {NavbarTitle} from '../../../style/titles'
 import {ErrorMessage} from '../../../style/messages'
+import {StepDetailsTitle} from '../../../style/titles'
 import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer,
     StepDescriptionTitleContainer, StepDetailErrorContainer, StepDetailsContainer, StepInfoCancelButton, StepInfoDescriptionContainer, StepInfoSaveButton,
     StepInfoSaveImage, TaxConsequencesContainer} from './styles'
@@ -64,7 +64,7 @@ const StepDetails = ({descriptionState, editStatus, saveNewStepHandler, setDescr
     return (
         <StepDetailsContainer>
             <StepDescriptionTitleContainer>
-                <NavbarTitle>Step Description</NavbarTitle>
+                <StepDetailsTitle>Step Description</StepDetailsTitle>
                 {!editStatus ? (
                     <DisplayStepImageButtonContainer onClick={() => setEditStatus(true)}>
                         <DisplayStepImage alt='edit' src={pencil} />
@@ -94,7 +94,7 @@ const StepDetails = ({descriptionState, editStatus, saveNewStepHandler, setDescr
             {step.id ? (
                 <>
                     <StepDescriptionTaxTitleContainer>
-                        <NavbarTitle>Tax Consequences</NavbarTitle>
+                        <StepDetailsTitle>Tax Consequences</StepDetailsTitle>
                         <DisplayStepImageButtonContainer>
                             <DisplayStepImage alt='add country consequence' src={addConsequence} />
                             <DisplayStepButtonText onClick={addNewTaxConsequenceHandler}>Add Country Consequence</DisplayStepButtonText>

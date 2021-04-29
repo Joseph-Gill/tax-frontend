@@ -40,7 +40,10 @@ export const LogOutLink = styled(Link)`
   font-family: ${props => props.theme.nunitoFontFamily};
   text-decoration: none;
   color: ${props => props.theme.primaryShadeOne};
-  padding: 17px;
+
+    :hover {
+        text-decoration: underline;
+    }
 `
 
 export const TaskDocumentLink = styled.span`

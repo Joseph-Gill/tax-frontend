@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {useLocation} from 'react-router-dom'
 import Logo from './Logo'
 import NavigationMenu from './NavigationMenu'
-import {SideBarContainer} from './styles'
+import sidebarToggle from '../../assets/icons/tax_cheetah_sidebar_toggle_icon.png'
+import {SideBarContainer, SideBarToggle} from './styles'
+
 
 
 const SideBar = ({children}) => {
@@ -12,7 +14,9 @@ const SideBar = ({children}) => {
     const loaded = useSelector(state => state.groupReducer.loaded)
     const page404Active = useSelector(state => state.sideBarReducer.page404Active)
     const [currentPath, setCurrentPath] = useState('')
+    const [expanded, setExpanded] = useState(true)
     let location = useLocation()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setCurrentPath(location.pathname)
@@ -20,21 +24,26 @@ const SideBar = ({children}) => {
 
     return (
         <>
-            {/*{page404Active ? null : authenticated ?*/}
-            {/*    <SideBarContainer hidden={currentPath === '/'}>*/}
-            {/*        <Logo />*/}
-            {/*        <NavigationMenu group={group} loaded={loaded} />*/}
-            {/*    </SideBarContainer> :*/}
-            {/*    <SideBarLoginContainer hidden={currentPath === '/'}>*/}
-            {/*        <h1>Tax Cheetah</h1>*/}
-            {/*        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make*/}
-            {/*            a type specimen book.*/}
-            {/*        </p>*/}
-            {/*    </SideBarLoginContainer>}*/}
             {page404Active ? null : authenticated &&
-                <SideBarContainer hidden={currentPath === '/'}>
-                    <Logo />
-                    <NavigationMenu group={group} loaded={loaded} />
+                <SideBarContainer
+                    expanded={expanded ? 1 : 0}
+                    hidden={currentPath === '/'}
+                >
+                    <Logo
+                        expanded={expanded}
+                    />
+                    <NavigationMenu
+                        dispatch={dispatch}
+                        expanded={expanded}
+                        group={group}
+                        loaded={loaded}
+                    />
+                    <SideBarToggle
+                        expanded={expanded ? 1 : 0}
+                        onClick={() => setExpanded(!expanded)}
+                    >
+                        <img alt='toggle side bar' src={sidebarToggle} />
+                    </SideBarToggle>
                 </SideBarContainer>}
             {children}
         </>

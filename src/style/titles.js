@@ -18,15 +18,19 @@ export const NavbarTitle = styled.h2`
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: ${props => props.theme.graySeven};
-    width: 195px;
+    width: 100%;
+    text-align: center;
 `
 
-export const MenuItemTitle = styled.h2`
-    font-size: 14px;
-    font-weight: 600;
+export const StepDetailsTitle = styled.h2`
     font-family: ${props => props.theme.nunitoFontFamily};
-    line-height: 19px;
-    color: ${props => props.theme.primaryShadeOne};
+    font-size: 10px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: ${props => props.theme.graySeven};
 `
 
 export const AuthenticatedPageTitle = styled.h1`
@@ -37,7 +41,15 @@ export const AuthenticatedPageTitle = styled.h1`
     color: ${props => props.theme.grayOne}
 `
 
-export const AuthenticatedPageSectionTitle = styled(NavbarTitle)`
+export const AuthenticatedPageSectionTitle = styled.h2`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 10px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: ${props => props.theme.graySeven};
     width: 800px;
     margin-top: 30px;
 `

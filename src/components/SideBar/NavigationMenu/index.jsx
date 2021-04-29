@@ -3,21 +3,20 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {useHistory} from 'react-router-dom'
 import {useSpring, animated} from 'react-spring'
+import GroupMenuItems from './GroupMenuItems'
 import ChooseGroupModal from '../../Modals/ChooseGroupModal'
-import GroupMenu from './GroupMenu'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
-import {HOME, USERPROFILE, LOGIN} from '../../../routes/paths'
-import account from '../../../assets/icons/account_circle_24px.png'
-import dashboard from '../../../assets/icons/dashboard_24px.png'
+import {LOGIN} from '../../../routes/paths'
 import layersv2 from '../../../assets/icons/layers_v2_24px.svg'
-import logout from '../../../assets/icons/stark_logout_icon.png'
-import {MenuItemTitle, NavbarTitle} from '../../../style/titles'
 import {LogOutLink} from '../../../style/links'
-import {SelectedGroupIcon} from '../../../style/images'
-import {LogOutContainer, MenuItem, NavigationContainer, NavigationIcons, SelectedGroupContainer} from './styles'
+import {MenuItemText} from '../../../style/text'
+import {NavbarTitle} from '../../../style/titles'
+import {GroupImage, SelectedGroupIcon} from '../../../style/images'
+import {DashboardSelectedGroupContainer, LogOutContainer, NavigationMenuContainer, SelectedGroupContainer,
+    SwitchGroupsLabel} from './styles'
 
 
-const NavigationMenu = ({dispatch, group, location, loaded}) => {
+const NavigationMenu = ({dispatch, expanded, group, location, loaded}) => {
     const history = useHistory()
     const [showChooseGroup, setShowChooseGroup] = useState(false)
 
@@ -28,49 +27,43 @@ const NavigationMenu = ({dispatch, group, location, loaded}) => {
     })
 
     return (
-        <>
+        <NavigationMenuContainer>
             {showChooseGroup ?
                 <ChooseGroupModal
                     history={history}
                     setShowChooseGroup={setShowChooseGroup}
                     showChooseGroup={showChooseGroup}
                 /> : null}
-            <NavigationContainer>
-                <NavbarTitle>DASHBOARD</NavbarTitle>
-                <MenuItem
-                    isactive={location.pathname === HOME ? 1 : 0}
-                    to={HOME}
-                ><NavigationIcons src={dashboard} />Home
-                </MenuItem>
-                <MenuItem
-                    isactive={location.pathname === USERPROFILE ? 1 : 0}
-                    to={USERPROFILE}
-                ><NavigationIcons src={account} />Account
-                </MenuItem>
-                <GroupMenu loaded={loaded} location={location} />
-            </NavigationContainer>
-            <SelectedGroupContainer>
-                <NavbarTitle>Selected Group</NavbarTitle>
-                {/* eslint-disable-next-line react/forbid-component-props */}
-                <animated.div style={props}>
-                    <SelectedGroupIcon src={layersv2} />
-                    <MenuItemTitle>{loaded ? group.name : 'None selected'}</MenuItemTitle>
-                    <span onClick={() => setShowChooseGroup(true)}>Switch</span>
-                </animated.div>
-            </SelectedGroupContainer>
+            <DashboardSelectedGroupContainer>
+                <GroupMenuItems
+                    expanded={expanded}
+                    loaded={loaded}
+                    location={location}
+                />
+                <SelectedGroupContainer
+                    expanded={expanded ? 1 : 0}
+                >
+                    <NavbarTitle>Selected Group</NavbarTitle>
+                    {/* eslint-disable-next-line react/forbid-component-props */}
+                    <animated.div style={props}>
+                        {group.avatar ?
+                            <GroupImage alt='group image' src={group.avatar} />
+                            : <SelectedGroupIcon alt='group image placeholder' src={layersv2} />}
+                        {expanded &&
+                            <MenuItemText>{loaded ? group.name : 'None selected'}</MenuItemText>}
+                    </animated.div>
+                    <SwitchGroupsLabel onClick={() => setShowChooseGroup(true)}>Switch</SwitchGroupsLabel>
+                </SelectedGroupContainer>
+            </DashboardSelectedGroupContainer>
             <LogOutContainer>
                 <LogOutLink
                     onClick={() => dispatch(userLogout())}
                     to={LOGIN}
                 >Logout
                 </LogOutLink>
-                <div>
-                    <img alt='logout' src={logout} />
-                </div>
             </LogOutContainer>
-        </>
+        </NavigationMenuContainer>
     )
 }
-
 
 export default withRouter(connect()(NavigationMenu))

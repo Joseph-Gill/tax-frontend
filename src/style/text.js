@@ -137,3 +137,49 @@ export const CardDescriptionText = styled.div`
         list-style-position: inside;
     }
 `
+
+export const MenuItemText = styled.span`
+    font-size: 14px;
+    font-weight: 600;
+    font-family: ${props => props.theme.nunitoFontFamily};
+    line-height: 19px;
+    text-decoration: none;
+    color: ${props => props.theme.primaryShadeOne};
+    animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
+
+    @keyframes fadein {
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-moz-keyframes fadein { /* Firefox */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-webkit-keyframes fadein { /* Safari and Chrome */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-o-keyframes fadein { /* Opera */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+`

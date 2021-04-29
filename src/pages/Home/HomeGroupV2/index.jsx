@@ -11,8 +11,9 @@ import {toggleFavoriteProjectStatusAction} from '../../../store/projectRole/acti
 import {getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction} from '../../../store/project/actions'
 import {getPastDueNumberAndUncompletedTasksAction, getTaskNumberForTaskOfStepAction} from '../../../store/task/actions'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
-import {GroupImage, GroupTitle, HomeGroupButton, HomeGroupFavStatsContainer, HomeGroupV2Container, HomeGroupViewMoreProjectButtonContainer,
+import {GroupTitle, HomeGroupButton, HomeGroupFavStatsContainer, HomeGroupV2Container, HomeGroupViewMoreProjectButtonContainer,
     ProjectTitle, StatsContainer, TitlesContainer, TitlesGroupImageContainer, ViewMoreText} from './styles'
+import {GroupImage} from '../../../style/images'
 
 
 const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, setHomeLoading, user}) => {
@@ -124,9 +125,6 @@ const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, setHomeLoading
                                     number={overDueTasks}
                                     setShowViewMoreModal={setShowViewMoreModal}
                                 /> : null}
-                            {/*<OpenComments number={openComments} />*/}
-                            {/*<ReviewComments number={reviewComments} />*/}
-                            {/*<OverdueTasks number={pastDueTasks} />*/}
                         </StatsContainer>
                     </HomeGroupFavStatsContainer>
                     <HomeGroupViewMoreProjectButtonContainer>

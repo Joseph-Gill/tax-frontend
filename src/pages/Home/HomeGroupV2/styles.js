@@ -48,12 +48,6 @@ export const ProjectTitle = styled(GroupTitle)`
     margin-bottom: 0;
 `
 
-export const GroupImage = styled.img`
-    height: 56px;
-    width: 88px;
-    border-radius: ${props => props.theme.borderRadius};
-`
-
 export const HomeGroupFavStatsContainer = styled.div`
     display: flex;
     align-items: center;

@@ -5,7 +5,6 @@ import {animated} from 'react-spring'
 
 export const NavigationContainer = styled.div`
     width: 100%;
-    padding-top: 167px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,47 +12,27 @@ export const NavigationContainer = styled.div`
 `
 
 export const LogOutContainer = styled.div`
-    width: 238px;
+    width: 100%;
     height: 60px;
     border-top: 1px solid ${props => props.theme.grayFour};
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    position: absolute;
-    bottom: 0px;
+    justify-content: center;
 `
 
 export const SelectedGroupContainer = styled.div`
     display: flex;
     flex-direction: column;
-    margin-bottom: 60px;
     width: 100%;
     align-items: center;
-    position: absolute;
-    bottom: 17px;
-    padding: 0 30px;
 
     div {
+        height: 90px;
         width: 100%;
-        padding-top: 17px;
+        padding: 17px 0;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-
-        span {
-            padding-left: 43px;
-            font-family: ${props => props.theme.nunitoFontFamily};
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 16.37px;
-            color: ${props => props.theme.primaryBlue};
-
-            :hover {
-                cursor: pointer;
-                transition: 167ms;
-                text-decoration: underline;
-            }
-        }
+        justify-content: ${props => props.expanded ? 'space-between' : 'center'};
     }
 `
 
@@ -62,7 +41,6 @@ export const GroupMenuContainer = styled(animated.div)`
     height: 220px;
     border-top: 1px solid ${props => props.theme.grayFour};
     border-bottom: 1px solid ${props => props.theme.grayFour};
-    margin-bottom: 189px;
     padding-top: 20px;
     display: flex;
     flex-direction: column;
@@ -70,12 +48,7 @@ export const GroupMenuContainer = styled(animated.div)`
 `
 
 export const MenuItem = styled(animated(Link))`
-    font-size: 14px;
-    font-weight: 600;
-    font-family: ${props => props.theme.nunitoFontFamily};
-    line-height: 19px;
     text-decoration: none;
-    color: ${props => props.theme.primaryShadeOne};
     width: 100%;
     height: 60px;
     border-right: solid 3px rgba(0,0,0,0);
@@ -112,4 +85,34 @@ export const MenuItem = styled(animated(Link))`
 export const NavigationIcons = styled.img`
     margin-right: 16px;
     min-width: 24px;
+`
+
+export const NavigationMenuContainer = styled.div`
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+`
+
+export const DashboardSelectedGroupContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+`
+
+export const SwitchGroupsLabel = styled.span`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16.37px;
+    color: ${props => props.theme.primaryBlue};
+    margin-bottom: 13px;
+
+    :hover {
+        cursor: pointer;
+        transition: 167ms;
+        text-decoration: underline;
+    }
 `
