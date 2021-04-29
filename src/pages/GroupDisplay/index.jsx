@@ -66,7 +66,7 @@ const GroupDisplay = ({history}) => {
                         {display: `GROUP ${group.name.toUpperCase()}`, to: `${GROUPS}/${group.id}`, active: true}]}
                 />
                 <DisplayTitleWithButtonContainer>
-                    <AuthenticatedPageTitle>Group {group.name}</AuthenticatedPageTitle>
+                    <AuthenticatedPageTitle>{group.name}</AuthenticatedPageTitle>
                     <EditGroupButton onClick={() => history.push(`${GROUPS}${EDIT_GROUP}`)}>Edit Group</EditGroupButton>
                 </DisplayTitleWithButtonContainer>
                 <DisplayCardsContaner>
