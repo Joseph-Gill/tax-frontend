@@ -22,7 +22,7 @@ export const OrgChartContainer = styled.div`
     @media ${devices.laptopL} {
         height: ${props => props.componentCalling === 'GroupOrgChart' ? '871px'
             : props.componentCalling === 'StepDisplay' ? '620px'
-                : props.componentCalling === 'GroupAddEdit' ? '660px' : '405px'};
+                : props.componentCalling === 'GroupAddEdit' ? '660px' : '657px'};
         width: 1160px;
     }
 `
