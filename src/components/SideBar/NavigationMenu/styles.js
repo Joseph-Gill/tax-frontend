@@ -18,6 +18,12 @@ export const LogOutContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    img {
+        :hover {
+            cursor: pointer;
+        }
+    }
 `
 
 export const SelectedGroupContainer = styled.div`

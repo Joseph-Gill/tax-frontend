@@ -8,6 +8,7 @@ import ChooseGroupModal from '../../Modals/ChooseGroupModal'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
 import {LOGIN} from '../../../routes/paths'
 import layersv2 from '../../../assets/icons/layers_v2_24px.svg'
+import logout from '../../../assets/icons/tax_cheetah_logout_icon.svg'
 import {LogOutLink} from '../../../style/links'
 import {MenuItemText} from '../../../style/text'
 import {NavbarTitle} from '../../../style/titles'
@@ -56,11 +57,17 @@ const NavigationMenu = ({dispatch, expanded, group, location, loaded}) => {
                 </SelectedGroupContainer>
             </DashboardSelectedGroupContainer>
             <LogOutContainer>
-                <LogOutLink
+                <img
+                    alt='logout'
                     onClick={() => dispatch(userLogout())}
-                    to={LOGIN}
-                >Logout
-                </LogOutLink>
+                    src={logout}
+                />
+                {expanded &&
+                    <LogOutLink
+                        onClick={() => dispatch(userLogout())}
+                        to={LOGIN}
+                    >Logout
+                    </LogOutLink>}
             </LogOutContainer>
         </NavigationMenuContainer>
     )
