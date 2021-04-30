@@ -29,7 +29,7 @@ const MembersTable = ({activeRenderData, filterMemberStatus, group, history, fil
                 //Gets the organization name of a member specific to the chosen group
                 const response = await dispatch(getMemberOrganizationNameAction(group.id, member.user.id))
                 //Finds the project_role of member specific to the chosen group
-                const project_roles = member.assigned_project_roles.filter(role => role.project.group === group.id)
+                const project_roles = member.assigned_project_roles.filter(role => role.project.group.id === group.id)
                 //Stores the number of projects of the chosen group
                 const group_projects = group.projects.length
                 //If the user has been assigned an organization specific to the chosen group...
