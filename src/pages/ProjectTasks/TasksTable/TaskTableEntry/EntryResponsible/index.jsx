@@ -8,7 +8,7 @@ const EntryResponsible = ({group, user}) => {
 
     //Used to get the role of the user assigned to the task to display in the table entry
     const getUserRole = () => {
-        const userRole = user.assigned_project_roles.filter(role => role.project.group === group.id)
+        const userRole = user.assigned_project_roles.filter(role => role.project.group.id === group.id)
         if (userRole.length) {
             return userRole[0].role
         } else {
