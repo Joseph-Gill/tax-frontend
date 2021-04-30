@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import {GreenLargeButton} from '../../style/buttons'
+import {device as devices} from '../../style/devices'
 
 
 export const EndingStructurePlaceholder = styled.div`
@@ -10,6 +11,11 @@ export const EndingStructurePlaceholder = styled.div`
     border-radius: ${props => props.theme.borderRadius};
     border: 1px solid ${props => props.theme.grayFour};
     margin-top: 30px;
+
+    @media ${devices.laptopL} {
+        width: 1160px;
+        height: 657px;
+    }
 `
 
 export const CompleteProjectButton = styled(GreenLargeButton)`
