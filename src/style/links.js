@@ -38,6 +38,7 @@ export const FooterSpan = styled.span`
 
 export const LogOutLink = styled(Link)`
     font-family: ${props => props.theme.nunitoFontFamily};
+    font-weight: 800;
     text-decoration: none;
     color: ${props => props.theme.primaryShadeOne};
     margin-left: 5px;
