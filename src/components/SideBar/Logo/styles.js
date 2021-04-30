@@ -62,4 +62,6 @@ export const LogoImgExpanded = styled.img`
 export const LogoImgCollapsed = styled(LogoImgExpanded)`
     height: 71px;
     width: 71px;
+    border: 2px solid ${props => props.theme.primaryBlue};
+    border-radius: 50%;
 `
