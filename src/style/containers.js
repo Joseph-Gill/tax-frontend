@@ -12,6 +12,8 @@ export const BasePageContainer = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    overflow: auto;
+    overflow-x: hidden;
 `
 
 export const AuthenticatedPageContainer = styled(BasePageContainer)`

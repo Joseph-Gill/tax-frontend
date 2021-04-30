@@ -22,7 +22,7 @@ export const AddMemberButtonContainer = styled.div`
 
 export const AddMemberButton = styled(BaseButton)`
     width: 183px;
-    margin-top: 84px;
+    margin-top: 40px;
 `
 
 export const MemberTableContainer = styled.div`

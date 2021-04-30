@@ -4,7 +4,6 @@ import {BaseInput} from '../../../style/inputs'
 
 export const EditInputsContainer = styled.div`
     width: 860px;
-    height: 484px;
     background-color: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
@@ -12,7 +11,7 @@ export const EditInputsContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px 0 114px 20px;
+    padding: 20px 0 20px 20px;
     margin-top: 30px;
 `
 
