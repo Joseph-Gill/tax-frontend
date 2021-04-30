@@ -5,6 +5,8 @@ import {DateText} from '../../../style/text'
 
 
 export const HomeViewMoreInternalContainer = styled.div`
+    width: 862px;
+    height: 779px;
     padding: 20px;
     background: ${props => props.theme.white};
     border: 1px solid ${props => props.theme.grayFour};

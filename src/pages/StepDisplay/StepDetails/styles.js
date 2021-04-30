@@ -1,6 +1,5 @@
 import styled from 'styled-components/macro'
 import {StepInfoText} from '../styles'
-import {ProjectDescriptionTextArea} from '../../../style/textarea'
 import {device as devices} from '../../../style/devices'
 
 
@@ -82,30 +81,23 @@ export const StepInfoDescriptionContainer = styled.div`
     }
 `
 
-export const StepInfoTextArea = styled(ProjectDescriptionTextArea)`
-    width: 820px;
-    height: 68px;
-    margin-top: 5px;
-    padding: 7px;
-`
-
 export const TaxConsequencesContainer = styled.div`
     width: 100%;
-    height: ${props => props.editStatus ? '70px' : '230px'};
-    max-height: ${props => props.editStatus ? '70px' : '230px'};
+    height: ${props => props.editStatus ? '70px' : '200px'};
+    max-height: ${props => props.editStatus ? '70px' : '200px'};
     margin-top: 10px;
     border: 1px solid ${props => props.theme.grayFour};
     border-radius: ${props => props.theme.borderRadius};
     overflow: auto;
 
     @media ${devices.laptopL} {
-        height: ${props => props.editStatus ? '422px' : '582px'};
-        max-height: ${props => props.editStatus ? '422px' : '582px'};
+        height: ${props => props.editStatus ? '323px' : '452px'};
+        max-height: ${props => props.editStatus ? '323px' : '452px'};
     }
 `
 
 export const NewStepNoTaxConsequencesContainer = styled.div`
-    height: 268px;
+    height: 99px;
     width: 100%;
     display: flex;
     flex-direction: column;

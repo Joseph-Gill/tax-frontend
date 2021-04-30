@@ -4,7 +4,7 @@ import {GreenLargeButton} from '../../style/buttons'
 
 export const EndingStructurePlaceholder = styled.div`
     width: 860px;
-    height: 437px;
+    height: 405px;
     box-shadow: ${props => props.theme.boxShadow};
     background: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};

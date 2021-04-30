@@ -111,7 +111,7 @@ export const AddEditProjectNameStatusContainer = styled.div`
 
 export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatusContainer)`
     width: 860px;
-    height: 292px;
+    height: 332px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -119,7 +119,7 @@ export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatu
     padding: 16px;
 
     @media ${devices.laptopL} {
-        height: 542px;
+        height: 582px;
     }
 `
 
@@ -132,7 +132,7 @@ export const ProjectInputContainer = styled.div`
 
 export const ProjectSaveCancelButtonContainer = styled.div`
     width: 860px;
-    margin-top: 50px;
+    margin-top: 20px;
     display: flex;
     justify-content: flex-end;
 

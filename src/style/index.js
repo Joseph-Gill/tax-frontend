@@ -186,7 +186,7 @@ export const GlobalStyle = createGlobalStyle`
 
     .textEditorStepDisplay {
         background: ${props => props.theme.graySix};
-        height: 184.75px !important;
+        height: 154px !important;
         width: 820px;
         padding: 0 16px 16px 16px;
         border: 1px solid ${props => props.theme.grayFour};
