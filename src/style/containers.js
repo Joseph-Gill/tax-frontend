@@ -4,7 +4,7 @@ import {device as devices} from '../style/devices'
 
 
 export const BasePageContainer = styled.div`
-    width: 100vw;
+    width: 100%;
     height: 100%;
     min-height: 100vh;
     color: black;
@@ -109,7 +109,7 @@ export const AddEditProjectNameStatusContainer = styled.div`
 
 export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatusContainer)`
     width: 860px;
-    height: 342px;
+    height: 292px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -117,7 +117,7 @@ export const AddEditProjectDescriptionContainer = styled(AddEditProjectNameStatu
     padding: 16px;
 
     @media ${devices.laptopL} {
-        height: 592px;
+        height: 542px;
     }
 `
 

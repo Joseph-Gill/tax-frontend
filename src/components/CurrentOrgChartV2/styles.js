@@ -7,8 +7,8 @@ export const OrgChartContainer = styled.div`
     background: ${props => props.theme.white};
     margin-top: ${props => props.componentCalling === 'StepDisplay' || props.componentCalling === 'GroupAddEdit' ? '0px' : '30px'};
     height: ${props => props.componentCalling === 'GroupOrgChart' ? '516px'
-        : props.componentCalling === 'StepDisplay' ? '398px'
-            : props.componentCalling === 'GroupAddEdit' ? '305px' : '437px'};
+        : props.componentCalling === 'StepDisplay' ? '368px'
+            : props.componentCalling === 'GroupAddEdit' ? '305px' : '405px'};
     border-top-left-radius: ${props => props.componentCalling === 'GroupAddEdit' ? 'none' : `${props.theme.borderRadius}`};
     border-top-right-radius: ${props => props.componentCalling === 'GroupAddEdit' ? 'none' : `${props.theme.borderRadius}`};
     border-bottom-left-radius: ${props => props.theme.borderRadius};
@@ -21,8 +21,8 @@ export const OrgChartContainer = styled.div`
 
     @media ${devices.laptopL} {
         height: ${props => props.componentCalling === 'GroupOrgChart' ? '871px'
-            : props.componentCalling === 'StepDisplay' ? '720px'
-                : props.componentCalling === 'GroupAddEdit' ? '660px' : '437px'};
+            : props.componentCalling === 'StepDisplay' ? '620px'
+                : props.componentCalling === 'GroupAddEdit' ? '660px' : '405px'};
         width: 1160px;
     }
 `

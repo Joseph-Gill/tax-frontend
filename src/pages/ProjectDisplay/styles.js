@@ -6,7 +6,7 @@ export const ProjectDisplayInfoBoxesContainer = styled.div`
     display: flex;
     justify-content: space-between;
     width: 860px;
-    margin-top: 20px;
+    margin: 20px 0;
 `
 
 export const ProjectDisplayInfoBox = styled.div`

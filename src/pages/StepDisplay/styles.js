@@ -17,7 +17,7 @@ export const DisplayStepTitleContainer = styled.div`
 
 export const StepChartDetailsContainer = styled.div`
     width: 860px;
-    height: 398px;
+    height: 368px;
     background: ${props => props.theme.white};
     box-shadow: ${props => props.theme.boxShadow};
     border-radius: ${props => props.theme.borderRadius};
@@ -28,7 +28,7 @@ export const StepChartDetailsContainer = styled.div`
 
     @media ${devices.laptopL} {
         width: 1160px;
-        height: 720px;
+        height: 620px;
     }
 `
 
