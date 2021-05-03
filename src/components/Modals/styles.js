@@ -22,7 +22,6 @@ export const AddDeleteModalExternalContainer = styled(animated.div)`
  `
 
 export const AddDeleteModalInternalContainer = styled.div`
-    //width: 370px;
     height: 313px;
     background: ${props => props.theme.white};
     border: 1px solid ${props => props.theme.grayFour};
@@ -33,19 +32,6 @@ export const AddDeleteModalInternalContainer = styled.div`
     border-radius: ${props => props.theme.borderRadius};
     margin-left: 200px;
     padding: 15.41px 15.41px 36px 15.41px;
-
-   //  @media ${devices.mobileL} {
-   //      width: 30%;
-   //      max-width: 450px;
-   //      min-width: 350px;
-   //      max-height: 180px;
-   //      min-height: 150px;
-   //      margin: 0;
-   //      padding: 6% 3%;
-   //      div {
-   //          width: 90%;
-   //    }
-   // }
 `
 export const AddDeleteModalCloseContainer = styled.div`
     display: flex;
