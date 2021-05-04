@@ -137,17 +137,22 @@ const GroupEdit = ({history}) => {
     }
 
     const removeEntityHandler = () => {
-        const newEntitiesToRender = listOfEntities.filter(entity => entity.id !== parseInt(entityToRemove))
-        setListOfEntities(newEntitiesToRender)
-        setAvailableParentNames([...newEntitiesToRender.map(entity => {
-            return {
-                id: entity.id,
-                name: entity.name,
-                location: entity.location,
-            }
-        })])
-        setEntityToRemove('')
-        setShowRemoveEntity(false)
+        dispatch(resetErrors())
+        if (!entityToRemove) {
+            dispatch(setError({entityRemove: `You must choose an entity to remove.`}))
+        } else {
+            const newEntitiesToRender = listOfEntities.filter(entity => entity.id !== parseInt(entityToRemove))
+            setListOfEntities(newEntitiesToRender)
+            setAvailableParentNames([...newEntitiesToRender.map(entity => {
+                return {
+                    id: entity.id,
+                    name: entity.name,
+                    location: entity.location,
+                }
+            })])
+            setEntityToRemove('')
+            setShowRemoveEntity(false)
+        }
     }
 
     const saveGroupChangesHandler = async () => {
@@ -222,9 +227,11 @@ const GroupEdit = ({history}) => {
                 />}
             {showRemoveEntity &&
                 <RemoveEntityModal
-                    // entityOptions={renderRemoveEntitiesOptions(listOfEntities)}
+                    componentCalling='GroupEdit'
+                    dispatch={dispatch}
                     entities={listOfEntities}
                     entityToRemove={entityToRemove}
+                    error={error}
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}
                     setShowRemoveEntity={setShowRemoveEntity}

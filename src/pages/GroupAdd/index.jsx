@@ -108,19 +108,24 @@ const GroupAdd = ({history}) => {
     }
 
     const removeEntityHandler = () => {
-        //Creates a list of all entities that aren't the entity to be deleted
-        const newEntitiesToRender = listOfEntities.filter(entity => entity.id !== parseInt(entityToRemove))
-        setListOfEntities(newEntitiesToRender)
-        //Updates list of parent names with new list of entities
-        setAvailableParentNames([...newEntitiesToRender.map(entity => {
-            return {
-                name: entity.name,
-                location: entity.location,
-                id: entity.id
-            }
-        })])
-        setEntityToRemove('')
-        setShowRemoveEntity(false)
+        dispatch(resetErrors())
+        if (!entityToRemove) {
+            dispatch(setError({entityRemove: `You must choose an entity to remove.`}))
+        } else {
+            //Creates a list of all entities that aren't the entity to be deleted
+            const newEntitiesToRender = listOfEntities.filter(entity => entity.id !== parseInt(entityToRemove))
+            setListOfEntities(newEntitiesToRender)
+            //Updates list of parent names with new list of entities
+            setAvailableParentNames([...newEntitiesToRender.map(entity => {
+                return {
+                    name: entity.name,
+                    location: entity.location,
+                    id: entity.id
+                }
+            })])
+            setEntityToRemove('')
+            setShowRemoveEntity(false)
+        }
     }
 
     const renderStepChart = useMemo(() => {
@@ -196,8 +201,10 @@ const GroupAdd = ({history}) => {
                 />}
             {showRemoveEntity &&
                 <RemoveEntityModal
+                    dispatch={dispatch}
                     entities={listOfEntities}
                     entityToRemove={entityToRemove}
+                    error={error}
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}
                     setShowRemoveEntity={setShowRemoveEntity}

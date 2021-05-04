@@ -4,9 +4,11 @@ import ModalDropdownSearchField from '../../../Dropdowns/DropdownComponents/Moda
 import {getEntityInfo, renderEntitiesForModalDropdowns} from '../../../../helpers'
 import {ActiveInputLabel} from '../../../../style/labels'
 import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
+import {ErrorMessage} from '../../../../style/messages'
+import {EntityErrorContainer} from '../../styles'
 
 
-const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntitiesCanRemove, handleEntityToRemoveChange,
+const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, error, filteredEntitiesCanRemove, handleEntityToRemoveChange,
                                   searchEntityTerm, setFilteredEntitiesCanRemove, setShowEntityRemoveSelect,
                                   showEntityRemoveSelect}) => {
 
@@ -34,6 +36,9 @@ const RemoveEntityDropdown = ({entitiesCanRemove, entityToRemove, filteredEntiti
                     {renderEntitiesForModalDropdowns(filteredEntitiesCanRemove, handleEntityToRemoveChange)}
                 </ModalDropdownContentContainer>
             </DropdownInternalContainer>
+            <EntityErrorContainer>
+                {error && <ErrorMessage>{error.entityRemove}</ErrorMessage>}
+            </EntityErrorContainer>
         </div>
     )
 }

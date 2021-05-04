@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro'
-import {device as devices} from '../../style/devices'
 import {animated} from 'react-spring'
 import {BaseButton, RedLargerButton} from '../../style/buttons'
 import {EntityFormSelect} from '../../style/select'
@@ -92,7 +91,7 @@ export const AddEntitySaveButton = styled(BaseButton)`
 
 export const RemoveLinkEntityInternalContainer = styled(AddDeleteModalInternalContainer)`
     width: 400px;
-    height: 230px;
+    height: ${props => props.componentCalling === 'GroupEdit' ? '350px' : '230px'};
 `
 
 export const RemoveLinkEntityDropdown = styled(EntityFormSelect)`

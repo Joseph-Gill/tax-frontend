@@ -416,8 +416,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
                 />}
             {showRemoveEntity &&
                 <RemoveEntityModal
+                    dispatch={dispatch}
                     entities={entitiesToRender}
                     entityToRemove={entityToRemove}
+                    error={error}
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}
                     setShowRemoveEntity={setShowRemoveEntity}

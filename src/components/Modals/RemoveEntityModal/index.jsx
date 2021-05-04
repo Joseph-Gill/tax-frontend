@@ -1,16 +1,18 @@
 import React, {useState, useEffect, useRef} from 'react'
 import Draggable from 'react-draggable'
+import RemoveEntityText from './RemoveEntityText'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import RemoveEntityDropdown from './RemoveEntityDropdown'
 import ModalRemoveButtons from '../ModalComponents/ModalRemoveButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {resetErrors} from '../../../store/errors/actions/errorAction'
 import {sortEntitiesByName} from '../../../helpers'
 import {RemoveLinkEntityInternalContainer} from '../styles'
 
 
 //Used by StepChart for deleting Entities of a StepChart
-const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEntityToRemove,
+const RemoveEntityModal = ({componentCalling, dispatch, entities, entityToRemove, error, removeEntityHandler, setEntityToRemove,
                                setShowRemoveEntity, showRemoveEntity}) => {
     let searchEntityTerm = useRef('')
     const [showEntityRemoveSelect, setShowEntityRemoveSelect] = useState(false)
@@ -42,6 +44,7 @@ const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEn
     }
 
     const cancelButtonHandler = () => {
+        dispatch(resetErrors())
         setShowRemoveEntity(false)
     }
 
@@ -51,12 +54,14 @@ const RemoveEntityModal = ({entities, entityToRemove, removeEntityHandler, setEn
             showModalView={showRemoveEntity}
         >
             <Draggable>
-                <RemoveLinkEntityInternalContainer>
+                <RemoveLinkEntityInternalContainer componentCalling={componentCalling}>
                     <ModalClose modalDisplay={setShowRemoveEntity} />
                     <ModalTitle title='Select entity to remove' />
+                    {componentCalling === 'GroupEdit' && <RemoveEntityText />}
                     <RemoveEntityDropdown
                         entitiesCanRemove={entitiesCanRemove}
                         entityToRemove={entityToRemove}
+                        error={error}
                         filteredEntitiesCanRemove={filteredEntitiesCanRemove}
                         handleEntityToRemoveChange={handleEntityToRemoveChange}
                         searchEntityTerm={searchEntityTerm}
