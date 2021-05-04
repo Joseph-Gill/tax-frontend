@@ -14,7 +14,7 @@ import {AddEntityLinkModalInternalContainer} from '../styles'
 
 //Used by StepChart for adding new Entities to a StepChart, GroupAdd to add Entities
 //and by PredefinedIncorporate automated step
-const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, error, legalForm, newEntityInfo,
+const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, disabled, entities, error, legalForm, newEntityInfo,
                             saveNewEntityHandler, setCountryName, setLegalForm, setModalView, setNewEntityInfo,
                             showModalView, title}) => {
 
@@ -58,6 +58,7 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, entities, erro
                     />
                     <AddParentSelect
                         addParents={addParents}
+                        disabled={disabled}
                         error={error}
                         filteredParents={filteredParents}
                         handleSelectParentChange={handleSelectParentChange}

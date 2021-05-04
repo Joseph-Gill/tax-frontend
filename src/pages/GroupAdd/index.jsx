@@ -181,6 +181,7 @@ const GroupAdd = ({history}) => {
                 <AddEntityModal
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
                     countryName={countryName}
+                    disabled={!listOfEntities.length}
                     entities={listOfEntities}
                     error={error}
                     legalForm={legalForm}

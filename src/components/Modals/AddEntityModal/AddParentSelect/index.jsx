@@ -8,21 +8,32 @@ import {ActiveInputLabel} from '../../../../style/labels'
 import {ModalDropdownButton, ModalDropdownContentContainer} from '../../../Dropdowns/styles'
 
 
-const AddParentSelect = ({addParents, error, filteredParents, handleSelectParentChange, newEntityInfo,
+const AddParentSelect = ({addParents, disabled, error, filteredParents, handleSelectParentChange, newEntityInfo,
                              searchParentTerm, setFilteredParents, setShowAddParentSelect, showAddParentSelect}) => {
 
+    // disabled is only used by the GroupAdd component to handle when the parent choice is only Ultimate for the first entity created
     return (
         <div>
-            <ActiveInputLabel>Parent</ActiveInputLabel>
+            <ActiveInputLabel
+                disabled={disabled}
+            >
+                Parent
+            </ActiveInputLabel>
             <DropdownInternalContainer
                 setDropdownView={setShowAddParentSelect}
                 showDropdownView={showAddParentSelect}
             >
-                <ModalDropdownButton
-                    onClick={() => setShowAddParentSelect(!showAddParentSelect)}
-                >
-                    {!newEntityInfo.parentId ? 'Select a parent' : getEntityFromId(parseInt(newEntityInfo.parentId), addParents).name}
-                </ModalDropdownButton>
+                {disabled ?
+                    <ModalDropdownButton
+                        disabled={disabled}
+                    >
+                        Ultimate
+                    </ModalDropdownButton> :
+                    <ModalDropdownButton
+                        onClick={() => setShowAddParentSelect(!showAddParentSelect)}
+                    >
+                        {!newEntityInfo.parentId ? 'Select a parent' : getEntityFromId(parseInt(newEntityInfo.parentId), addParents).name}
+                    </ModalDropdownButton>}
                 <ModalDropdownContentContainer show={showAddParentSelect ? 1 : 0}>
                     <ModalDropdownSearchField
                         filterStateSet={setFilteredParents}
