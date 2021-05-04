@@ -3,9 +3,10 @@ import ellipse from '../../../../assets/icons/stark_modal_ellipse.png'
 import {Ellipse} from '../../../../style/images'
 import {ModalText} from '../../../../style/text'
 import {AddDeleteModalTextContainer} from '../../styles'
+import {GROUPS, PROJECTS} from '../../../../routes/paths'
 
 
-const RemoveEntityText = () => {
+const RemoveEntityText = ({history}) => {
     return (
         <>
             <AddDeleteModalTextContainer>
@@ -14,7 +15,9 @@ const RemoveEntityText = () => {
             </AddDeleteModalTextContainer>
             <AddDeleteModalTextContainer>
                 <Ellipse alt='ellipse' src={ellipse} />
-                <ModalText>To remove an entity and retain its histories, please remove it inside a project</ModalText>
+                <ModalText>{`To remove an entity and retain its history, please remove it inside a `}
+                    <span onClick={() => history.push(`${GROUPS}${PROJECTS}`)}>project</span>
+                </ModalText>
             </AddDeleteModalTextContainer>
         </>
     )

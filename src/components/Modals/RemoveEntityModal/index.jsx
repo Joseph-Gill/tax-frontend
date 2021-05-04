@@ -12,8 +12,8 @@ import {RemoveLinkEntityInternalContainer} from '../styles'
 
 
 //Used by StepChart for deleting Entities of a StepChart
-const RemoveEntityModal = ({componentCalling, dispatch, entities, entityToRemove, error, removeEntityHandler, setEntityToRemove,
-                               setShowRemoveEntity, showRemoveEntity}) => {
+const RemoveEntityModal = ({componentCalling, dispatch, entities, entityToRemove, error, history, removeEntityHandler,
+                               setEntityToRemove, setShowRemoveEntity, showRemoveEntity}) => {
     let searchEntityTerm = useRef('')
     const [showEntityRemoveSelect, setShowEntityRemoveSelect] = useState(false)
     // Used to contain a list of entities to remove that can be rolled back to when resetting the filter
@@ -57,7 +57,7 @@ const RemoveEntityModal = ({componentCalling, dispatch, entities, entityToRemove
                 <RemoveLinkEntityInternalContainer componentCalling={componentCalling}>
                     <ModalClose modalDisplay={setShowRemoveEntity} />
                     <ModalTitle title='Select entity to remove' />
-                    {componentCalling === 'GroupEdit' && <RemoveEntityText />}
+                    {componentCalling === 'GroupEdit' && <RemoveEntityText history={history} />}
                     <RemoveEntityDropdown
                         entitiesCanRemove={entitiesCanRemove}
                         entityToRemove={entityToRemove}

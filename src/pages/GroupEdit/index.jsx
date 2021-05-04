@@ -232,6 +232,7 @@ const GroupEdit = ({history}) => {
                     entities={listOfEntities}
                     entityToRemove={entityToRemove}
                     error={error}
+                    history={history}
                     removeEntityHandler={removeEntityHandler}
                     setEntityToRemove={setEntityToRemove}
                     setShowRemoveEntity={setShowRemoveEntity}

@@ -16,6 +16,11 @@ export const ModalText = styled.p`
     font-size: 14px;
     line-height: 20px;
     color: ${props => props.theme.grayOne};
+
+    span {
+        text-decoration: underline;
+        color: ${props => props.theme.primaryBlue};
+    }
 `
 
 export const HomePageText = styled.p`
