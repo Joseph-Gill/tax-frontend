@@ -155,7 +155,7 @@ const GroupEdit = ({history}) => {
         const existingEntities = []
         listOfEntities.forEach(entity => entity.new ? newEntities.push(entity) : existingEntities.push(entity))
         const updatedGroupInfo = {
-            entities: newEntities.concat(existingEntities),
+            entities: existingEntities.concat(newEntities),
         }
         //If the user changed the group avatar, add the new avatar to the data to be sent
         //to the backend
