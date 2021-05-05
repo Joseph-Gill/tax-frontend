@@ -11,7 +11,9 @@ import PredefinedContributionModal from '../../../components/Modals/PredefinedCo
 import PredefinedDistributionModal from '../../../components/Modals/PredefinedDistributionModal'
 import PredefinedIntercompanySaleModal from '../../../components/Modals/PredefinedIntercompanySaleModal'
 import PredefinedLiquidationModal from '../../../components/Modals/PredefinedLiquidationModal'
+import {createEntityForChart} from '../../../store/entity/actions'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
+import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
 import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType,
     editLinkSameType, entityInputErrorHandler, highlightTagForAddEntity, highlightTagForDeleteEntity,
     linkInputErrorHandler} from '../../../helpers'
@@ -86,49 +88,69 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
         }
     }, [entitiesToRender, clinks, slinks, indexOfStepToDisplay, steps])
 
-    const saveNewEntityHandler = async () => {
+
+    const saveNewEntityHandler = async (historyAction, entitiesAffected, affectedKeyword) => {
         dispatch(resetErrors())
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
         if (!error) {
+            // creates the new entity to get an id, active flag is set to false so it will not display for the group till completion
             const addEntityInfo = {
-                //Used to create a unique number id for each entity
-                id: Date.now(),
                 legal_form: legalForm,
                 location: countryName,
                 name: newEntityInfo.entityName,
-                tax_rate: newEntityInfo.taxRate,
                 pid: entitiesToRender.find(entity => parseInt(entity.id) === parseInt(newEntityInfo.parentId)).id.toString(),
-                //Used in the backend when creating the entity to find its appropriate parent
-                parent: entitiesToRender.find(entity => parseInt(entity.id) === parseInt(newEntityInfo.parentId)),
-                //Used in Complete Project action to differentiate between existing and newly created entities
-                edited: true,
-                new: true
             }
-            //Attaches the appropriate tag to the entity to assign the correct custom template in the org chart
-            const entityTag = highlightTagForAddEntity(legalForm)
-            if (entityTag) {
-                addEntityInfo.tags = [entityTag]
+            if (newEntityInfo.taxRate) {
+                addEntityInfo.tax_rate = newEntityInfo.taxRate
             }
-            //StepCharts are stored as JSON data in the backend until the Complete Project action is run
-            const chartData = {
-                nodes: JSON.stringify([...entitiesToRender, addEntityInfo]),
-                slinks: JSON.stringify(slinks),
-                clinks: JSON.stringify(clinks)
+            const entityResponse = await dispatch(createEntityForChart(project.group.id, addEntityInfo))
+            if (entityResponse.status === 201) {
+                addEntityInfo.id = entityResponse.data.id
+                // Used in the backend when creating the entity to find its appropriate parent
+                // addEntityInfo.parent = entitiesToRender.find(entity => parseInt(entity.id) === parseInt(newEntityInfo.parentId))
+                addEntityInfo.edited = true
+                // Used in Complete Project action to differentiate between existing and newly created entities
+                addEntityInfo.new = true
+                // Attaches the appropriate tag to the entity to assign the correct custom template in the org chart
+                const entityTag = highlightTagForAddEntity(legalForm)
+                if (entityTag) {
+                    addEntityInfo.tags = [entityTag]
+                }
+                // StepCharts are stored as JSON data in the backend until the Complete Project action is run
+                const chartData = {
+                    nodes: JSON.stringify([...entitiesToRender, addEntityInfo]),
+                    slinks: JSON.stringify(slinks),
+                    clinks: JSON.stringify(clinks)
+                }
+                // Saves the StepChart
+                const chartResponse = await createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+                if (chartResponse.status === 201 || chartResponse.status === 200) {
+                    // Creates the Entity Histories for all entities effected by the action
+                    const entityHistoryData = {
+                        action: historyAction,
+                        affected: JSON.stringify(entitiesAffected),
+                        affected_keyword: affectedKeyword
+                    }
+                    // Saves the Entity Histories
+                    dispatch(createEntityHistoryForChart(entityResponse.data.id, chartResponse.data.id, entityHistoryData))
+                    // Updates the local state with the new entity to display
+                    setEntitiesToRender([...entitiesToRender, addEntityInfo])
+                    // Updates the local state with all available parent names to display
+                    setAvailableParentNames([...availableParentNames, {name: addEntityInfo.name, location: addEntityInfo.location, id: addEntityInfo.id}])
+                    // Resets the inputs to blank
+                    setCountryName('')
+                    setLegalForm('')
+                    setNewEntityInfo({
+                        entityName: '',
+                        parentId: '',
+                        taxRate: ''
+                    })
+                    setShowAddEntity(false)
+                    setShowPredefinedIncorporate(false)
+                    setStepChartExists(true)
+                    return chartResponse
+                }
             }
-            const response = createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
-            setEntitiesToRender([...entitiesToRender, addEntityInfo])
-            setAvailableParentNames([...availableParentNames, {name: addEntityInfo.name, location: addEntityInfo.location, id: addEntityInfo.id}])
-            setCountryName('')
-            setLegalForm('')
-            setNewEntityInfo({
-                entityName: '',
-                parentId: '',
-                taxRate: ''
-            })
-            setShowAddEntity(false)
-            setShowPredefinedIncorporate(false)
-            setStepChartExists(true)
-            return response
         }
     }
 
@@ -379,6 +401,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
             {showAddEntity &&
                 <AddEntityModal
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
+                    componentCalling='AddEntityModal'
                     countryName={countryName}
                     entities={entitiesToRender}
                     error={error}
@@ -474,6 +497,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
             {showPredefinedIncorporate &&
                 <AddEntityModal
                     cancelNewEntityLinkHandler={cancelNewEntityLinkHandler}
+                    componentCalling='IncorporateModal'
                     countryName={countryName}
                     entities={entitiesToRender}
                     error={error}

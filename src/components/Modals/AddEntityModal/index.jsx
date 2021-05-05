@@ -12,11 +12,10 @@ import {sortEntitiesByName} from '../../../helpers'
 import {AddEntityLinkModalInternalContainer} from '../styles'
 
 
-//Used by StepChart for adding new Entities to a StepChart, GroupAdd to add Entities
-//and by PredefinedIncorporate automated step
-const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, disabled, entities, error, legalForm, newEntityInfo,
-                            saveNewEntityHandler, setCountryName, setLegalForm, setModalView, setNewEntityInfo,
-                            showModalView, title}) => {
+//Used by StepChart for adding new Entities, GroupAdd/Edit to add Entities, and by PredefinedIncorporate automated step
+const AddEntityModal = ({cancelNewEntityLinkHandler, componentCalling, countryName, disabled, entities, error,
+                            legalForm, newEntityInfo, saveNewEntityHandler, setCountryName, setLegalForm, setModalView,
+                            setNewEntityInfo, showModalView, title}) => {
 
     let searchParentTerm = useRef('')
     const [showAddLegalSelect, setShowAddLegalSelect] = useState(false)
@@ -92,10 +91,19 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, countryName, disabled, enti
                         type='text'
                         value={newEntityInfo.taxRate}
                     />
-                    <ModalAddButtons
-                        cancelHandler={cancelNewEntityLinkHandler}
-                        saveHandler={saveNewEntityHandler}
-                    />
+                    {componentCalling === 'AddEntityModal' ?
+                        <ModalAddButtons
+                            cancelHandler={cancelNewEntityLinkHandler}
+                            saveHandler={() => saveNewEntityHandler('add_entity', [parseInt(newEntityInfo.parentId)], 'child')}
+                        /> : componentCalling === 'IncorporateModal' ?
+                            <ModalAddButtons
+                                cancelHandler={cancelNewEntityLinkHandler}
+                                saveHandler={() => saveNewEntityHandler('incorporation', [parseInt(newEntityInfo.parentId)], 'child')}
+                            /> :
+                            <ModalAddButtons
+                                cancelHandler={cancelNewEntityLinkHandler}
+                                saveHandler={saveNewEntityHandler}
+                            />}
                 </AddEntityLinkModalInternalContainer>
             </Draggable>
         </ModalExternalContainer>
