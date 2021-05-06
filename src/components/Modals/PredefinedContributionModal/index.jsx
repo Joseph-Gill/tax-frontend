@@ -15,6 +15,7 @@ import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {checkIfEntityIsParent, findAllDescendantsOfTargetEntity, getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
+import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
 
 
 const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveEditEntityHandler,
@@ -136,12 +137,17 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
         }
     }
 
+    const createAffectedEntity = (id, keyword) => {
+        return {id, keyword}
+    }
+
     const handleSaveButton = async () => {
         dispatch(resetErrors())
         //Handles input validation for contribution modal
         const error = contributionModalErrorHandler()
         if (!error) {
             if (contributedAssets === 'other assets') {
+                // Create data for the clink
                 const assetLink = {
                     from: targetContributor,
                     to: targetRecipient,
@@ -149,7 +155,17 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                     label: `Contribution of: ${otherAssetsLabel}`,
                     color: 'orange'
                 }
-                saveNewLinkHandler(assetLink, entities)
+                // Update the chart with the new clink
+                const chartResponse = await saveNewLinkHandler(assetLink, entities)
+                // Create information needed for entity histories
+                const affectedEntities = [createAffectedEntity(parseInt(targetRecipient), 'recipient')]
+                const entityHistoryData = {
+                    action: 'contribution',
+                    affected: JSON.stringify(affectedEntities)
+                }
+                // Save entity histories
+                dispatch(createEntityHistoryForChart(parseInt(targetContributor), chartResponse.data.id, entityHistoryData))
+
             } else if (contributedAssets === 'participation') {
                 const participant = getEntityFromId(targetParticipant, entities)
                 const editParticipantInfo = {
@@ -166,8 +182,12 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                     label: "Contribution of Shares",
                     color: 'orange'
                 }
-                const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
-                    if (response.status === 201 || response.status === 200) {
+                // Create information needed for entity histories
+                const entitiesAffected = []
+                entitiesAffected.push(createAffectedEntity(parseInt(targetRecipient), 'recipient'))
+                entitiesAffected.push(createAffectedEntity(parseInt(targetContributor), 'contributor'))
+                const chartResponse = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form, 'contribution_participant', entitiesAffected)
+                    if (chartResponse.status === 201 || chartResponse.status === 200) {
                         saveNewLinkHandler(participationLink, entities, true)
                     }
             }

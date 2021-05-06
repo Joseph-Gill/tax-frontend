@@ -206,11 +206,11 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
                 chartData.slinks = JSON.stringify([...slinks, newLink])
                 setSlinks([...slinks, newLink])
             }
-            const response = createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, checkChartExists)
+            const chartResponse = await createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, checkChartExists)
             setAddLinkInfo({from: '', to: '', type: '', label: '', color: ''})
             setShowAddLink(false)
             setStepChartExists(true)
-            return response
+            return chartResponse
         }
     }
 
