@@ -555,3 +555,8 @@ export const createSanitizedMarkup = html => {
         __html: DOMPurify.sanitize(html)
     }
 }
+
+// Used in creating data for Entity Histories
+export const createAffectedEntity = (id, keyword) => {
+    return {id, keyword}
+}

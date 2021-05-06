@@ -5,9 +5,11 @@ import PredefinedMergerLeft from './PredefinedMergerLeft'
 import PredefinedMergerRight from './PredefinedMergerRight'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {areEntitiesSisters, entityInputErrorHandler, findAllDescendantsOfTargetEntity, getEntityFromId,
+import {
+    areEntitiesSisters, createAffectedEntity, entityInputErrorHandler, findAllDescendantsOfTargetEntity, getEntityFromId,
     getEntityParentFromEntityId, highlightTagForAddEntity, highlightTagForDeleteEntity, sortedDirectChildrenOfEntity,
-    sortEntitiesByName} from '../../../helpers'
+    sortEntitiesByName
+} from '../../../helpers'
 import {CompleteMergerModalContainer} from './styles'
 import {ModalDropdownContent} from '../../Dropdowns/styles'
 
@@ -176,14 +178,6 @@ const PredefinedMergerModal = ({availableParentNames, countryName, entities, err
             })
         })
         return result
-    }
-
-    // Used to store the id of an entity and keyword for the second half of the action created with entity histories
-    const createAffectedEntity = (id, keyword) => {
-        return {
-            id,
-            keyword,
-        }
     }
 
     const handleSaveButton = async () => {

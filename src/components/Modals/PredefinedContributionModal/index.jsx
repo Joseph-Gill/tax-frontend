@@ -13,7 +13,7 @@ import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipant
 import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
-import {checkIfEntityIsParent, findAllDescendantsOfTargetEntity, getEntityFromId, sortEntitiesByName} from '../../../helpers'
+import {checkIfEntityIsParent, createAffectedEntity, findAllDescendantsOfTargetEntity, getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
 
@@ -135,11 +135,6 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
         } else {
             return false
         }
-    }
-
-    // Used in creating data for Entity Histories
-    const createAffectedEntity = (id, keyword) => {
-        return {id, keyword}
     }
 
     const handleSaveButton = async () => {

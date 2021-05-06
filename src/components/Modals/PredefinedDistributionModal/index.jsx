@@ -12,7 +12,7 @@ import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDrop
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {distributionTaxConsequencesTaskGeneration} from './automatedTaxConsequencesTaskGeneration'
-import {getEntityFromId, sortedDirectChildrenOfEntity, sortedNonUltimateEntities} from '../../../helpers'
+import {createAffectedEntity, getEntityFromId, sortedDirectChildrenOfEntity, sortedNonUltimateEntities} from '../../../helpers'
 import {AddDeleteModalInternalContainer, ParticipationOtherAssetsInputPlaceholder} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
 import styled from 'styled-components/macro'
@@ -182,11 +182,6 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
         } else {
             return false
         }
-    }
-
-    // Used in creating data for Entity Histories
-    const createAffectedEntity = (id, keyword) => {
-        return {id, keyword}
     }
 
     // Used in handleSaveButton for both 'other assets" and 'business' distributions

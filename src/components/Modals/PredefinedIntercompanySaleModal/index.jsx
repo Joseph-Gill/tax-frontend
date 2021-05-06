@@ -12,9 +12,10 @@ import IntercompanySaleSellerSelect from './IntercompanySaleSellerSelect'
 import IntercompanySaleMarketValueSelect from './IntercompanySaleMarketValueSelect'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {getEntityFromId, sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
+import {createAffectedEntity, getEntityFromId, sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
+import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
 
 
 const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler, saveNewLinkHandler,
@@ -122,6 +123,17 @@ const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler
         }
     }
 
+    const handleEntityHistoryCreation = chartResponse => {
+        // Create information needed for entity histories
+        const affectedEntities = [createAffectedEntity(parseInt(targetBuyer), 'buyer')]
+        const entityHistoryData = {
+            action: 'intercompany_sale',
+            affected: JSON.stringify(affectedEntities)
+        }
+        // Save entity histories
+        dispatch(createEntityHistoryForChart(parseInt(targetSeller), chartResponse.data.id, entityHistoryData))
+    }
+
     const handleSaveButton = async () => {
         dispatch(resetErrors())
         //Handles input validation for intercompany sale modal
@@ -135,7 +147,10 @@ const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler
                     label: `Sale of ${otherAssetsLabel}`,
                     color: 'orange'
                 }
-                saveNewLinkHandler(assetLink, entities)
+                // Update the chart with the new clink
+                const chartResponse = await saveNewLinkHandler(assetLink, entities)
+                // Save entity histories
+                handleEntityHistoryCreation(chartResponse)
             } else if (soldAssets === 'business') {
                 const businessLink = {
                     from: targetSeller,
@@ -144,7 +159,10 @@ const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler
                     label: `Sale of ${businessAssetsLabel}`,
                     color: 'orange'
                 }
-                saveNewLinkHandler(businessLink, entities)
+                // Update the chart with the new clink
+                const chartResponse = await saveNewLinkHandler(businessLink, entities)
+                // Save entity histories
+                handleEntityHistoryCreation(chartResponse)
             } else {
                 //Edit participant pid to be buyerId
                 const participant = getEntityFromId(targetParticipant, entities)
@@ -162,8 +180,12 @@ const PredefinedIntercompanySaleModal = ({entities, error, saveEditEntityHandler
                     label: 'Sale of shares',
                     color: 'orange'
                 }
-                const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
-                if (response.status === 201 || response.status === 200) {
+                // Create information needed for entity histories
+                const entitiesAffected = []
+                entitiesAffected.push(createAffectedEntity(parseInt(targetSeller), 'seller'))
+                entitiesAffected.push(createAffectedEntity(parseInt(targetBuyer), 'buyer'))
+                const chartResponse = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form, 'intercompany_sale_participant', entitiesAffected)
+                if (chartResponse.status === 201 || chartResponse.status === 200) {
                     saveNewLinkHandler(participantLink, entities, true)
                 }
             }
