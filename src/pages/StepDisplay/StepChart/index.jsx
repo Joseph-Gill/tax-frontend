@@ -308,7 +308,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
         }
     }
 
-    const saveEditEntityHandler = async (editEntityInfo, countryName, legalForm) => {
+    const saveEditEntityHandler = async (editEntityInfo, countryName, legalForm, historyAction, entitiesAffected) => {
         dispatch(resetErrors())
         // Handles input validation for the entity inputs
         const error = editEntityInputErrorHandler(dispatch, setError, entitiesToRender, editEntityInfo, countryName)
@@ -355,18 +355,26 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
             entitiesToRender[indexToEdit].location = countryName
             entitiesToRender[indexToEdit].edited = true
             //Sets parent entity of entity to current/new value, used in backend to get database id of parent
-            entitiesToRender[indexToEdit].parent = targetParent
+            // entitiesToRender[indexToEdit].parent = targetParent
             //StepCharts are stored as JSON data in the backend until the Complete Project action is run
             const chartData = {
                 nodes: JSON.stringify(entitiesToRender),
                 slinks: JSON.stringify(slinks),
                 clinks: JSON.stringify(clinks)
             }
-            setEntitiesToRender([...entitiesToRender])
-            setShowEditEntity(false)
-            const response = createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
-            setStepChartExists(true)
-            return response
+            const chartResponse = await createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+            if (chartResponse.status === 200 || chartResponse.status === 201) {
+                // Creates the Entity Histories for all entities effected by the action
+                const entityHistoryData = {
+                    action: historyAction,
+                    affected: JSON.stringify(entitiesAffected)
+                }
+                dispatch(createEntityHistoryForChart(entitiesToRender[indexToEdit].id, chartResponse.data.id, entityHistoryData))
+                setEntitiesToRender([...entitiesToRender])
+                setShowEditEntity(false)
+                setStepChartExists(true)
+                return chartResponse
+            }
         }
     }
 

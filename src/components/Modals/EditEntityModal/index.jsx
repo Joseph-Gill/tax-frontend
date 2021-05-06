@@ -25,6 +25,8 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
     const [filteredParents, setFilteredParents] = useState([])
     // Used to contain a list of available parents during edit that can be rolled back to when resetting the filter
     const [editParentNames, setEditParentNames] = useState([])
+    // Stores the original parent to know if it changes during save to create appropriate entity histories
+    const [originalParentId, setOriginalParentId] = useState('')
     const [showEditEntitySelect, setShowEditEntitySelect] = useState(false)
     const [showParentEntitySelect, setShowParentEntitySelect] = useState(false)
     const [showEntityLegalSelect, setShowEntityLegalSelect] = useState(false)
@@ -74,6 +76,7 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
         })
         setCountryName(targetEntity[0].location)
         setLegalForm(targetEntity[0].legal_form)
+        setOriginalParentId(targetEntity[0].pid)
         setFilteredParents([...remainingEntities])
         setEditParentNames([...remainingEntities])
         setShowEditEntitySelect(false)
@@ -85,7 +88,18 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
     }
 
     const saveButtonHandler = () => {
-        saveEditEntityHandler(editEntityInfo, countryName, legalForm)
+        const entitiesAffected = []
+        if (parseInt(editEntityInfo.parentId) !== parseInt(originalParentId)) {
+            entitiesAffected.push({
+                id: parseInt(originalParentId),
+                keyword: 'removed_child'
+            })
+            entitiesAffected.push({
+                id: parseInt(editEntityInfo.parentId),
+                keyword: 'added_child'
+            })
+        }
+        saveEditEntityHandler(editEntityInfo, countryName, legalForm, 'edit_entity', entitiesAffected)
     }
 
     return (
