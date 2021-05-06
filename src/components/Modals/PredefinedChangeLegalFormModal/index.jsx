@@ -67,7 +67,8 @@ const PredefinedChangeLegalFormModal = ({entities, error, saveEditEntityHandler,
                 //Makes it so that the entity will receive Add Highlighting during edit process
                 legalFormChange: true,
             }
-            saveEditEntityHandler(editEntityInfo, targetEntity.location, legalForm)
+            // Save change to the chart, entitiesAffected is an empty array as no other histories are necessary
+            saveEditEntityHandler(editEntityInfo, targetEntity.location, legalForm, 'change_legal_form', [])
             setShowPredefinedChangeLegalForm(false)
         }
     }
