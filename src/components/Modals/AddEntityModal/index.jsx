@@ -37,7 +37,6 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, componentCalling, countryNa
     }
 
     // Used to store the id of an entity and keyword for the second half of the action created with entity histories
-    // Needs to be array format for backend to process
     const createAffectedEntityArray = () => {
         return [{
             id: parseInt(newEntityInfo.parentId),

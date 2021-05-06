@@ -7,7 +7,7 @@ import RemoveEntityDropdown from './RemoveEntityDropdown'
 import ModalRemoveButtons from '../ModalComponents/ModalRemoveButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {sortEntitiesByName} from '../../../helpers'
+import {getEntityParentFromEntityId, sortEntitiesByName} from '../../../helpers'
 import {RemoveLinkEntityInternalContainer} from '../styles'
 
 
@@ -48,6 +48,14 @@ const RemoveEntityModal = ({componentCalling, dispatch, entities, entityToRemove
         setShowRemoveEntity(false)
     }
 
+    // Used to store the id of an entity and keyword for the second half of the action created with entity histories
+    const createAffectedParent = () => {
+        return [{
+            id: getEntityParentFromEntityId(entityToRemove, entities).id,
+            keyword: 'child'
+        }]
+    }
+
     return (
         <ModalExternalContainer
             setModalView={setShowRemoveEntity}
@@ -71,7 +79,7 @@ const RemoveEntityModal = ({componentCalling, dispatch, entities, entityToRemove
                     />
                     <ModalRemoveButtons
                         cancelButtonHandler={cancelButtonHandler}
-                        removeButtonHandler={() => removeEntityHandler(entities)}
+                        removeButtonHandler={() => removeEntityHandler(entities, 'remove_entity', createAffectedParent())}
                     />
                 </RemoveLinkEntityInternalContainer>
             </Draggable>

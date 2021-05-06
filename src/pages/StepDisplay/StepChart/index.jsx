@@ -266,10 +266,9 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
         setStepChartExists(true)
     }
 
-    //removedEntity is used in automated steps to bypass the delay that exists in setting entityToRemove in local state
-    const removeEntityHandler = (currentEntities, removedEntity = entityToRemove) => {
+    // removedEntity is used in automated steps to bypass the delay that exists in setting entityToRemove in local state
+    const removeEntityHandler = async (currentEntities, historyAction, entitiesAffected, removedEntity = entityToRemove,) => {
         dispatch(resetErrors())
-       // const newEntitiesToRender = entitiesToRender.filter(entity => entity.id !== parseInt(entityToRemove))
        const newEntitiesToRender = currentEntities.map(entity => {
            if (entity.id === parseInt(removedEntity)) {
                // Adds the legal form delete template to the entity so it is highlighted on this specific step's chart
@@ -287,13 +286,26 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
             slinks: JSON.stringify(slinks),
             clinks: JSON.stringify(clinks)
         }
-        const response = createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
-        setEntitiesToRender(newEntitiesToRender)
-        setAvailableParentNames(createAvailableParentNamesWithoutDeletes(newEntitiesToRender))
-        setEntityToRemove('')
-        setShowRemoveEntity(false)
-        setStepChartExists(true)
-        return response
+        // Saves the StepChart
+        const chartResponse = await createUpdateStepChart(chartData, dispatch, indexOfStepToDisplay, project, stepChartExists)
+        if (chartResponse.status === 201 || chartResponse.status === 200) {
+            // Creates the Entity Histories for all entities effected by the action
+            const entityHistoryData = {
+                action: historyAction,
+                affected: JSON.stringify(entitiesAffected)
+            }
+            // Saves the Entity Histories
+            dispatch(createEntityHistoryForChart(parseInt(removedEntity), chartResponse.data.id, entityHistoryData))
+            // Updates the local state with the new entity to display
+            setEntitiesToRender(newEntitiesToRender)
+            // Updates the local state with all available parent names to display
+            setAvailableParentNames(createAvailableParentNamesWithoutDeletes(newEntitiesToRender))
+            // Resets the inputs to blank
+            setEntityToRemove('')
+            setShowRemoveEntity(false)
+            setStepChartExists(true)
+            return chartResponse
+        }
     }
 
     const saveEditEntityHandler = async (editEntityInfo, countryName, legalForm) => {
