@@ -17,6 +17,7 @@ import {AddDeleteModalInternalContainer, ParticipationOtherAssetsInputPlaceholde
 import {FadeInContainer} from '../../../style/animations'
 import styled from 'styled-components/macro'
 import plusSign from '../../../assets/icons/tax_cheetah_plus_icon_gray_18px.svg'
+import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
 
 
 const PredefinedDistributionInternalContainer = styled(AddDeleteModalInternalContainer)`
@@ -183,6 +184,23 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
         }
     }
 
+    // Used in creating data for Entity Histories
+    const createAffectedEntity = (id, keyword) => {
+        return {id, keyword}
+    }
+
+    // Used in handleSaveButton for both 'other assets" and 'business' distributions
+    const handleEntityHistoryCreation = chartResponse => {
+        // Create information needed for entity histories
+        const affectedEntities = [createAffectedEntity(parseInt(targetRecipient), 'recipient')]
+        const entityHistoryData = {
+            action: 'distribution',
+            affected: JSON.stringify(affectedEntities)
+        }
+        // Save entity histories
+        dispatch(createEntityHistoryForChart(parseInt(targetDistributor), chartResponse.data.id, entityHistoryData))
+    }
+
     const handleSaveButton = async () => {
         dispatch(resetErrors())
         //Handles input validation for distribution modal
@@ -192,6 +210,7 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
             const recipient = getEntityFromId(targetRecipient, entities)
             await distributionTaxConsequencesTaskGeneration(distributor, recipient, step, dispatch, profile, project)
             if (distributedAssets === 'other assets') {
+                // Create data for the clink
                 const assetLink = {
                     from: targetDistributor,
                     to: targetRecipient,
@@ -199,8 +218,12 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
                     label: `Distribution of ${otherAssetsLabel}`,
                     color: 'orange'
                 }
-                saveNewLinkHandler(assetLink, entities)
+                // Update the chart with the new clink
+                const chartResponse = await saveNewLinkHandler(assetLink, entities)
+                // Save entity histories
+                handleEntityHistoryCreation(chartResponse)
             } else if (distributedAssets === 'business') {
+                // Create data for the clink
                 const businessLink = {
                     from: targetDistributor,
                     to: targetRecipient,
@@ -208,7 +231,10 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
                     label: `Distribution of ${businessAssetsLabel}`,
                     color: 'orange'
                 }
-                saveNewLinkHandler(businessLink, entities)
+                // Update the chart with the new clink
+                const chartResponse = await saveNewLinkHandler(businessLink, entities)
+                // Save entity histories
+                handleEntityHistoryCreation(chartResponse)
             } else {
                 const participant = getEntityFromId(targetParticipant, entities)
                 const editParticipantInfo = {
@@ -225,8 +251,13 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
                     label: 'Distribution of Shares',
                     color: 'orange'
                 }
-                const response = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form)
-                if (response.status === 201 || response.status === 200) {
+                // Create information needed for entity histories
+                const entitiesAffected = []
+                entitiesAffected.push(createAffectedEntity(parseInt(targetRecipient), 'recipient'))
+                entitiesAffected.push(createAffectedEntity(parseInt(targetDistributor), 'distributor'))
+                // Save changes to the chart
+                const chartResponse = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form, 'distribution_participant', entitiesAffected)
+                if (chartResponse.status === 201 || chartResponse.status === 200) {
                     saveNewLinkHandler(participationLink, entities, true)
                 }
             }

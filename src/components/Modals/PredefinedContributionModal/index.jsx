@@ -12,10 +12,10 @@ import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import PredefinedParticipantDropdown from '../../Dropdowns/PredefinedParticipantDropdown'
 import PredefinedRecipientDropdown from '../../Dropdowns/PredefinedRecipientDropdown'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
+import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
 import {checkIfEntityIsParent, findAllDescendantsOfTargetEntity, getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {ParticipationOtherAssetsInputPlaceholder, PredefinedModalInternalContainer} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
-import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
 
 
 const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveEditEntityHandler,
@@ -137,6 +137,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
         }
     }
 
+    // Used in creating data for Entity Histories
     const createAffectedEntity = (id, keyword) => {
         return {id, keyword}
     }
@@ -168,6 +169,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
 
             } else if (contributedAssets === 'participation') {
                 const participant = getEntityFromId(targetParticipant, entities)
+                // Create information for the participant
                 const editParticipantInfo = {
                     entitySelected: true,
                     entityName: participant.name,
@@ -175,6 +177,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                     taxRate: participant.tax_rate,
                     entityToEditId: participant.id
                 }
+                // Create data for clink
                 const participationLink = {
                     from: targetContributor,
                     to: targetRecipient,
@@ -186,6 +189,7 @@ const PredefinedContributionModal = ({entities, error, saveNewLinkHandler, saveE
                 const entitiesAffected = []
                 entitiesAffected.push(createAffectedEntity(parseInt(targetRecipient), 'recipient'))
                 entitiesAffected.push(createAffectedEntity(parseInt(targetContributor), 'contributor'))
+                // Save changes to the chart
                 const chartResponse = await saveEditEntityHandler(editParticipantInfo, participant.location, participant.legal_form, 'contribution_participant', entitiesAffected)
                     if (chartResponse.status === 201 || chartResponse.status === 200) {
                         saveNewLinkHandler(participationLink, entities, true)
