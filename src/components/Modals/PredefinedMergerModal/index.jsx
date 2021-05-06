@@ -5,10 +5,9 @@ import PredefinedMergerLeft from './PredefinedMergerLeft'
 import PredefinedMergerRight from './PredefinedMergerRight'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {
-    areEntitiesSisters, entityInputErrorHandler, findAllDescendantsOfTargetEntity, getEntityFromId, getEntityParentFromEntityId, highlightTagForAddEntity,
-    highlightTagForDeleteEntity, sortedDirectChildrenOfEntity, sortEntitiesByName
-} from '../../../helpers'
+import {areEntitiesSisters, entityInputErrorHandler, findAllDescendantsOfTargetEntity, getEntityFromId,
+    getEntityParentFromEntityId, highlightTagForAddEntity, highlightTagForDeleteEntity, sortedDirectChildrenOfEntity,
+    sortEntitiesByName} from '../../../helpers'
 import {CompleteMergerModalContainer} from './styles'
 import {ModalDropdownContent} from '../../Dropdowns/styles'
 
@@ -267,19 +266,21 @@ const PredefinedMergerModal = ({availableParentNames, countryName, entities, err
                     deletedEntity = getEntityFromId(targetMergerOfEntity, entities)
                     mergedEntity = getEntityFromId(targetMergerToEntity, entities)
                 }
-
-                // Need to log
-                // 1) merged entity is primary history, it gets merger
-                // 2) deleted entity gets merger_absorbed
-                // 3) parent of merged gets merger_child_merged
-                // 4) parent of deleted gets merger_child_removed
-                // 5) child of deleted_gets_merger_parent_changed
-
-
-
-
+                // children of deleted gets merger_parent
+                const directChildrenOfDeletedEntity = sortedDirectChildrenOfEntity(entities, deletedEntity.id)
+                const entitiesAffected = createAffectedChildrenArray(directChildrenOfDeletedEntity)
+                // parent of deleted gets merger_child_removed if the deleted entity isn't the ultimate entity
+                if (deletedEntity.pid) {
+                    entitiesAffected.push(createAffectedEntity(parseInt(deletedEntity.pid), 'child_removed'))
+                }
+                // parent of merged gets merger_child_merged if the merged entity isn't the ultimate entity
+                if (mergedEntity.pid) {
+                    entitiesAffected.push(createAffectedEntity(parseInt(mergedEntity.pid), 'child_merged'))
+                }
+                // merged entity gets merger_into
+                entitiesAffected.push(createAffectedEntity(mergedEntity.id, 'into'))
                 //Change the deleted entity to have delete highlighting and remove = true
-                const response = await removeEntityHandler(entities, deletedEntity.id)
+                const response = await removeEntityHandler(entities, 'merger', entitiesAffected, deletedEntity.id)
                 if (response.status === 201 || response.status === 200) {
                     //Access the returned array of entities
                     const responseArray = JSON.parse(response.data.nodes)

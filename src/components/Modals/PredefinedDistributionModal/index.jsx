@@ -100,7 +100,7 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
     const [otherAssetsLabel, setOtherAssetsLabel] = useState('')
     const [businessAssetsLabel, setBusinessAssetsLabel] = useState('')
     const [additionalRecipientNum, setAdditionalRecipientNum] = useState(0)
-    const [targetAddedRecipient, setTargetAddedRecipient] = useState({})
+    // const [targetAddedRecipient, setTargetAddedRecipient] = useState({})
 
     useEffect(() => {
         const result = sortedNonUltimateEntities(entities)
@@ -137,9 +137,9 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
         setShowRecipientDropdown(false)
     }
 
-    const handleSelectAdditionalRecipientChange = () => {
-
-    }
+    // const handleSelectAdditionalRecipientChange = () => {
+    //
+    // }
 
     const handleSelectAssetsDistributedChange = assetType => {
         setDistributedAssets(assetType)

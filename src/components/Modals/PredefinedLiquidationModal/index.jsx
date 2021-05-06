@@ -7,7 +7,7 @@ import LiquidatedEntitySelect from './LiquidatedEntitySelect'
 import ModalAddButtons from '../ModalComponents/ModalAddButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {getEntityFromId, getEntityParentFromEntityId, sortedNonUltimateEntities} from '../../../helpers'
+import {getEntityFromId, sortedNonUltimateEntities} from '../../../helpers'
 import {PredefinedLiquidationInternalContainer} from './styles'
 
 
@@ -63,8 +63,10 @@ const PredefinedLiquidationModal = ({entities, error, removeEntityHandler, setEn
                     entity.pid = liquidatedEntity.pid.toString()
                 }
             })
-            // Add the parent to affectedEntities for entity history logging
-            affectedEntities.push({id: parseInt(liquidatedEntity.pid), keyword: 'child'})
+            // Add the parent to affectedEntities for entity history logging, if entity is not Ultimate
+            if (liquidatedEntity.pid) {
+                affectedEntities.push({id: parseInt(liquidatedEntity.pid), keyword: 'child'})
+            }
             setEntitiesToRender([...entities])
             // Remove the liquidated entity
             removeEntityHandler(entities, 'liquidated', affectedEntities, targetLiquidated)

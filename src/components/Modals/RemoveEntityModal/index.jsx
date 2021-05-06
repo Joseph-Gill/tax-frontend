@@ -7,7 +7,7 @@ import RemoveEntityDropdown from './RemoveEntityDropdown'
 import ModalRemoveButtons from '../ModalComponents/ModalRemoveButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors} from '../../../store/errors/actions/errorAction'
-import {getEntityParentFromEntityId, sortEntitiesByName} from '../../../helpers'
+import {getEntityFromId, sortEntitiesByName} from '../../../helpers'
 import {RemoveLinkEntityInternalContainer} from '../styles'
 
 
@@ -50,10 +50,15 @@ const RemoveEntityModal = ({componentCalling, dispatch, entities, entityToRemove
 
     // Used to store the id of an entity and keyword for the second half of the action created with entity histories
     const createAffectedParent = () => {
-        return [{
-            id: getEntityParentFromEntityId(entityToRemove, entities).id,
-            keyword: 'child'
-        }]
+        const entity = getEntityFromId(entityToRemove, entities)
+        if (entity.pid) {
+            return [{
+                id: parseInt(entity.pid),
+                keyword: 'child'
+            }]
+        } else {
+            return []
+        }
     }
 
     return (
