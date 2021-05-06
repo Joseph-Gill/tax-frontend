@@ -438,9 +438,15 @@ export const renderEditRemoveLinks = (clinks, slinks, linkChangeHandler, entitie
         }
     }
 
-//Used to get the Entity when given an array and a parent Id
+//Used to get the Entity when given an array and an id
 export const getEntityFromId = (entityId, array) => {
     return array.find(entity => parseInt(entity.id) === parseInt(entityId))
+}
+
+//Used to get the parent of an entity when all you have is the id of the entity
+export const getEntityParentFromEntityId = (entityId, array) => {
+    const entity = getEntityFromId(entityId, array)
+    return getEntityFromId(parseInt(entity.pid), array)
 }
 
 //Used by search input in Modals to filter the results

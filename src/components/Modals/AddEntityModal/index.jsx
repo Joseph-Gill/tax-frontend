@@ -36,6 +36,15 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, componentCalling, countryNa
         setShowAddParentSelect(false)
     }
 
+    // Used to store the id of an entity and keyword for the second half of the action created with entity histories
+    // Needs to be array format for backend to process
+    const createAffectedEntityArray = () => {
+        return [{
+            id: parseInt(newEntityInfo.parentId),
+            keyword: 'child'
+        }]
+    }
+
     return (
         <ModalExternalContainer
             setModalView={setModalView}
@@ -94,11 +103,11 @@ const AddEntityModal = ({cancelNewEntityLinkHandler, componentCalling, countryNa
                     {componentCalling === 'AddEntityModal' ?
                         <ModalAddButtons
                             cancelHandler={cancelNewEntityLinkHandler}
-                            saveHandler={() => saveNewEntityHandler('add_entity', [parseInt(newEntityInfo.parentId)], 'child')}
+                            saveHandler={() => saveNewEntityHandler('add_entity', createAffectedEntityArray())}
                         /> : componentCalling === 'IncorporateModal' ?
                             <ModalAddButtons
                                 cancelHandler={cancelNewEntityLinkHandler}
-                                saveHandler={() => saveNewEntityHandler('incorporation', [parseInt(newEntityInfo.parentId)], 'child')}
+                                saveHandler={() => saveNewEntityHandler('incorporation', createAffectedEntityArray())}
                             /> :
                             <ModalAddButtons
                                 cancelHandler={cancelNewEntityLinkHandler}

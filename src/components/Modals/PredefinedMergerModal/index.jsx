@@ -5,8 +5,10 @@ import PredefinedMergerLeft from './PredefinedMergerLeft'
 import PredefinedMergerRight from './PredefinedMergerRight'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
-import {areEntitiesSisters, entityInputErrorHandler, findAllDescendantsOfTargetEntity, getEntityFromId, highlightTagForAddEntity,
-    highlightTagForDeleteEntity, sortedDirectChildrenOfEntity, sortEntitiesByName} from '../../../helpers'
+import {
+    areEntitiesSisters, entityInputErrorHandler, findAllDescendantsOfTargetEntity, getEntityFromId, getEntityParentFromEntityId, highlightTagForAddEntity,
+    highlightTagForDeleteEntity, sortedDirectChildrenOfEntity, sortEntitiesByName
+} from '../../../helpers'
 import {CompleteMergerModalContainer} from './styles'
 import {ModalDropdownContent} from '../../Dropdowns/styles'
 
@@ -165,6 +167,26 @@ const PredefinedMergerModal = ({availableParentNames, countryName, entities, err
         }
     }
 
+    // Used to store the id of an entity and keyword for the second half of the action created with entity histories
+    const createAffectedChildrenArray = array => {
+        const result = []
+        array.forEach(entity => {
+            result.push({
+                id: parseInt(entity.id),
+                keyword: 'parent'
+            })
+        })
+        return result
+    }
+
+    // Used to store the id of an entity and keyword for the second half of the action created with entity histories
+    const createAffectedEntity = (id, keyword) => {
+        return {
+            id,
+            keyword,
+        }
+    }
+
     const handleSaveButton = async () => {
         dispatch(resetErrors())
         //Handles input validation for merger modal
@@ -172,8 +194,19 @@ const PredefinedMergerModal = ({availableParentNames, countryName, entities, err
         const error = mergerModalErrorHandler() || mergerInto.selection === 'new_company' ? entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true) : false
         if (!error) {
             if (mergerInto.selection === 'new_company') {
-                //Create the new company entity with the data store in newEntityInfo
-                const response = await saveNewEntityHandler()
+                // Get all direct children of the merging companies to create entity histories for them
+                const directChildrenMergerOfEntity = sortedDirectChildrenOfEntity(entities, targetMergerOfEntity)
+                const directChildrenMergerToEntity = sortedDirectChildrenOfEntity(entities, targetMergerToEntity)
+                // Get the parent of one entity, for a new company they both have the same parent, only one history is needed
+                const parentMergerOfEntity = getEntityParentFromEntityId(targetMergerOfEntity, entities)
+                // Create the array of entities affected by the merger for logging into entity histories
+                const entitiesAffected = createAffectedChildrenArray(directChildrenMergerOfEntity)
+                    .concat(createAffectedChildrenArray(directChildrenMergerToEntity))
+                entitiesAffected.push(createAffectedEntity(parentMergerOfEntity.id, 'children_new_company'))
+                entitiesAffected.push(createAffectedEntity(parseInt(targetMergerOfEntity), 'original_company'))
+                entitiesAffected.push(createAffectedEntity(parseInt(targetMergerToEntity), 'original_company'))
+                // Trigger the saveNewEntityHandler, creating the new company, updating the chart, and creating the entity histories
+                const response = await saveNewEntityHandler('merger', entitiesAffected)
                 if (response.status === 201 || response.status === 200) {
                     //Access the returned array of entities
                     const responseArray = JSON.parse(response.data.nodes)
@@ -234,6 +267,17 @@ const PredefinedMergerModal = ({availableParentNames, countryName, entities, err
                     deletedEntity = getEntityFromId(targetMergerOfEntity, entities)
                     mergedEntity = getEntityFromId(targetMergerToEntity, entities)
                 }
+
+                // Need to log
+                // 1) merged entity is primary history, it gets merger
+                // 2) deleted entity gets merger_absorbed
+                // 3) parent of merged gets merger_child_merged
+                // 4) parent of deleted gets merger_child_removed
+                // 5) child of deleted_gets_merger_parent_changed
+
+
+
+
                 //Change the deleted entity to have delete highlighting and remove = true
                 const response = await removeEntityHandler(entities, deletedEntity.id)
                 if (response.status === 201 || response.status === 200) {

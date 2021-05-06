@@ -89,7 +89,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
     }, [entitiesToRender, clinks, slinks, indexOfStepToDisplay, steps])
 
 
-    const saveNewEntityHandler = async (historyAction, entitiesAffected, affectedKeyword) => {
+    const saveNewEntityHandler = async (historyAction, entitiesAffected) => {
         dispatch(resetErrors())
         const error = entityInputErrorHandler(dispatch, setError, availableParentNames, newEntityInfo, countryName, legalForm, true)
         if (!error) {
@@ -128,8 +128,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
                     // Creates the Entity Histories for all entities effected by the action
                     const entityHistoryData = {
                         action: historyAction,
-                        affected: JSON.stringify(entitiesAffected),
-                        affected_keyword: affectedKeyword
+                        affected: JSON.stringify(entitiesAffected)
                     }
                     // Saves the Entity Histories
                     dispatch(createEntityHistoryForChart(entityResponse.data.id, chartResponse.data.id, entityHistoryData))
