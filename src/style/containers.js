@@ -52,10 +52,6 @@ export const RegistrationLoginContainer = styled.div`
         height: 225px;
     }
 
-    .box {
-        position: relative;
-    }
-
     @media ${devices.laptopL} {
         .color:nth-child(1) {
             width: 600px;

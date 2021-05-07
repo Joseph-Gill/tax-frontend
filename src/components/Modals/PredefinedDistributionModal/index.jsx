@@ -16,7 +16,7 @@ import {createAffectedEntity, getEntityFromId, sortedDirectChildrenOfEntity, sor
 import {AddDeleteModalInternalContainer, ParticipationOtherAssetsInputPlaceholder} from '../styles'
 import {FadeInContainer} from '../../../style/animations'
 import styled from 'styled-components/macro'
-import plusSign from '../../../assets/icons/tax_cheetah_plus_icon_gray_18px.svg'
+// import plusSign from '../../../assets/icons/tax_cheetah_plus_icon_gray_18px.svg'
 import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
 
 
@@ -26,46 +26,46 @@ const PredefinedDistributionInternalContainer = styled(AddDeleteModalInternalCon
 `
 
 
-const AddRecipientContainer = styled.div`
-    width: 302px;
-    height: 24px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 10px;
-    margin-bottom: 10px;
-
-    :hover {
-        text-decoration: underline;
-    }
-
-    img {
-        height: 24px;
-        width: 24px;
-        border-radius: 50%;
-        border: 1px solid ${props => props.theme.grayTwo};
-
-        :hover {
-            cursor: pointer;
-            background: ${props => props.theme.iconHoverBackground};
-        }
-    }
-
-    span {
-        font-family: ${props => props.theme.nunitoFontFamily};
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 24px;
-        margin-left: 10px;
-    }
-`
-
-const Placeholder = styled.div`
-    height: 52px;
-    width: 302px;
-    background: #00709F;
-    border: 1px solid black;
-`
+// const AddRecipientContainer = styled.div`
+//     width: 302px;
+//     height: 24px;
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: center;
+//     padding-left: 10px;
+//     margin-bottom: 10px;
+//
+//     :hover {
+//         text-decoration: underline;
+//     }
+//
+//     img {
+//         height: 24px;
+//         width: 24px;
+//         border-radius: 50%;
+//         border: 1px solid ${props => props.theme.grayTwo};
+//
+//         :hover {
+//             cursor: pointer;
+//             background: ${props => props.theme.iconHoverBackground};
+//         }
+//     }
+//
+//     span {
+//         font-family: ${props => props.theme.nunitoFontFamily};
+//         font-size: 14px;
+//         font-weight: 600;
+//         line-height: 24px;
+//         margin-left: 10px;
+//     }
+// `
+//
+// const Placeholder = styled.div`
+//     height: 52px;
+//     width: 302px;
+//     background: #00709F;
+//     border: 1px solid black;
+// `
 
 
 
@@ -100,7 +100,7 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
     const [distributedAssets, setDistributedAssets] = useState('')
     const [otherAssetsLabel, setOtherAssetsLabel] = useState('')
     const [businessAssetsLabel, setBusinessAssetsLabel] = useState('')
-    const [additionalRecipientNum, setAdditionalRecipientNum] = useState(0)
+    // const [additionalRecipientNum, setAdditionalRecipientNum] = useState(0)
     // const [targetAddedRecipient, setTargetAddedRecipient] = useState({})
 
     useEffect(() => {
@@ -260,49 +260,49 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
         }
     }
 
-    const renderAddedRecipients = () => {
-        const addedRecipients = []
-        for (let i = 0; i < additionalRecipientNum; i++) {
-            // let searchRecipientTerm = useRef('')
-            // const [showAddedRecipientDropdown, setShowAddedRecipientDropdown] = useState(false)
-            // setTargetAddedRecipient({...targetAddedRecipient, [i]: ``})
-
-            addedRecipients.push(
-                <FadeInContainer>
-                    <Placeholder />
-                    {/*<PredefinedRecipientDropdown*/}
-                    {/*    availableRecipients={availableRecipients}*/}
-                    {/*    disabled={!targetDistributor}*/}
-                    {/*    entities={entities}*/}
-                    {/*    error={error}*/}
-                    {/*    filteredRecipients={filteredRecipients}*/}
-                    {/*    handleSelectRecipientChange={handleSelectAdditionalRecipientChange}*/}
-                    {/*    searchRecipientTerm={searchRecipientTerm}*/}
-                    {/*    setFilteredRecipients={setFilteredRecipients}*/}
-                    {/*    setShowRecipientDropdown={setShowAddedRecipientDropdown}*/}
-                    {/*    showRecipientDropdown={showAddedRecipientDropdown}*/}
-                    {/*    targetRecipient={targetAddedRecipient[i]}*/}
-                    {/*/>*/}
-                </FadeInContainer>
-            )
-                    //-- should be existing state
-                    // availableRecipients={availableRecipients}
-                    // disabled={!targetDistributor}
-                    // entities={entities}
-                    // error={error}
-                    // filteredRecipients={filteredRecipients}
-                    // setFilteredRecipients={setFilteredRecipients}
-                //-- needs to be dynamically created
-                // searchRecipientTerm={searchRecipientTerm}
-                // setShowRecipientDropdown={setShowRecipientDropdown}
-                // showRecipientDropdown={showRecipientDropdown}
-                // targetRecipient={targetRecipient}
-            //-- needs to be built
-            // handleSelectRecipientChange={handleSelectRecipientChange}
-
-        }
-        return addedRecipients
-    }
+    // const renderAddedRecipients = () => {
+    //     const addedRecipients = []
+    //     for (let i = 0; i < additionalRecipientNum; i++) {
+    //         // let searchRecipientTerm = useRef('')
+    //         // const [showAddedRecipientDropdown, setShowAddedRecipientDropdown] = useState(false)
+    //         // setTargetAddedRecipient({...targetAddedRecipient, [i]: ``})
+    //
+    //         addedRecipients.push(
+    //             <FadeInContainer>
+    //                 <Placeholder />
+    //                 {/*<PredefinedRecipientDropdown*/}
+    //                 {/*    availableRecipients={availableRecipients}*/}
+    //                 {/*    disabled={!targetDistributor}*/}
+    //                 {/*    entities={entities}*/}
+    //                 {/*    error={error}*/}
+    //                 {/*    filteredRecipients={filteredRecipients}*/}
+    //                 {/*    handleSelectRecipientChange={handleSelectAdditionalRecipientChange}*/}
+    //                 {/*    searchRecipientTerm={searchRecipientTerm}*/}
+    //                 {/*    setFilteredRecipients={setFilteredRecipients}*/}
+    //                 {/*    setShowRecipientDropdown={setShowAddedRecipientDropdown}*/}
+    //                 {/*    showRecipientDropdown={showAddedRecipientDropdown}*/}
+    //                 {/*    targetRecipient={targetAddedRecipient[i]}*/}
+    //                 {/*/>*/}
+    //             </FadeInContainer>
+    //         )
+    //                 //-- should be existing state
+    //                 // availableRecipients={availableRecipients}
+    //                 // disabled={!targetDistributor}
+    //                 // entities={entities}
+    //                 // error={error}
+    //                 // filteredRecipients={filteredRecipients}
+    //                 // setFilteredRecipients={setFilteredRecipients}
+    //             //-- needs to be dynamically created
+    //             // searchRecipientTerm={searchRecipientTerm}
+    //             // setShowRecipientDropdown={setShowRecipientDropdown}
+    //             // showRecipientDropdown={showRecipientDropdown}
+    //             // targetRecipient={targetRecipient}
+    //         //-- needs to be built
+    //         // handleSelectRecipientChange={handleSelectRecipientChange}
+    //
+    //     }
+    //     return addedRecipients
+    // }
 
     return (
         <ModalExternalContainer
@@ -310,7 +310,7 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
             showModalView={showPredefinedDistribution}
         >
             <Draggable>
-                <PredefinedDistributionInternalContainer addedRecipients={additionalRecipientNum}>
+                <PredefinedDistributionInternalContainer>
                     <ModalClose modalDisplay={setShowPredefinedDistribution} />
                     <ModalTitle title='Distribution' />
                     <DistributorEntitySelect
@@ -338,13 +338,13 @@ const PredefinedDistributionModal = ({entities, error, profile, project, setShow
                         showRecipientDropdown={showRecipientDropdown}
                         targetRecipient={targetRecipient}
                     />
-                    {renderAddedRecipients()}
-                    <AddRecipientContainer
-                        onClick={() => setAdditionalRecipientNum(additionalRecipientNum + 1)}
-                    >
-                        <img alt='add recipient' src={plusSign} />
-                        <span>Add another recipient</span>
-                    </AddRecipientContainer>
+                    {/*{renderAddedRecipients()}*/}
+                    {/*<AddRecipientContainer*/}
+                    {/*    onClick={() => setAdditionalRecipientNum(additionalRecipientNum + 1)}*/}
+                    {/*>*/}
+                    {/*    <img alt='add recipient' src={plusSign} />*/}
+                    {/*    <span>Add another recipient</span>*/}
+                    {/*</AddRecipientContainer>*/}
                     <PredefinedAssetsDropdown
                         assetsChoice={distributedAssets}
                         disabled={!targetDistributor}
