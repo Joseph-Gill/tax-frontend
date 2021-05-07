@@ -92,4 +92,16 @@ export const GlassInput = styled(BaseInput)`
     ::placeholder {
         color: ${props => props.theme.white};
     }
+
+    :disabled {
+        background: rgba(255, 255, 255, 0.2);
+        border-top: rgba(255, 255, 255, 0.5);
+        border-left: rgba(255, 255, 255, 0.5);
+        border-right: none;
+        border-bottom: none;
+    }
+`
+
+export const GlassNameInput = styled(GlassInput)`
+    width: 145px;
 `

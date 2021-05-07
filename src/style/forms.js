@@ -34,6 +34,5 @@ export const PasswordResetValidationForm = styled(FormBase)`
 `
 
 export const RegistrationValidationForm = styled(FormBase)`
-    height: 500px;
-    justify-content: space-between;
+    height: 640px;
 `

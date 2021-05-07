@@ -1,6 +1,8 @@
 import {createGlobalStyle} from 'styled-components'
 import dropdownArrowDown from '../assets/icons/stark_dropdown_arrow_gray_downward.svg'
 import dropdownArrowUpward from '../assets/icons/stark_dropdown_arrow_gray_upwards.svg'
+import whiteDropdownArrowDown from '../assets/icons/tax_cheetah_dropdown_arrow_white_downward.svg'
+import whiteDropdownArrowUpward from '../assets/icons/tax_cheetah_dropdown_arrow_white_upwards.svg'
 import {device as devices} from './devices'
 
 
@@ -43,6 +45,42 @@ export const GlobalStyle = createGlobalStyle`
         color: ${props => props.theme.grayOne};
     }
 
+    .glassInputCountryDropdown {
+        width: 302px;
+        height: 42px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        border-top: 1px solid ${props => props.error ? props.theme.inputErrorRed : 'rgba(255, 255, 255, 0.5)'};
+        border-left: 1px solid ${props => props.error ? props.theme.inputErrorRed : 'rgba(255, 255, 255, 0.5)'};
+        border-right: ${props => props.error ? `1px solid ${props.theme.inputErrorRed}` : 'none'};
+        border-bottom: ${props => props.error ? `1px solid ${props.theme.inputErrorRed}` : 'none'};
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        outline: none;
+        border-radius: 35px;
+        padding: 12px 11px 10px 20px !important;
+        background: url(${whiteDropdownArrowDown}) no-repeat right, rgba(255, 255, 255, 0.2);
+        background-position-x: 92%;
+        /* for Firefox */
+        -moz-appearance: none;
+        /* for Safari, Chrome, Opera */
+        -webkit-appearance: none;
+        color: ${props => props.theme.white};
+        margin-bottom: 10px;
+
+        ::placeholder {
+            color: ${props => props.theme.white};
+        }
+
+        :focus {
+            transition: 167ms;
+            background: url(${dropdownArrowUpward}) no-repeat right, rgba(255, 255, 255, 0.2);
+            background-position-x: 92%;
+        }
+    }
+
+
+
     .profileCountryDropdown {
         width: 302px;
         height: 42px;
@@ -70,7 +108,7 @@ export const GlobalStyle = createGlobalStyle`
             border: 1px solid ${props => props.theme.primaryBlue};
             outline: none;
             transition: 167ms;
-            background: url(${dropdownArrowUpward}) no-repeat right, ${props => props.theme.graySix};
+            background: url(${whiteDropdownArrowUpward}) no-repeat right, ${props => props.theme.graySix};
             background-position-x: 92%;
         }
 
@@ -129,10 +167,12 @@ export const GlobalStyle = createGlobalStyle`
 
     .flag-dropdown {
         border-radius: 1.5rem !important;
+        background: rgba(255, 255, 255, 0.2) !important;
     }
 
     .selected-flag {
         border-radius: 1.5rem !important;
+        background: rgba(255, 255, 255, 0.2) !important;
     }
 
     .profilePhoneInput {

@@ -12,15 +12,12 @@ import {useUrlQueryParams} from '../../hooks'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {registrationValidationAction} from '../../store/user/actions/authentication/userRegistrationAction'
 import {LOGIN} from '../../routes/paths'
-import {Title} from '../../style/titles'
-import {BaseInput} from '../../style/inputs'
-import {BaseButton} from '../../style/buttons'
+import {GlassInput} from '../../style/inputs'
 import {ErrorMessage} from '../../style/messages'
 import {RegistrationValidationForm} from '../../style/forms'
-import {EmailInputLabel, TextActiveInputLabel} from '../../style/labels'
-import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
+import {ErrorMessageContainer, InputErrorContainer, RegistrationLoginContainer} from '../../style/containers'
+import {PasswordErrorMessageContainer, PhoneErrorMessageContainer, RegistrationValidationButton, RegistrationValidationTitle} from './styles'
 import 'react-phone-input-2/lib/style.css'
-import {PasswordErrorMessageContainer} from './styles'
 
 
 const RegistrationValidation = ({history}) => {
@@ -33,11 +30,10 @@ const RegistrationValidation = ({history}) => {
     const [countryName, setCountryName] = useState('')
 
     return (
-        <BasePageContainer>
-            {showSuccess && <SuccessMessage
-                message="Congratulations! Your account was successfully created!"
-                redirect={LOGIN}
-                            />}
+        <RegistrationLoginContainer>
+            <div className='color' />
+            <div className='color' />
+            <div className='color' />
             <Formik
                 // Sets initial values for Formik inputs
                 initialValues={{password: '', password_repeat: '', first_name: '', last_name: ''}}
@@ -86,10 +82,7 @@ const RegistrationValidation = ({history}) => {
                 {({values, errors, touched, handleChange,
                       handleBlur, handleSubmit, isSubmitting}) => (
                           <RegistrationValidationForm onSubmit={handleSubmit}>
-                              <LoginLogo
-                                  history={history}
-                              />
-                              <Title>Register</Title>
+                              <RegistrationValidationTitle>Register</RegistrationValidationTitle>
                               <RegistrationValidationNameInput
                                   error={error}
                                   errors={errors}
@@ -98,39 +91,44 @@ const RegistrationValidation = ({history}) => {
                                   touched={touched}
                                   values={values}
                               />
-                              <div>
-                                  <EmailInputLabel>Email</EmailInputLabel>
-                                  <BaseInput
+                              <InputErrorContainer>
+                                  <GlassInput
                                       disabled
                                       name='email'
                                       placeholder='Enter your email'
                                       type='text'
                                       value={email}
                                   />
-                              </div>
-                              <ErrorMessageContainer />
-                              <div>
-                                  <TextActiveInputLabel>Phone</TextActiveInputLabel>
+                                  <ErrorMessageContainer />
+                              </InputErrorContainer>
+                              <InputErrorContainer>
                                   <PhoneInput
                                       country='ch'
                                       inputClass='profilePhoneInput'
                                       inputStyle={{
-                                          background: '#FAFAFA',
+                                          background: 'rgba(255, 255, 255, 0.2)',
                                           height: '42px',
                                           fontFamily: 'Nunito Sans, sans-serif',
                                           fontSize: '14px',
-                                          borderRadius: '1.5rem'
+                                          borderRadius: '1.5rem',
+                                          borderTop: 'rgba(255, 255, 255, 0.5)',
+                                          borderLeft: 'rgba(255, 255, 255, 0.5)',
+                                          borderBottom: 'none',
+                                          borderRight: 'none',
+                                          letterSpacing: '1px',
+                                          color: '#FFFFFF',
+                                          boxShadow: '0 5px 15px rgba(0, 0, 0, 0.05)',
+                                          marginBottom: '10px'
                                       }}
                                       onChange={phone => setPhoneNumber(phone)}
                                       value={phoneNumber}
                                   />
-                              </div>
-                              <ErrorMessageContainer>
-                                  {error && <ErrorMessage>{error.phone_number}</ErrorMessage>}
-                              </ErrorMessageContainer>
-                              <div>
-                                  <TextActiveInputLabel>Password</TextActiveInputLabel>
-                                  <BaseInput
+                                  <PhoneErrorMessageContainer>
+                                      {error && <ErrorMessage>{error.phone_number}</ErrorMessage>}
+                                  </PhoneErrorMessageContainer>
+                              </InputErrorContainer>
+                              <InputErrorContainer>
+                                  <GlassInput
                                       error={errors.password}
                                       name='password'
                                       onBlur={handleBlur}
@@ -139,14 +137,13 @@ const RegistrationValidation = ({history}) => {
                                       type='password'
                                       value={values.password}
                                   />
-                              </div>
-                              <PasswordErrorMessageContainer>
-                                  {error && <ErrorMessage>{error.password}</ErrorMessage>}
-                                  {errors.password && touched.password && <ErrorMessage>{errors.password}</ErrorMessage>}
-                              </PasswordErrorMessageContainer>
-                              <div>
-                                  <TextActiveInputLabel>Password Repeat</TextActiveInputLabel>
-                                  <BaseInput
+                                  <PasswordErrorMessageContainer>
+                                      {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                                      {errors.password && touched.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+                                  </PasswordErrorMessageContainer>
+                              </InputErrorContainer>
+                              <InputErrorContainer>
+                                  <GlassInput
                                       error={errors.password_repeat}
                                       name='password_repeat'
                                       onBlur={handleBlur}
@@ -155,31 +152,36 @@ const RegistrationValidation = ({history}) => {
                                       type='password'
                                       value={values.password_repeat}
                                   />
-                              </div>
-                              <ErrorMessageContainer>
-                                  {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
-                                  {errors.password_repeat && touched.password_repeat && <ErrorMessage>{errors.password_repeat}</ErrorMessage>}
-                              </ErrorMessageContainer>
-                              <div>
-                                  <TextActiveInputLabel>Country</TextActiveInputLabel>
+                                  <ErrorMessageContainer>
+                                      {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
+                                      {errors.password_repeat && touched.password_repeat && <ErrorMessage>{errors.password_repeat}</ErrorMessage>}
+                                  </ErrorMessageContainer>
+                              </InputErrorContainer>
+                              <InputErrorContainer>
                                   <CountryDropdown
-                                      classes='profileCountryDropdown'
+                                      classes='glassInputCountryDropdown'
                                       onChange={(val) => setCountryName(val)}
                                       value={countryName}
                                   />
-                              </div>
-                              <ErrorMessageContainer>
-                                  {error && <ErrorMessage>{error.country}</ErrorMessage>}
-                                  {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
-                                  {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                              </ErrorMessageContainer>
-                              <BaseButton disabled={isSubmitting} type='submit'>Register</BaseButton>
-                              <SignUpLink />
-                              <LoginFooter />
+                                  <ErrorMessageContainer>
+                                      {error && <ErrorMessage>{error.country}</ErrorMessage>}
+                                      {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
+                                      {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                                  </ErrorMessageContainer>
+                              </InputErrorContainer>
+                              <RegistrationValidationButton disabled={isSubmitting} type='submit'>Register</RegistrationValidationButton>
                           </RegistrationValidationForm>
                 )}
             </Formik>
-        </BasePageContainer>
+            <LoginLogo history={history} />
+            <SignUpLink />
+            <LoginFooter />
+            {showSuccess &&
+                <SuccessMessage
+                    message="Congratulations! Your account was successfully created!"
+                    redirect={LOGIN}
+                />}
+        </RegistrationLoginContainer>
     )
 }
 
