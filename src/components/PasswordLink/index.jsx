@@ -14,7 +14,7 @@ const PasswordLink = () => {
     }, [location])
 
     return (
-        <PasswordLinkContainer>
+        <PasswordLinkContainer currentPath={currentPath}>
             {currentPath === PASSWORD_RESET || currentPath === PASSWORD_RESET_VALIDATION ?
                 <>
                     Remember your password?

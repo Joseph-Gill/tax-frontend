@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import {BaseButton} from '../../style/buttons'
 
 
-export const LoginTitle = styled.h2`
+export const PasswordResetTitle = styled.h2`
     position: relative;
     color: ${props => props.theme.white};
     font-size: 24px;
@@ -16,14 +16,14 @@ export const LoginTitle = styled.h2`
         position: absolute;
         left: 0;
         bottom: -10px;
-        width: 40px;
+        width: 100px;
         height: 4px;
         background: ${props => props.theme.white};
     }
 `
 
-export const LoginButton = styled(BaseButton)`
-    width: 100px;
+export const PasswordResetButton = styled(BaseButton)`
+    width: 120px;
     height: 40px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 `

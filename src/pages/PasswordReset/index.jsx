@@ -9,13 +9,11 @@ import LoginLogo from '../../components/LoginLogo'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {resetPassword} from '../../store/user/actions/authentication/resetPasswordAction'
 import {LOGIN} from '../../routes/paths'
-import {Title} from '../../style/titles'
-import {BaseInput} from '../../style/inputs'
-import {BaseButton} from '../../style/buttons'
+import {GlassInput} from '../../style/inputs'
 import {ErrorMessage} from '../../style/messages'
 import {ResetPasswordForm} from '../../style/forms'
-import {TextActiveInputLabel} from '../../style/labels'
-import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
+import {ErrorMessageContainer, InputErrorContainer, RegistrationLoginContainer} from '../../style/containers'
+import {PasswordResetButton, PasswordResetTitle} from './styles'
 
 
 const PasswordReset = ({history}) => {
@@ -24,12 +22,10 @@ const PasswordReset = ({history}) => {
     const [showSuccess, setShowSuccess] = useState(false)
 
     return (
-        <BasePageContainer>
-            {showSuccess &&
-                <SuccessMessage
-                    message="A code has been sent to your email!"
-                    redirect={LOGIN}
-                />}
+        <RegistrationLoginContainer>
+            <div className='color' />
+            <div className='color' />
+            <div className='color' />
             <Formik
                 // Sets initial values for Formik inputs
                 initialValues={{email: ''}}
@@ -57,13 +53,9 @@ const PasswordReset = ({history}) => {
                 {({values, errors, touched, handleChange,
                       handleBlur, handleSubmit, isSubmitting}) => (
                           <ResetPasswordForm onSubmit={handleSubmit}>
-                              <LoginLogo
-                                  history={history}
-                              />
-                              <Title>Forgot Your Password?</Title>
-                              <div>
-                                  <TextActiveInputLabel>Email</TextActiveInputLabel>
-                                  <BaseInput
+                              <PasswordResetTitle>Forgot Your Password?</PasswordResetTitle>
+                              <InputErrorContainer>
+                                  <GlassInput
                                       error={errors.email}
                                       name='email'
                                       onBlur={handleBlur}
@@ -72,22 +64,28 @@ const PasswordReset = ({history}) => {
                                       type='email'
                                       value={values.email}
                                   />
-                              </div>
-                              <ErrorMessageContainer>
-                                  {errors.email && touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-                                  {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                                  {error.email && <ErrorMessage>{error.email}</ErrorMessage>}
-                              </ErrorMessageContainer>
-                              <BaseButton disabled={isSubmitting} type="submit">
+                                  <ErrorMessageContainer>
+                                      {errors.email && touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                                      {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                                      {error.email && <ErrorMessage>{error.email}</ErrorMessage>}
+                                  </ErrorMessageContainer>
+                              </InputErrorContainer>
+                              <PasswordResetButton disabled={isSubmitting} type="submit">
                                   Send Code
-                              </BaseButton>
+                              </PasswordResetButton>
                               <PasswordLink />
-                              <SignUpLink />
-                              <LoginFooter />
                           </ResetPasswordForm>
                 )}
             </Formik>
-        </BasePageContainer>
+            <LoginLogo history={history} />
+            <SignUpLink />
+            <LoginFooter />
+            {showSuccess &&
+                <SuccessMessage
+                    message="A code has been sent to your email!"
+                    redirect={LOGIN}
+                />}
+        </RegistrationLoginContainer>
     )
 }
 

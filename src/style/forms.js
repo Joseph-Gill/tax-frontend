@@ -26,7 +26,7 @@ export const RegistrationForm = styled(FormBase)`
 `
 
 export const ResetPasswordForm = styled(FormBase)`
-    height: 287px;
+    height: 355px;
 `
 
 export const PasswordResetValidationForm = styled(FormBase)`
