@@ -73,3 +73,23 @@ export const TaskTitleInput = styled(BaseInput)`
     background: ${props => props.theme.white};
     margin-left: 153px;
 `
+
+export const GlassInput = styled(BaseInput)`
+    padding: 10px 20px;
+    border-radius: 35px;
+    background: rgba(255, 255, 255, 0.2);
+    border-top: 1px solid ${props => props.error ? props.theme.inputErrorRed : 'rgba(255, 255, 255, 0.5)'};
+    border-left: 1px solid ${props => props.error ? props.theme.inputErrorRed : 'rgba(255, 255, 255, 0.5)'};
+    border-right: ${props => props.error ? `1px solid ${props.theme.inputErrorRed}` : 'none'};
+    border-bottom: ${props => props.error ? `1px solid ${props.theme.inputErrorRed}` : 'none'};
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    outline: none;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: ${props => props.theme.white};
+    margin-bottom: 10px;
+
+    ::placeholder {
+        color: ${props => props.theme.white};
+    }
+`

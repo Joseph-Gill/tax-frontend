@@ -22,7 +22,6 @@ export const FooterLink = styled(Link)`
     font-weight: 600;
     font-size: 10px;
     line-height: 14px;
-    color: ${props => props.theme.grayThree};
     text-decoration: none;
 `
 
@@ -32,7 +31,6 @@ export const FooterSpan = styled.span`
     font-weight: 600;
     font-size: 10px;
     line-height: 14px;
-    color: ${props => props.theme.grayThree};
     text-decoration: none;
 `
 

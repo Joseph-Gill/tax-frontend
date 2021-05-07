@@ -8,13 +8,11 @@ import LoginLogo from '../../components/LoginLogo'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {userLoginAction} from '../../store/user/actions/authentication/userLoginAction'
 import {HOME} from '../../routes/paths'
-import {BaseButton} from '../../style/buttons'
-import {Title} from '../../style/titles'
 import {ErrorMessage} from '../../style/messages'
-import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
+import {ErrorMessageContainer, InputErrorContainer, RegistrationLoginContainer} from '../../style/containers'
 import {LoginForm} from '../../style/forms'
-import {BaseInput} from '../../style/inputs'
-import {TextActiveInputLabel} from '../../style/labels'
+import {GlassInput} from '../../style/inputs'
+import {LoginButton, LoginTitle} from './styles'
 
 
 const Login = ({history}) => {
@@ -22,7 +20,10 @@ const Login = ({history}) => {
     const error = useSelector(state => state.errorReducer.error)
 
     return (
-        <BasePageContainer>
+        <RegistrationLoginContainer>
+            <div className='color' />
+            <div className='color' />
+            <div className='color' />
             <Formik
                 // Sets initial values for Formik inputs
                 initialValues={{email: '', password: ''}}
@@ -54,13 +55,9 @@ const Login = ({history}) => {
                 {({values, errors, touched, handleChange,
                 handleBlur, handleSubmit, isSubmitting,}) => (
                     <LoginForm onSubmit={handleSubmit}>
-                        <LoginLogo
-                            history={history}
-                        />
-                        <Title>Login</Title>
-                        <div>
-                            <TextActiveInputLabel>Email</TextActiveInputLabel>
-                            <BaseInput
+                        <LoginTitle>Login</LoginTitle>
+                        <InputErrorContainer>
+                            <GlassInput
                                 error={errors.email}
                                 name="email"
                                 onBlur={handleBlur}  // matches the key name in initialValues
@@ -69,13 +66,12 @@ const Login = ({history}) => {
                                 type="email"
                                 value={values.email}
                             />
-                        </div>
-                        <ErrorMessageContainer>
-                            {errors.email && touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-                        </ErrorMessageContainer>
-                        <div>
-                            <TextActiveInputLabel>Password</TextActiveInputLabel>
-                            <BaseInput
+                            <ErrorMessageContainer>
+                                {errors.email && touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                            </ErrorMessageContainer>
+                        </InputErrorContainer>
+                        <InputErrorContainer>
+                            <GlassInput
                                 error={errors.password}
                                 name="password"
                                 onBlur={handleBlur} // matches the key name in initialValues
@@ -84,23 +80,24 @@ const Login = ({history}) => {
                                 type="password"
                                 value={values.password}
                             />
-                        </div>
-                        <ErrorMessageContainer>
-                            {errors.password && touched.password && <ErrorMessage>{errors.password}</ErrorMessage>}
-                        </ErrorMessageContainer>
-                        <BaseButton disabled={isSubmitting} type="submit">
+                            <ErrorMessageContainer>
+                                {errors.password && touched.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+                            </ErrorMessageContainer>
+                        </InputErrorContainer>
+                        <LoginButton disabled={isSubmitting} type="submit">
                             Log In
-                        </BaseButton>
+                        </LoginButton>
                         <ErrorMessageContainer>
                             {error && <ErrorMessage>{error.detail}</ErrorMessage>}
                         </ErrorMessageContainer>
                         <PasswordLink />
-                        <SignUpLink />
-                        <LoginFooter />
                     </LoginForm>
               )}
             </Formik>
-        </BasePageContainer>
+            <LoginLogo history={history} />
+            <SignUpLink />
+            <LoginFooter />
+        </RegistrationLoginContainer>
     )
 }
 

@@ -16,6 +16,82 @@ export const BasePageContainer = styled.div`
     overflow-x: hidden;
 `
 
+export const RegistrationLoginContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom,#f1f4f9,#dff1ff) center;
+    background-size: cover;
+
+    .color {
+        position: absolute;
+        filter: blur(150px);
+    }
+
+    .color:nth-child(1) {
+        top: 0;
+        background: #00709f;
+        width: 400px;
+        height: 400px;
+    }
+
+    .color:nth-child(2) {
+        bottom: 0;
+        left: 100px;
+        background: #00209f;
+        width: 300px;
+        height: 300px;
+    }
+
+    .color:nth-child(3) {
+        bottom: 50px;
+        right: 0;
+        background: #009f7f;
+        width: 225px;
+        height: 225px;
+    }
+
+    .box {
+        position: relative;
+    }
+
+    @media ${devices.laptopL} {
+        .color:nth-child(1) {
+            width: 600px;
+            height: 600px;
+        }
+
+        .color:nth-child(2) {
+            width: 500px;
+            height: 500px;
+        }
+
+        .color:nth-child(3) {
+            width: 300px;
+            height: 300px;
+        }
+    }
+
+    @media ${devices.desktop} {
+        .color:nth-child(1) {
+            width: 800px;
+            height: 800px;
+        }
+
+        .color:nth-child(2) {
+            width: 650px;
+            height: 650px;
+        }
+
+        .color:nth-child(3) {
+            width: 400px;
+            height: 400px;
+        }
+    }
+`
+
+
 export const AuthenticatedPageContainer = styled(BasePageContainer)`
     background-color: ${props => props.theme.grayFive};
     padding-left: 200px;
@@ -43,7 +119,7 @@ export const LinkContainer = styled.div`
 export const LoginLogoContainer = styled.div`
     position: absolute;
     top: 23px;
-    width: 50%;
+    width: 90%;
     display: flex;
     justify-content: start;
 `
@@ -425,6 +501,10 @@ export const ProjectAddEditInputTooltipContainer = styled.div`
 
 export const ProjectAddEditStatusInputContainer = styled(ProjectInputContainer)`
     margin-right: 0;
+`
+
+export const InputErrorContainer = styled.div`
+    margin-bottom: 10px;
 `
 
 // Template Containers
