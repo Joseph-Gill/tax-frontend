@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import {BaseButton} from '../../style/buttons'
 
 
-export const PasswordResetTitle = styled.h2`
+export const PasswordResetValidationTitle = styled.h2`
     position: relative;
     color: ${props => props.theme.white};
     font-size: 24px;
@@ -22,8 +22,8 @@ export const PasswordResetTitle = styled.h2`
     }
 `
 
-export const PasswordResetButton = styled(BaseButton)`
-    width: 120px;
+export const PasswordResetValidationButton = styled(BaseButton)`
+    width: 180px;
     height: 40px;
     margin-bottom: 20px;
 `

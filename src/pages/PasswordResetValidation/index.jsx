@@ -10,13 +10,11 @@ import {useUrlQueryParams} from "../../hooks"
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {restPasswordValidate} from "../../store/user/actions/authentication/resetPasswordAction"
 import {LOGIN} from '../../routes/paths'
-import {Title} from "../../style/titles"
-import {BaseInput} from "../../style/inputs"
-import {BaseButton} from "../../style/buttons"
-import {TextActiveInputLabel} from '../../style/labels'
+import {GlassInput} from '../../style/inputs'
 import {ErrorMessage} from "../../style/messages"
 import {PasswordResetValidationForm} from '../../style/forms'
-import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
+import {ErrorMessageContainer, InputErrorContainer, RegistrationLoginContainer} from '../../style/containers'
+import {PasswordResetValidationButton, PasswordResetValidationTitle} from './styles'
 
 
 const PasswordResetValidation = ({history}) => {
@@ -27,13 +25,10 @@ const PasswordResetValidation = ({history}) => {
     const [showSuccess, setShowSuccess] = useState(false)
 
     return (
-        <BasePageContainer>
-            {showSuccess && (
-                <SuccessMessage
-                    message="Your Password has been updated successfully!"
-                    redirect={LOGIN}
-                />
-            )}
+        <RegistrationLoginContainer>
+            <div className='color' />
+            <div className='color' />
+            <div className='color' />
             <Formik
                 // Sets initial values for Formik inputs
                 initialValues={{password: '', password_repeat: ''}}
@@ -70,13 +65,9 @@ const PasswordResetValidation = ({history}) => {
                 {({values, errors, touched, handleChange,
                       handleBlur, handleSubmit, isSubmitting}) => (
                           <PasswordResetValidationForm onSubmit={handleSubmit}>
-                              <LoginLogo
-                                  history={history}
-                              />
-                              <Title>Create New Password</Title>
-                              <div>
-                                  <TextActiveInputLabel>Password</TextActiveInputLabel>
-                                  <BaseInput
+                              <PasswordResetValidationTitle>Create New Password</PasswordResetValidationTitle>
+                              <InputErrorContainer>
+                                  <GlassInput
                                       error={errors.password}
                                       name='password'
                                       onBlur={handleBlur}
@@ -85,14 +76,13 @@ const PasswordResetValidation = ({history}) => {
                                       type='password'
                                       value={values.password}
                                   />
-                              </div>
-                              <ErrorMessageContainer>
-                                  {error && <ErrorMessage>{error.password}</ErrorMessage>}
-                                  {errors.password && touched.password && <ErrorMessage>{errors.password}</ErrorMessage>}
-                              </ErrorMessageContainer>
-                              <div>
-                                  <TextActiveInputLabel>Password</TextActiveInputLabel>
-                                  <BaseInput
+                                  <ErrorMessageContainer>
+                                      {error && <ErrorMessage>{error.password}</ErrorMessage>}
+                                      {errors.password && touched.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+                                  </ErrorMessageContainer>
+                              </InputErrorContainer>
+                              <InputErrorContainer>
+                                  <GlassInput
                                       error={errors.password_repeat}
                                       name='password_repeat'
                                       onBlur={handleBlur}
@@ -101,23 +91,29 @@ const PasswordResetValidation = ({history}) => {
                                       type='password'
                                       value={values.password_repeat}
                                   />
-                              </div>
-                              <ErrorMessageContainer>
-                                  {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
-                                  {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
-                                  {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                                  {errors.password_repeat && touched.password_repeat && <ErrorMessage>{errors.password_repeat}</ErrorMessage>}
-                              </ErrorMessageContainer>
-                              <BaseButton disabled={isSubmitting} type="submit">
+                                  <ErrorMessageContainer>
+                                      {error && <ErrorMessage>{error.password_repeat}</ErrorMessage>}
+                                      {error && <ErrorMessage>{error.non_field_errors}</ErrorMessage>}
+                                      {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                                      {errors.password_repeat && touched.password_repeat && <ErrorMessage>{errors.password_repeat}</ErrorMessage>}
+                                  </ErrorMessageContainer>
+                              </InputErrorContainer>
+                              <PasswordResetValidationButton disabled={isSubmitting} type="submit">
                                   Reset Password
-                              </BaseButton>
+                              </PasswordResetValidationButton>
                               <PasswordLink />
-                              <SignUpLink />
-                              <LoginFooter />
                           </PasswordResetValidationForm>
                 )}
             </Formik>
-        </BasePageContainer>
+            <LoginLogo history={history} />
+            <SignUpLink />
+            <LoginFooter />
+            {showSuccess && (
+                <SuccessMessage
+                    message="Your Password has been updated successfully!"
+                    redirect={LOGIN}
+                />)}
+        </RegistrationLoginContainer>
     )
 }
 
