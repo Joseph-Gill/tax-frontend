@@ -10,12 +10,12 @@ import {resetErrors} from '../../store/errors/actions/errorAction'
 import {userRegistrationAction} from '../../store/user/actions/authentication/userRegistrationAction'
 import {LOGIN} from '../../routes/paths'
 import {Title} from '../../style/titles'
-import {BaseInput} from '../../style/inputs'
+import {GlassInput} from '../../style/inputs'
 import {BaseButton} from '../../style/buttons'
 import {ErrorMessage} from '../../style/messages'
 import {RegistrationForm} from '../../style/forms'
-import {TextActiveInputLabel} from '../../style/labels'
-import {BasePageContainer, ErrorMessageContainer} from '../../style/containers'
+import {ErrorMessageContainer, InputErrorContainer, RegistrationLoginContainer} from '../../style/containers'
+import {RegistrationButton, RegistrationTitle} from './styles'
 
 
 const Registration = ({history}) => {
@@ -24,11 +24,10 @@ const Registration = ({history}) => {
     const dispatch = useDispatch()
 
     return (
-        <BasePageContainer>
-            {showSuccess && <SuccessMessage
-                message="A verification code has been sent to your email!"
-                redirect={LOGIN}
-                            />}
+        <RegistrationLoginContainer>
+            <div className='color' />
+            <div className='color' />
+            <div className='color' />
             <Formik
                 // Sets initial values for Formik inputs
                 initialValues={{email: ''}}
@@ -56,13 +55,9 @@ const Registration = ({history}) => {
                 {({values, errors, touched, handleChange,
                 handleBlur, handleSubmit, isSubmitting,}) => (
                     <RegistrationForm onSubmit={handleSubmit}>
-                        <LoginLogo
-                            history={history}
-                        />
-                        <Title>Registration</Title>
-                        <div>
-                            <TextActiveInputLabel>Email</TextActiveInputLabel>
-                            <BaseInput
+                        <RegistrationTitle>Registration</RegistrationTitle>
+                        <InputErrorContainer>
+                            <GlassInput
                                 error={errors.email}
                                 name='email'
                                 onBlur={handleBlur}
@@ -71,20 +66,25 @@ const Registration = ({history}) => {
                                 type='email'
                                 value={values.email}
                             />
-                        </div>
-                        <ErrorMessageContainer>
-                            {error && <ErrorMessage>{error.email}</ErrorMessage>}
-                            {error && <ErrorMessage>{error.detail}</ErrorMessage>}
-                            {errors.email && touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-                        </ErrorMessageContainer>
-                        <BaseButton disabled={isSubmitting} type='submit'>Register</BaseButton>
+                            <ErrorMessageContainer>
+                                {error && <ErrorMessage>{error.email}</ErrorMessage>}
+                                {error && <ErrorMessage>{error.detail}</ErrorMessage>}
+                                {errors.email && touched.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                            </ErrorMessageContainer>
+                        </InputErrorContainer>
+                        <RegistrationButton disabled={isSubmitting} type='submit'>Register</RegistrationButton>
                         <PasswordLink />
-                        <SignUpLink />
-                        <LoginFooter />
                     </RegistrationForm>
                 )}
             </Formik>
-        </BasePageContainer>
+            <LoginLogo history={history} />
+            <SignUpLink />
+            <LoginFooter />
+            {showSuccess && <SuccessMessage
+                message="A verification code has been sent to your email!"
+                redirect={LOGIN}
+                            />}
+        </RegistrationLoginContainer>
     )
 }
 

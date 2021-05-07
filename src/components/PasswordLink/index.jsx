@@ -2,14 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useLocation} from 'react-router-dom'
 import {PASSWORD_RESET, PASSWORD_RESET_VALIDATION} from '../../routes/paths'
 import {LinkBase} from '../../style/links'
-import {LinkContainer} from '../../style/containers'
-import styled from 'styled-components/macro'
-
-
-const PasswordLinkContainer = styled(LinkContainer)`
-    width: 227px;
-    margin-left: 37.5px;
-`
+import {PasswordLinkContainer} from './styles'
 
 
 const PasswordLink = () => {

@@ -219,6 +219,8 @@ export const ProjectSaveCancelButtonContainer = styled.div`
 
 export const ErrorMessageContainer = styled.div`
     height: 10px;
+    display: flex;
+    justify-content: center;
 `
 
 export const EntityTitleContainer = styled.div`
