@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 export const CreateGroupCardContainer = styled.div`
     width: 256px;
     height: 182px;
-    background: ${props => props.theme.grayFive};
+    background: ${props => props.theme.white};
     border-radius: ${props => props.theme.borderRadius};
     border: 1px solid ${props => props.theme.grayFour};
     display: flex;

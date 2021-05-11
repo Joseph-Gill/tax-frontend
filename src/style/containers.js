@@ -505,6 +505,45 @@ export const InputErrorContainer = styled.div`
     margin-bottom: 10px;
 `
 
+export const HomeGroupListContainer = styled.div`
+    margin-bottom: 42px;
+    display: grid;
+    grid-auto-rows: auto;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+    justify-content: center;
+    ${props => {
+        if (props.numCards < 2) {
+                return `grid-template-columns: repeat(${props.numCards}, 1fr)`
+        } else {
+                return 'grid-template-columns: repeat(2, 1fr)'
+            }
+        }
+    };
+
+    @media ${devices.laptopL} {
+        ${props => {
+            if (props.numCards < 3) {
+                    return `grid-template-columns: repeat(${props.numCards}, 1fr)`
+            } else {
+                    return 'grid-template-columns: repeat(3, 1fr)'
+                }
+            }
+        };
+    }
+
+    @media ${devices.desktop} {
+        ${props => {
+            if (props.numCards < 4) {
+                    return `grid-template-columns: repeat(${props.numCards}, 1fr)`
+            } else {
+                    return 'grid-template-columns: repeat(4, 1fr)'
+                }
+            }
+        };
+    }
+`
+
 // Template Containers
 
 // if needed to create an internal div in the modal

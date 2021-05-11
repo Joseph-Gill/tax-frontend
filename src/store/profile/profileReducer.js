@@ -6,6 +6,7 @@ const initialState = {
         phone_number: null,
         organizations: null,
         groups: null,
+        favorite_groups: null,
         assigned_project_roles: null,
         assigned_task: null,
         country: null,

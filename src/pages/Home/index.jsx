@@ -17,8 +17,8 @@ import {getRolesForProfileGroupAction} from '../../store/projectRole/actions'
 import {GROUPS, HOME} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
-import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer} from '../../style/containers'
-import {HomeGroupListContainer, ProjectAccessContainer} from './styles'
+import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, HomeGroupListContainer} from '../../style/containers'
+import {ProjectAccessContainer} from './styles'
 
 
 const Home = ({history}) => {
@@ -149,7 +149,8 @@ const Home = ({history}) => {
                 )
             }
         } else {
-            return <NoFilterResults />}
+            return <NoFilterResults />
+        }
     }
 
     return (
@@ -174,10 +175,6 @@ const Home = ({history}) => {
                                         resetFilterChangeHandler={resetFilterChangeHandler}
                                     />
                                 </ProjectAccessContainer>
-                                {/*<HomeProjectTabs*/}
-                                {/*    displayFavorites={displayFavorites}*/}
-                                {/*    setDisplayFavorites={setDisplayFavorites}*/}
-                                {/*/>*/}
                                 <HomeGroupsTabs
                                     componmentCalling='Home'
                                     displayFavorites={displayFavorites}
