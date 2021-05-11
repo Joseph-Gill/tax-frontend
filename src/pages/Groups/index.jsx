@@ -7,7 +7,7 @@ import BreadCrumb from '../../components/BreadCrumb'
 import LogoLoading from '../../components/LogoLoading'
 import HomeGroupsTabs from '../../components/HomeGroupsTabs'
 import NoFilterResults from '../../components/NoFilterResults'
-import {resetGroup} from '../../store/group/actions'
+import {getUserFavoriteGroupsAction, resetGroup} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
 import {getProfileAction} from '../../store/profile/actions'
@@ -23,49 +23,72 @@ const Groups = ({history}) => {
     const profile = useSelector(state => state.profileReducer.profile)
     const loaded = useSelector(state => state.profileReducer.loaded)
     const [allUserGroups, setAllUserGroups] = useState([])
-    const [favoriteUserGroups, setFavoriteUserGroups] = useState([])
     const [groupsToDisplay, setGroupsToDisplay] = useState([])
-    const [favoriteGroupsToDisplay, setFavoriteGroupsToDisplay] = useState([])
     const [displayFavorites, setDisplayFavorites] = useState(true)
     const [loading, setLoading] = useState(true)
 
+
     useEffect(() => {
-        //Resets errors in redux state
-        dispatch(resetErrors())
-        //Resets group in redux state
-        dispatch(resetGroup())
-        //Resets project in redux state
-        dispatch(resetProject())
+        const getUserFavoriteGroupsInfo = async () => {
+            const groupResponse = await dispatch(getUserFavoriteGroupsAction())
+                if (groupResponse.status === 200) {
+                    setAllUserGroups([...groupResponse.data])
+                    setGroupsToDisplay([...groupResponse.data])
+                    // If the user has no favorite groups, defaults to All Groups tab
+                    if (!groupResponse.data.filter(group => group.user_favorite).length) {
+                        setDisplayFavorites(false)
+                    }
+                }
+        }
         //If user's profile isn't in redux state, fetch it to prevent crash
         if (!loaded) {
             dispatch(getProfileAction())
         } else {
-            if (!profile.favorite_groups.length) {
-                setDisplayFavorites(false)
-            }
-            setAllUserGroups([...profile.groups])
-            setGroupsToDisplay([...profile.groups])
-            setFavoriteUserGroups([...profile.favorite_groups])
-            setFavoriteGroupsToDisplay([...profile.favorite_groups])
-            setLoading(false)
+            //Resets errors in redux state
+            dispatch(resetErrors())
+            //Resets group in redux state
+            dispatch(resetGroup())
+            //Resets project in redux state
+            dispatch(resetProject())
+            getUserFavoriteGroupsInfo()
+                .then(() => setLoading(false))
         }
-    }, [dispatch, loaded, profile])
+    }, [dispatch, loaded])
 
-    const renderGroups = arrayOfGroups => {
-        if (arrayOfGroups.length) {
-            return (
-                <HomeGroupListContainer numCards={arrayOfGroups.length + 1}>
-                    {arrayOfGroups.map(group => (
-                        <GroupCardV2
-                            dispatch={dispatch}
-                            group={group}
-                            history={history}
-                            key={group.id}
-                        />
-                    ))}
-                    <CreateGroupCard history={history} />
-                </HomeGroupListContainer>
-            )
+    const renderGroups = () => {
+        if (groupsToDisplay.length) {
+            if (displayFavorites) {
+                const favoriteGroups = groupsToDisplay.filter(group => group.user_favorite)
+                return (
+                    <HomeGroupListContainer numCards={favoriteGroups.length + 1}>
+                        {favoriteGroups.map(group => (
+                            <GroupCardV2
+                                dispatch={dispatch}
+                                group={group}
+                                groupsToDisplay={groupsToDisplay}
+                                history={history}
+                                key={group.id}
+                            />
+                        ))}
+                        <CreateGroupCard history={history} />
+                    </HomeGroupListContainer>
+                )
+            } else {
+                return (
+                    <HomeGroupListContainer numCards={groupsToDisplay.length + 1}>
+                        {groupsToDisplay.map(group => (
+                            <GroupCardV2
+                                dispatch={dispatch}
+                                group={group}
+                                groupsToDisplay={groupsToDisplay}
+                                history={history}
+                                key={group.id}
+                            />
+                        ))}
+                        <CreateGroupCard history={history} />
+                    </HomeGroupListContainer>
+                )
+            }
         } else {
             return <NoFilterResults />
         }
@@ -92,7 +115,7 @@ const Groups = ({history}) => {
                                     displayFavorites={displayFavorites}
                                     setDisplayFavorites={setDisplayFavorites}
                                 />
-                                {displayFavorites ? renderGroups(favoriteGroupsToDisplay) : renderGroups(groupsToDisplay)}
+                                {renderGroups()}
                             </>)}
                 </>)}
         </AuthenticatedPageContainer>

@@ -113,3 +113,33 @@ export const getGroupOfProjectAction = projectId => async (dispatch, getState) =
         return catchError(e, dispatch)
     }
 }
+
+export const getUserFavoriteGroupsAction = () => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.get(`groups/allandfavorite/`, config)
+    } catch (e) {
+        console.log('Error getting all favorite and groups for user', e)
+        return catchError(e, dispatch)
+    }
+}
+
+export const toggleFavoriteGroupStatusAction = (groupId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.post(`groups/group/${groupId}/favorite/`, {}, config)
+    } catch (e) {
+        console.log('Error toggling favorite status of a group')
+        return catchError(e, dispatch)
+    }
+}

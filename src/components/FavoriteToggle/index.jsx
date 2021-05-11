@@ -7,14 +7,9 @@ import {FavoriteContainer, FavoriteToggleControl} from './styles'
 const ToggleFavorite = ({favorite, toggleFavoriteClickHandler, tooltipText}) => {
     return (
         <FavoriteContainer>
-            <FavoriteToggleControl
-                data-for='favoriteProjectGroup'
-                data-tip
-                htmlFor='favorite'
-            >
+            <FavoriteToggleControl data-for='favoriteProjectGroup' data-tip>
                 <input
                     checked={favorite}
-                    id='favorite'
                     onChange={toggleFavoriteClickHandler}
                     type='checkbox'
                 />
