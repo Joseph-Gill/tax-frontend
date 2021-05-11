@@ -15,17 +15,7 @@ import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, HomeGroupListContainer} from '../../style/containers'
 import {HomePageText} from '../../style/text'
-import styled from 'styled-components/macro'
-
-
-const GroupsAccessContainer = styled.div`
-    width: 860px;
-    margin-top: 38px;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-`
+import {GroupsAccessContainer, SearchBarPlaceholder} from './styles'
 
 
 const Groups = ({history}) => {
@@ -67,6 +57,9 @@ const Groups = ({history}) => {
                 <HomeGroupListContainer numCards={arrayOfGroups.length + 1}>
                     {arrayOfGroups.map(group => (
                         <GroupCardV2
+                            dispatch={dispatch}
+                            group={group}
+                            history={history}
                             key={group.id}
                         />
                     ))}
@@ -93,7 +86,7 @@ const Groups = ({history}) => {
                             <>
                                 <GroupsAccessContainer>
                                     <HomePageText>Your current groups</HomePageText>
-                                    <div>Search Bar</div>
+                                    <SearchBarPlaceholder>Search Bar</SearchBarPlaceholder>
                                 </GroupsAccessContainer>
                                 <HomeGroupsTabs
                                     displayFavorites={displayFavorites}

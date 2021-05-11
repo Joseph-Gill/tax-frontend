@@ -70,3 +70,11 @@ export const GroupAddEntityTitle = styled(EntityTitle)`
     margin-right: 0;
     margin-top: 20px;
 `
+
+export const GroupTitle = styled.h4`
+    font-family: ${props => props.theme.spartanFontFamily};
+    font-size: 16px;
+    line-height: 18px;
+    color: ${props => props.theme.black};
+    margin-bottom: 20px;
+`

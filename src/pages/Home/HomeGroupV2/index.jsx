@@ -2,18 +2,19 @@ import React, {useEffect, useState} from 'react'
 import {useSpring} from 'react-spring'
 import OpenComments from './OpenComments'
 import OverdueTasks from './OverdueTasks'
-import FavoriteToggle from './FavoriteToggle'
 import ReviewComments from './ReviewComments'
 import Loading from '../../../components/Loading'
+import ToggleFavorite from '../../../components/FavoriteToggle'
 import HomeViewMoreModal from '../../../components/Modals/HomeViewMoreModal'
 import {getGroupOfProjectAction} from '../../../store/group/actions'
 import {toggleFavoriteProjectStatusAction} from '../../../store/projectRole/actions'
 import {getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction} from '../../../store/project/actions'
 import {getPastDueNumberAndUncompletedTasksAction, getTaskNumberForTaskOfStepAction} from '../../../store/task/actions'
 import {GROUPS, PROJECTS} from '../../../routes/paths'
-import {GroupTitle, HomeGroupButton, HomeGroupFavStatsContainer, HomeGroupV2Container, HomeGroupViewMoreProjectButtonContainer,
+import {HomeGroupButton, HomeGroupFavStatsContainer, HomeGroupV2Container, HomeGroupViewMoreProjectButtonContainer,
     ProjectTitle, StatsContainer, TitlesContainer, TitlesGroupImageContainer, ViewMoreText} from './styles'
 import {GroupImage} from '../../../style/images'
+import {GroupTitle} from '../../../style/titles'
 
 
 const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, setHomeLoading, user}) => {
@@ -105,9 +106,10 @@ const HomeGroupV2 = ({dispatch, history, pair, pairingsToDisplay, setHomeLoading
                         {pair.groupImage ? <GroupImage alt='group image' src={pair.groupImage} /> : <div />}
                     </TitlesGroupImageContainer>
                     <HomeGroupFavStatsContainer>
-                        <FavoriteToggle
-                            favoriteProject={favoriteProject}
+                        <ToggleFavorite
+                            favorite={favoriteProject}
                             toggleFavoriteClickHandler={toggleFavoriteClickHandler}
+                            tooltipText='Mark this as a favorite Project'
                         />
                         <StatsContainer>
                             {openComments ?

@@ -1,16 +1,5 @@
 import styled from 'styled-components/macro'
-import {AuthenticatedPageSectionTitle} from '../../style/titles'
 
-
-export const GroupDisplayContainer = styled.div`
-    Width: 860px;
-    background: ${props => props.theme.white};
-    padding: 10px 20px 10px 20px;
-    margin: 20px 0;
-    box-shadow: ${props => props.theme.boxShadow};
-    border-radius: ${props => props.theme.borderRadius};
-    border: 1px solid ${props => props.theme.grayFour};
-`
 
 export const GroupGridContainer = styled.div`
     display: grid;
@@ -20,7 +9,16 @@ export const GroupGridContainer = styled.div`
     grid-row-gap: 16px;
 `
 
-export const GroupsSectionTile = styled(AuthenticatedPageSectionTitle)`
-    margin-top: 0;
-    margin-bottom: 12px;
+export const GroupsAccessContainer = styled.div`
+    width: 860px;
+    margin-top: 38px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+`
+
+export const SearchBarPlaceholder = styled.div`
+    height: 36px;
+    width: 600px;
 `

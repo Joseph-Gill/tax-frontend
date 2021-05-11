@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import {BaseButton} from '../../style/buttons'
 
 
-export const DisplayCardsContaner = styled.div`
+export const DisplayCardsContainer = styled.div`
     width: 860px;
     margin-top: 30px;
     display: flex;

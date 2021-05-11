@@ -13,7 +13,7 @@ import blueProjectImage from '../../assets/icons/stark_group_display_project_car
 import blueMembersImage from '../../assets/icons/stark_group_display_members_card_blue.svg'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
-import {DisplayCardsContaner, EditGroupButton} from './styling'
+import {DisplayCardsContainer, EditGroupButton} from './styling'
 
 
 const GroupDisplay = ({history}) => {
@@ -69,11 +69,11 @@ const GroupDisplay = ({history}) => {
                     <AuthenticatedPageTitle>{group.name}</AuthenticatedPageTitle>
                     <EditGroupButton onClick={() => history.push(`${GROUPS}${EDIT_GROUP}`)}>Edit Group</EditGroupButton>
                 </DisplayTitleWithButtonContainer>
-                <DisplayCardsContaner>
+                <DisplayCardsContainer>
                     <DisplayCard content={group.entities} image={blueOrgChart} redirectOnClickHandler={redirectOnClickHandler} type='Organization Chart' />
                     <DisplayCard content={group.projects} image={blueProjectImage} redirectOnClickHandler={redirectOnClickHandler} type='Projects' />
                     <DisplayCard content={group.users} image={blueMembersImage} redirectOnClickHandler={redirectOnClickHandler} type='Members' />
-                </DisplayCardsContaner>
+                </DisplayCardsContainer>
             </>}
         </AuthenticatedPageContainer>
     )

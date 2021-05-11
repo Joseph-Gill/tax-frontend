@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 import {BaseButton} from '../../../style/buttons'
 import {HomeGroupText} from '../../../style/text'
+import {GroupTitle} from '../../../style/titles'
 
 
 export const HomeGroupV2Container = styled.div`
@@ -33,14 +34,6 @@ export const TitlesContainer = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
-`
-
-export const GroupTitle = styled.h4`
-    font-family: ${props => props.theme.spartanFontFamily};
-    font-size: 16px;
-    line-height: 18px;
-    color: ${props => props.theme.black};
-    margin-bottom: 20px;
 `
 
 export const ProjectTitle = styled(GroupTitle)`

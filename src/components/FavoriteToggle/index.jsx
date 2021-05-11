@@ -1,15 +1,20 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
-import TooltipAnchorText from '../../../../components/Tooltips/TooltipComponents/TooltipAnchorText'
+import TooltipAnchorText from '../Tooltips/TooltipComponents/TooltipAnchorText'
 import {FavoriteContainer, FavoriteToggleControl} from './styles'
 
 
-const FavoriteToggle = ({favoriteProject, toggleFavoriteClickHandler}) => {
+const ToggleFavorite = ({favorite, toggleFavoriteClickHandler, tooltipText}) => {
     return (
         <FavoriteContainer>
-            <FavoriteToggleControl data-for='favoriteProject' data-tip>
+            <FavoriteToggleControl
+                data-for='favoriteProjectGroup'
+                data-tip
+                htmlFor='favorite'
+            >
                 <input
-                    checked={favoriteProject}
+                    checked={favorite}
+                    id='favorite'
                     onChange={toggleFavoriteClickHandler}
                     type='checkbox'
                 />
@@ -18,16 +23,16 @@ const FavoriteToggle = ({favoriteProject, toggleFavoriteClickHandler}) => {
             <ReactTooltip
                 backgroundColor='#FFDB99'
                 effect="float"
-                id='favoriteProject'
+                id='favoriteProjectGroup'
                 place="bottom"
             >
                 <TooltipAnchorText
                     displayEllipse={false}
-                    tooltipText='Mark this as a favorite Project'
+                    tooltipText={tooltipText}
                 />
             </ReactTooltip>
         </FavoriteContainer>
     )
 }
 
-export default FavoriteToggle
+export default ToggleFavorite
