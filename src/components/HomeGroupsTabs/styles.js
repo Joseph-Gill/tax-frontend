@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
-import {device as devices} from '../../../style/devices'
+import {device as devices} from '../../style/devices'
 
-export const HomeTabBarContainer = styled.div`
+export const TabsBarContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     height: 60px;

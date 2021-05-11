@@ -1,15 +1,17 @@
 import React from 'react'
-import {AllTabBarContainer, BorderDisplay, DisplayTab, DisplayTabBar, DisplayTabTitle, FavoriteTabBarContainer, HomeTabBarContainer} from './styles'
+import {AllTabBarContainer, BorderDisplay, DisplayTab, DisplayTabBar, DisplayTabTitle, FavoriteTabBarContainer, TabsBarContainer} from './styles'
 
 
-const HomeProjectTabs = ({displayFavorites, setDisplayFavorites}) => {
+const HomeGroupsTabs = ({componmentCalling, displayFavorites, setDisplayFavorites}) => {
     return (
-        <HomeTabBarContainer>
+        <TabsBarContainer>
             <DisplayTab
                 displayFavorites={displayFavorites ? 1 : 0}
                 onClick={() => setDisplayFavorites(!displayFavorites)}
             >
-                <DisplayTabTitle>Favorite Projects</DisplayTabTitle>
+                <DisplayTabTitle>
+                    {componmentCalling === 'Home' ? 'Favorite Projects' : 'Favorite Groups'}
+                </DisplayTabTitle>
                 <FavoriteTabBarContainer
                     displayFavorites={displayFavorites ? 1 : 0}
                 >
@@ -20,7 +22,9 @@ const HomeProjectTabs = ({displayFavorites, setDisplayFavorites}) => {
                 displayFavorites={displayFavorites ? 0 : 1}
                 onClick={() => setDisplayFavorites(!displayFavorites)}
             >
-                <DisplayTabTitle>All Projects</DisplayTabTitle>
+                <DisplayTabTitle>
+                    {componmentCalling === 'Home' ? 'All Projects' : 'All Groups'}
+                </DisplayTabTitle>
                 <AllTabBarContainer
                     displayFavorites={displayFavorites ? 0 : 1}
                 >
@@ -28,8 +32,8 @@ const HomeProjectTabs = ({displayFavorites, setDisplayFavorites}) => {
                 </AllTabBarContainer>
             </DisplayTab>
             <BorderDisplay />
-        </HomeTabBarContainer>
+        </TabsBarContainer>
     )
 }
 
-export default HomeProjectTabs
+export default HomeGroupsTabs

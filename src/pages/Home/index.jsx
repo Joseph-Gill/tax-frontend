@@ -1,11 +1,11 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import HomeGroupV2 from './HomeGroupV2'
-import HomeProjectTabs from './HomeProjectTabs'
 import BreadCrumb from '../../components/BreadCrumb'
 import LogoLoading from '../../components/LogoLoading'
 import NoContent from '../../components/NoContent'
 import HomeFilterSearchBar from './HomeFilterSearchBar'
+import HomeGroupsTabs from '../../components/HomeGroupsTabs'
 import NoFilterResults from '../../components/NoFilterResults'
 import {getProfileAction} from '../../store/profile/actions'
 import {resetGroup} from '../../store/group/actions'
@@ -174,7 +174,12 @@ const Home = ({history}) => {
                                         resetFilterChangeHandler={resetFilterChangeHandler}
                                     />
                                 </ProjectAccessContainer>
-                                <HomeProjectTabs
+                                {/*<HomeProjectTabs*/}
+                                {/*    displayFavorites={displayFavorites}*/}
+                                {/*    setDisplayFavorites={setDisplayFavorites}*/}
+                                {/*/>*/}
+                                <HomeGroupsTabs
+                                    componmentCalling='Home'
                                     displayFavorites={displayFavorites}
                                     setDisplayFavorites={setDisplayFavorites}
                                 />
