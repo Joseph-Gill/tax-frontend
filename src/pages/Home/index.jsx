@@ -4,7 +4,6 @@ import HomeGroupV2 from './HomeGroupV2'
 import BreadCrumb from '../../components/BreadCrumb'
 import LogoLoading from '../../components/LogoLoading'
 import NoContent from '../../components/NoContent'
-import HomeFilterSearchBar from './HomeFilterSearchBar'
 import HomeGroupsTabs from '../../components/HomeGroupsTabs'
 import NoFilterResults from '../../components/NoFilterResults'
 import {getProfileAction} from '../../store/profile/actions'
@@ -19,6 +18,7 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, HomeGroupListContainer} from '../../style/containers'
 import {ProjectAccessContainer} from './styles'
+import HomeGroupFilterSearchBar from '../../components/HomeGroupFIlterSearchBar'
 
 
 const Home = ({history}) => {
@@ -168,9 +168,10 @@ const Home = ({history}) => {
                             <>
                                 <ProjectAccessContainer>
                                     <HomePageText>Your current projects</HomePageText>
-                                    <HomeFilterSearchBar
+                                    <HomeGroupFilterSearchBar
                                         filterByClickChangeHandler={filterByClickChangeHandler}
                                         filterByKeypressChangeHandler={filterByKeypressChangeHandler}
+                                        filterPlaceholder='Search Group and Project names...'
                                         filterString={filterString}
                                         resetFilterChangeHandler={resetFilterChangeHandler}
                                     />

@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import {BaseInput} from '../../../style/inputs'
+import {BaseInput} from '../../style/inputs'
 
 
 export const HomeFilterSearchContainer = styled.div`
