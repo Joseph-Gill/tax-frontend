@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import GroupCardV2 from './GroupCardV2'
 import CreateGroupCard from './CreateGroupCard'
@@ -15,11 +15,13 @@ import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, HomeGroupListContainer} from '../../style/containers'
 import {HomePageText} from '../../style/text'
-import {GroupsAccessContainer, SearchBarPlaceholder} from './styles'
+import {GroupsAccessContainer} from './styles'
+import HomeGroupFilterSearchBar from '../../components/HomeGroupFIlterSearchBar'
 
 
 const Groups = ({history}) => {
     const dispatch = useDispatch()
+    let filterString = useRef('')
     const profile = useSelector(state => state.profileReducer.profile)
     const loaded = useSelector(state => state.profileReducer.loaded)
     const [allUserGroups, setAllUserGroups] = useState([])
@@ -54,6 +56,29 @@ const Groups = ({history}) => {
                 .then(() => setLoading(false))
         }
     }, [dispatch, loaded])
+
+      //Used by Group filter to filter by Group  name
+    const searchedGroups = () => (
+        allUserGroups.filter(group => group.name.toLowerCase().indexOf(filterString.current.value.toLowerCase()) !== -1)
+    )
+
+    //Used by search bar to filter by enter keypress in search bar
+    const filterByKeypressChangeHandler = (e) => {
+        if (e.key === 'Enter') {
+            setGroupsToDisplay(searchedGroups())
+        }
+    }
+
+    //Used by search bar to filter by clicking search image
+    const filterByClickChangeHandler = () => {
+        setGroupsToDisplay(searchedGroups())
+    }
+
+    //Used by search bar to reset the search bar text
+    const resetFilterChangeHandler = () => {
+        filterString.current.value = ''
+        setGroupsToDisplay([...allUserGroups])
+    }
 
     const renderGroups = () => {
         if (groupsToDisplay.length) {
@@ -109,7 +134,13 @@ const Groups = ({history}) => {
                             <>
                                 <GroupsAccessContainer>
                                     <HomePageText>Your current groups</HomePageText>
-                                    <SearchBarPlaceholder>Search Bar</SearchBarPlaceholder>
+                                    <HomeGroupFilterSearchBar
+                                        filterByClickChangeHandler={filterByClickChangeHandler}
+                                        filterByKeypressChangeHandler={filterByKeypressChangeHandler}
+                                        filterPlaceholder='Search Group names...'
+                                        filterString={filterString}
+                                        resetFilterChangeHandler={resetFilterChangeHandler}
+                                    />
                                 </GroupsAccessContainer>
                                 <HomeGroupsTabs
                                     displayFavorites={displayFavorites}

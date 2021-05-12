@@ -17,8 +17,3 @@ export const GroupsAccessContainer = styled.div`
     align-items: flex-start;
     justify-content: space-between;
 `
-
-export const SearchBarPlaceholder = styled.div`
-    height: 36px;
-    width: 600px;
-`
