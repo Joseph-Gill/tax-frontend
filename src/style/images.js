@@ -33,7 +33,10 @@ export const LoginLogoImg = styled.img`
 `
 
 export const GroupImage = styled.img`
-    height: 56px;
-    width: 88px;
-    border-radius: ${props => props.theme.borderRadius};
+    position: absolute;
+    max-width: 88px;
+    height: auto;
+    max-height: 71px;
+    top: 0;
+    right: 0;
 `

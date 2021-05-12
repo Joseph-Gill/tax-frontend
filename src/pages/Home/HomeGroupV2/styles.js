@@ -28,6 +28,7 @@ export const TitlesGroupImageContainer = styled.div`
     width: 100%;
     justify-content: space-between;
     margin-bottom: 20px;
+    position: relative;
 `
 
 export const TitlesContainer = styled.div`
