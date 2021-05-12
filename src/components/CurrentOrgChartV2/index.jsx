@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import OrgChart from '@balkangraph/orgchart.js'
+import EntityHistoryModal from '../Modals/EntityHistoryModal'
 import {OrgChartContainer} from './styles'
 
 
 //Used to develop version 2 of Org chart with custom nodes
 const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
     const divRef = React.createRef()
+    const [showEntityHistory, setShowEntityHistory] = useState(false)
+    const [entityData, setEntityData] = useState({})
 
     const pdfIcon = '<svg width="35" height="35" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"'
         + 'viewBox="0 0 384 384" style="enable-background:new 0 0 384 384;" xml:space="preserve">'
@@ -297,11 +300,24 @@ const CurrentOrgChartV2 = ({componentCalling, nodes, slinks, clinks}) => {
             slinks
         })
 
+        chart.on('click', function(sender, args) {
+            const data = sender.get(args.node.id)
+            setEntityData({...data})
+            setShowEntityHistory(true)
+        })
     })
 
     return (
-        // componentCalling is used in the style.js file to adjust the styling of the Chart div depending on where it is being called
-        <OrgChartContainer componentCalling={componentCalling} id="tree" ref={divRef} />
+        <>
+            {showEntityHistory &&
+                <EntityHistoryModal
+                    entityData={entityData}
+                    setShowEntityHistory={setShowEntityHistory}
+                    showEntityHistory={showEntityHistory}
+                />}
+            {/*componentCalling is used in the style.js file to adjust the styling of the Chart div depending on where it is being called*/}
+            <OrgChartContainer componentCalling={componentCalling} id="tree" ref={divRef} />
+        </>
     )
 }
 
