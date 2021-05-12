@@ -2,10 +2,12 @@ import styled from 'styled-components'
 
 
 export const SelectedGroupIcon = styled.img`
+    position: absolute;
     background-color: ${props => props.theme.primaryShadeOne};
     padding: 8px;
     border-radius: 50%;
     margin-right: 9px;
+    left: 0;
 `
 
 export const Ellipse = styled.img`

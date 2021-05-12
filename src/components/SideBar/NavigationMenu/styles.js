@@ -38,7 +38,7 @@ export const SelectedGroupContainer = styled.div`
         padding: 17px 0;
         display: flex;
         align-items: center;
-        justify-content: ${props => props.expanded ? 'space-between' : 'center'};
+        //justify-content: ${props => props.expanded ? 'space-between' : 'center'};
     }
 `
 
@@ -121,4 +121,18 @@ export const SwitchGroupsLabel = styled.span`
         transition: 167ms;
         text-decoration: underline;
     }
+`
+
+export const GroupImageContainer = styled(animated.div)`
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+`
+
+export const NavigationMenuGroupImage = styled.img`
+    position: absolute;
+    max-width: 72px;
+    height: auto;
+    max-height: 72px;
+    left: 0;
 `

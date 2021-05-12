@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {useHistory} from 'react-router-dom'
-import {useSpring, animated} from 'react-spring'
+import {useSpring} from 'react-spring'
 import GroupMenuItems from './GroupMenuItems'
 import ChooseGroupModal from '../../Modals/ChooseGroupModal'
 import {userLogout} from '../../../store/user/actions/authentication/userLoginAction'
@@ -12,9 +12,9 @@ import logout from '../../../assets/icons/tax_cheetah_logout_icon.svg'
 import {LogOutLink} from '../../../style/links'
 import {MenuItemText} from '../../../style/text'
 import {NavbarTitle} from '../../../style/titles'
-import {GroupImage, SelectedGroupIcon} from '../../../style/images'
-import {DashboardSelectedGroupContainer, LogOutContainer, NavigationMenuContainer, SelectedGroupContainer,
-    SwitchGroupsLabel} from './styles'
+import {SelectedGroupIcon} from '../../../style/images'
+import {DashboardSelectedGroupContainer, GroupImageContainer, LogOutContainer, NavigationMenuContainer,
+    NavigationMenuGroupImage, SelectedGroupContainer, SwitchGroupsLabel} from './styles'
 
 
 const NavigationMenu = ({dispatch, expanded, group, location, loaded}) => {
@@ -46,13 +46,13 @@ const NavigationMenu = ({dispatch, expanded, group, location, loaded}) => {
                 >
                     <NavbarTitle>Selected Group</NavbarTitle>
                     {/* eslint-disable-next-line react/forbid-component-props */}
-                    <animated.div style={props}>
+                    <GroupImageContainer style={props}>
                         {group.avatar ?
-                            <GroupImage alt='group image' src={group.avatar} />
+                            <NavigationMenuGroupImage alt='group image' src={group.avatar} />
                             : <SelectedGroupIcon alt='group image placeholder' src={layersv2} />}
                         {expanded &&
                             <MenuItemText>{loaded ? group.name : 'None selected'}</MenuItemText>}
-                    </animated.div>
+                    </GroupImageContainer>
                     <SwitchGroupsLabel onClick={() => setShowChooseGroup(true)}>Switch</SwitchGroupsLabel>
                 </SelectedGroupContainer>
             </DashboardSelectedGroupContainer>
