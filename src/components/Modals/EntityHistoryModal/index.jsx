@@ -2,6 +2,13 @@ import React from 'react'
 import Draggable from 'react-draggable'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
 import styled from 'styled-components/macro'
+import {AddDeleteModalInternalContainer} from '../styles'
+
+
+const EntityHistoryInternalContainer = styled(AddDeleteModalInternalContainer)`
+    width: 800px;
+    height: 500px;
+`
 
 
 const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory}) => {
@@ -11,7 +18,9 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
             showModalView={showEntityHistory}
         >
             <Draggable>
-                <div>{entityData.name}</div>
+                <EntityHistoryInternalContainer>
+                    {entityData.name}
+                </EntityHistoryInternalContainer>
             </Draggable>
         </ModalExternalContainer>
     )
