@@ -1,12 +1,12 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import GroupCardV2 from './GroupCardV2'
-import CreateGroupCard from './CreateGroupCard'
 import NoContent from '../../components/NoContent'
 import BreadCrumb from '../../components/BreadCrumb'
 import LogoLoading from '../../components/LogoLoading'
 import HomeGroupsTabs from '../../components/HomeGroupsTabs'
 import NoFilterResults from '../../components/NoFilterResults'
+import HomeGroupFilterSearchBar from '../../components/HomeGroupFilterSearchBar'
 import {getUserFavoriteGroupsAction, resetGroup} from '../../store/group/actions'
 import {resetProject} from '../../store/project/actions'
 import {resetErrors} from '../../store/errors/actions/errorAction'
@@ -16,7 +16,6 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, HomeGroupListContainer} from '../../style/containers'
 import {HomePageText} from '../../style/text'
 import {GroupsAccessContainer} from './styles'
-import HomeGroupFilterSearchBar from '../../components/HomeGroupFIlterSearchBar'
 
 
 const Groups = ({history}) => {
@@ -85,7 +84,7 @@ const Groups = ({history}) => {
             if (displayFavorites) {
                 const favoriteGroups = groupsToDisplay.filter(group => group.user_favorite)
                 return (
-                    <HomeGroupListContainer numCards={favoriteGroups.length + 1}>
+                    <HomeGroupListContainer numCards={favoriteGroups.length}>
                         {favoriteGroups.map(group => (
                             <GroupCardV2
                                 dispatch={dispatch}
@@ -95,12 +94,11 @@ const Groups = ({history}) => {
                                 key={group.id}
                             />
                         ))}
-                        <CreateGroupCard history={history} />
                     </HomeGroupListContainer>
                 )
             } else {
                 return (
-                    <HomeGroupListContainer numCards={groupsToDisplay.length + 1}>
+                    <HomeGroupListContainer numCards={groupsToDisplay.length}>
                         {groupsToDisplay.map(group => (
                             <GroupCardV2
                                 dispatch={dispatch}
@@ -110,7 +108,6 @@ const Groups = ({history}) => {
                                 key={group.id}
                             />
                         ))}
-                        <CreateGroupCard history={history} />
                     </HomeGroupListContainer>
                 )
             }
@@ -143,7 +140,9 @@ const Groups = ({history}) => {
                                     />
                                 </GroupsAccessContainer>
                                 <HomeGroupsTabs
+                                    componmentCalling='Groups'
                                     displayFavorites={displayFavorites}
+                                    history={history}
                                     setDisplayFavorites={setDisplayFavorites}
                                 />
                                 {renderGroups()}

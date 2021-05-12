@@ -1,8 +1,11 @@
 import React from 'react'
-import {AllTabBarContainer, BorderDisplay, DisplayTab, DisplayTabBar, DisplayTabTitle, FavoriteTabBarContainer, TabsBarContainer} from './styles'
+import addGroup from '../../assets/icons/stark_add_group.svg'
+import {ADD_GROUP, GROUPS} from '../../routes/paths'
+import {AddNewGroupContainer, AllTabBarContainer, BorderDisplay, CreateGroupImage, CreateGroupText, CreateGroupTextContainer,
+    DisplayTab, DisplayTabBar, DisplayTabTitle, FavoriteTabBarContainer, TabsBarContainer} from './styles'
 
 
-const HomeGroupsTabs = ({componmentCalling, displayFavorites, setDisplayFavorites}) => {
+const HomeGroupsTabs = ({componmentCalling, displayFavorites, history, setDisplayFavorites}) => {
     return (
         <TabsBarContainer>
             <DisplayTab
@@ -32,6 +35,14 @@ const HomeGroupsTabs = ({componmentCalling, displayFavorites, setDisplayFavorite
                 </AllTabBarContainer>
             </DisplayTab>
             <BorderDisplay />
+            {componmentCalling === 'Groups' &&
+                <AddNewGroupContainer onClick={() => history.push(`${GROUPS}${ADD_GROUP}`)}>
+                    <CreateGroupImage alt='create new group' src={addGroup} />
+                    <CreateGroupTextContainer>
+                        <CreateGroupText>Create</CreateGroupText>
+                        <CreateGroupText>New Group</CreateGroupText>
+                    </CreateGroupTextContainer>
+                </AddNewGroupContainer>}
         </TabsBarContainer>
     )
 }

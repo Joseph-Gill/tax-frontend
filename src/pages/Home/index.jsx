@@ -6,6 +6,7 @@ import LogoLoading from '../../components/LogoLoading'
 import NoContent from '../../components/NoContent'
 import HomeGroupsTabs from '../../components/HomeGroupsTabs'
 import NoFilterResults from '../../components/NoFilterResults'
+import HomeGroupFilterSearchBar from '../../components/HomeGroupFilterSearchBar'
 import {getProfileAction} from '../../store/profile/actions'
 import {resetGroup} from '../../store/group/actions'
 import {getProjectFirstUncompletedStepAction, resetProject} from '../../store/project/actions'
@@ -18,7 +19,6 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {HomePageText} from '../../style/text'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, HomeGroupListContainer} from '../../style/containers'
 import {ProjectAccessContainer} from './styles'
-import HomeGroupFilterSearchBar from '../../components/HomeGroupFIlterSearchBar'
 
 
 const Home = ({history}) => {

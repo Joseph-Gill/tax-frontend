@@ -7,6 +7,7 @@ export const TabsBarContainer = styled.div`
     height: 60px;
     width: 860px;
     margin-bottom: 20px;
+    position: relative;
 
     @media ${devices.laptopL} {
         width: 1305px;
@@ -80,4 +81,47 @@ export const AllTabBarContainer = styled.div`
 export const BorderDisplay = styled.div`
     width: 100%;
     border-bottom: 1px solid ${props => props.theme.grayFour};
+`
+
+export const CreateGroupImage = styled.img`
+    height: 50px;
+    width: 50px;
+`
+
+export const CreateGroupTextContainer = styled.div`
+    width: 116px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 15px;
+`
+
+export const CreateGroupText = styled.p`
+    font-family: ${props => props.theme.spartanFontFamily};
+    font-size: 16px;
+    text-transform: uppercase;
+    color: ${props => props.theme.grayTwo};
+`
+
+export const AddNewGroupContainer = styled.div`
+    height: 65px;
+    width: 200px;
+    background: ${props => props.theme.white};
+    border-radius: ${props => props.theme.borderRadius};
+    border: 1px solid ${props => props.theme.grayFour};
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -10px;
+    right: 0;
+    padding-left: 5px;
+
+    :hover {
+        cursor: pointer;
+        box-shadow: ${props => props.theme.projectCardBoxShadow};
+        border: 1px solid ${props => props.theme.primaryBlue};
+        transition: 167ms;
+    }
 `
