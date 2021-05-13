@@ -6,7 +6,6 @@ import {AddDeleteModalInternalContainer} from '../styles'
 import {useDispatch} from 'react-redux'
 import {getAllOfficialHistoriesForEntityAction} from '../../../store/entityHistory/actions'
 import Loading from '../../Loading'
-import {Chrono} from 'react-chrono'
 
 
 const EntityHistoryInternalContainer = styled(AddDeleteModalInternalContainer)`
