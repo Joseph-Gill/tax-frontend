@@ -43,7 +43,8 @@ export const AddDeleteModalCloseContainer = styled.div`
     }
 `
 
-export const AddDeleteModalTitleContainer = styled(AddDeleteModalCloseContainer)`
+export const AddDeleteModalTitleContainer = styled.div`
+    display: flex;
     justify-content: flex-start;
     padding-left: 19px;
     width: 100%;

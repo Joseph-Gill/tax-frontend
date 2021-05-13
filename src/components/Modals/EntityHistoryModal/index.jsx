@@ -1,97 +1,21 @@
 import React, {useEffect, useState} from 'react'
-import Draggable from 'react-draggable'
-import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import styled from 'styled-components/macro'
-import {AddDeleteModalInternalContainer} from '../styles'
 import {useDispatch} from 'react-redux'
-import {getAllOfficialHistoriesForEntityAction} from '../../../store/entityHistory/actions'
+import Draggable from 'react-draggable'
 import Loading from '../../Loading'
-
-
-const EntityHistoryInternalContainer = styled(AddDeleteModalInternalContainer)`
-    width: 800px;
-    height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
-const EntityHistoryContainer = styled.div`
-    width: 769px;
-    height: 104px;
-    max-width: 769px;
-    overflow-x: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
-
-const HistoryNode = styled.div`
-    font-family: ${props => props.theme.nunitoFontFamily};
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 19px;
-    color: ${props => props.theme.grayOne};
-    list-style-type: none;
-    width: 120px;
-    position: relative;
-    text-align: center;
-
-    :before {
-        content: '';
-        width: 13px;
-        height: 25px;
-        border-radius: ${props => props.theme.borderRadius};
-        background: ${props => props.theme.primaryBlue};
-        display: block;
-        margin: 0 auto 3px auto;
-    }
-
-    :after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 4px;
-        background: ${props => props.theme.primaryBlue};
-        top: 12.5px;
-        left: -50%;
-    }
-
-    :first-child:after {
-        content: none;
-    }
-
-    :hover {
-        cursor: pointer;
-        transition: 167ms;
-        text-decoration: underline;
-    }
-
-    div {
-        display: flex;
-        flex-direction: column;
-        background: red;
-        position: absolute;
-    }
-`
-
-const HistoryNodeFlipped = styled(HistoryNode)`
-    div {
-        background: rebeccapurple;
-        top: -40px;
-    }
-`
-
-const EntityHistoryBar = styled.ul`
-    display: flex;
-`
+import ModalClose from '../ModalComponents/ModalClose'
+import ModalTitle from '../ModalComponents/ModalTitle'
+import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {getAllOfficialHistoriesForEntityAction} from '../../../store/entityHistory/actions'
+import {CancelButton} from '../../../style/buttons'
+import {EntityHistoryBar, EntityHistoryContainer, EntityHistoryDetailsContainer, EntityHistoryInternalContainer,
+    EntityHistoryTaxButtonContainer, HistoryNode, HistoryNodeFlipped, TaxRateContainer, TaxRateText, TaxRateTitle} from './styles'
 
 
 const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory}) => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(true)
     const [historyToDisplay, setHistoryToDisplay] = useState([])
+    const [selectedHistoryIndex, setSelectedHistoryIndex] = useState(null)
 
     useEffect(() => {
         const getHistoriesForEntity = async () => {
@@ -116,13 +40,12 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
 
 const renderHistoryNodes = () => {
     const result = []
-    console.log(historyToDisplay)
     for (let i = 0; i < historyToDisplay.length; i++) {
-        console.log(historyToDisplay[i])
         if (i % 2 === 0) {
             result.push(
                 <HistoryNodeFlipped
                     key={historyToDisplay[i].id}
+                    onClick={() => setSelectedHistoryIndex(i)}
                 >
                     <div>
                         <span>{historyToDisplay[i].date}</span>
@@ -134,6 +57,7 @@ const renderHistoryNodes = () => {
             result.push(
                 <HistoryNode
                     key={historyToDisplay[i].id}
+                    onClick={() => setSelectedHistoryIndex(i)}
                 >
                     <div>
                         <span>{historyToDisplay[i].date}</span>
@@ -155,14 +79,26 @@ const renderHistoryNodes = () => {
                 <EntityHistoryInternalContainer>
                     {loading ? <Loading /> : (
                         <>
-                            <div>{entityData.name}</div>
+                            <ModalClose modalDisplay={setShowEntityHistory} />
+                            <ModalTitle title={entityData.name} />
                             <EntityHistoryContainer>
                                 <EntityHistoryBar>
                                     {renderHistoryNodes()}
                                 </EntityHistoryBar>
                             </EntityHistoryContainer>
-                        </>
-                    )}
+                            <EntityHistoryDetailsContainer>
+                                {selectedHistoryIndex === null ? 'Please select an event to view...' : `Placeholder view index: ${selectedHistoryIndex}`}
+                            </EntityHistoryDetailsContainer>
+                            <EntityHistoryTaxButtonContainer>
+                                <TaxRateContainer>
+                                    <TaxRateTitle>Tax Rate</TaxRateTitle>
+                                    <TaxRateText>
+                                        {entityData.tax_rate ? `: ${entityData.tax_rate}` : `: N/A`}
+                                    </TaxRateText>
+                                </TaxRateContainer>
+                                <CancelButton onClick={() => setShowEntityHistory(false)}>Cancel</CancelButton>
+                            </EntityHistoryTaxButtonContainer>
+                        </>)}
                 </EntityHistoryInternalContainer>
             </Draggable>
         </ModalExternalContainer>
