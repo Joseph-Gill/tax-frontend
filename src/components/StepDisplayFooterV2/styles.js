@@ -48,7 +48,7 @@ export const StepNode = styled.li`
                 }
             }
         };
-}
+    }
 
     :after {
         content: '';

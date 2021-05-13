@@ -21,7 +21,8 @@ import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
 
 
 const PredefinedDistributionInternalContainer = styled(AddDeleteModalInternalContainer)`
-    height: ${props => `${(42 * props.addedRecipients) + 534}px`};
+    // height: ${props => `${(42 * props.addedRecipients) + 534}px`};
+    height: 500px;
     transition: all .5s;
 `
 
