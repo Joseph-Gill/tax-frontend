@@ -274,7 +274,7 @@ const PredefinedMergerModal = ({availableParentNames, countryName, entities, err
                 // merged entity gets merger_into
                 entitiesAffected.push(createAffectedEntity(mergedEntity.id, 'into'))
                 //Change the deleted entity to have delete highlighting and remove = true
-                const response = await removeEntityHandler(entities, 'merger', entitiesAffected, deletedEntity.id)
+                const response = await removeEntityHandler(entities, 'merged', entitiesAffected, deletedEntity.id)
                 if (response.status === 201 || response.status === 200) {
                     //Access the returned array of entities
                     const responseArray = JSON.parse(response.data.nodes)
