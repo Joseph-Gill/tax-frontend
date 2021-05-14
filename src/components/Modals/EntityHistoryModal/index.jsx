@@ -9,6 +9,7 @@ import {getAllOfficialHistoriesForEntityAction} from '../../../store/entityHisto
 import {CancelButton} from '../../../style/buttons'
 import {EntityHistoryBar, EntityHistoryContainer, EntityHistoryDetailsContainer, EntityHistoryInternalContainer,
     EntityHistoryTaxButtonContainer, HistoryNode, HistoryNodeFlipped, TaxRateContainer, TaxRateText, TaxRateTitle} from './styles'
+import {createHistoryData} from './historyDataHandler'
 
 
 const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory}) => {
@@ -21,16 +22,7 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
         const getHistoriesForEntity = async () => {
             const historyResponse = await dispatch(getAllOfficialHistoriesForEntityAction(entityData.id))
             if (historyResponse.status === 200) {
-                const result = []
-                historyResponse.data.forEach(history => {
-                    result.push({
-                        date: history.chart ? history.chart.step.effective_date : history.entity.created.slice(0,10),
-                        action: history.action,
-                        id: history.id,
-                        affected_entities: history.affected_entities
-                    })
-                })
-                setHistoryToDisplay([...result])
+                setHistoryToDisplay(createHistoryData(historyResponse.data))
             }
         }
         getHistoriesForEntity()
@@ -48,8 +40,8 @@ const renderHistoryNodes = () => {
                     onClick={() => setSelectedHistoryIndex(i)}
                 >
                     <div>
-                        <span>{historyToDisplay[i].date}</span>
-                        <span>{historyToDisplay[i].action}</span>
+                        <span>{historyToDisplay[i].nodeDate.slice(0, 10)}</span>
+                        <span>{historyToDisplay[i].nodeText}</span>
                     </div>
                 </HistoryNodeFlipped>
             )
@@ -60,8 +52,8 @@ const renderHistoryNodes = () => {
                     onClick={() => setSelectedHistoryIndex(i)}
                 >
                     <div>
-                        <span>{historyToDisplay[i].date}</span>
-                        <span>{historyToDisplay[i].action}</span>
+                        <span>{historyToDisplay[i].nodeDate.slice(0, 10)}</span>
+                        <span>{historyToDisplay[i].nodeText}</span>
                     </div>
                 </HistoryNode>
             )
@@ -87,7 +79,11 @@ const renderHistoryNodes = () => {
                                 </EntityHistoryBar>
                             </EntityHistoryContainer>
                             <EntityHistoryDetailsContainer>
-                                {selectedHistoryIndex === null ? 'Please select an event to view...' : `Placeholder view index: ${selectedHistoryIndex}`}
+                                {selectedHistoryIndex === null ? 'Please select an event to view...' : (
+                                    <>
+                                        <div>{`${historyToDisplay[selectedHistoryIndex].cardText}`}</div>
+                                        <div>{historyToDisplay[selectedHistoryIndex].chart ? 'Make a button' : 'No Button'}</div>
+                                    </>)}
                             </EntityHistoryDetailsContainer>
                             <EntityHistoryTaxButtonContainer>
                                 <TaxRateContainer>

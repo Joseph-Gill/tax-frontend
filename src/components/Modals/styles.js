@@ -36,7 +36,7 @@ export const AddDeleteModalCloseContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    height: 13.5px;
+    height: 24px;
 
     :hover {
         cursor: pointer;

@@ -4,7 +4,7 @@ import {AddDeleteModalInternalContainer} from '../styles'
 
 export const EntityHistoryInternalContainer = styled(AddDeleteModalInternalContainer)`
     width: 800px;
-    height: 500px;
+    height: 520px;
     display: flex;
     justify-content: flex-start;
 `
