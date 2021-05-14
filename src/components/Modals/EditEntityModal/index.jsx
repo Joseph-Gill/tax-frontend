@@ -35,7 +35,8 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
         parentId: '',
         taxRate: '',
         entitySelected: false,
-        entityToEditId: ''
+        entityToEditId: '',
+        originalLegalForm: ''
     })
 
     useEffect(() => {
@@ -72,7 +73,8 @@ const EditEntityModal = ({entities, saveEditEntityHandler, setShowEditEntity, sh
             parentId: targetEntity[0].pid,
             taxRate: targetEntity[0].tax_rate ? targetEntity[0].tax_rate : '',
             entitySelected: true,
-            entityToEditId: targetEntity[0].id
+            entityToEditId: targetEntity[0].id,
+            originalLegalForm: targetEntity[0].legal_form
         })
         setCountryName(targetEntity[0].location)
         setLegalForm(targetEntity[0].legal_form)

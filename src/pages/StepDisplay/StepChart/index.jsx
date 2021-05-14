@@ -369,6 +369,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
                     action: historyAction,
                     affected: JSON.stringify(entitiesAffected)
                 }
+                // Adds the additional field necessary to track a entity history on a changed legal form
+                if (editEntityInfo.originalLegalForm) {
+                    entityHistoryData.changed_legal_form = editEntityInfo.originalLegalForm
+                }
                 dispatch(createEntityHistoryForChart(entitiesToRender[indexToEdit].id, chartResponse.data.id, entityHistoryData))
                 setEntitiesToRender([...entitiesToRender])
                 setShowEditEntity(false)

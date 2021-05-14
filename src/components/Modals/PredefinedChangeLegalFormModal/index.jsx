@@ -64,7 +64,9 @@ const PredefinedChangeLegalFormModal = ({entities, error, saveEditEntityHandler,
                 parentId: targetEntity.pid,
                 taxRate: targetEntity.tax_rate,
                 entityToEditId: targetEntity.id,
-                //Makes it so that the entity will receive Add Highlighting during edit process
+                // Used in tracking the changed legal form in the entity history created
+                originalLegalForm: targetEntity.legal_form,
+                // Makes it so that the entity will receive Add Highlighting during edit process
                 legalFormChange: true,
             }
             // Save change to the chart, entitiesAffected is an empty array as no other histories are necessary
