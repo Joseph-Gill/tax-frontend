@@ -3,16 +3,16 @@ import {AddDeleteModalInternalContainer} from '../styles'
 
 
 export const EntityHistoryInternalContainer = styled(AddDeleteModalInternalContainer)`
-    width: 800px;
+    width: 1200px;
     height: 520px;
     display: flex;
     justify-content: flex-start;
 `
 
 export const EntityHistoryContainer = styled.div`
-    width: 769px;
+    width: 1100px;
     height: 124px;
-    max-width: 769px;
+    max-width: 1100px;
     overflow-x: auto;
     display: flex;
     justify-content: center;
