@@ -1,24 +1,30 @@
 import React, {useEffect, useState, useRef} from 'react'
 import {useDispatch} from 'react-redux'
 import Draggable from 'react-draggable'
+import {useHistory} from 'react-router-dom'
 import Loading from '../../Loading'
 import ModalClose from '../ModalComponents/ModalClose'
 import ModalTitle from '../ModalComponents/ModalTitle'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
+import {getProjectAction} from '../../../store/project/actions'
+import {getStepsForProjectAction, skipToSpecifiedStep} from '../../../store/step/actions'
 import {getAllOfficialHistoriesForEntityAction} from '../../../store/entityHistory/actions'
+import {createHistoryData} from './historyDataHandler'
+import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../../routes/paths'
+import scrollLeft from '../../../assets/icons/tax_cheetah_scroll_left_icon.svg'
+import scrollRight from '../../../assets/icons/tax_cheetah_scroll_right_icon.svg'
 import {CancelButton} from '../../../style/buttons'
 import {
     EntityHistoryBar, EntityHistoryContainer, EntityHistoryDetailsContainer, EntityHistoryInternalContainer,
-    EntityHistoryTaxButtonContainer, HistoryNode, HistoryNodeFlipped, ScrollButtonContainer, TaxRateContainer, TaxRateText, TaxRateTitle, TimelineButtonDisplayContainer
+    EntityHistoryTaxButtonContainer, GoToStepButton, HistoryInfoTitle, HistoryNode, HistoryNodeFlipped, ScrollButtonContainer, TaxRateContainer, TaxRateText,
+    TaxRateTitle, TimelineButtonDisplayContainer
 } from './styles'
-import {createHistoryData} from './historyDataHandler'
-import scrollLeft from '../../../assets/icons/tax_cheetah_scroll_left_icon.svg'
-import scrollRight from '../../../assets/icons/tax_cheetah_scroll_right_icon.svg'
 
 
 const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory}) => {
     const ref = useRef(null)
     const dispatch = useDispatch()
+    const history = useHistory()
     const [loading, setLoading] = useState(true)
     const [historyToDisplay, setHistoryToDisplay] = useState([])
     const [selectedHistoryIndex, setSelectedHistoryIndex] = useState(null)
@@ -35,6 +41,7 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
 
     }, [dispatch, entityData])
 
+    // Used by scroll buttons on sides of the timeline to move display left / right
     const scroll = scrollOffset => {
         ref.current.scrollLeft += scrollOffset
     }
@@ -42,6 +49,7 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
     const renderHistoryNodes = () => {
         const result = []
         for (let i = 0; i < historyToDisplay.length; i++) {
+            // Uses flipped nodes for every even node to oscillate the nodes above / below the bar
             if (i % 2 === 0) {
                 result.push(
                     <HistoryNodeFlipped
@@ -75,6 +83,17 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
         return result
     }
 
+    const goToSpecificStepHandler = async () => {
+        setLoading(true)
+        await Promise.all([
+            await dispatch(getProjectAction(historyToDisplay[selectedHistoryIndex].chart.step.project.id)),
+            await dispatch(getStepsForProjectAction(historyToDisplay[selectedHistoryIndex].chart.step.project.id))
+        ]).then(() => {
+            dispatch(skipToSpecifiedStep(historyToDisplay[selectedHistoryIndex].chart.step.number - 1))
+            history.push(`${GROUPS}${PROJECTS}${STEPS}${DISPLAY_STEP}`)
+        })
+    }
+
     return (
         <ModalExternalContainer
             setModalView={setShowEntityHistory}
@@ -102,8 +121,20 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
                             <EntityHistoryDetailsContainer>
                                 {selectedHistoryIndex === null ? 'Please select an event to view...' : (
                                     <>
+                                        <HistoryInfoTitle>
+                                            {historyToDisplay[selectedHistoryIndex].chart ?
+                                            `Step# ${historyToDisplay[selectedHistoryIndex].chart.step.number} of Project: ${historyToDisplay[selectedHistoryIndex].chart.step.project.name}`
+                                            : ''}
+                                        </HistoryInfoTitle>
                                         <div>{`${historyToDisplay[selectedHistoryIndex].cardText}`}</div>
-                                        <div>{historyToDisplay[selectedHistoryIndex].chart ? 'Make a button' : 'No Button'}</div>
+                                        <div>{historyToDisplay[selectedHistoryIndex].chart ?
+                                            <GoToStepButton
+                                                onClick={goToSpecificStepHandler}
+                                            >
+                                                Go To Step
+                                            </GoToStepButton> :
+                                            ''}
+                                        </div>
                                     </>)}
                             </EntityHistoryDetailsContainer>
                             <EntityHistoryTaxButtonContainer>

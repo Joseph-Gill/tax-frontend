@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import {AddDeleteModalInternalContainer} from '../styles'
+import {BaseButton} from '../../../style/buttons'
 
 
 export const EntityHistoryInternalContainer = styled(AddDeleteModalInternalContainer)`
@@ -94,9 +95,11 @@ export const EntityHistoryDetailsContainer = styled.div`
     border-radius: ${props => props.theme.borderRadius};
     box-shadow: inset 0 2px 4px rgba(44, 33, 120, 0.1), inset 0 1px 2px rgba(44, 33, 120, 0.1);
     margin-bottom: 20px;
+    padding: 20px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
     font-family: ${props => props.theme.nunitoFontFamily};
     font-size: 14px;
     font-weight: 600;
@@ -148,4 +151,14 @@ export const ScrollButtonContainer = styled.div`
         background: ${props => props.theme.iconHoverBackground};
         cursor: pointer;
     }
+`
+
+export const HistoryInfoTitle = styled.div`
+    font-weight: 600;
+    font-size: 18px;
+`
+
+export const GoToStepButton = styled(BaseButton)`
+    height: 32px;
+    width: 98px;
 `
