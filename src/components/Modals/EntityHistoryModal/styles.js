@@ -33,16 +33,17 @@ export const HistoryNode = styled.li`
     color: ${props => props.theme.grayOne};
     list-style-type: none;
     width: 120px;
-    height: 13px;
+    height: 20px;
     position: relative;
     text-align: center;
 
     :before {
         content: '';
-        width: 13px;
-        height: 13px;
+        width: 18px;
+        height: 18px;
+        border: 2px solid ${props => props.theme.primaryBlue};
         border-radius: 50%;
-        background: ${props => props.theme.primaryBlue};
+        background: ${props => props.isactive ? props.theme.red : props.theme.primaryBlue};
         display: block;
         margin: 0 auto 3px auto;
     }
@@ -53,18 +54,13 @@ export const HistoryNode = styled.li`
         width: 100%;
         height: 4px;
         background: ${props => props.theme.primaryBlue};
-        top: 5px;
+        top: 9.5px;
         left: -50%;
+        z-index: -1;
     }
 
     :first-child:after {
         content: none;
-    }
-
-    :hover {
-        cursor: pointer;
-        transition: 167ms;
-        text-decoration: underline;
     }
 
     div {
@@ -72,6 +68,12 @@ export const HistoryNode = styled.li`
         display: flex;
         flex-direction: column;
         position: absolute;
+
+        :hover {
+            cursor: pointer;
+            transition: 167ms;
+            text-decoration: underline;
+        }
     }
 `
 

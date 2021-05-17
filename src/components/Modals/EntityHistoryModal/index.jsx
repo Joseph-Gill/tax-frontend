@@ -45,10 +45,12 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
             if (i % 2 === 0) {
                 result.push(
                     <HistoryNodeFlipped
+                        isactive={i === selectedHistoryIndex ? 1 : 0}
                         key={historyToDisplay[i].id}
-                        onClick={() => setSelectedHistoryIndex(i)}
                     >
-                        <div>
+                        <div
+                            onClick={() => setSelectedHistoryIndex(i)}
+                        >
                             <span>{historyToDisplay[i].nodeDate.slice(0, 10)}</span>
                             <span>{historyToDisplay[i].nodeText}</span>
                         </div>
@@ -57,10 +59,12 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
             } else {
                 result.push(
                     <HistoryNode
+                        isactive={i === selectedHistoryIndex ? 1 : 0}
                         key={historyToDisplay[i].id}
-                        onClick={() => setSelectedHistoryIndex(i)}
                     >
-                        <div>
+                        <div
+                            onClick={() => setSelectedHistoryIndex(i)}
+                        >
                             <span>{historyToDisplay[i].nodeDate.slice(0, 10)}</span>
                             <span>{historyToDisplay[i].nodeText}</span>
                         </div>
