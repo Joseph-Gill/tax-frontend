@@ -3,24 +3,28 @@ import {AddDeleteModalInternalContainer} from '../styles'
 
 
 export const EntityHistoryInternalContainer = styled(AddDeleteModalInternalContainer)`
-    width: 1200px;
+    width: 860px;
     height: 520px;
     display: flex;
     justify-content: flex-start;
 `
 
 export const EntityHistoryContainer = styled.div`
-    width: 1100px;
-    height: 124px;
-    max-width: 1100px;
+    height: 150px;
+    max-width: 700px;
     overflow-x: auto;
     display: flex;
-    justify-content: center;
     align-items: center;
     margin: 20px 0;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    ::-webkit-scrollbar {
+        display: none;
 `
 
-export const HistoryNode = styled.div`
+export const HistoryNode = styled.li`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-style: normal;
     font-weight: 600;
@@ -29,14 +33,15 @@ export const HistoryNode = styled.div`
     color: ${props => props.theme.grayOne};
     list-style-type: none;
     width: 120px;
+    height: 13px;
     position: relative;
     text-align: center;
 
     :before {
         content: '';
         width: 13px;
-        height: 25px;
-        border-radius: ${props => props.theme.borderRadius};
+        height: 13px;
+        border-radius: 50%;
         background: ${props => props.theme.primaryBlue};
         display: block;
         margin: 0 auto 3px auto;
@@ -48,7 +53,7 @@ export const HistoryNode = styled.div`
         width: 100%;
         height: 4px;
         background: ${props => props.theme.primaryBlue};
-        top: 12.5px;
+        top: 5px;
         left: -50%;
     }
 
@@ -63,6 +68,7 @@ export const HistoryNode = styled.div`
     }
 
     div {
+        width: 120px;
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -71,7 +77,7 @@ export const HistoryNode = styled.div`
 
 export const HistoryNodeFlipped = styled(HistoryNode)`
     div {
-        top: -40px;
+        top: -60px;
     }
 `
 
@@ -119,4 +125,25 @@ export const TaxRateText = styled.div`
 export const TaxRateTitle = styled.h2`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-size: 20px;
+`
+
+export const TimelineButtonDisplayContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`
+
+export const ScrollButtonContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+
+    :hover {
+        background: ${props => props.theme.iconHoverBackground};
+        cursor: pointer;
+    }
 `

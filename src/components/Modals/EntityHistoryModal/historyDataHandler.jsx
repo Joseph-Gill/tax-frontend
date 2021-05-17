@@ -73,7 +73,7 @@ const historyDataHandler = history => {
             historyObject.cardText = `Incorporation of ${history.entity.name} in ${history.entity.location}.`
             return historyObject
         case 'incorporation_child':
-            historyObject.nodeText = `Incorporation of ${history.creating_action.entity.name}.`
+            historyObject.nodeText = `Incorporation of ${history.creating_action.entity.name}`
             historyObject.cardText = `Incorporation of ${history.creating_action.entity.name} in ${history.creating_action.entity.location}.`
             return historyObject
         case 'change_legal_form':
@@ -227,6 +227,7 @@ const historyDataHandler = history => {
 }
 
 export const createHistoryData = historyResponse => {
+    console.log(historyResponse)
     const result = []
     // Create a history object for each relevant history
     historyResponse.forEach(history => {
