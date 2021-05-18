@@ -108,19 +108,24 @@ const StepDisplay = ({history}) => {
                     setClinks([...JSON.parse(response.data.clinks)])
                     //Used in action call of StepChart to decide if it is post or patch
                     setStepChartExists(true)
-                //If this step does not have a step chart, tries to get the step chart for the previous step
+                //If this step does not have a step chart, tries to get the step chart for the previous steps until it finds one
                 //loading its nodes, clinks, and slinks into state
                 } else {
-                    const response = await dispatch(getChartForStepAction(project.id, indexOfStepToDisplay))
+                    for (let i = indexOfStepToDisplay; i >= 0; i--) {
+                        const response = await dispatch(getChartForStepAction(project.id, i))
                         if (response.status === 200) {
                             setCurrentStepEntities([...getEntitiesWithTags(JSON.parse(response.data.nodes), false)])
                             setSlinks([...JSON.parse(response.data.slinks)])
                             //SLinks should show from previous StepCharts, CLinks should not show from previous StepCharts
                             setClinks([])
-                        //If the previous chart has no steps, an empty array is loaded into state
-                        } else {
+                            return
+                        } else if (steps[i - 1].status !== 'Completed') {
                             setCurrentStepEntities([])
+                            return
                         }
+                    }
+                    // If no previous charts were found, set the entities to an empty array
+                    setCurrentStepEntities([])
                 }
             }
         }

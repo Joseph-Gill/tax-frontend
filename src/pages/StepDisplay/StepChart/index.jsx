@@ -72,8 +72,10 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
         } else if (!entitiesToRender.length) {
             return (
                 <NoChartToDisplay>
-                    <p>There are no changes in the organization chart of the previous step.</p>
-                    <p>Please update it to be able to make changes to this organization chart.</p>
+                    <p>There are no changes in organization charts of previous steps or</p>
+                    <p>one of them has no organizational change but is not completed.</p>
+                    <p>Please update the chart or mark all previous steps complete to</p>
+                    <p>be able to make changes to this organization chart.</p>
                 </NoChartToDisplay>
             )
         } else {
