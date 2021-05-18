@@ -10,8 +10,10 @@ const StepDisplayTitleEffectiveDate = ({addNewStepHandler, date, editStatus, ind
             {editStatus ? (
                 <DateInput
                     date={date}
+                    indexOfStepToDisplay={indexOfStepToDisplay}
                     label
                     setDate={setDate}
+                    steps={steps}
                 />) : (
                     <>
                         <DateInputLabelText>Effective Date:</DateInputLabelText>
