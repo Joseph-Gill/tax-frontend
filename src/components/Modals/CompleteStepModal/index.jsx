@@ -5,9 +5,9 @@ import ModalTitle from '../ModalComponents/ModalTitle'
 import CompleteStepModalText from './CompleteStepModalText'
 import CompleteStepModalButtons from './CompleteStepModalButtons'
 import ModalExternalContainer from '../ModalComponents/ModalExternalContainer'
-import {CompleteStepModalInternalContainer} from './styles'
-import {convertContentToHTML, convertDate} from '../../../helpers'
 import {getStepsForProjectAction, updateStepSetStepCompleteAction} from '../../../store/step/actions'
+import {convertContentToHTML, convertDate} from '../../../helpers'
+import {CompleteStepModalInternalContainer} from './styles'
 
 
 const CompleteStepModal = ({date, descriptionState, dispatch, indexOfStepToDisplay, project, setEditStatus,
