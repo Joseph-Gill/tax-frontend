@@ -267,8 +267,16 @@ const StepDisplay = ({history}) => {
                         />}
                     {showCompleteStep &&
                         <CompleteStepModal
+                            date={date}
+                            descriptionState={descriptionState}
+                            dispatch={dispatch}
+                            indexOfStepToDisplay={indexOfStepToDisplay}
+                            project={project}
+                            setEditStatus={setEditStatus}
                             setShowCompleteStep={setShowCompleteStep}
                             showCompleteStep={showCompleteStep}
+                            step={steps[indexOfStepToDisplay]}
+                            stepStatus={stepStatus}
                         />}
                     <BreadCrumb
                         breadCrumbArray={[

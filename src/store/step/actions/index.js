@@ -117,3 +117,18 @@ export const deleteStepAction = stepId => async (dispatch, getState) => {
         return catchError(e, dispatch)
     }
 }
+
+export const updateStepSetStepCompleteAction = (stepData, stepId) => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.patch(`/steps/step/${stepId}/completed/`, stepData, config)
+    } catch (e) {
+        console.log('Error updating and setting a specified Step as complete>', e)
+        return catchError(e, dispatch)
+    }
+}
