@@ -19,7 +19,7 @@ import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer
 
 
 
-const StepDetails = ({descriptionState, editStatus, saveNewStepHandler, setDescriptionState, setEditStatus, step, steps, updateExistingStepHandler}) => {
+const StepDetails = ({descriptionState, editStatus, saveNewStepHandler, setDescriptionState, setEditStatus, setStepStatus, step, steps, updateExistingStepHandler}) => {
     const dispatch = useDispatch()
     const taxConsequences = useSelector(state => state.taxConsequenceReducer.taxConsequences)
     const loaded = useSelector(state => state.taxConsequenceReducer.loaded)
@@ -44,10 +44,9 @@ const StepDetails = ({descriptionState, editStatus, saveNewStepHandler, setDescr
             dispatch(decrementStepToView())
             dispatch(removeNewStep(steps.slice(0, -1)))
             setEditStatus(false)
-            // setDescription(step.description)
         } else {
+            setStepStatus(step.status)
             setEditStatus(false)
-            // setDescription(step.description)
         }
     }
 

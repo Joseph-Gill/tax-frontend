@@ -22,6 +22,7 @@ import {ErrorMessage} from '../../style/messages'
 import {BEGINNING, DISPLAY_STEP, GROUPS, HOME, PROJECTS, STEPS, TASKS} from '../../routes/paths'
 import {AuthenticatedPageContainer} from '../../style/containers'
 import {StepChartDetailsContainer, StepDisplayErrorContainer} from './styles'
+import CompleteStepModal from '../../components/Modals/CompleteStepModal'
 
 
 const StepDisplay = ({history}) => {
@@ -57,6 +58,7 @@ const StepDisplay = ({history}) => {
     const [showPredefinedLiquidation, setShowPredefinedLiquidation] = useState(false)
     const [showPredefinedMerger, setShowPredefinedMerger] = useState(false)
     const [showStepStatusSelect, setShowStepStatusSelect] = useState(false)
+    const [showCompleteStep, setShowCompleteStep] = useState(false)
     const [currentStepEntities, setCurrentStepEntities] = useState([])
     const [clinks, setClinks] = useState([])
     const [slinks, setSlinks] = useState([])
@@ -168,32 +170,38 @@ const StepDisplay = ({history}) => {
 
     const updateExistingStepHandler = async () => {
         dispatch(resetErrors())
-        setLoading(true)
-        const updatedStepData = {
-            description: convertContentToHTML(descriptionState),
-            effective_date: convertDate(date),
-            number: indexOfStepToDisplay + 1,
-            status: stepStatus
-        }
-        const response = await dispatch(updateStepAction(updatedStepData, steps[indexOfStepToDisplay].id))
-        if (response.status === 200) {
-            const response = await dispatch(getStepsForProjectAction(project.id))
-            if (response) {
-                setEditStatus(false)
+        // If a step is being set to completed status, open the confirmation modal to verify the user understands
+        // they can no longer edit or change the step afterwards
+        if (stepStatus === 'Completed') {
+            setShowCompleteStep(true)
+        } else {
+            setLoading(true)
+            const updatedStepData = {
+                description: convertContentToHTML(descriptionState),
+                effective_date: convertDate(date),
+                number: indexOfStepToDisplay + 1,
+                status: stepStatus
+            }
+            const response = await dispatch(updateStepAction(updatedStepData, steps[indexOfStepToDisplay].id))
+            if (response.status === 200) {
+                const response = await dispatch(getStepsForProjectAction(project.id))
+                if (response) {
+                    setEditStatus(false)
+                    setLoading(false)
+                }
+            }
+            else {
                 setLoading(false)
             }
-        }
-        else {
-            setLoading(false)
         }
     }
 
     const addNewStepHandler = () => {
-        // setDescription('')
+        // Create a blank Editor State
         setDescriptionState(() => EditorState.createEmpty())
-        //Creates a new blank Step with the next appropriate Step Number
+        // Creates a new blank Step with the next appropriate Step Number
         dispatch(addNewStep(indexOfStepToDisplay + 2))
-        //Pushes StepDisplay to display the next Step
+        // Pushes StepDisplay to display the next Step
         dispatch(skipToSpecifiedStep(indexOfStepToDisplay + 1))
     }
 
@@ -250,13 +258,18 @@ const StepDisplay = ({history}) => {
         <AuthenticatedPageContainer>
             {!stepsLoaded || !projectLoaded ? <LogoLoading /> : (
                 <>
-                    {loading ? <LogoLoading /> : null}
-                    {showConfirmation ?
+                    {loading && <LogoLoading />}
+                    {showConfirmation &&
                         <DeleteStepModal
                             deleteStepHandler={deleteStepHandler}
                             setShowConfirmation={setShowConfirmation}
                             showConfirmation={showConfirmation}
-                        /> : null}
+                        />}
+                    {showCompleteStep &&
+                        <CompleteStepModal
+                            setShowCompleteStep={setShowCompleteStep}
+                            showCompleteStep={showCompleteStep}
+                        />}
                     <BreadCrumb
                         breadCrumbArray={[
                             {display: 'GROUPS', to: GROUPS, active: false},
@@ -360,6 +373,7 @@ const StepDisplay = ({history}) => {
                                     saveNewStepHandler={saveNewStepHandler}
                                     setDescriptionState={setDescriptionState}
                                     setEditStatus={setEditStatus}
+                                    setStepStatus={setStepStatus}
                                     step={steps[indexOfStepToDisplay]}
                                     steps={steps}
                                     updateExistingStepHandler={updateExistingStepHandler}
