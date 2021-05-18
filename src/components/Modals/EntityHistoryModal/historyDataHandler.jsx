@@ -227,7 +227,6 @@ const historyDataHandler = history => {
 }
 
 export const createHistoryData = historyResponse => {
-    console.log(historyResponse)
     const result = []
     // Create a history object for each relevant history
     historyResponse.forEach(history => {
