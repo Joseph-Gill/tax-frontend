@@ -35,11 +35,18 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
             if (historyResponse.status === 200) {
                 setHistoryToDisplay(createHistoryData(historyResponse.data))
             }
+            return historyResponse
         }
         getHistoriesForEntity()
-            .then(() => setLoading(false))
+            .then(historyResponse => {
+                if (!historyResponse) {
+                    setShowEntityHistory(false)
+                } else {
+                    setLoading(false)
+                }
+            })
 
-    }, [dispatch, entityData])
+    }, [dispatch, entityData, setShowEntityHistory])
 
     // Used by scroll buttons on sides of the timeline to move display left / right
     const scroll = scrollOffset => {
