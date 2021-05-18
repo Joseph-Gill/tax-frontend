@@ -202,12 +202,12 @@ const historyDataHandler = history => {
         case 'merged': {
             const mergedInto = getSpecifiedAffectedEntityName(history.affected_entities, 'merged_into')
             historyObject.nodeText = 'Merger with Dissolution'
-            historyObject.cardText = `${history.entity.name} was merged into ${mergedInto}`
+            historyObject.cardText = `${history.entity.name} was merged into ${mergedInto}.`
             return historyObject
         }
         case 'merged_into':
             historyObject.nodeText = 'Merger'
-            historyObject.cardText = `${history.creating_action.entity.name} was merged into ${history.entity.name}`
+            historyObject.cardText = `${history.creating_action.entity.name} was merged into ${history.entity.name}.`
             return historyObject
         case 'merged_parent': {
             const mergedInto = getSpecifiedAffectedEntityName(history.creating_action.affected_entities, 'merged_into')
