@@ -19,7 +19,7 @@ const StepChartButtons = ({currentStepEntities, indexOfStepToDisplay, setShowAdd
 
     return (
         <StepChartButtonsContainer
-            hide={!steps[indexOfStepToDisplay].id ? true : !currentStepEntities.length}
+            hide={!steps[indexOfStepToDisplay].id ? true : steps[indexOfStepToDisplay].status === 'Completed' ? true : !currentStepEntities.length}
         >
             <PredefinedStepDropdown
                 setShowPredefinedChangeLegalForm={setShowPredefinedChangeLegalForm}

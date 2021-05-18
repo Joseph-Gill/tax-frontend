@@ -64,7 +64,7 @@ const StepDetails = ({descriptionState, editStatus, saveNewStepHandler, setDescr
         <StepDetailsContainer>
             <StepDescriptionTitleContainer>
                 <StepDetailsTitle>Step Description</StepDetailsTitle>
-                {!editStatus ? (
+                {!editStatus ? step.status === 'Completed' ? <div /> : (
                     <DisplayStepImageButtonContainer onClick={() => setEditStatus(true)}>
                         <DisplayStepImage alt='edit' src={pencil} />
                         <DisplayStepButtonText>Edit</DisplayStepButtonText>
