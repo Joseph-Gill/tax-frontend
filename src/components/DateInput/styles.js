@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 export const DateInputAndLabelContainer = styled.div`
     display: flex;
     align-items: center;
-    z-index: 999;
+    z-index: 998;
 `
 
 export const DateInputContainer = styled.div`
