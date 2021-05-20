@@ -27,9 +27,19 @@ const StepEnding = ({history}) => {
 
     useEffect (() => {
         const getFinalStepChart = async () => {
-            const response = await dispatch(getChartForStepAction(project.id, steps.length))
-            if (response.status === 200) {
-                setFinalStepChartNodes([...JSON.parse(response.data.nodes)])
+            // If the final step of a project does not have a step, StepEnding will look through
+            // the previous steps, as long as the step status is completed
+            for (let i = steps.length; i > 0; i--) {
+                const response = await dispatch(getChartForStepAction(project.id, i))
+                if (response.status === 200) {
+                    setFinalStepChartNodes([...JSON.parse(response.data.nodes)])
+                    return
+                } else if (steps[i - 1].status !== 'Completed') {
+                    setFinalStepChartNodes([])
+                    return
+                }
+            // If no previous charts were found, set the entities to an empty array
+            setFinalStepChartNodes([])
             }
         }
        //Pushes to home if project or steps are not loaded due to page refresh
@@ -54,8 +64,8 @@ const StepEnding = ({history}) => {
             return (
                 <EndingStructurePlaceholder>
                     <NoChartToDisplay>
-                        <p>The final step of the project has no saved organization chart.</p>
-                        <p>Please create one, update it, and save it so it will appear here.</p>
+                        <p>All steps of your project must have updated organization charts and / or be completed status</p>
+                        <p>before the final structure can be shown here and the project can be completed.</p>
                     </NoChartToDisplay>
                 </EndingStructurePlaceholder>
             )
