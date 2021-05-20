@@ -9,6 +9,12 @@ export const NoStepsContainer = styled(NoFilterResultsContainer)`
 
 export const NoStepsButton = styled(AddNewStepButton)`
     margin-top: 25px;
+
+    :disabled {
+        box-shadow: none;
+        border: 1px solid ${props => props.theme.grayTwo};
+        background: ${props => props.theme.grayTwo};
+    }
 `
 
 export const StepStatusLegendContainer = styled(StatusLegendContainer)`

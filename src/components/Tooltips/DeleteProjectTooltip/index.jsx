@@ -8,16 +8,16 @@ const DeleteProjectTooltip = () => {
     return (
         <>
             <TooltipAnchorImage dataFor='deleteProject' />
-                <ReactTooltip
-                    backgroundColor='#FFDB99'
-                    effect="float"
-                    id='deleteProject'
-                    place="top"
-                >
-                    <TooltipAnchorText
-                        tooltipText='A project with completed steps cannot be deleted.'
-                    />
-                </ReactTooltip>
+            <ReactTooltip
+                backgroundColor='#FFDB99'
+                effect="float"
+                id='deleteProject'
+                place="top"
+            >
+                <TooltipAnchorText
+                    tooltipText='A project with completed steps cannot be deleted.'
+                />
+            </ReactTooltip>
         </>
     )
 }

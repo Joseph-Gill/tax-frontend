@@ -1,13 +1,14 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouteMatch} from 'react-router-dom'
-import BreadCrumb from '../../components/BreadCrumb'
-import StepStatusLegendEntry from './StepStatusLegendEntry'
 import StepCardV2 from './StepCardV2'
+import BreadCrumb from '../../components/BreadCrumb'
+import LogoLoading from '../../components/LogoLoading'
 import StepsFilterSearchBar from './StepsFilterSearchBar'
+import StepStatusLegendEntry from './StepStatusLegendEntry'
 import {getProjectAction} from '../../store/project/actions'
 import StepsGoToDropdown from '../../components/Dropdowns/StepsGoToDropdown'
-import LogoLoading from '../../components/LogoLoading'
+import TooltipAnchorText from '../../components/Tooltips/TooltipComponents/TooltipAnchorText'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {addNewStep, getStepsForProjectAction, skipToSpecifiedStep} from '../../store/step/actions'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
@@ -17,6 +18,7 @@ import {CardTitleText, NoFilterResultText} from '../../style/text'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilteredTasksStepsContainer, NoFilterTextContainer} from '../../style/containers'
 import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
 import {NoStepsButton, NoStepsContainer, StepCardListContainer, StepStatusLegendContainer} from './styles'
+import ReactTooltip from 'react-tooltip'
 
 
 const ProjectSteps = ({history}) => {
@@ -138,6 +140,9 @@ const ProjectSteps = ({history}) => {
         setShowGoToDropdown(false)
     }
 
+    // Projects can only add a step if they are Ongoing status
+    const notAbleToAddStep = () => project.status !== 'Ongoing'
+
     return (
         <AuthenticatedPageContainer>
             {!projectLoaded || !stepsLoaded || !groupLoaded ? <LogoLoading /> : (
@@ -187,7 +192,26 @@ const ProjectSteps = ({history}) => {
                                 <NoFilterResultText>You haven&apos;t created any steps for</NoFilterResultText>
                                 <NoFilterResultText>this project.</NoFilterResultText>
                             </NoFilterTextContainer>
-                            <NoStepsButton onClick={addNewStepHandler}>Add New Step</NoStepsButton>
+                            <div data-for='addStep' data-tip>
+                                <NoStepsButton
+                                    disabled={notAbleToAddStep()}
+                                    onClick={addNewStepHandler}
+                                >
+                                    Add New Step
+                                </NoStepsButton>
+                            </div>
+                            {notAbleToAddStep() &&
+                                <ReactTooltip
+                                    backgroundColor='#FFDB99'
+                                    effect="float"
+                                    id='addStep'
+                                    place="bottom"
+                                >
+                                    <TooltipAnchorText
+                                        displayEllipse={false}
+                                        tooltipText='You can only add Steps to a project with status Ongoing'
+                                    />
+                                </ReactTooltip>}
                         </NoStepsContainer>
                     ) : renderSteps(stepsToDisplay)}
                 </>)}

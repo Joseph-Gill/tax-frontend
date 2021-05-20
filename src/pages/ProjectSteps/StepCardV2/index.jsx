@@ -4,9 +4,8 @@ import {setTaskFilterStepNumber} from '../../../store/task/actions'
 import {createSanitizedMarkup} from '../../../helpers'
 import {GROUPS, PROJECTS, TASKS} from '../../../routes/paths'
 import {StatusText} from '../../../style/text'
-import {TaxLocation} from '../StepCard/StepCardTaxLocations/styles'
 import {StepCardButton, StepCardDateText, StepCardDescriptionContainer, StepCardLowerRowContainer, StepCardNumberText,
-    StepCardRowContainer, StepCardTaxConsequenceContainer, StepCardV2Container} from './styles'
+    StepCardRowContainer, StepCardTaxConsequenceContainer, StepCardV2Container, TaxLocation} from './styles'
 
 
 const StepCardV2 = ({dispatch, history, step, project, stepCardClickHandler}) => {
