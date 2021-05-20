@@ -60,9 +60,9 @@ export const AddDeleteModalButtonContainer = styled.div`
     width: 302px;
 `
 
-export const AddDeleteModalErrorContainer = styled.div`
-    height: 10px;
-    margin-bottom: 10px;
+export const DeleteProjectInternalContainer = styled(AddDeleteModalInternalContainer)`
+    width: 370px;
+    height: 363px;
 `
 
 export const DeleteStepReviewTaskModalInternalContainer = styled(AddDeleteModalInternalContainer)`

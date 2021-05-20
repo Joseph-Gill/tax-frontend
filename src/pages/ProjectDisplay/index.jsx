@@ -16,6 +16,7 @@ import {GROUPS, MEMBERS, PROJECTS} from '../../routes/paths'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {ProjectDisplayInfoBoxesContainer, ProjectDisplayText, ProjectDisplayTitleDescriptionContainer} from './styles'
+import DeleteProjectModal from '../../components/Modals/DeleteProjectModal'
 
 
 const ProjectDisplay = ({history}) => {
@@ -26,6 +27,7 @@ const ProjectDisplay = ({history}) => {
     const [stepsStatuses, setStepsStatuses] = useState({})
     const [tasksStatuses, setTasksStatuses] = useState({})
     const [loading, setLoading] = useState(true)
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
 
     useEffect(() => {
         const getProfileIfNeededGetStatuses = async () => {
@@ -60,8 +62,18 @@ const ProjectDisplay = ({history}) => {
     // Used to disable the ability to delete a project if it has any completed steps
     const checkCantBeDeleted = () => !!project.steps.filter(step => step.status === 'Completed').length
 
+    const deleteProjectHandler = () => {
+
+    }
+
     return(
         <AuthenticatedPageContainer>
+            {showDeleteConfirmation &&
+                <DeleteProjectModal
+                    deleteProjectHandler={deleteProjectHandler}
+                    setShowDeleteConfirmation={setShowDeleteConfirmation}
+                    showDeleteConfirmation={showDeleteConfirmation}
+                />}
             {loading ? <LogoLoading /> : (
                 <>
                     <BreadCrumb
@@ -77,6 +89,7 @@ const ProjectDisplay = ({history}) => {
                         <ProjectDisplayButtons
                             checkCantBeDeleted={checkCantBeDeleted()}
                             history={history}
+                            setShowDeleteConfirmation={setShowDeleteConfirmation}
                         />
                     </DisplayTitleWithButtonContainer>
                     <ProjectDisplayTitleDescriptionContainer>

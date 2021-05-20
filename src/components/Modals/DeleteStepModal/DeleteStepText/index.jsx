@@ -9,7 +9,7 @@ const DeleteStepText = () => {
     return (
         <AddDeleteModalTextContainer>
             <Ellipse alt='ellipse' src={ellipse} />
-            <ModalText>All saved tax consequences in this step will be deleted</ModalText>
+            <ModalText>All saved country consequences in this step will be deleted</ModalText>
         </AddDeleteModalTextContainer>
     )
 }

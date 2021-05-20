@@ -6,13 +6,14 @@ import {ProjectDisplayButtonContainer} from './styles'
 
 
 
-const ProjectDisplayButtons = ({checkCantBeDeleted, history}) => {
+const ProjectDisplayButtons = ({checkCantBeDeleted, history, setShowDeleteConfirmation}) => {
     return (
         <ProjectDisplayButtonContainer>
             <EditGroupButton onClick={() => {history.push(`${GROUPS}${PROJECTS}${EDIT_PROJECT}`)}}>Edit Project</EditGroupButton>
             <div>
                 <DeleteButton
                     disabled={checkCantBeDeleted}
+                    onClick={() => setShowDeleteConfirmation(true)}
                 >
                     Delete
                 </DeleteButton>
