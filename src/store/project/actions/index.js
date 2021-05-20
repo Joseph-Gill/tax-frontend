@@ -154,3 +154,18 @@ export const getProjectOpenAndToReviewCommentNumbersSameLocationAsUserAction = p
         return catchError(e, dispatch)
     }
 }
+
+export const deleteProjectAction = projectId => async (dispatch, getState) => {
+    let {userLoginReducer} = getState()
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${userLoginReducer.accessToken}`
+        }
+    }
+    try {
+        return await Axios.delete(`projects/project/${projectId}/`, config)
+    } catch (e) {
+        console.log('Error deleting a specified Project>', e)
+        return catchError(e, dispatch)
+    }
+}

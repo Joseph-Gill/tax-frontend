@@ -9,14 +9,14 @@ import BreadCrumb from '../../components/BreadCrumb'
 import LogoLoading from '../../components/LogoLoading'
 import ProjectDisplayButtons from './ProjectDisplayButtons'
 import {setMemberFilterProjectId} from '../../store/member/actions'
-import {getGroupOfProjectAction} from '../../store/group/actions'
-import {getProjectAction, getProjectStepsStatusesAction, getProjectTasksStatusesAction} from '../../store/project/actions'
+import DeleteProjectModal from '../../components/Modals/DeleteProjectModal'
+import {getGroupAction, getGroupOfProjectAction} from '../../store/group/actions'
+import {deleteProjectAction, getProjectAction, getProjectStepsStatusesAction, getProjectTasksStatusesAction} from '../../store/project/actions'
 import {createSanitizedMarkup} from '../../helpers'
 import {GROUPS, MEMBERS, PROJECTS} from '../../routes/paths'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {ProjectDisplayInfoBoxesContainer, ProjectDisplayText, ProjectDisplayTitleDescriptionContainer} from './styles'
-import DeleteProjectModal from '../../components/Modals/DeleteProjectModal'
 
 
 const ProjectDisplay = ({history}) => {
@@ -62,8 +62,17 @@ const ProjectDisplay = ({history}) => {
     // Used to disable the ability to delete a project if it has any completed steps
     const checkCantBeDeleted = () => !!project.steps.filter(step => step.status === 'Completed').length
 
-    const deleteProjectHandler = () => {
-
+    const deleteProjectHandler = async () => {
+        setLoading(true)
+        // Delete the project
+        const response = await dispatch(deleteProjectAction(project.id))
+        if (response.status === 204) {
+            // Update the Group in redux state and push to GroupProjects
+            const response = await dispatch(getGroupAction(project.group.id))
+            if (response) {
+                history.push(`${GROUPS}${PROJECTS}`)
+            }
+        }
     }
 
     return(
