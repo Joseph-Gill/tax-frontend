@@ -19,6 +19,7 @@ import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer, NoFilteredT
 import {StatusLegendFilterDropdownContainer} from '../ProjectTasks/styles'
 import {NoStepsButton, NoStepsContainer, StepCardListContainer, StepStatusLegendContainer} from './styles'
 import ReactTooltip from 'react-tooltip'
+import {notAbleToAddStep} from '../../helpers'
 
 
 const ProjectSteps = ({history}) => {
@@ -140,9 +141,6 @@ const ProjectSteps = ({history}) => {
         setShowGoToDropdown(false)
     }
 
-    // Projects can only add a step if they are Ongoing status
-    const notAbleToAddStep = () => project.status !== 'Ongoing'
-
     return (
         <AuthenticatedPageContainer>
             {!projectLoaded || !stepsLoaded || !groupLoaded ? <LogoLoading /> : (
@@ -194,16 +192,16 @@ const ProjectSteps = ({history}) => {
                             </NoFilterTextContainer>
                             <div data-for='addStep' data-tip>
                                 <NoStepsButton
-                                    disabled={notAbleToAddStep()}
+                                    disabled={notAbleToAddStep(project)}
                                     onClick={addNewStepHandler}
                                 >
                                     Add New Step
                                 </NoStepsButton>
                             </div>
-                            {notAbleToAddStep() &&
+                            {notAbleToAddStep(project) &&
                                 <ReactTooltip
                                     backgroundColor='#FFDB99'
-                                    effect="float"
+                                    effect="solid"
                                     id='addStep'
                                     place="bottom"
                                 >

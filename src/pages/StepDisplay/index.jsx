@@ -303,6 +303,7 @@ const StepDisplay = ({history}) => {
                         date={date}
                         editStatus={editStatus}
                         indexOfStepToDisplay={indexOfStepToDisplay}
+                        project={project}
                         setDate={setDate}
                         steps={steps}
                     />

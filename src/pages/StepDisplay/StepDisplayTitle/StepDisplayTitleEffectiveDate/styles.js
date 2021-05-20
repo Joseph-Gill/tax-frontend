@@ -15,4 +15,10 @@ export const DateInputAddStepButtonContainer = styled.div`
 
 export const StepDisplayAddStepButton = styled(AddNewStepButton)`
     margin-left: 40px;
+
+    :disabled {
+        box-shadow: none;
+        border: 1px solid ${props => props.theme.grayTwo};
+        background: ${props => props.theme.grayTwo};
+    }
 `

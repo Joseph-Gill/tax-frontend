@@ -560,3 +560,6 @@ export const createSanitizedMarkup = html => {
 export const createAffectedEntity = (id, keyword) => {
     return {id, keyword}
 }
+
+// Projects can only add a step if they are Ongoing status
+export const notAbleToAddStep = project => project.status !== 'Ongoing'
