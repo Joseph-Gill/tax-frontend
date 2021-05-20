@@ -16,10 +16,12 @@ import {StepDetailsTitle} from '../../../style/titles'
 import {DisplayStepButtonText, DisplayStepImage, DisplayStepImageButtonContainer, NewStepNoTaxConsequencesContainer, StepDescriptionTaxTitleContainer,
     StepDescriptionTitleContainer, StepDetailErrorContainer, StepDetailsContainer, StepInfoCancelButton, StepInfoDescriptionContainer, StepInfoSaveButton,
     StepInfoSaveImage, TaxConsequencesContainer} from './styles'
+import {GROUPS, PROJECTS, STEPS} from '../../../routes/paths'
 
 
 
-const StepDetails = ({descriptionState, editStatus, saveNewStepHandler, setDescriptionState, setEditStatus, setStepStatus, step, steps, updateExistingStepHandler}) => {
+const StepDetails = ({descriptionState, editStatus, history, project, saveNewStepHandler, setDescriptionState, setEditStatus,
+                         setStepStatus, step, steps, updateExistingStepHandler}) => {
     const dispatch = useDispatch()
     const taxConsequences = useSelector(state => state.taxConsequenceReducer.taxConsequences)
     const loaded = useSelector(state => state.taxConsequenceReducer.loaded)
@@ -40,10 +42,17 @@ const StepDetails = ({descriptionState, editStatus, saveNewStepHandler, setDescr
 
     const cancelEditStepHandler = () => {
         dispatch(resetErrors())
+        // If the step is only a temporarily created step from clicking Add Step...
         if (!step.id) {
-            dispatch(decrementStepToView())
-            dispatch(removeNewStep(steps.slice(0, -1)))
-            setEditStatus(false)
+            // If this is the first step of the project, push the user back to ProjectSteps
+            if (steps.length === 1) {
+                history.push(`${GROUPS}${PROJECTS}${STEPS}/${project.id}/`)
+            // Push the user back to the previous Step
+            } else {
+                dispatch(decrementStepToView())
+                dispatch(removeNewStep(steps.slice(0, -1)))
+                setEditStatus(false)
+            }
         } else {
             setStepStatus(step.status)
             setEditStatus(false)

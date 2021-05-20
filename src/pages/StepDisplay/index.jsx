@@ -383,6 +383,8 @@ const StepDisplay = ({history}) => {
                                 <StepDetails
                                     descriptionState={descriptionState}
                                     editStatus={editStatus}
+                                    history={history}
+                                    project={project}
                                     saveNewStepHandler={saveNewStepHandler}
                                     setDescriptionState={setDescriptionState}
                                     setEditStatus={setEditStatus}
