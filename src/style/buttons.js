@@ -167,6 +167,12 @@ export const DeleteButton = styled(BaseButton)`
     :hover {
         background: ${props => props.theme.redDark};
     }
+
+    :disabled {
+        box-shadow: none;
+        border: 1px solid ${props => props.theme.grayTwo};
+        background: ${props => props.theme.grayTwo};
+    }
 `
 
 export const AddNewStepButton = styled(BaseButton)`
@@ -183,4 +189,9 @@ export const AddEntityLinkButton = styled(TableButton)`
         border: 1px solid ${props => props.theme.grayTwo};
         color: ${props => props.theme.grayTwo};
     }
+`
+
+export const EditGroupButton = styled(BaseButton)`
+    width: 122px;
+    height: 32px;
 `

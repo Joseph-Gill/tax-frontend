@@ -50,7 +50,7 @@ const StepEnding = ({history}) => {
             getFinalStepChart()
                 .then(() => setLoading(false))
         }
-    }, [history, projectLoaded, stepsLoaded, dispatch, project.id, steps.length])
+    }, [history, projectLoaded, stepsLoaded, dispatch, project.id, steps])
 
     const renderStepChart = () => {
         if (finalStepChartNodes.length) {

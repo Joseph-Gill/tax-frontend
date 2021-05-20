@@ -1,9 +1,9 @@
 import styled from 'styled-components/macro'
 
 
-export const DisplayCardsContainer = styled.div`
-    width: 860px;
-    margin-top: 30px;
+export const ProjectDisplayButtonContainer = styled.div`
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    width: 250px;
 `

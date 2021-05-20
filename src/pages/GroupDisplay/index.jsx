@@ -11,9 +11,10 @@ import {EDIT_GROUP, GROUPS, MEMBERS, ORG_CHART, PROJECTS} from '../../routes/pat
 import blueOrgChart from '../../assets/icons/stark_group_display_org_card_image_blue.svg'
 import blueProjectImage from '../../assets/icons/stark_group_display_project_card_blue.svg'
 import blueMembersImage from '../../assets/icons/stark_group_display_members_card_blue.svg'
+import {EditGroupButton} from '../../style/buttons'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
-import {DisplayCardsContainer, EditGroupButton} from './styling'
+import {DisplayCardsContainer} from './styling'
 
 
 const GroupDisplay = ({history}) => {

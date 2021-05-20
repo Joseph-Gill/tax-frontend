@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import {useRouteMatch} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import LogoLoading from '../../components/LogoLoading'
-import BreadCrumb from '../../components/BreadCrumb'
-import StatusCard from './StatusCard'
-import MembersCard from './MembersCard'
 import TasksCard from './TasksCard'
 import StepsCard from './StepsCard'
+import StatusCard from './StatusCard'
+import MembersCard from './MembersCard'
+import BreadCrumb from '../../components/BreadCrumb'
+import LogoLoading from '../../components/LogoLoading'
+import ProjectDisplayButtons from './ProjectDisplayButtons'
 import {setMemberFilterProjectId} from '../../store/member/actions'
 import {getGroupOfProjectAction} from '../../store/group/actions'
 import {getProjectAction, getProjectStepsStatusesAction, getProjectTasksStatusesAction} from '../../store/project/actions'
 import {createSanitizedMarkup} from '../../helpers'
-import {EDIT_PROJECT, GROUPS, MEMBERS, PROJECTS} from '../../routes/paths'
-import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
+import {GROUPS, MEMBERS, PROJECTS} from '../../routes/paths'
 import {AddEditProjectSectionTitles, AuthenticatedPageTitle} from '../../style/titles'
-import {EditGroupButton} from '../GroupDisplay/styling'
+import {AuthenticatedPageContainer, DisplayTitleWithButtonContainer} from '../../style/containers'
 import {ProjectDisplayInfoBoxesContainer, ProjectDisplayText, ProjectDisplayTitleDescriptionContainer} from './styles'
 
 
@@ -29,10 +29,6 @@ const ProjectDisplay = ({history}) => {
 
     useEffect(() => {
         const getProfileIfNeededGetStatuses = async () => {
-            //Gets the group for the project in match.params if not loaded due to page refresh
-            if (!groupLoaded) {
-                await dispatch(getGroupOfProjectAction(match.params.projectId))
-            }
             //Gets project matching match.params.projectId
             await dispatch(getProjectAction(match.params.projectId))
             //Gets step status numbers for project matching match.params.projectId for StepsCard
@@ -46,8 +42,13 @@ const ProjectDisplay = ({history}) => {
                 setTasksStatuses({...tasksStatusInfo})
             }
         };
-        getProfileIfNeededGetStatuses()
-            .then(() => setLoading(false))
+        //Gets the group for the project in match.params if not loaded due to page refresh
+        if (!groupLoaded){
+            dispatch(getGroupOfProjectAction(match.params.projectId))
+        } else {
+            getProfileIfNeededGetStatuses()
+                .then(() => setLoading(false))
+        }
     }, [dispatch, match.params.projectId, groupLoaded])
 
     //Used by link to GroupMembers page, sets the MembersProject filter to project in match.params
@@ -55,6 +56,9 @@ const ProjectDisplay = ({history}) => {
         dispatch(setMemberFilterProjectId(match.params.projectId))
         history.push(`${GROUPS}${MEMBERS}`)
     }
+
+    // Used to disable the ability to delete a project if it has any completed steps
+    const checkCantBeDeleted = () => !!project.steps.filter(step => step.status === 'Completed').length
 
     return(
         <AuthenticatedPageContainer>
@@ -70,7 +74,10 @@ const ProjectDisplay = ({history}) => {
                     />
                     <DisplayTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Project - {project.name}</AuthenticatedPageTitle>
-                        <EditGroupButton onClick={() => {history.push(`${GROUPS}${PROJECTS}${EDIT_PROJECT}`)}}>Edit Project</EditGroupButton>
+                        <ProjectDisplayButtons
+                            checkCantBeDeleted={checkCantBeDeleted()}
+                            history={history}
+                        />
                     </DisplayTitleWithButtonContainer>
                     <ProjectDisplayTitleDescriptionContainer>
                         <AddEditProjectSectionTitles>Project Description</AddEditProjectSectionTitles>
