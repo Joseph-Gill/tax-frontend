@@ -8,11 +8,12 @@ import CompleteProjectModal from '../../components/Modals/CompleteProjectModal'
 import CompleteProjectTooltip from '../../components/Tooltips/CompleteProjectTooltip'
 import LogoLoading from '../../components/LogoLoading'
 import {getChartForStepAction} from '../../store/chart/actions'
-import {checkIfProjectCanBeCompleted} from '../../helpers'
+import {checkIfProjectCanBeCompleted, getEntitiesWithTags} from '../../helpers'
 import {ENDING, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, NoChartToDisplay, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {CompleteProjectButton, EndingStructurePlaceholder} from './styles'
+import {completeProjectAction} from '../../store/project/actions'
 
 
 const StepEnding = ({history}) => {
@@ -32,7 +33,7 @@ const StepEnding = ({history}) => {
             for (let i = steps.length; i > 0; i--) {
                 const response = await dispatch(getChartForStepAction(project.id, i))
                 if (response.status === 200) {
-                    setFinalStepChartNodes([...JSON.parse(response.data.nodes)])
+                    setFinalStepChartNodes([...getEntitiesWithTags(JSON.parse(response.data.nodes), false)])
                     return
                 } else if (steps[i - 1].status !== 'Completed') {
                     setFinalStepChartNodes([])
@@ -72,9 +73,15 @@ const StepEnding = ({history}) => {
         }
     }
 
-    const completeProjectHandler = () => {
-        //need to add logic to edit Group entities to reflect entities from final step
-        setShowCompleteProject(false)
+    const completeProjectHandler = async () => {
+        const projectInfo = {
+            start_date: steps[0].effective_date,
+            end_date: steps[steps.length - 1].effective_date
+        }
+        const response = await dispatch(completeProjectAction(project.id, projectInfo))
+        if (response.status === 200) {
+            history.push(`${GROUPS}${PROJECTS}/${project.id}`)
+        }
     }
 
     const canBeCompleted = checkIfProjectCanBeCompleted(steps)
@@ -106,6 +113,7 @@ const StepEnding = ({history}) => {
                     />
                     <StepPageTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Ending Structure</AuthenticatedPageTitle>
+                        {project.status === 'Completed' ? <div /> :
                         <div>
                             <CompleteProjectButton
                                 disabled={canBeCompleted}
@@ -113,12 +121,13 @@ const StepEnding = ({history}) => {
                             >Complete Project
                             </CompleteProjectButton>
                             {canBeCompleted ? <CompleteProjectTooltip /> : null}
-                        </div>
+                        </div>}
                     </StepPageTitleWithButtonContainer>
                     {renderStepChart()}
                     <StepDisplayFooterV2
                         endingNode={1}
                         history={history}
+                        project={project}
                         steps={steps}
                     />
                 </>)}

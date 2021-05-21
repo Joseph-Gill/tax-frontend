@@ -89,6 +89,7 @@ const StepBeginning = ({history}) => {
                     <StepDisplayFooterV2
                         endingNode={0}
                         history={history}
+                        project={project}
                         steps={steps}
                     />
                 </>)}

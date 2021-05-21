@@ -5,7 +5,7 @@ import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../ro
 import {StepDisplayContainer, StepDisplayProgressBar, StepNode} from './styles'
 
 
-const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, steps}) => {
+const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, project, steps}) => {
     const dispatch = useDispatch()
 
     const stepNodeClickHandler = index => {
@@ -51,6 +51,7 @@ const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, steps})
                 {endingNode ? renderStepsForStepEnding() : renderSteps()}
                 <StepNode
                     endingNode={endingNode}
+                    iscomplete={project.status === 'Completed' ? 1 : 0}
                     onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}${ENDING}`)}
                 >Ending
                 </StepNode>

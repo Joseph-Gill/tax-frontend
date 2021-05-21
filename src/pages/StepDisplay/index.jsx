@@ -399,6 +399,7 @@ const StepDisplay = ({history}) => {
                         endingNode={0}
                         history={history}
                         indexOfStepToDisplay={indexOfStepToDisplay}
+                        project={project}
                         steps={steps}
                     />
                 </>)}

@@ -10,7 +10,11 @@ const CompleteProjectModalText = () => {
         <>
             <AddDeleteModalTextContainer>
                 <Ellipse alt='ellipse' src={ellipse} />
-                <ModalText>The organization chart will be updated to reflect the changes made in the project.</ModalText>
+                <ModalText>The start date of the project will be set to the effective date of the first step.</ModalText>
+            </AddDeleteModalTextContainer>
+            <AddDeleteModalTextContainer>
+                <Ellipse alt='ellipse' src={ellipse} />
+                <ModalText>The end date of the project will be set to the effective date of the last step.</ModalText>
             </AddDeleteModalTextContainer>
             <AddDeleteModalTextContainer>
                 <Ellipse alt='ellipse' src={ellipse} />

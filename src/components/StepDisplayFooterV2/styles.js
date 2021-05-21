@@ -43,7 +43,7 @@ export const StepNode = styled.li`
         };
 
         ${props => {
-            if(props.endingNode){
+            if(props.endingNode && !props.iscomplete){
                 return `background: ${props.theme.primaryBlue};`
                 }
             }
@@ -67,7 +67,7 @@ export const StepNode = styled.li`
         };
 
         ${props => {
-            if(props.endingNode){
+            if(props.endingNode && !props.iscomplete){
                 return `background: ${props.theme.primaryBlue};`
                 }
             }
