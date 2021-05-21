@@ -1,12 +1,12 @@
 import React, {useRef} from 'react'
 import {useDispatch} from 'react-redux'
 import {skipToSpecifiedStep} from '../../store/step/actions'
-import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
-import {StepDisplayContainer, StepDisplayProgressBar, StepNode, StepProgressBarButtonContainer} from './styles'
-import {ScrollButtonContainer} from '../../style/containers'
+import {scrollContainer} from '../../helpers'
 import scrollLeft from '../../assets/icons/tax_cheetah_scroll_left_icon.svg'
 import scrollRight from '../../assets/icons/tax_cheetah_scroll_right_icon.svg'
-import {scrollContainer} from '../../helpers'
+import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
+import {ScrollButtonContainer} from '../../style/containers'
+import {StepDisplayContainer, StepDisplayProgressBar, StepNode, StepProgressBarButtonContainer} from './styles'
 
 
 const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, project, steps}) => {
