@@ -62,6 +62,9 @@ const ProjectDisplay = ({history}) => {
     // Used to disable the ability to delete a project if it has any completed steps
     const checkCantBeDeleted = () => !!project.steps.filter(step => step.status === 'Completed').length
 
+    // Used to disabled the ability to edit a project if it is Completed status
+    const checkCantBeEdited = () => project.status === 'Completed'
+
     const deleteProjectHandler = async () => {
         setLoading(true)
         // Delete the project
@@ -97,6 +100,7 @@ const ProjectDisplay = ({history}) => {
                         <AuthenticatedPageTitle>Project - {project.name}</AuthenticatedPageTitle>
                         <ProjectDisplayButtons
                             checkCantBeDeleted={checkCantBeDeleted()}
+                            checkCantBeEdited={checkCantBeEdited()}
                             history={history}
                             setShowDeleteConfirmation={setShowDeleteConfirmation}
                         />

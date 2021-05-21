@@ -194,4 +194,10 @@ export const AddEntityLinkButton = styled(TableButton)`
 export const EditGroupButton = styled(BaseButton)`
     width: 122px;
     height: 32px;
+
+    :disabled {
+        box-shadow: none;
+        border: 1px solid ${props => props.theme.grayTwo};
+        background: ${props => props.theme.grayTwo};
+    }
 `
