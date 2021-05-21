@@ -1,44 +1,13 @@
 import React from 'react'
+import ReactTooltip from 'react-tooltip'
 import TooltipAnchorText from '../../Tooltips/TooltipComponents/TooltipAnchorText'
 import DropdownInternalContainer from '../DropdownComponents/DropdownInternalContainer'
 import {DisabledModalDropdownContent, ModalDropdownContent} from '../styles'
 import {CustomDropdownButton, CustomDropdownContentContainer} from '../../Modals/styles'
-import ReactTooltip from 'react-tooltip'
 
 
-const ProjectAddEditStatusDropdown = ({disabled, editProject, handleSelectProjectStatusChange, projectCantBeCompleted,
-                                       projectCantBeOngoing, projectStatus, setShowProjectStatus, showProjectStatus}) => {
-
-    const displayCompletedChoice = () => {
-        if (projectCantBeCompleted) {
-            return (
-                <>
-                    <DisabledModalDropdownContent data-for='completeProjectChoice' data-tip>
-                        <span>Completed</span>
-                    </DisabledModalDropdownContent>
-                    <ReactTooltip
-                        backgroundColor='#FFDB99'
-                        effect="float"
-                        id='completeProjectChoice'
-                        place="top"
-                    >
-                        <TooltipAnchorText
-                            displayEllipse={false}
-                            tooltipText='You must mark all steps as Completed before you can complete this project.'
-                        />
-                    </ReactTooltip>
-                </>
-            )
-        } else {
-            return (
-                <ModalDropdownContent
-                    onClick={() => handleSelectProjectStatusChange('Completed')}
-                >
-                    <span>Completed</span>
-                </ModalDropdownContent>
-            )
-        }
-    }
+const ProjectAddEditStatusDropdown = ({disabled, editProject, handleSelectProjectStatusChange, projectCantBeOngoing,
+                                          projectStatus, setShowProjectStatus, showProjectStatus}) => {
 
     const displayOngoingChoice = () => {
         if (projectCantBeOngoing) {
@@ -94,10 +63,8 @@ const ProjectAddEditStatusDropdown = ({disabled, editProject, handleSelectProjec
                         onClick={() => handleSelectProjectStatusChange('Not Implemented')}
                     >
                         <span>Not Implemented</span>
-                    </ModalDropdownContent>
-                )}
+                    </ModalDropdownContent>)}
                 {displayOngoingChoice()}
-                {editProject && displayCompletedChoice()}
             </CustomDropdownContentContainer>
         </DropdownInternalContainer>
     )

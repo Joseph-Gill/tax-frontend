@@ -26,7 +26,6 @@ const ProjectEdit = ({history}) => {
     const group = useSelector(state => state.groupReducer.group)
     const groupLoaded = useSelector(state => state.groupReducer.loaded)
     const project = useSelector(state => state.projectReducer.project)
-    const steps = useSelector(state => state.stepReducer.steps)
     const [projectName, setProjectName] = useState(project.name)
     const [projectStatus, setProjectStatus] = useState(project.status)
     const [showProjectStatus, setShowProjectStatus] = useState(false)
@@ -105,7 +104,6 @@ const ProjectEdit = ({history}) => {
                             projectStatus={projectStatus}
                             setShowProjectStatus={setShowProjectStatus}
                             showProjectStatus={showProjectStatus}
-                            steps={steps}
                         />
                     </AddEditProjectNameStatusContainer>
                     <AddEditProjectDescriptionContainer>
