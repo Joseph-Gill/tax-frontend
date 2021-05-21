@@ -3,15 +3,20 @@ import {device as devices} from '../../style/devices'
 
 
 export const StepDisplayContainer = styled.div`
-    max-width: 860px;
+    max-width: 756px;
     overflow-x: auto;
     display: flex;
-    margin-top: 21px;
-    padding-bottom: 10px;
+    scroll-behavior: smooth;
 
     @media ${devices.laptopL} {
-        max-width: 1160px;
+        max-width: 1056px;
     }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+        display: none;
+
 `
 
 export const StepNode = styled.li`
@@ -87,4 +92,17 @@ export const StepNode = styled.li`
 
 export const StepDisplayProgressBar = styled.ul`
     display: flex;
+`
+
+export const StepProgressBarButtonContainer = styled.div`
+    margin-top: 21px;
+    height: 70px;
+    width: 860px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    @media ${devices.laptopL} {
+        width: 1160px;
+    }
 `

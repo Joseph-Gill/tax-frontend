@@ -139,20 +139,6 @@ export const TimelineButtonDisplayContainer = styled.div`
     justify-content: space-between;
 `
 
-export const ScrollButtonContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
-
-    :hover {
-        background: ${props => props.theme.iconHoverBackground};
-        cursor: pointer;
-    }
-`
-
 export const HistoryInfoTitle = styled.div`
     font-weight: 600;
     font-size: 18px;

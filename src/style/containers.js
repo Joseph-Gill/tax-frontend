@@ -544,6 +544,20 @@ export const HomeGroupListContainer = styled.div`
     }
 `
 
+export const ScrollButtonContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+
+    :hover {
+        background: ${props => props.theme.iconHoverBackground};
+        cursor: pointer;
+    }
+`
+
 // Template Containers
 
 // if needed to create an internal div in the modal

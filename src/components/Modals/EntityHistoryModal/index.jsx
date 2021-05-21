@@ -10,15 +10,15 @@ import {getProjectAction} from '../../../store/project/actions'
 import {getStepsForProjectAction, skipToSpecifiedStep} from '../../../store/step/actions'
 import {getAllOfficialHistoriesForEntityAction} from '../../../store/entityHistory/actions'
 import {createHistoryData} from './historyDataHandler'
+import {scrollContainer} from '../../../helpers'
 import {DISPLAY_STEP, GROUPS, PROJECTS, STEPS} from '../../../routes/paths'
 import scrollLeft from '../../../assets/icons/tax_cheetah_scroll_left_icon.svg'
 import scrollRight from '../../../assets/icons/tax_cheetah_scroll_right_icon.svg'
 import {CancelButton} from '../../../style/buttons'
-import {
-    EntityHistoryBar, EntityHistoryContainer, EntityHistoryDetailsContainer, EntityHistoryInternalContainer,
-    EntityHistoryTaxButtonContainer, GoToStepButton, HistoryInfoTitle, HistoryNode, HistoryNodeFlipped, ScrollButtonContainer, TaxRateContainer, TaxRateText,
-    TaxRateTitle, TimelineButtonDisplayContainer
-} from './styles'
+import {ScrollButtonContainer} from '../../../style/containers'
+import {EntityHistoryBar, EntityHistoryContainer, EntityHistoryDetailsContainer, EntityHistoryInternalContainer,
+    EntityHistoryTaxButtonContainer, GoToStepButton, HistoryInfoTitle, HistoryNode, HistoryNodeFlipped, TaxRateContainer, TaxRateText,
+    TaxRateTitle, TimelineButtonDisplayContainer} from './styles'
 
 
 const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory}) => {
@@ -47,11 +47,6 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
             })
 
     }, [dispatch, entityData, setShowEntityHistory])
-
-    // Used by scroll buttons on sides of the timeline to move display left / right
-    const scroll = scrollOffset => {
-        ref.current.scrollLeft += scrollOffset
-    }
 
     const renderHistoryNodes = () => {
         const result = []
@@ -113,7 +108,7 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
                             <ModalClose modalDisplay={setShowEntityHistory} />
                             <ModalTitle title={entityData.name} />
                             <TimelineButtonDisplayContainer>
-                                <ScrollButtonContainer onClick={() => scroll(-200)}>
+                                <ScrollButtonContainer onClick={() => scrollContainer(ref,-200)}>
                                     <img alt='scroll left' src={scrollLeft} />
                                 </ScrollButtonContainer>
                                 <EntityHistoryContainer ref={ref}>
@@ -121,7 +116,7 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
                                         {renderHistoryNodes()}
                                     </EntityHistoryBar>
                                 </EntityHistoryContainer>
-                                <ScrollButtonContainer onClick={() => scroll(200)}>
+                                <ScrollButtonContainer onClick={() => scrollContainer(ref,200)}>
                                     <img alt='scroll right' src={scrollRight} />
                                 </ScrollButtonContainer>
                             </TimelineButtonDisplayContainer>

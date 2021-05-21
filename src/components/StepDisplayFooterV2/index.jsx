@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {useDispatch} from 'react-redux'
 import {skipToSpecifiedStep} from '../../store/step/actions'
 import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
-import {StepDisplayContainer, StepDisplayProgressBar, StepNode} from './styles'
+import {StepDisplayContainer, StepDisplayProgressBar, StepNode, StepProgressBarButtonContainer} from './styles'
+import {ScrollButtonContainer} from '../../style/containers'
+import scrollLeft from '../../assets/icons/tax_cheetah_scroll_left_icon.svg'
+import scrollRight from '../../assets/icons/tax_cheetah_scroll_right_icon.svg'
+import {scrollContainer} from '../../helpers'
 
 
 const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, project, steps}) => {
     const dispatch = useDispatch()
+    const ref = useRef(null)
 
     const stepNodeClickHandler = index => {
         dispatch(skipToSpecifiedStep(index))
@@ -41,22 +46,30 @@ const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, project
 
 
     return (
-        <StepDisplayContainer>
-            <StepDisplayProgressBar>
-                <StepNode
-                    beginningNode
-                    onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)}
-                >Beginning
-                </StepNode>
-                {endingNode ? renderStepsForStepEnding() : renderSteps()}
-                <StepNode
-                    endingNode={endingNode}
-                    iscomplete={project.status === 'Completed' ? 1 : 0}
-                    onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}${ENDING}`)}
-                >Ending
-                </StepNode>
-            </StepDisplayProgressBar>
-        </StepDisplayContainer>
+        <StepProgressBarButtonContainer>
+            <ScrollButtonContainer onClick={() => scrollContainer(ref,-400)}>
+                <img alt='scroll left' src={scrollLeft} />
+            </ScrollButtonContainer>
+            <StepDisplayContainer ref={ref}>
+                <StepDisplayProgressBar>
+                    <StepNode
+                        beginningNode
+                        onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}${BEGINNING}`)}
+                    >Beginning
+                    </StepNode>
+                    {endingNode ? renderStepsForStepEnding() : renderSteps()}
+                    <StepNode
+                        endingNode={endingNode}
+                        iscomplete={project.status === 'Completed' ? 1 : 0}
+                        onClick={() => history.push(`${GROUPS}${PROJECTS}${STEPS}${ENDING}`)}
+                    >Ending
+                    </StepNode>
+                </StepDisplayProgressBar>
+            </StepDisplayContainer>
+            <ScrollButtonContainer onClick={() => scrollContainer(ref,400)}>
+                <img alt='scroll right' src={scrollRight} />
+            </ScrollButtonContainer>
+        </StepProgressBarButtonContainer>
     )
 }
 
