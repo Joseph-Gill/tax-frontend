@@ -1,19 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import ReactTooltip from 'react-tooltip'
 import BreadCrumb from '../../components/BreadCrumb'
+import LogoLoading from '../../components/LogoLoading'
 import CurrentOrgChartV2 from '../../components/CurrentOrgChartV2'
 import StepDisplayFooterV2 from '../../components/StepDisplayFooterV2'
 import PreviousNextStepHeader from '../../components/PreviousNextStepHeader'
 import CompleteProjectModal from '../../components/Modals/CompleteProjectModal'
-import CompleteProjectTooltip from '../../components/Tooltips/CompleteProjectTooltip'
-import LogoLoading from '../../components/LogoLoading'
+import TooltipAnchorText from '../../components/Tooltips/TooltipComponents/TooltipAnchorText'
 import {getChartForStepAction} from '../../store/chart/actions'
+import {completeProjectAction} from '../../store/project/actions'
 import {checkIfProjectCanBeCompleted, getEntitiesWithTags} from '../../helpers'
 import {ENDING, GROUPS, HOME, PROJECTS, STEPS} from '../../routes/paths'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, NoChartToDisplay, StepPageTitleWithButtonContainer} from '../../style/containers'
 import {CompleteProjectButton, EndingStructurePlaceholder} from './styles'
-import {completeProjectAction} from '../../store/project/actions'
 
 
 const StepEnding = ({history}) => {
@@ -84,7 +85,7 @@ const StepEnding = ({history}) => {
         }
     }
 
-    const canBeCompleted = checkIfProjectCanBeCompleted(steps)
+    const cantBeCompleted = checkIfProjectCanBeCompleted(steps)
 
     return (
         <AuthenticatedPageContainer>
@@ -113,15 +114,26 @@ const StepEnding = ({history}) => {
                     />
                     <StepPageTitleWithButtonContainer>
                         <AuthenticatedPageTitle>Ending Structure</AuthenticatedPageTitle>
-                        {project.status === 'Completed' ? <div /> :
-                        <div>
-                            <CompleteProjectButton
-                                disabled={canBeCompleted}
-                                onClick={() => setShowCompleteProject(true)}
-                            >Complete Project
-                            </CompleteProjectButton>
-                            {canBeCompleted ? <CompleteProjectTooltip /> : null}
-                        </div>}
+                        {project.status === 'Completed' || !steps.length ? <div /> : (
+                            <div data-for='completeProject' data-tip>
+                                <CompleteProjectButton
+                                    disabled={cantBeCompleted}
+                                    onClick={() => setShowCompleteProject(true)}
+                                >Complete Project
+                                </CompleteProjectButton>
+                                {cantBeCompleted &&
+                                    <ReactTooltip
+                                        backgroundColor='#FFDB99'
+                                        effect="solid"
+                                        id='completeProject'
+                                        place="bottom"
+                                    >
+                                        <TooltipAnchorText
+                                            displayEllipse={false}
+                                            tooltipText='You must mark all steps as Completed before you can complete this project.'
+                                        />
+                                    </ReactTooltip>}
+                            </div>)}
                     </StepPageTitleWithButtonContainer>
                     {renderStepChart()}
                     <StepDisplayFooterV2
