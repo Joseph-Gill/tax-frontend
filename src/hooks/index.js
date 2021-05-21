@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {resetErrors} from '../store/errors/actions/errorAction'
 import {useLocation} from 'react-router-dom'
@@ -38,6 +38,17 @@ export const useUrlQueryParams = (param) => {
     */
     const parsedSearchUrl = new URLSearchParams(useLocation().search)
     return parsedSearchUrl.get(param)
+}
+
+// Returns boolean value if a referenced element is currently overflowing on the x axis
+export const useContainerOverflow = ref => {
+    const [containerOverflowing, setContainerOverflowing] = useState(false)
+
+    useEffect(() => {
+        const isOverflowing = ref.current.offsetWidth < ref.current.scrollWidth
+        setContainerOverflowing(isOverflowing)
+    }, [ref])
+    return containerOverflowing
 }
 
 

@@ -7,6 +7,7 @@ import scrollRight from '../../assets/icons/tax_cheetah_scroll_right_icon.svg'
 import {BEGINNING, DISPLAY_STEP, ENDING, GROUPS, PROJECTS, STEPS} from '../../routes/paths'
 import {ScrollButtonContainer} from '../../style/containers'
 import {StepDisplayContainer, StepDisplayProgressBar, StepNode, StepProgressBarButtonContainer} from './styles'
+import {useContainerOverflow} from '../../hooks'
 
 
 const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, project, steps}) => {
@@ -44,12 +45,14 @@ const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, project
         ))
     )
 
+    const shouldDisplayScrollIcons = useContainerOverflow(ref)
 
     return (
         <StepProgressBarButtonContainer>
-            <ScrollButtonContainer onClick={() => scrollContainer(ref,-400)}>
-                <img alt='scroll left' src={scrollLeft} />
-            </ScrollButtonContainer>
+            {shouldDisplayScrollIcons ?
+                <ScrollButtonContainer onClick={() => scrollContainer(ref,-400)}>
+                    <img alt='scroll left' src={scrollLeft} />
+                </ScrollButtonContainer> : <div />}
             <StepDisplayContainer ref={ref}>
                 <StepDisplayProgressBar>
                     <StepNode
@@ -66,9 +69,10 @@ const StepDisplayFooterV2 = ({endingNode, history, indexOfStepToDisplay, project
                     </StepNode>
                 </StepDisplayProgressBar>
             </StepDisplayContainer>
-            <ScrollButtonContainer onClick={() => scrollContainer(ref,400)}>
-                <img alt='scroll right' src={scrollRight} />
-            </ScrollButtonContainer>
+            {shouldDisplayScrollIcons ?
+                <ScrollButtonContainer onClick={() => scrollContainer(ref,400)}>
+                    <img alt='scroll right' src={scrollRight} />
+                </ScrollButtonContainer> : <div />}
         </StepProgressBarButtonContainer>
     )
 }
