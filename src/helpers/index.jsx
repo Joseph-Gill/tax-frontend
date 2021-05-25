@@ -564,7 +564,7 @@ export const createAffectedEntity = (id, keyword) => {
 // Projects can only add a step if they are Ongoing status
 export const notAbleToAddStep = project => project.status !== 'Ongoing'
 
-    // Used by scroll buttons on sides of the timeline to move display left / right
+// Used by scroll buttons on sides of the timeline to move display left / right
 export const scrollContainer = (ref, scrollOffset) => {
     ref.current.scrollLeft += scrollOffset
 }

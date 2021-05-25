@@ -33,7 +33,7 @@ import StepBeginning from '../pages/StepBeginning'
 import StepDisplay from '../pages/StepDisplay'
 import StepEnding from '../pages/StepEnding'
 import TaskEdit from '../pages/TaskEdit'
-import Landing from '../pages/Landing'
+import LandingV2 from '../pages/LandingV2'
 
 
 const Routes = () => {
@@ -41,7 +41,7 @@ const Routes = () => {
         <Router>
             <SideBar>
                 <Switch>
-                    <Route component={Landing} exact path={LANDING} />
+                    <Route component={LandingV2} exact path={LANDING} />
                     <Route component={Login} exact path={LOGIN} />
                     <Route component={PasswordReset} exact path={PASSWORD_RESET} />
                     <Route component={PasswordResetValidation} exact path={PASSWORD_RESET_VALIDATION} />

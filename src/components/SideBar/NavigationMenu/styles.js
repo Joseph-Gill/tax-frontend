@@ -38,7 +38,6 @@ export const SelectedGroupContainer = styled.div`
         padding: 17px 0;
         display: flex;
         align-items: center;
-        //justify-content: ${props => props.expanded ? 'space-between' : 'center'};
     }
 `
 

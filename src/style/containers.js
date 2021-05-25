@@ -558,6 +558,17 @@ export const ScrollButtonContainer = styled.div`
     }
 `
 
+export const DisplayCardIconContainer = styled.div`
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: ${props => props.theme.primaryBlue};
+    border-radius: 50%;
+`
+
+
 // Template Containers
 
 // if needed to create an internal div in the modal

@@ -97,3 +97,10 @@ export const TaskDocumentLink = styled.span`
         cursor: pointer;
     }
 `
+
+export const LandingDisplayCardLink = styled(Link)`
+    font-family: ${props => props.theme.nunitoFontFamily};
+    font-size: 16px;
+    color: ${props => props.theme.primaryBlue};
+    margin-top: 8px;
+`
