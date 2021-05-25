@@ -91,7 +91,7 @@ const PlatformInfo = () => {
                     <ExampleTextBar />
                     <h2>and many more features...</h2>
                     {/* eslint-disable-next-line react/jsx-max-depth */}
-                    <span>request your <a href='mailto:alain.horat@gmx.net'>Demo today</a>.</span>
+                    <span>request your <a href='mailto:info@tax-cheetah.com'>Demo today</a>.</span>
                 </ExampleTextContainerLeft>
                 <MoreToComeImageContainer>
                     <img alt='more to come' src={moreToCome} />

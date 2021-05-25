@@ -32,7 +32,7 @@ const LandingHeader = ({location}) => {
                     <HeaderLink isactive={location.pathname === ABOUT ? 1 : 0} to={ABOUT}>About Us</HeaderLink>
                     <HeaderLink to={LOGIN}>Login</HeaderLink>
                 </HeaderLinksContainer>
-                <HeaderButton href='mailto:alain.horat@gmx.net'>
+                <HeaderButton href='mailto:info@tax-cheetah.com'>
                     <span>Request Demo</span>
                     <img alt='request demo' src={buttonArrow} />
                 </HeaderButton>
