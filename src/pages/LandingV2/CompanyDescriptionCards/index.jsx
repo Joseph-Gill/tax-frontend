@@ -1,4 +1,5 @@
 import React from 'react'
+import {PLATFORM} from '../../../routes/paths'
 import departments from '../../../assets/icons/tax_cheetah_building_icon.svg'
 import advisors from '../../../assets/icons/tax_cheetah_advisors_icon.svg'
 import {LandingDisplayCardLink} from '../../../style/links'
@@ -17,7 +18,7 @@ const CompanyDescriptionCards = () => {
                 <h2>Tax Departments</h2>
                 <span>Free your tax resources from non-value adding</span>
                 <span>tasks by using our Tax Platform</span>
-                <LandingDisplayCardLink>Learn More</LandingDisplayCardLink>
+                <LandingDisplayCardLink to={PLATFORM}>Learn More</LandingDisplayCardLink>
             </LandingDisplayCard>
             <LandingDisplayCard>
                 <DisplayCardIconContainer>
@@ -26,7 +27,7 @@ const CompanyDescriptionCards = () => {
                 <h2>Tax Advisors</h2>
                 <span>Automate and standardize your tax advice for</span>
                 <span>corporate clients</span>
-                <LandingDisplayCardLink>Learn More</LandingDisplayCardLink>
+                <LandingDisplayCardLink to={PLATFORM}>Learn More</LandingDisplayCardLink>
             </LandingDisplayCard>
         </CompanyCardContainer>
     )

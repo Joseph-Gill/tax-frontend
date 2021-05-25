@@ -1,4 +1,5 @@
 import React from 'react'
+import {PLATFORM} from '../../../routes/paths'
 import platform from '../../../assets/icons/tax_cheetah_tax_platform_icon.svg'
 import compliance from '../../../assets/icons/tax_cheetah_compliance_icon.svg'
 import calculator from '../../../assets/icons/tax_cheetah_calculator_icon.svg'
@@ -18,7 +19,7 @@ const ProductDescriptionCards = () => {
                 <h2>Corporate Tax Platform</h2>
                 <span>Digital platform to simplify all work around</span>
                 <span>corporate tax advisory and Swiss tax compliance</span>
-                <LandingDisplayCardLink>Learn More</LandingDisplayCardLink>
+                <LandingDisplayCardLink to={PLATFORM}>Learn More</LandingDisplayCardLink>
             </LandingDisplayCard>
             <LandingDisplayCard>
                 <DisplayCardIconContainer>
