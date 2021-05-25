@@ -1,15 +1,9 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import LandingFooter from '../../components/LandingFooter'
 import CompanyDescriptionCards from './CompanyDescriptionCards'
 import ProductDescriptionCards from './ProductDescriptionCards'
 import {CompanyDescriptionContainer, LandingPageContainer, LandingSectionTitleContainer, ProductsDescriptionContainer} from './styles'
 
-
-const LandingFooterContainer = styled.div`
-    width: 100%;
-    height: 180px;
-    background: ${props => props.theme.grayFive};
-`
 
 const LandingV2 = () => {
     return (
@@ -28,9 +22,7 @@ const LandingV2 = () => {
                 </LandingSectionTitleContainer>
                 <ProductDescriptionCards />
             </ProductsDescriptionContainer>
-            <LandingFooterContainer>
-
-            </LandingFooterContainer>
+            <LandingFooter />
         </LandingPageContainer>
     )
 }
