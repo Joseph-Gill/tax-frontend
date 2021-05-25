@@ -22,7 +22,7 @@ export const HeaderLogo = styled.img`
     -webkit-transition: width 1s ease, height 1s ease;
 `
 
-export const HeaderButton = styled.button`
+export const HeaderButton = styled.a`
     width: 192px;
     height: 60px;
     border-radius: 2rem;
@@ -32,6 +32,7 @@ export const HeaderButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
 
     span {
         font-family: ${props => props.theme.nunitoFontFamily};

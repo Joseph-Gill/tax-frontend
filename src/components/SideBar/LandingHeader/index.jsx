@@ -32,7 +32,7 @@ const LandingHeader = ({location}) => {
                     <HeaderLink>About Us</HeaderLink>
                     <HeaderLink to={LOGIN}>Login</HeaderLink>
                 </HeaderLinksContainer>
-                <HeaderButton>
+                <HeaderButton href='mailto:alain.horat@gmx.net'>
                     <span>Request Demo</span>
                     <img alt='request demo' src={buttonArrow} />
                 </HeaderButton>
