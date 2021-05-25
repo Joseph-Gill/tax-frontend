@@ -12,8 +12,10 @@ const DateInput = ({date, indexOfStepToDisplay, label, setDate, steps}) => {
     const ref = React.createRef()
 
     useEffect(() => {
-        if (steps[indexOfStepToDisplay].id) {
-            setDate(createDate(steps[indexOfStepToDisplay].effective_date))
+        if (indexOfStepToDisplay) {
+            if (steps[indexOfStepToDisplay].id) {
+                setDate(createDate(steps[indexOfStepToDisplay].effective_date))
+            }
         }
     }, [indexOfStepToDisplay, steps, setDate])
 
