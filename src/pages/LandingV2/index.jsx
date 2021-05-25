@@ -2,7 +2,8 @@ import React from 'react'
 import LandingFooter from '../../components/LandingFooter'
 import CompanyDescriptionCards from './CompanyDescriptionCards'
 import ProductDescriptionCards from './ProductDescriptionCards'
-import {CompanyDescriptionContainer, LandingPageContainer, LandingSectionTitleContainer, ProductsDescriptionContainer} from './styles'
+import {CompanyDescriptionContainer, LandingSectionTitleContainer, ProductsDescriptionContainer} from './styles'
+import {LandingPageContainer} from '../../style/containers'
 
 
 const LandingV2 = () => {

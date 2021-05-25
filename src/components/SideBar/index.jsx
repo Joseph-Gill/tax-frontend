@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useLocation} from 'react-router-dom'
 import Logo from './Logo'
 import LandingHeader from './LandingHeader'
-import {LANDING} from '../../routes/paths'
+import {LANDING, PLATFORM} from '../../routes/paths'
 import NavigationMenu from './NavigationMenu'
 import sidebarToggle from '../../assets/icons/tax_cheetah_sidebar_toggle_icon.png'
 import {SideBarContainer, SideBarToggle} from './styles'
@@ -25,7 +25,7 @@ const SideBar = ({children}) => {
 
     // Used to display Landing header on Landing, Our Platform, and About Us pages
     const displayLandingHeader = () => {
-        return currentPath === LANDING
+        return currentPath === LANDING || currentPath === PLATFORM
     }
 
     return (

@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {
     HOME, LOGIN, PASSWORD_RESET, PASSWORD_RESET_VALIDATION, REGISTRATION, REGISTRATION_VALIDATION, USERPROFILE,
     GROUPS, ORG_CHART, PROJECTS, MEMBERS, ADD_PROJECT, EDIT_PROJECT, EDIT_GROUP, ADD_GROUP, EDIT_MEMBER, TASKS,
-    ADD_TASK, STEPS, BEGINNING, DISPLAY_STEP, ENDING, EDIT_TASK, LANDING
+    ADD_TASK, STEPS, BEGINNING, DISPLAY_STEP, ENDING, EDIT_TASK, LANDING, PLATFORM
 } from './paths'
 import WithAuth from '../HOC/withAuth'
 import SideBar from '../components/SideBar'
@@ -34,6 +34,7 @@ import StepDisplay from '../pages/StepDisplay'
 import StepEnding from '../pages/StepEnding'
 import TaskEdit from '../pages/TaskEdit'
 import LandingV2 from '../pages/LandingV2'
+import LandingPlatform from '../pages/LandingPlatform'
 
 
 const Routes = () => {
@@ -42,6 +43,7 @@ const Routes = () => {
             <SideBar>
                 <Switch>
                     <Route component={LandingV2} exact path={LANDING} />
+                    <Route component={LandingPlatform} exact path={PLATFORM} />
                     <Route component={Login} exact path={LOGIN} />
                     <Route component={PasswordReset} exact path={PASSWORD_RESET} />
                     <Route component={PasswordResetValidation} exact path={PASSWORD_RESET_VALIDATION} />

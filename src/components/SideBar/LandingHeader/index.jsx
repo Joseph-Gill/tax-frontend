@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {LANDING, LOGIN} from '../../../routes/paths'
+import {LANDING, LOGIN, PLATFORM} from '../../../routes/paths'
 import taxCheetahLogo from '../../../assets/logos/tax_cheetah_logo_new_v1.png'
 import buttonArrow from '../../../assets/icons/tax_cheetah_landing_button_icon.svg'
 import {Header, HeaderButton, HeaderButtonLinksContainer, HeaderLink, HeaderLinksContainer, HeaderLogo} from './styles'
@@ -28,7 +28,7 @@ const LandingHeader = ({location}) => {
             <HeaderButtonLinksContainer header={header}>
                 <HeaderLinksContainer header={header}>
                     <HeaderLink isactive={location.pathname === LANDING ? 1 : 0} to={LANDING}>Home</HeaderLink>
-                    <HeaderLink>Our Platform</HeaderLink>
+                    <HeaderLink isactive={location.pathname === PLATFORM ? 1 : 0} to={PLATFORM}>Our Platform</HeaderLink>
                     <HeaderLink>About Us</HeaderLink>
                     <HeaderLink to={LOGIN}>Login</HeaderLink>
                 </HeaderLinksContainer>

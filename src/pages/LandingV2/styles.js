@@ -1,14 +1,6 @@
 import styled from 'styled-components/macro'
 
 
-export const LandingPageContainer = styled.div`
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding-top: 150px;
-`
-
 export const CompanyDescriptionContainer = styled.div`
     width: 100%;
     height: 630px;

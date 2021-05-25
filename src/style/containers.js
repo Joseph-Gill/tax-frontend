@@ -568,6 +568,14 @@ export const DisplayCardIconContainer = styled.div`
     border-radius: 50%;
 `
 
+export const LandingPageContainer = styled.div`
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 150px;
+`
+
 
 // Template Containers
 
