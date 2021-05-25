@@ -8,6 +8,7 @@ export const BACKEND_AUTH_URL = 'auth/token/'
 // Landing Page
 export const LANDING = '/'
 export const PLATFORM = '/platform'
+export const ABOUT = '/about'
 // Home / User Profile Page
 export const HOME = '/home'
 export const USERPROFILE = '/userprofile'
