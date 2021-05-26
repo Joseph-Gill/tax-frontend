@@ -141,9 +141,9 @@ const EntityHistoryModal = ({entityData, setShowEntityHistory, showEntityHistory
                             </EntityHistoryDetailsContainer>
                             <EntityHistoryTaxButtonContainer>
                                 <TaxRateContainer>
-                                    <TaxRateTitle>Tax Rate</TaxRateTitle>
+                                    <TaxRateTitle>Tax Rate:</TaxRateTitle>
                                     <TaxRateText>
-                                        {entityData.tax_rate ? `: ${entityData.tax_rate}` : `: N/A`}
+                                        {entityData.tax_rate ? `${entityData.tax_rate}` : `: N/A`}
                                     </TaxRateText>
                                 </TaxRateContainer>
                                 <CancelButton onClick={() => setShowEntityHistory(false)}>Cancel</CancelButton>

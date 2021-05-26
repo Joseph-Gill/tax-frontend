@@ -119,17 +119,19 @@ export const TaxRateContainer = styled.div`
 `
 
 export const TaxRateText = styled.div`
-    height: 100%;
+    height: 27.33px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     font-family: ${props => props.theme.nunitoFontFamily};
     font-size: 16px;
     font-weight: 600;
+    line-height: 25px;
 `
 
 export const TaxRateTitle = styled.h2`
     font-family: ${props => props.theme.nunitoFontFamily};
     font-size: 20px;
+    margin-right: 5px;
 `
 
 export const TimelineButtonDisplayContainer = styled.div`
