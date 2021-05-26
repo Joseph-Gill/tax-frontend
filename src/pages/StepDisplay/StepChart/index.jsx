@@ -14,9 +14,11 @@ import PredefinedLiquidationModal from '../../../components/Modals/PredefinedLiq
 import {createEntityForChart} from '../../../store/entity/actions'
 import {resetErrors, setError} from '../../../store/errors/actions/errorAction'
 import {createEntityHistoryForChart} from '../../../store/entityHistory/actions'
-import {addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType,
+import {
+    addLegalFormTag, createAvailableParentNamesWithoutDeletes, createUpdateStepChart, editEntityInputErrorHandler, editLinkDifferentType,
     editLinkSameType, entityInputErrorHandler, highlightTagForAddEntity, highlightTagForDeleteEntity,
-    linkInputErrorHandler} from '../../../helpers'
+    linkInputErrorHandler, taxRateConverter
+} from '../../../helpers'
 import {StepChartAndButtonsContainer} from './styles'
 import {NoChartToDisplay} from '../../../style/containers'
 import PredefinedChangeLegalFormModal from '../../../components/Modals/PredefinedChangeLegalFormModal'
@@ -103,7 +105,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
                 pid: entitiesToRender.find(entity => parseInt(entity.id) === parseInt(newEntityInfo.parentId)).id.toString(),
             }
             if (newEntityInfo.taxRate) {
-                addEntityInfo.tax_rate = newEntityInfo.taxRate
+                addEntityInfo.tax_rate = taxRateConverter(newEntityInfo.taxRate)
             }
             const entityResponse = await dispatch(createEntityForChart(project.group.id, addEntityInfo))
             if (entityResponse.status === 201) {
@@ -352,7 +354,7 @@ const StepChart = ({clinks, entities, indexOfStepToDisplay, profile, project, se
             //Updates all values of entity being edited with current/new values
             entitiesToRender[indexToEdit].pid = editEntityInfo.parentId.toString()
             entitiesToRender[indexToEdit].name = editEntityInfo.entityName
-            entitiesToRender[indexToEdit].tax_rate = editEntityInfo.taxRate
+            entitiesToRender[indexToEdit].tax_rate = editEntityInfo.taxRate ? taxRateConverter(editEntityInfo.taxRate) : ''
             entitiesToRender[indexToEdit].legal_form = legalForm
             entitiesToRender[indexToEdit].location = countryName
             entitiesToRender[indexToEdit].edited = true
