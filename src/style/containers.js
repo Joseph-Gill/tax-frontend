@@ -480,7 +480,7 @@ export const FilterResetImgContainer = styled.div`
 export const FilterImgContainer = styled.div`
     width: 16px;
     height: 36px;
-    margin-left: 15px;
+    margin-left: 10px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -16,6 +16,7 @@ import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer, AuthenticatedPageTitleContainer, HomeGroupListContainer} from '../../style/containers'
 import {HomePageText} from '../../style/text'
 import {GroupsAccessContainer} from './styles'
+import {resetMemberFilterProjectId} from '../../store/member/actions'
 
 
 const Groups = ({history}) => {
@@ -51,6 +52,8 @@ const Groups = ({history}) => {
             dispatch(resetGroup())
             //Resets project in redux state
             dispatch(resetProject())
+            //Resets the project filter of GroupMembers
+            dispatch(resetMemberFilterProjectId())
             getUserFavoriteGroupsInfo()
                 .then(() => setLoading(false))
         }

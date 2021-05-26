@@ -12,9 +12,9 @@ import Loading from '../../components/Loading'
 import MemberFilterSearchBar from './MemberFilterSearchBar'
 import {getAccessUsersForProjectAction, resetMember, resetMemberFilterProjectId, setMemberFilterProjectId} from '../../store/member/actions'
 import {GROUPS, HOME, MEMBERS} from '../../routes/paths'
-import {DropdownOption} from '../../style/options'
 import {AuthenticatedPageTitle} from '../../style/titles'
 import {AuthenticatedPageContainer} from '../../style/containers'
+import {ModalDropdownContent} from '../../components/Dropdowns/styles'
 import {ActionFilterDropdownContainer, AddMemberButton, AddMemberButtonContainer, DisplayMembersTitleContainer, MemberTableContainer} from './styles'
 
 
@@ -30,6 +30,7 @@ const GroupMembers = ({history}) => {
     const [filterMemberStatus, setFilterMemberStatus] = useState(false)
     const [showActionDropdown, setShowActionDropdown] = useState(false)
     const [showFilterDropdown, setShowFilterDropdown] = useState(false)
+    const [showProjectFilterDropdown, setShowProjectFilterDropdown] = useState(false)
     const [activeRenderData, setActiveRenderData] = useState([])
     const [invitedRenderData, setInvitedRenderData] = useState([])
     const [showAddMember, setShowAddMember] = useState(false)
@@ -106,17 +107,6 @@ const GroupMembers = ({history}) => {
         setShowActionDropdown(false)
     }
 
-    //Populates the project filter dropdown with all projects of a group
-    const renderProjectFilterOptions = () => (
-        group.projects.map(project => (
-            <DropdownOption
-                key={project.id}
-                value={project.id}
-            >{project.name}
-            </DropdownOption>
-        ))
-    )
-
     //Selected project to filter is stored in redux state, needed so that
     //ProjectDisplay can push to ProjectMembers with project preselected
     const projectFilterChangeHandler = projectId => {
@@ -125,6 +115,21 @@ const GroupMembers = ({history}) => {
         } else {
             dispatch(resetMemberFilterProjectId())
         }
+        setShowProjectFilterDropdown(false)
+    }
+
+    //Populates the project filter dropdown with all projects of a group
+    const renderProjectFilterOptions = () => {
+       return (
+           group.projects.map(project => (
+               <ModalDropdownContent
+                   key={project.id}
+                   onClick={() => projectFilterChangeHandler(project.id)}
+               >
+                   <span>{project.name}</span>
+               </ModalDropdownContent>
+           ))
+       )
     }
 
     //Used by search bar to filter by enter keypress in search bar
@@ -191,12 +196,15 @@ const GroupMembers = ({history}) => {
                     <ActionFilterDropdownContainer>
                         {filterMemberStatus && !invitedMembers.length ? null : (
                             <>
-                                {!filterMemberStatus ?
+                                {!filterMemberStatus &&
                                     <ProjectFilterDropdown
                                         filterProjectId={filterProjectId}
+                                        group={group}
                                         projectFilterChangeHandler={projectFilterChangeHandler}
                                         renderProjectFilterOptions={renderProjectFilterOptions}
-                                    /> : null}
+                                        setShowProjectFilterDropdown={setShowProjectFilterDropdown}
+                                        showProjectFilterDropdown={showProjectFilterDropdown}
+                                    />}
                                 <MemberFilterSearchBar
                                     filterByClickChangeHandler={filterByClickChangeHandler}
                                     filterByKeypressChangeHandler={filterByKeypressChangeHandler}
