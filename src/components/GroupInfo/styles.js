@@ -43,7 +43,7 @@ export const GroupNameInput = styled(BaseInput)`
 `
 
 export const GroupImage = styled.img`
-    height: 40px;
+    height: auto;
     width: 40px;
 
 
@@ -51,7 +51,7 @@ export const GroupImage = styled.img`
 
 export const GroupImageLowerContainer = styled.div`
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     padding-right: 33px;
 

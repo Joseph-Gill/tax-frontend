@@ -568,3 +568,13 @@ export const notAbleToAddStep = project => project.status !== 'Ongoing'
 export const scrollContainer = (ref, scrollOffset) => {
     ref.current.scrollLeft += scrollOffset
 }
+
+// Used to convert Tax Rate inputs to float needed by the backend
+export const taxRateConverter = input => {
+    const floatConvert = parseFloat(input)
+    if (floatConvert > 1) {
+        return floatConvert / 100
+    } else {
+        return floatConvert
+    }
+}

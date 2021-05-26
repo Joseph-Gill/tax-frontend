@@ -12,7 +12,7 @@ import RemoveEntityLinkDropdown from '../../components/Dropdowns/RemoveEntityLin
 import EditEntityLinkDropdown from '../../components/Dropdowns/EditEntityLinkDropdown'
 import {createGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
-import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler, sortEntitiesByParentId} from '../../helpers'
+import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler, sortEntitiesByParentId, taxRateConverter} from '../../helpers'
 import {ErrorMessage} from '../../style/messages'
 import {ADD_GROUP, GROUPS} from '../../routes/paths'
 import {AuthenticatedPageTitle, GroupAddEntityTitle} from '../../style/titles'
@@ -61,7 +61,7 @@ const GroupAdd = ({history}) => {
                 location: countryName,
                 legal_form: legalForm,
                 //Tax rate is optional
-                tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : '',
+                tax_rate: newEntityInfo.taxRate ? taxRateConverter(newEntityInfo.taxRate) : '',
                 //Adds tag necessary for custom template appearance of org chart nodes
                 tags: [addLegalFormTag(legalForm)]
             }
