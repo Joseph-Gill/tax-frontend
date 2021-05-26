@@ -211,6 +211,7 @@ const GroupMembers = ({history}) => {
                                 />
                                 <ActionDropdown
                                     sendEmailClickHandler={sendEmailClickHandler}
+                                    setShowActionDropdown={setShowActionDropdown}
                                     setShowConfirmation={setShowConfirmation}
                                     showActionDropdown={showActionDropdown}
                                     toggleActionCloseFilterSearch={toggleActionCloseFilterSearch}

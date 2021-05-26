@@ -1,11 +1,12 @@
 import React from 'react'
 import MemberFilterSearchChoices from './MemberFilterSearchChoices'
+import DropdownInternalContainer from '../../../components/Dropdowns/DropdownComponents/DropdownInternalContainer'
 import {allowOnlyOneCheckedBoxContainer} from '../../../helpers'
 import reset from '../../../assets/icons/stark_close_icon.svg'
 import searchImage from '../../../assets/icons/stark_search_bar_icon.svg'
 import {FilterSpacer} from '../../../style/spans'
 import {FilterImgContainer, FilterResetImgContainer} from '../../../style/containers'
-import {DropdownContainer, FilterLabelText, FilterSearchButton,
+import {FilterLabelText, FilterSearchButton,
     FilterSearchInput, FilterSearchText, FilterSelectionContainer} from '../../../style/dropdowns'
 import {MembersFilterSearchContainer} from './styles'
 
@@ -47,7 +48,10 @@ const MemberFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChan
 
     return (
         <MembersFilterSearchContainer>
-            <DropdownContainer>
+            <DropdownInternalContainer
+                setDropdownView={setShowFilterDropdown}
+                showDropdownView={showFilterDropdown}
+            >
                 <FilterSearchButton onClick={toggleFilterSearchCloseAction}>
                     <FilterSearchText>Filter</FilterSearchText>
                 </FilterSearchButton>
@@ -57,7 +61,7 @@ const MemberFilterSearchBar = ({filterByClickChangeHandler, filterByKeypressChan
                     filterOptionChangeHandler={filterOptionChangeHandler}
                     showFilterDropdown={showFilterDropdown}
                 />
-            </DropdownContainer>
+            </DropdownInternalContainer>
             <FilterSelectionContainer>
                 <FilterLabelText>{setFilterLabel()}</FilterLabelText>
             </FilterSelectionContainer>
