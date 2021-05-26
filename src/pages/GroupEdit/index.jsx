@@ -12,7 +12,7 @@ import AddEntityLinkDropdown from '../../components/Dropdowns/AddEntityLinkDropd
 import RemoveEntityLinkDropdown from '../../components/Dropdowns/RemoveEntityLinkDropdown'
 import EditEntityLinkDropdown from '../../components/Dropdowns/EditEntityLinkDropdown'
 import {addLegalFormTag, editEntityInputErrorHandler, entityInputErrorHandler,
-    getEntitiesWithTags} from '../../helpers'
+    getEntitiesWithTags, taxRateConverter} from '../../helpers'
 import {updateGroupAction} from '../../store/group/actions'
 import {resetErrors, setError} from '../../store/errors/actions/errorAction'
 import {EDIT_GROUP, GROUPS, HOME} from '../../routes/paths'
@@ -87,7 +87,7 @@ const GroupEdit = ({history}) => {
                 location: countryName,
                 legal_form: legalForm,
                 //Tax rate is optional
-                tax_rate: newEntityInfo.taxRate ? newEntityInfo.taxRate : '',
+                tax_rate: newEntityInfo.taxRate ? taxRateConverter(newEntityInfo.taxRate) : '',
                 tags: [addLegalFormTag(legalForm)],
                 //"edited" and "new" status is so frontend knows which entities are edited and need to be updated in
                 //the backend during save action
@@ -120,7 +120,7 @@ const GroupEdit = ({history}) => {
             const indexToEdit = listOfEntities.findIndex(entity => entity.id === editEntityInfo.entityToEditId)
             //Updates all values of entity being edited with current/new values
             listOfEntities[indexToEdit].name = editEntityInfo.entityName
-            listOfEntities[indexToEdit].tax_rate = editEntityInfo.taxRate
+            listOfEntities[indexToEdit].tax_rate = editEntityInfo.taxRate ? taxRateConverter(editEntityInfo.taxRate) : ''
             listOfEntities[indexToEdit].pid = editEntityInfo.parentId.toString()
             listOfEntities[indexToEdit].legal_form = legalForm
             listOfEntities[indexToEdit].location = countryName
