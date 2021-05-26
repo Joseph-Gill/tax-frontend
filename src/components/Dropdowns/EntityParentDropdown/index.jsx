@@ -11,11 +11,10 @@ import {ModalDropdownButton, ModalDropdownContentContainer} from '../styles'
 
 const EntityParentDropdown = ({editEntityInfo, editParentChangeHandler, editParentNames, error, filteredParents,
                                   searchParentTerm, setFilteredParents, setShowParentEntitySelect, showParentEntitySelect}) => {
-
     return (
         <div>
             <ActiveInputLabel
-                disabled={!editEntityInfo.entitySelected || !editEntityInfo.parentId}
+                disabled={!editEntityInfo.entitySelected || !editEntityInfo.parentId || editEntityInfo.parentId === 'Ultimate'}
             >
                 Parent
             </ActiveInputLabel>
@@ -24,10 +23,10 @@ const EntityParentDropdown = ({editEntityInfo, editParentChangeHandler, editPare
                 showDropdownView={showParentEntitySelect}
             >
                 <ModalDropdownButton
-                    disabled={!editEntityInfo.entitySelected || !editEntityInfo.parentId}
+                    disabled={!editEntityInfo.entitySelected || !editEntityInfo.parentId || editEntityInfo.parentId === 'Ultimate'}
                     onClick={() => setShowParentEntitySelect(!showParentEntitySelect)}
                 >
-                    {!editEntityInfo.entitySelected ? 'Select a parent' : !editEntityInfo.parentId ? 'Ultimate' :
+                    {!editEntityInfo.entitySelected ? 'Select a parent' : !editEntityInfo.parentId || editEntityInfo.parentId === 'Ultimate' ? 'Ultimate' :
                         getEntityFromId(parseInt(editEntityInfo.parentId), editParentNames).name}
                 </ModalDropdownButton>
                 <ModalDropdownContentContainer show={showParentEntitySelect ? 1 : 0}>

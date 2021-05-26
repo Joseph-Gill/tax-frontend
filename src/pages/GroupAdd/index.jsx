@@ -92,7 +92,7 @@ const GroupAdd = ({history}) => {
             const indexToEdit = listOfEntities.findIndex(entity => entity.id === editEntityInfo.entityToEditId)
             //Updates all values of entity being edited with current/new values
             listOfEntities[indexToEdit].name = editEntityInfo.entityName
-            listOfEntities[indexToEdit].tax_rate = editEntityInfo.taxRate
+            listOfEntities[indexToEdit].tax_rate = editEntityInfo.taxRate ? taxRateConverter(editEntityInfo.taxRate) : ''
             listOfEntities[indexToEdit].pid = editEntityInfo.parentId.toString()
             listOfEntities[indexToEdit].legal_form = legalForm
             listOfEntities[indexToEdit].location = countryName
